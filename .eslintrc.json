@@ -403,7 +403,10 @@
                         ]
                     }
                 ],
-                "import/newline-after-import": ["error", { "count": 2 }]
+                "import/newline-after-import": ["error", { "count": 2 }],
+                "import/default": "off",
+                "import/named": "off",
+                "import/no-named-as-default-member": "off"
             }
         }
     ]
