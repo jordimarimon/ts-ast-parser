@@ -1,3 +1,4 @@
+import { Decorator } from './decorator';
 import { Type } from './type';
 
 
@@ -6,21 +7,27 @@ import { Type } from './type';
  * parameters.
  */
 export interface PropertyLike {
-    name: string;
-
     /**
-     * A markdown summary suitable for display in a listing.
+     *
      */
-    summary?: string;
+    name: string;
 
     /**
      * A markdown description of the field.
      */
     description?: string;
 
+    /**
+     * The TypeScript type of the property
+     */
     type?: Type;
 
+    /**
+     * The default value of the property if defined
+     */
     default?: string;
+
+    decorators: Decorator[];
 
     /**
      * Whether the property is deprecated.

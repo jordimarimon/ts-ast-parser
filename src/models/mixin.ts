@@ -15,44 +15,13 @@ import { ClassLike } from './class';
  *
  * The return type is often hard or impossible to accurately describe in type
  * systems like TypeScript. It requires generics and an `extends` operator
- * that TypeScript lacks. Therefore it's recommended that the return type is
+ * that TypeScript lacks. Therefore, it's recommended that the return type is
  * left empty. The most common form of a mixin function takes a single
  * argument, so consumers of this interface should assume that the return type
  * is the single argument subclassed by this declaration.
  *
  * A mixin should not have a superclass. If a mixins composes other mixins,
  * they should be listed in the `mixins` field.
- *
- * See [this article]{@link https://justinfagnani.com/2015/12/21/real-mixins-with-javascript-classes/}
- * for more information on the class-mixin pattern in JavaScript.
- *
- * @example
- *
- * This JavaScript mixin declaration:
- * ```javascript
- * const MyMixin = (base) => class extends base {
- *   foo() { ... }
- * }
- * ```
- *
- * Is described by this JSON:
- * ```json
- * {
- *   "kind": "mixin",
- *   "name": "MyMixin",
- *   "parameters": [
- *     {
- *       "name": "base",
- *     }
- *   ],
- *   "members": [
- *     {
- *       "kind": "method",
- *       "name": "foo",
- *     }
- *   ]
- * }
- * ```
  */
 export interface MixinDeclaration extends ClassLike, FunctionLike {
     kind: 'mixin';

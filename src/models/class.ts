@@ -1,25 +1,80 @@
 import { Reference, SourceReference } from './reference';
 import { PropertyLike } from './property';
 import { FunctionLike } from './function';
+import { Decorator } from './decorator';
 
 
-export type Privacy = 'public' | 'private' | 'protected';
+/**
+ * Type of modifier in a class member
+ */
+export enum ModifierType {
+    public= 'public',
+    private= 'private',
+    protected= 'protected',
+}
 
+/**
+ * Type of class member. Can be a method or a field
+ */
 export type ClassMember = ClassField | ClassMethod;
 
+/**
+ * Definition of a class field
+ */
 export interface ClassField extends PropertyLike {
+    /**
+     *
+     */
     kind: 'field';
+
+    /**
+     *
+     */
     static?: boolean;
-    privacy?: Privacy;
+
+    /**
+     *
+     */
+    modifier?: ModifierType;
+
+    /**
+     *
+     */
     inheritedFrom?: Reference;
+
+    /**
+     *
+     */
     source?: SourceReference;
 }
 
+/**
+ *
+ */
 export interface ClassMethod extends FunctionLike {
+    /**
+     *
+     */
     kind: 'method';
+
+    /**
+     *
+     */
     static?: boolean;
-    privacy?: Privacy;
+
+    /**
+     *
+     */
+    modifier?: ModifierType;
+
+    /**
+     *
+     */
     inheritedFrom?: Reference;
+
+    /**
+     *
+     */
     source?: SourceReference;
 }
 
@@ -27,12 +82,10 @@ export interface ClassMethod extends FunctionLike {
  * The common interface of classes and mixins.
  */
 export interface ClassLike {
-    name: string;
-
     /**
-     * A markdown summary suitable for display in a listing.
+     *
      */
-    summary?: string;
+    name: string;
 
     /**
      * A markdown description of the class.
@@ -59,35 +112,17 @@ export interface ClassLike {
      * first. This may read backwards from the common order in JavaScript, but
      * matches the order of language used to describe mixin application, like
      * "S with A, B".
-     *
-     * @example
-     *
-     * ```javascript
-     * class T extends B(A(S)) {}
-     * ```
-     *
-     * is described by:
-     * ```json
-     * {
-     *   "kind": "class",
-     *   "superclass": {
-     *     "name": "S"
-     *   },
-     *   "mixins": [
-     *     {
-     *       "name": "A"
-     *     },
-     *     {
-     *       "name": "B"
-     *     },
-     *   ]
-     * }
-     * ```
      */
     mixins?: Reference[];
 
+    /**
+     *
+     */
     members?: ClassMember[];
 
+    /**
+     *
+     */
     source?: SourceReference;
 
     /**
@@ -95,8 +130,16 @@ export interface ClassLike {
      * If the value is a string, it's the reason for the deprecation.
      */
     deprecated?: boolean | string;
+
+    /**
+     *
+     */
+    decorators: Decorator[];
 }
 
+/**
+ *
+ */
 export interface ClassDeclaration extends ClassLike {
     kind: 'class';
 }

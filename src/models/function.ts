@@ -1,42 +1,56 @@
-import { SourceReference } from './reference';
-import { PropertyLike } from './property';
+import { Parameter } from './parameter';
 import { Type } from './type';
+import { Decorator } from './decorator';
 
 
-export interface Parameter extends PropertyLike {
+/**
+ *
+ */
+export interface FunctionReturn {
     /**
-     * Whether the parameter is optional. Undefined implies non-optional.
+     *
      */
-    optional?: boolean;
+    type?: Type;
+
     /**
-     * Whether the parameter is a rest parameter. Only the last parameter may be a rest parameter.
-     * Undefined implies single parameter.
+     *
      */
-    rest?: boolean;
+    description?: string;
 }
 
+/**
+ *
+ */
 export interface FunctionLike {
-    name: string;
-
     /**
-     * A markdown summary suitable for display in a listing.
+     *
      */
-    summary?: string;
+    name: string;
 
     /**
      * A markdown description.
      */
     description?: string;
 
+    /**
+     *
+     */
     parameters?: Parameter[];
 
-    return?: {
-        type?: Type;
-        description?: string;
-    };
+    /**
+     *
+     */
+    return?: FunctionReturn;
+
+    /**
+     *
+     */
+    decorators: Decorator[];
 }
 
+/**
+ *
+ */
 export interface FunctionDeclaration extends FunctionLike {
     kind: 'function';
-    source?: SourceReference;
 }
