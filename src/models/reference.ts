@@ -14,8 +14,20 @@
  * use a `package` name of `"global:"`.
  */
 export interface Reference {
+    /**
+     * In the case of aggregating export, the reference's `module` field must be
+     * defined and the `name` field must be `"*"`.
+     */
     name: string;
+
+    /**
+     *
+     */
     package?: string;
+
+    /**
+     *
+     */
     module?: string;
 }
 

@@ -1,6 +1,6 @@
 import { Parameter } from './parameter';
-import { Type } from './type';
 import { Decorator } from './decorator';
+import { Type } from './type';
 
 
 /**

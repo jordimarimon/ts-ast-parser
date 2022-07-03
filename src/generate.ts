@@ -1,4 +1,3 @@
-import { analyze } from './analyse';
 import { collect } from './collect';
 import { Options } from './options';
 import { Module } from './models';
@@ -12,7 +11,7 @@ import * as fs from 'fs';
  * Extracts the metadata of the JavaScript modules
  *
  * @param files - An array of absolute paths where the TypeScripts files are located
- * @param options -
+ * @param options - Options that can be used to add extra metadata
  *
  * @returns The metadata of each JavaScript Module
  */
@@ -33,16 +32,9 @@ export function generate(files: string[], options: Partial<Options> = {}): Modul
         sourceFiles.push(currModule);
     }
 
-    // TODO(Jordi M.): Supply the options to be able to call the jsDoc/decorator handlers
-
     // COLLECT PHASE
     for (const sourceFile of sourceFiles) {
         modules.push(collect(sourceFile));
-    }
-
-    // ANALYSE PHASE
-    for (let i = 0; i < modules.length; i++) {
-        analyze(sourceFiles[i], modules[i]);
     }
 
     // LINK PHASE

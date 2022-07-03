@@ -4,29 +4,27 @@ import { Import } from './import';
 
 
 /**
- * The metadata of a module
+ * Defines the metadata of a module
  */
 export interface Module {
     /**
-     * Path of the TypeScript file analysed
+     * Path of the TypeScript file
      */
     path: string;
 
     /**
-     * The declarations of a module.
-     *
-     * For documentation purposes, all declarations that are reachable from
-     * exports should be described here.
+     * All declarations that are reachable from
+     * export defined inside this module.
      */
     declarations: Declaration[];
 
     /**
-     * The imports of a module
+     * All the modules that have been imported
      */
     imports: Import[];
 
     /**
-     * The exports of a module.
+     * Exported modules
      */
     exports: Export[];
 }

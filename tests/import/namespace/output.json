@@ -1,0 +1,16 @@
+[
+    {
+        "path": "tests/import/namespace/index.ts",
+        "declarations": [],
+        "exports": [],
+        "imports": [
+            {
+                "name": "path",
+                "kind": "namespace",
+                "importPath": "path",
+                "isBareModuleSpecifier": true,
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

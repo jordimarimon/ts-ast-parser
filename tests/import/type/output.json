@@ -1,0 +1,16 @@
+[
+    {
+        "path": "tests/import/type/index.ts",
+        "declarations": [],
+        "exports": [],
+        "imports": [
+            {
+                "name": "TypeA",
+                "kind": "named",
+                "importPath": "./mock",
+                "isBareModuleSpecifier": false,
+                "isTypeOnly": true
+            }
+        ]
+    }
+]

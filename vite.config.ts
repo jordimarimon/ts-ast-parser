@@ -1,3 +1,4 @@
+import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vite';
 import { join } from 'path';
 import { URL } from 'url';
@@ -10,5 +11,7 @@ export default defineConfig({
     server: {
         port: 8000,
     },
-    plugins: [],
+    plugins: [
+        tsconfigPaths(),
+    ],
 });

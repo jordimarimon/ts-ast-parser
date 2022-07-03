@@ -8,9 +8,9 @@ import { Decorator } from './decorator';
  * Type of modifier in a class member
  */
 export enum ModifierType {
-    public= 'public',
-    private= 'private',
-    protected= 'protected',
+    public = 'public',
+    private = 'private',
+    protected = 'protected',
 }
 
 /**
@@ -124,12 +124,6 @@ export interface ClassLike {
      *
      */
     source?: SourceReference;
-
-    /**
-     * Whether the class or mixin is deprecated.
-     * If the value is a string, it's the reason for the deprecation.
-     */
-    deprecated?: boolean | string;
 
     /**
      *

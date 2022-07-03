@@ -1,0 +1,16 @@
+[
+    {
+        "path": "tests/import/default/index.ts",
+        "declarations": [],
+        "exports": [],
+        "imports": [
+            {
+                "name": "path",
+                "kind": "default",
+                "importPath": "path",
+                "isBareModuleSpecifier": true,
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

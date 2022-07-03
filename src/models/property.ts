@@ -27,11 +27,8 @@ export interface PropertyLike {
      */
     default?: string;
 
-    decorators: Decorator[];
-
     /**
-     * Whether the property is deprecated.
-     * If the value is a string, it's the reason for the deprecation.
+     *
      */
-    deprecated?: boolean | string;
+    decorators: Decorator[];
 }

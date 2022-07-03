@@ -3,7 +3,7 @@ import ts from 'typescript';
 
 
 /**
- * Options to add functionality while parsing
+ * Options to add extra functionality while parsing
  */
 export interface Options {
     /**

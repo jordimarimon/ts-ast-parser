@@ -1,0 +1,16 @@
+[
+    {
+        "path": "tests/import/named/index.ts",
+        "declarations": [],
+        "exports": [],
+        "imports": [
+            {
+                "name": "dirname",
+                "kind": "named",
+                "importPath": "path",
+                "isBareModuleSpecifier": true,
+                "isTypeOnly": false
+            }
+        ]
+    }
+]
