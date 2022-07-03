@@ -1,4 +1,4 @@
-import { collectImports } from './imports';
+import { createImports } from '../factories';
 import { Module } from '../models';
 import ts from 'typescript';
 
@@ -10,7 +10,7 @@ import ts from 'typescript';
  * @param moduleDoc
  */
 export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module): void {
-    const imports = collectImports(rootNode);
+    const imports = createImports(rootNode);
     moduleDoc.imports = [...moduleDoc.imports, ...imports];
 
     ts.forEachChild(rootNode, (node: ts.Node) => visitNode(node, moduleDoc));

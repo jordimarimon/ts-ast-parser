@@ -4,13 +4,6 @@ import ts from 'typescript';
 
 
 /**
- * Checks whether the node is an import declaration
- */
-export function isImportDeclaration(node: ts.Node | ts.SourceFile): node is ts.ImportDeclaration {
-    return node.kind === ts.SyntaxKind.ImportDeclaration;
-}
-
-/**
  * Returns true if the import declaration is similar tot the following:
  *
  *      import defaultExport from 'foo';
@@ -40,10 +33,10 @@ export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
 /**
  * Extracts the import declaration in the node
  */
-export function collectImports(node: ts.Node | ts.SourceFile): Import[] {
+export function createImports(node: ts.Node | ts.SourceFile): Import[] {
     const imports: Import[] = [];
 
-    if (!isImportDeclaration(node)) {
+    if (!ts.isImportDeclaration(node)) {
         return imports;
     }
 

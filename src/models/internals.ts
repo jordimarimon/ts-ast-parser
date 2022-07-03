@@ -15,20 +15,23 @@ export interface JSDocComment {
     tags?: JSDocTag[];
 }
 
+/**
+ * Sourced from:
+ * https://github.com/angular/tsickle/blob/e79f7837e2774f8fbbef695a1ab7471c27369548/src/tsickle.ts#L58-L76
+ */
 export interface JSDocTag {
     kind: ts.SyntaxKind.JSDocTag;
     comment?: string | undefined;
     tagName?: ts.Identifier;
+    parameterName?: string;
+    type?: string;
+    optional?: boolean;
+    restParam?: boolean;
+    destructuring?: boolean;
+    text?: string;
 }
 
-export interface JsDoc {
-    /**
-     *
-     */
-    name: string;
-
-    /**
-     *
-     */
-    value: string;
+export interface MixinNodes {
+    function: ts.FunctionDeclaration | ts.VariableStatement;
+    class: ts.ClassExpression | ts.ClassDeclaration;
 }

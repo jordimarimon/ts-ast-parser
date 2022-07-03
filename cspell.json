@@ -6,7 +6,10 @@
         "analyse",
         "analysed",
         "analyser",
-        "Jordi"
+        "Jordi",
+        "clazz",
+        "klass",
+        "tsbuildinfo"
     ],
     "ignorePaths": [
         "node_modules",

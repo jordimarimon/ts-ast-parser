@@ -1,7 +1,6 @@
 import { FunctionLike } from './function';
 import { ClassLike } from './class';
 
-
 /**
  * A description of a class mixin.
  *
