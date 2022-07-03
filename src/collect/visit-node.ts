@@ -21,7 +21,7 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     if (ts.isVariableStatement(rootNode)) {
         const mixinNodes = extractMixinNodes(rootNode);
 
-        if (mixinNodes) {
+        if (mixinNodes === null) {
             createVariable(rootNode, moduleDoc);
         }
 

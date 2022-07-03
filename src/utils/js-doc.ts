@@ -2,7 +2,7 @@ import { JSDoc, JSDocNode, JSDocTagType } from '../models';
 
 
 /**
- * Returns true if the node has as JSDoc tag "@internal" or "@ignore"
+ * Returns true if the node should not be documented
  */
 export function shouldIgnore(node: JSDocNode): boolean {
     return !!node.jsDoc?.some(doc => {

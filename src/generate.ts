@@ -31,17 +31,28 @@ export function generate(files: string[], options: Partial<Options> = {}): Modul
         sourceFiles.push(currModule);
     }
 
+    // TODO: Provide the decorator and jsdoc handlers in the collect phase
+    //  from the user provided options
+
     // COLLECT PHASE
     for (const sourceFile of sourceFiles) {
         modules.push(collect(sourceFile));
     }
 
-    // TODO: LINK PHASE
+    // TODO: LINK PHASE needs to be implemented
+    //  Here we need to cross reference everything we have collected in the previous phase
 
     // PLUGINS
     if (options.plugins?.length) {
         for (let i = 0; i < modules.length; i++) {
-            options.plugins?.forEach(plugin => plugin(sourceFiles[i], modules[i], modules));
+            options.plugins?.forEach(plugin => {
+                try {
+                    plugin.handler?.(sourceFiles[i], modules[i], modules);
+                } catch (error: unknown) {
+                    console.error(`The plugin ${plugin.name} has thrown the following error:`);
+                    console.error(error);
+                }
+            });
         }
     }
 
