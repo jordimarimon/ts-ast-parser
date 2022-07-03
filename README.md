@@ -1,5 +1,7 @@
 # TypeScript Abstract Syntax Tree Parser
 
+**NOTE: This is still a work in progress**
+
 Simplifies the TypeScript AST generated from the TypeScript compiler to automatically generate documentation.
 
 This library is inspired by the great work done in (some code has been sourced from these repositories):
