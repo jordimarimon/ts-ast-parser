@@ -25,7 +25,7 @@
         "npm": ">=7.0.0"
     },
     "scripts": {
-        "build": "tsc",
+        "build": "tsc --build ./tsconfig.build.json",
         "build:doc": "vite build",
         "test": "vitest --config vitest.config.ts",
         "test:run": "vitest run --config vitest.config.ts",
