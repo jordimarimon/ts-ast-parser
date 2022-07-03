@@ -1,7 +1,6 @@
 import { collect } from './collect';
 import { Options } from './options';
 import { Module } from './models';
-import { link } from './link';
 import * as path from 'path';
 import ts from 'typescript';
 import * as fs from 'fs';
@@ -37,15 +36,12 @@ export function generate(files: string[], options: Partial<Options> = {}): Modul
         modules.push(collect(sourceFile));
     }
 
-    // LINK PHASE
-    for (let i = 0; i < modules.length; i++) {
-        link(sourceFiles[i], modules[i]);
-    }
+    // TODO: LINK PHASE
 
     // PLUGINS
     if (options.plugins?.length) {
         for (let i = 0; i < modules.length; i++) {
-            options.plugins?.forEach(plugin => plugin(sourceFiles[i], modules));
+            options.plugins?.forEach(plugin => plugin(sourceFiles[i], modules[i], modules));
         }
     }
 

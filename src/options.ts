@@ -12,7 +12,7 @@ export interface Options {
      *
      * Use it to add extra metadata to the one generated.
      */
-    plugins: ((node: ts.Node, modulesDoc: Module[]) => void)[];
+    plugins: ((node: ts.Node, moduleDoc: Module, modulesDoc: Module[]) => void)[];
 
     /**
      * You can add a handler for a jsDoc tag.

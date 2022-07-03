@@ -1,4 +1,4 @@
-import { Declaration } from 'typescript';
+import { Declaration } from './declaration';
 import { Export } from './export';
 import { Import } from './import';
 
