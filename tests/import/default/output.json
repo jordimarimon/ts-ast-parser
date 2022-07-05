@@ -5,10 +5,10 @@
         "exports": [],
         "imports": [
             {
-                "name": "path",
+                "name": "Foo",
                 "kind": "default",
-                "importPath": "path",
-                "isBareModuleSpecifier": true,
+                "importPath": "./foo",
+                "isBareModuleSpecifier": false,
                 "isTypeOnly": false
             }
         ]

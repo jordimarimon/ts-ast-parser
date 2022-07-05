@@ -27,8 +27,7 @@
     "scripts": {
         "build": "tsc --build ./tsconfig.build.json",
         "build:doc": "vite build",
-        "test": "vitest --config vitest.config.ts",
-        "test:run": "vitest run --config vitest.config.ts",
+        "test": "vitest run --config vitest.config.ts",
         "coverage": "vitest run --coverage --config vitest.config.ts",
         "dev:doc": "vite --host --config vite.config.ts",
         "preview": "vite preview",

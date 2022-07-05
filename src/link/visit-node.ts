@@ -9,7 +9,7 @@ import ts from 'typescript';
  * @param moduleDoc
  */
 export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module): void {
-    // TODO(Jordi M.): Check the type of node and fill the moduleDoc
+    // TODO(Jordi M.): Implement it
 
     ts.forEachChild(rootNode, (node) => visitNode(node, moduleDoc));
 }

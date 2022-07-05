@@ -1,8 +1,8 @@
-import { createImports } from '../factories';
+import { createVariable } from '../factories/create-variable';
+import { createImport } from '../factories';
 import { extractMixinNodes } from '../utils';
 import { Module } from '../models';
 import ts from 'typescript';
-import { createVariable } from '../factories/create-variable';
 
 
 /**
@@ -13,7 +13,7 @@ import { createVariable } from '../factories/create-variable';
  */
 export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module): void {
     if (ts.isImportDeclaration(rootNode)) {
-        const imports = createImports(rootNode);
+        const imports = createImport(rootNode);
         moduleDoc.imports = [...moduleDoc.imports, ...imports];
         return;
     }
@@ -37,6 +37,10 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     }
 
     if (ts.isInterfaceDeclaration(rootNode)) {
+        return;
+    }
+
+    if (ts.isExportDeclaration(rootNode)) {
         return;
     }
 

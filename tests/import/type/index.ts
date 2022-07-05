@@ -1,4 +1,4 @@
-import type { TypeA } from './mock';
+import type { TypeA } from './type-a';
 
 
 const x: TypeA = {foo: 'bar'};

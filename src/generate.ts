@@ -19,6 +19,11 @@ export function generate(files: string[], options: Partial<Options> = {}): Modul
     const modules: Module[] = [];
 
     for (const file of files) {
+        if (!fs.existsSync(file)) {
+            console.warn(`[TS AST PARSER]: The following file couldn't be found: "${file}"`);
+            continue;
+        }
+
         const relativeModulePath = path.relative(process.cwd(), file);
         const source = fs.readFileSync(relativeModulePath, 'utf8');
         const currModule = ts.createSourceFile(

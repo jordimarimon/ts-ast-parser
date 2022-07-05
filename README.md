@@ -4,7 +4,7 @@
 
 Simplifies the TypeScript AST generated from the TypeScript compiler to automatically generate documentation.
 
-This library is inspired by the great work done in (some code has been sourced from these repositories):
+This library is inspired by the great work done in:
 
 * [Custom Element Manifest](https://github.com/webcomponents/custom-elements-manifest)
 * [Custom Element Manifest analyser](https://github.com/open-wc/custom-elements-manifest/tree/master/packages/analyzer)

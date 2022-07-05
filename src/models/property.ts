@@ -30,5 +30,5 @@ export interface PropertyLike {
     /**
      *
      */
-    decorators: Decorator[];
+    decorators?: Decorator[];
 }

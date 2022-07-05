@@ -33,7 +33,7 @@ export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
 /**
  * Extracts the import declaration in the node
  */
-export function createImports(node: ts.Node | ts.SourceFile): Import[] {
+export function createImport(node: ts.Node | ts.SourceFile): Import[] {
     const imports: Import[] = [];
 
     if (!ts.isImportDeclaration(node)) {

@@ -7,7 +7,7 @@
             {
                 "name": "TypeA",
                 "kind": "named",
-                "importPath": "./mock",
+                "importPath": "./type-a",
                 "isBareModuleSpecifier": false,
                 "isTypeOnly": true
             }

@@ -1,4 +1,5 @@
-import * as path from 'path';
+import * as Namespace from './foo';
 
 
-path.dirname('/documents/test');
+const foo =  new Namespace.Foo();
+foo.bar();

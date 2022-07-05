@@ -5,7 +5,7 @@ import ts from 'typescript';
 /**
  * Returns true if the array is not empty
  */
-export const isNotEmptyArray = (arr: unknown): boolean => Array.isArray(arr) && arr.length > 0;
+export const isNotEmptyArray = <T = unknown[]>(arr: unknown): arr is T => Array.isArray(arr) && arr.length > 0;
 
 /**
  * Returns true if the class member (property or method) is static

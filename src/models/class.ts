@@ -1,6 +1,6 @@
-import { Reference, SourceReference } from './reference';
 import { PropertyLike } from './property';
 import { FunctionLike } from './function';
+import { Reference } from './reference';
 import { Decorator } from './decorator';
 
 
@@ -41,11 +41,6 @@ export interface ClassField extends PropertyLike {
      *
      */
     inheritedFrom?: Reference;
-
-    /**
-     *
-     */
-    source?: SourceReference;
 }
 
 /**
@@ -71,11 +66,6 @@ export interface ClassMethod extends FunctionLike {
      *
      */
     inheritedFrom?: Reference;
-
-    /**
-     *
-     */
-    source?: SourceReference;
 }
 
 /**
@@ -119,11 +109,6 @@ export interface ClassLike {
      *
      */
     members?: ClassMember[];
-
-    /**
-     *
-     */
-    source?: SourceReference;
 
     /**
      *

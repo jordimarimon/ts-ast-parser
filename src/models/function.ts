@@ -35,12 +35,12 @@ export interface FunctionLike {
     /**
      *
      */
-    parameters?: Parameter[];
+    parameters: Parameter[];
 
     /**
      *
      */
-    return?: FunctionReturn;
+    return: FunctionReturn;
 
     /**
      *

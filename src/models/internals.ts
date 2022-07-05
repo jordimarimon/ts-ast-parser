@@ -9,16 +9,10 @@ export interface JSDocNode extends ts.Node {
     jsDoc?: JSDocComment[];
 }
 
-export interface JSDocComment {
+export interface JSDocComment extends ts.Node {
     kind: ts.SyntaxKind.JSDocComment;
     comment?: string | undefined;
-    tags?: JSDocTag[];
-}
-
-export interface JSDocTag {
-    kind: ts.SyntaxKind.JSDocTag;
-    comment?: string | undefined;
-    tagName?: ts.Identifier;
+    tags?: ts.JSDocTag[];
 }
 
 /**
@@ -28,7 +22,7 @@ export interface JSDocTag {
 export interface MixinNodes {
     /**
      * A mixin is a function but the function can be defined
-     * as an arrow function throw a variable statement.
+     * as an arrow function through a variable statement.
      */
     function: ts.FunctionDeclaration | ts.VariableStatement;
 

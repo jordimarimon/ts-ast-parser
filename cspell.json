@@ -9,7 +9,10 @@
         "Jordi",
         "clazz",
         "klass",
-        "tsbuildinfo"
+        "tsbuildinfo",
+        "cssprop",
+        "cssproperty",
+        "csspart"
     ],
     "ignorePaths": [
         "node_modules",

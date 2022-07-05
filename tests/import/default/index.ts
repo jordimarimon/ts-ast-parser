@@ -1,4 +1,5 @@
-import path from 'path';
+import Foo from './foo';
 
 
-path.dirname('/documents/test');
+const foo =  new Foo();
+foo.bar();
