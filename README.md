@@ -1,4 +1,5 @@
-# TypeScript Abstract Syntax Tree Parser
+TypeScript Abstract Syntax Tree Parser
+=================
 
 **NOTE: This is still a work in progress**
 
@@ -25,6 +26,54 @@ Other libraries of interest are (each library offers different needs):
 * [TS Docs gen](https://github.com/SimplrJS/ts-docs-gen)
 * [Node TypeScript Parser](https://github.com/buehler/node-typescript-parser)
 
-## Contributing
+Table of contents
+=================
+
+<!--ts-->
+* [Install](#install)
+* [Usage](#usage)
+* [API](#api)
+* [Customization](#customization)
+  * [JSDoc Handlers](#jsdoc-handlers)
+  * [Decorator Handlers](#decorator-handlers)
+  * [Plugins](#plugins)
+* [Contributing](#contributing)
+<!--te-->
+
+Install
+=================
+
+TODO
+
+Usage
+=================
+
+TODO
+
+API
+=================
+
+TODO
+
+Customization
+=================
+
+JSDoc Handlers
+-----------
+
+TODO
+
+Decorator Handlers
+-----------
+
+TODO
+
+Plugins
+-----------
+
+TODO
+
+Contributing
+=================
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
