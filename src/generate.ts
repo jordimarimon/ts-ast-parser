@@ -1,6 +1,7 @@
 import { collect } from './collect';
 import { Options } from './options';
 import { Module } from './models';
+import { link } from './link';
 import * as path from 'path';
 import ts from 'typescript';
 import * as fs from 'fs';
@@ -18,6 +19,7 @@ export function generate(files: string[], options: Partial<Options> = {}): Modul
     const sourceFiles: ts.SourceFile[] = [];
     const modules: Module[] = [];
 
+    // Create the TS AST for each file
     for (const file of files) {
         if (!fs.existsSync(file)) {
             console.warn(`[TS AST PARSER]: The following file couldn't be found: "${file}"`);
@@ -36,16 +38,15 @@ export function generate(files: string[], options: Partial<Options> = {}): Modul
         sourceFiles.push(currModule);
     }
 
-    // TODO: Provide the decorator and jsdoc handlers in the collect phase
-    //  from the user provided options
-
     // COLLECT PHASE
     for (const sourceFile of sourceFiles) {
+        // TODO: Provide the decorator and jsdoc handlers in the collect phase
+        //  from the user provided options
         modules.push(collect(sourceFile));
     }
 
-    // TODO: LINK PHASE needs to be implemented
-    //  Here we need to cross reference everything we have collected in the previous phase
+    // LINK PHASE
+    link(modules);
 
     // PLUGINS
     if (options.plugins?.length) {
@@ -54,7 +55,7 @@ export function generate(files: string[], options: Partial<Options> = {}): Modul
                 try {
                     plugin.handler?.(sourceFiles[i], modules[i], modules);
                 } catch (error: unknown) {
-                    console.error(`The plugin ${plugin.name} has thrown the following error:`);
+                    console.error(`The plugin "${plugin.name}" has thrown the following error:`);
                     console.error(error);
                 }
             });

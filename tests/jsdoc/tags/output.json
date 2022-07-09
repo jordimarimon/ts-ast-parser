@@ -1,14 +1,19 @@
 [
     {
-        "path": "tests/jsdoc/description/index.ts",
+        "path": "tests/jsdoc/tags/index.ts",
         "declarations": [
             {
                 "name": "x",
+                "jsDoc": {
+                    "since": "2.0.0",
+                    "see": "https://www.example.com",
+                    "category": "Variable"
+                },
                 "kind": "variable",
                 "type": {
                     "text": "number"
                 },
-                "description": "This is the description of the variable.\n\nThis is more content for the description\nthat is too large.",
+                "description": "",
                 "decorators": [],
                 "default": "4"
             }

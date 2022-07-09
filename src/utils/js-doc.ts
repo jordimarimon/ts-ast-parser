@@ -6,8 +6,8 @@ import ts from 'typescript';
 /**
  * Returns true if the node should not be documented
  */
-export function shouldIgnore(node: JSDocNode): boolean {
-    return !!node.jsDoc?.some(doc => {
+export function shouldIgnore(node: ts.Node): boolean {
+    return !!(node as JSDocNode).jsDoc?.some(doc => {
         return doc?.tags?.some(tag => {
             const tagName = tag?.tagName?.getText?.();
 

@@ -1,6 +1,7 @@
 import { extractMixinNodes, hasExportKeyword } from '../utils';
 import { createVariable } from '../factories/create-variable';
 import { createExport } from '../factories/create-export';
+import { shouldIgnore } from '../utils/js-doc';
 import { createImport } from '../factories';
 import { Module } from '../models';
 import ts from 'typescript';
@@ -13,9 +14,16 @@ import ts from 'typescript';
  * @param moduleDoc
  */
 export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module): void {
+    if (shouldIgnore(rootNode)) {
+        return;
+    }
+
     if (ts.isImportDeclaration(rootNode)) {
-        const imports = createImport(rootNode);
-        moduleDoc.imports = [...moduleDoc.imports, ...imports];
+        moduleDoc.imports = [
+            ...moduleDoc.imports,
+            ...createImport(rootNode),
+        ];
+
         return;
     }
 

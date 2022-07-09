@@ -5,8 +5,8 @@ import fs from 'fs';
 
 
 // Use the following declarations to debug the tests
-const CATEGORY = 'export';
-const SUBCATEGORY = 'type';
+const CATEGORY = 'jsdoc';
+const SUBCATEGORY = 'tags';
 const DEV = true;
 const ASSERT = false;
 

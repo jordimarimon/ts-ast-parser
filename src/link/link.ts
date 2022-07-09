@@ -1,18 +1,15 @@
-import { visitNode } from './visit-node';
 import { Module } from '../models';
-import ts from 'typescript';
 
 
 /**
- * Loops through each node of the AST and extracts the metadata
+ * Adds the missing relationships/links between modules
  *
- * @param currModule - The TypeScript AST root node
- * @param moduleDoc -
+ * Cross-references everything we have collected in the previous phase.
  *
- * @returns The metadata of the module
+ * @param modulesDoc -
+ *
  */
-export function link(currModule: ts.SourceFile, moduleDoc: Module): Module {
-    visitNode(currModule, moduleDoc);
-
-    return moduleDoc;
+export function link(modulesDoc: Module[]): Module[] {
+    // TODO: It's not yet implemented
+    return modulesDoc;
 }

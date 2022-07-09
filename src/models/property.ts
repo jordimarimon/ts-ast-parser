@@ -1,5 +1,6 @@
 import { Decorator } from './decorator';
 import { Type } from './type';
+import { JSDoc } from './js-doc';
 
 
 /**
@@ -31,4 +32,9 @@ export interface PropertyLike {
      *
      */
     decorators?: Decorator[];
+
+    /**
+     *
+     */
+    jsDoc: Partial<JSDoc>;
 }

@@ -18,6 +18,7 @@ export function createVariable(node: ts.VariableStatement, moduleDoc: Module): v
             const type = jsDoc[JSDocTagType.type];
             const variable: VariableDeclaration = {
                 name,
+                jsDoc,
                 kind: 'variable',
                 type: type ? {text: type} : getType(declaration),
                 description: jsDoc[JSDocTagType.description] ?? '',

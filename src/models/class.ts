@@ -2,6 +2,7 @@ import { PropertyLike } from './property';
 import { FunctionLike } from './function';
 import { Reference } from './reference';
 import { Decorator } from './decorator';
+import { JSDoc } from './js-doc';
 
 
 /**
@@ -114,6 +115,11 @@ export interface ClassLike {
      *
      */
     decorators: Decorator[];
+
+    /**
+     *
+     */
+    jsDoc: Partial<JSDoc>;
 }
 
 /**

@@ -1,5 +1,6 @@
 import { Parameter } from './parameter';
 import { Decorator } from './decorator';
+import { JSDoc } from './js-doc';
 import { Type } from './type';
 
 
@@ -51,6 +52,11 @@ export interface FunctionLike {
      *
      */
     decorators: Decorator[];
+
+    /**
+     *
+     */
+    jsDoc: Partial<JSDoc>;
 }
 
 /**
