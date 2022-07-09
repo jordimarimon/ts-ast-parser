@@ -1,3 +1,4 @@
+import { removeNonExportableDeclarations } from './remove-non-exportable-declarations';
 import { visitNode } from './visit-node';
 import { Module } from '../models';
 import ts from 'typescript';
@@ -19,6 +20,8 @@ export function collect(sourceFile: ts.SourceFile): Module {
     };
 
     visitNode(sourceFile, moduleDoc);
+
+    removeNonExportableDeclarations(moduleDoc);
 
     return moduleDoc;
 }

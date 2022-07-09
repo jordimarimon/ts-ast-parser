@@ -45,6 +45,11 @@ export interface FunctionLike {
     /**
      *
      */
+    async?: boolean;
+
+    /**
+     *
+     */
     decorators: Decorator[];
 }
 

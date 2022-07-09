@@ -147,3 +147,11 @@ export function getDefaultValue(node: ts.VariableDeclaration | ts.PropertyDeclar
 
     return defaultValue ?? '';
 }
+
+export function hasExportKeyword(node: ts.Node): boolean {
+    return !!node.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ExportKeyword);
+}
+
+export function hasDefaultKeyword(node: ts.Node): boolean {
+    return !!node.modifiers?.some(mod => mod.kind === ts.SyntaxKind.DefaultKeyword);
+}

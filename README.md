@@ -23,6 +23,7 @@ Other libraries of interest are (each library offers different needs):
 * [Type Doc](https://typedoc.org/)
 * [DocFX](https://dotnet.github.io/docfx/)
 * [TS Docs gen](https://github.com/SimplrJS/ts-docs-gen)
+* [Node TypeScript Parser](https://github.com/buehler/node-typescript-parser)
 
 ## Contributing
 

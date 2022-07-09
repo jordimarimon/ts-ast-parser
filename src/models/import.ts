@@ -5,6 +5,9 @@ export enum ImportType {
     default = 'default',
     named = 'named',
     namespace = 'namespace',
+    aliased = 'aliased',
+    string = 'string',
+    externalModule = 'externalModule',
 }
 
 /**

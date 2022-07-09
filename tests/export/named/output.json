@@ -1,0 +1,14 @@
+[
+    {
+        "path": "tests/export/named/index.ts",
+        "declarations": [],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ],
+        "imports": []
+    }
+]

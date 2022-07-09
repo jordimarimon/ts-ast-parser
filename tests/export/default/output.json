@@ -1,0 +1,14 @@
+[
+    {
+        "path": "tests/export/default/index.ts",
+        "declarations": [],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "default",
+                "isTypeOnly": false
+            }
+        ],
+        "imports": []
+    }
+]

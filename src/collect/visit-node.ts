@@ -1,6 +1,7 @@
+import { extractMixinNodes, hasExportKeyword } from '../utils';
 import { createVariable } from '../factories/create-variable';
+import { createExport } from '../factories/create-export';
 import { createImport } from '../factories';
-import { extractMixinNodes } from '../utils';
 import { Module } from '../models';
 import ts from 'typescript';
 
@@ -18,13 +19,18 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
         return;
     }
 
+    if (hasExportKeyword(rootNode)) {
+        createExport(rootNode, moduleDoc);
+    }
+
+    const mixinNodes = extractMixinNodes(rootNode);
+
+    if (mixinNodes !== null) {
+        return;
+    }
+
     if (ts.isVariableStatement(rootNode)) {
-        const mixinNodes = extractMixinNodes(rootNode);
-
-        if (mixinNodes === null) {
-            createVariable(rootNode, moduleDoc);
-        }
-
+        createVariable(rootNode, moduleDoc);
         return;
     }
 
@@ -40,7 +46,8 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
         return;
     }
 
-    if (ts.isExportDeclaration(rootNode)) {
+    if (ts.isExportDeclaration(rootNode) || ts.isExportAssignment(rootNode)) {
+        createExport(rootNode, moduleDoc);
         return;
     }
 

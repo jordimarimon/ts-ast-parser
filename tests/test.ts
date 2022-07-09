@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { generate } from 'ts-ast-parser';
+import { generate } from '../src';
 import path from 'path';
 import fs from 'fs';
 
 
 // Use the following declarations to debug the tests
-const CATEGORY = 'jsdoc';
-const SUBCATEGORY = 'description';
+const CATEGORY = 'export';
+const SUBCATEGORY = 'type';
 const DEV = true;
 const ASSERT = false;
 
