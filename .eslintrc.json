@@ -408,6 +408,16 @@
                 "import/named": "off",
                 "import/no-named-as-default-member": "off"
             }
+        },
+        {
+            "files": "**/*.html",
+            "plugins": [
+                "@html-eslint"
+            ],
+            "parser": "@html-eslint/parser",
+            "extends": [
+                "plugin:@html-eslint/recommended"
+            ]
         }
     ]
 }

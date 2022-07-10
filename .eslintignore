@@ -42,8 +42,12 @@ testem.log
 .DS_Store
 Thumbs.db
 
+.tsbuildinfo
 .eslintcache
 .stylelintcache
 trace.zip
 
 .env
+_site/
+
+!.eleventy.js
