@@ -1,0 +1,43 @@
+name: 🐛 Bug Report
+description: Create a report to help us improve
+title: 'bug: '
+body:
+    - type: checkboxes
+      attributes:
+          label: Prerequisites
+          description: Please ensure you have completed all of the following.
+          options:
+              - label: I have read the [Contributing Guidelines](https://github.com/jordimarimon/ts-ast-parser/blob/main/CONTRIBUTING.md).
+                required: true
+              - label: I have searched for [existing issues](https://github.com/jordimarimon/ts-ast-parser/issues) that already report this problem, without success.
+                required: true
+    - type: textarea
+      attributes:
+          label: Version
+          description: Please specify which version this issue impacts.
+    - type: textarea
+      attributes:
+          label: Current Behavior
+          description: A clear description of what the bug is and how it manifests.
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: Expected Behavior
+          description: A clear description of what you expected to happen.
+      validations:
+          required: true
+    - type: textarea
+      attributes:
+          label: Steps to Reproduce
+          description: Please explain the steps required to duplicate this issue.
+      validations:
+          required: true
+    - type: input
+      attributes:
+          label: Code Reproduction URL
+          description: Please reproduce this issue in an online editor or a github repo
+    - type: textarea
+      attributes:
+          label: Additional Information
+          description: Add any other context about the problem here. Stack traces, related issues, suggestions on how to fix, Stack Overflow links, forum links, etc.
