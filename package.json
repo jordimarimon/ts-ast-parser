@@ -1,5 +1,4 @@
 {
-    "private": true,
     "name": "ts-ast-parser",
     "version": "0.0.0",
     "author": "Jordi Marimon Palarea",
@@ -26,7 +25,7 @@
     },
     "scripts": {
         "build": "tsc --build ./tsconfig.build.json",
-        "build:doc": "eleventy",
+        "build:doc": "npm run clear:doc && NODE_ENV=production eleventy",
         "dev:doc": "eleventy --serve",
         "deploy:doc": "gh-pages -d _site -m \"docs: update documentation\"",
         "test": "vitest run --config vitest.config.ts",
@@ -34,17 +33,16 @@
         "prepare": "./scripts/prepare.sh",
         "upgrade": "rm -rf node_modules package-lock.json && npm i",
         "bump": "npx ncu -u -x typescript,@types/node,@typescript/lib-dom",
-        "lint": "eslint \"**/*.{ts,js,html}\" --max-warnings 0",
-        "lint:fix": "eslint \"**/*.{ts,js,html}\" --fix --cache --max-warnings 0",
+        "lint": "eslint \"**/*.{ts,js}\" --max-warnings 0",
+        "lint:fix": "eslint \"**/*.{ts,js}\" --fix --cache --max-warnings 0",
         "spellcheck": "cspell \"**/*.{js,ts,json,html,css,md}\" --no-progress",
         "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-        "analyse": "source-map-explorer ./dist/**.js"
+        "analyse": "source-map-explorer ./dist/**.js",
+        "clear:doc": "rm -rf ./_site"
     },
     "lint-staged": {
-        "**/*.{js,ts,html,css}": [
-            "npm run lint:fix",
-            "npm run spellcheck"
-        ]
+        "**/*.{js,ts}": "npm run lint:fix",
+        "**/*.{js,ts,html,css}": "npm run spellcheck"
     },
     "dependencies": {
         "tslib": "^2.4.0"
@@ -53,8 +51,6 @@
         "@11ty/eleventy": "^1.0.1",
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
-        "@html-eslint/eslint-plugin": "^0.13.2",
-        "@html-eslint/parser": "^0.13.2",
         "@types/node": "~16.11.25",
         "@typescript-eslint/eslint-plugin": "^5.30.5",
         "@typescript-eslint/parser": "^5.30.5",
