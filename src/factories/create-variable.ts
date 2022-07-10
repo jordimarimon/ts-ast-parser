@@ -1,11 +1,13 @@
 import { JSDocTagType, Module, VariableDeclaration } from '../models';
-import { getDefaultValue, getType } from '../utils';
-import { getJSDoc } from '../utils/js-doc';
+import { getDefaultValue, getJSDoc, getType } from '../utils';
 import ts from 'typescript';
 
 
 /**
  * Creates the metadata for a variable statement
+ *
+ * @param node
+ * @param moduleDoc
  */
 export function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
 
@@ -13,21 +15,23 @@ export function createVariable(node: ts.VariableStatement, moduleDoc: Module): v
         const name = declaration?.name?.getText() ?? '';
         const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === name);
 
-        if (!alreadyExists) {
-            const jsDoc = getJSDoc(node);
-            const type = jsDoc[JSDocTagType.type];
-            const variable: VariableDeclaration = {
-                name,
-                jsDoc,
-                kind: 'variable',
-                type: type ? {text: type} : getType(declaration),
-                description: jsDoc[JSDocTagType.description] ?? '',
-                decorators: [],
-                default: jsDoc[JSDocTagType.default] ?? getDefaultValue(declaration),
-            };
-
-            moduleDoc.declarations.push(variable);
+        if (alreadyExists) {
+            continue;
         }
+
+        const jsDoc = getJSDoc(node);
+        const type = jsDoc[JSDocTagType.type];
+        const variable: VariableDeclaration = {
+            name,
+            jsDoc,
+            kind: 'variable',
+            type: type ? {text: type} : getType(declaration),
+            description: jsDoc[JSDocTagType.description] ?? '',
+            decorators: [],
+            default: jsDoc[JSDocTagType.default] ?? getDefaultValue(declaration),
+        };
+
+        moduleDoc.declarations.push(variable);
     }
 
 }

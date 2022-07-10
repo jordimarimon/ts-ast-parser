@@ -4,11 +4,6 @@ import ts from 'typescript';
 
 
 /**
- * Returns true if the node is a Mixin declaration
- */
-export const isMixin = (node: ts.Node): boolean => !!extractMixinNodes(node);
-
-/**
  * Extracts the function and class nodes that are used to define a Mixin
  */
 export function extractMixinNodes(node: ts.Node): MixinNodes | null {
@@ -23,7 +18,12 @@ export function extractMixinNodes(node: ts.Node): MixinNodes | null {
     return null;
 }
 
-export function extractMixinNodesFromVariableStatement(node: ts.VariableStatement): MixinNodes | null {
+/**
+ *
+ *
+ * @param node
+ */
+function extractMixinNodesFromVariableStatement(node: ts.VariableStatement): MixinNodes | null {
     //
     // CASE 1: We have a mixin declared in the form of:
     //
@@ -92,7 +92,10 @@ export function extractMixinNodesFromVariableStatement(node: ts.VariableStatemen
     return null;
 }
 
-export function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration): MixinNodes | null {
+/**
+ *
+ */
+function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration): MixinNodes | null {
     if (node.body == null || !ts.isBlock(node.body)) {
         return null;
     }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { generate } from '../src';
+import { parseFromFiles } from '../src';
 import path from 'path';
 import fs from 'fs';
 
@@ -43,7 +43,7 @@ for (const category of categories) {
 
         describe(`${category}/${subcategory}`, () => {
             it('should extract the metadata', () => {
-                const modules = generate([testFilePath]);
+                const modules = parseFromFiles([testFilePath]);
 
                 if (DEV) {
                     console.log(JSON.stringify(modules, null, 4));

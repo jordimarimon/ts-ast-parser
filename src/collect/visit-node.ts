@@ -1,8 +1,5 @@
-import { extractMixinNodes, hasExportKeyword } from '../utils';
-import { createVariable } from '../factories/create-variable';
-import { createExport } from '../factories/create-export';
-import { shouldIgnore } from '../utils/js-doc';
-import { createImport } from '../factories';
+import { extractMixinNodes, hasExportKeyword, isCustomElementsDefineCall, shouldIgnore } from '../utils';
+import { createExport, createImport, createVariable } from '../factories';
 import { Module } from '../models';
 import ts from 'typescript';
 
@@ -34,6 +31,7 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     const mixinNodes = extractMixinNodes(rootNode);
 
     if (mixinNodes !== null) {
+        // TODO: It's not yet implemented
         return;
     }
 
@@ -43,19 +41,27 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     }
 
     if (ts.isFunctionDeclaration(rootNode)) {
+        // TODO: It's not yet implemented
         return;
     }
 
     if (ts.isClassDeclaration(rootNode)) {
+        // TODO: It's not yet implemented
         return;
     }
 
     if (ts.isInterfaceDeclaration(rootNode)) {
+        // TODO: It's not yet implemented
         return;
     }
 
     if (ts.isExportDeclaration(rootNode) || ts.isExportAssignment(rootNode)) {
         createExport(rootNode, moduleDoc);
+        return;
+    }
+
+    if (ts.isExpressionStatement(rootNode) && isCustomElementsDefineCall(rootNode)) {
+        // TODO: It's not yet implemented
         return;
     }
 

@@ -4,7 +4,7 @@ import { ClassLike } from './class';
 /**
  * A description of a class mixin.
  *
- * Mixins are functions which generate a new subclass of a given superclass.
+ * Mixins are functions which parse a new subclass of a given superclass.
  * This interfaces describes the class and custom element features that
  * are added by the mixin. As such, it extends the CustomElement interface and
  * ClassLike interface.

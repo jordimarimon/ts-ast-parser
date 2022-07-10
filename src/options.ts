@@ -2,9 +2,22 @@ import { Declaration, Module, Parameter } from './models';
 import ts from 'typescript';
 
 
+/**
+ *
+ */
 export interface Plugin {
+    /**
+     *
+     */
     name: string;
-    handler: (node: ts.SourceFile, moduleDoc: Module, modulesDoc: Module[]) => void;
+
+    /**
+     *
+     *
+     * @param node
+     * @param moduleDoc
+     */
+    handler: (node: ts.SourceFile, moduleDoc: Module) => void;
 }
 
 /**

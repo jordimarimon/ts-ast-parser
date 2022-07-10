@@ -103,6 +103,11 @@ export function getType(node: ts.VariableDeclaration | ts.PropertyDeclaration): 
     return type;
 }
 
+/**
+ *
+ *
+ * @param expression
+ */
 export function inferExpressionType(expression: ts.Expression | undefined): Type {
     switch (expression?.kind) {
         case ts.SyntaxKind.TrueKeyword:
@@ -134,6 +139,11 @@ export function inferExpressionType(expression: ts.Expression | undefined): Type
     }
 }
 
+/**
+ *
+ *
+ * @param node
+ */
 export function getDefaultValue(node: ts.VariableDeclaration | ts.PropertyDeclaration): string {
     const expr = node.initializer;
 
@@ -148,10 +158,23 @@ export function getDefaultValue(node: ts.VariableDeclaration | ts.PropertyDeclar
     return defaultValue ?? '';
 }
 
-export function hasExportKeyword(node: ts.Node): boolean {
-    return !!node.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ExportKeyword);
-}
+/**
+ * Checking for:
+ *
+ *      customElements.define('my-el', class MyEl {});
+ *      window.customElements.define('my-el', class MyEl {});
+ *
+ * @param node
+ *
+ */
+export function isCustomElementsDefineCall(node: ts.ExpressionStatement): boolean {
+    if (!ts.isCallExpression(node.expression)) {
+        return false;
+    }
 
-export function hasDefaultKeyword(node: ts.Node): boolean {
-    return !!node.modifiers?.some(mod => mod.kind === ts.SyntaxKind.DefaultKeyword);
+    const functionExpr = node.expression.expression as ts.PropertyAccessExpression;
+    const namespaceExpr  = functionExpr?.expression as ts.PropertyAccessExpression;
+
+    return (namespaceExpr?.getText() === 'customElements' || namespaceExpr?.name?.escapedText === 'customElements') &&
+        functionExpr?.name?.getText() === 'define';
 }
