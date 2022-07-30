@@ -5,15 +5,30 @@
             {
                 "name": "x",
                 "jsDoc": {
+                    "description": "This the description",
                     "since": "2.0.0",
                     "see": "https://www.example.com",
-                    "category": "Variable"
+                    "category": "Variable",
+                    "fires": {
+                        "name": "eventName",
+                        "type": "CustomEvent<number>",
+                        "description": "Event Description"
+                    },
+                    "cssprop": {
+                        "name": "--size",
+                        "default": "1rem",
+                        "description": "Element size"
+                    },
+                    "csspart": {
+                        "name": "somePart",
+                        "description": "Description of the part"
+                    }
                 },
                 "kind": "variable",
                 "type": {
                     "text": "number"
                 },
-                "description": "",
+                "description": "This the description",
                 "decorators": [],
                 "default": "4"
             }

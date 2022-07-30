@@ -37,15 +37,6 @@ export function parseFromFiles(files: string[], options: Partial<Options> = {}):
     return modules;
 }
 
-function createSourceFile(source: string, fileName = ''): ts.SourceFile {
-    return ts.createSourceFile(
-        fileName,
-        source,
-        ts.ScriptTarget.ES2020,
-        true,
-    );
-}
-
 function collectMetadata(files: string[], options: Partial<Options> = {}): {modules: Module[]; sourceFiles: ts.SourceFile[]} {
     const modules: Module[] = [];
     const sourceFiles: ts.SourceFile[] = [];
@@ -57,14 +48,9 @@ function collectMetadata(files: string[], options: Partial<Options> = {}): {modu
             continue;
         }
 
-        let modulePath = file;
-
-        if (path.isAbsolute(modulePath)) {
-            modulePath = path.relative(process.cwd(), file);
-        }
-
+        const modulePath = path.relative(process.cwd(), file);
         const source = fs.readFileSync(modulePath, 'utf8');
-        const sourceFile = createSourceFile(source, file);
+        const sourceFile = createSourceFile(source, modulePath);
         const moduleDoc = collect(sourceFile, options);
 
         sourceFiles.push(sourceFile);
@@ -72,6 +58,15 @@ function collectMetadata(files: string[], options: Partial<Options> = {}): {modu
     }
 
     return {modules, sourceFiles};
+}
+
+function createSourceFile(source: string, fileName = ''): ts.SourceFile {
+    return ts.createSourceFile(
+        fileName,
+        source,
+        ts.ScriptTarget.ES2020,
+        true,
+    );
 }
 
 function callPlugins(sourceFiles: ts.SourceFile[], modules: Module[], plugins: Plugin[] = []): void {

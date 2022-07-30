@@ -16,11 +16,14 @@ export enum JSDocTagType {
     since = 'since',
     throws = 'throws',
     public = 'public',
-    private = 'private',
     protected = 'protected',
+    private = 'private',
     internal = 'internal',
     ignore = 'ignore',
     category = 'category',
+    typedef = 'typedef',
+
+    // Custom Elements
     reflect = 'reflect',
     cssprop = 'cssprop',
     cssproperty = 'cssproperty',
@@ -35,19 +38,37 @@ export enum JSDocTagType {
 
 export type JSDoc = {
     [JSDocTagType.description]: string;
+    [JSDocTagType.param]: {name: string; default: string; options: boolean; description: string};
+    [JSDocTagType.returns]: string;
     [JSDocTagType.type]: string;
+    [JSDocTagType.summary]: string;
     [JSDocTagType.default]: string;
-    [JSDocTagType.deprecated]: boolean;
     [JSDocTagType.readonly]: boolean;
+    [JSDocTagType.deprecated]: boolean;
+    [JSDocTagType.example]: string;
+    [JSDocTagType.override]: boolean;
     [JSDocTagType.see]: string;
+    [JSDocTagType.since]: string;
+    [JSDocTagType.throws]: string;
+    [JSDocTagType.public]: boolean;
+    [JSDocTagType.protected]: boolean;
+    [JSDocTagType.private]: boolean;
+    [JSDocTagType.internal]: boolean;
+    [JSDocTagType.ignore]: boolean;
     [JSDocTagType.category]: string;
+
+    // Custom Elements
+    [JSDocTagType.reflect]: boolean;
+    [JSDocTagType.cssprop]: {name: string; default: string; description: string};
+    [JSDocTagType.cssproperty]: {name: string; default: string; description: string};
+    [JSDocTagType.csspart]: {name: string; description: string};
+    [JSDocTagType.slot]: {name: string; description: string};
+    [JSDocTagType.attr]: {name: string; description: string};
+    [JSDocTagType.fires]: {name: string; type: string; description: string};
+    [JSDocTagType.event]: {name: string; type: string; description: string};
     [JSDocTagType.tag]: string;
     [JSDocTagType.tagname]: string;
-    [JSDocTagType.since]: string;
-    [JSDocTagType.ignore]: boolean;
-    [JSDocTagType.internal]: boolean;
-    [JSDocTagType.private]: boolean;
-    [JSDocTagType.protected]: boolean;
-    [JSDocTagType.public]: boolean;
+
+    // Custom
     [key: string]: unknown;
 };

@@ -7,18 +7,22 @@ import chalk from 'chalk';
 const LIB_PREFIX = '[TS AST PARSER]';
 
 
-export function logWarning(message: string): void {
-    console.warn(chalk.yellow(`${LIB_PREFIX}: ${message}`));
+export function logWarning(message: string, payload?: unknown): void {
+    console.log(chalk.yellow(`${LIB_PREFIX}: ${message}`));
+
+    if (payload != null) {
+        console.warn(payload);
+    }
 }
 
-export function logError(message: string, error?: unknown): void {
-    console.error(chalk.red(`${LIB_PREFIX}: ${message}`));
+export function logError(message: string, payload?: unknown): void {
+    console.log(chalk.red(`${LIB_PREFIX}: ${message}`));
 
-    if (error != null) {
-        console.error(error);
+    if (payload != null) {
+        console.error(payload);
     }
 }
 
 export function logInfo(message: string): void {
-    console.info(chalk.blue(`${LIB_PREFIX}: ${message}`));
+    console.log(chalk.blue(`${LIB_PREFIX}: ${message}`));
 }
