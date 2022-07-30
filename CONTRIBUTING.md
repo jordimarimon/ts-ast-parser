@@ -15,24 +15,15 @@ TODO
 
 ## Code Style
 
-TODO
-
-## TypeScript
-
-TODO
+TODO 
 
 ## Set up
 
-TODO
-
-### Install dependencies
-
+    git clone https://github.com/jordimarimon/ts-ast-parser.git
+    cd ts-ast-parser
     npm i
+    npm run build
 
-### Testing
+### Running tests
 
     npm run test
-
-### Deploy local server for documentation
-
-    npm run doc

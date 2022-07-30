@@ -40,7 +40,7 @@ export interface Options {
      * You can add a handler for a jsDoc tag.
      *
      * Each handler receives the value assigned to the jsDoc
-     * and the declaration where it's defined.
+     * and the declaration (variable, function, class, property, etc...) where it's defined.
      *
      * Use it to add extra metadata to the declaration.
      */
@@ -50,9 +50,9 @@ export interface Options {
      * You can add a handler for any decorator
      *
      * Each handler receives the parameters supplied to the decorator
-     * and the declaration to where it's applied.
+     * and the declaration (function, class, property, etc...) to where it's applied.
      *
      * Use it to add extra metadata to the declaration.
      */
-    decoratorHandlers: {[key: string]: (parameters: Parameter, declaration: Declaration) => void};
+    decoratorHandlers: {[key: string]: (parameters: Parameter[], declaration: Declaration) => void};
 }

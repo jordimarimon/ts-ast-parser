@@ -12,15 +12,15 @@
         "tsbuildinfo",
         "cssprop",
         "cssproperty",
-        "csspart"
+        "csspart",
+        "pnpm"
     ],
     "ignorePaths": [
         "node_modules",
         "package.json",
         "package-lock.json",
         ".vscode/**",
-        ".idea/**",
-        "**/*.min.js"
+        ".idea/**"
     ],
     "useGitignore": true
 }

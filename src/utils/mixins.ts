@@ -18,11 +18,6 @@ export function extractMixinNodes(node: ts.Node): MixinNodes | null {
     return null;
 }
 
-/**
- *
- *
- * @param node
- */
 function extractMixinNodesFromVariableStatement(node: ts.VariableStatement): MixinNodes | null {
     //
     // CASE 1: We have a mixin declared in the form of:
@@ -92,9 +87,6 @@ function extractMixinNodesFromVariableStatement(node: ts.VariableStatement): Mix
     return null;
 }
 
-/**
- *
- */
 function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration): MixinNodes | null {
     if (node.body == null || !ts.isBlock(node.body)) {
         return null;

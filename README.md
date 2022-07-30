@@ -12,9 +12,9 @@ This library is inspired by the great work done in:
 
 If you're working with custom elements, I recommend you to go check them out.
 
-This library is a more generic approach than the above two to fill the needs outside custom elements.
+This library tries to be a more generic approach than the above two to fill the needs outside custom elements.
 
-Other libraries of interest are (each library offers different needs):
+Other libraries of interest are:
 
 * [JSDoc](https://github.com/jsdoc/jsdoc)
 * [JSDoc To Markdown](https://github.com/jsdoc2md/jsdoc-to-markdown)
@@ -31,47 +31,37 @@ Table of contents
 
 <!--ts-->
 * [Install](#install)
-* [Usage](#usage)
-* [API](#api)
-* [Customization](#customization)
-  * [JSDoc Handlers](#jsdoc-handlers)
-  * [Decorator Handlers](#decorator-handlers)
-  * [Plugins](#plugins)
+  * [npm](#npm)
+  * [yarn](#yarn)
+  * [pnpm](#pnpm)
+  * [Peer Dependencies](#peer-dependencies)
+* [Documentation](#documentation)
 * [Contributing](#contributing)
 <!--te-->
 
 Install
 =================
 
-TODO
+### npm
 
-Usage
+    npm install <pkg-name>
+
+### yarn
+
+    yarn add <pkg-name>
+
+### pnpm
+
+    pnpm add <pkg-name>
+
+### Peer Dependencies
+
+Depends on `typescript`, so you need to manually install this as well.
+
+Documentation
 =================
 
-TODO
-
-API
-=================
-
-TODO
-
-Customization
-=================
-
-JSDoc Handlers
------------
-
-TODO
-
-Decorator Handlers
------------
-
-TODO
-
-Plugins
------------
-
-TODO
+[Check out the documentation website](https://jordimarimon.github.io/ts-ast-parser)
 
 Contributing
 =================

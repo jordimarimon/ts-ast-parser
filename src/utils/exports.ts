@@ -5,6 +5,13 @@ export function hasExportKeyword(node: ts.Node): boolean {
     return !!node.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ExportKeyword);
 }
 
+/**
+ * Case of an export declaration like the following:
+ *
+ *      export default var1;
+ *
+ * @param node
+ */
 export function hasDefaultKeyword(node: ts.Node): boolean {
     return !!node.modifiers?.some(mod => mod.kind === ts.SyntaxKind.DefaultKeyword);
 }
