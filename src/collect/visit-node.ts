@@ -1,16 +1,11 @@
 import { extractMixinNodes, hasExportKeyword, isCustomElementsDefineCall, shouldIgnore } from '../utils';
 import { createExport, createImport, createVariable } from '../factories';
+import { Options } from '../options';
 import { Module } from '../models';
 import ts from 'typescript';
 
 
-/**
- * Extracts metadata from the AST node
- *
- * @param rootNode
- * @param moduleDoc
- */
-export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module): void {
+export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module, options: Partial<Options> = {}): void {
     if (shouldIgnore(rootNode)) {
         return;
     }
@@ -36,7 +31,7 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     }
 
     if (ts.isVariableStatement(rootNode)) {
-        createVariable(rootNode, moduleDoc);
+        createVariable(rootNode, moduleDoc, options);
         return;
     }
 

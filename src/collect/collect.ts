@@ -5,16 +5,7 @@ import { Module } from '../models';
 import ts from 'typescript';
 
 
-/**
- * Loops through each node of the AST and extracts the metadata
- *
- * @param sourceFile - The TypeScript AST root node
- * @param _options -
- *
- * @returns The metadata of the module
- */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function collect(sourceFile: ts.SourceFile, _options: Partial<Options> = {}): Module {
+export function collect(sourceFile: ts.SourceFile, options: Partial<Options> = {}): Module {
     const moduleDoc: Module = {
         path: sourceFile.fileName || '',
         declarations: [],
@@ -22,7 +13,7 @@ export function collect(sourceFile: ts.SourceFile, _options: Partial<Options> = 
         imports: [],
     };
 
-    visitNode(sourceFile, moduleDoc);
+    visitNode(sourceFile, moduleDoc, options);
 
     removeNonExportableDeclarations(moduleDoc);
 

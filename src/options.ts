@@ -1,4 +1,5 @@
-import { Declaration, Module, Parameter } from './models';
+import { Module, Parameter } from './models';
+import { Spec } from 'comment-parser';
 import ts from 'typescript';
 
 
@@ -39,20 +40,26 @@ export interface Options {
     /**
      * You can add a handler for a jsDoc tag.
      *
-     * Each handler receives the value assigned to the jsDoc
-     * and the declaration (variable, function, class, property, etc...) where it's defined.
+     * Each handler receives the jsDoc tag parsed.
      *
      * Use it to add extra metadata to the declaration.
      */
-    jsDocHandlers: {[key: string]: (value: string, declaration: Declaration) => void};
+    jsDocHandlers: JSDocHandlers;
 
     /**
      * You can add a handler for any decorator
      *
-     * Each handler receives the parameters supplied to the decorator
-     * and the declaration (function, class, property, etc...) to where it's applied.
+     * Each handler receives the parameters supplied to the decorator.
      *
      * Use it to add extra metadata to the declaration.
      */
-    decoratorHandlers: {[key: string]: (parameters: Parameter[], declaration: Declaration) => void};
+    decoratorHandlers: DecoratorHandlers;
 }
+
+export type JSDocHandlers = {
+    [key: string]: (tag: Spec) => void;
+};
+
+export type DecoratorHandlers = {
+    [key: string]: (parameters: Parameter[]) => void;
+};

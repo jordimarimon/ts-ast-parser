@@ -1,7 +1,8 @@
 import { JSDoc, JSDocComment, JSDocNode, JSDocTagType } from '../models';
 import { parse, Spec } from 'comment-parser';
-import { logWarning } from './logs';
+import { logError, logWarning } from './logs';
 import ts from 'typescript';
+import { JSDocHandlers } from '../options';
 
 
 export function shouldIgnore(node: ts.Node): boolean {
@@ -17,17 +18,17 @@ export function shouldIgnore(node: ts.Node): boolean {
     });
 }
 
-export function getJSDoc(node: JSDocNode): Partial<JSDoc> {
+export function getJSDoc(node: JSDocNode, jsDocHandlers: JSDocHandlers = {}): Partial<JSDoc> {
     const doc: Partial<JSDoc> = {};
 
     for (const jsDocComment of (node.jsDoc ?? [])) {
-        collectJsDoc(jsDocComment, doc);
+        collectJsDoc(jsDocComment, doc, jsDocHandlers);
     }
 
     return doc;
 }
 
-function collectJsDoc(jsDocComment: JSDocComment, doc: Partial<JSDoc>): void {
+function collectJsDoc(jsDocComment: JSDocComment, doc: Partial<JSDoc>, jsDocHandlers: JSDocHandlers = {}): void {
     const parsedJsDocComment = parse(jsDocComment.getFullText()) ?? [];
 
     for (const block of parsedJsDocComment) {
@@ -40,12 +41,12 @@ function collectJsDoc(jsDocComment: JSDocComment, doc: Partial<JSDoc>): void {
         for (const tag of block.tags) {
             const name = tag.tag ?? '';
 
-            doc[name] = getJSTagValue(name, tag);
+            doc[name] = getJSTagValue(name, tag, jsDocHandlers);
         }
     }
 }
 
-function getJSTagValue<K extends keyof JSDoc>(name: K, tag: Spec): JSDoc[K] {
+function getJSTagValue<K extends keyof JSDoc>(name: K, tag: Spec, jsDocHandlers: JSDocHandlers = {}): JSDoc[K] {
     switch (name) {
         case JSDocTagType.returns:
         case JSDocTagType.type:
@@ -104,6 +105,14 @@ function getJSTagValue<K extends keyof JSDoc>(name: K, tag: Spec): JSDoc[K] {
             };
 
         default:
+            if (jsDocHandlers[name] !== undefined) {
+                try {
+                    return void jsDocHandlers[name](tag);
+                } catch (error: unknown) {
+                    logError(`The JSDoc Handler "${name}" has thrown the following error: `, error);
+                }
+            }
+
             return tag.name;
     }
 }
