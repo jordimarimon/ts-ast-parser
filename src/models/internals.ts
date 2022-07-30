@@ -16,20 +16,7 @@ export interface JSDocComment extends ts.Node {
     tags?: ts.JSDocTag[];
 }
 
-/**
- * We use internally this interface to define the nodes that make up
- * a JS mixin.
- */
 export interface MixinNodes {
-    /**
-     * A mixin is a function but the function can be defined
-     * as an arrow function through a variable statement.
-     */
     function: ts.FunctionDeclaration | ts.VariableStatement;
-
-    /**
-     * The mixin function defines a new class that inherits
-     * a base class.
-     */
     class: ts.ClassExpression | ts.ClassDeclaration;
 }

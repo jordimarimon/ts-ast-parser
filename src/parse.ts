@@ -37,14 +37,6 @@ export function parseFromFiles(files: string[], options: Partial<Options> = {}):
     return modules;
 }
 
-/**
- * Creates the TypeScript AST from source code
- *
- * @param source - The TypeScript source code
- * @param fileName - Optionally you can specify the file path/name
- *
- * @returns The TypesScript root node of the AST
- */
 function createSourceFile(source: string, fileName = ''): ts.SourceFile {
     return ts.createSourceFile(
         fileName,
@@ -54,15 +46,6 @@ function createSourceFile(source: string, fileName = ''): ts.SourceFile {
     );
 }
 
-/**
- * Given a collection of TypeScript file paths and some configurable options,
- * extracts metadata from the TypeScript Abstract Syntax Tree.
- *
- * @param files - An array of paths where the TypeScripts files are located
- * @param options - Options that can be used to configure the output metadata
- *
- * @returns The metadata and the root node of the AST of each TypeScript file
- */
 function collectMetadata(files: string[], options: Partial<Options> = {}): {modules: Module[]; sourceFiles: ts.SourceFile[]} {
     const modules: Module[] = [];
     const sourceFiles: ts.SourceFile[] = [];
@@ -91,14 +74,6 @@ function collectMetadata(files: string[], options: Partial<Options> = {}): {modu
     return {modules, sourceFiles};
 }
 
-/**
- * Calls the plugin handlers provided by the user in a safe environment
- *
- * @param sourceFiles - The TypeScript root nodes of all files
- * @param modules - The metadata that has been extracted
- * @param plugins - The array of user plugins
- *
- */
 function callPlugins(sourceFiles: ts.SourceFile[], modules: Module[], plugins: Plugin[] = []): void {
     if (!Array.isArray(plugins)) {
         return;

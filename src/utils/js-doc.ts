@@ -19,11 +19,6 @@ export function shouldIgnore(node: ts.Node): boolean {
     });
 }
 
-/**
- *
- *
- * @param comment
- */
 export function getJSTagComment(comment: string | ts.NodeArray<ts.JSDocComment> | undefined): string {
     if (!comment) {
         return '';

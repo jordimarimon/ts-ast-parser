@@ -1,3 +1,6 @@
+/**
+ * See: https://jsdoc.app/
+ */
 export enum JSDocTagType {
     description = 'description',
     param = 'param',
@@ -30,11 +33,6 @@ export enum JSDocTagType {
     tagname = 'tagname',
 }
 
-/**
- * Represents all the JSDoc tags and comment extracted from a node
- *
- * See: https://jsdoc.app/
- */
 export type JSDoc = {
     [JSDocTagType.description]: string;
     [JSDocTagType.type]: string;

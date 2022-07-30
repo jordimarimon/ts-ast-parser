@@ -103,11 +103,6 @@ export function getType(node: ts.VariableDeclaration | ts.PropertyDeclaration): 
     return type;
 }
 
-/**
- *
- *
- * @param expression
- */
 export function inferExpressionType(expression: ts.Expression | undefined): Type {
     switch (expression?.kind) {
         case ts.SyntaxKind.TrueKeyword:
@@ -139,11 +134,6 @@ export function inferExpressionType(expression: ts.Expression | undefined): Type
     }
 }
 
-/**
- *
- *
- * @param node
- */
 export function getDefaultValue(node: ts.VariableDeclaration | ts.PropertyDeclaration): string {
     const expr = node.initializer;
 

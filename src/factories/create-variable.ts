@@ -5,9 +5,6 @@ import ts from 'typescript';
 
 /**
  * Creates the metadata for a variable statement
- *
- * @param node
- * @param moduleDoc
  */
 export function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
 

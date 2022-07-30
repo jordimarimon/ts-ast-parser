@@ -6,24 +6,11 @@ export enum DecoratorType {
     property = 'property',
     method = 'method',
     parameter = 'parameter',
+    variable = 'variable',
 }
 
-/**
- *
- */
 export interface Decorator {
-    /**
-     * The name of the decorator
-     */
     name: string;
-
-    /**
-     * The type of decorator
-     */
     type: DecoratorType;
-
-    /**
-     * The arguments supplied to the decorator
-     */
     parameters: Parameter[];
 }
