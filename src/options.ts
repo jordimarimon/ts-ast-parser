@@ -3,31 +3,33 @@ import ts from 'typescript';
 
 
 /**
- *
+ * A plugin can be used to customize the output metadata generated.
  */
 export interface Plugin {
     /**
-     *
+     * A name to identify the plugin in case there is an error.
      */
     name: string;
 
     /**
+     * A callback function that can be used to add custom
+     * metadata to a specific source file.
      *
+     * You need to modify the metadata in place.
      *
-     * @param node
-     * @param moduleDoc
+     * @param node - The TypeScript AST root node of the source file
+     * @param modules - The entire metadata from all the files (in case you need to cross-references).
      */
-    handler: (node: ts.SourceFile, moduleDoc: Module) => void;
+    handler: (node: ts.SourceFile, modules: Module[]) => void;
 }
 
 /**
- * Options to add extra functionality while parsing
+ * Options to customize how the metadata is generated
  */
 export interface Options {
     /**
-     * You can provide plugins which receive each
-     * root node of the AST of a file, the generated metadata
-     * for that specific file and the entire metadata from all
+     * You can provide plugins which receive a
+     * root node of the AST of a file and the entire metadata from all
      * the files (in case you need to cross-references).
      *
      * Use it to add extra metadata to the one generated.
