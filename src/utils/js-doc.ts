@@ -107,7 +107,7 @@ function getJSTagValue<K extends keyof JSDoc>(name: K, tag: Spec, jsDocHandlers:
         default:
             if (jsDocHandlers[name] !== undefined) {
                 try {
-                    return void jsDocHandlers[name](tag);
+                    return jsDocHandlers[name](tag);
                 } catch (error: unknown) {
                     logError(`The JSDoc Handler "${name}" has thrown the following error: `, error);
                 }

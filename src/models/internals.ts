@@ -12,7 +12,7 @@ export interface JSDocNode extends ts.Node {
 
 export interface JSDocComment extends ts.Node {
     kind: ts.SyntaxKind.JSDocComment;
-    comment?: string | undefined;
+    comment?: string;
     tags?: ts.JSDocTag[];
 }
 

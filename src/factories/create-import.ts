@@ -18,7 +18,13 @@ export function isDefaultImport(node: ts.ImportDeclaration): boolean {
  *      import {namedA, namedB} from 'foo';
  */
 export function isNamedImport(node: ts.ImportDeclaration): boolean {
-    return isNotEmptyArray((node?.importClause?.namedBindings as ts.NamedImports | undefined)?.elements);
+    const namedImports = node?.importClause?.namedBindings;
+
+    if (!namedImports || !ts.isNamedImports(namedImports)) {
+        return false;
+    }
+
+    return isNotEmptyArray(namedImports?.elements);
 }
 
 /**
@@ -27,7 +33,13 @@ export function isNamedImport(node: ts.ImportDeclaration): boolean {
  *      import * as name from './my-module.js';
  */
 export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
-    return !!(node?.importClause?.namedBindings as ts.NamespaceImport | undefined)?.name && !isNamedImport(node);
+    const namespaceImports = node?.importClause?.namedBindings;
+
+    if (!namespaceImports || !ts.isNamespaceImport(namespaceImports)) {
+        return false;
+    }
+
+    return !!namespaceImports?.name && !isNamedImport(node);
 }
 
 /**

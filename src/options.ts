@@ -57,9 +57,9 @@ export interface Options {
 }
 
 export type JSDocHandlers = {
-    [key: string]: (tag: Spec) => void;
+    [key: string]: (tag: Spec) => unknown;
 };
 
 export type DecoratorHandlers = {
-    [key: string]: (parameters: Parameter[]) => void;
+    [key: string]: (parameters: Parameter[]) => unknown;
 };
