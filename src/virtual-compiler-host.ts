@@ -5,7 +5,11 @@ import ts from 'typescript';
 //      https://learning-notes.mistermicheels.com/javascript/typescript/compiler-api/
 //      https://github.com/AlCalzone/virtual-tsc/blob/master/src/virtual-fs.ts
 //      https://github.com/AlCalzone/virtual-tsc/blob/master/src/host.ts
-export function createVirtualCompilerHost(fileName: string, code: string, options: ts.CompilerOptions = {}): ts.CompilerHost {
+export function createVirtualCompilerHost(
+    fileName: string,
+    code: string,
+    options: ts.CompilerOptions = {},
+): ts.CompilerHost {
 
     const sourceFile = ts.createSourceFile(fileName, code, ts.ScriptTarget.Latest, true);
     const defaultCompilerHost = ts.createCompilerHost(options);

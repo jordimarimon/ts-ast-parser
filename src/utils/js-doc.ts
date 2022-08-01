@@ -59,7 +59,7 @@ function getJSTagValue<K extends keyof JSDoc>(name: K, tag: Spec, jsDocHandlers:
         case JSDocTagType.see:
         case JSDocTagType.tag:
         case JSDocTagType.tagname:
-            return tag.name;
+            return normalizeDescription(tag.description ? `${tag.name} ${tag.description}` : tag.name);
 
         case JSDocTagType.readonly:
         case JSDocTagType.deprecated:

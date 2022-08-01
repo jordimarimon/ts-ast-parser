@@ -5,7 +5,7 @@ import fs from 'fs';
 
 
 // Use the following declarations to debug the tests
-const CATEGORY = 'variable';
+const CATEGORY = 'function';
 const SUBCATEGORY = 'basic';
 const DEV = true;
 const ASSERT = false;

@@ -39,6 +39,8 @@ export enum JSDocTagType {
     tagname = 'tagname',
 }
 
+// FIXME(Jordi M.): JSDoc should be defined as an array of objects
+//  because there can be keys repeated (for example `@param`)
 export type JSDoc = {
     [JSDocTagType.description]: string;
     [JSDocTagType.param]: {name: string; default: string; options: boolean; description: string};

@@ -5,7 +5,12 @@ import { Module } from '../models';
 import ts from 'typescript';
 
 
-export function collect(fileName: string, sourceFile: ts.SourceFile | undefined, checker: ts.TypeChecker, options: Partial<Options> = {}): Module {
+export function collect(
+    fileName: string,
+    sourceFile: ts.SourceFile | undefined,
+    checker: ts.TypeChecker,
+    options: Partial<Options> = {},
+): Module {
     const moduleDoc: Module = {
         path: fileName || '',
         declarations: [],
@@ -20,6 +25,8 @@ export function collect(fileName: string, sourceFile: ts.SourceFile | undefined,
     visitNode(sourceFile, checker, moduleDoc, options);
 
     removeNonExportableDeclarations(moduleDoc);
+
+    // TODO(Jordi M.): Link Phase -> User Defined Types and inheritance
 
     return moduleDoc;
 }
