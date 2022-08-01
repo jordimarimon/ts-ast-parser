@@ -3,19 +3,16 @@ TypeScript Abstract Syntax Tree Parser
 
 **NOTE: This is still a work in progress**
 
-Simplifies the TypeScript AST generated from the TypeScript compiler to automatically generate documentation.
+Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful 
+metadata from your source code.
 
-This library is inspired by the great work done in:
-
-* [Custom Element Manifest](https://github.com/webcomponents/custom-elements-manifest)
-* [Custom Element Manifest analyser](https://github.com/open-wc/custom-elements-manifest/tree/master/packages/analyzer)
-
-If you're working with custom elements, I recommend you to go check them out.
-
-This library tries to be a more generic approach than the above two to fill the needs outside custom elements.
+This metadata then can be used to generate documentation for your source code.
 
 Other libraries of interest are:
 
+* [TypeScript Compiler](https://github.com/microsoft/TypeScript/tree/main/src/compiler)
+* [Custom Element Manifest analyser](https://github.com/open-wc/custom-elements-manifest/tree/master/packages/analyzer)
+* [ts-morph](https://github.com/dsherret/ts-morph/tree/latest/packages/ts-morph)
 * [JSDoc](https://github.com/jsdoc/jsdoc)
 * [JSDoc To Markdown](https://github.com/jsdoc2md/jsdoc-to-markdown)
 * [Better docs](https://github.com/SoftwareBrothers/better-docs)
@@ -25,6 +22,9 @@ Other libraries of interest are:
 * [DocFX](https://dotnet.github.io/docfx/)
 * [TS Docs gen](https://github.com/SimplrJS/ts-docs-gen)
 * [Node TypeScript Parser](https://github.com/buehler/node-typescript-parser)
+
+A lot of the code written in this repository has been inspired/sourced from the above libraries and 
+the TypeScript compiler source code.
 
 Table of contents
 =================

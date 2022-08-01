@@ -5,15 +5,19 @@ import { Module } from '../models';
 import ts from 'typescript';
 
 
-export function collect(sourceFile: ts.SourceFile, options: Partial<Options> = {}): Module {
+export function collect(fileName: string, sourceFile: ts.SourceFile | undefined, checker: ts.TypeChecker, options: Partial<Options> = {}): Module {
     const moduleDoc: Module = {
-        path: sourceFile.fileName || '',
+        path: fileName || '',
         declarations: [],
         exports: [],
         imports: [],
     };
 
-    visitNode(sourceFile, moduleDoc, options);
+    if (sourceFile == null) {
+        return moduleDoc;
+    }
+
+    visitNode(sourceFile, checker, moduleDoc, options);
 
     removeNonExportableDeclarations(moduleDoc);
 

@@ -1,9 +1,16 @@
 # Contributing
 
-For a better understanding of how it works, it's recommended to have a look at:
+For a better understanding of how the library works, it's recommended to play with some 
+AST viewer (the below ones are a great): 
 
-- [TypeScript AST Viewer](https://ts-ast-viewer.com) or,
+- [TypeScript AST Viewer](https://ts-ast-viewer.com)
 - [AST Explorer](https://astexplorer.net/)
+
+Also, helps a lot to understand how the TypeScript compiler works:
+
+* [TypeScript Compiler Source Code](https://github.com/microsoft/TypeScript/tree/main/src/compiler)
+* [TypeScript Compiler Internals](https://basarat.gitbook.io/typescript/overview)
+* [TypeScript Compiler Notes](https://github.com/microsoft/TypeScript-Compiler-Notes)
 
 ## Filing Issues
 

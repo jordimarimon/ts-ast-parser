@@ -1,4 +1,3 @@
-import { Type } from '../models';
 import ts from 'typescript';
 
 
@@ -10,8 +9,33 @@ export const isNotEmptyArray = <T = unknown[]>(arr: unknown): arr is T => Array.
 /**
  * Returns true if the class member (property or method) is static
  */
-export const isStaticMember = (member: ts.PropertyDeclaration): boolean => {
+export const isStaticMember = (member: ts.PropertyDeclaration | ts.MethodDeclaration): boolean => {
     return !!member?.modifiers?.some?.(x => x.kind === ts.SyntaxKind.StaticKeyword);
+};
+
+/**
+ * Returns true if the declaration is one of the following:
+ *
+ *      function name(...) { ... }
+ *
+ *      const name = (...) => { ... };
+ */
+export const isFunctionDeclaration = (node: ts.Node): node is ts.FunctionDeclaration | ts.VariableStatement => {
+    if (ts.isFunctionDeclaration(node)) {
+        return true;
+    }
+
+    if (!ts.isVariableStatement(node)) {
+        return false;
+    }
+
+    const declaration = node.declarationList?.declarations?.[0];
+
+    if (!declaration) {
+        return false;
+    }
+
+    return !!declaration.initializer && ts.isArrowFunction(declaration.initializer);
 };
 
 /**
@@ -71,68 +95,6 @@ export const getReturnValue = (returnStatement: ts.ReturnStatement | undefined):
 
     return expr?.getText() ?? '';
 };
-
-/**
- * Returns the type of variable defined inside the module scope or
- * a property defined inside the class scope.
- */
-export function getType(node: ts.VariableDeclaration | ts.PropertyDeclaration): Type {
-    let type: Type;
-
-    // If it has a type defined, use it
-    if (node.type) {
-        type = {text: node.type.getText()};
-    } else {
-        // Check the type of the expression being used to initialize
-        // the variable
-        const expr = node.initializer;
-
-        // Check the case where "as const" is being used
-        if (expr != undefined && isAsConst(expr)) {
-            type = {text: expr.expression?.getText() ?? ''};
-        } else {
-            type = inferExpressionType(expr);
-        }
-    }
-
-    // In case of a class property, there may be a question token for undefined
-    if (ts.isPropertyDeclaration(node) && node.questionToken) {
-        type.text += ' | undefined';
-    }
-
-    return type;
-}
-
-export function inferExpressionType(expression: ts.Expression | undefined): Type {
-    switch (expression?.kind) {
-        case ts.SyntaxKind.TrueKeyword:
-        case ts.SyntaxKind.FalseKeyword:
-            return {text: 'boolean'};
-
-        case ts.SyntaxKind.StringLiteral:
-            return {text: 'string'};
-
-        case ts.SyntaxKind.PrefixUnaryExpression:
-            return (expression as ts.PrefixUnaryExpression)?.operator === ts.SyntaxKind.ExclamationToken
-                ? {text: 'boolean'}
-                : {text: 'number'};
-
-        case ts.SyntaxKind.NumericLiteral:
-            return {text: 'number'};
-
-        case ts.SyntaxKind.NullKeyword:
-            return {text: 'null'};
-
-        case ts.SyntaxKind.ArrayLiteralExpression:
-            return {text: 'array'};
-
-        case ts.SyntaxKind.ObjectLiteralExpression:
-            return {text: 'object'};
-
-        default:
-            return {text: 'unknown'};
-    }
-}
 
 export function getDefaultValue(node: ts.VariableDeclaration | ts.PropertyDeclaration): string {
     const expr = node.initializer;

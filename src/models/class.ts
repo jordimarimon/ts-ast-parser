@@ -3,6 +3,7 @@ import { FunctionLike } from './function';
 import { Reference } from './reference';
 import { Decorator } from './decorator';
 import { JSDoc } from './js-doc';
+import { Parameter } from './parameter';
 
 
 export enum ModifierType {
@@ -27,11 +28,16 @@ export interface ClassMethod extends FunctionLike {
     inheritedFrom?: Reference;
 }
 
+export interface Constructor {
+    description?: string;
+    parameters: Parameter[];
+}
+
 export interface ClassLike {
     name: string;
     description?: string;
-    superclass?: Reference;
-    mixins?: Reference[];
+    superclasses?: Reference;
+    constructors: Constructor[];
     members?: ClassMember[];
     decorators: Decorator[];
     jsDoc: Partial<JSDoc>;

@@ -1,11 +1,22 @@
-import { extractMixinNodes, hasExportKeyword, isCustomElementsDefineCall, shouldIgnore } from '../utils';
-import { createExport, createImport, createVariable } from '../factories';
+import { createExport, createFunction, createImport, createVariable } from '../factories';
 import { Options } from '../options';
 import { Module } from '../models';
 import ts from 'typescript';
+import {
+    extractMixinNodes,
+    hasExportKeyword,
+    isCustomElementsDefineCall,
+    isFunctionDeclaration,
+    shouldIgnore,
+} from '../utils';
 
 
-export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module, options: Partial<Options> = {}): void {
+export function visitNode(
+    rootNode: ts.Node | ts.SourceFile,
+    checker: ts.TypeChecker,
+    moduleDoc: Module,
+    options: Partial<Options> = {},
+): void {
     if (shouldIgnore(rootNode)) {
         return;
     }
@@ -31,12 +42,12 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module, 
     }
 
     if (ts.isVariableStatement(rootNode)) {
-        createVariable(rootNode, moduleDoc, options);
+        createVariable(rootNode, checker, moduleDoc, options);
         return;
     }
 
-    if (ts.isFunctionDeclaration(rootNode)) {
-        // TODO: It's not yet implemented
+    if (isFunctionDeclaration(rootNode)) {
+        createFunction(rootNode, moduleDoc, options);
         return;
     }
 
@@ -61,5 +72,5 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module, 
     }
 
 
-    ts.forEachChild(rootNode, (node: ts.Node) => visitNode(node, moduleDoc));
+    ts.forEachChild(rootNode, (node: ts.Node) => visitNode(node, checker, moduleDoc, options));
 }

@@ -21,7 +21,7 @@ export interface Plugin {
      * @param node - The TypeScript AST root node of the source file
      * @param modules - The entire metadata from all the files (in case you need to cross-references).
      */
-    handler: (node: ts.SourceFile, modules: Module[]) => void;
+    handler: (node: ts.SourceFile | undefined, modules: Module[]) => void;
 }
 
 /**

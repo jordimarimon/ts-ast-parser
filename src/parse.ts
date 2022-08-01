@@ -1,7 +1,8 @@
+import { createVirtualCompilerHost } from './virtual-compiler-host';
+import { CollectResults, Module } from './models';
 import { logError, logWarning } from './utils';
 import { Options, Plugin } from './options';
 import { collect } from './collect';
-import { Module } from './models';
 import * as path from 'path';
 import ts from 'typescript';
 import * as fs from 'fs';
@@ -11,13 +12,18 @@ import * as fs from 'fs';
  * Extracts the metadata from a TypeScript code snippet
  *
  * @param source - A string that represents the TypeScript source code
+ * @param options - Options that can be used to configure the output metadata
  *
  * @returns The metadata extracted from the source code provided
  */
-export function parseFromSource(source: string): Module {
-    const sourceFile = createSourceFile(source);
+export function parseFromSource(source: string, options: Partial<Options> = {}): Module {
+    const fileName = 'unknown.ts';
+    const compilerHost = createVirtualCompilerHost(fileName, source);
+    const program = ts.createProgram([fileName], {}, compilerHost);
+    const sourceFile = program.getSourceFile(fileName);
+    const checker = program.getTypeChecker();
 
-    return collect(sourceFile);
+    return collect(fileName, sourceFile, checker, options);
 }
 
 /**
@@ -26,22 +32,32 @@ export function parseFromSource(source: string): Module {
  *
  * @param files - An array of paths where the TypeScripts files are located
  * @param options - Options that can be used to configure the output metadata
+ * @param compilerOptions - Options to pass to the TypeScript compiler
  *
  * @returns The metadata of each TypeScript file
  */
-export function parseFromFiles(files: string[], options: Partial<Options> = {}): Module[] {
-    const {modules, sourceFiles} = collectMetadata(files, options);
+export function parseFromFiles(
+    files: readonly string[],
+    options: Partial<Options> = {},
+    compilerOptions: ts.CompilerOptions = {},
+): Module[] {
+    const {modules, sourceFiles} = collectFiles(files, options, compilerOptions);
 
     callPlugins(sourceFiles, modules, options.plugins);
 
     return modules;
 }
 
-function collectMetadata(files: string[], options: Partial<Options> = {}): {modules: Module[]; sourceFiles: ts.SourceFile[]} {
+function collectFiles(
+    files: readonly string[],
+    options: Partial<Options>,
+    compilerOptions: ts.CompilerOptions = {},
+): CollectResults {
     const modules: Module[] = [];
-    const sourceFiles: ts.SourceFile[] = [];
+    const sourceFiles: (ts.SourceFile | undefined)[] = [];
+    const program = ts.createProgram(files, compilerOptions);
+    const checker = program.getTypeChecker();
 
-    // Create the TS AST for each file
     for (const file of files) {
         if (!fs.existsSync(file)) {
             logWarning(`The following file couldn't be found: "${file}"`);
@@ -49,9 +65,8 @@ function collectMetadata(files: string[], options: Partial<Options> = {}): {modu
         }
 
         const modulePath = path.relative(process.cwd(), file);
-        const source = fs.readFileSync(modulePath, 'utf8');
-        const sourceFile = createSourceFile(source, modulePath);
-        const moduleDoc = collect(sourceFile, options);
+        const sourceFile = program.getSourceFile(file);
+        const moduleDoc = collect(modulePath, sourceFile, checker, options);
 
         sourceFiles.push(sourceFile);
         modules.push(moduleDoc);
@@ -60,16 +75,7 @@ function collectMetadata(files: string[], options: Partial<Options> = {}): {modu
     return {modules, sourceFiles};
 }
 
-function createSourceFile(source: string, fileName = ''): ts.SourceFile {
-    return ts.createSourceFile(
-        fileName,
-        source,
-        ts.ScriptTarget.ES2020,
-        true,
-    );
-}
-
-function callPlugins(sourceFiles: ts.SourceFile[], modules: Module[], plugins: Plugin[] = []): void {
+function callPlugins(sourceFiles: (ts.SourceFile | undefined)[], modules: Module[], plugins: Plugin[] = []): void {
     if (!Array.isArray(plugins)) {
         return;
     }
@@ -78,9 +84,9 @@ function callPlugins(sourceFiles: ts.SourceFile[], modules: Module[], plugins: P
 
         for (const plugin of plugins) {
             try {
-                plugin.handler?.(sourceFile, modules);
+                plugin?.handler?.(sourceFile, modules);
             } catch (error: unknown) {
-                logError(`The plugin "${plugin.name}" has thrown the following error:`, error);
+                logError(`The plugin "${plugin?.name}" has thrown the following error:`, error);
             }
         }
 

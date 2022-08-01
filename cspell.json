@@ -13,7 +13,10 @@
         "cssprop",
         "cssproperty",
         "csspart",
-        "pnpm"
+        "pnpm",
+        "Activable",
+        "tmpl",
+        "behaviour"
     ],
     "ignorePaths": [
         "node_modules",
