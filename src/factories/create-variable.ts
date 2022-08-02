@@ -1,18 +1,12 @@
-import { JSDocTagType, Module, VariableDeclaration } from '../models';
-import { getDefaultValue, getJSDoc } from '../utils';
-import { Options } from '../options';
+import { JSDocTagName, Module, VariableDeclaration } from '../models';
+import { getDefaultValue, collectJSDoc, getType, findJSDoc } from '../utils';
 import ts from 'typescript';
 
 
 /**
  * Creates the metadata for a variable statement
  */
-export function createVariable(
-    node: ts.VariableStatement,
-    checker: ts.TypeChecker,
-    moduleDoc: Module,
-    options: Partial<Options> = {},
-): void {
+export function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
 
     for (const declaration of node.declarationList.declarations) {
         const name = declaration?.name?.getText() ?? '';
@@ -22,17 +16,17 @@ export function createVariable(
             continue;
         }
 
-        const jsDoc = getJSDoc(node, options.jsDocHandlers);
-        const type = jsDoc[JSDocTagType.type];
-        const checkedType = checker.typeToString(checker.getTypeAtLocation(declaration), declaration);
+        const jsDoc = collectJSDoc(node);
+        const type = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
+        const checkedType = getType(declaration);
         const variable: VariableDeclaration = {
             name,
             jsDoc,
             kind: 'variable',
             type: type ? {text: type} : {text: checkedType},
-            description: jsDoc[JSDocTagType.description] ?? '',
+            description: findJSDoc<string>(JSDocTagName.description, jsDoc)?.value ?? '',
             decorators: [],
-            default: jsDoc[JSDocTagType.default] ?? getDefaultValue(declaration),
+            default: findJSDoc<string>(JSDocTagName.default, jsDoc)?.value ?? getDefaultValue(declaration),
         };
 
         moduleDoc.declarations.push(variable);

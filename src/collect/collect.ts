@@ -1,16 +1,10 @@
 import { removeNonExportableDeclarations } from './remove-non-exportable-declarations';
 import { visitNode } from './visit-node';
-import { Options } from '../options';
 import { Module } from '../models';
 import ts from 'typescript';
 
 
-export function collect(
-    fileName: string,
-    sourceFile: ts.SourceFile | undefined,
-    checker: ts.TypeChecker,
-    options: Partial<Options> = {},
-): Module {
+export function collect(fileName: string, sourceFile: ts.SourceFile | undefined): Module {
     const moduleDoc: Module = {
         path: fileName || '',
         declarations: [],
@@ -22,11 +16,11 @@ export function collect(
         return moduleDoc;
     }
 
-    visitNode(sourceFile, checker, moduleDoc, options);
+    visitNode(sourceFile, moduleDoc);
 
     removeNonExportableDeclarations(moduleDoc);
 
-    // TODO(Jordi M.): Link Phase -> User Defined Types and inheritance
+    // TODO(Jordi M.): Link Phase. Cross-reference any user defined type and inheritances
 
     return moduleDoc;
 }

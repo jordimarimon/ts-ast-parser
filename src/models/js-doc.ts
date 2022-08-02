@@ -4,7 +4,7 @@ import ts from 'typescript';
 /**
  * See: https://jsdoc.app/
  */
-export enum JSDocTagType {
+export enum JSDocTagName {
     description = 'description',
     param = 'param',
     returns = 'returns',
@@ -39,44 +39,39 @@ export enum JSDocTagType {
     tagname = 'tagname',
 }
 
-// FIXME(Jordi M.): JSDoc should be defined as an array of objects
-//  because there can be keys repeated (for example `@param`)
-export type JSDoc = {
-    [JSDocTagType.description]: string;
-    [JSDocTagType.param]: {name: string; default: string; options: boolean; description: string};
-    [JSDocTagType.returns]: string;
-    [JSDocTagType.type]: string;
-    [JSDocTagType.summary]: string;
-    [JSDocTagType.default]: string;
-    [JSDocTagType.readonly]: boolean;
-    [JSDocTagType.deprecated]: boolean;
-    [JSDocTagType.example]: string;
-    [JSDocTagType.override]: boolean;
-    [JSDocTagType.see]: string;
-    [JSDocTagType.since]: string;
-    [JSDocTagType.throws]: string;
-    [JSDocTagType.public]: boolean;
-    [JSDocTagType.protected]: boolean;
-    [JSDocTagType.private]: boolean;
-    [JSDocTagType.internal]: boolean;
-    [JSDocTagType.ignore]: boolean;
-    [JSDocTagType.category]: string;
+export type JSDocResult =
+    { kind: JSDocTagName.description; value: string } |
+    { kind: JSDocTagName.param; value: { name: string; default: string; options: boolean; description: string } } |
+    { kind: JSDocTagName.returns; value: string } |
+    { kind: JSDocTagName.type; value: string } |
+    { kind: JSDocTagName.summary; value: string } |
+    { kind: JSDocTagName.default; value: string } |
+    { kind: JSDocTagName.readonly; value: boolean } |
+    { kind: JSDocTagName.deprecated; value: boolean } |
+    { kind: JSDocTagName.example; value: string } |
+    { kind: JSDocTagName.override; value: boolean } |
+    { kind: JSDocTagName.see; value: string } |
+    { kind: JSDocTagName.since; value: string } |
+    { kind: JSDocTagName.throws; value: string } |
+    { kind: JSDocTagName.public; value: boolean } |
+    { kind: JSDocTagName.protected; value: boolean } |
+    { kind: JSDocTagName.private; value: boolean } |
+    { kind: JSDocTagName.internal; value: boolean } |
+    { kind: JSDocTagName.ignore; value: boolean } |
+    { kind: JSDocTagName.category; value: string } |
+    { kind: JSDocTagName.reflect; value: boolean } |
+    { kind: JSDocTagName.cssprop; value: { name: string; default: string; description: string } } |
+    { kind: JSDocTagName.cssproperty; value: { name: string; default: string; description: string } } |
+    { kind: JSDocTagName.csspart; value: { name: string; description: string } } |
+    { kind: JSDocTagName.slot; value: { name: string; description: string } } |
+    { kind: JSDocTagName.attr; value: { name: string; description: string } } |
+    { kind: JSDocTagName.fires; value: { name: string; type: string; description: string } } |
+    { kind: JSDocTagName.event; value: { name: string; type: string; description: string } } |
+    { kind: JSDocTagName.tag; value: string } |
+    { kind: JSDocTagName.tagname; value: string } |
+    { kind: string; value: unknown };
 
-    // Custom Elements
-    [JSDocTagType.reflect]: boolean;
-    [JSDocTagType.cssprop]: {name: string; default: string; description: string};
-    [JSDocTagType.cssproperty]: {name: string; default: string; description: string};
-    [JSDocTagType.csspart]: {name: string; description: string};
-    [JSDocTagType.slot]: {name: string; description: string};
-    [JSDocTagType.attr]: {name: string; description: string};
-    [JSDocTagType.fires]: {name: string; type: string; description: string};
-    [JSDocTagType.event]: {name: string; type: string; description: string};
-    [JSDocTagType.tag]: string;
-    [JSDocTagType.tagname]: string;
-
-    // Custom
-    [key: string]: unknown;
-};
+export type JSDoc = JSDocResult[];
 
 //
 // TS doesn't make publicly available the following types

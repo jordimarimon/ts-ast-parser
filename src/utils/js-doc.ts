@@ -1,8 +1,8 @@
-import { JSDoc, JSDocComment, JSDocNode, JSDocTagType } from '../models';
-import { parse, Spec } from 'comment-parser';
+import { JSDoc, JSDocComment, JSDocNode, JSDocTagName } from '../models';
 import { logError, logWarning } from './logs';
+import { parse, Spec } from 'comment-parser';
+import { Context } from '../context';
 import ts from 'typescript';
-import { JSDocHandlers } from '../options';
 
 
 export function shouldIgnore(node: ts.Node): boolean {
@@ -10,25 +10,29 @@ export function shouldIgnore(node: ts.Node): boolean {
         return doc?.tags?.some(tag => {
             const tagName = tag?.tagName?.getText?.();
 
-            return tagName === JSDocTagType.ignore ||
-                tagName === JSDocTagType.internal ||
-                tagName === JSDocTagType.private ||
-                tagName === JSDocTagType.protected;
+            return tagName === JSDocTagName.ignore ||
+                tagName === JSDocTagName.internal ||
+                tagName === JSDocTagName.private ||
+                tagName === JSDocTagName.protected;
         });
     });
 }
 
-export function getJSDoc(node: JSDocNode, jsDocHandlers: JSDocHandlers = {}): Partial<JSDoc> {
-    const doc: Partial<JSDoc> = {};
+export function collectJSDoc(node: JSDocNode): JSDoc {
+    const doc: JSDoc = [];
 
     for (const jsDocComment of (node.jsDoc ?? [])) {
-        collectJsDoc(jsDocComment, doc, jsDocHandlers);
+        collectJsDoc(jsDocComment, doc);
     }
 
     return doc;
 }
 
-function collectJsDoc(jsDocComment: JSDocComment, doc: Partial<JSDoc>, jsDocHandlers: JSDocHandlers = {}): void {
+export function findJSDoc<T>(name: JSDocTagName, doc: JSDoc): {kind: JSDocTagName; value: T} | undefined {
+    return doc.find(d => d.kind === name) as {kind: JSDocTagName; value: T} | undefined;
+}
+
+function collectJsDoc(jsDocComment: JSDocComment, doc: JSDoc): void {
     const parsedJsDocComment = parse(jsDocComment.getFullText()) ?? [];
 
     for (const block of parsedJsDocComment) {
@@ -36,51 +40,59 @@ function collectJsDoc(jsDocComment: JSDocComment, doc: Partial<JSDoc>, jsDocHand
             logWarning('There have been problems while parsing the JSDoc: ', block.problems);
         }
 
-        doc[JSDocTagType.description] = block.description ?? '';
+        doc.push({
+            kind: JSDocTagName.description,
+            value: block.description ?? '',
+        });
 
         for (const tag of block.tags) {
             const name = tag.tag ?? '';
 
-            doc[name] = getJSTagValue(name, tag, jsDocHandlers);
+            doc.push({
+                kind: name,
+                value: getJSTagValue(name, tag),
+            });
         }
     }
 }
 
-function getJSTagValue<K extends keyof JSDoc>(name: K, tag: Spec, jsDocHandlers: JSDocHandlers = {}): JSDoc[K] {
+function getJSTagValue(name: string, tag: Spec): unknown {
+    const jsDocHandlers = Context.options.jsDocHandlers ?? {};
+
     switch (name) {
-        case JSDocTagType.returns:
-        case JSDocTagType.type:
-        case JSDocTagType.summary:
-        case JSDocTagType.example:
-        case JSDocTagType.default:
-        case JSDocTagType.since:
-        case JSDocTagType.throws:
-        case JSDocTagType.category:
-        case JSDocTagType.see:
-        case JSDocTagType.tag:
-        case JSDocTagType.tagname:
+        case JSDocTagName.returns:
+        case JSDocTagName.type:
+        case JSDocTagName.summary:
+        case JSDocTagName.example:
+        case JSDocTagName.default:
+        case JSDocTagName.since:
+        case JSDocTagName.throws:
+        case JSDocTagName.category:
+        case JSDocTagName.see:
+        case JSDocTagName.tag:
+        case JSDocTagName.tagname:
             return normalizeDescription(tag.description ? `${tag.name} ${tag.description}` : tag.name);
 
-        case JSDocTagType.readonly:
-        case JSDocTagType.deprecated:
-        case JSDocTagType.override:
-        case JSDocTagType.public:
-        case JSDocTagType.protected:
-        case JSDocTagType.private:
-        case JSDocTagType.internal:
-        case JSDocTagType.ignore:
-        case JSDocTagType.reflect:
+        case JSDocTagName.readonly:
+        case JSDocTagName.deprecated:
+        case JSDocTagName.override:
+        case JSDocTagName.public:
+        case JSDocTagName.protected:
+        case JSDocTagName.private:
+        case JSDocTagName.internal:
+        case JSDocTagName.ignore:
+        case JSDocTagName.reflect:
             return true;
 
-        case JSDocTagType.cssprop:
-        case JSDocTagType.cssproperty:
+        case JSDocTagName.cssprop:
+        case JSDocTagName.cssproperty:
             return {
                 name: tag.name,
                 default: tag.default,
                 description: normalizeDescription(tag.description),
             };
 
-        case JSDocTagType.param:
+        case JSDocTagName.param:
             return {
                 name: tag.name,
                 default: tag.default,
@@ -88,16 +100,16 @@ function getJSTagValue<K extends keyof JSDoc>(name: K, tag: Spec, jsDocHandlers:
                 description: normalizeDescription(tag.description),
             };
 
-        case JSDocTagType.csspart:
-        case JSDocTagType.slot:
-        case JSDocTagType.attr:
+        case JSDocTagName.csspart:
+        case JSDocTagName.slot:
+        case JSDocTagName.attr:
             return {
                 name: tag.name,
                 description: normalizeDescription(tag.description),
             };
 
-        case JSDocTagType.fires:
-        case JSDocTagType.event:
+        case JSDocTagName.fires:
+        case JSDocTagName.event:
             return {
                 name: tag.name,
                 type: tag.type,

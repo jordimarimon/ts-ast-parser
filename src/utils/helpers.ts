@@ -1,3 +1,4 @@
+import { Context } from '../context';
 import ts from 'typescript';
 
 
@@ -36,15 +37,6 @@ export const isFunctionDeclaration = (node: ts.Node): node is ts.FunctionDeclara
     }
 
     return !!declaration.initializer && ts.isArrowFunction(declaration.initializer);
-};
-
-/**
- * Returns true if the expression includes "as const"
- */
-export const isAsConst = (expression: ts.Expression): expression is ts.AsExpression => {
-    return ts.isAsExpression(expression) &&
-        ts.isTypeReferenceNode(expression.type) &&
-        expression.type.typeName.getText() === 'const';
 };
 
 /**
@@ -116,8 +108,6 @@ export function getDefaultValue(node: ts.VariableDeclaration | ts.PropertyDeclar
  *      customElements.define('my-el', class MyEl {});
  *      window.customElements.define('my-el', class MyEl {});
  *
- * @param node
- *
  */
 export function isCustomElementsDefineCall(node: ts.ExpressionStatement): boolean {
     if (!ts.isCallExpression(node.expression)) {
@@ -129,4 +119,10 @@ export function isCustomElementsDefineCall(node: ts.ExpressionStatement): boolea
 
     return (namespaceExpr?.getText() === 'customElements' || namespaceExpr?.name?.escapedText === 'customElements') &&
         functionExpr?.name?.getText() === 'define';
+}
+
+export function getType(node: ts.Node): string {
+    const checker = Context.checker;
+
+    return checker?.typeToString(checker?.getTypeAtLocation(node), node) ?? '';
 }

@@ -40,7 +40,7 @@ export interface ClassLike {
     constructors: Constructor[];
     members?: ClassMember[];
     decorators: Decorator[];
-    jsDoc: Partial<JSDoc>;
+    jsDoc: JSDoc;
 }
 
 export interface ClassDeclaration extends ClassLike {

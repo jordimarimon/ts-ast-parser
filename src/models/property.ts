@@ -9,5 +9,5 @@ export interface PropertyLike {
     type?: Type;
     default?: string;
     decorators?: Decorator[];
-    jsDoc: Partial<JSDoc>;
+    jsDoc: JSDoc;
 }

@@ -1,5 +1,4 @@
 import { createExport, createFunction, createImport, createVariable } from '../factories';
-import { Options } from '../options';
 import { Module } from '../models';
 import ts from 'typescript';
 import {
@@ -11,12 +10,7 @@ import {
 } from '../utils';
 
 
-export function visitNode(
-    rootNode: ts.Node | ts.SourceFile,
-    checker: ts.TypeChecker,
-    moduleDoc: Module,
-    options: Partial<Options> = {},
-): void {
+export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module): void {
     if (shouldIgnore(rootNode)) {
         return;
     }
@@ -41,13 +35,13 @@ export function visitNode(
         return;
     }
 
-    if (ts.isVariableStatement(rootNode)) {
-        createVariable(rootNode, checker, moduleDoc, options);
+    if (isFunctionDeclaration(rootNode)) {
+        createFunction(rootNode, moduleDoc);
         return;
     }
 
-    if (isFunctionDeclaration(rootNode)) {
-        createFunction(rootNode, moduleDoc, options);
+    if (ts.isVariableStatement(rootNode)) {
+        createVariable(rootNode, moduleDoc);
         return;
     }
 
@@ -71,6 +65,5 @@ export function visitNode(
         return;
     }
 
-
-    ts.forEachChild(rootNode, (node: ts.Node) => visitNode(node, checker, moduleDoc, options));
+    ts.forEachChild(rootNode, (node: ts.Node) => visitNode(node, moduleDoc));
 }

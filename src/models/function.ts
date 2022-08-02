@@ -16,7 +16,7 @@ export interface FunctionLike {
     return: FunctionReturn;
     async?: boolean;
     decorators: Decorator[];
-    jsDoc: Partial<JSDoc>;
+    jsDoc: JSDoc;
 }
 
 export interface FunctionDeclaration extends FunctionLike {

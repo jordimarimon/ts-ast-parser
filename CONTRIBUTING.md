@@ -1,12 +1,11 @@
 # Contributing
 
-For a better understanding of how the library works, it's recommended to play with some 
-AST viewer (the below ones are a great): 
+For a better understanding, it's recommended to play around with some AST viewer: 
 
 - [TypeScript AST Viewer](https://ts-ast-viewer.com)
 - [AST Explorer](https://astexplorer.net/)
 
-Also, helps a lot to understand how the TypeScript compiler works:
+Also, it may help to understand how the TypeScript compiler works:
 
 * [TypeScript Compiler Source Code](https://github.com/microsoft/TypeScript/tree/main/src/compiler)
 * [TypeScript Compiler Internals](https://basarat.gitbook.io/typescript/overview)

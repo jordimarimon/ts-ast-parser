@@ -1,14 +1,25 @@
+import { parseFromFiles, Options } from '../src';
 import { describe, it, expect } from 'vitest';
-import { parseFromFiles } from '../src';
 import path from 'path';
 import fs from 'fs';
 
+////////////////////////////////////////////////
+// TESTS FLAGS
+////////////////////////////////////////////////
 
-// Use the following declarations to debug the tests
 const CATEGORY = 'function';
-const SUBCATEGORY = 'basic';
-const DEV = true;
+const SUBCATEGORY = 'arrow';
+const DEV = true; // Logs to console
 const ASSERT = false;
+const WITH_USER_DEFINED_OPTIONS = false;
+
+// TODO(Jordi M.): Define some options to test
+const USER_OPTIONS: Partial<Options> = WITH_USER_DEFINED_OPTIONS ? {} : {};
+
+
+////////////////////////////////////////////////
+/// TESTS
+////////////////////////////////////////////////
 
 const {pathname: cwd} = new URL('..', import.meta.url);
 
@@ -32,8 +43,9 @@ for (const category of categories) {
             continue;
         }
 
+        const outputFileName = WITH_USER_DEFINED_OPTIONS ? 'output-with-options.json' : 'output.json';
         const testFilePath = path.join(cwd, 'tests', category, subcategory, 'index.ts');
-        const expectedOutputPath = path.join(cwd, 'tests', category, subcategory, 'output.json');
+        const expectedOutputPath = path.join(cwd, 'tests', category, subcategory, outputFileName);
 
         if (!fs.existsSync(testFilePath) || !fs.existsSync(expectedOutputPath)) {
             continue;
@@ -43,7 +55,7 @@ for (const category of categories) {
 
         describe(`${category}/${subcategory}`, () => {
             it('should extract the metadata', () => {
-                const modules = parseFromFiles([testFilePath]);
+                const modules = parseFromFiles([testFilePath], USER_OPTIONS);
 
                 if (DEV) {
                     console.log(JSON.stringify(modules, null, 4));

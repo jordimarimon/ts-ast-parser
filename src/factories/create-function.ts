@@ -1,16 +1,11 @@
-import { FunctionDeclaration, FunctionLike, JSDocTagType, Module, Parameter } from '../models';
-import { Options } from '../options';
-import { getJSDoc } from '../utils';
+import { FunctionDeclaration, FunctionLike, JSDocTagName, Module, Parameter } from '../models';
+import { collectJSDoc, findJSDoc } from '../utils';
 import ts from 'typescript';
 
 
-export function createFunction(
-    node: ts.VariableStatement | ts.FunctionDeclaration,
-    moduleDoc: Module,
-    options: Partial<Options> = {},
-): void {
+export function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, moduleDoc: Module): void {
     const tmpl: FunctionDeclaration = {
-        ...createFunctionLike(node, options),
+        ...createFunctionLike(node),
         kind: 'function',
     };
 
@@ -23,41 +18,55 @@ export function createFunction(
     moduleDoc.declarations.push(tmpl);
 }
 
-export function createFunctionLike(
-    node: ts.VariableStatement | ts.FunctionDeclaration | ts.MethodDeclaration | ts.PropertyDeclaration,
-    options: Partial<Options> = {},
-): FunctionLike {
-    const jsDoc = getJSDoc(node, options.jsDocHandlers);
+export function createFunctionLike(node: ts.Node): FunctionLike {
+    const jsDoc = collectJSDoc(node);
     const func = getFunctionNode(node);
 
     return {
-        name: func?.name?.getText() || '',
+        name: getFunctionName(node),
         decorators: [],
-        description: jsDoc[JSDocTagType.description] ?? '',
+        description: findJSDoc<string>(JSDocTagName.description, jsDoc)?.value ?? '',
         jsDoc,
         return: {
-            type: {text: getFunctionType(node)},
-            description: jsDoc[JSDocTagType.returns] ?? '',
+            type: {text: getFunctionType(func)},
+            description: findJSDoc<string>(JSDocTagName.returns, jsDoc)?.value ?? '',
         },
-        async: isAsyncFunction(node),
-        parameters: getParameters(node),
+        async: isAsyncFunction(func),
+        parameters: getParameters(func),
     };
 }
 
-function isAsyncFunction(node: ts.Node): boolean {
-    const func = getFunctionNode(node);
+function getFunctionName(node: ts.Node): string {
+    if (ts.isFunctionDeclaration(node)) {
+        return node?.name?.getText() || '';
+    }
 
-    return !!func?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
+    if (ts.isVariableStatement(node)) {
+        const decl = node.declarationList.declarations.find(d => isArrowFunction(d.initializer));
+
+        return decl?.name?.getText() || '';
+    }
+
+    if (ts.isPropertyDeclaration(node) && node.initializer && ts.isArrowFunction(node.initializer)) {
+         return node.name?.getText() || '';
+    }
+
+    return '';
 }
 
-function getFunctionType(node: ts.Node): string {
-    const func = getFunctionNode(node);
-
+function getFunctionType(func: ts.FunctionDeclaration | ts.ArrowFunction | null): string {
     return func?.type?.getText() || '';
 }
 
-function getParameters(node: ts.Node): Parameter[] {
-    const func = getFunctionNode(node);
+function isAsyncFunction(func: ts.FunctionDeclaration | ts.ArrowFunction | null): boolean {
+    return !!func?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
+}
+
+function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunction {
+    return expr != null && ts.isArrowFunction(expr);
+}
+
+function getParameters(func: ts.FunctionDeclaration | ts.ArrowFunction | null): Parameter[] {
     const parameters: Parameter[] = [];
     const originalParameters = func?.parameters ?? [];
 
@@ -70,7 +79,7 @@ function getParameters(node: ts.Node): Parameter[] {
             default: param?.initializer?.getText() ?? '',
             type: {text: param?.type?.getText() ?? ''},
             rest: !!(param?.dotDotDotToken && param.type?.kind === ts.SyntaxKind.ArrayType),
-            jsDoc: {},
+            jsDoc: [],
         };
 
         parameters.push(parameter);
@@ -83,11 +92,7 @@ function getFunctionNode(node: ts.Node): ts.FunctionDeclaration | ts.ArrowFuncti
     let func: ts.Node | undefined = node;
 
     if (ts.isVariableStatement(node)) {
-        const isArrowFunction = (expr: ts.Expression | undefined): expr is ts.ArrowFunction => {
-            return expr != null && ts.isArrowFunction(expr);
-        };
-
-        func = node.declarationList.declarations.find(decl => isArrowFunction(decl.initializer));
+        func = node.declarationList.declarations.find(decl => isArrowFunction(decl.initializer))?.initializer;
     }
 
     if (ts.isPropertyDeclaration(node)) {

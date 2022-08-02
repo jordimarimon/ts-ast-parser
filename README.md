@@ -3,10 +3,9 @@ TypeScript Abstract Syntax Tree Parser
 
 **NOTE: This is still a work in progress**
 
-Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful 
-metadata from your source code.
+Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata.
 
-This metadata then can be used to generate documentation for your source code.
+This metadata then can be used to generate documentation.
 
 Other libraries of interest are:
 
@@ -22,46 +21,12 @@ Other libraries of interest are:
 * [DocFX](https://dotnet.github.io/docfx/)
 * [TS Docs gen](https://github.com/SimplrJS/ts-docs-gen)
 * [Node TypeScript Parser](https://github.com/buehler/node-typescript-parser)
-
-A lot of the code written in this repository has been inspired/sourced from the above libraries and 
-the TypeScript compiler source code.
-
-Table of contents
-=================
-
-<!--ts-->
-* [Install](#install)
-  * [npm](#npm)
-  * [yarn](#yarn)
-  * [pnpm](#pnpm)
-  * [Peer Dependencies](#peer-dependencies)
-* [Documentation](#documentation)
-* [Contributing](#contributing)
-<!--te-->
-
-Install
-=================
-
-### npm
-
-    npm install <pkg-name>
-
-### yarn
-
-    yarn add <pkg-name>
-
-### pnpm
-
-    pnpm add <pkg-name>
-
-### Peer Dependencies
-
-Depends on `typescript`, so you need to manually install this as well.
+* [TyDoc](https://github.com/tydoc/tydoc)
 
 Documentation
 =================
 
-[Check out the documentation website](https://jordimarimon.github.io/ts-ast-parser)
+[TODO: Check out the documentation website](https://jordimarimon.github.io/ts-ast-parser)
 
 Contributing
 =================
