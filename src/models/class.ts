@@ -2,8 +2,8 @@ import { PropertyLike } from './property';
 import { FunctionLike } from './function';
 import { Reference } from './reference';
 import { Decorator } from './decorator';
-import { JSDoc } from './js-doc';
 import { Parameter } from './parameter';
+import { JSDoc } from './js-doc';
 
 
 export enum ModifierType {
@@ -29,13 +29,12 @@ export interface ClassMethod extends FunctionLike {
 }
 
 export interface Constructor {
-    description?: string;
+    jsDoc: JSDoc;
     parameters: Parameter[];
 }
 
 export interface ClassLike {
     name: string;
-    description?: string;
     superclasses?: Reference;
     constructors: Constructor[];
     members?: ClassMember[];

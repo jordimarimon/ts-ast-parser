@@ -1,12 +1,12 @@
-import { FunctionDeclaration, FunctionLike, JSDocTagName, Module, Parameter } from '../models';
-import { collectJSDoc, findJSDoc } from '../utils';
+import { FunctionDeclaration, FunctionLike, Module, Parameter } from '../models';
+import { collectJSDoc } from '../utils';
 import ts from 'typescript';
 
 
 export function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, moduleDoc: Module): void {
     const tmpl: FunctionDeclaration = {
-        ...createFunctionLike(node),
         kind: 'function',
+        ...createFunctionLike(node),
     };
 
     const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === tmpl.name);
@@ -25,12 +25,8 @@ export function createFunctionLike(node: ts.Node): FunctionLike {
     return {
         name: getFunctionName(node),
         decorators: [],
-        description: findJSDoc<string>(JSDocTagName.description, jsDoc)?.value ?? '',
         jsDoc,
-        return: {
-            type: {text: getFunctionType(func)},
-            description: findJSDoc<string>(JSDocTagName.returns, jsDoc)?.value ?? '',
-        },
+        return: {type: {text: getFunctionType(func)}},
         async: isAsyncFunction(func),
         parameters: getParameters(func),
     };
@@ -73,13 +69,11 @@ function getParameters(func: ts.FunctionDeclaration | ts.ArrowFunction | null): 
     for (const param of originalParameters) {
         const parameter: Parameter = {
             name: param.name.getText(),
-            description: '',
             decorators: [],
             optional: !!param?.questionToken,
             default: param?.initializer?.getText() ?? '',
             type: {text: param?.type?.getText() ?? ''},
             rest: !!(param?.dotDotDotToken && param.type?.kind === ts.SyntaxKind.ArrayType),
-            jsDoc: [],
         };
 
         parameters.push(parameter);

@@ -6,12 +6,10 @@ import { Type } from './type';
 
 export interface FunctionReturn {
     type?: Type;
-    description?: string;
 }
 
 export interface FunctionLike {
     name: string;
-    description?: string;
     parameters: Parameter[];
     return: FunctionReturn;
     async?: boolean;

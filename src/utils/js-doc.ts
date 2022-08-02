@@ -48,6 +48,10 @@ function collectJsDoc(jsDocComment: JSDocComment, doc: JSDoc): void {
         for (const tag of block.tags) {
             const name = tag.tag ?? '';
 
+            if (name === JSDocTagName.typedef) {
+                continue;
+            }
+
             doc.push({
                 kind: name,
                 value: getJSTagValue(name, tag),
