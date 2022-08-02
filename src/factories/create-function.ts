@@ -1,5 +1,6 @@
 import { FunctionDeclaration, FunctionLike, Module, Parameter } from '../models';
 import { getAllJSDoc } from '../utils';
+import { Context } from '../context';
 import ts from 'typescript';
 
 
@@ -26,7 +27,7 @@ export function createFunctionLike(node: ts.Node): FunctionLike {
         name: getFunctionName(node),
         decorators: [],
         jsDoc,
-        return: {type: {text: getFunctionType(func)}},
+        return: {type: {text: getFunctionReturnType(func)}},
         async: isAsyncFunction(func),
         parameters: getParameters(func),
     };
@@ -50,8 +51,19 @@ function getFunctionName(node: ts.Node): string {
     return '';
 }
 
-function getFunctionType(func: ts.FunctionDeclaration | ts.ArrowFunction | null): string {
-    return func?.type?.getText() || '';
+function getFunctionReturnType(func: ts.FunctionDeclaration | ts.ArrowFunction | null): string {
+    const definedType = func?.type?.getText() || '';
+
+    if (definedType !== '') {
+        return definedType;
+    }
+
+    const checker = Context.checker;
+    const signature = func && checker?.getSignatureFromDeclaration(func);
+    const returnTypeOfSignature = signature && checker?.getReturnTypeOfSignature(signature);
+    const computedType = returnTypeOfSignature && checker?.typeToString(returnTypeOfSignature);
+
+    return computedType || '';
 }
 
 function isAsyncFunction(func: ts.FunctionDeclaration | ts.ArrowFunction | null): boolean {

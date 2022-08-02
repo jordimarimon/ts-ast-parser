@@ -8,7 +8,7 @@ import fs from 'fs';
 ////////////////////////////////////////////////
 
 const CATEGORY = 'function';
-const SUBCATEGORY = 'arrow';
+const SUBCATEGORY = 'async';
 const DEV = true; // Logs to console
 const ASSERT = false;
 const WITH_USER_DEFINED_OPTIONS = false;

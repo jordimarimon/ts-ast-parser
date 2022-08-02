@@ -121,7 +121,11 @@ export function isCustomElementsDefineCall(node: ts.ExpressionStatement): boolea
         functionExpr?.name?.getText() === 'define';
 }
 
-export function getType(node: ts.Node): string {
+export function getType(node: ts.Node | undefined | null): string {
+    if (node == null) {
+        return '';
+    }
+
     const checker = Context.checker;
 
     return checker?.typeToString(checker?.getTypeAtLocation(node), node) ?? '';
