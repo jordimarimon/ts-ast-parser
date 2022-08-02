@@ -1,5 +1,5 @@
-import { Module, Parameter } from './models';
 import { Spec } from 'comment-parser';
+import { Module } from './models';
 import ts from 'typescript';
 
 
@@ -30,11 +30,7 @@ export interface Plugin {
  */
 export interface Options {
     /**
-     * You can provide plugins which receive a
-     * root node of the AST of a file and the entire metadata from all
-     * the files (in case you need to cross-references).
-     *
-     * Use it to add extra metadata to the one generated.
+     * You can provide plugins to add extra metadata to the one generated.
      */
     plugins: Plugin[];
 
@@ -43,24 +39,11 @@ export interface Options {
      *
      * Each handler receives the jsDoc tag parsed.
      *
-     * Use it to add extra metadata to the declaration.
+     * Use it to add extra metadata to the declaration where the JSDoc was defined.
      */
     jsDocHandlers: JSDocHandlers;
-
-    /**
-     * You can add a handler for any decorator
-     *
-     * Each handler receives the parameters supplied to the decorator.
-     *
-     * Use it to add extra metadata to the declaration.
-     */
-    decoratorHandlers: DecoratorHandlers;
 }
 
 export type JSDocHandlers = {
     [key: string]: (tag: Spec) => unknown;
-};
-
-export type DecoratorHandlers = {
-    [key: string]: (parameters: Parameter[]) => unknown;
 };

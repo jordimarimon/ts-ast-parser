@@ -1,4 +1,4 @@
-import { getDefaultValue, collectJSDoc, getType, findJSDoc } from '../utils';
+import { getDefaultValue, getAllJSDoc, getType, findJSDoc } from '../utils';
 import { JSDocTagName, Module, VariableDeclaration } from '../models';
 import ts from 'typescript';
 
@@ -13,7 +13,7 @@ export function createVariable(node: ts.VariableStatement, moduleDoc: Module): v
             continue;
         }
 
-        const jsDoc = collectJSDoc(node);
+        const jsDoc = getAllJSDoc(node);
         const type = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
         const checkedType = getType(declaration);
         const variable: VariableDeclaration = {

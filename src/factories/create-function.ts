@@ -1,5 +1,5 @@
 import { FunctionDeclaration, FunctionLike, Module, Parameter } from '../models';
-import { collectJSDoc } from '../utils';
+import { getAllJSDoc } from '../utils';
 import ts from 'typescript';
 
 
@@ -19,7 +19,7 @@ export function createFunction(node: ts.VariableStatement | ts.FunctionDeclarati
 }
 
 export function createFunctionLike(node: ts.Node): FunctionLike {
-    const jsDoc = collectJSDoc(node);
+    const jsDoc = getAllJSDoc(node);
     const func = getFunctionNode(node);
 
     return {

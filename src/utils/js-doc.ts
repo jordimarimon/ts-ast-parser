@@ -18,7 +18,7 @@ export function shouldIgnore(node: ts.Node): boolean {
     });
 }
 
-export function collectJSDoc(node: JSDocNode): JSDoc {
+export function getAllJSDoc(node: JSDocNode): JSDoc {
     const doc: JSDoc = [];
 
     for (const jsDocComment of (node.jsDoc ?? [])) {
