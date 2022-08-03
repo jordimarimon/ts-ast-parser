@@ -16,7 +16,8 @@
         "pnpm",
         "Activable",
         "tmpl",
-        "behaviour"
+        "behaviour",
+        "globby"
     ],
     "ignorePaths": [
         "node_modules",

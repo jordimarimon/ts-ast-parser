@@ -2,11 +2,20 @@ import { createCompilerHost } from './compiler-host';
 import { Options } from './options';
 import { collect } from './collect';
 import { Context } from './context';
+import { globbySync } from 'globby';
 import { logError } from './utils';
 import { Module } from './models';
 import * as path from 'path';
 import ts from 'typescript';
 
+
+const IGNORE: string[] = [
+    '!node_modules/**/*.*',
+    '!**/*.test.{js,ts}',
+    '!**/*.suite.{js,ts}',
+    '!**/*.config.{js,ts}',
+    '!**/*.d.ts',
+];
 
 /**
  * Extracts the metadata from a TypeScript code snippet
@@ -31,6 +40,28 @@ export function parseFromSource(
     Context.options = options;
 
     return collect(fileName, sourceFile);
+}
+
+/**
+ * Given some [glob](https://en.wikipedia.org/wiki/Glob_(programming))
+ * patterns and some configurable options, extracts metadata from the
+ * TypeScript Abstract Syntax Tree.
+ *
+ * @param patterns - A string or an array of strings that represent glob patterns
+ * @param options - Options that can be used to configure the output metadata
+ * @param compilerOptions - Options to pass to the TypeScript compiler
+ *
+ * @returns The metadata of each TypeScript file
+ */
+export function parseFromGlob(
+    patterns: string | string[] = ['**/*.{ts,tsx}'],
+    options: Partial<Options> = {},
+    compilerOptions: ts.CompilerOptions = {},
+): Module[] {
+    const arrPatterns = Array.isArray(patterns) ? patterns : [patterns];
+    const paths = globbySync([...arrPatterns, ...IGNORE]);
+
+    return parseFromFiles(paths, options, compilerOptions);
 }
 
 /**
