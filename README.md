@@ -1,7 +1,7 @@
 TypeScript Abstract Syntax Tree Parser
 =================
 
-**NOTE: This is still a work in progress**
+🚨🚨 **NOTE: This is still a work in progress** 🚨🚨
 
 Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata.
 
