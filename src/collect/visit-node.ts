@@ -1,4 +1,4 @@
-import { createExport, createFunction, createImport, createVariable } from '../factories';
+import { createEnum, createExport, createFunction, createImport, createVariable } from '../factories';
 import { Module } from '../models';
 import ts from 'typescript';
 import {
@@ -42,6 +42,16 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
 
     if (ts.isVariableStatement(rootNode)) {
         createVariable(rootNode, moduleDoc);
+        return;
+    }
+
+    if (ts.isEnumDeclaration(rootNode)) {
+        createEnum(rootNode, moduleDoc);
+        return;
+    }
+
+    if (ts.isTypeAliasDeclaration(rootNode)) {
+        // TODO: It's not yet implemented
         return;
     }
 

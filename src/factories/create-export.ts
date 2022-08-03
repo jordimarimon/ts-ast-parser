@@ -30,25 +30,13 @@ export function createExport(node: ts.Node, moduleDoc: Module): void {
             return;
         }
 
-        if (ts.isFunctionDeclaration(node)) {
-            moduleDoc.exports.push({
-                name: node?.name?.getText() ?? '',
-                type: isDefault ? ExportType.default : ExportType.named,
-                isTypeOnly: false,
-            });
-            return;
-        }
-
-        if (ts.isClassDeclaration(node)) {
-            moduleDoc.exports.push({
-                name: node?.name?.getText() ?? '',
-                type: isDefault ? ExportType.default : ExportType.named,
-                isTypeOnly: false,
-            });
-            return;
-        }
-
-        if (ts.isInterfaceDeclaration(node)) {
+        if (
+            ts.isFunctionDeclaration(node) ||
+            ts.isClassDeclaration(node) ||
+            ts.isInterfaceDeclaration(node) ||
+            ts.isEnumDeclaration(node) ||
+            ts.isTypeAliasDeclaration(node)
+        ) {
             moduleDoc.exports.push({
                 name: node?.name?.getText() ?? '',
                 type: isDefault ? ExportType.default : ExportType.named,
@@ -94,7 +82,6 @@ export function createExport(node: ts.Node, moduleDoc: Module): void {
             }
         }
     }
-
 
 
 }

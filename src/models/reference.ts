@@ -1,9 +1,8 @@
 export interface Reference {
     name: string;
-    package?: string;
-    module?: string;
+    href: SourceReference;
 }
 
 export interface SourceReference {
-    href: string;
+    path: string;
 }

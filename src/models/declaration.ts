@@ -1,8 +1,10 @@
+import { TypeAliasDeclaration } from './type-alias';
 import { InterfaceDeclaration } from './interface';
 import { VariableDeclaration } from './variable';
 import { FunctionDeclaration } from './function';
 import { ClassDeclaration } from './class';
 import { MixinDeclaration } from './mixin';
+import { EnumDeclaration } from './enum';
 
 
 export type Declaration =
@@ -10,4 +12,6 @@ export type Declaration =
     | InterfaceDeclaration
     | FunctionDeclaration
     | MixinDeclaration
-    | VariableDeclaration;
+    | VariableDeclaration
+    | EnumDeclaration
+    | TypeAliasDeclaration;
