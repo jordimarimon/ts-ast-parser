@@ -1,4 +1,5 @@
 import { EnumDeclaration, EnumMember, Module } from '../models';
+import { getAllJSDoc } from '../utils';
 import ts from 'typescript';
 
 
@@ -10,14 +11,15 @@ export function createEnum(node: ts.EnumDeclaration, moduleDoc: Module): void {
         return;
     }
 
-    const decl: EnumDeclaration = {
+    const tmpl: EnumDeclaration = {
         kind: 'enum',
         name,
         decorators: [],
         members: getEnumMembers(node),
+        jsDoc: getAllJSDoc(node),
     };
 
-    moduleDoc.declarations.push(decl);
+    moduleDoc.declarations.push(tmpl);
 }
 
 function getEnumMembers(node: ts.EnumDeclaration): EnumMember[] {

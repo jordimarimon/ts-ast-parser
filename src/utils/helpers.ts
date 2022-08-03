@@ -115,7 +115,7 @@ export function isCustomElementsDefineCall(node: ts.ExpressionStatement): boolea
     }
 
     const functionExpr = node.expression.expression as ts.PropertyAccessExpression;
-    const namespaceExpr  = functionExpr?.expression as ts.PropertyAccessExpression;
+    const namespaceExpr = functionExpr?.expression as ts.PropertyAccessExpression;
 
     return (namespaceExpr?.getText() === 'customElements' || namespaceExpr?.name?.escapedText === 'customElements') &&
         functionExpr?.name?.getText() === 'define';

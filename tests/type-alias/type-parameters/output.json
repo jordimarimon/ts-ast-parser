@@ -1,0 +1,30 @@
+[
+    {
+        "path": "tests/type-alias/type-parameters/index.ts",
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "type-alias",
+                "value": "{\n    x: T;\n    y: K;\n}",
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "Type Alias example with typed parameters"
+                    }
+                ],
+                "typeParameters": [
+                    "T",
+                    "K"
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ],
+        "imports": []
+    }
+]

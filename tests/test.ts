@@ -7,8 +7,8 @@ import fs from 'fs';
 // TESTS FLAGS
 ////////////////////////////////////////////////
 
-const CATEGORY = 'enum';
-const SUBCATEGORY = 'basic';
+const CATEGORY = 'type-alias';
+const SUBCATEGORY = 'type-parameters';
 const DEV = true; // Logs to console
 const ASSERT = false;
 const WITH_USER_DEFINED_OPTIONS = false;

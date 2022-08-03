@@ -1,4 +1,5 @@
 import { Decorator } from './decorator';
+import { JSDoc } from './js-doc';
 
 
 export interface EnumDeclaration {
@@ -6,6 +7,7 @@ export interface EnumDeclaration {
     name: string;
     members: EnumMember[];
     decorators: Decorator[];
+    jsDoc: JSDoc;
 }
 
 export interface EnumMember {

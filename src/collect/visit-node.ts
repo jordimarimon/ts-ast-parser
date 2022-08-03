@@ -1,4 +1,4 @@
-import { createEnum, createExport, createFunction, createImport, createVariable } from '../factories';
+import * as fromFactory from '../factories';
 import { Module } from '../models';
 import ts from 'typescript';
 import {
@@ -18,14 +18,14 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     if (ts.isImportDeclaration(rootNode)) {
         moduleDoc.imports = [
             ...moduleDoc.imports,
-            ...createImport(rootNode),
+            ...fromFactory.createImport(rootNode),
         ];
 
         return;
     }
 
     if (hasExportKeyword(rootNode)) {
-        createExport(rootNode, moduleDoc);
+        fromFactory.createExport(rootNode, moduleDoc);
     }
 
     const mixinNodes = extractMixinNodes(rootNode);
@@ -36,22 +36,22 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     }
 
     if (isFunctionDeclaration(rootNode)) {
-        createFunction(rootNode, moduleDoc);
+        fromFactory.createFunction(rootNode, moduleDoc);
         return;
     }
 
     if (ts.isVariableStatement(rootNode)) {
-        createVariable(rootNode, moduleDoc);
+        fromFactory.createVariable(rootNode, moduleDoc);
         return;
     }
 
     if (ts.isEnumDeclaration(rootNode)) {
-        createEnum(rootNode, moduleDoc);
+        fromFactory.createEnum(rootNode, moduleDoc);
         return;
     }
 
     if (ts.isTypeAliasDeclaration(rootNode)) {
-        // TODO: It's not yet implemented
+        fromFactory.createTypeAlias(rootNode, moduleDoc);
         return;
     }
 
@@ -66,7 +66,7 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     }
 
     if (ts.isExportDeclaration(rootNode) || ts.isExportAssignment(rootNode)) {
-        createExport(rootNode, moduleDoc);
+        fromFactory.createExport(rootNode, moduleDoc);
         return;
     }
 
