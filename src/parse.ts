@@ -39,7 +39,11 @@ export function parseFromSource(
     Context.checker = program.getTypeChecker();
     Context.options = options;
 
-    return collect(fileName, sourceFile);
+    const moduleDoc = collect(fileName, sourceFile);
+
+    callPlugins([sourceFile], [moduleDoc]);
+
+    return moduleDoc;
 }
 
 /**
