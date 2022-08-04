@@ -28,6 +28,12 @@ Other libraries of interest are:
 * [Node TypeScript Parser](https://github.com/buehler/node-typescript-parser)
 * [TyDoc](https://github.com/tydoc/tydoc)
 
+Packages
+=================
+
+* [@ts-ast-parser/core](./packages/core)
+* [@ts-ast-parser/to-markdown](./packages/to-markdown)
+
 Documentation
 =================
 
