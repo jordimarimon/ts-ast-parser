@@ -1,13 +1,7 @@
+import { extractMixinNodes, hasExportKeyword, isFunctionDeclaration, shouldIgnore } from '../utils';
 import * as fromFactory from '../factories';
 import { Module } from '../models';
 import ts from 'typescript';
-import {
-    extractMixinNodes,
-    hasExportKeyword,
-    isCustomElementsDefineCall,
-    isFunctionDeclaration,
-    shouldIgnore,
-} from '../utils';
 
 
 export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module): void {
@@ -67,11 +61,6 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
 
     if (ts.isExportDeclaration(rootNode) || ts.isExportAssignment(rootNode)) {
         fromFactory.createExport(rootNode, moduleDoc);
-        return;
-    }
-
-    if (ts.isExpressionStatement(rootNode) && isCustomElementsDefineCall(rootNode)) {
-        // TODO: It's not yet implemented
         return;
     }
 

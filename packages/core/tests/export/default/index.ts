@@ -1,9 +1,3 @@
-class Foo {
+const foo = 4;
 
-    bar(): void {
-        console.log('Hello World');
-    }
-
-}
-
-export default Foo;
+export default foo;

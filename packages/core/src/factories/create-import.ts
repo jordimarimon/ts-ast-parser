@@ -1,7 +1,18 @@
-import { isBareModuleSpecifier, isNotEmptyArray } from '../utils';
-import { Import, ImportType } from '../models/import';
+import { Import, ImportType } from '../models';
+import { isNotEmptyArray } from '../utils';
 import ts from 'typescript';
 
+
+/**
+ * Checks whether the imported module only specifies its module in the import path,
+ * rather than the full or relative path to where it's located:
+ *
+ *      import lodash from 'lodash'; --> Correct
+ *      import foo from './foo.js'; --> Incorrect
+ */
+export function isBareModuleSpecifier(specifier: string): boolean {
+    return !!specifier?.replace(/'/g, '')[0].match(/[@a-zA-Z\d]/g);
+}
 
 /**
  * Returns true if the import declaration is similar tot the following:

@@ -1,11 +1,13 @@
 [
     {
-        "path": "tests/enum/initializers/index.ts",
+        "path": "packages/core/tests/enum/initializers/index.ts",
+        "imports": [],
         "declarations": [
             {
                 "kind": "enum",
                 "name": "Fruit",
                 "decorators": [],
+                "jsDoc": [],
                 "members": [
                     {
                         "name": "Apple",
@@ -40,7 +42,6 @@
                 "type": "named",
                 "isTypeOnly": false
             }
-        ],
-        "imports": []
+        ]
     }
 ]

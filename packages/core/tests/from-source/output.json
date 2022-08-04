@@ -1,0 +1,23 @@
+{
+    "path": "unknown.ts",
+    "imports": [],
+    "declarations": [
+        {
+            "kind": "variable",
+            "name": "foo",
+            "jsDoc": [],
+            "decorators": [],
+            "type": {
+                "text": "true"
+            },
+            "default": "true"
+        }
+    ],
+    "exports": [
+        {
+            "name": "foo",
+            "type": "named",
+            "isTypeOnly": false
+        }
+    ]
+}

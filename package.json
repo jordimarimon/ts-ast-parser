@@ -35,7 +35,7 @@
         "npm": ">=7.0.0"
     },
     "scripts": {
-        "build": "tsc --build packages/${PACKAGE:-*}/tsconfig.json",
+        "build": "tsc --build packages/${PACKAGE:-*}/tsconfig.build.json",
         "build:doc": "npm run clear:doc && NODE_ENV=production eleventy",
         "dev:doc": "eleventy --serve",
         "deploy:doc": "gh-pages -d _site -m \"docs: update documentation\"",

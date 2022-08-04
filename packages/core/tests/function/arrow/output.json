@@ -1,1 +1,57 @@
-[]
+[
+    {
+        "path": "packages/core/tests/function/arrow/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "sum",
+                "decorators": [],
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "Function that sums all the numbers in a list."
+                    },
+                    {
+                        "kind": "param",
+                        "value": {
+                            "name": "list",
+                            "default": "",
+                            "optional": false,
+                            "description": "The list of numbers to sum"
+                        }
+                    },
+                    {
+                        "kind": "returns",
+                        "value": "The sum of all the numbers."
+                    }
+                ],
+                "return": {
+                    "type": {
+                        "text": "number"
+                    }
+                },
+                "async": false,
+                "parameters": [
+                    {
+                        "name": "list",
+                        "decorators": [],
+                        "optional": false,
+                        "default": "",
+                        "type": {
+                            "text": "number[]"
+                        },
+                        "rest": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "sum",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

@@ -91,16 +91,16 @@ function getJSTagValue(name: string, tag: Spec): unknown {
         case JSDocTagName.cssprop:
         case JSDocTagName.cssproperty:
             return {
-                name: tag.name,
-                default: tag.default,
+                name: tag.name ?? '',
+                default: tag.default ?? '',
                 description: normalizeDescription(tag.description),
             };
 
         case JSDocTagName.param:
             return {
-                name: tag.name,
-                default: tag.default,
-                optional: tag.optional,
+                name: tag.name ?? '',
+                default: tag.default ?? '',
+                optional: tag.optional ?? '',
                 description: normalizeDescription(tag.description),
             };
 
@@ -108,28 +108,28 @@ function getJSTagValue(name: string, tag: Spec): unknown {
         case JSDocTagName.slot:
         case JSDocTagName.attr:
             return {
-                name: tag.name,
+                name: tag.name ?? '',
                 description: normalizeDescription(tag.description),
             };
 
         case JSDocTagName.fires:
         case JSDocTagName.event:
             return {
-                name: tag.name,
-                type: tag.type,
+                name: tag.name ?? '',
+                type: tag.type ?? '',
                 description: normalizeDescription(tag.description),
             };
 
         default:
             if (jsDocHandlers[name] !== undefined) {
                 try {
-                    return jsDocHandlers[name](tag);
+                    return jsDocHandlers[name](tag) ?? '';
                 } catch (error: unknown) {
                     logError(`The JSDoc Handler "${name}" has thrown the following error: `, error);
                 }
             }
 
-            return tag.name;
+            return tag.name ?? '';
     }
 }
 

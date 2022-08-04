@@ -1,6 +1,7 @@
 [
     {
-        "path": "tests/export/type/index.ts",
+        "path": "packages/core/tests/export/type/index.ts",
+        "imports": [],
         "declarations": [],
         "exports": [
             {
@@ -8,7 +9,6 @@
                 "type": "named",
                 "isTypeOnly": true
             }
-        ],
-        "imports": []
+        ]
     }
 ]

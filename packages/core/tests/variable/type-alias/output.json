@@ -1,23 +1,23 @@
 [
     {
-        "path": "packages/core/tests/export/default/index.ts",
+        "path": "packages/core/tests/variable/type-alias/index.ts",
         "imports": [],
         "declarations": [
             {
                 "kind": "variable",
-                "name": "foo",
+                "name": "name",
                 "jsDoc": [],
-                "type": {
-                    "text": "4"
-                },
                 "decorators": [],
-                "default": "4"
+                "type": {
+                    "text": "StringAlias"
+                },
+                "default": "'John Doe'"
             }
         ],
         "exports": [
             {
-                "name": "foo",
-                "type": "default",
+                "name": "name",
+                "type": "named",
                 "isTypeOnly": false
             }
         ]

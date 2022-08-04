@@ -51,6 +51,9 @@ export function parseFromSource(
  * patterns and some configurable options, extracts metadata from the
  * TypeScript Abstract Syntax Tree.
  *
+ * Internally [globby](https://github.com/sindresorhus/globby) handles the pattern matching.
+ * Any pattern that `globby` accepts can be used.
+ *
  * @param patterns - A string or an array of strings that represent glob patterns
  * @param options - Options that can be used to configure the output metadata
  * @param compilerOptions - Options to pass to the TypeScript compiler

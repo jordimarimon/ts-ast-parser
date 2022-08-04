@@ -8,6 +8,9 @@ export default defineConfig({
         include: [
             '**/test.ts',
         ],
+        coverage: {
+            reporter: ['cobertura'],
+        },
     },
 
     plugins: [

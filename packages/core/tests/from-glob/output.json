@@ -1,23 +1,23 @@
 [
     {
-        "path": "packages/core/tests/export/default/index.ts",
+        "path": "packages/core/tests/from-glob/index.ts",
         "imports": [],
         "declarations": [
             {
                 "kind": "variable",
                 "name": "foo",
                 "jsDoc": [],
-                "type": {
-                    "text": "4"
-                },
                 "decorators": [],
-                "default": "4"
+                "type": {
+                    "text": "true"
+                },
+                "default": "true"
             }
         ],
         "exports": [
             {
                 "name": "foo",
-                "type": "default",
+                "type": "named",
                 "isTypeOnly": false
             }
         ]

@@ -2,7 +2,7 @@
     "name": "@ts-ast-parser/to-markdown",
     "version": "0.0.0",
     "author": "Jordi Marimon Palarea",
-    "description": "Generates a markdown documentation from the output metadata of @ts-ast-parser/core",
+    "description": "Generates documentation in markdown format from the output metadata of @ts-ast-parser/core",
     "homepage": "https://jordimarimon.github.io/ts-ast-parser",
     "license": "MIT",
     "main": "dist/index.js",
@@ -34,6 +34,7 @@
         "npm": ">=7.0.0"
     },
     "dependencies": {
+        "@ts-ast-parser/core": "0.0.0",
         "mdast-builder": "^1.1.1",
         "mdast-util-gfm": "^2.0.1",
         "mdast-util-to-markdown": "^1.3.0",

@@ -1,1 +1,39 @@
-[]
+[
+    {
+        "path": "packages/core/tests/function/async/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "sleep",
+                "decorators": [],
+                "jsDoc": [],
+                "return": {
+                    "type": {
+                        "text": "Promise<void>"
+                    }
+                },
+                "async": true,
+                "parameters": [
+                    {
+                        "name": "amount",
+                        "decorators": [],
+                        "optional": false,
+                        "default": "500",
+                        "type": {
+                            "text": "number"
+                        },
+                        "rest": false
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "sleep",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

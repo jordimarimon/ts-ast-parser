@@ -7,9 +7,9 @@ import ts from 'typescript';
 export function collect(fileName: string, sourceFile: ts.SourceFile | undefined): Module {
     const moduleDoc: Module = {
         path: fileName || '',
+        imports: [],
         declarations: [],
         exports: [],
-        imports: [],
     };
 
     if (sourceFile == null) {
@@ -20,7 +20,7 @@ export function collect(fileName: string, sourceFile: ts.SourceFile | undefined)
 
     removeNonExportableDeclarations(moduleDoc);
 
-    // TODO(Jordi M.): Link Phase. Cross-reference any user defined type and inheritances
+    // TODO(Jordi M.): Link Phase. Cross-reference any user defined type/interface and inheritances
 
     return moduleDoc;
 }

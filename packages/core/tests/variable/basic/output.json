@@ -1,9 +1,25 @@
 [
     {
-        "path": "tests/variable/basic/index.ts",
-        "declarations": [],
-        "exports": [],
-        "imports": []
+        "path": "packages/core/tests/variable/basic/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "foo",
+                "jsDoc": [],
+                "type": {
+                    "text": "number"
+                },
+                "decorators": [],
+                "default": "bar + 3"
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
     }
 ]
-

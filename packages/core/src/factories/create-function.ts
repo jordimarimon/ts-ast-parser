@@ -77,14 +77,17 @@ function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunct
 function getParameters(func: ts.FunctionDeclaration | ts.ArrowFunction | null): Parameter[] {
     const parameters: Parameter[] = [];
     const originalParameters = func?.parameters ?? [];
+    const checker = Context.checker;
 
     for (const param of originalParameters) {
+        // The computed type from the TypeScript TypeChecker (as a last resource)
+        const computedType = checker?.typeToString(checker?.getTypeAtLocation(param), param) || '';
         const parameter: Parameter = {
             name: param.name.getText(),
             decorators: [],
             optional: !!param?.questionToken,
             default: param?.initializer?.getText() ?? '',
-            type: {text: param?.type?.getText() ?? ''},
+            type: {text: param?.type?.getText() ?? computedType},
             rest: !!(param?.dotDotDotToken && param.type?.kind === ts.SyntaxKind.ArrayType),
         };
 

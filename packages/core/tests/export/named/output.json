@@ -1,14 +1,25 @@
 [
     {
-        "path": "tests/export/named/index.ts",
-        "declarations": [],
+        "path": "packages/core/tests/export/named/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "foo",
+                "jsDoc": [],
+                "type": {
+                    "text": "4"
+                },
+                "decorators": [],
+                "default": "4"
+            }
+        ],
         "exports": [
             {
-                "name": "Foo",
+                "name": "foo",
                 "type": "named",
                 "isTypeOnly": false
             }
-        ],
-        "imports": []
+        ]
     }
 ]

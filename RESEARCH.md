@@ -1,0 +1,15 @@
+This is a list of libraries of interest from where to source ideas:
+
+* [TypeScript Compiler](https://github.com/microsoft/TypeScript/tree/main/src/compiler)
+* [Custom Element Manifest analyser](https://github.com/open-wc/custom-elements-manifest/tree/master/packages/analyzer)
+* [ts-morph](https://github.com/dsherret/ts-morph/tree/latest/packages/ts-morph)
+* [JSDoc](https://github.com/jsdoc/jsdoc)
+* [JSDoc To Markdown](https://github.com/jsdoc2md/jsdoc-to-markdown)
+* [Better docs](https://github.com/SoftwareBrothers/better-docs)
+* [API Extractor](https://api-extractor.com/)
+* [TSDoc](https://github.com/microsoft/tsdoc)
+* [Type Doc](https://typedoc.org/)
+* [DocFX](https://dotnet.github.io/docfx/)
+* [TS Docs gen](https://github.com/SimplrJS/ts-docs-gen)
+* [Node TypeScript Parser](https://github.com/buehler/node-typescript-parser)
+* [TyDoc](https://github.com/tydoc/tydoc)

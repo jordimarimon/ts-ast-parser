@@ -1,11 +1,11 @@
-import { getClassDeclaration, getReturnStatement, getReturnValue, getVariableDeclaration } from './helpers';
 import { MixinNodes } from '../models';
 import ts from 'typescript';
 
 
-/**
- * Extracts the function and class nodes that are used to define a Mixin
- */
+//
+// Extracts the function and class nodes that are used to define a Mixin
+//
+
 export function extractMixinNodes(node: ts.Node): MixinNodes | null {
     if (ts.isVariableStatement(node)) {
         extractMixinNodesFromVariableStatement(node);
@@ -128,4 +128,30 @@ function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration):
     }
 
     return null;
+}
+
+function getReturnStatement(node: ts.Block): ts.ReturnStatement | undefined {
+    return node.statements.find(ts.isReturnStatement);
+}
+
+function getClassDeclaration(node: ts.Block): ts.ClassDeclaration | undefined {
+    return node.statements.find(ts.isClassDeclaration);
+}
+
+function getVariableDeclaration(node: ts.VariableStatement): ts.VariableDeclaration | undefined {
+    return node.declarationList.declarations.find(ts.isVariableDeclaration);
+}
+
+function getReturnValue(returnStatement: ts.ReturnStatement | undefined): string {
+    if (returnStatement == undefined) {
+        return '';
+    }
+
+    const expr = returnStatement.expression;
+
+    if (expr != undefined && ts.isAsExpression(expr)) {
+        return expr.expression.getText() ?? '';
+    }
+
+    return expr?.getText() ?? '';
 }
