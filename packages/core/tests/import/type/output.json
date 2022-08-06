@@ -1,8 +1,6 @@
 [
     {
-        "path": "tests/import/type/index.ts",
-        "declarations": [],
-        "exports": [],
+        "path": "packages/core/tests/import/type/index.ts",
         "imports": [
             {
                 "name": "TypeA",
@@ -10,6 +8,25 @@
                 "importPath": "./type-a",
                 "isBareModuleSpecifier": false,
                 "isTypeOnly": true
+            }
+        ],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "x",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "TypeA"
+                },
+                "default": "{foo: 'bar'}"
+            }
+        ],
+        "exports": [
+            {
+                "name": "x",
+                "type": "default",
+                "isTypeOnly": false
             }
         ]
     }

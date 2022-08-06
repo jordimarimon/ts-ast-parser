@@ -1,8 +1,6 @@
 [
     {
-        "path": "tests/import/namespace/index.ts",
-        "declarations": [],
-        "exports": [],
+        "path": "packages/core/tests/import/namespace/index.ts",
         "imports": [
             {
                 "name": "Namespace",
@@ -11,6 +9,8 @@
                 "isBareModuleSpecifier": false,
                 "isTypeOnly": false
             }
-        ]
+        ],
+        "declarations": [],
+        "exports": []
     }
 ]

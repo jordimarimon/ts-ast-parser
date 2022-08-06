@@ -1,4 +1,4 @@
-name: Codecov
+name: Build
 
 on:
     push:
@@ -9,7 +9,7 @@ on:
 jobs:
     analyse:
         if: ${{ github.actor != 'dependabot[bot]' }}
-        name: Analyse
+        name: Build
         runs-on: ubuntu-latest
         permissions:
             actions: read
@@ -27,10 +27,8 @@ jobs:
             -   name: Install dependencies
                 run: npm ci
 
-            -   name: Run tests and collect coverage
-                run: npm run coverage
+            -   name: Build
+                run: npm run build
 
-            -   name: Upload coverage to Codecov
-                uses: codecov/codecov-action@v3
-                with:
-                    files: ./coverage/cobertura-coverage.xml
+            -   name: Run tests
+                run: npm run test

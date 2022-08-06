@@ -1,15 +1,21 @@
 [
     {
-        "path": "tests/jsdoc/description/index.ts",
+        "path": "packages/core/tests/jsdoc/description/index.ts",
+        "imports": [],
         "declarations": [
             {
-                "name": "x",
                 "kind": "variable",
-                "type": {
-                    "text": "number"
-                },
-                "description": "This is the description of the variable.\n\nThis is more content for the description\nthat is too large.",
+                "name": "x",
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "This is the description of the variable. This is more content for the description that is too large."
+                    }
+                ],
                 "decorators": [],
+                "type": {
+                    "text": "4"
+                },
                 "default": "4"
             }
         ],
@@ -19,7 +25,6 @@
                 "type": "named",
                 "isTypeOnly": false
             }
-        ],
-        "imports": []
+        ]
     }
 ]

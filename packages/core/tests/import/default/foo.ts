@@ -1,7 +1,7 @@
 class Foo {
 
-    bar(): void {
-        console.log('Hello World');
+    bar(): number {
+        return 1 + 1;
     }
 
 }

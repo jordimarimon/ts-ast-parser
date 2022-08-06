@@ -1,8 +1,6 @@
 [
     {
-        "path": "tests/import/named/index.ts",
-        "declarations": [],
-        "exports": [],
+        "path": "packages/core/tests/import/named/index.ts",
         "imports": [
             {
                 "name": "Foo",
@@ -11,6 +9,8 @@
                 "isBareModuleSpecifier": false,
                 "isTypeOnly": false
             }
-        ]
+        ],
+        "declarations": [],
+        "exports": []
     }
 ]

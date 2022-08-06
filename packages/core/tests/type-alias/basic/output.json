@@ -1,12 +1,14 @@
 [
     {
-        "path": "tests/type-alias/basic/index.ts",
+        "path": "packages/core/tests/type-alias/basic/index.ts",
+        "imports": [],
         "declarations": [
             {
                 "name": "Foo",
                 "kind": "type-alias",
                 "value": "{\n    bar: number;\n}",
-                "jsDoc": []
+                "jsDoc": [],
+                "typeParameters": []
             }
         ],
         "exports": [
@@ -15,7 +17,6 @@
                 "type": "named",
                 "isTypeOnly": false
             }
-        ],
-        "imports": []
+        ]
     }
 ]

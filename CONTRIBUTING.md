@@ -32,4 +32,16 @@ TODO
 
 ### Running tests
 
+To run all the tests:
+
     npm run test
+
+You can optionally specify the path of a test file.
+
+    npm run test -- <test-file-path>
+
+Example:
+
+    npm run test -- variable/basic/test.ts
+
+will execute only the test file located at `packages/core/tests/variable/basic/test.ts`.

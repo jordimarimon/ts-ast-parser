@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/type-alias/type-parameters/index.ts",
+        "path": "packages/core/tests/type-alias/type-parameters/index.ts",
         "declarations": [
             {
                 "name": "Foo",
