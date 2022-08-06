@@ -4,6 +4,8 @@ import { Context } from '../context';
 import ts from 'typescript';
 
 
+type FunctionLikeDeclaration = ts.FunctionDeclaration | ts.ArrowFunction | null;
+
 export function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, moduleDoc: Module): void {
     const tmpl: FunctionDeclaration = {
         kind: 'function',
@@ -51,7 +53,7 @@ function getFunctionName(node: ts.Node): string {
     return '';
 }
 
-function getFunctionReturnType(func: ts.FunctionDeclaration | ts.ArrowFunction | null): string {
+function getFunctionReturnType(func: FunctionLikeDeclaration): string {
     const definedType = func?.type?.getText() || '';
 
     if (definedType !== '') {
@@ -66,7 +68,7 @@ function getFunctionReturnType(func: ts.FunctionDeclaration | ts.ArrowFunction |
     return computedType || '';
 }
 
-function isAsyncFunction(func: ts.FunctionDeclaration | ts.ArrowFunction | null): boolean {
+function isAsyncFunction(func: FunctionLikeDeclaration): boolean {
     return !!func?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
 }
 
@@ -74,7 +76,7 @@ function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunct
     return expr != null && ts.isArrowFunction(expr);
 }
 
-function getParameters(func: ts.FunctionDeclaration | ts.ArrowFunction | null): Parameter[] {
+function getParameters(func: FunctionLikeDeclaration): Parameter[] {
     const parameters: Parameter[] = [];
     const originalParameters = func?.parameters ?? [];
     const checker = Context.checker;
@@ -97,7 +99,7 @@ function getParameters(func: ts.FunctionDeclaration | ts.ArrowFunction | null): 
     return parameters;
 }
 
-function getFunctionNode(node: ts.Node): ts.FunctionDeclaration | ts.ArrowFunction | null {
+function getFunctionNode(node: ts.Node): FunctionLikeDeclaration {
     let func: ts.Node | undefined = node;
 
     if (ts.isVariableStatement(node)) {
