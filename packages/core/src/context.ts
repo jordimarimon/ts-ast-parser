@@ -1,4 +1,4 @@
-import { Options } from './options';
+import { Options } from './options.js';
 import ts from 'typescript';
 
 

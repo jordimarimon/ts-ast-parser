@@ -26,7 +26,7 @@ export function createMarkdown(tree?: Children): string {
             raw: node => node.value || '',
 
             // To be able to write markdown code blocks
-            multiLineCode: node => `\`\`\`typescript\n${  node.value || ''  }\n\`\`\``,
+            multiLineCode: node => `\`\`\`typescript\n${node.value || ''}\n\`\`\``,
         },
     });
 }

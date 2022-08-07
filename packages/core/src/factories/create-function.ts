@@ -1,6 +1,6 @@
-import { FunctionDeclaration, FunctionLike, Module, Parameter } from '../models';
-import { getAllJSDoc } from '../utils';
-import { Context } from '../context';
+import { FunctionDeclaration, FunctionLike, Module, Parameter } from '../models/index.js';
+import { getAllJSDoc } from '../utils/index.js';
+import { Context } from '../context.js';
 import ts from 'typescript';
 
 
@@ -47,7 +47,7 @@ function getFunctionName(node: ts.Node): string {
     }
 
     if (ts.isPropertyDeclaration(node) && node.initializer && ts.isArrowFunction(node.initializer)) {
-         return node.name?.getText() || '';
+        return node.name?.getText() || '';
     }
 
     return '';

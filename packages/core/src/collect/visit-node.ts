@@ -1,6 +1,6 @@
-import { extractMixinNodes, hasExportKeyword, isFunctionDeclaration, shouldIgnore } from '../utils';
-import * as fromFactory from '../factories';
-import { Module } from '../models';
+import { extractMixinNodes, hasExportKeyword, isFunctionDeclaration, shouldIgnore } from '../utils/index.js';
+import * as fromFactory from '../factories/index.js';
+import { Module } from '../models/index.js';
 import ts from 'typescript';
 
 

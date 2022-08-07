@@ -26,7 +26,7 @@ export type MixinReturnTypesUnion<Mixins extends Mixin[]> = MixinReturnType<Mixi
 // The following type converts the UNION of "the mixins returning types"
 // into an INTERSECTION of "the mixins returning types"
 // See https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-inference-in-conditional-types
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// eslint-disable-next-line @typescript-eslint/no-explicit-any, max-len
 export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
 
 // The following type creates the intersections of all the mixins and the base class.

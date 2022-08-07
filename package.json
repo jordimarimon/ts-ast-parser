@@ -1,6 +1,6 @@
 {
-    "name": "ts-ast-parser",
     "private": true,
+    "name": "ts-ast-parser",
     "author": "Jordi Marimon Palarea",
     "description": "Simplifies TypeScript AST for generating documentation",
     "homepage": "https://jordimarimon.github.io/ts-ast-parser",
@@ -16,7 +16,7 @@
         "url": "https://github.com/jordimarimon/ts-ast-parser/issues"
     },
     "engines": {
-        "node": ">=16.0.0",
+        "node": "^12.20.0 || ^14.13.1 || >=16.0.0",
         "npm": ">=7.0.0"
     },
     "scripts": {

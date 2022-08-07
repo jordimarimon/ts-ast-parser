@@ -1,10 +1,10 @@
-import { TypeAliasDeclaration } from './type-alias';
-import { InterfaceDeclaration } from './interface';
-import { VariableDeclaration } from './variable';
-import { FunctionDeclaration } from './function';
-import { ClassDeclaration } from './class';
-import { MixinDeclaration } from './mixin';
-import { EnumDeclaration } from './enum';
+import { TypeAliasDeclaration } from './type-alias.js';
+import { InterfaceDeclaration } from './interface.js';
+import { VariableDeclaration } from './variable.js';
+import { FunctionDeclaration } from './function.js';
+import { ClassDeclaration } from './class.js';
+import { MixinDeclaration } from './mixin.js';
+import { EnumDeclaration } from './enum.js';
 
 
 export type Declaration =

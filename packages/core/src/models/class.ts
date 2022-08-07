@@ -1,9 +1,9 @@
-import { PropertyLike } from './property';
-import { FunctionLike } from './function';
-import { Reference } from './reference';
-import { Decorator } from './decorator';
-import { Parameter } from './parameter';
-import { JSDoc } from './js-doc';
+import { PropertyLike } from './property.js';
+import { FunctionLike } from './function.js';
+import { Reference } from './reference.js';
+import { Decorator } from './decorator.js';
+import { Parameter } from './parameter.js';
+import { JSDoc } from './js-doc.js';
 
 
 export enum ModifierType {

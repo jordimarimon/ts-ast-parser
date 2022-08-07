@@ -1,4 +1,4 @@
-import { SourceReference } from './reference';
+import { SourceReference } from './reference.js';
 
 
 export interface Type {

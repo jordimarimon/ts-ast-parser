@@ -5,7 +5,7 @@
             {
                 "name": "Namespace",
                 "kind": "namespace",
-                "importPath": "./foo",
+                "importPath": "./foo.js",
                 "isBareModuleSpecifier": false,
                 "isTypeOnly": false
             }

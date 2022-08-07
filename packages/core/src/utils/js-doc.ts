@@ -1,7 +1,8 @@
-import { JSDoc, JSDocComment, JSDocNode, JSDocTagName } from '../models';
-import { logError, logWarning } from './logs';
-import { parse, Spec } from 'comment-parser';
-import { Context } from '../context';
+import { JSDoc, JSDocComment, JSDocNode, JSDocTagName } from '../models/index.js';
+import { Spec } from 'comment-parser/primitives';
+import { logError, logWarning } from './logs.js';
+import { Context } from '../context.js';
+import { parse } from 'comment-parser';
 import ts from 'typescript';
 
 

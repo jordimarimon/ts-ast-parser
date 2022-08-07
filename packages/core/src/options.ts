@@ -1,5 +1,5 @@
-import { Spec } from 'comment-parser';
-import { Module } from './models';
+import { Spec } from 'comment-parser/primitives';
+import { Module } from './models/index.js';
 import ts from 'typescript';
 
 

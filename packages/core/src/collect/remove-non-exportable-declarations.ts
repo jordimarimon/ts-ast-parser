@@ -1,4 +1,4 @@
-import { Module } from '../models';
+import { Module } from '../models/index.js';
 
 
 /**

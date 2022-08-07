@@ -1,4 +1,4 @@
-import { PropertyLike } from './property';
+import { PropertyLike } from './property.js';
 
 
 export interface Parameter extends PropertyLike {

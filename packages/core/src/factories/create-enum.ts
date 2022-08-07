@@ -1,5 +1,5 @@
-import { EnumDeclaration, EnumMember, Module } from '../models';
-import { getAllJSDoc } from '../utils';
+import { EnumDeclaration, EnumMember, Module } from '../models/index.js';
+import { getAllJSDoc } from '../utils/index.js';
 import ts from 'typescript';
 
 

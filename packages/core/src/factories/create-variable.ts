@@ -1,6 +1,6 @@
-import { JSDocTagName, Module, VariableDeclaration } from '../models';
-import { getDefaultValue, getAllJSDoc, findJSDoc } from '../utils';
-import { Context } from '../context';
+import { JSDocTagName, Module, VariableDeclaration } from '../models/index.js';
+import { getDefaultValue, getAllJSDoc, findJSDoc } from '../utils/index.js';
+import { Context } from '../context.js';
 import ts from 'typescript';
 
 

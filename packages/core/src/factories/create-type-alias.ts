@@ -1,5 +1,5 @@
-import { Module, TypeAliasDeclaration } from '../models';
-import { getAllJSDoc } from '../utils';
+import { Module, TypeAliasDeclaration } from '../models/index.js';
+import { getAllJSDoc } from '../utils/index.js';
 import ts from 'typescript';
 
 

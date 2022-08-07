@@ -1,4 +1,4 @@
-import { parseFromFiles } from '../src';
+import { parseFromFiles } from '../src/index.js';
 import path from 'path';
 import fs from 'fs';
 

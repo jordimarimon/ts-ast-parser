@@ -1,6 +1,6 @@
-import { removeNonExportableDeclarations } from './remove-non-exportable-declarations';
-import { visitNode } from './visit-node';
-import { Module } from '../models';
+import { removeNonExportableDeclarations } from './remove-non-exportable-declarations.js';
+import { visitNode } from './visit-node.js';
+import { Module } from '../models/index.js';
 import ts from 'typescript';
 
 

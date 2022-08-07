@@ -7,4 +7,4 @@
  */
 export const sum = (...list: number[]): number => {
     return list.reduce((acc, curr) => acc + curr, 0);
-}
+};

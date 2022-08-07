@@ -1,6 +1,6 @@
-import { readExpectedOutput } from '../utils';
+import { parseFromGlob } from '../../src/index.js';
+import { readExpectedOutput } from '../utils.js';
 import { describe, expect, it } from 'vitest';
-import { parseFromGlob } from '../../src';
 import path from 'path';
 
 

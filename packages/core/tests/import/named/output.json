@@ -5,7 +5,7 @@
             {
                 "name": "Foo",
                 "kind": "named",
-                "importPath": "./foo",
+                "importPath": "./foo.js",
                 "isBareModuleSpecifier": false,
                 "isTypeOnly": false
             }

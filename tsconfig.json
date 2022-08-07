@@ -18,12 +18,14 @@
         "incremental": true,
         "downlevelIteration": true,
         "experimentalDecorators": true,
-        "moduleResolution": "node",
         "importHelpers": true,
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
+        "stripInternal": true,
+        "skipLibCheck": true,
         "target": "es2020",
-        "module": "es2020",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "lib": [
             "es2020"
         ]

@@ -1,5 +1,5 @@
-import { Import, ImportType } from '../models';
-import { isNotEmptyArray } from '../utils';
+import { Import, ImportType } from '../models/index.js';
+import { isNotEmptyArray } from '../utils/index.js';
 import ts from 'typescript';
 
 

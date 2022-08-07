@@ -1,5 +1,5 @@
-import { Decorator } from './decorator';
-import { JSDoc } from './js-doc';
+import { Decorator } from './decorator.js';
+import { JSDoc } from './js-doc.js';
 
 
 export interface EnumDeclaration {

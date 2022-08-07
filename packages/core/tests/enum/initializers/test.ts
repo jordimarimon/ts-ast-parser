@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getFixture } from '../../utils';
+import { getFixture } from '../../utils.js';
 
 
 const category = 'enum';

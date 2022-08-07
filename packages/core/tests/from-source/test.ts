@@ -1,11 +1,11 @@
-import { readExpectedOutput } from '../utils';
+import { parseFromSource } from '../../src/index.js';
+import { readExpectedOutput } from '../utils.js';
 import { describe, expect, it } from 'vitest';
-import { parseFromSource } from '../../src';
 
 
 const category = 'from-source';
 const expected = readExpectedOutput(category);
-const source = `const foo = true;export { foo };`;
+const source = 'const foo = true;export { foo };';
 const actual = parseFromSource(source);
 
 describe(category, () => {

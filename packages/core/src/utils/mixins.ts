@@ -1,4 +1,4 @@
-import { MixinNodes } from '../models';
+import { MixinNodes } from '../models/index.js';
 import ts from 'typescript';
 
 

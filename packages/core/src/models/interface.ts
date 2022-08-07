@@ -1,4 +1,4 @@
-import { ClassLike } from './class';
+import { ClassLike } from './class.js';
 
 
 export interface InterfaceDeclaration extends ClassLike {

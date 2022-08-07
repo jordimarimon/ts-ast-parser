@@ -1,4 +1,4 @@
-import { JSDoc } from './js-doc';
+import { JSDoc } from './js-doc.js';
 
 
 export interface TypeAliasDeclaration {

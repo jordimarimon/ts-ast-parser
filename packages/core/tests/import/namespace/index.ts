@@ -1,5 +1,5 @@
-import * as Namespace from './foo';
+import * as Namespace from './foo.js';
 
 
-const foo =  new Namespace.Foo();
+const foo = new Namespace.Foo();
 foo.bar();

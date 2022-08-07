@@ -1,10 +1,10 @@
-import { createCompilerHost } from './compiler-host';
-import { Options } from './options';
-import { collect } from './collect';
-import { Context } from './context';
+import { createCompilerHost } from './compiler-host.js';
+import { collect } from './collect/index.js';
+import { logError } from './utils/index.js';
+import { Module } from './models/index.js';
+import { Options } from './options.js';
+import { Context } from './context.js';
 import { globbySync } from 'globby';
-import { logError } from './utils';
-import { Module } from './models';
 import * as path from 'path';
 import ts from 'typescript';
 

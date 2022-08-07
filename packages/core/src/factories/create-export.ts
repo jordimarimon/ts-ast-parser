@@ -1,5 +1,5 @@
-import { extractMixinNodes, hasDefaultKeyword, hasExportKeyword } from '../utils';
-import { Export, ExportType, Module } from '../models';
+import { extractMixinNodes, hasDefaultKeyword, hasExportKeyword } from '../utils/index.js';
+import { Export, ExportType, Module } from '../models/index.js';
 import ts from 'typescript';
 
 
