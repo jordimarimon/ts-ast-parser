@@ -3,32 +3,30 @@ import { isNotEmptyArray } from '../utils/index.js';
 import ts from 'typescript';
 
 
-/**
- * Checks whether the imported module only specifies its module in the import path,
- * rather than the full or relative path to where it's located:
- *
- *      import lodash from 'lodash'; --> Correct
- *      import foo from './foo.js'; --> Incorrect
- */
 export function isBareModuleSpecifier(specifier: string): boolean {
+    //
+    // Checks whether the imported module only specifies its module in the import path,
+    // rather than the full or relative path to where it's located:
+    //
+    //      import lodash from 'lodash'; --> Correct
+    //      import foo from './foo.js'; --> Incorrect
+    //
     return !!specifier?.replace(/'/g, '')[0].match(/[@a-zA-Z\d]/g);
 }
 
-/**
- * Returns true if the import declaration is similar tot the following:
- *
- *      import defaultExport from 'foo';
- */
 export function isDefaultImport(node: ts.ImportDeclaration): boolean {
+    //
+    // Case of:
+    //      import defaultExport from 'foo';
+    //
     return !!node?.importClause?.name;
 }
 
-/**
- * Returns true if the import declaration is similar tot the following:
- *
- *      import {namedA, namedB} from 'foo';
- */
 export function isNamedImport(node: ts.ImportDeclaration): boolean {
+    //
+    // Case of:
+    //      import {namedA, namedB} from 'foo';
+    //
     const namedImports = node?.importClause?.namedBindings;
 
     if (!namedImports || !ts.isNamedImports(namedImports)) {
@@ -38,12 +36,11 @@ export function isNamedImport(node: ts.ImportDeclaration): boolean {
     return isNotEmptyArray(namedImports?.elements);
 }
 
-/**
- * Returns true if the import declaration is similar tot the following:
- *
- *      import * as name from './my-module.js';
- */
 export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
+    //
+    // Case of:
+    //      import * as name from './my-module.js';
+    //
     const namespaceImports = node?.importClause?.namedBindings;
 
     if (!namespaceImports || !ts.isNamespaceImport(namespaceImports)) {
@@ -53,9 +50,6 @@ export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
     return !!namespaceImports?.name && !isNamedImport(node);
 }
 
-/**
- * Extracts the import declaration in the node
- */
 export function createImport(node: ts.Node | ts.SourceFile): Import[] {
     const imports: Import[] = [];
 

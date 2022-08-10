@@ -1,0 +1,158 @@
+[
+    {
+        "path": "packages/core/tests/interface/basic/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "interface",
+                "jsDoc": [],
+                "typeParameters": [
+                    "K"
+                ],
+                "decorators": [],
+                "members": [
+                    {
+                        "name": "x",
+                        "kind": "field",
+                        "optional": false,
+                        "type": {
+                            "text": "number"
+                        },
+                        "jsDoc": [],
+                        "decorators": []
+                    },
+                    {
+                        "name": "y",
+                        "kind": "field",
+                        "optional": true,
+                        "type": {
+                            "text": "string | K"
+                        },
+                        "jsDoc": [],
+                        "decorators": []
+                    },
+                    {
+                        "kind": "method",
+                        "name": "bar",
+                        "jsDoc": [],
+                        "decorators": [],
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
+                        "parameters": [],
+                        "typeParameters": []
+                    },
+                    {
+                        "kind": "method",
+                        "name": "isBar",
+                        "jsDoc": [],
+                        "decorators": [],
+                        "return": {
+                            "type": {
+                                "text": "boolean"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "a",
+                                "decorators": [],
+                                "optional": false,
+                                "default": "",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "rest": false
+                            },
+                            {
+                                "name": "b",
+                                "decorators": [],
+                                "optional": false,
+                                "default": "",
+                                "type": {
+                                    "text": "string"
+                                },
+                                "rest": false
+                            }
+                        ],
+                        "typeParameters": []
+                    },
+                    {
+                        "kind": "method",
+                        "name": "checkBar",
+                        "jsDoc": [],
+                        "decorators": [],
+                        "return": {
+                            "type": {
+                                "text": "Promise<void>"
+                            }
+                        },
+                        "parameters": [],
+                        "typeParameters": []
+                    },
+                    {
+                        "kind": "method",
+                        "name": "barWithTypedParameter",
+                        "jsDoc": [],
+                        "decorators": [],
+                        "return": {
+                            "type": {
+                                "text": "T"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "c",
+                                "decorators": [],
+                                "optional": false,
+                                "default": "",
+                                "type": {
+                                    "text": "T"
+                                },
+                                "rest": false
+                            }
+                        ],
+                        "typeParameters": [
+                            "T"
+                        ]
+                    },
+                    {
+                        "kind": "method",
+                        "name": "arrowFuncWithTypedParameters",
+                        "jsDoc": [],
+                        "decorators": [],
+                        "return": {
+                            "type": {
+                                "text": "T"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "c",
+                                "decorators": [],
+                                "optional": false,
+                                "default": "",
+                                "type": {
+                                    "text": "T"
+                                },
+                                "rest": false
+                            }
+                        ],
+                        "typeParameters": [
+                            "T"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

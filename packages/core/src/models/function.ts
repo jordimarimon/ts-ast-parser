@@ -11,6 +11,7 @@ export interface FunctionReturn {
 export interface FunctionLike {
     name: string;
     parameters: Parameter[];
+    typeParameters: string[];
     return: FunctionReturn;
     async?: boolean;
     decorators: Decorator[];

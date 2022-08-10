@@ -7,6 +7,7 @@ export interface PropertyLike {
     name: string;
     type?: Type;
     default?: string;
+    optional?: boolean;
     decorators?: Decorator[];
     jsDoc?: JSDoc;
 }

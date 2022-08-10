@@ -4,3 +4,4 @@ export * from './create-export.js';
 export * from './create-import.js';
 export * from './create-enum.js';
 export * from './create-type-alias.js';
+export * from './create-interface.js';

@@ -1,5 +1,5 @@
 import { Module, TypeAliasDeclaration } from '../models/index.js';
-import { getAllJSDoc } from '../utils/index.js';
+import { getAllJSDoc, getTypeParameters } from '../utils/index.js';
 import ts from 'typescript';
 
 
@@ -16,7 +16,7 @@ export function createTypeAlias(node: ts.TypeAliasDeclaration, moduleDoc: Module
         kind: 'type-alias',
         value: node.type?.getText(),
         jsDoc: getAllJSDoc(node),
-        typeParameters: node.typeParameters?.map(t => t.name?.getText() || '').filter(x => x) ?? [],
+        typeParameters: getTypeParameters(node),
     };
 
     moduleDoc.declarations.push(tmpl);

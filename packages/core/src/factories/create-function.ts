@@ -1,10 +1,14 @@
 import { FunctionDeclaration, FunctionLike, Module, Parameter } from '../models/index.js';
-import { getAllJSDoc } from '../utils/index.js';
+import { getAllJSDoc, getTypeParameters } from '../utils/index.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-type FunctionLikeDeclaration = ts.FunctionDeclaration | ts.ArrowFunction | null;
+type FunctionLikeDeclaration = ts.FunctionDeclaration |
+    ts.ArrowFunction |
+    ts.MethodSignature |
+    ts.FunctionTypeNode |
+    null;
 
 export function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, moduleDoc: Module): void {
     const tmpl: FunctionDeclaration = {
@@ -31,29 +35,12 @@ export function createFunctionLike(node: ts.Node): FunctionLike {
         jsDoc,
         return: {type: {text: getFunctionReturnType(func)}},
         async: isAsyncFunction(func),
-        parameters: getParameters(func),
+        parameters: getFunctionParameters(func),
+        typeParameters: getTypeParameters(func),
     };
 }
 
-function getFunctionName(node: ts.Node): string {
-    if (ts.isFunctionDeclaration(node)) {
-        return node?.name?.getText() || '';
-    }
-
-    if (ts.isVariableStatement(node)) {
-        const decl = node.declarationList.declarations.find(d => isArrowFunction(d.initializer));
-
-        return decl?.name?.getText() || '';
-    }
-
-    if (ts.isPropertyDeclaration(node) && node.initializer && ts.isArrowFunction(node.initializer)) {
-        return node.name?.getText() || '';
-    }
-
-    return '';
-}
-
-function getFunctionReturnType(func: FunctionLikeDeclaration): string {
+export function getFunctionReturnType(func: FunctionLikeDeclaration): string {
     const definedType = func?.type?.getText() || '';
 
     if (definedType !== '') {
@@ -68,15 +55,7 @@ function getFunctionReturnType(func: FunctionLikeDeclaration): string {
     return computedType || '';
 }
 
-function isAsyncFunction(func: FunctionLikeDeclaration): boolean {
-    return !!func?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
-}
-
-function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunction {
-    return expr != null && ts.isArrowFunction(expr);
-}
-
-function getParameters(func: FunctionLikeDeclaration): Parameter[] {
+export function getFunctionParameters(func: FunctionLikeDeclaration): Parameter[] {
     const parameters: Parameter[] = [];
     const originalParameters = func?.parameters ?? [];
     const checker = Context.checker;
@@ -97,6 +76,32 @@ function getParameters(func: FunctionLikeDeclaration): Parameter[] {
     }
 
     return parameters;
+}
+
+function isAsyncFunction(func: FunctionLikeDeclaration): boolean {
+    return !!func?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
+}
+
+function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunction {
+    return expr != null && ts.isArrowFunction(expr);
+}
+
+function getFunctionName(node: ts.Node): string {
+    if (ts.isFunctionDeclaration(node)) {
+        return node?.name?.getText() || '';
+    }
+
+    if (ts.isVariableStatement(node)) {
+        const decl = node.declarationList.declarations.find(d => isArrowFunction(d.initializer));
+
+        return decl?.name?.getText() || '';
+    }
+
+    if (ts.isPropertyDeclaration(node) && node.initializer && ts.isArrowFunction(node.initializer)) {
+        return node.name?.getText() || '';
+    }
+
+    return '';
 }
 
 function getFunctionNode(node: ts.Node): FunctionLikeDeclaration {

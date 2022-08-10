@@ -55,7 +55,7 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     }
 
     if (ts.isInterfaceDeclaration(rootNode)) {
-        // TODO: It's not yet implemented
+        fromFactory.createInterface(rootNode, moduleDoc);
         return;
     }
 

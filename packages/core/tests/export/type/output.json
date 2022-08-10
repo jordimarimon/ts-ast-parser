@@ -2,7 +2,27 @@
     {
         "path": "packages/core/tests/export/type/index.ts",
         "imports": [],
-        "declarations": [],
+        "declarations": [
+            {
+                "name": "TypeA",
+                "kind": "interface",
+                "typeParameters": [],
+                "jsDoc": [],
+                "decorators": [],
+                "members": [
+                    {
+                        "name": "foo",
+                        "kind": "field",
+                        "optional": false,
+                        "type": {
+                            "text": "string"
+                        },
+                        "jsDoc": [],
+                        "decorators": []
+                    }
+                ]
+            }
+        ],
         "exports": [
             {
                 "name": "TypeA",

@@ -1,6 +1,15 @@
 import ts from 'typescript';
 
 
+type ConstructWithTypeParameter = ts.TypeAliasDeclaration |
+    ts.InterfaceDeclaration |
+    ts.ClassDeclaration |
+    ts.FunctionDeclaration |
+    ts.ArrowFunction |
+    ts.MethodSignature |
+    ts.FunctionTypeNode |
+    null;
+
 export const isNotEmptyArray = <T = unknown[]>(arr: unknown): arr is T => Array.isArray(arr) && arr.length > 0;
 
 export function isStaticMember(member: ts.PropertyDeclaration | ts.MethodDeclaration): boolean {
@@ -46,4 +55,8 @@ export function getDefaultValue(node: ts.VariableDeclaration | ts.PropertyDeclar
     }
 
     return defaultValue ?? '';
+}
+
+export function getTypeParameters(node: ConstructWithTypeParameter): string[] {
+    return node?.typeParameters?.map(t => t.name?.getText() || '').filter(x => x) ?? [];
 }

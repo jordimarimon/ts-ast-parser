@@ -1,14 +1,6 @@
 import { Module } from '../models/index.js';
 
 
-/**
- * Removes all declarations that are not being exported.
- *
- * Any declaration that is not exported, can't be used outside the module.
- * There is no point on documenting non public declarations.
- *
- * @param moduleDoc - The metadata of the module
- */
 export function removeNonExportableDeclarations(moduleDoc: Module): void {
     let i = moduleDoc.declarations.length;
 
