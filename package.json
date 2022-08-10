@@ -20,22 +20,26 @@
         "npm": ">=7.0.0"
     },
     "scripts": {
+        "start": "npm-run-all -p dev:*",
         "build": "tsc --build packages/${PACKAGE:-*}/tsconfig.build.json",
-        "build:doc": "npm run clear:doc && NODE_ENV=production eleventy",
-        "dev:doc": "eleventy --serve",
+        "doc": "npm-run-all clear:doc -p build:*",
+        "build:11ty": "NODE_ENV=production eleventy ",
+        "build:css": "tailwindcss -i docs/assets/css/main.css -o _site/assets/css/main.css --postcss",
+        "dev:11ty": "eleventy --serve",
+        "dev:css": "tailwindcss -i docs/assets/css/main.css -o _site/assets/css/main.css --watch --postcss",
         "deploy:doc": "gh-pages -d _site -m \"docs: update documentation\"",
         "test": "vitest run --config vitest.config.ts",
         "coverage": "vitest run --coverage --config vitest.config.ts",
         "prepare": "./scripts/prepare.sh",
         "upgrade": "rm -rf node_modules package-lock.json && npm i",
         "bump": "npx ncu -u -x typescript,@types/node,@typescript/lib-dom",
-        "lint": "eslint \"**/*.{ts,js}\" --max-warnings 0",
-        "lint:fix": "eslint \"**/*.{ts,js}\" --fix --cache --max-warnings 0",
+        "lint": "eslint \"**/*.ts\" --max-warnings 0",
+        "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0",
         "analyse": "source-map-explorer ./dist/**.js",
         "clear:doc": "rm -rf ./_site"
     },
     "lint-staged": {
-        "**/*.{js,ts}": "npm run lint:fix"
+        "**/*.ts": "npm run lint:fix"
     },
     "devDependencies": {
         "@11ty/eleventy": "^1.0.1",
@@ -45,6 +49,7 @@
         "@typescript-eslint/eslint-plugin": "^5.33.0",
         "@typescript-eslint/parser": "^5.33.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.70",
+        "autoprefixer": "^10.4.8",
         "c8": "^7.12.0",
         "chalk": "^5.0.1",
         "comment-parser": "^1.3.1",
@@ -58,7 +63,9 @@
         "mdast-util-to-markdown": "^1.3.0",
         "npm-check-updates": "^16.0.5",
         "npm-run-all": "^4.1.5",
+        "postcss": "^8.4.16",
         "source-map-explorer": "^2.5.2",
+        "tailwindcss": "^3.1.8",
         "tslib": "^2.4.0",
         "typescript": "~4.7.4",
         "vite-tsconfig-paths": "^3.5.0",

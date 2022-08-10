@@ -1,10 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width initial-scale=1.0">
-        <title>TypeScript AST Parser Documentation</title>
+        <title>TypeScript AST Parser | {{title}}</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -15,7 +15,13 @@
     </head>
 
     <body>
-        <h1>Hello World!</h1>
+        <header>
+            {% include "partials/_navigation.njk" %}
+        </header>
+
+        <main>
+            {{content | safe}}
+        </main>
     </body>
 
 </html>
