@@ -1,5 +1,12 @@
-TypeScript Abstract Syntax Tree Parser
-=================
+<h1 style="text-align: center; border-bottom: none" align="center">
+    <div>TypeScript Abstract Syntax Tree Parser</div>
+    <br/>
+    <div>🚨🚨 NOTE: This is still a work in progress 🚨🚨</div>
+</h1>
+
+<br/>
+
+<div style="text-align: center" align="center">
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/)
@@ -7,24 +14,55 @@ TypeScript Abstract Syntax Tree Parser
 [![Maintainability](https://api.codeclimate.com/v1/badges/c6408307a02f8112a617/maintainability)](https://codeclimate.com/github/jordimarimon/ts-ast-parser/maintainability)
 [![codecov](https://codecov.io/gh/jordimarimon/ts-ast-parser/branch/main/graph/badge.svg?token=DMIFUI10V9)](https://codecov.io/gh/jordimarimon/ts-ast-parser)
 
-🚨🚨 **NOTE: This is still a work in progress** 🚨🚨
+</div>
 
-Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata.
+<br/>
+
+<div style="text-align: center;" align="center">
+  <a href="https://jordimarimon.github.io/ts-ast-parser">Website</a>
+  <span>&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+  <a href="https://jordimarimon.github.io/ts-ast-parser/playground/">Playground</a>
+</div>
+
+<br/>
+
+## What it is
+
+Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata.  
 
 This metadata then can be used to generate documentation.
 
-Packages
-=================
+## Features
+
+Extracts metadata from:
+
+- Imports
+- Exports
+- Function declarations
+- Variable declarations
+- Interface declarations
+- Type Alias declarations
+- Enum declarations
+- JSDoc and custom JSDoc tags
+- Class declarations (coming soon)
+- Inheritance (coming soon)
+- Decorators (coming soon)
+- Custom elements (coming soon)
+
+Supported output formats:
+
+- JSON
+- Markdown (coming soon)
+
+## Packages
 
 * [@ts-ast-parser/core](./packages/core)
 * [@ts-ast-parser/to-markdown](./packages/to-markdown)
 
-Documentation
-=================
+## Documentation
 
-[TODO: Check out the documentation website](https://jordimarimon.github.io/ts-ast-parser)
+Documentation is available on the [website](https://jordimarimon.github.io/ts-ast-parser)
 
-Contributing
-=================
+## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
