@@ -4,14 +4,14 @@
 
 <div class="pagination">
     {% if previousPost %}
-        <a href="{{ previousPost.url }}" class="pagination__previous">
+        <a href="{{ previousPost.url | url }}" class="pagination__previous">
             <span class="material-icons mie-auto">chevron_left</span>
             <span class="pagination__label truncate">{{ previousPost.data.title }}</span>
         </a>
     {% endif %}
 
     {% if nextPost %}
-        <a href="{{ nextPost.url }}" class="pagination__next">
+        <a href="{{ nextPost.url | url }}" class="pagination__next">
             <span class="pagination__label truncate">{{ nextPost.data.title }}</span>
             <span class="material-icons mis-auto">chevron_right</span>
         </a>
