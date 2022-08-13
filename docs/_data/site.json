@@ -1,0 +1,4 @@
+{
+    "title": "TypeScript AST Parser",
+    "description": "Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata."
+}

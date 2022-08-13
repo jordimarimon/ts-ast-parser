@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width initial-scale=1.0">
-        <title>TypeScript AST Parser | {{title}}</title>
+        <title>{{site.title}}{% if title %} | {{title}}{% endif %}</title>
+        <meta name="description" content="{% if description %}{{description}}{% else %}{{site.description}}{% endif %}"/>
+        <link href="favicon.ico" rel="icon" type="image/x-icon" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
@@ -15,12 +17,18 @@
     </head>
 
     <body>
-        <header>
-            {% include "partials/_navigation.njk" %}
-        </header>
+        {% include "partials/_navigation.njk" %}
 
-        <main>
+        {% if sideBarCollection %}
+        {% include "partials/_side-bar.njk" %}
+        {% endif %}
+
+        <main class="{% if sideBarCollection %}module{% else %}full-page{% endif %}">
             {{content | safe}}
+
+            {% if sideBarCollection %}
+            {% include "partials/_pagination.njk" %}
+            {% endif %}
         </main>
     </body>
 

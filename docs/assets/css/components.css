@@ -1,0 +1,64 @@
+/*//////////////////////////////////////////////////////////////////////////////
+/////////// BUTTON
+//////////////////////////////////////////////////////////////////////////////*/
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-md);
+    padding-block: 0;
+    padding-inline: theme("spacing.4");
+    width: auto;
+    height: var(--height);
+    color: var(--color-text);
+    background-color: transparent;
+    border-radius: var(--border-radius);
+    border: none;
+    user-select: none;
+    appearance: none;
+    cursor: pointer;
+    touch-action: manipulation;
+
+    transition: background-color ease 150ms;
+
+    -webkit-tap-highlight-color: hsla(0 0% 0% / 0%);
+    -webkit-appearance: none;
+
+    /*
+     * Firefox adds a special `focus-inner` which we have to disable explicitly.
+     * See: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#Firefox
+     */
+    &::-moz-focus-inner {
+        border: 0;
+    }
+
+    &:hover {
+        background-color: hsl(var(--color-text) / 5%);
+    }
+
+    &:active {
+        background-color: hsl(var(--color-text) / 10%);
+    }
+
+    &:disabled {
+        cursor: default;
+        opacity: 0.4;
+        pointer-events: none;
+    }
+}
+
+.btn-outlined {
+    border: 1px solid hsl(var(--color-text));
+
+    &:active,
+    &:hover {
+        color: hsl(var(--color-neutral-0));
+        background-color: hsl(var(--color-text));
+    }
+}
+
+.btn-lg {
+    font-size: var(--font-size-lg);
+    height: var(--height-lg);
+}

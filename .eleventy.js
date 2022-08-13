@@ -1,6 +1,12 @@
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
 
-    eleventyConfig.addPassthroughCopy('docs/assets/css');
+    eleventyConfig.addPassthroughCopy('docs/favicon.ico');
+
+    eleventyConfig.addCollection('page', (collections) => {
+        return collections.getFilteredByTag('page').sort((a, b) => {
+            return a.data.order - b.data.order;
+        });
+    });
 
     return {
 
