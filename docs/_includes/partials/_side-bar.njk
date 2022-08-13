@@ -1,14 +1,50 @@
-<aside id="side-bar">
+<aside id="side-bar" class="side-bar {% if sideBarCollection %}md:visible{% endif %}">
 
-    <nav class="block w-full h-full">
-        <ul class="flex flex-col items-start">
-            {%- for item in collections[sideBarCollection] -%}
-            <li class="flex items-center">
-                <a href="{{ item.url | url }}">
-                    {{ item.data.title }}
-                </a>
-            </li>
-            {%- endfor -%}
+    <button id="side-bar-close-btn" class="btn btn-icon-only mis-auto md:hidden">
+        <span class="material-icons">close</span>
+    </button>
+
+    <nav class="block w-full h-full mt-4">
+
+        {% if sideBarCollection %}
+            <ul class="hidden md:flex md:flex-col md:items-start">
+                {% for item in collections[sideBarCollection] %}
+                <li class="flex items-center">
+                    <a href="{{ item.url | url }}">
+                        {{ item.data.title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <ul class="flex flex-col items-start md:hidden">
+            {% for item in collections.page %}
+                <li class="flex items-center">
+                    {% if item.data.sideBarCollection %}
+                        <details class="w-full">
+                            <summary class="flex items-center h-normal">
+                                <span class="material-icons">chevron_right</span>
+                                <span class="mis-2">{{ item.data.title }}</span>
+                            </summary>
+
+                            <ul class="flex flex-col items-start mis-6">
+                                {% for item in collections[item.data.sideBarCollection] %}
+                                    <li class="flex items-center">
+                                        <a href="{{ item.url | url }}">
+                                            {{ item.data.title }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </details>
+                    {% else %}
+                        <a href="{{ item.url | url }}">
+                            {{ item.data.title }}
+                        </a>
+                    {% endif %}
+                </li>
+            {% endfor %}
         </ul>
     </nav>
 

@@ -1,17 +1,21 @@
-<header>
+<header class="navbar">
     <nav>
-        <button class="btn btn-icon-only md:hidden">
+        <button id="side-bar-toggle-btn" class="btn btn-icon-only md:hidden">
             <span class="material-icons">menu</span>
         </button>
 
+        <span class="font-lg font-bold absolute-center md:hidden">
+            {{ site.title }}
+        </span>
+
         <ul class="hidden md:flex md:items-center md:gap-2">
-            {%- for item in collections.page -%}
+            {% for item in collections.page %}
             <li class="flex items-center">
                 <a class="btn" href="{{ item.url | url }}">
                     {{ item.data.title }}
                 </a>
             </li>
-            {%- endfor -%}
+            {% endfor %}
         </ul>
     </nav>
 </header>

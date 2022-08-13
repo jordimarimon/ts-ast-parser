@@ -25,19 +25,19 @@
 </head>
 
 <body>
+
 {% include "partials/_navigation.njk" %}
 
-{% if sideBarCollection %}
-    {% include "partials/_side-bar.njk" %}
-{% endif %}
+{% include "partials/_side-bar.njk" %}
 
-<main class="{% if sideBarCollection %}module{% else %}full-page{% endif %}">
+<main class="main {% if sideBarCollection %}module{% else %}full-page{% endif %}">
     {{ content | safe }}
 
     {% if sideBarCollection %}
         {% include "partials/_pagination.njk" %}
     {% endif %}
 </main>
+
 </body>
 
 </html>

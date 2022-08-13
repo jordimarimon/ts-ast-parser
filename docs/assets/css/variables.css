@@ -31,4 +31,7 @@
     --height-lg: 3rem;
 
     --border-radius: 0.25rem;
+
+    --header-z-index: 5;
+    --sidebar-z-index: 10;
 }

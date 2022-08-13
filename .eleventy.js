@@ -14,6 +14,16 @@ module.exports = (eleventyConfig) => {
             return a.data.order - b.data.order;
         });
     });
+    eleventyConfig.addCollection('core', (collections) => {
+        return collections.getFilteredByTag('core').sort((a, b) => {
+            return a.data.order - b.data.order;
+        });
+    });
+    eleventyConfig.addCollection('toMarkdown', (collections) => {
+        return collections.getFilteredByTag('toMarkdown').sort((a, b) => {
+            return a.data.order - b.data.order;
+        });
+    });
 
     // Syntax highlighting: https://www.11ty.dev/docs/plugins/syntaxhighlight/
     eleventyConfig.addPlugin(syntaxHighlight);
