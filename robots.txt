@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://jordimarimon.github.io/ts-ast-parser/
+
+# Sitemaps
+Sitemap: https://jordimarimon.github.io/ts-ast-parser/sitemap.xml

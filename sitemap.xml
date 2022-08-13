@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/</loc>
+            <lastmod>2022-08-13T19:26:13.147+02:00</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/core/</loc>
+            <lastmod>2022-08-13T19:26:13.158+02:00</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/to-markdown/</loc>
+            <lastmod>2022-08-13T19:26:13.158+02:00</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/playground/</loc>
+            <lastmod>2022-08-13T19:26:13.158+02:00</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/core/getting-started/</loc>
+            <lastmod>2022-08-13T19:26:13.158+02:00</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/to-markdown/getting-started/</loc>
+            <lastmod>2022-08-13T19:26:13.158+02:00</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/core/api-reference/</loc>
+            <lastmod>2022-08-13T19:26:13.158+02:00</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/to-markdown/api-reference/</loc>
+            <lastmod>2022-08-13T19:26:13.158+02:00</lastmod>
+        </url>
+    
+</urlset>
