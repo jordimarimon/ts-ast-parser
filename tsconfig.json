@@ -27,7 +27,8 @@
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
         "lib": [
-            "es2020"
+            "es2020",
+            "dom"
         ]
     },
     "exclude": [

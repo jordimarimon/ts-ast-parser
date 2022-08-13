@@ -1,6 +1,5 @@
-import { createCompilerHost } from './compiler-host.js';
+import { callPlugins } from './call-plugins.js';
 import { collect } from './collect/index.js';
-import { logError } from './utils/index.js';
 import { Module } from './models/index.js';
 import { Options } from './options.js';
 import { Context } from './context.js';
@@ -11,40 +10,11 @@ import ts from 'typescript';
 
 const IGNORE: string[] = [
     '!node_modules/**/*.*',
-    '!**/*.test.{js,ts}',
-    '!**/*.suite.{js,ts}',
-    '!**/*.config.{js,ts}',
-    '!**/*.d.ts',
+    '!**/*.test.{js,js}',
+    '!**/*.suite.{js,js}',
+    '!**/*.config.{js,js}',
+    '!**/*.d.js',
 ];
-
-/**
- * Extracts the metadata from a TypeScript code snippet
- *
- * @param source - A string that represents the TypeScript source code
- * @param options - Options that can be used to configure the output metadata
- * @param compilerOptions - Options to pass to the TypeScript compiler
- *
- * @returns The metadata extracted from the source code provided
- */
-export function parseFromSource(
-    source: string,
-    options: Partial<Options> = {},
-    compilerOptions: ts.CompilerOptions = {},
-): Module {
-    const fileName = 'unknown.ts';
-    const compilerHost = createCompilerHost(fileName, source);
-    const program = ts.createProgram([fileName], compilerOptions, compilerHost);
-    const sourceFile = program.getSourceFile(fileName);
-
-    Context.checker = program.getTypeChecker();
-    Context.options = options;
-
-    const moduleDoc = collect(fileName, sourceFile);
-
-    callPlugins([sourceFile], [moduleDoc]);
-
-    return moduleDoc;
-}
 
 /**
  * Given some [glob](https://en.wikipedia.org/wiki/Glob_(programming))
@@ -61,7 +31,7 @@ export function parseFromSource(
  * @returns The metadata of each TypeScript file
  */
 export function parseFromGlob(
-    patterns: string | string[] = ['**/*.{ts,tsx}'],
+    patterns: string | string[] = ['**/*.{js,tsx}'],
     options: Partial<Options> = {},
     compilerOptions: ts.CompilerOptions = {},
 ): Module[] {
@@ -105,25 +75,4 @@ export function parseFromFiles(
     callPlugins(sourceFiles, modules);
 
     return modules;
-}
-
-function callPlugins(sourceFiles: (ts.SourceFile | undefined)[], modules: Module[]): void {
-    const plugins = Context.options.plugins ?? [];
-    const checker = Context.checker;
-
-    if (!Array.isArray(plugins)) {
-        return;
-    }
-
-    for (const sourceFile of sourceFiles) {
-
-        for (const plugin of plugins) {
-            try {
-                plugin?.handler?.(sourceFile, modules, checker);
-            } catch (error: unknown) {
-                logError(`The plugin "${plugin?.name}" has thrown the following error:`, error);
-            }
-        }
-
-    }
 }

@@ -21,7 +21,10 @@
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}"/>
 
     <script async type="module" src="{{ '/assets/js/side-bar.js' | url }}"></script>
-    <script async type="module" src="{{ '/assets/js/playground.js' | url }}"></script>
+
+    {% if title == 'Playground' %}
+        <script async type="module" src="{{ '/assets/js/playground.js' | url }}"></script>
+    {% endif %}
 </head>
 
 <body>

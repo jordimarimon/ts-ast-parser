@@ -5,18 +5,25 @@ const PATH = './docs/assets/js/';
 
 function build(entryPoints) {
     buildSync({
-        entryPoints,
+        entryPoints: entryPoints,
         minify: process.env.NODE_ENV === 'production',
-        sourcemap: process.env.NODE_ENV === 'production',
+        sourcemap: false,
         bundle: true,
         format: 'esm',
         target: 'es2020',
         outdir: '_site/assets/js',
+        entryNames: '[name]',
+        loader: {
+            '.ttf': 'file'
+        }
     });
 }
 
 module.exports = function esBuildPlugin(eleventyConfig) {
-    const files = fs.readdirSync(PATH).map(f => `${PATH}${f}`);
+    const files = fs
+        .readdirSync(PATH, {withFileTypes: true})
+        .filter(dir => dir.isFile())
+        .map(f => `${PATH}${f.name}`);
 
     if (!files.length) {
         return;

@@ -7,6 +7,9 @@ module.exports = (eleventyConfig) => {
     // Adds the following files in the bundle
     eleventyConfig.addPassthroughCopy('docs/favicon.ico');
     eleventyConfig.addPassthroughCopy({'docs/robots.txt': '/robots.txt'});
+    eleventyConfig.addPassthroughCopy({
+        'node_modules/jsoneditor/dist/img/jsoneditor-icons.svg': '/assets/css/img/jsoneditor-icons.svg',
+    });
 
     // Make sure the nav items are ordered correctly
     eleventyConfig.addCollection('page', (collections) => {

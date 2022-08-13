@@ -245,3 +245,31 @@
         min-width: 0;
     }
 }
+
+/*//////////////////////////////////////////////////////////////////////////////
+/////////// PLAYGROUND
+//////////////////////////////////////////////////////////////////////////////*/
+
+.playground {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    gap: theme("spacing.4");
+
+    @screen md {
+        flex-direction: row;
+    }
+}
+
+.code-editor,
+.json-editor {
+    display: block;
+    flex: 1;
+    height: 100%;
+}
+
+.code-editor {
+    border: 1px solid hsl(var(--color-border));
+}

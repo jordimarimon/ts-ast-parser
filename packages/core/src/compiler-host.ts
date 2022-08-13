@@ -5,26 +5,21 @@ import ts from 'typescript';
 //      https://learning-notes.mistermicheels.com/javascript/typescript/compiler-api/
 //      https://github.com/AlCalzone/virtual-tsc/blob/master/src/virtual-fs.ts
 //      https://github.com/AlCalzone/virtual-tsc/blob/master/src/host.ts
-export function createCompilerHost(
-    fileName: string,
-    code: string,
-    options: ts.CompilerOptions = {},
-): ts.CompilerHost {
+export function createCompilerHost(fileName: string, code: string): ts.CompilerHost {
 
     const sourceFile = ts.createSourceFile(fileName, code, ts.ScriptTarget.Latest, true);
-    const defaultCompilerHost = ts.createCompilerHost(options);
     const files: { [key: string]: ts.SourceFile } = {
         [fileName]: sourceFile,
     };
 
     return {
 
-        getSourceFile: (name: string, languageVersion): ts.SourceFile | undefined => {
+        getSourceFile: (name: string): ts.SourceFile | undefined => {
             if (files[name] !== undefined) {
                 return files[name];
             }
 
-            return defaultCompilerHost.getSourceFile(name, languageVersion);
+            return undefined;
         },
 
         writeFile: (name: string, content: string): void => {
