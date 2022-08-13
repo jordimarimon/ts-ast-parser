@@ -1,16 +1,1 @@
-// docs/assets/js/side-bar.mjs
-function main() {
-  const sideBar = document.getElementById("side-bar");
-  const toggleButton = document.getElementById("side-bar-toggle-btn");
-  const closeButton = document.getElementById("side-bar-close-btn");
-  if (!toggleButton || !sideBar || !closeButton) {
-    return;
-  }
-  toggleButton.addEventListener("click", () => {
-    sideBar.classList.toggle("open");
-  });
-  closeButton.addEventListener("click", () => {
-    sideBar.classList.remove("open");
-  });
-}
-main();
+function o(){let e=document.getElementById("side-bar"),t=document.getElementById("side-bar-toggle-btn"),n=document.getElementById("side-bar-close-btn");!t||!e||!n||(t.addEventListener("click",()=>{e.classList.toggle("open")}),n.addEventListener("click",()=>{e.classList.remove("open")}))}o();
