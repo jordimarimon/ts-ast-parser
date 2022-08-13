@@ -3,7 +3,7 @@
         <ul class="flex items-center gap-2">
             {%- for item in collections.page -%}
             <li class="flex items-center">
-                <a class="btn" href="{{ item.url }}">
+                <a class="btn" href="{{ item.url | url }}">
                     {{ item.data.title }}
                 </a>
             </li>

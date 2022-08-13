@@ -4,7 +4,9 @@
         <ul class="flex flex-col items-start">
             {%- for item in collections[sideBarCollection] -%}
             <li class="flex items-center">
-                <a href="{{ item.url }}">{{ item.data.title }}</a>
+                <a href="{{ item.url | url }}">
+                    {{ item.data.title }}
+                </a>
             </li>
             {%- endfor -%}
         </ul>
