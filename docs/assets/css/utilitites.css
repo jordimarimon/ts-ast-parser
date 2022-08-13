@@ -4,6 +4,12 @@
 
 .heading-1 {
     font-size: theme("fontSize.5xl");
+    font-weight: bold;
+}
+
+.heading-2 {
+    font-size: theme("fontSize.4xl");
+    font-weight: bold;
 }
 
 /*//////////////////////////////////////////////////////////////////////////////

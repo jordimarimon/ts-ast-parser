@@ -2,10 +2,18 @@
 
 {% set nextPost = collections[sideBarCollection] | getNextCollectionItem(page) %}
 
-{% if previousPost %}
-Previous: <a href="{{ previousPost.url }}">{{ previousPost.data.title }}</a>
-{% endif %}
+<div class="pagination">
+    {% if previousPost %}
+        <a href="{{ previousPost.url }}" class="pagination__previous">
+            <span class="material-icons mie-auto">chevron_left</span>
+            <span class="pagination__label truncate">{{ previousPost.data.title }}</span>
+        </a>
+    {% endif %}
 
-{% if nextPost %}
-Next: <a href="{{ nextPost.url }}">{{ nextPost.data.title }}</a>
-{% endif %}
+    {% if nextPost %}
+        <a href="{{ nextPost.url }}" class="pagination__next">
+            <span class="pagination__label truncate">{{ nextPost.data.title }}</span>
+            <span class="material-icons mis-auto">chevron_right</span>
+        </a>
+    {% endif %}
+</div>

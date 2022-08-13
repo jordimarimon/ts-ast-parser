@@ -9,7 +9,7 @@
         {% if sideBarCollection %}
             <ul class="hidden md:flex md:flex-col md:items-start">
                 {% for item in collections[sideBarCollection] %}
-                <li class="flex items-center">
+                <li class="flex items-center {% if (item.url | url) == page.url %}active{% endif %}">
                     <a href="{{ item.url | url }}">
                         {{ item.data.title }}
                     </a>
@@ -20,7 +20,7 @@
 
         <ul class="flex flex-col items-start md:hidden">
             {% for item in collections.page %}
-                <li class="flex items-center">
+                <li class="flex items-center {% if (item.url | url) == page.url %}active{% endif %}">
                     {% if item.data.sideBarCollection %}
                         <details class="w-full">
                             <summary class="flex items-center h-normal">
@@ -30,7 +30,7 @@
 
                             <ul class="flex flex-col items-start mis-6">
                                 {% for item in collections[item.data.sideBarCollection] %}
-                                    <li class="flex items-center">
+                                    <li class="flex items-center {% if (item.url | url) == page.url %}active{% endif %}">
                                         <a href="{{ item.url | url }}">
                                             {{ item.data.title }}
                                         </a>
