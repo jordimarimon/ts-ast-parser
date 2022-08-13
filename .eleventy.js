@@ -1,7 +1,8 @@
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
+const esBuildPlugin = require('./scripts/build');
 const {DateTime} = require('luxon');
 
-module.exports = function (eleventyConfig) {
+module.exports = (eleventyConfig) => {
 
     // Adds the following files in the bundle
     eleventyConfig.addPassthroughCopy('docs/favicon.ico');
@@ -18,9 +19,10 @@ module.exports = function (eleventyConfig) {
     eleventyConfig.addPlugin(syntaxHighlight);
 
     // For the sitemap
-    eleventyConfig.addShortcode('currentDate', (date = DateTime.now()) => {
-        return date;
-    });
+    eleventyConfig.addShortcode('currentDate', () => DateTime.now());
+
+    // Bundles JS files
+    eleventyConfig.addPlugin(esBuildPlugin);
 
     return {
 

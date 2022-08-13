@@ -62,3 +62,7 @@
     font-size: var(--font-size-lg);
     height: var(--height-lg);
 }
+
+.btn-icon-only {
+    padding: 0;
+}

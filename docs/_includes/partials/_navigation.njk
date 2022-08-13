@@ -1,6 +1,10 @@
 <header>
     <nav>
-        <ul class="flex items-center gap-2">
+        <button class="btn btn-icon-only md:hidden">
+            <span class="material-icons">menu</span>
+        </button>
+
+        <ul class="hidden md:flex md:items-center md:gap-2">
             {%- for item in collections.page -%}
             <li class="flex items-center">
                 <a class="btn" href="{{ item.url | url }}">

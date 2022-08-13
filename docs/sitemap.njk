@@ -7,7 +7,7 @@ eleventyExcludeFromCollections: true
     {% for page in collections.all %}
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser{{page.url}}</loc>
-            <lastmod>{% currentDate date %}</lastmod>
+            <lastmod>{% currentDate %}</lastmod>
         </url>
     {% endfor %}
 </urlset>

@@ -67,6 +67,7 @@ main {
     flex-direction: column;
     justify-content: flex-start;
     padding-block-start: var(--navbar-height);
+    padding-inline: theme("spacing.4");
     height: 100vh;
 
     &.module {
