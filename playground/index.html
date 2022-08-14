@@ -9,14 +9,19 @@
         name="description"
         content="Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata."
     />
+
     <link href="favicon.ico" rel="icon" type="image/x-icon"/>
+
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet"
     />
+
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
 
     <link rel="stylesheet" href="/ts-ast-parser/assets/css/main.css"/>
 
@@ -37,15 +42,51 @@
     
 <section class="playground">
 
-    <div id="code-editor" class="code-editor"></div>
+    <div id="code-editor" class="code-editor skeleton"></div>
 
     <button id="parse-button" class="btn btn-lg btn-outlined">
         Parse
     </button>
 
-    <div id="json-editor" class="json-editor"></div>
+    <div id="json-editor" class="json-editor skeleton"></div>
 
 </section>
+
+<dialog id="dialog" class="dialog">
+    <section class="flex flex-col py-8 px-12">
+        <header class="flex items-center w-full mb-8">
+            <h3 class="text font-bold text-3xl">
+                Note
+            </h3>
+
+            <button id="dialog-button-close" class="btn btn-icon-only mis-auto">
+                <span class="material-icons">close</span>
+            </button>
+        </header>
+
+        <p class="text text-lg">
+            Only declarations that are explicitly exported will output metadata.
+        </p>
+
+        <p class="flex items-center font-bold text-success text-lg mt-6">
+            <span class="material-icons mie-2">
+                check_circle
+            </span>
+            <span>The following generates metadata:</span>
+        </p>
+
+        <pre class="language-ts"><code class="language-ts"><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>bar<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>bar<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> is also foo</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">export</span> <span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
+
+        <p class="flex items-center font-bold text-danger text-lg mt-4">
+            <span class="material-icons mie-2">
+                cancel
+            </span>
+            <span>The following won't generate any metadata:</span>
+        </p>
+
+        <pre class="language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>bar<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>bar<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> is also foo</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
+    </section>
+</dialog>
 
 
     
