@@ -3,12 +3,16 @@
 
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>TypeScript AST Parser | Playground</title>
-    <meta
-        name="description"
-        content="Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata."
-    />
+    <meta name="description" content="Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata."/>
+    <meta name="keywords" content="Web,Library,Typescript,AST" />
+    <meta name="author" content="Jordi Marimon" />
+
+
+    <meta property="og:description" content="Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata." />
+    <meta property="og:title" content="TypeScript AST Parser | Playground" />
+    <meta property="og:url" content="https://jordimarimon.github.io/ts-ast-parser" />
 
     <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 
@@ -40,20 +44,27 @@
 
 <main class="main full-page ">
     
+<!-- Only visible in small screens -->
+<div class="playground__controls">
+    <button id="change-view-button" class="btn btn-filled">
+        Change View
+    </button>
+</div>
+
 <section class="playground">
 
     <div id="code-editor" class="code-editor skeleton"></div>
 
-    <button id="parse-button" class="btn btn-lg btn-outlined">
+    <button id="parse-button" class="hidden btn btn-lg btn-outlined md:flex">
         Parse
     </button>
 
-    <div id="json-editor" class="json-editor skeleton"></div>
+    <div id="json-editor" class="hidden json-editor skeleton md:block"></div>
 
 </section>
 
 <dialog id="dialog" class="dialog">
-    <section class="flex flex-col py-8 px-12">
+    <section class="flex flex-col p-4 md:py-8 md:px-12">
         <header class="flex items-center w-full mb-8">
             <h3 class="text font-bold text-3xl">
                 Note
@@ -64,11 +75,11 @@
             </button>
         </header>
 
-        <p class="text text-lg">
+        <p class="text text-md md:text-lg">
             Only declarations that are explicitly exported will output metadata.
         </p>
 
-        <p class="flex items-center font-bold text-success text-lg mt-6">
+        <p class="flex items-center font-bold text-success mt-6 text-md md:text-lg">
             <span class="material-icons mie-2">
                 check_circle
             </span>
@@ -77,7 +88,7 @@
 
         <pre class="language-ts"><code class="language-ts"><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>bar<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>bar<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> is also foo</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token keyword">export</span> <span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
 
-        <p class="flex items-center font-bold text-danger text-lg mt-4">
+        <p class="flex items-center font-bold mt-4 text-danger text-md md:text-lg">
             <span class="material-icons mie-2">
                 cancel
             </span>

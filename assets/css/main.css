@@ -2594,6 +2594,10 @@ video {
     --tw-backdrop-sepia:  ;
 }
 
+.visible {
+    visibility: visible;
+}
+
 .mx-auto {
     margin-left: auto;
     margin-right: auto;
@@ -2661,19 +2665,13 @@ video {
     white-space: nowrap;
 }
 
+.p-4 {
+    padding: 1rem;
+}
+
 .px-4 {
     padding-left: 1rem;
     padding-right: 1rem;
-}
-
-.py-8 {
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-}
-
-.px-12 {
-    padding-left: 3rem;
-    padding-right: 3rem;
 }
 
 .text-center {
@@ -2878,10 +2876,27 @@ video {
     border: 1px solid hsl(var(--color-text));
 }
 
-.btn-outlined:active,
-    .btn-outlined:hover {
-        color: hsl(var(--color-neutral-0));
-        background-color: hsl(var(--color-text));
+@media (hover: hover) and (pointer: fine) {
+        .btn-outlined:active,
+        .btn-outlined:hover {
+            color: hsl(var(--color-neutral-0));
+            background-color: hsl(var(--color-text));
+        }
+    }
+
+.btn-filled {
+    color: hsl(var(--color-neutral-0));
+    background-color: hsl(var(--color-neutral-800));
+}
+
+@media (hover: hover) and (pointer: fine) {
+        .btn-filled:hover {
+            background-color: hsl(var(--color-neutral-700));
+        }
+
+        .btn-filled:active {
+            background-color: hsl(var(--color-neutral-900));
+        }
     }
 
 .btn-lg {
@@ -3132,10 +3147,10 @@ video {
 //////////////////////////////////////////////////////////////////////////////*/
 
 .playground {
+    position: relative;
     display: flex;
-    flex-direction: column;
     align-items: center;
-    height: 100%;
+    height: calc(100% - var(--navbar-height));
     width: 100%;
     gap: 1rem;
 }
@@ -3143,17 +3158,47 @@ video {
 @media (min-width: 48em) {
 
 .playground {
-        flex-direction: row
+        height: 100%
+}
+    }
+
+.playground__controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: hsl(var(--color-neutral-200));
+    width: 100%;
+    height: var(--navbar-height);
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+@media (min-width: 48em) {
+
+.playground__controls {
+        display: none
 }
     }
 
 .code-editor,
 .json-editor {
-    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     flex: 1;
     height: 100%;
     width: 100%;
 }
+
+@media (min-width: 48em) {
+
+.code-editor,
+.json-editor {
+        position: relative
+}
+    }
 
 /*//////////////////////////////////////////////////////////////////////////////
 /////////// DIALOG
@@ -3165,9 +3210,12 @@ video {
     right: 0;
     bottom: 0;
     left: 0;
-    overflow: hidden;
-    z-index: var(--dialog-z-index);
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
     transition: opacity .5s ease;
+    z-index: var(--dialog-z-index);
 }
 
 .dialog:not([open]) {
@@ -3188,6 +3236,8 @@ video {
 .dialog {
         top: 10%;
         transform: translateX(-50%);
+        width: unset;
+        height: unset;
         max-width: 90vw;
         max-height: min(80vh, 100%);
         border-radius: var(--border-radius-lg);
@@ -3208,6 +3258,10 @@ video {
         margin-top: 10rem;
     }
 
+        .md\:block {
+        display: block;
+    }
+
         .md\:flex {
         display: flex;
     }
@@ -3226,5 +3280,20 @@ video {
 
         .md\:gap-2 {
         gap: 0.5rem;
+    }
+
+        .md\:py-8 {
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+
+        .md\:px-12 {
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+
+        .md\:text-lg {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
     }
     }
