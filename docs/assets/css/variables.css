@@ -19,26 +19,26 @@
     --color-neutral-900: 221 39% 11%;
 
     /* Success */
-    --color-success-100: 220 14% 96%;
-    --color-success-200: 220 13% 91%;
-    --color-success-300: 216 12% 84%;
-    --color-success-400: 218 11% 65%;
+    --color-success-100: 141 84% 93%;
+    --color-success-200: 141 79% 85%;
+    --color-success-300: 142 77% 73%;
+    --color-success-400: 142 69% 58%;
     --color-success-500: 142 71% 45%;
-    --color-success-600: 215 14% 34%;
-    --color-success-700: 217 19% 27%;
-    --color-success-800: 215 28% 17%;
-    --color-success-900: 221 39% 11%;
+    --color-success-600: 142 76% 36%;
+    --color-success-700: 142 72% 29%;
+    --color-success-800: 143 64% 24%;
+    --color-success-900: 144 61% 20%;
 
     /* Danger */
-    --color-danger-100: 220 14% 96%;
-    --color-danger-200: 220 13% 91%;
-    --color-danger-300: 216 12% 84%;
-    --color-danger-400: 218 11% 65%;
+    --color-danger-100: 0 93% 94%;
+    --color-danger-200: 0 96% 89%;
+    --color-danger-300: 0 94% 82%;
+    --color-danger-400: 0 91% 71%;
     --color-danger-500: 0 84% 60%;
-    --color-danger-600: 215 14% 34%;
-    --color-danger-700: 217 19% 27%;
-    --color-danger-800: 215 28% 17%;
-    --color-danger-900: 221 39% 11%;
+    --color-danger-600: 0 72% 51%;
+    --color-danger-700: 0 74% 42%;
+    --color-danger-800: 0 70% 35%;
+    --color-danger-900: 0 63% 31%;
 
     --color-title: var(--color-neutral-900);
     --color-text: var(--color-neutral-800);

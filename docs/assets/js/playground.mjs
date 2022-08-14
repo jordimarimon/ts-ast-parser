@@ -1,5 +1,7 @@
 import { parseFromSource } from '../../../packages/core/dist/parse-from-source.js';
 
+import { SAMPLE_CODE } from './playground-sample-code.js';
+
 import * as ace from 'ace-builds/src-noconflict/ace';
 import * as aceTypeScript from 'ace-builds/src-noconflict/mode-typescript';
 import * as aceTheme from 'ace-builds/src-noconflict/theme-monokai';
@@ -41,6 +43,9 @@ function main() {
     codeEditor.setOptions({
         fontSize: '16pt',
     });
+
+    codeEditor.setValue(SAMPLE_CODE);
+    jsonEditor.set(parseFromSource(SAMPLE_CODE));
 
     parseButton.addEventListener('click', () => {
         const code = codeEditor.getValue();
