@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="/ts-ast-parser/assets/css/main.css"/>
 
     
+    <script async type="module" src="/ts-ast-parser/assets/js/side-bar.js"></script>
+    
 
     
 </head>
@@ -65,6 +67,101 @@
 </header>
 
 
+
+
+
+
+<aside id="side-bar" class="side-bar md:hidden">
+
+    <button id="side-bar-close-btn" class="btn btn-icon-only mis-auto md:hidden">
+        <span class="material-icons">close</span>
+    </button>
+
+    <nav class="block w-full h-full mt-4">
+        <ul class="flex flex-col items-start gap-2">
+            
+                <li class="flex items-center active md:hidden">
+                    <a href="/ts-ast-parser/">
+                        Home
+                    </a>
+                </li>
+            
+                <li class="flex items-center  md:hidden">
+                    <a href="/ts-ast-parser/playground/">
+                        Playground
+                    </a>
+                </li>
+            
+
+            
+<li>
+    <details class="w-full" open>
+        <summary class="flex items-center h-normal">
+            <span class="material-icons">chevron_right</span>
+            <span class="mis-2">Core</span>
+        </summary>
+
+        <ul class="flex flex-col items-start mis-6">
+            
+                <li class="flex items-center ">
+                    <a href="/ts-ast-parser/core/overview/">
+                        Overview
+                    </a>
+                </li>
+            
+                <li class="flex items-center ">
+                    <a href="/ts-ast-parser/core/getting-started/">
+                        Getting Started
+                    </a>
+                </li>
+            
+                <li class="flex items-center ">
+                    <a href="/ts-ast-parser/core/api-reference/">
+                        API Reference
+                    </a>
+                </li>
+            
+        </ul>
+    </details>
+</li>
+
+
+            
+<li>
+    <details class="w-full" open>
+        <summary class="flex items-center h-normal">
+            <span class="material-icons">chevron_right</span>
+            <span class="mis-2">To Markdown</span>
+        </summary>
+
+        <ul class="flex flex-col items-start mis-6">
+            
+                <li class="flex items-center ">
+                    <a href="/ts-ast-parser/to-markdown/overview/">
+                        Overview
+                    </a>
+                </li>
+            
+                <li class="flex items-center ">
+                    <a href="/ts-ast-parser/to-markdown/getting-started/">
+                        Getting Started
+                    </a>
+                </li>
+            
+                <li class="flex items-center ">
+                    <a href="/ts-ast-parser/to-markdown/api-reference/">
+                        API Reference
+                    </a>
+                </li>
+            
+        </ul>
+    </details>
+</li>
+
+        </ul>
+    </nav>
+
+</aside>
 
 
 
