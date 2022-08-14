@@ -18,6 +18,28 @@
     --color-neutral-800: 215 28% 17%;
     --color-neutral-900: 221 39% 11%;
 
+    /* Success */
+    --color-success-100: 220 14% 96%;
+    --color-success-200: 220 13% 91%;
+    --color-success-300: 216 12% 84%;
+    --color-success-400: 218 11% 65%;
+    --color-success-500: 142 71% 45%;
+    --color-success-600: 215 14% 34%;
+    --color-success-700: 217 19% 27%;
+    --color-success-800: 215 28% 17%;
+    --color-success-900: 221 39% 11%;
+
+    /* Danger */
+    --color-danger-100: 220 14% 96%;
+    --color-danger-200: 220 13% 91%;
+    --color-danger-300: 216 12% 84%;
+    --color-danger-400: 218 11% 65%;
+    --color-danger-500: 0 84% 60%;
+    --color-danger-600: 215 14% 34%;
+    --color-danger-700: 217 19% 27%;
+    --color-danger-800: 215 28% 17%;
+    --color-danger-900: 221 39% 11%;
+
     --color-title: var(--color-neutral-900);
     --color-text: var(--color-neutral-800);
     --color-background: var(--color-neutral-0);
@@ -28,10 +50,16 @@
     --height-lg: 3rem;
 
     --border-radius: 0.25rem;
+    --border-radius-lg: 1rem;
 
     --sidebar-width: 18rem;
     --navbar-height: 3.75rem;
 
     --navbar-z-index: 5;
     --sidebar-z-index: 10;
+    --dialog-z-index: 15;
+
+    --shadow-lg:
+        0 20px 25px -5px hsla(var(--color-neutral-1000) / 10%),
+        0 8px 10px -6px hsla(var(--color-neutral-1000) / 10%);
 }

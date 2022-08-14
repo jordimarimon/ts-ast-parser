@@ -10,6 +10,21 @@ function main() {
     const codeEditorEl = document.getElementById('code-editor');
     const jsonEditorEl = document.getElementById('json-editor');
     const parseButton = document.getElementById('parse-button');
+    const dialogEl = document.getElementById('dialog');
+    const dialogElCloseButton = document.getElementById('dialog-button-close');
+
+    if (dialogEl) {
+        dialogEl.showModal();
+    }
+
+    if (dialogElCloseButton) {
+        const cb = () => {
+            dialogEl?.close();
+            dialogElCloseButton?.removeEventListener('click', cb);
+        };
+
+        dialogElCloseButton.addEventListener('click', cb);
+    }
 
     if (!codeEditorEl || !jsonEditorEl || !parseButton) {
         return;

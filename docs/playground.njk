@@ -16,3 +16,51 @@ order: 2
     <div id="json-editor" class="json-editor"></div>
 
 </section>
+
+<dialog id="dialog" class="dialog">
+    <section class="flex flex-col py-8 px-12">
+        <header class="flex items-center w-full mb-8">
+            <h3 class="text font-bold text-3xl">
+                Note
+            </h3>
+
+            <button id="dialog-button-close" class="btn btn-icon-only mis-auto">
+                <span class="material-icons">close</span>
+            </button>
+        </header>
+
+        <p class="text text-lg">
+            Only declarations that are explicitly exported will output metadata.
+        </p>
+
+        <p class="flex items-center font-bold text-success text-lg mt-6">
+            <span class="material-icons mie-2">
+                check_circle
+            </span>
+            <span>The following generates metadata:</span>
+        </p>
+
+        {% highlight "ts" %}
+export function foo(bar: number): string {
+    return `${bar} is also foo`;
+}
+
+export const x = 3;
+        {% endhighlight %}
+
+        <p class="flex items-center font-bold text-danger text-lg mt-4">
+            <span class="material-icons mie-2">
+                cancel
+            </span>
+            <span>The following won't generate any metadata:</span>
+        </p>
+
+        {% highlight "ts" %}
+function foo(bar: number): string {
+    return `${bar} is also foo`;
+}
+
+const x = 3;
+        {% endhighlight %}
+    </section>
+</dialog>

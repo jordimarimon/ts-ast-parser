@@ -66,7 +66,12 @@
 }
 
 .btn-icon-only {
+    align-items: center;
+    justify-content: center;
     padding: 0;
+    width: var(--height);
+    height: var(--height);
+    border-radius: 50%;
 }
 
 /*//////////////////////////////////////////////////////////////////////////////
@@ -268,6 +273,33 @@
     width: 100%;
 }
 
-.code-editor {
-    border: 1px solid hsl(var(--color-border));
+/*//////////////////////////////////////////////////////////////////////////////
+/////////// DIALOG
+//////////////////////////////////////////////////////////////////////////////*/
+
+.dialog {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: var(--dialog-z-index);
+    transition: opacity .5s ease;
+
+    &:not([open]) {
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    @screen md {
+        inset-block-start: 10%;
+        inset-inline-start: 50%;
+        transform: translateX(-50%);
+        max-inline-size: 90vw;
+        max-block-size: min(80vh, 100%);
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-lg);
+
+        &::backdrop {
+            backdrop-filter: blur(25px);
+        }
+    }
 }
