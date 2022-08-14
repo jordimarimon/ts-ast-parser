@@ -3,9 +3,6 @@
 //////////////////////////////////////////////////////////////////////////////*/
 
 :root {
-    --sidebar-width: 18rem;
-    --navbar-height: 3.75rem;
-
     --font-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-size-md: 1rem;
     --font-size-lg: 1.125rem;
@@ -36,7 +33,10 @@
 
     --border-radius: 0.25rem;
 
-    --header-z-index: 5;
+    --sidebar-width: 18rem;
+    --navbar-height: 3.75rem;
+
+    --navbar-z-index: 5;
     --sidebar-z-index: 10;
 }
 
@@ -2614,10 +2614,19 @@ video {
     align-items: center;
 }
 
+.gap-2 {
+    gap: 0.5rem;
+}
+
 .truncate {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .text-center {
@@ -2627,26 +2636,6 @@ video {
 .text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
-}
-
-.font-bold {
-    font-weight: 700;
-}
-
-[dir="ltr"] .mie-auto {
-    margin-right: auto;
-}
-
-[dir="rtl"] .mie-auto {
-    margin-left: auto;
-}
-
-[dir="ltr"] .mis-auto {
-    margin-left: auto;
-}
-
-[dir="rtl"] .mis-auto {
-    margin-right: auto;
 }
 
 [dir="ltr"] .mis-2 {
@@ -2663,6 +2652,22 @@ video {
 
 [dir="rtl"] .mis-6 {
     margin-right: 1.5rem;
+}
+
+[dir="ltr"] .mis-auto {
+    margin-left: auto;
+}
+
+[dir="rtl"] .mis-auto {
+    margin-right: auto;
+}
+
+[dir="ltr"] .mie-auto {
+    margin-right: auto;
+}
+
+[dir="rtl"] .mie-auto {
+    margin-left: auto;
 }
 
 /*//////////////////////////////////////////////////////////////////////////////
@@ -2810,7 +2815,7 @@ video {
     padding-left: 1rem;
     padding-right: 1rem;
     border-bottom: 1px solid hsl(var(--color-border));
-    z-index: var(--header-z-index);
+    z-index: var(--navbar-z-index);
 }
 
 .navbar nav {
@@ -2818,18 +2823,6 @@ video {
         align-items: center;
         width: 100%;
     }
-
-.navbar nav ul {
-            width: 100%;
-        }
-
-[dir="ltr"] .navbar nav ul li:nth-child(2) {
-                    margin-left: auto;
-}
-
-[dir="rtl"] .navbar nav ul li:nth-child(2) {
-                    margin-right: auto;
-}
 
 /*//////////////////////////////////////////////////////////////////////////////
 /////////// MAIN CONTENT
@@ -2839,10 +2832,26 @@ video {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: calc(var(--navbar-height) + 1.5rem) 1.5rem 1.5rem;
     width: 100%;
     height: 100vh;
 }
+
+.main.has-navbar {
+        padding-top: calc(var(--navbar-height) + 1.5rem);
+    }
+
+@media (min-width: 48em) {
+
+.main.has-navbar {
+            padding-top: calc(var(--navbar-height) + 2.5rem)
+    }
+        }
+
+.main.module {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
 
 @media (min-width: 48em) {
 
@@ -2856,7 +2865,9 @@ video {
 
 .main.module {
             width: auto;
-            padding: calc(var(--navbar-height) + 2.5rem) 2.5rem 2.5rem
+            padding-left: 2.5rem;
+            padding-right: 2.5rem;
+            padding-bottom: 2.5rem
     }
         }
 
@@ -2893,7 +2904,7 @@ video {
 
 @media (min-width: 48em) {
 
-.side-bar:not(.md\:visible) {
+.side-bar.md\:hidden {
             display: none
     }
         }
@@ -2933,19 +2944,16 @@ video {
         transition: background-color ease 150ms;
     }
 
-.side-bar li + li {
-            border-top: 1px solid hsl(var(--color-border));
-        }
-
 .side-bar li.active {
             font-weight: bold;
         }
 
-@media (hover: hover) and (pointer: fine) {
-            .side-bar li:hover {
-                background-color: hsl(var(--color-text) / 5%);
-            }
+@media (min-width: 48em) {
+
+.side-bar li.md\:hidden {
+                display: none
         }
+            }
 
 .side-bar li .material-icons {
             transition: transform ease 300ms;
@@ -3048,10 +3056,6 @@ video {
 
 @media (min-width: 48em) {
 
-    .md\:visible {
-        visibility: visible;
-    }
-
     .md\:mt-40 {
         margin-top: 10rem;
     }
@@ -3064,12 +3068,8 @@ video {
         display: none;
     }
 
-    .md\:flex-col {
-        flex-direction: column;
-    }
-
-    .md\:items-start {
-        align-items: flex-start;
+    .md\:w-full {
+        width: 100%;
     }
 
     .md\:items-center {
