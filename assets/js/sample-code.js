@@ -2,7 +2,8 @@ var e=`
 /**
  * This is an example code to showcase.
  *
- * Make sure to export the declarations that you want it's metadata to be output it.
+ * Make sure to export the declarations that you want
+ * it's metadata to be output it.
  */
 
 export enum StatusCodes {
