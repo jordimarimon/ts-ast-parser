@@ -57,7 +57,8 @@
 
     --navbar-z-index: 5;
     --sidebar-z-index: 10;
-    --dialog-z-index: 15;
+    --skeleton-z-index: 15;
+    --dialog-z-index: 20;
 
     --shadow-lg:
         0 20px 25px -5px hsla(var(--color-neutral-1000) / 10%),

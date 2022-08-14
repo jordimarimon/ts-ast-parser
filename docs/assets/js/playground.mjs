@@ -48,6 +48,9 @@ function main() {
 
         jsonEditor.set(metadata);
     });
+
+    codeEditorEl.classList.remove('skeleton');
+    jsonEditorEl.classList.remove('skeleton');
 }
 
 main();
