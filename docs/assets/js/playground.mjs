@@ -50,7 +50,7 @@ function main() {
     codeEditor.session.setMode(new TypeScriptMode());
     codeEditor.setTheme(aceTheme);
     codeEditor.setOptions({
-        fontSize: '16pt',
+        fontSize: '14pt',
     });
 
     codeEditor.setValue(SAMPLE_CODE);
@@ -80,6 +80,7 @@ function main() {
 
     codeEditorEl.classList.remove('skeleton');
     jsonEditorEl.classList.remove('skeleton');
+    changeViewButton.classList.remove('hidden');
 }
 
 main();

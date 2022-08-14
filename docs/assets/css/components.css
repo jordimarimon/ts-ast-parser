@@ -273,7 +273,7 @@
     position: relative;
     display: flex;
     align-items: center;
-    height: calc(100% - var(--navbar-height));
+    height: 100%;
     width: 100%;
     gap: theme("spacing.4");
 
@@ -282,14 +282,17 @@
     }
 }
 
-.playground__controls {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    background-color: hsl(var(--color-neutral-200));
-    width: 100%;
-    height: var(--navbar-height);
-    padding-inline: theme("spacing.4");
+.playground__view-control {
+    position: fixed;
+    inset-block-end: theme("spacing.4");
+    inset-inline-end: theme("spacing.3");
+    background-color: hsl(var(--color-accent));
+    z-index: var(--fab-z-index);
+    box-shadow: var(--shadow-lg);
+
+    &.hidden {
+        display: none;
+    }
 
     @screen md {
         display: none;

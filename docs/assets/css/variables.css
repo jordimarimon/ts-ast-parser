@@ -40,6 +40,8 @@
     --color-danger-800: 0 70% 35%;
     --color-danger-900: 0 63% 31%;
 
+    --color-accent: 271 81% 56%;
+
     --color-title: var(--color-neutral-900);
     --color-text: var(--color-neutral-800);
     --color-background: var(--color-neutral-0);
@@ -58,7 +60,8 @@
     --navbar-z-index: 5;
     --sidebar-z-index: 10;
     --skeleton-z-index: 15;
-    --dialog-z-index: 20;
+    --fab-z-index: 20;
+    --dialog-z-index: 25;
 
     --shadow-lg:
         0 20px 25px -5px hsla(var(--color-neutral-1000) / 10%),
