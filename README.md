@@ -36,14 +36,14 @@ This metadata then can be used to generate documentation.
 
 Extracts metadata from:
 
-- Imports
-- Exports
+- Import declarations
+- Export declarations
 - Function declarations
 - Variable declarations
 - Interface declarations
 - Type Alias declarations
 - Enum declarations
-- JSDoc and custom JSDoc tags
+- JSDoc
 - Class declarations (coming soon)
 - Inheritance (coming soon)
 - Decorators (coming soon)
