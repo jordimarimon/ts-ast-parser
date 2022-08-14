@@ -1,4 +1,10 @@
 export const SAMPLE_CODE = `
+/**
+ * This is an example code to showcase.
+ *
+ * Make sure to export the declarations that you want it's metadata to be output it.
+ */
+
 export enum StatusCodes {
     OK = 200,
     BadRequest = 400,
@@ -34,12 +40,12 @@ export const bird1: BirdType = { wings: 2 };
 export const bird2: BirdInterface = { wings: 2 };
 
 // Named function
-function add(x: number, y: number): number {
+export function add(x: number, y: number): number {
   return x + y;
 }
 
 // Anonymous function
-let myAdd = function (x: number, y: number) {
+export const myAdd = function (x: number, y: number) {
   return x + y;
 };
 `;

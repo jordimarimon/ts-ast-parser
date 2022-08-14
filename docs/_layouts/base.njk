@@ -3,12 +3,16 @@
 
 <head>
     <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>{{ site.title }}{% if title %} | {{ title }}{% endif %}</title>
-    <meta
-        name="description"
-        content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}"
-    />
+    <meta name="description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}"/>
+    <meta name="keywords" content="Web,Library,Typescript,AST" />
+    <meta name="author" content="Jordi Marimon" />
+
+
+    <meta property="og:description" content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}" />
+    <meta property="og:title" content="{{ site.title }}{% if title %} | {{ title }}{% endif %}" />
+    <meta property="og:url" content="https://jordimarimon.github.io/ts-ast-parser" />
 
     <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 

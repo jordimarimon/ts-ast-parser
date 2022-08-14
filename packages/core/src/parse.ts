@@ -64,7 +64,7 @@ export function parseFromFiles(
     Context.checker = program.getTypeChecker();
 
     for (const file of files) {
-        const modulePath = path.relative(process.cwd(), file);
+        const modulePath = path.normalize(path.relative(process.cwd(), file));
         const sourceFile = program.getSourceFile(file);
         const moduleDoc = collect(modulePath, sourceFile);
 

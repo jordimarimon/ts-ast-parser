@@ -5,20 +5,27 @@ tags: page
 order: 2
 ---
 
+<!-- Only visible in small screens -->
+<div class="playground__controls">
+    <button id="change-view-button" class="btn btn-filled">
+        Change View
+    </button>
+</div>
+
 <section class="playground">
 
     <div id="code-editor" class="code-editor skeleton"></div>
 
-    <button id="parse-button" class="btn btn-lg btn-outlined">
+    <button id="parse-button" class="hidden btn btn-lg btn-outlined md:flex">
         Parse
     </button>
 
-    <div id="json-editor" class="json-editor skeleton"></div>
+    <div id="json-editor" class="hidden json-editor skeleton md:block"></div>
 
 </section>
 
 <dialog id="dialog" class="dialog">
-    <section class="flex flex-col py-8 px-12">
+    <section class="flex flex-col p-4 md:py-8 md:px-12">
         <header class="flex items-center w-full mb-8">
             <h3 class="text font-bold text-3xl">
                 Note
@@ -29,11 +36,11 @@ order: 2
             </button>
         </header>
 
-        <p class="text text-lg">
+        <p class="text text-md md:text-lg">
             Only declarations that are explicitly exported will output metadata.
         </p>
 
-        <p class="flex items-center font-bold text-success text-lg mt-6">
+        <p class="flex items-center font-bold text-success mt-6 text-md md:text-lg">
             <span class="material-icons mie-2">
                 check_circle
             </span>
@@ -48,7 +55,7 @@ export function foo(bar: number): string {
 export const x = 3;
         {% endhighlight %}
 
-        <p class="flex items-center font-bold text-danger text-lg mt-4">
+        <p class="flex items-center font-bold mt-4 text-danger text-md md:text-lg">
             <span class="material-icons mie-2">
                 cancel
             </span>
