@@ -1,7 +1,4 @@
 :root {
-    --sidebar-width: 18rem;
-    --navbar-height: 3.75rem;
-
     --font-sans: theme("fontFamily.sans");
     --font-size-md: theme("fontSize.base");
     --font-size-lg: theme("fontSize.lg");
@@ -32,6 +29,9 @@
 
     --border-radius: 0.25rem;
 
-    --header-z-index: 5;
+    --sidebar-width: 18rem;
+    --navbar-height: 3.75rem;
+
+    --navbar-z-index: 5;
     --sidebar-z-index: 10;
 }

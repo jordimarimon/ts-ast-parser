@@ -4,18 +4,22 @@
             <span class="material-icons">menu</span>
         </button>
 
-        <span class="font-lg font-bold absolute-center md:hidden">
-            {{ site.title }}
-        </span>
-
-        <ul class="hidden md:flex md:items-center md:gap-2">
-            {% for item in collections.page %}
+        <ul class="hidden md:w-full md:flex md:items-center md:gap-2">
             <li class="flex items-center">
-                <a class="btn" href="{{ item.url | url }}">
-                    {{ item.data.title }}
+                <a class="btn" href="{{ '/' | url }}">
+                    Home
                 </a>
             </li>
-            {% endfor %}
+            <li class="flex items-center mis-auto">
+                <a class="btn" href="{{ '/playground/' | url }}">
+                    Playground
+                </a>
+            </li>
+            <li class="flex items-center">
+                <a class="btn" href="{{ '/core/overview/' | url }}">
+                    Guides
+                </a>
+            </li>
         </ul>
     </nav>
 </header>

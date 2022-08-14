@@ -83,22 +83,12 @@
     height: var(--navbar-height);
     padding-inline: theme("spacing.4");
     border-bottom: 1px solid hsl(var(--color-border));
-    z-index: var(--header-z-index);
+    z-index: var(--navbar-z-index);
 
     nav {
         display: flex;
         align-items: center;
         width: 100%;
-
-        ul {
-            width: 100%;
-
-            li {
-                &:nth-child(2) {
-                    margin-inline-start: auto;
-                }
-            }
-        }
     }
 }
 
@@ -146,7 +136,7 @@
     transition: transform ease 300ms;
     z-index: var(--sidebar-z-index);
 
-    &:not(.md\:visible) {
+    &.md\:hidden {
         @screen md {
             display: none;
         }
@@ -175,17 +165,13 @@
         cursor: pointer;
         transition: background-color ease 150ms;
 
-        & + li {
-            border-top: 1px solid hsl(var(--color-border));
-        }
-
         &.active {
             font-weight: bold;
         }
 
-        @media (hover: hover) and (pointer: fine) {
-            &:hover {
-                background-color: hsl(var(--color-text) / 5%);
+        &.md\:hidden {
+            @screen md {
+                display: none;
             }
         }
 

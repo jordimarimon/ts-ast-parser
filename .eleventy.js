@@ -28,6 +28,12 @@ module.exports = (eleventyConfig) => {
         });
     });
 
+    eleventyConfig.addFilter("makeCollectionName", (value) => {
+        return String(value).split(/\s|-/).map((v, i) => {
+            return (i === 0 ? v[0].toLowerCase() : v[0].toUpperCase()) + v.slice(1);
+        }).join('');
+    });
+
     // Syntax highlighting: https://www.11ty.dev/docs/plugins/syntaxhighlight/
     eleventyConfig.addPlugin(syntaxHighlight);
 
