@@ -9,7 +9,7 @@
     <nav class="block w-full h-full mt-4">
         <ul class="flex flex-col items-start gap-2">
             {% for item in collections.page %}
-                <li class="flex items-center {% if (item.url | url) == page.url %}active{% endif %} md:hidden">
+                <li class="flex items-center {% if (item.url | url) == (page.url | url) %}active{% endif %} md:hidden">
                     <a href="{{ item.url | url }}">
                         {{ item.data.title }}
                     </a>

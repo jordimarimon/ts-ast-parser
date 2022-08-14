@@ -8,7 +8,7 @@
 
         <ul class="flex flex-col items-start mis-6">
             {% for child in collections[itemName | makeCollectionName] %}
-                <li class="flex items-center {% if (child.url | url) == page.url %}active{% endif %}">
+                <li class="flex items-center {% if (child.url | url) == (page.url | url) %}active{% endif %}">
                     <a href="{{ child.url | url }}">
                         {{ child.data.title }}
                     </a>
