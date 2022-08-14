@@ -100,15 +100,26 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: calc(var(--navbar-height) + theme("spacing.6")) theme("spacing.6") theme("spacing.6");
     width: 100%;
     height: 100vh;
 
+    &.has-navbar {
+        padding-top: calc(var(--navbar-height) + theme("spacing.6"));
+
+        @screen md {
+            padding-top: calc(var(--navbar-height) + theme("spacing.10"));
+        }
+    }
+
     &.module {
+        padding-inline: theme("spacing.6");
+        padding-bottom: theme("spacing.6");
+
         @screen md {
             width: auto;
             margin-inline-start: var(--sidebar-width);
-            padding: calc(var(--navbar-height) + theme("spacing.10")) theme("spacing.10") theme("spacing.10");
+            padding-inline: theme("spacing.10");
+            padding-bottom: theme("spacing.10");
         }
     }
 

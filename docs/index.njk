@@ -3,13 +3,14 @@ layout: base
 title: Home
 tags: page
 order: 1
+withHeader: true
 ---
 
-<h1 class="heading-1 text-center mx-auto mt-12 md:mt-40">
+<h1 class="heading-1 text-center mx-auto px-4 mt-12 md:mt-40">
     {{ site.title }}
 </h1>
 
-<p class="text text-lg text-center mx-auto mt-10">
+<p class="text text-lg text-center mx-auto px-4 mt-10">
     Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata.
 
     <br/>
@@ -18,6 +19,7 @@ order: 1
     This metadata then can be used to generate documentation.
 </p>
 
-<a class="btn btn-lg btn-outlined mx-auto mt-10" href="{{ '/playground/' | url }}">
-    Playground
+<a class="btn btn-lg btn-outlined mx-auto mt-10" target="_blank" href="{{ '/playground/' | url }}">
+    <span>Playground</span>
+    <span class="material-icons mis-2">open_in_new</span>
 </a>

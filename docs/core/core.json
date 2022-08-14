@@ -1,0 +1,7 @@
+{
+    "layout": "base",
+    "tags": "core",
+    "module": "core",
+    "withHeader": true,
+    "withSideBar": true
+}

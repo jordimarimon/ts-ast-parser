@@ -20,24 +20,30 @@
 
     <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}"/>
 
+    {% if withSideBar %}
     <script async type="module" src="{{ '/assets/js/side-bar.js' | url }}"></script>
+    {% endif %}
 
     {% if title == 'Playground' %}
-        <script async type="module" src="{{ '/assets/js/playground.js' | url }}"></script>
+    <script async type="module" src="{{ '/assets/js/playground.js' | url }}"></script>
     {% endif %}
 </head>
 
 <body>
 
+{% if withHeader %}
 {% include "partials/_navigation.njk" %}
+{% endif %}
 
+{% if withSideBar %}
 {% include "partials/_side-bar.njk" %}
+{% endif %}
 
-<main class="main {% if sideBarCollection %}module{% else %}full-page{% endif %}">
+<main class="main {% if module %}module{% else %}full-page{% endif %} {% if withHeader %}has-navbar{% endif %}">
     {{ content | safe }}
 
-    {% if sideBarCollection %}
-        {% include "partials/_pagination.njk" %}
+    {% if module %}
+    {% include "partials/_pagination.njk" %}
     {% endif %}
 </main>
 

@@ -1,0 +1,7 @@
+{
+    "layout": "base",
+    "tags": "toMarkdown",
+    "module": "toMarkdown",
+    "withHeader": true,
+    "withSideBar": true
+}
