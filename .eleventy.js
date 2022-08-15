@@ -28,6 +28,7 @@ module.exports = (eleventyConfig) => {
         });
     });
 
+    // Transform the name of a module into the name of a collection
     eleventyConfig.addFilter("makeCollectionName", (value) => {
         return String(value).split(/\s|-/).map((v, i) => {
             return (i === 0 ? v[0].toLowerCase() : v[0].toUpperCase()) + v.slice(1);
