@@ -8,6 +8,7 @@ type ConstructWithTypeParameter = ts.TypeAliasDeclaration |
     ts.ArrowFunction |
     ts.MethodSignature |
     ts.FunctionTypeNode |
+    ts.FunctionExpression |
     null;
 
 export const isNotEmptyArray = <T = unknown[]>(arr: unknown): arr is T => Array.isArray(arr) && arr.length > 0;
@@ -40,7 +41,9 @@ export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclara
         return false;
     }
 
-    return !!declaration.initializer && ts.isArrowFunction(declaration.initializer);
+    const initializer = declaration.initializer;
+
+    return !!initializer && (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer));
 }
 
 export function getDefaultValue(node: ts.VariableDeclaration | ts.PropertyDeclaration): string {

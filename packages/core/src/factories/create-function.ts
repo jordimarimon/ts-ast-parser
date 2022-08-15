@@ -7,6 +7,7 @@ import ts from 'typescript';
 type FunctionLikeDeclaration = ts.FunctionDeclaration |
     ts.ArrowFunction |
     ts.MethodSignature |
+    ts.FunctionExpression |
     ts.FunctionTypeNode |
     null;
 
@@ -86,15 +87,21 @@ function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunct
     return expr != null && ts.isArrowFunction(expr);
 }
 
+function isFunctionExpression(expr: ts.Expression | undefined): expr is ts.FunctionExpression {
+    return expr != null && ts.isFunctionExpression(expr);
+}
+
 function getFunctionName(node: ts.Node): string {
     if (ts.isFunctionDeclaration(node)) {
         return node?.name?.getText() || '';
     }
 
     if (ts.isVariableStatement(node)) {
-        const decl = node.declarationList.declarations.find(d => isArrowFunction(d.initializer));
+        const declaration = node.declarationList.declarations.find(decl => {
+            return isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer);
+        });
 
-        return decl?.name?.getText() || '';
+        return declaration?.name?.getText() || '';
     }
 
     if (ts.isPropertyDeclaration(node) && node.initializer && ts.isArrowFunction(node.initializer)) {
@@ -108,14 +115,27 @@ function getFunctionNode(node: ts.Node): FunctionLikeDeclaration {
     let func: ts.Node | undefined = node;
 
     if (ts.isVariableStatement(node)) {
-        func = node.declarationList.declarations.find(decl => isArrowFunction(decl.initializer))?.initializer;
+        const declaration = node.declarationList.declarations.find(decl => {
+            return isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer);
+        });
+
+        func = declaration?.initializer;
     }
 
     if (ts.isPropertyDeclaration(node)) {
         func = node.initializer;
     }
 
-    if (func == null || (!ts.isFunctionDeclaration(func) && !ts.isArrowFunction(func))) {
+    if (
+        func == null ||
+        (
+            !ts.isFunctionDeclaration(func) &&
+            !ts.isArrowFunction(func) &&
+            !ts.isFunctionExpression(func) &&
+            !ts.isMethodSignature(func) &&
+            !ts.isFunctionTypeNode(func)
+        )
+    ) {
         return null;
     }
 

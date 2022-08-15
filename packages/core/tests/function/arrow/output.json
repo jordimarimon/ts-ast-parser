@@ -7,7 +7,6 @@
                 "kind": "function",
                 "name": "sum",
                 "decorators": [],
-                "typeParameters": [],
                 "jsDoc": [
                     {
                         "kind": "description",
@@ -44,7 +43,8 @@
                         },
                         "rest": true
                     }
-                ]
+                ],
+                "typeParameters": []
             }
         ],
         "exports": [

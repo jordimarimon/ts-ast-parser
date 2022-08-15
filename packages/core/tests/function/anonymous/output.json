@@ -1,0 +1,130 @@
+[
+    {
+        "path": "packages/core/tests/function/anonymous/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "myAdd",
+                "decorators": [],
+                "jsDoc": [],
+                "return": {
+                    "type": {
+                        "text": "number"
+                    }
+                },
+                "async": false,
+                "parameters": [
+                    {
+                        "name": "x",
+                        "decorators": [],
+                        "optional": false,
+                        "default": "",
+                        "type": {
+                            "text": "number"
+                        },
+                        "rest": false
+                    },
+                    {
+                        "name": "y",
+                        "decorators": [],
+                        "optional": false,
+                        "default": "",
+                        "type": {
+                            "text": "number"
+                        },
+                        "rest": false
+                    }
+                ],
+                "typeParameters": []
+            },
+            {
+                "kind": "function",
+                "name": "myAdd2",
+                "decorators": [],
+                "jsDoc": [],
+                "return": {
+                    "type": {
+                        "text": "number"
+                    }
+                },
+                "async": false,
+                "parameters": [
+                    {
+                        "name": "x",
+                        "decorators": [],
+                        "optional": false,
+                        "default": "",
+                        "type": {
+                            "text": "number"
+                        },
+                        "rest": false
+                    },
+                    {
+                        "name": "y",
+                        "decorators": [],
+                        "optional": false,
+                        "default": "",
+                        "type": {
+                            "text": "number"
+                        },
+                        "rest": false
+                    }
+                ],
+                "typeParameters": []
+            },
+            {
+                "kind": "function",
+                "name": "",
+                "decorators": [],
+                "jsDoc": [],
+                "return": {
+                    "type": {
+                        "text": "number"
+                    }
+                },
+                "async": false,
+                "parameters": [
+                    {
+                        "name": "x",
+                        "decorators": [],
+                        "optional": false,
+                        "default": "",
+                        "type": {
+                            "text": "number"
+                        },
+                        "rest": false
+                    },
+                    {
+                        "name": "y",
+                        "decorators": [],
+                        "optional": false,
+                        "default": "",
+                        "type": {
+                            "text": "number"
+                        },
+                        "rest": false
+                    }
+                ],
+                "typeParameters": []
+            }
+        ],
+        "exports": [
+            {
+                "name": "myAdd",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "myAdd2",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "",
+                "type": "default",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]
