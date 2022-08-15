@@ -58,7 +58,7 @@
         "cssnano": "^5.1.13",
         "esbuild": "^0.15.2",
         "eslint": "^8.21.0",
-        "eslint-import-resolver-typescript": "^3.4.0",
+        "eslint-import-resolver-typescript": "^3.4.1",
         "gh-pages": "^4.0.0",
         "globby": "^13.1.2",
         "jsoneditor": "^9.9.0",
