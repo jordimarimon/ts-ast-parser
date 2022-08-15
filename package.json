@@ -46,7 +46,7 @@
         "@11ty/eleventy-plugin-syntaxhighlight": "^4.1.0",
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
-        "@types/node": "~18.7.1",
+        "@types/node": "~18.7.3",
         "@typescript-eslint/eslint-plugin": "^5.33.0",
         "@typescript-eslint/parser": "^5.33.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.70",
