@@ -48,7 +48,7 @@
         "@commitlint/config-conventional": "^17.0.3",
         "@types/node": "~18.7.3",
         "@typescript-eslint/eslint-plugin": "^5.33.0",
-        "@typescript-eslint/parser": "^5.33.0",
+        "@typescript-eslint/parser": "^5.33.1",
         "@typescript/lib-dom": "npm:@types/web@^0.0.70",
         "ace-builds": "^1.9.5",
         "autoprefixer": "^10.4.8",
