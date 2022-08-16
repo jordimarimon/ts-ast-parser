@@ -13,15 +13,20 @@ Also, it may help to understand how the TypeScript compiler works:
 
 ## Filing Issues
 
-TODO
+Please search though open and closed issues to see if a similar issue already exists. If not, open an 
+issue and try to provide a minimal reproduction if you can.
 
 ## Pull Requests
 
-TODO
+Pull requests are greatly appreciated!
 
-## Code Style
+Please follow these steps:
 
-TODO 
+1. Make sure there's an open issue that the PR addresses.
+2. All PRs that change behavior or fix bugs should have new or updated tests.
+3. Try to create a set of descriptive commits that each do one focused change. 
+4. Follow the [conventional commit specification](https://www.conventionalcommits.org/en/v1.0.0/) as this is the one being used.
+5. When addressing review comments, try to add new commits, rather than modifying previous commits.
 
 ## Set up
 

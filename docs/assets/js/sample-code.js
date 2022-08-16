@@ -3,7 +3,7 @@ export const SAMPLE_CODE = `
  * This is an example code to showcase.
  *
  * Make sure to export the declarations that you want
- * it's metadata to be output it.
+ * it's metadata to be output.
  */
 
 export enum StatusCodes {

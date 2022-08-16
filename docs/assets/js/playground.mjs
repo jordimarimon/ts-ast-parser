@@ -41,21 +41,16 @@ function main() {
         return;
     }
 
-    const jsonEditor = new JSONEditor(jsonEditorEl, {
-        mode: 'view',
-    });
+    const jsonEditor = new JSONEditor(jsonEditorEl, {mode: 'view'});
+    jsonEditor.set(parseFromSource(SAMPLE_CODE));
+
     const codeEditor = ace.edit(codeEditorEl);
     const TypeScriptMode = aceTypeScript.Mode;
-
     codeEditor.session.setMode(new TypeScriptMode());
     codeEditor.setTheme(aceTheme);
-    codeEditor.setOptions({
-        fontSize: '14pt',
-    });
-
+    codeEditor.setOptions({fontSize: '14pt'});
     codeEditor.setValue(SAMPLE_CODE);
     codeEditor.session.selection.clearSelection();
-    jsonEditor.set(parseFromSource(SAMPLE_CODE));
 
     const parse = () => {
         const code = codeEditor.getValue();
