@@ -6,13 +6,15 @@ updates:
         schedule:
             interval: "daily"
         open-pull-requests-limit: 10
+        target-branch: "dev"
         ignore:
             -   dependency-name: "typescript"
             -   dependency-name: "@types/node"
             -   dependency-name: "@typescript/lib-dom"
 
     -   package-ecosystem: github-actions
-        directory: /
+        directory: "/"
+        target-branch: "dev"
         schedule:
-            interval: weekly
+            interval: "weekly"
         open-pull-requests-limit: 10
