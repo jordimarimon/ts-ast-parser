@@ -14,7 +14,8 @@
             },
             "plugins": [
                 "@typescript-eslint",
-                "import"
+                "import",
+                "sonarjs"
             ],
             "settings": {
                 "import/parsers": {
@@ -32,7 +33,8 @@
                 "plugin:import/recommended",
                 "plugin:import/typescript",
                 "plugin:@typescript-eslint/eslint-recommended",
-                "plugin:@typescript-eslint/recommended"
+                "plugin:@typescript-eslint/recommended",
+                "plugin:sonarjs/recommended"
             ],
             "rules": {
                 "indent": ["error", 4, {"SwitchCase": 1}],
@@ -374,7 +376,8 @@
                 "import/newline-after-import": ["error", { "count": 2 }],
                 "import/default": "off",
                 "import/named": "off",
-                "import/no-named-as-default-member": "off"
+                "import/no-named-as-default-member": "off",
+                "sonarjs/cognitive-complexity": "off"
             }
         }
     ]

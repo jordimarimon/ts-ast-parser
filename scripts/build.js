@@ -1,7 +1,8 @@
 const {buildSync} = require('esbuild');
+const path = require('path');
 const fs = require('fs');
 
-const PATH = './docs/assets/js/';
+const PATH = path.join(__dirname, '..', 'docs', 'assets', 'js');
 
 function build(entryPoints) {
     buildSync({
@@ -23,7 +24,7 @@ module.exports = function esBuildPlugin(eleventyConfig) {
     const files = fs
         .readdirSync(PATH, {withFileTypes: true})
         .filter(dir => dir.isFile())
-        .map(f => `${PATH}${f.name}`);
+        .map(f => path.join(PATH, f.name));
 
     if (!files.length) {
         return;
