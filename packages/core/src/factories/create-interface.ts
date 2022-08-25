@@ -1,6 +1,6 @@
 import { ClassMember, ClassMethod, InterfaceDeclaration, JSDocTagName, Module } from '../models/index.js';
-import { getFunctionParameters, getFunctionReturnType } from './create-function.js';
 import { findJSDoc, getAllJSDoc, getTypeParameters } from '../utils/index.js';
+import { createFunctionLike } from './create-function.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
@@ -71,28 +71,8 @@ function createInterfaceField(node: ts.PropertySignature): ClassMember {
 }
 
 function createInterfaceMethod(node: ts.MethodSignature | ts.PropertySignature): ClassMethod {
-    const jsDoc = getAllJSDoc(node);
-    const name = node.name?.getText() ?? '';
-
-    let func: ts.MethodSignature | ts.FunctionTypeNode | null;
-
-    if (ts.isPropertySignature(node)) {
-        func = node.type?.kind === ts.SyntaxKind.FunctionType ? node.type as ts.FunctionTypeNode : null;
-    } else {
-        func = node;
-    }
-
     return {
+        ...createFunctionLike(node),
         kind: 'method',
-        name,
-        jsDoc,
-        decorators: [],
-        return: {
-            type: {
-                text: getFunctionReturnType(func),
-            },
-        },
-        parameters: getFunctionParameters(func),
-        typeParameters: getTypeParameters(func),
     };
 }

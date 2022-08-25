@@ -18,12 +18,14 @@ export interface ClassField extends PropertyLike {
     kind: 'field';
     static?: boolean;
     modifier?: ModifierType;
+    readonly?: boolean;
 }
 
 export interface ClassMethod extends FunctionLike {
     kind: 'method';
     static?: boolean;
     modifier?: ModifierType;
+    readonly?: boolean;
 }
 
 export interface Constructor {
@@ -33,7 +35,7 @@ export interface Constructor {
 
 export interface ClassLike {
     name: string;
-    heritage?: Reference;
+    heritage?: Reference[];
     constructors?: Constructor[];
     members?: ClassMember[];
     decorators: Decorator[];

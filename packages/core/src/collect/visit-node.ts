@@ -50,7 +50,7 @@ export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module):
     }
 
     if (ts.isClassDeclaration(rootNode)) {
-        // TODO: It's not yet implemented
+        fromFactory.createClass(rootNode, moduleDoc);
         return;
     }
 

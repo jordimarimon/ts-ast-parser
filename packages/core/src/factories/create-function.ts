@@ -1,15 +1,8 @@
-import { FunctionDeclaration, FunctionLike, Module, Parameter } from '../models/index.js';
-import { getAllJSDoc, getTypeParameters } from '../utils/index.js';
+import { FunctionLikeDeclaration, getAllJSDoc, getParameters, getTypeParameters } from '../utils/index.js';
+import { FunctionDeclaration, FunctionLike, Module } from '../models/index.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
-
-type FunctionLikeDeclaration = ts.FunctionDeclaration |
-    ts.ArrowFunction |
-    ts.MethodSignature |
-    ts.FunctionExpression |
-    ts.FunctionTypeNode |
-    null;
 
 export function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, moduleDoc: Module): void {
     const tmpl: FunctionDeclaration = {
@@ -30,15 +23,20 @@ export function createFunctionLike(node: ts.Node): FunctionLike {
     const jsDoc = getAllJSDoc(node);
     const func = getFunctionNode(node);
 
-    return {
+    const tmpl: FunctionLike = {
         name: getFunctionName(node),
         decorators: [],
         jsDoc,
         return: {type: {text: getFunctionReturnType(func)}},
-        async: isAsyncFunction(func),
-        parameters: getFunctionParameters(func),
+        parameters: getParameters(func),
         typeParameters: getTypeParameters(func),
     };
+
+    if (!ts.isPropertySignature(node) && !ts.isMethodSignature(node)) {
+        tmpl.async = isAsyncFunction(func);
+    }
+
+    return tmpl;
 }
 
 export function getFunctionReturnType(func: FunctionLikeDeclaration): string {
@@ -56,44 +54,25 @@ export function getFunctionReturnType(func: FunctionLikeDeclaration): string {
     return computedType || '';
 }
 
-export function getFunctionParameters(func: FunctionLikeDeclaration): Parameter[] {
-    const parameters: Parameter[] = [];
-    const originalParameters = func?.parameters ?? [];
-    const checker = Context.checker;
-
-    for (const param of originalParameters) {
-        // The computed type from the TypeScript TypeChecker (as a last resource)
-        const computedType = checker?.typeToString(checker?.getTypeAtLocation(param), param) || '';
-        const parameter: Parameter = {
-            name: param.name.getText(),
-            decorators: [],
-            optional: !!param?.questionToken,
-            default: param?.initializer?.getText() ?? '',
-            type: {text: param?.type?.getText() ?? computedType},
-            rest: !!(param?.dotDotDotToken && param.type?.kind === ts.SyntaxKind.ArrayType),
-        };
-
-        parameters.push(parameter);
-    }
-
-    return parameters;
-}
-
-function isAsyncFunction(func: FunctionLikeDeclaration): boolean {
+export function isAsyncFunction(func: FunctionLikeDeclaration): boolean {
     return !!func?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
 }
 
-function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunction {
+export function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunction {
     return expr != null && ts.isArrowFunction(expr);
 }
 
-function isFunctionExpression(expr: ts.Expression | undefined): expr is ts.FunctionExpression {
+export function isFunctionExpression(expr: ts.Expression | undefined): expr is ts.FunctionExpression {
     return expr != null && ts.isFunctionExpression(expr);
 }
 
-function getFunctionName(node: ts.Node): string {
-    if (ts.isFunctionDeclaration(node)) {
+export function getFunctionName(node: ts.Node): string {
+    if (ts.isFunctionDeclaration(node) || ts.isMethodDeclaration(node) || ts.isMethodSignature(node)) {
         return node?.name?.getText() || '';
+    }
+
+    if (ts.isPropertyDeclaration(node) || ts.isPropertySignature(node)) {
+        return node.name?.getText() || '';
     }
 
     if (ts.isVariableStatement(node)) {
@@ -104,15 +83,11 @@ function getFunctionName(node: ts.Node): string {
         return declaration?.name?.getText() || '';
     }
 
-    if (ts.isPropertyDeclaration(node) && node.initializer && ts.isArrowFunction(node.initializer)) {
-        return node.name?.getText() || '';
-    }
-
     return '';
 }
 
-function getFunctionNode(node: ts.Node): FunctionLikeDeclaration {
-    let func: ts.Node | undefined = node;
+export function getFunctionNode(node: ts.Node): FunctionLikeDeclaration {
+    let func: ts.Node | undefined | null = node;
 
     if (ts.isVariableStatement(node)) {
         const declaration = node.declarationList.declarations.find(decl => {
@@ -120,6 +95,10 @@ function getFunctionNode(node: ts.Node): FunctionLikeDeclaration {
         });
 
         func = declaration?.initializer;
+    }
+
+    if (ts.isPropertySignature(node)) {
+        func = node.type?.kind === ts.SyntaxKind.FunctionType ? node.type as ts.FunctionTypeNode : null;
     }
 
     if (ts.isPropertyDeclaration(node)) {
@@ -133,6 +112,7 @@ function getFunctionNode(node: ts.Node): FunctionLikeDeclaration {
             !ts.isArrowFunction(func) &&
             !ts.isFunctionExpression(func) &&
             !ts.isMethodSignature(func) &&
+            !ts.isMethodDeclaration(func) &&
             !ts.isFunctionTypeNode(func)
         )
     ) {

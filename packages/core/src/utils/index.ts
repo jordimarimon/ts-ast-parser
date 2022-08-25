@@ -1,3 +1,4 @@
+export * from './types.js';
 export * from './exports.js';
 export * from './helpers.js';
 export * from './js-doc.js';

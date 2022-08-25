@@ -1,0 +1,154 @@
+[
+    {
+        "path": "packages/core/tests/class/basic/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "class",
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "Example `Foo` class"
+                    }
+                ],
+                "decorators": [],
+                "typeParameters": [],
+                "heritage": [],
+                "members": [
+                    {
+                        "kind": "field",
+                        "static": true,
+                        "modifier": "public",
+                        "optional": false,
+                        "jsDoc": [],
+                        "decorators": [],
+                        "default": "'Hello World'",
+                        "name": "staticBar",
+                        "readonly": true,
+                        "type": {
+                            "text": "\"Hello World\""
+                        }
+                    },
+                    {
+                        "kind": "field",
+                        "static": false,
+                        "modifier": "public",
+                        "optional": true,
+                        "jsDoc": [],
+                        "decorators": [],
+                        "default": "",
+                        "name": "bar",
+                        "readonly": false,
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "kind": "field",
+                        "static": false,
+                        "modifier": "public",
+                        "optional": false,
+                        "jsDoc": [],
+                        "decorators": [],
+                        "default": "",
+                        "name": "message",
+                        "readonly": true,
+                        "type": {
+                            "text": "string | undefined"
+                        }
+                    },
+                    {
+                        "name": "log",
+                        "decorators": [],
+                        "jsDoc": [],
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
+                        "async": false,
+                        "parameters": [
+                            {
+                                "name": "message",
+                                "decorators": [],
+                                "optional": false,
+                                "default": "",
+                                "type": {
+                                    "text": "string"
+                                },
+                                "rest": false
+                            }
+                        ],
+                        "typeParameters": [],
+                        "kind": "method",
+                        "static": false,
+                        "modifier": "public",
+                        "readonly": true
+                    },
+                    {
+                        "name": "add",
+                        "decorators": [],
+                        "jsDoc": [],
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "async": false,
+                        "parameters": [],
+                        "typeParameters": [],
+                        "kind": "method",
+                        "static": false,
+                        "modifier": "public",
+                        "readonly": false
+                    }
+                ],
+                "constructors": [
+                    {
+                        "jsDoc": [],
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "decorators": [],
+                                "optional": false,
+                                "default": "",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "rest": false
+                            },
+                            {
+                                "name": "y",
+                                "decorators": [],
+                                "optional": false,
+                                "default": "",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "rest": false
+                            },
+                            {
+                                "name": "message",
+                                "decorators": [],
+                                "optional": false,
+                                "default": "",
+                                "type": {
+                                    "text": "string"
+                                },
+                                "rest": false
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]
