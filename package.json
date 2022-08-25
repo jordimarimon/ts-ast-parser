@@ -42,15 +42,15 @@
         "**/*.ts": "npm run lint:fix"
     },
     "devDependencies": {
-        "@11ty/eleventy": "^1.0.2",
+        "@11ty/eleventy": "^1.0.1",
         "@11ty/eleventy-plugin-syntaxhighlight": "^4.1.0",
         "@commitlint/cli": "^17.0.3",
         "@commitlint/config-conventional": "^17.0.3",
         "@types/node": "~18.7.3",
-        "@typescript-eslint/eslint-plugin": "^5.33.0",
-        "@typescript-eslint/parser": "^5.35.1",
+        "@typescript-eslint/eslint-plugin": "^5.35.1",
+        "@typescript-eslint/parser": "^5.33.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.70",
-        "ace-builds": "^1.9.6",
+        "ace-builds": "^1.9.5",
         "autoprefixer": "^10.4.8",
         "c8": "^7.12.0",
         "chalk": "^5.0.1",
@@ -73,13 +73,13 @@
         "postcss": "^8.4.16",
         "postcss-cli": "^10.0.0",
         "postcss-import": "^14.1.0",
-        "postcss-preset-env": "^7.8.0",
+        "postcss-preset-env": "^7.7.2",
         "source-map-explorer": "^2.5.2",
         "tailwindcss": "^3.1.8",
         "tailwindcss-logical": "^3.0.0",
         "tslib": "^2.4.0",
         "typescript": "~4.7.4",
         "vite-tsconfig-paths": "^3.5.0",
-        "vitest": "^0.22.1"
+        "vitest": "^0.21.1"
     }
 }
