@@ -29,7 +29,7 @@ export function clean(moduleDocs: Module[]): void {
     }
 }
 
-export function removeNonPublicClassMembers(declaration: ClassDeclaration): void {
+function removeNonPublicClassMembers(declaration: ClassDeclaration): void {
     let i = declaration.members?.length ?? 0;
 
     while (i--) {

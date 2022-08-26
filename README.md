@@ -44,9 +44,10 @@ Extracts metadata from:
 - Type Alias declarations
 - Enum declarations
 - JSDoc
-- Class declarations (coming soon)
-- Inheritance (coming soon)
+- Class declarations (working on)
 - Decorators (coming soon)
+- Inheritance (coming soon)
+- Mixins (coming soon)
 - Custom elements (coming soon)
 
 Supported output formats:
