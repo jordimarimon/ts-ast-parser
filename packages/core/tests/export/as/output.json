@@ -1,0 +1,26 @@
+[
+    {
+        "path": "packages/core/tests/export/as/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "foo",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "4"
+                },
+                "default": "4"
+            }
+        ],
+        "exports": [
+            {
+                "name": "bar",
+                "type": "named",
+                "isTypeOnly": false,
+                "referenceName": "foo"
+            }
+        ]
+    }
+]
