@@ -18,14 +18,15 @@ export interface ClassField extends PropertyLike {
     kind: 'field';
     static?: boolean;
     modifier?: ModifierType;
-    readonly?: boolean;
+    readOnly?: boolean;
+    writeOnly?: boolean;
 }
 
 export interface ClassMethod extends FunctionLike {
     kind: 'method';
     static?: boolean;
     modifier?: ModifierType;
-    readonly?: boolean;
+    readOnly?: boolean;
 }
 
 export interface Constructor {

@@ -3,19 +3,11 @@ import { Spec } from 'comment-parser/primitives';
 import { logError, logWarning } from './logs.js';
 import { Context } from '../context.js';
 import { parse } from 'comment-parser';
-import ts from 'typescript';
 
 
-export function shouldIgnore(node: ts.Node): boolean {
-    return !!(node as JSDocNode).jsDoc?.some(doc => {
-        return doc?.tags?.some(tag => {
-            const tagName = tag?.tagName?.getText?.();
-
-            return tagName === JSDocTagName.ignore ||
-                tagName === JSDocTagName.internal ||
-                tagName === JSDocTagName.private ||
-                tagName === JSDocTagName.protected;
-        });
+export function shouldIgnore(declaration: {jsDoc?: JSDoc} | undefined): boolean {
+    return !!declaration?.jsDoc?.some(tag => {
+        return tag.kind === JSDocTagName.ignore || tag.kind === JSDocTagName.internal;
     });
 }
 

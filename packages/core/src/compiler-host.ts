@@ -15,11 +15,7 @@ export function createCompilerHost(fileName: string, code: string): ts.CompilerH
     return {
 
         getSourceFile: (name: string): ts.SourceFile | undefined => {
-            if (files[name] !== undefined) {
-                return files[name];
-            }
-
-            return undefined;
+            return files[name];
         },
 
         writeFile: (name: string, content: string): void => {

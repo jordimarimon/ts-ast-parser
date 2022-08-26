@@ -9,7 +9,6 @@ import {
     ClassMethod,
     Constructor,
     JSDocTagName,
-    ModifierType,
     Module,
 } from '../models/index.js';
 import {
@@ -17,15 +16,18 @@ import {
     getAllJSDoc,
     getDefaultValue,
     getParameters,
+    getReturnStatement,
+    getReturnValue,
     getTypeParameters,
-    hasNonPublicModifier,
+    getVisibilityModifier,
     isArrowFunction,
     isFunctionExpression,
     isReadOnly,
     isStaticMember,
-    shouldIgnore,
 } from '../utils/index.js';
 
+
+type PropertyAccessor = { getter?: ts.GetAccessorDeclaration; setter?: ts.SetAccessorDeclaration };
 
 export const classFactory: NodeFactory<ts.ClassDeclaration | ts.ClassExpression> = {
 
@@ -61,17 +63,15 @@ function createClass(node: ts.ClassDeclaration | ts.ClassExpression, moduleDoc: 
     moduleDoc.declarations.push(tmpl);
 }
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function getClassMembers(node: ts.ClassDeclaration | ts.ClassExpression): ClassMember[] {
     const members: ClassMember[] = [];
+    const propertyAccessors: { [key: string]: PropertyAccessor } = {};
 
     for (const member of node.members) {
         const isProperty = ts.isPropertyDeclaration(member);
         const isPropertyMethod = isProperty &&
             (isArrowFunction(member.initializer) || isFunctionExpression(member.initializer));
-
-        if (shouldIgnore(member) || hasNonPublicModifier(member)) {
-            continue;
-        }
 
         if (ts.isMethodDeclaration(member) || isPropertyMethod) {
             members.push(createMethod(member));
@@ -79,7 +79,35 @@ function getClassMembers(node: ts.ClassDeclaration | ts.ClassExpression): ClassM
         }
 
         if (isProperty) {
-            members.push(createField(member));
+            members.push(createFieldFromProperty(member));
+        }
+
+        if (ts.isGetAccessor(member)) {
+            const name = member.name?.getText() ?? '';
+
+            if (!propertyAccessors[name]) {
+                propertyAccessors[name] = {};
+            }
+
+            propertyAccessors[name].getter = member;
+        }
+
+        if (ts.isSetAccessor(member)) {
+            const name = member.name?.getText() ?? '';
+
+            if (!propertyAccessors[name]) {
+                propertyAccessors[name] = {};
+            }
+
+            propertyAccessors[name].setter = member;
+        }
+    }
+
+    for (const propertyAccessor in propertyAccessors) {
+        const field = createFieldFromPropertyAccessor(propertyAccessors[propertyAccessor]);
+
+        if (field != null) {
+            members.push(field);
         }
     }
 
@@ -99,12 +127,12 @@ function createMethod(node: ts.MethodDeclaration | ts.PropertyDeclaration): Clas
         ...createFunctionLike(node),
         kind: 'method',
         static: isStaticMember(node),
-        modifier: ModifierType.public,
-        readonly: isReadOnly(node),
+        modifier: getVisibilityModifier(node),
+        readOnly: isReadOnly(node),
     };
 }
 
-function createField(node: ts.PropertyDeclaration): ClassField {
+function createFieldFromProperty(node: ts.PropertyDeclaration): ClassField {
     const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);
 
@@ -122,13 +150,13 @@ function createField(node: ts.PropertyDeclaration): ClassField {
     return {
         kind: 'field',
         static: isStaticMember(node),
-        modifier: ModifierType.public,
+        modifier: getVisibilityModifier(node),
         optional: !!node.questionToken,
         jsDoc,
         decorators: [],
         default: defaultValue ?? getDefaultValue(node),
         name: node.name?.getText() ?? '',
-        readonly: isReadOnly(node),
+        readOnly: isReadOnly(node),
         type: jsDocDefinedType
             ? {text: jsDocDefinedType}
             : {text: userDefinedType ?? computedType},
@@ -139,5 +167,59 @@ function createConstructor(node: ts.ConstructorDeclaration): Constructor {
     return {
         jsDoc: getAllJSDoc(node),
         parameters: getParameters(node),
+    };
+}
+
+function createFieldFromPropertyAccessor(propertyAccessor: PropertyAccessor): ClassMember | null {
+    const {getter, setter} = propertyAccessor;
+    const checker = Context.checker;
+
+    if (getter != null) {
+        const name = getter.name?.getText();
+        const jsDoc = getAllJSDoc(getter);
+        const hasReadOnlyTag = findJSDoc<boolean>(JSDocTagName.readonly, jsDoc)?.value;
+        const returnStatement = getReturnStatement(getter.body);
+        const returnValue = getReturnValue(returnStatement);
+
+        // TODO: Add resolve link instruction
+        // const isIdentifier = returnStatement?.expression?.kind === ts.SyntaxKind.Identifier;
+        // const isPropertyAccess = returnStatement?.expression?.kind === ts.SyntaxKind.PropertyAccessExpression;
+
+        // If user specifies the type in the JSDoc -> we take it
+        const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
+
+        // The computed type from the TypeScript TypeChecker (as a last resource)
+        const computedType = checker?.typeToString(checker?.getTypeAtLocation(getter), getter) || '';
+
+        return {
+            name,
+            jsDoc,
+            kind: 'field',
+            decorators: [],
+            static: isStaticMember(getter),
+            modifier: getVisibilityModifier(getter),
+            readOnly: hasReadOnlyTag ?? setter === undefined,
+            type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
+            default: returnValue,
+        };
+    }
+
+    if (setter == null) {
+        return null;
+    }
+
+    const name = setter.name?.getText();
+    const jsDoc = getAllJSDoc(setter);
+    const parameters = getParameters(setter);
+
+    return {
+        name,
+        kind: 'field',
+        static: isStaticMember(setter),
+        modifier: getVisibilityModifier(setter),
+        writeOnly: true,
+        decorators: [],
+        type: parameters[0]?.type ?? {text: ''},
+        jsDoc,
     };
 }

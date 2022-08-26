@@ -19,6 +19,7 @@
                     {
                         "name": "amount",
                         "decorators": [],
+                        "jsDoc": [],
                         "optional": false,
                         "default": "500",
                         "type": {

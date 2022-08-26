@@ -1,5 +1,6 @@
 import { ConstructWithParameters, ConstructWithTypeParameter } from './types.js';
-import { Parameter } from '../models/index.js';
+import { JSDocTagName, Parameter } from '../models/index.js';
+import { findJSDoc, getAllJSDoc } from './js-doc.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
@@ -14,14 +15,21 @@ export function getParameters(node: ConstructWithParameters): Parameter[] {
     const checker = Context.checker;
 
     for (const param of originalParameters) {
+        const jsDoc = getAllJSDoc(param);
+        const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
+        const userDefinedType = param.type?.getText();
         const computedType = checker?.typeToString(checker?.getTypeAtLocation(param), param) || '';
         const parameter: Parameter = {
             name: param.name.getText(),
             decorators: [],
+            jsDoc,
             optional: !!param?.questionToken,
+            // TODO: Add resolve link instruction (could be a variable or a property access)
             default: param?.initializer?.getText() ?? '',
-            type: {text: param?.type?.getText() ?? computedType},
             rest: !!(param?.dotDotDotToken && param.type?.kind === ts.SyntaxKind.ArrayType),
+            type: jsDocDefinedType
+                ? {text: jsDocDefinedType}
+                : {text: userDefinedType ?? computedType},
         };
 
         parameters.push(parameter);

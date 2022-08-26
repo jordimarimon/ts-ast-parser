@@ -25,7 +25,7 @@
                         "decorators": [],
                         "default": "'Hello World'",
                         "name": "staticBar",
-                        "readonly": true,
+                        "readOnly": true,
                         "type": {
                             "text": "\"Hello World\""
                         }
@@ -39,7 +39,7 @@
                         "decorators": [],
                         "default": "",
                         "name": "bar",
-                        "readonly": false,
+                        "readOnly": false,
                         "type": {
                             "text": "number"
                         }
@@ -53,7 +53,7 @@
                         "decorators": [],
                         "default": "",
                         "name": "message",
-                        "readonly": true,
+                        "readOnly": true,
                         "type": {
                             "text": "string | undefined"
                         }
@@ -72,6 +72,7 @@
                             {
                                 "name": "message",
                                 "decorators": [],
+                                "jsDoc": [],
                                 "optional": false,
                                 "default": "",
                                 "type": {
@@ -84,7 +85,7 @@
                         "kind": "method",
                         "static": false,
                         "modifier": "public",
-                        "readonly": true
+                        "readOnly": true
                     },
                     {
                         "name": "add",
@@ -101,7 +102,7 @@
                         "kind": "method",
                         "static": false,
                         "modifier": "public",
-                        "readonly": false
+                        "readOnly": false
                     }
                 ],
                 "constructors": [
@@ -111,6 +112,7 @@
                             {
                                 "name": "x",
                                 "decorators": [],
+                                "jsDoc": [],
                                 "optional": false,
                                 "default": "",
                                 "type": {
@@ -121,6 +123,7 @@
                             {
                                 "name": "y",
                                 "decorators": [],
+                                "jsDoc": [],
                                 "optional": false,
                                 "default": "",
                                 "type": {
@@ -131,6 +134,7 @@
                             {
                                 "name": "message",
                                 "decorators": [],
+                                "jsDoc": [],
                                 "optional": false,
                                 "default": "",
                                 "type": {

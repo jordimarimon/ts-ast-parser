@@ -1,9 +1,11 @@
 import { createCompilerHost } from './compiler-host.js';
 import { callPlugins } from './call-plugins.js';
-import { collect } from './collect/index.js';
 import { Module } from './models/index.js';
 import { Context } from './context.js';
 import { Options } from './options.js';
+import { collect } from './collect.js';
+import { clean } from './clean.js';
+import { link } from './link.js';
 import ts from 'typescript';
 
 
@@ -30,6 +32,10 @@ export function parseFromSource(
     Context.options = options;
 
     const moduleDoc = collect(fileName, sourceFile);
+
+    link([moduleDoc]);
+
+    clean([moduleDoc]);
 
     callPlugins([sourceFile], [moduleDoc]);
 

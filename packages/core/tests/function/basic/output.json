@@ -35,6 +35,7 @@
                     {
                         "name": "list",
                         "decorators": [],
+                        "jsDoc": [],
                         "optional": false,
                         "default": "",
                         "type": {

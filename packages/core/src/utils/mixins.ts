@@ -1,3 +1,4 @@
+import { getReturnStatement, getReturnValue } from './return-statement.js';
 import { MixinNodes } from '../models/index.js';
 import ts from 'typescript';
 
@@ -130,28 +131,10 @@ function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration):
     return null;
 }
 
-function getReturnStatement(node: ts.Block): ts.ReturnStatement | undefined {
-    return node.statements.find(ts.isReturnStatement);
-}
-
 function getClassDeclaration(node: ts.Block): ts.ClassDeclaration | undefined {
     return node.statements.find(ts.isClassDeclaration);
 }
 
 function getVariableDeclaration(node: ts.VariableStatement): ts.VariableDeclaration | undefined {
     return node.declarationList.declarations.find(ts.isVariableDeclaration);
-}
-
-function getReturnValue(returnStatement: ts.ReturnStatement | undefined): string {
-    if (returnStatement == undefined) {
-        return '';
-    }
-
-    const expr = returnStatement.expression;
-
-    if (expr != undefined && ts.isAsExpression(expr)) {
-        return expr.expression.getText() ?? '';
-    }
-
-    return expr?.getText() ?? '';
 }

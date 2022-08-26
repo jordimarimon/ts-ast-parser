@@ -28,7 +28,7 @@ const IGNORE: string[] = [
  * @returns The metadata of each TypeScript file
  */
 export function parseFromGlob(
-    patterns: string | string[] = ['**/*.{js,tsx}'],
+    patterns: string | string[] = ['**/*.{ts,tsx}'],
     options: Partial<Options> = {},
     compilerOptions: ts.CompilerOptions = {},
 ): Module[] {

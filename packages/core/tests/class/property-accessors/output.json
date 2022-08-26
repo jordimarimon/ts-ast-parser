@@ -1,1 +1,81 @@
-[]
+[
+    {
+        "path": "packages/core/tests/class/property-accessors/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "class",
+                "jsDoc": [],
+                "decorators": [],
+                "typeParameters": [],
+                "heritage": [],
+                "members": [
+                    {
+                        "name": "log",
+                        "decorators": [],
+                        "jsDoc": [],
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
+                        "parameters": [],
+                        "typeParameters": [],
+                        "async": false,
+                        "kind": "method",
+                        "static": false,
+                        "modifier": "public",
+                        "readOnly": false
+                    },
+                    {
+                        "name": "staticBar",
+                        "jsDoc": [],
+                        "kind": "field",
+                        "decorators": [],
+                        "static": true,
+                        "modifier": "public",
+                        "readOnly": true,
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "'Hello World'"
+                    },
+                    {
+                        "name": "bar",
+                        "jsDoc": [],
+                        "kind": "field",
+                        "decorators": [],
+                        "static": false,
+                        "modifier": "public",
+                        "readOnly": false,
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "this._bar"
+                    },
+                    {
+                        "name": "fooBar",
+                        "kind": "field",
+                        "static": false,
+                        "modifier": "public",
+                        "writeOnly": true,
+                        "decorators": [],
+                        "type": {
+                            "text": "number"
+                        },
+                        "jsDoc": []
+                    }
+                ],
+                "constructors": []
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "default",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]
