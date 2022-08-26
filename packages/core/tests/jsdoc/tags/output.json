@@ -36,7 +36,8 @@
                         "value": {
                             "name": "--size",
                             "default": "1rem",
-                            "description": "Element size"
+                            "description": "Element size",
+                            "optional": true
                         }
                     },
                     {

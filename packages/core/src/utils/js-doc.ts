@@ -64,74 +64,87 @@ function collectJsDoc(jsDocComment: JSDocComment, doc: JSDoc): void {
 function getJSTagValue(name: string, tag: Spec): unknown {
     const jsDocHandlers = Context.options.jsDocHandlers ?? {};
 
-    switch (name) {
-        case JSDocTagName.returns:
-        case JSDocTagName.type:
-        case JSDocTagName.summary:
-        case JSDocTagName.example:
-        case JSDocTagName.default:
-        case JSDocTagName.since:
-        case JSDocTagName.throws:
-        case JSDocTagName.category:
-        case JSDocTagName.see:
-        case JSDocTagName.tag:
-        case JSDocTagName.tagname:
-            return normalizeDescription(tag.description ? `${tag.name} ${tag.description}` : tag.name);
-
-        case JSDocTagName.readonly:
-        case JSDocTagName.deprecated:
-        case JSDocTagName.override:
-        case JSDocTagName.public:
-        case JSDocTagName.protected:
-        case JSDocTagName.private:
-        case JSDocTagName.internal:
-        case JSDocTagName.ignore:
-        case JSDocTagName.reflect:
-            return true;
-
-        case JSDocTagName.cssprop:
-        case JSDocTagName.cssproperty:
-            return {
-                name: tag.name ?? '',
-                default: tag.default ?? '',
-                description: normalizeDescription(tag.description),
-            };
-
-        case JSDocTagName.param:
-            return {
-                name: tag.name ?? '',
-                default: tag.default ?? '',
-                optional: tag.optional ?? '',
-                description: normalizeDescription(tag.description),
-            };
-
-        case JSDocTagName.csspart:
-        case JSDocTagName.slot:
-        case JSDocTagName.attr:
-            return {
-                name: tag.name ?? '',
-                description: normalizeDescription(tag.description),
-            };
-
-        case JSDocTagName.fires:
-        case JSDocTagName.event:
-            return {
-                name: tag.name ?? '',
-                type: tag.type ?? '',
-                description: normalizeDescription(tag.description),
-            };
-
-        default:
-            if (jsDocHandlers[name] !== undefined) {
-                try {
-                    return jsDocHandlers[name](tag) ?? '';
-                } catch (error: unknown) {
-                    logError(`The JSDoc Handler "${name}" has thrown the following error: `, error);
-                }
-            }
-
-            return tag.name ?? '';
+    if (jsDocHandlers[name] !== undefined) {
+        try {
+            return jsDocHandlers[name](tag) ?? '';
+        } catch (error: unknown) {
+            logError(`The JSDoc Handler "${name}" has thrown the following error: `, error);
+        }
     }
+
+    if (isBooleanJSDoc(name)) {
+        return true;
+    }
+
+    if (isStringJSDoc(name)) {
+        return normalizeDescription(tag.description ? `${tag.name} ${tag.description}` : tag.name);
+    }
+
+    return getComplexJSTagValue(name, tag);
+}
+
+function getComplexJSTagValue(name: string, tag: Spec): unknown {
+    const result: {[key: string]: string | boolean} = {};
+    const defaultValue = tag.default ?? '';
+    const descriptionValue = normalizeDescription(tag.description);
+    const nameValue = tag.name ?? '';
+    const typeValue = tag.type ?? '';
+    const hasDefault = defaultValue !== '';
+    const hasOptional = tag.optional;
+    const hasType = typeValue !== '';
+
+    if (hasDefault) {
+        result['default'] = defaultValue;
+    }
+
+    if (hasOptional) {
+        result['optional'] = true;
+    }
+
+    if (hasType) {
+        result['type'] = typeValue;
+    }
+
+    if (name) {
+        result['name'] = nameValue;
+    }
+
+    if (descriptionValue) {
+        result['description'] = descriptionValue;
+    }
+
+    return result;
+}
+
+function isBooleanJSDoc(name: string): boolean {
+    const booleanJSDocTags: string[] = [
+        JSDocTagName.readonly,
+        JSDocTagName.deprecated,
+        JSDocTagName.override,
+        JSDocTagName.public,
+        JSDocTagName.protected,
+        JSDocTagName.private,
+        JSDocTagName.internal,
+        JSDocTagName.ignore,
+    ];
+
+    return booleanJSDocTags.indexOf(name) !== -1;
+}
+
+function isStringJSDoc(name: string): boolean {
+    const stringJSDocTags: string[] = [
+        JSDocTagName.returns,
+        JSDocTagName.type,
+        JSDocTagName.summary,
+        JSDocTagName.example,
+        JSDocTagName.default,
+        JSDocTagName.since,
+        JSDocTagName.throws,
+        JSDocTagName.category,
+        JSDocTagName.see,
+    ];
+
+    return stringJSDocTags.indexOf(name) !== -1;
 }
 
 function normalizeDescription(desc: string): string {

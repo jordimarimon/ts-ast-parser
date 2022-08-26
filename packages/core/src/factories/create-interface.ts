@@ -1,11 +1,20 @@
 import { ClassMember, ClassMethod, InterfaceDeclaration, JSDocTagName, Module } from '../models/index.js';
 import { findJSDoc, getAllJSDoc, getTypeParameters } from '../utils/index.js';
 import { createFunctionLike } from './create-function.js';
+import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-export function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void {
+export const interfaceFactory: NodeFactory<ts.InterfaceDeclaration> = {
+
+    isNode: (node: ts.Node): node is ts.InterfaceDeclaration => ts.isInterfaceDeclaration(node),
+
+    create: createInterface,
+
+};
+
+function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void {
     const name = node.name?.getText() ?? '';
     const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === name);
 

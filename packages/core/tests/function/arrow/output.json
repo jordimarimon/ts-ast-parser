@@ -16,8 +16,6 @@
                         "kind": "param",
                         "value": {
                             "name": "list",
-                            "default": "",
-                            "optional": false,
                             "description": "The list of numbers to sum"
                         }
                     },

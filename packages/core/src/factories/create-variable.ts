@@ -1,10 +1,21 @@
+import { getDefaultValue, getAllJSDoc, findJSDoc, isFunctionDeclaration } from '../utils/index.js';
 import { JSDocTagName, Module, VariableDeclaration } from '../models/index.js';
-import { getDefaultValue, getAllJSDoc, findJSDoc } from '../utils/index.js';
+import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-export function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
+export const variableFactory: NodeFactory<ts.VariableStatement> = {
+
+    isNode: (node: ts.Node): node is ts.VariableStatement => {
+        return !isFunctionDeclaration(node) && ts.isVariableStatement(node);
+    },
+
+    create: createVariable,
+
+};
+
+function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
 
     const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);

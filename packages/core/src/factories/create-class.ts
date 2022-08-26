@@ -1,4 +1,5 @@
-import { createFunctionLike, isArrowFunction, isFunctionExpression } from './create-function.js';
+import { createFunctionLike } from './create-function.js';
+import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 import {
@@ -17,12 +18,29 @@ import {
     getDefaultValue,
     getParameters,
     getTypeParameters,
+    hasNonPublicModifier,
+    isArrowFunction,
+    isFunctionExpression,
+    isReadOnly,
+    isStaticMember,
     shouldIgnore,
 } from '../utils/index.js';
 
 
-export function createClass(node: ts.ClassDeclaration | ts.ClassExpression, moduleDoc: Module): void {
-    const name = node.name?.getText();
+export const classFactory: NodeFactory<ts.ClassDeclaration | ts.ClassExpression> = {
+
+    isNode: isClassNode,
+
+    create: createClass,
+
+};
+
+function isClassNode(node: ts.Node): node is ts.ClassExpression | ts.ClassDeclaration {
+    return ts.isClassDeclaration(node) || ts.isClassExpression(node);
+}
+
+function createClass(node: ts.ClassDeclaration | ts.ClassExpression, moduleDoc: Module): void {
+    const name = node.name?.getText() ?? '';
     const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === name);
 
     if (alreadyExists) {
@@ -30,18 +48,14 @@ export function createClass(node: ts.ClassDeclaration | ts.ClassExpression, modu
     }
 
     const tmpl: ClassDeclaration = {
-        name: name ?? '',
+        name,
         kind: 'class',
         jsDoc: getAllJSDoc(node),
         decorators: [],
         typeParameters: getTypeParameters(node),
         heritage: [],
         members: getClassMembers(node),
-        constructors: node.members
-            .filter((member): member is ts.ConstructorDeclaration => {
-                return ts.isConstructorDeclaration(member);
-            })
-            .map(member => createConstructor(member)),
+        constructors: getConstructors(node),
     };
 
     moduleDoc.declarations.push(tmpl);
@@ -70,6 +84,14 @@ function getClassMembers(node: ts.ClassDeclaration | ts.ClassExpression): ClassM
     }
 
     return members;
+}
+
+function getConstructors(node: ts.ClassDeclaration | ts.ClassExpression): Constructor[] {
+    return node.members
+        .filter((member): member is ts.ConstructorDeclaration => {
+            return ts.isConstructorDeclaration(member);
+        })
+        .map(member => createConstructor(member));
 }
 
 function createMethod(node: ts.MethodDeclaration | ts.PropertyDeclaration): ClassMethod {
@@ -118,18 +140,4 @@ function createConstructor(node: ts.ConstructorDeclaration): Constructor {
         jsDoc: getAllJSDoc(node),
         parameters: getParameters(node),
     };
-}
-
-function hasNonPublicModifier(member: ts.ClassElement): boolean {
-    return !!member.modifiers?.some(mod => {
-        return mod.kind === ts.SyntaxKind.PrivateKeyword || mod.kind === ts.SyntaxKind.ProtectedKeyword;
-    });
-}
-
-function isReadOnly(member: ts.ClassElement): boolean {
-    return !!member.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ReadonlyKeyword);
-}
-
-function isStaticMember(member: ts.PropertyDeclaration | ts.MethodDeclaration): boolean {
-    return !!member?.modifiers?.some?.(x => x.kind === ts.SyntaxKind.StaticKeyword);
 }

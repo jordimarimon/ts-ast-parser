@@ -9,7 +9,7 @@ import ts from 'typescript';
  *      export class Foo {...}
  *
  */
-export function hasExportKeyword(node: ts.Node): boolean {
+export function hasExportKeyword(node: ts.Node): node is ts.Node {
     return !!node.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ExportKeyword);
 }
 

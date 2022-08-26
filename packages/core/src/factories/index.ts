@@ -1,8 +1,22 @@
-export * from './create-variable.js';
-export * from './create-function.js';
-export * from './create-export.js';
-export * from './create-import.js';
-export * from './create-enum.js';
-export * from './create-type-alias.js';
-export * from './create-interface.js';
-export * from './create-class.js';
+import { exportAssignmentFactory, exportDeclarationFactory, exportKeywordFactory } from './create-export.js';
+import { typeAliasFactory } from './create-type-alias.js';
+import { interfaceFactory } from './create-interface.js';
+import { variableFactory } from './create-variable.js';
+import { functionFactory } from './create-function.js';
+import { importFactory } from './create-import.js';
+import { classFactory } from './create-class.js';
+import { enumFactory } from './create-enum.js';
+
+
+export default [
+    importFactory,
+    functionFactory,
+    variableFactory,
+    enumFactory,
+    typeAliasFactory,
+    classFactory,
+    interfaceFactory,
+    exportKeywordFactory,
+    exportDeclarationFactory,
+    exportAssignmentFactory,
+];

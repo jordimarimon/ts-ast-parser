@@ -1,9 +1,22 @@
 import { EnumDeclaration, EnumMember, Module } from '../models/index.js';
 import { getAllJSDoc } from '../utils/index.js';
+import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
 
 
-export function createEnum(node: ts.EnumDeclaration, moduleDoc: Module): void {
+export const enumFactory: NodeFactory<ts.EnumDeclaration> = {
+
+    isNode: isEnum,
+
+    create: createEnum,
+
+};
+
+function isEnum(node: ts.Node): node is ts.EnumDeclaration {
+    return ts.isEnumDeclaration(node);
+}
+
+function createEnum(node: ts.EnumDeclaration, moduleDoc: Module): void {
     const name = node.name?.getText();
     const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === name);
 

@@ -20,8 +20,7 @@ export function collect(fileName: string, sourceFile: ts.SourceFile | undefined)
 
     removeNonExportableDeclarations(moduleDoc);
 
-    // TODO(Jordi M.): Link Phase. Cross-reference any user defined
-    //  type/interface and inheritances
+    // link(moduleDoc);
 
     return moduleDoc;
 }

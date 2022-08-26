@@ -1,61 +1,19 @@
-import { Import, ImportType } from '../models/index.js';
-import { isNotEmptyArray } from '../utils/index.js';
+import { isBareModuleSpecifier, isDefaultImport, isNamedImport, isNamespaceImport } from '../utils/index.js';
+import { Import, ImportType, Module } from '../models/index.js';
+import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
 
 
-export function isBareModuleSpecifier(specifier: string): boolean {
-    //
-    // Checks whether the imported module only specifies its module in the import path,
-    // rather than the full or relative path to where it's located:
-    //
-    //      import lodash from 'lodash'; --> Correct
-    //      import foo from './foo.js'; --> Incorrect
-    //
-    return !!specifier?.replace(/'/g, '')[0].match(/[@a-zA-Z\d]/g);
-}
+export const importFactory: NodeFactory<ts.ImportDeclaration> = {
 
-export function isDefaultImport(node: ts.ImportDeclaration): boolean {
-    //
-    // Case of:
-    //      import defaultExport from 'foo';
-    //
-    return !!node?.importClause?.name;
-}
+    isNode: (node: ts.Node): node is ts.ImportDeclaration => ts.isImportDeclaration(node),
 
-export function isNamedImport(node: ts.ImportDeclaration): boolean {
-    //
-    // Case of:
-    //      import {namedA, namedB} from 'foo';
-    //
-    const namedImports = node?.importClause?.namedBindings;
+    create: createImport,
 
-    if (!namedImports || !ts.isNamedImports(namedImports)) {
-        return false;
-    }
+};
 
-    return isNotEmptyArray(namedImports?.elements);
-}
-
-export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
-    //
-    // Case of:
-    //      import * as name from './my-module.js';
-    //
-    const namespaceImports = node?.importClause?.namedBindings;
-
-    if (!namespaceImports || !ts.isNamespaceImport(namespaceImports)) {
-        return false;
-    }
-
-    return !!namespaceImports?.name && !isNamedImport(node);
-}
-
-export function createImport(node: ts.Node | ts.SourceFile): Import[] {
+function createImport(node: ts.ImportDeclaration, moduleDoc: Module): void {
     const imports: Import[] = [];
-
-    if (!ts.isImportDeclaration(node)) {
-        return imports;
-    }
 
     if (isDefaultImport(node)) {
         imports.push({
@@ -91,5 +49,5 @@ export function createImport(node: ts.Node | ts.SourceFile): Import[] {
         });
     }
 
-    return imports;
+    moduleDoc.imports = imports;
 }
