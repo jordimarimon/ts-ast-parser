@@ -33,10 +33,14 @@ function collectJsDoc(jsDocComment: JSDocComment, doc: JSDoc): void {
             logWarning('There have been problems while parsing the JSDoc: ', block.problems);
         }
 
-        doc.push({
-            kind: JSDocTagName.description,
-            value: block.description ?? '',
-        });
+        const descriptionValue = block.description ?? '';
+
+        if (descriptionValue !== '') {
+            doc.push({
+                kind: JSDocTagName.description,
+                value: descriptionValue,
+            });
+        }
 
         for (const tag of block.tags) {
             const name = tag.tag ?? '';
