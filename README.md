@@ -46,15 +46,18 @@ Extracts metadata from:
 - JSDoc
 - Class declarations
 - Decorators
-- Inheritance (coming soon)
-- Mixins (coming soon)
-- Helper class for reading and searching in the metadata (coming soon) 
-- Custom elements (coming soon)
+- Inheritance **(coming soon)**
+- Mixins **(coming soon)** 
+- Custom elements **(coming soon)**
 
 Supported output formats:
 
 - JSON
-- Markdown (coming soon)
+- Markdown **(coming soon)**
+
+Also provides:
+
+- Helper class for reading and searching in the metadata **(coming soon)**
 
 ## Packages
 
