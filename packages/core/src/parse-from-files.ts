@@ -4,7 +4,6 @@ import { Options } from './options.js';
 import { Context } from './context.js';
 import { collect } from './collect.js';
 import { clean } from './clean.js';
-import { link } from './link.js';
 import * as path from 'path';
 import ts from 'typescript';
 
@@ -39,8 +38,6 @@ export function parseFromFiles(
         sourceFiles.push(sourceFile);
         modules.push(moduleDoc);
     }
-
-    link(modules);
 
     clean(modules);
 

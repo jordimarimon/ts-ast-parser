@@ -14,16 +14,15 @@ import {
 import {
     findJSDoc,
     getAllJSDoc,
-    getDefaultValue,
     getParameters,
     getReturnStatement,
-    getReturnValue,
     getTypeParameters,
     getVisibilityModifier,
     isArrowFunction,
     isFunctionExpression,
     isReadOnly,
     isStaticMember,
+    resolveExpression,
 } from '../utils/index.js';
 
 
@@ -154,7 +153,7 @@ function createFieldFromProperty(node: ts.PropertyDeclaration): ClassField {
         optional: !!node.questionToken,
         jsDoc,
         decorators: [],
-        default: defaultValue ?? getDefaultValue(node),
+        default: defaultValue ?? resolveExpression(node.initializer),
         name: node.name?.getText() ?? '',
         readOnly: isReadOnly(node),
         type: jsDocDefinedType
@@ -179,11 +178,7 @@ function createFieldFromPropertyAccessor(propertyAccessor: PropertyAccessor): Cl
         const jsDoc = getAllJSDoc(getter);
         const hasReadOnlyTag = findJSDoc<boolean>(JSDocTagName.readonly, jsDoc)?.value;
         const returnStatement = getReturnStatement(getter.body);
-        const returnValue = getReturnValue(returnStatement);
-
-        // TODO: Add resolve link instruction
-        // const isIdentifier = returnStatement?.expression?.kind === ts.SyntaxKind.Identifier;
-        // const isPropertyAccess = returnStatement?.expression?.kind === ts.SyntaxKind.PropertyAccessExpression;
+        const returnValue = resolveExpression(returnStatement?.expression);
 
         // If user specifies the type in the JSDoc -> we take it
         const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;

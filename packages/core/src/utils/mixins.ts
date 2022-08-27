@@ -1,4 +1,5 @@
-import { getReturnStatement, getReturnValue } from './return-statement.js';
+import { getReturnStatement } from './return-statement.js';
+import { resolveExpression } from './resolve-expression.js';
 import { MixinNodes } from '../models/index.js';
 import ts from 'typescript';
 
@@ -75,7 +76,7 @@ function extractMixinNodesFromVariableStatement(node: ts.VariableStatement): Mix
         }
 
         const classDeclarationName = classDeclaration.name?.getText?.();
-        const returnValue = getReturnValue(returnStatement);
+        const returnValue = resolveExpression(returnStatement?.expression);
 
         if (classDeclarationName === returnValue) {
             return {
@@ -119,7 +120,7 @@ function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration):
     }
 
     const classDeclarationName = classDeclaration.name?.getText?.();
-    const returnValue = getReturnValue(returnStatement);
+    const returnValue = resolveExpression(returnStatement?.expression);
 
     if (classDeclarationName === returnValue) {
         return {

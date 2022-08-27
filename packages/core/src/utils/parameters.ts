@@ -1,5 +1,6 @@
 import { ConstructWithParameters, ConstructWithTypeParameter } from './types.js';
 import { JSDocTagName, Parameter } from '../models/index.js';
+import { resolveExpression } from './resolve-expression.js';
 import { findJSDoc, getAllJSDoc } from './js-doc.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
@@ -24,8 +25,7 @@ export function getParameters(node: ConstructWithParameters): Parameter[] {
             decorators: [],
             jsDoc,
             optional: !!param?.questionToken,
-            // TODO: Add resolve link instruction (could be a variable or a property access)
-            default: param?.initializer?.getText() ?? '',
+            default: resolveExpression(param?.initializer),
             rest: !!(param?.dotDotDotToken && param.type?.kind === ts.SyntaxKind.ArrayType),
             type: jsDocDefinedType
                 ? {text: jsDocDefinedType}

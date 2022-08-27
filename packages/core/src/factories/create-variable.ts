@@ -1,4 +1,4 @@
-import { getDefaultValue, getAllJSDoc, findJSDoc, isFunctionDeclaration } from '../utils/index.js';
+import { getAllJSDoc, findJSDoc, isFunctionDeclaration, resolveExpression } from '../utils/index.js';
 import { JSDocTagName, Module, VariableDeclaration } from '../models/index.js';
 import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
@@ -47,7 +47,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
             type: jsDocDefinedType
                 ? {text: jsDocDefinedType}
                 : {text: userDefinedType ?? computedType},
-            default: defaultValue ?? getDefaultValue(declaration),
+            default: defaultValue ?? resolveExpression(declaration.initializer),
         };
 
         moduleDoc.declarations.push(variable);
