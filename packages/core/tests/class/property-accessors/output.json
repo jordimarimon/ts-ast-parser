@@ -52,7 +52,7 @@
                         "type": {
                             "text": "string"
                         },
-                        "default": "this._bar"
+                        "default": "''"
                     },
                     {
                         "name": "fooBar",
@@ -66,8 +66,7 @@
                         },
                         "jsDoc": []
                     }
-                ],
-                "constructors": []
+                ]
             }
         ],
         "exports": [

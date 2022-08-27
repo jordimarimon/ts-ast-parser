@@ -1,0 +1,33 @@
+[
+    {
+        "path": "packages/core/tests/variable/unknown-initializer/index.ts",
+        "imports": [
+            {
+                "name": "foo",
+                "kind": "named",
+                "importPath": "./foo.js",
+                "isBareModuleSpecifier": false,
+                "isTypeOnly": false
+            }
+        ],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "bar",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "4"
+                },
+                "default": "foo"
+            }
+        ],
+        "exports": [
+            {
+                "name": "bar",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

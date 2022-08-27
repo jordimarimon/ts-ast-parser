@@ -37,7 +37,7 @@ export interface Constructor {
 export interface ClassLike {
     name: string;
     heritage?: Reference[];
-    constructors?: Constructor[];
+    ctor?: Constructor;
     members?: ClassMember[];
     decorators: Decorator[];
     typeParameters: string[];

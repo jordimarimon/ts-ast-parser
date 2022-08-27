@@ -6,7 +6,7 @@ import { Type } from './type.js';
 export interface PropertyLike {
     name: string;
     type?: Type;
-    default?: string;
+    default?: unknown;
     optional?: boolean;
     decorators?: Decorator[];
     jsDoc?: JSDoc;

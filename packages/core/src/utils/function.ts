@@ -16,6 +16,10 @@ export function isFunctionExpression(expr: ts.Expression | undefined): expr is t
 }
 
 export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclaration | ts.VariableStatement {
+    if (node == null) {
+        return false;
+    }
+
     // Case of:
     //
     //      function name(...) { ... }

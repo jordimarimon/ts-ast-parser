@@ -10,7 +10,7 @@
             "type": {
                 "text": "true"
             },
-            "default": "true"
+            "default": true
         }
     ],
     "exports": [

@@ -105,46 +105,44 @@
                         "readOnly": false
                     }
                 ],
-                "constructors": [
-                    {
-                        "jsDoc": [],
-                        "parameters": [
-                            {
-                                "name": "x",
-                                "decorators": [],
-                                "jsDoc": [],
-                                "optional": false,
-                                "default": "",
-                                "type": {
-                                    "text": "number"
-                                },
-                                "rest": false
+                "ctor": {
+                    "jsDoc": [],
+                    "parameters": [
+                        {
+                            "name": "x",
+                            "decorators": [],
+                            "jsDoc": [],
+                            "optional": false,
+                            "default": "",
+                            "type": {
+                                "text": "number"
                             },
-                            {
-                                "name": "y",
-                                "decorators": [],
-                                "jsDoc": [],
-                                "optional": false,
-                                "default": "",
-                                "type": {
-                                    "text": "number"
-                                },
-                                "rest": false
+                            "rest": false
+                        },
+                        {
+                            "name": "y",
+                            "decorators": [],
+                            "jsDoc": [],
+                            "optional": false,
+                            "default": "",
+                            "type": {
+                                "text": "number"
                             },
-                            {
-                                "name": "message",
-                                "decorators": [],
-                                "jsDoc": [],
-                                "optional": false,
-                                "default": "",
-                                "type": {
-                                    "text": "string"
-                                },
-                                "rest": false
-                            }
-                        ]
-                    }
-                ]
+                            "rest": false
+                        },
+                        {
+                            "name": "message",
+                            "decorators": [],
+                            "jsDoc": [],
+                            "optional": false,
+                            "default": "",
+                            "type": {
+                                "text": "string"
+                            },
+                            "rest": false
+                        }
+                    ]
+                }
             }
         ],
         "exports": [

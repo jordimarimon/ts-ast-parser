@@ -1,1 +1,99 @@
-[]
+[
+    {
+        "path": "packages/core/tests/class/initializers/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "class",
+                "jsDoc": [],
+                "decorators": [],
+                "typeParameters": [],
+                "heritage": [],
+                "members": [
+                    {
+                        "kind": "field",
+                        "static": false,
+                        "modifier": "public",
+                        "optional": false,
+                        "jsDoc": [],
+                        "decorators": [],
+                        "default": "'bar'",
+                        "name": "bar",
+                        "readOnly": true,
+                        "type": {
+                            "text": "undefined | string"
+                        }
+                    },
+                    {
+                        "kind": "field",
+                        "static": false,
+                        "modifier": "public",
+                        "optional": false,
+                        "jsDoc": [],
+                        "decorators": [],
+                        "default": "'foo'",
+                        "name": "foo",
+                        "readOnly": false,
+                        "type": {
+                            "text": "string"
+                        }
+                    },
+                    {
+                        "kind": "field",
+                        "static": false,
+                        "modifier": "public",
+                        "optional": false,
+                        "jsDoc": [],
+                        "decorators": [],
+                        "default": 3,
+                        "name": "x",
+                        "readOnly": false,
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "kind": "field",
+                        "static": false,
+                        "modifier": "public",
+                        "optional": false,
+                        "jsDoc": [],
+                        "decorators": [],
+                        "default": 3,
+                        "name": "y",
+                        "readOnly": false,
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "kind": "field",
+                        "static": false,
+                        "modifier": "public",
+                        "optional": false,
+                        "jsDoc": [],
+                        "decorators": [],
+                        "default": "add",
+                        "name": "myAdd",
+                        "readOnly": false,
+                        "type": {
+                            "text": "(x: number, y: number) => number"
+                        }
+                    }
+                ],
+                "ctor": {
+                    "jsDoc": [],
+                    "parameters": []
+                }
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

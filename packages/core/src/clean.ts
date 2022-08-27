@@ -43,8 +43,6 @@ function cleanDeclaration(index: number, moduleDoc: Module): void {
 }
 
 function removeNonPublicClassElements(declaration: ClassDeclaration): void {
-    const constructors = declaration.constructors ?? [];
-
     let i = declaration.members?.length ?? 0;
 
     while (i--) {
@@ -60,8 +58,8 @@ function removeNonPublicClassElements(declaration: ClassDeclaration): void {
         }
     }
 
-    for (const ctor of constructors) {
-        removeNonPublicParameters(ctor);
+    if (declaration.ctor !== undefined) {
+        removeNonPublicParameters(declaration.ctor);
     }
 }
 

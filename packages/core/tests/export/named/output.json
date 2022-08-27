@@ -11,7 +11,7 @@
                     "text": "4"
                 },
                 "decorators": [],
-                "default": "4"
+                "default": 4
             }
         ],
         "exports": [

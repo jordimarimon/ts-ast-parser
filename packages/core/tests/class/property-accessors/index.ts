@@ -1,7 +1,6 @@
 export default class Foo {
 
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-    static get staticBar() {
+    static get staticBar(): string {
         return 'Hello World';
     }
 

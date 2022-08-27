@@ -48,6 +48,10 @@ function createClass(node: ts.ClassDeclaration | ts.ClassExpression, moduleDoc: 
         return;
     }
 
+    const ctorDecl = node.members.find((member): member is ts.ConstructorDeclaration => {
+        return ts.isConstructorDeclaration(member);
+    });
+
     const tmpl: ClassDeclaration = {
         name,
         kind: 'class',
@@ -55,17 +59,23 @@ function createClass(node: ts.ClassDeclaration | ts.ClassExpression, moduleDoc: 
         decorators: [],
         typeParameters: getTypeParameters(node),
         heritage: [],
-        members: getClassMembers(node),
-        constructors: getConstructors(node),
+        members: [
+            ...getClassMembersFromPropertiesAndMethods(node),
+            ...getClassMembersFromPropertyAccessors(node),
+        ],
     };
+
+    if (ctorDecl !== undefined) {
+        tmpl.ctor = createConstructor(ctorDecl);
+
+        resolveDefaultValueFromConstructor(tmpl, ctorDecl);
+    }
 
     moduleDoc.declarations.push(tmpl);
 }
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
-function getClassMembers(node: ts.ClassDeclaration | ts.ClassExpression): ClassMember[] {
+function getClassMembersFromPropertiesAndMethods(node: ts.ClassDeclaration | ts.ClassExpression): ClassMember[] {
     const members: ClassMember[] = [];
-    const propertyAccessors: { [key: string]: PropertyAccessor } = {};
 
     for (const member of node.members) {
         const isProperty = ts.isPropertyDeclaration(member);
@@ -80,7 +90,30 @@ function getClassMembers(node: ts.ClassDeclaration | ts.ClassExpression): ClassM
         if (isProperty) {
             members.push(createFieldFromProperty(member));
         }
+    }
 
+    return members;
+}
+
+function getClassMembersFromPropertyAccessors(node: ts.ClassDeclaration | ts.ClassExpression): ClassMember[] {
+    const members: ClassMember[] = [];
+    const propertyAccessors = findAllPropertyAccessors(node.members);
+
+    for (const propertyAccessor in propertyAccessors) {
+        const field = createFieldFromPropertyAccessor(propertyAccessors[propertyAccessor]);
+
+        if (field != null) {
+            members.push(field);
+        }
+    }
+
+    return members;
+}
+
+function findAllPropertyAccessors(members: ts.NodeArray<ts.ClassElement>): { [key: string]: PropertyAccessor } {
+    const propertyAccessors: { [key: string]: PropertyAccessor } = {};
+
+    for (const member of members) {
         if (ts.isGetAccessor(member)) {
             const name = member.name?.getText() ?? '';
 
@@ -102,23 +135,7 @@ function getClassMembers(node: ts.ClassDeclaration | ts.ClassExpression): ClassM
         }
     }
 
-    for (const propertyAccessor in propertyAccessors) {
-        const field = createFieldFromPropertyAccessor(propertyAccessors[propertyAccessor]);
-
-        if (field != null) {
-            members.push(field);
-        }
-    }
-
-    return members;
-}
-
-function getConstructors(node: ts.ClassDeclaration | ts.ClassExpression): Constructor[] {
-    return node.members
-        .filter((member): member is ts.ConstructorDeclaration => {
-            return ts.isConstructorDeclaration(member);
-        })
-        .map(member => createConstructor(member));
+    return propertyAccessors;
 }
 
 function createMethod(node: ts.MethodDeclaration | ts.PropertyDeclaration): ClassMethod {
@@ -217,4 +234,40 @@ function createFieldFromPropertyAccessor(propertyAccessor: PropertyAccessor): Cl
         type: parameters[0]?.type ?? {text: ''},
         jsDoc,
     };
+}
+
+function resolveDefaultValueFromConstructor(tmpl: ClassDeclaration, ctorDecl: ts.ConstructorDeclaration): void {
+    const statements = ctorDecl.body?.statements ?? [];
+
+    for (const statement of statements) {
+        if (!ts.isExpressionStatement(statement)) {
+            continue;
+        }
+
+        const expr = statement.expression;
+
+        if (!ts.isBinaryExpression(expr)) {
+            continue;
+        }
+
+        const lhs = expr.left;
+
+        // We want something like `this.bar = ...`
+        if (!ts.isPropertyAccessExpression(lhs)) {
+            continue;
+        }
+
+        const lhsName = lhs.name.getText() ?? '';
+        const field = tmpl.members?.find(mem => mem.kind === 'field' && mem.name === lhsName) as ClassField | undefined;
+        const rhs = expr.right;
+
+        // If the right hand side value is a constructor parameter, we can't resolve the value statically
+        if (ts.isIdentifier(rhs) && tmpl.ctor?.parameters.some(param => param.name === rhs.escapedText)) {
+            continue;
+        }
+
+        if (field?.default === '') {
+            field.default = resolveExpression(rhs);
+        }
+    }
 }

@@ -44,7 +44,7 @@ Extracts metadata from:
 - Type Alias declarations
 - Enum declarations
 - JSDoc
-- Class declarations (working on)
+- Class declarations
 - Decorators (coming soon)
 - Inheritance (coming soon)
 - Mixins (coming soon)

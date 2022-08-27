@@ -1,0 +1,130 @@
+[
+    {
+        "path": "packages/core/tests/variable/identifier-as-initializer/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "foo",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "3"
+                },
+                "default": 3
+            },
+            {
+                "kind": "variable",
+                "name": "bar",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "3"
+                },
+                "default": 3
+            },
+            {
+                "kind": "variable",
+                "name": "bar2",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "3"
+                },
+                "default": 3
+            },
+            {
+                "kind": "variable",
+                "name": "str",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "\"Hello\""
+                },
+                "default": "'Hello'"
+            },
+            {
+                "kind": "variable",
+                "name": "num",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "4"
+                },
+                "default": 4
+            },
+            {
+                "kind": "variable",
+                "name": "bool",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "false"
+                },
+                "default": false
+            },
+            {
+                "kind": "variable",
+                "name": "obj",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "{ x: number; }"
+                },
+                "default": "{x: 3}"
+            },
+            {
+                "kind": "variable",
+                "name": "arr",
+                "jsDoc": [],
+                "decorators": [],
+                "type": {
+                    "text": "number[]"
+                },
+                "default": "[3]"
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "bar",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "bar2",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "str",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "num",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "bool",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "obj",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "arr",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

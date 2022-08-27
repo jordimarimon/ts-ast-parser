@@ -24,7 +24,7 @@ export function getParameters(node: ConstructWithParameters): Parameter[] {
             name: param.name.getText(),
             decorators: [],
             jsDoc,
-            optional: !!param?.questionToken,
+            optional: checker?.isOptionalParameter(param) ?? !!param?.questionToken,
             default: resolveExpression(param?.initializer),
             rest: !!(param?.dotDotDotToken && param.type?.kind === ts.SyntaxKind.ArrayType),
             type: jsDocDefinedType
