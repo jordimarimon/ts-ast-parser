@@ -312,6 +312,19 @@
     }
 }
 
+.playground__select {
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    width: 10rem;
+    height: var(--height);
+    z-index: var(--playground-select-z-index);
+
+    @screen md {
+        right: 55%;
+    }
+}
+
 /*//////////////////////////////////////////////////////////////////////////////
 /////////// DIALOG
 //////////////////////////////////////////////////////////////////////////////*/

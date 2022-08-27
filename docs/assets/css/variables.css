@@ -58,6 +58,7 @@
     --navbar-height: 3.75rem;
 
     --navbar-z-index: 5;
+    --playground-select-z-index: 10;
     --sidebar-z-index: 10;
     --skeleton-z-index: 15;
     --fab-z-index: 20;
