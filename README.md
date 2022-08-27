@@ -45,9 +45,10 @@ Extracts metadata from:
 - Enum declarations
 - JSDoc
 - Class declarations
-- Decorators (coming soon)
+- Decorators
 - Inheritance (coming soon)
 - Mixins (coming soon)
+- Helper class for reading and searching in the metadata (coming soon) 
 - Custom elements (coming soon)
 
 Supported output formats:

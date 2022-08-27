@@ -1,3 +1,4 @@
+import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
 import { createCompilerHost } from './compiler-host.js';
 import { callPlugins } from './call-plugins.js';
 import { Module } from './models/index.js';
@@ -20,7 +21,7 @@ import ts from 'typescript';
 export function parseFromSource(
     source: string,
     options: Partial<Options> = {},
-    compilerOptions: ts.CompilerOptions = {},
+    compilerOptions: ts.CompilerOptions = DEFAULT_COMPILER_OPTIONS,
 ): Module {
     const fileName = 'unknown.ts';
     const compilerHost = createCompilerHost(fileName, source);

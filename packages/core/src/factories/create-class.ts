@@ -24,6 +24,7 @@ import {
     isStaticMember,
     resolveExpression,
 } from '../utils/index.js';
+import { getDecorators } from '../utils/decorator.js';
 
 
 type PropertyAccessor = { getter?: ts.GetAccessorDeclaration; setter?: ts.SetAccessorDeclaration };
@@ -56,7 +57,7 @@ function createClass(node: ts.ClassDeclaration | ts.ClassExpression, moduleDoc: 
         name,
         kind: 'class',
         jsDoc: getAllJSDoc(node),
-        decorators: [],
+        decorators: getDecorators(node),
         typeParameters: getTypeParameters(node),
         heritage: [],
         members: [
@@ -169,7 +170,7 @@ function createFieldFromProperty(node: ts.PropertyDeclaration): ClassField {
         modifier: getVisibilityModifier(node),
         optional: !!node.questionToken,
         jsDoc,
-        decorators: [],
+        decorators: getDecorators(node),
         default: defaultValue ?? resolveExpression(node.initializer),
         name: node.name?.getText() ?? '',
         readOnly: isReadOnly(node),
@@ -207,7 +208,7 @@ function createFieldFromPropertyAccessor(propertyAccessor: PropertyAccessor): Cl
             name,
             jsDoc,
             kind: 'field',
-            decorators: [],
+            decorators: getDecorators(getter),
             static: isStaticMember(getter),
             modifier: getVisibilityModifier(getter),
             readOnly: hasReadOnlyTag ?? setter === undefined,
@@ -230,7 +231,7 @@ function createFieldFromPropertyAccessor(propertyAccessor: PropertyAccessor): Cl
         static: isStaticMember(setter),
         modifier: getVisibilityModifier(setter),
         writeOnly: true,
-        decorators: [],
+        decorators: getDecorators(setter),
         type: parameters[0]?.type ?? {text: ''},
         jsDoc,
     };

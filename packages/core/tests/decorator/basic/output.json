@@ -1,0 +1,110 @@
+[
+    {
+        "path": "packages/core/tests/decorator/basic/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "enumerable",
+                "decorators": [],
+                "jsDoc": [],
+                "return": {
+                    "type": {
+                        "text": "(_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor) => void"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "value",
+                        "decorators": [],
+                        "jsDoc": [],
+                        "optional": false,
+                        "default": "",
+                        "rest": false,
+                        "type": {
+                            "text": "boolean"
+                        }
+                    }
+                ],
+                "typeParameters": [],
+                "async": false
+            },
+            {
+                "name": "Greeter",
+                "kind": "class",
+                "jsDoc": [],
+                "decorators": [],
+                "typeParameters": [],
+                "heritage": [],
+                "members": [
+                    {
+                        "kind": "field",
+                        "static": false,
+                        "modifier": "public",
+                        "optional": false,
+                        "jsDoc": [],
+                        "decorators": [],
+                        "default": "",
+                        "name": "greeting",
+                        "readOnly": false,
+                        "type": {
+                            "text": "string"
+                        }
+                    },
+                    {
+                        "name": "greet",
+                        "decorators": [
+                            {
+                                "name": "enumerable",
+                                "parameters": [
+                                    false
+                                ]
+                            }
+                        ],
+                        "jsDoc": [],
+                        "return": {
+                            "type": {
+                                "text": "string"
+                            }
+                        },
+                        "parameters": [],
+                        "typeParameters": [],
+                        "async": false,
+                        "kind": "method",
+                        "static": false,
+                        "modifier": "public",
+                        "readOnly": false
+                    }
+                ],
+                "ctor": {
+                    "jsDoc": [],
+                    "parameters": [
+                        {
+                            "name": "message",
+                            "decorators": [],
+                            "jsDoc": [],
+                            "optional": false,
+                            "default": "",
+                            "rest": false,
+                            "type": {
+                                "text": "string"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "exports": [
+            {
+                "name": "enumerable",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "Greeter",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

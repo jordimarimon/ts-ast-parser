@@ -16,4 +16,6 @@ export type ConstructWithTypeParameter = ts.TypeAliasDeclaration |
     FunctionLikeDeclaration |
     null;
 
-export type ConstructWithParameters = FunctionLikeDeclaration | ts.SetAccessorDeclaration | ts.ConstructorDeclaration;
+export type ConstructWithParameters = FunctionLikeDeclaration |
+    ts.SetAccessorDeclaration |
+    ts.ConstructorDeclaration;

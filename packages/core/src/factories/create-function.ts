@@ -1,4 +1,5 @@
 import { FunctionDeclaration, FunctionLike, Module } from '../models/index.js';
+import { getDecorators } from '../utils/decorator.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
 import {
@@ -42,7 +43,7 @@ export function createFunctionLike(node: ts.Node): FunctionLike {
 
     const tmpl: FunctionLike = {
         name: getFunctionName(node),
-        decorators: [],
+        decorators: getDecorators(node),
         jsDoc,
         return: {type: {text: getFunctionReturnType(func)}},
         parameters: getParameters(func),

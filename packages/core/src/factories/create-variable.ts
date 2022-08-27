@@ -1,5 +1,6 @@
 import { getAllJSDoc, findJSDoc, isFunctionDeclaration, resolveExpression } from '../utils/index.js';
 import { JSDocTagName, Module, VariableDeclaration } from '../models/index.js';
+import { getDecorators } from '../utils/decorator.js';
 import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
@@ -19,6 +20,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
 
     const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);
+    const decorators = getDecorators(node);
 
     // If user specifies the type in the JSDoc -> we take it
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
@@ -43,7 +45,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
             kind: 'variable',
             name,
             jsDoc,
-            decorators: [],
+            decorators,
             type: jsDocDefinedType
                 ? {text: jsDocDefinedType}
                 : {text: userDefinedType ?? computedType},

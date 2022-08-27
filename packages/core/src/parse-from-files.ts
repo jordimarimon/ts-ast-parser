@@ -1,3 +1,4 @@
+import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
 import { callPlugins } from './call-plugins.js';
 import { Module } from './models/index.js';
 import { Options } from './options.js';
@@ -21,7 +22,7 @@ import ts from 'typescript';
 export function parseFromFiles(
     files: readonly string[],
     options: Partial<Options> = {},
-    compilerOptions: ts.CompilerOptions = {},
+    compilerOptions: ts.CompilerOptions = DEFAULT_COMPILER_OPTIONS,
 ): Module[] {
     const modules: Module[] = [];
     const sourceFiles: (ts.SourceFile | undefined)[] = [];
