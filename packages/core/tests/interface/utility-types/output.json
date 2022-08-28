@@ -1,0 +1,64 @@
+[
+    {
+        "path": "packages/core/tests/interface/utility-types/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "RequiredProps",
+                "kind": "interface",
+                "typeParameters": [],
+                "jsDoc": [],
+                "members": [
+                    {
+                        "name": "c",
+                        "kind": "field",
+                        "optional": false,
+                        "type": {
+                            "text": "boolean"
+                        },
+                        "jsDoc": []
+                    }
+                ],
+                "heritage": [
+                    {
+                        "name": "Required<Props>"
+                    }
+                ]
+            },
+            {
+                "name": "TodoPreview",
+                "kind": "interface",
+                "typeParameters": [],
+                "jsDoc": [],
+                "members": [
+                    {
+                        "name": "preview",
+                        "kind": "field",
+                        "optional": false,
+                        "type": {
+                            "text": "string"
+                        },
+                        "jsDoc": []
+                    }
+                ],
+                "heritage": [
+                    {
+                        "name": "Pick<Todo, 'title' | 'completed'>"
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "RequiredProps",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "TodoPreview",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

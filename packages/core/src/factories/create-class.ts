@@ -1,4 +1,5 @@
 import { createFunctionLike } from './create-function.js';
+import { getDecorators } from '../utils/decorator.js';
 import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
@@ -14,6 +15,7 @@ import {
 import {
     findJSDoc,
     getAllJSDoc,
+    getInheritanceChainRefs,
     getParameters,
     getReturnStatement,
     getTypeParameters,
@@ -24,7 +26,6 @@ import {
     isStaticMember,
     resolveExpression,
 } from '../utils/index.js';
-import { getDecorators } from '../utils/decorator.js';
 
 
 type PropertyAccessor = { getter?: ts.GetAccessorDeclaration; setter?: ts.SetAccessorDeclaration };
@@ -59,7 +60,7 @@ function createClass(node: ts.ClassDeclaration | ts.ClassExpression, moduleDoc: 
         jsDoc: getAllJSDoc(node),
         decorators: getDecorators(node),
         typeParameters: getTypeParameters(node),
-        heritage: [],
+        heritage: getInheritanceChainRefs(node),
         members: [
             ...getClassMembersFromPropertiesAndMethods(node),
             ...getClassMembersFromPropertyAccessors(node),

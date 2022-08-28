@@ -46,9 +46,9 @@ Extracts metadata from:
 - JSDoc
 - Class declarations
 - Decorators
-- Mixins **(coming soon)**
-- Utility Types **(coming soon)**
 - Inheritance **(coming soon)**
+- Utility Types **(coming soon)**
+- Mixins **(coming soon)**
 - Custom elements **(coming soon)**
 
 Supported output formats:

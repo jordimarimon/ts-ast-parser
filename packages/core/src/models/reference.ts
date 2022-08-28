@@ -1,6 +1,6 @@
 export interface Reference {
     name: string;
-    href: SourceReference;
+    href?: SourceReference;
 }
 
 export interface SourceReference {

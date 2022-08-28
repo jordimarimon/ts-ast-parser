@@ -9,13 +9,15 @@ export type FunctionLikeDeclaration = ts.FunctionDeclaration |
     ts.MethodDeclaration |
     null;
 
-export type ConstructWithTypeParameter = ts.TypeAliasDeclaration |
+export type NodeWithTypeParameter = ts.TypeAliasDeclaration |
     ts.InterfaceDeclaration |
     ts.ClassDeclaration |
     ts.ClassExpression |
     FunctionLikeDeclaration |
     null;
 
-export type ConstructWithParameters = FunctionLikeDeclaration |
+export type NodeWithParameters = FunctionLikeDeclaration |
     ts.SetAccessorDeclaration |
     ts.ConstructorDeclaration;
+
+export type NodeWithHeritageClause = ts.InterfaceDeclaration | ts.ClassDeclaration | ts.ClassExpression;

@@ -1,4 +1,4 @@
-import { findJSDoc, getAllJSDoc, getTypeParameters } from '../utils/index.js';
+import { findJSDoc, getAllJSDoc, getInheritanceChainRefs, getTypeParameters } from '../utils/index.js';
 import { createFunctionLike } from './create-function.js';
 import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
@@ -35,6 +35,7 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
         typeParameters: getTypeParameters(node),
         jsDoc: getAllJSDoc(node),
         members: getInterfaceMembers(node),
+        heritage: getInheritanceChainRefs(node),
     };
 
     moduleDoc.declarations.push(tmpl);
@@ -42,8 +43,9 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
 
 function getInterfaceMembers(node: ts.InterfaceDeclaration): ClassMember[] {
     const result: ClassMember[] = [];
+    const members = node.members ?? [];
 
-    for (const member of (node.members ?? [])) {
+    for (const member of members) {
         if (ts.isPropertySignature(member)) {
             result.push(createInterfaceFieldFromPropertySignature(member));
         }

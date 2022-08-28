@@ -1,4 +1,4 @@
-import { ConstructWithParameters, ConstructWithTypeParameter } from './types.js';
+import { NodeWithParameters, NodeWithTypeParameter } from './types.js';
 import { JSDocTagName, Parameter } from '../models/index.js';
 import { resolveExpression } from './resolve-expression.js';
 import { findJSDoc, getAllJSDoc } from './js-doc.js';
@@ -6,11 +6,11 @@ import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-export function getTypeParameters(node: ConstructWithTypeParameter): string[] {
+export function getTypeParameters(node: NodeWithTypeParameter): string[] {
     return node?.typeParameters?.map(t => t.name?.getText() || '').filter(x => x) ?? [];
 }
 
-export function getParameters(node: ConstructWithParameters): Parameter[] {
+export function getParameters(node: NodeWithParameters): Parameter[] {
     const parameters: Parameter[] = [];
     const originalParameters = node?.parameters ?? [];
     const checker = Context.checker;
