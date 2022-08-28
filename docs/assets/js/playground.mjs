@@ -79,6 +79,7 @@ function main() {
         const metadata = parseFromSource(code);
 
         codeEditor.setValue(code);
+        codeEditor.session.selection.clearSelection();
         jsonEditor.set(metadata);
     };
 

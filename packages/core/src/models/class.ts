@@ -36,12 +36,12 @@ export interface Constructor {
 
 export interface ClassLike {
     name: string;
-    heritage?: Reference[];
-    ctor?: Constructor;
-    members?: ClassMember[];
-    decorators: Decorator[];
-    typeParameters: string[];
+    members: ClassMember[];
     jsDoc: JSDoc;
+    typeParameters?: string[];
+    heritage?: Reference[];
+    decorators?: Decorator[];
+    ctor?: Constructor;
 }
 
 export interface ClassDeclaration extends ClassLike {

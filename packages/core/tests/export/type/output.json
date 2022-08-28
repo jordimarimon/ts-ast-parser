@@ -8,7 +8,6 @@
                 "kind": "interface",
                 "typeParameters": [],
                 "jsDoc": [],
-                "decorators": [],
                 "members": [
                     {
                         "name": "foo",
@@ -17,8 +16,7 @@
                         "type": {
                             "text": "string"
                         },
-                        "jsDoc": [],
-                        "decorators": []
+                        "jsDoc": []
                     }
                 ]
             }

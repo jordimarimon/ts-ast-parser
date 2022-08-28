@@ -38,12 +38,15 @@ To run all the tests:
 
     npm run test
 
-You can optionally specify the path of a test file.
+You can optionally specify the path (or part of it) from where to search and execute test files:
 
     npm run test -- <test-file-path>
 
-Example:
+The following example will execute all the tests in package `core`:
 
-    npm run test -- variable/basic/test.ts
+    npm run test -- core
 
-will execute only the test file located at `packages/core/tests/variable/basic/test.ts`.
+Or maybe you want to execute all tests related to functions in the package `core`:
+
+    # Executes all test files in "packages/core/tests/function"
+    npm run test -- function

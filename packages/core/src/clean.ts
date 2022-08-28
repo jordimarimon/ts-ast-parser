@@ -70,7 +70,7 @@ function removeNonPublicParameters(declaration: FunctionDeclaration | ClassMetho
         const param = declaration.parameters?.[i];
 
         if (shouldIgnore(param)) {
-            declaration.parameters.splice(i, 1);
+            declaration.parameters?.splice(i, 1);
         }
     }
 }

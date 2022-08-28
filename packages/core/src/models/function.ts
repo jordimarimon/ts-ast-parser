@@ -10,11 +10,11 @@ export interface FunctionReturn {
 
 export interface FunctionLike {
     name: string;
-    parameters: Parameter[];
-    typeParameters: string[];
+    parameters?: Parameter[];
+    typeParameters?: string[];
     return: FunctionReturn;
     async?: boolean;
-    decorators: Decorator[];
+    decorators?: Decorator[];
     jsDoc: JSDoc;
 }
 

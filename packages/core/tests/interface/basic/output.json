@@ -10,7 +10,6 @@
                 "typeParameters": [
                     "K"
                 ],
-                "decorators": [],
                 "members": [
                     {
                         "name": "x",
@@ -19,8 +18,7 @@
                         "type": {
                             "text": "number"
                         },
-                        "jsDoc": [],
-                        "decorators": []
+                        "jsDoc": []
                     },
                     {
                         "name": "y",
@@ -29,8 +27,7 @@
                         "type": {
                             "text": "string | K"
                         },
-                        "jsDoc": [],
-                        "decorators": []
+                        "jsDoc": []
                     },
                     {
                         "kind": "method",

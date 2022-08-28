@@ -1,0 +1,80 @@
+[
+    {
+        "path": "packages/core/tests/interface/index-signature/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "StringArray",
+                "kind": "interface",
+                "typeParameters": [],
+                "jsDoc": [],
+                "members": [
+                    {
+                        "name": "index",
+                        "indexType": {
+                            "text": "number"
+                        },
+                        "kind": "field",
+                        "indexSignature": true,
+                        "optional": false,
+                        "type": {
+                            "text": "string"
+                        },
+                        "jsDoc": []
+                    }
+                ]
+            },
+            {
+                "name": "NumberOrStringDictionary",
+                "kind": "interface",
+                "typeParameters": [],
+                "jsDoc": [],
+                "members": [
+                    {
+                        "name": "index",
+                        "indexType": {
+                            "text": "string"
+                        },
+                        "kind": "field",
+                        "indexSignature": true,
+                        "optional": false,
+                        "type": {
+                            "text": "number | string"
+                        },
+                        "jsDoc": []
+                    },
+                    {
+                        "name": "length",
+                        "kind": "field",
+                        "optional": false,
+                        "type": {
+                            "text": "number"
+                        },
+                        "jsDoc": []
+                    },
+                    {
+                        "name": "name",
+                        "kind": "field",
+                        "optional": false,
+                        "type": {
+                            "text": "string"
+                        },
+                        "jsDoc": []
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "StringArray",
+                "type": "named",
+                "isTypeOnly": false
+            },
+            {
+                "name": "NumberOrStringDictionary",
+                "type": "named",
+                "isTypeOnly": false
+            }
+        ]
+    }
+]

@@ -1,9 +1,16 @@
-import { ClassMember, ClassMethod, InterfaceDeclaration, JSDocTagName, Module } from '../models/index.js';
 import { findJSDoc, getAllJSDoc, getTypeParameters } from '../utils/index.js';
 import { createFunctionLike } from './create-function.js';
 import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
+import {
+    ClassMember,
+    ClassMethod,
+    InterfaceDeclaration,
+    InterfaceField,
+    JSDocTagName,
+    Module,
+} from '../models/index.js';
 
 
 export const interfaceFactory: NodeFactory<ts.InterfaceDeclaration> = {
@@ -27,7 +34,6 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
         kind: 'interface',
         typeParameters: getTypeParameters(node),
         jsDoc: getAllJSDoc(node),
-        decorators: [],
         members: getInterfaceMembers(node),
     };
 
@@ -39,18 +45,47 @@ function getInterfaceMembers(node: ts.InterfaceDeclaration): ClassMember[] {
 
     for (const member of (node.members ?? [])) {
         if (ts.isPropertySignature(member)) {
-            result.push(createInterfaceField(member));
+            result.push(createInterfaceFieldFromPropertySignature(member));
         }
 
         if (ts.isMethodSignature(member)) {
             result.push(createInterfaceMethod(member));
+        }
+
+        if (ts.isIndexSignatureDeclaration(member)) {
+            result.push(createInterfaceFieldFromIndexSignature(member));
         }
     }
 
     return result;
 }
 
-function createInterfaceField(node: ts.PropertySignature): ClassMember {
+function createInterfaceFieldFromIndexSignature(node: ts.IndexSignatureDeclaration): InterfaceField {
+    const checker = Context.checker;
+    const jsDoc = getAllJSDoc(node);
+
+    const valueJSDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
+    const valueDefinedType = node.type?.getText();
+    const valueComputedType = checker?.typeToString(checker?.getTypeAtLocation(node), node) || '';
+
+    const param = node.parameters?.[0];
+    const paramDefinedType = param?.type?.getText();
+    const paramComputedType = checker?.typeToString(checker?.getTypeAtLocation(param), param) || '';
+
+    return {
+        name: param.name?.getText() ?? '',
+        indexType: {text: paramDefinedType ?? paramComputedType},
+        kind: 'field',
+        indexSignature: true,
+        optional: !!node.questionToken,
+        type: valueJSDocDefinedType
+            ? {text: valueJSDocDefinedType}
+            : {text: valueDefinedType ?? valueComputedType},
+        jsDoc,
+    };
+}
+
+function createInterfaceFieldFromPropertySignature(node: ts.PropertySignature): ClassMember {
     if (node.type?.kind === ts.SyntaxKind.FunctionType) {
         return createInterfaceMethod(node);
     }
@@ -58,13 +93,8 @@ function createInterfaceField(node: ts.PropertySignature): ClassMember {
     const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);
 
-    // If user specifies the type in the JSDoc -> we take it
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-
-    // If user specifies the type in the declaration (`x: string`)
     const userDefinedType = node.type?.getText();
-
-    // The computed type from the TypeScript TypeChecker (as a last resource)
     const computedType = checker?.typeToString(checker?.getTypeAtLocation(node), node) || '';
 
     return {
@@ -75,7 +105,6 @@ function createInterfaceField(node: ts.PropertySignature): ClassMember {
             ? {text: jsDocDefinedType}
             : {text: userDefinedType ?? computedType},
         jsDoc,
-        decorators: [],
     };
 }
 
