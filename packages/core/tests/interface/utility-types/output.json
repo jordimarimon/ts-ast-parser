@@ -6,44 +6,43 @@
             {
                 "name": "RequiredProps",
                 "kind": "interface",
-                "typeParameters": [],
-                "jsDoc": [],
                 "members": [
                     {
                         "name": "c",
                         "kind": "field",
-                        "optional": false,
                         "type": {
                             "text": "boolean"
-                        },
-                        "jsDoc": []
+                        }
                     }
                 ],
                 "heritage": [
                     {
-                        "name": "Required<Props>"
+                        "name": "Props",
+                        "href": {
+                            "path": "packages/core/tests/interface/utility-types/index.ts"
+                        },
+                        "kind": "interface"
                     }
                 ]
             },
             {
                 "name": "TodoPreview",
                 "kind": "interface",
-                "typeParameters": [],
-                "jsDoc": [],
                 "members": [
                     {
                         "name": "preview",
                         "kind": "field",
-                        "optional": false,
                         "type": {
                             "text": "string"
-                        },
-                        "jsDoc": []
+                        }
                     }
                 ],
                 "heritage": [
                     {
-                        "name": "Pick<Todo, 'title' | 'completed'>"
+                        "name": "Pick<Todo, 'title' | 'completed'>",
+                        "href": {
+                            "path": "node_modules/typescript/lib/lib.es5.d.ts"
+                        }
                     }
                 ]
             }
@@ -51,13 +50,11 @@
         "exports": [
             {
                 "name": "RequiredProps",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             },
             {
                 "name": "TodoPreview",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

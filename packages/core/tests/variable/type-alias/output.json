@@ -6,8 +6,6 @@
             {
                 "kind": "variable",
                 "name": "name",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "StringAlias"
                 },
@@ -17,8 +15,7 @@
         "exports": [
             {
                 "name": "name",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

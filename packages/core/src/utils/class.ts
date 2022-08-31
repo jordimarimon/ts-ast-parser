@@ -22,10 +22,18 @@ export function getVisibilityModifier(member: ts.ClassElement): ModifierType {
     return ModifierType.public;
 }
 
-export function isReadOnly(member: ts.ClassElement): boolean {
-    return !!member.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ReadonlyKeyword);
+export function isReadOnly(member: ts.ClassElement | undefined): boolean {
+    return !!member?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ReadonlyKeyword);
 }
 
-export function isStaticMember(member: ts.ClassElement): boolean {
+export function isStaticMember(member: ts.ClassElement | undefined): boolean {
     return !!member?.modifiers?.some?.(mod => mod.kind === ts.SyntaxKind.StaticKeyword);
+}
+
+export function isAbstract(node: ts.ClassElement | ts.ClassExpression | ts.ClassDeclaration | undefined): boolean {
+    return !!node?.modifiers?.some?.(mod => mod.kind === ts.SyntaxKind.AbstractKeyword);
+}
+
+export function isOverride(node: ts.ClassElement | undefined): boolean {
+    return !!node?.modifiers?.some?.(mod => mod.kind === ts.SyntaxKind.OverrideKeyword);
 }

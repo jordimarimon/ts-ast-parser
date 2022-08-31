@@ -1,5 +1,7 @@
+import { DeclarationKind, Reference, SourceReference } from '../models/index.js';
+import { tryAddProperty } from './try-add-property.js';
 import { NodeWithHeritageClause } from './types.js';
-import { Reference } from '../models/index.js';
+import { getLocation } from './get-location.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
@@ -17,9 +19,11 @@ export function getInheritedDeclarations(node: NodeWithHeritageClause): ts.Decla
             const decl = prop.getDeclarations()?.[0];
 
             // FIXME(Jordi M.): When the parent type uses a utility type like `Required`
-            //  that changes the meaning of the declaration, we are still using the original
-            //  declaration instead of the modified one (which I'm not sure if we can get from
-            //  the TS Compiler API).
+            //  that changes the meaning of the declaration (from possible optional to not optional),
+            //  we are still using the original declaration instead of the modified
+            //  one (which I'm not sure if we can get from the TS Compiler API).
+            //  The symbol has the transient flag set (prop.getFlags()), which means it has been
+            //  created it by the checker instead of the binder.
 
             if (decl) {
                 decls.push(decl);
@@ -45,6 +49,8 @@ export function getInheritanceChainRefs(node: NodeWithHeritageClause): Reference
                 continue;
             }
 
+            const {kind, path} = getHeritageMetadata(expr);
+
             let name = expr.escapedText ?? '';
 
             if (typeArguments) {
@@ -53,7 +59,13 @@ export function getInheritanceChainRefs(node: NodeWithHeritageClause): Reference
                 name += `<${argNames.join(', ')}>`;
             }
 
-            references.push({name});
+            const sourceRef: SourceReference = {};
+            const ref: Reference = {name};
+            tryAddProperty(sourceRef, 'path', path);
+            tryAddProperty(ref, 'href', sourceRef);
+            tryAddProperty(ref, 'kind', kind);
+
+            references.push(ref);
         }
     }
 
@@ -88,4 +100,28 @@ function getTypeArgumentNames(typeArguments: ts.NodeArray<ts.TypeNode>): string[
     }
 
     return names;
+}
+
+function getHeritageMetadata(identifier: ts.Node): {kind: DeclarationKind | undefined; path: string} {
+    const {path, decl} = getLocation(identifier);
+
+    if (!decl) {
+        return {kind: undefined, path: ''};
+    }
+
+    if (ts.isInterfaceDeclaration(decl)) {
+        return {
+            kind: DeclarationKind.interface,
+            path,
+        };
+    }
+
+    if (ts.isClassDeclaration(decl)) {
+        return {
+            kind: DeclarationKind.class,
+            path,
+        };
+    }
+
+    return {kind: undefined, path};
 }

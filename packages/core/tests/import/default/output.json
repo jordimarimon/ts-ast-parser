@@ -5,9 +5,7 @@
             {
                 "name": "Foo",
                 "kind": "default",
-                "importPath": "./foo.js",
-                "isBareModuleSpecifier": false,
-                "isTypeOnly": false
+                "importPath": "./foo.js"
             }
         ],
         "declarations": [],

@@ -1,5 +1,5 @@
-import { getAllJSDoc, getTypeParameters } from '../utils/index.js';
-import { Module, TypeAliasDeclaration } from '../models/index.js';
+import { getAllJSDoc, getTypeParameters, tryAddProperty } from '../utils/index.js';
+import { DeclarationKind, Module, TypeAliasDeclaration } from '../models/index.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
 
@@ -22,11 +22,12 @@ function createTypeAlias(node: ts.TypeAliasDeclaration, moduleDoc: Module): void
 
     const tmpl: TypeAliasDeclaration = {
         name,
-        kind: 'type-alias',
+        kind: DeclarationKind.typeAlias,
         value: node.type?.getText(),
-        jsDoc: getAllJSDoc(node),
-        typeParameters: getTypeParameters(node),
     };
+
+    tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
+    tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
 
     moduleDoc.declarations.push(tmpl);
 }

@@ -1,4 +1,4 @@
-import { extractMixinNodes, hasDefaultKeyword, hasExportKeyword } from '../utils/index.js';
+import { extractMixinNodes, hasDefaultKeyword, hasExportKeyword, tryAddProperty } from '../utils/index.js';
 import { Export, ExportType, Module } from '../models/index.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
@@ -48,7 +48,6 @@ function createExportFromCurrentDeclaration(node: ts.Node, moduleDoc: Module): v
             moduleDoc.exports.push({
                 name: declaration?.name?.getText() ?? '',
                 type: isDefault ? ExportType.default : ExportType.named,
-                isTypeOnly: false,
             });
         }
         return;
@@ -64,7 +63,6 @@ function createExportFromCurrentDeclaration(node: ts.Node, moduleDoc: Module): v
         moduleDoc.exports.push({
             name: node?.name?.getText() ?? '',
             type: isDefault ? ExportType.default : ExportType.named,
-            isTypeOnly: false,
         });
     }
 }
@@ -76,7 +74,6 @@ function createExportFromAssignment(node: ts.ExportAssignment, moduleDoc: Module
     moduleDoc.exports.push({
         name: node.expression?.getText(),
         type: node.isExportEquals ? ExportType.equals : ExportType.default,
-        isTypeOnly: false,
     });
 }
 
@@ -90,8 +87,9 @@ function createExportFromPreviousDeclaration(node: ts.ExportDeclaration, moduleD
             const exp: Export = {
                 name: el.name?.escapedText ?? '',
                 type: ExportType.named,
-                isTypeOnly: node.isTypeOnly ?? false,
             };
+
+            tryAddProperty(exp, 'isTypeOnly', node.isTypeOnly ?? false);
 
             // case where the "as" keyword is being used
             if (el.propertyName?.escapedText) {

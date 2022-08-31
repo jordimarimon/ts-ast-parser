@@ -6,7 +6,11 @@
             {
                 "kind": "function",
                 "name": "sum",
-                "decorators": [],
+                "return": {
+                    "type": {
+                        "text": "number"
+                    }
+                },
                 "jsDoc": [
                     {
                         "kind": "description",
@@ -24,33 +28,21 @@
                         "value": "The sum of all the numbers."
                     }
                 ],
-                "return": {
-                    "type": {
-                        "text": "number"
-                    }
-                },
-                "async": false,
                 "parameters": [
                     {
                         "name": "list",
-                        "decorators": [],
-                        "jsDoc": [],
-                        "optional": false,
-                        "default": "",
                         "type": {
                             "text": "number[]"
                         },
                         "rest": true
                     }
-                ],
-                "typeParameters": []
+                ]
             }
         ],
         "exports": [
             {
                 "name": "sum",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

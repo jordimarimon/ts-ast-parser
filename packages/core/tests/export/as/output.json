@@ -6,8 +6,6 @@
             {
                 "kind": "variable",
                 "name": "foo",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "4"
                 },
@@ -18,7 +16,6 @@
             {
                 "name": "bar",
                 "type": "named",
-                "isTypeOnly": false,
                 "referenceName": "foo"
             }
         ]

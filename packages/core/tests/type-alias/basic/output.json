@@ -6,16 +6,13 @@
             {
                 "name": "Foo",
                 "kind": "type-alias",
-                "value": "{\n    bar: number;\n}",
-                "jsDoc": [],
-                "typeParameters": []
+                "value": "{\n    bar: number;\n}"
             }
         ],
         "exports": [
             {
                 "name": "Foo",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

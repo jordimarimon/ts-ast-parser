@@ -11,7 +11,9 @@ import {
     getTypeParameters,
     isAsyncFunction,
     isFunctionDeclaration,
+    isGeneratorFunction,
 } from '../utils/index.js';
+import { tryAddProperty } from '../utils/try-add-property.js';
 
 
 export const functionFactory: NodeFactory<ts.VariableStatement | ts.FunctionDeclaration> = {
@@ -43,15 +45,24 @@ export function createFunctionLike(node: ts.Node): FunctionLike {
 
     const tmpl: FunctionLike = {
         name: getFunctionName(node),
-        decorators: getDecorators(node),
-        jsDoc,
-        return: {type: {text: getFunctionReturnType(func)}},
-        parameters: getParameters(func),
-        typeParameters: getTypeParameters(func),
+        return: {
+            type: {
+                text: getFunctionReturnType(func),
+            },
+        },
     };
 
+    tryAddProperty(tmpl, 'decorators', getDecorators(node));
+    tryAddProperty(tmpl, 'jsDoc', jsDoc);
+    tryAddProperty(tmpl, 'parameters', getParameters(func));
+    tryAddProperty(tmpl, 'typeParameters', getTypeParameters(func));
+
     if (!ts.isPropertySignature(node) && !ts.isMethodSignature(node)) {
-        tmpl.async = isAsyncFunction(func);
+        tryAddProperty(tmpl, 'async', isAsyncFunction(func));
+    }
+
+    if (func && (ts.isFunctionDeclaration(func) || ts.isFunctionExpression(func) || ts.isMethodDeclaration(func))) {
+        tryAddProperty(tmpl, 'generator', isGeneratorFunction(func));
     }
 
     return tmpl;

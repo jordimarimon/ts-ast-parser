@@ -3,7 +3,7 @@ import { getFixture } from '../../utils.js';
 
 
 const category = 'decorator';
-const subcategory = 'basic';
+const subcategory = 'accessor';
 const {actual, expected} = getFixture(category, subcategory);
 
 describe(`${category}/${subcategory}`, () => {

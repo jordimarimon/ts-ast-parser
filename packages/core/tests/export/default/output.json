@@ -6,19 +6,16 @@
             {
                 "kind": "variable",
                 "name": "foo",
-                "jsDoc": [],
                 "type": {
                     "text": "4"
                 },
-                "decorators": [],
                 "default": 4
             }
         ],
         "exports": [
             {
                 "name": "foo",
-                "type": "default",
-                "isTypeOnly": false
+                "type": "default"
             }
         ]
     }

@@ -314,10 +314,6 @@
                         ]
                     }
                 ],
-                "@typescript-eslint/method-signature-style": [
-                    "error",
-                    "property"
-                ],
                 "@typescript-eslint/naming-convention": "off",
                 "@typescript-eslint/no-array-constructor": "error",
                 "@typescript-eslint/no-base-to-string": "error",
@@ -376,7 +372,14 @@
                 "import/newline-after-import": ["error", { "count": 2 }],
                 "import/default": "off",
                 "import/named": "off",
-                "import/no-named-as-default-member": "off"
+                "import/no-named-as-default-member": "off",
+                "@typescript-eslint/ban-types": [
+                    "error",
+                    {
+                        "types": {"{}": false},
+                        "extendDefaults": true
+                    }
+                ]
             }
         }
     ]

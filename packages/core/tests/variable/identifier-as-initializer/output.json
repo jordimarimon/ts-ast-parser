@@ -6,8 +6,6 @@
             {
                 "kind": "variable",
                 "name": "foo",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "3"
                 },
@@ -16,8 +14,6 @@
             {
                 "kind": "variable",
                 "name": "bar",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "3"
                 },
@@ -26,8 +22,6 @@
             {
                 "kind": "variable",
                 "name": "bar2",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "3"
                 },
@@ -36,8 +30,6 @@
             {
                 "kind": "variable",
                 "name": "str",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "\"Hello\""
                 },
@@ -46,8 +38,6 @@
             {
                 "kind": "variable",
                 "name": "num",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "4"
                 },
@@ -56,18 +46,13 @@
             {
                 "kind": "variable",
                 "name": "bool",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "false"
-                },
-                "default": false
+                }
             },
             {
                 "kind": "variable",
                 "name": "obj",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "{ x: number; }"
                 },
@@ -76,8 +61,6 @@
             {
                 "kind": "variable",
                 "name": "arr",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "number[]"
                 },
@@ -87,43 +70,35 @@
         "exports": [
             {
                 "name": "foo",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             },
             {
                 "name": "bar",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             },
             {
                 "name": "bar2",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             },
             {
                 "name": "str",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             },
             {
                 "name": "num",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             },
             {
                 "name": "bool",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             },
             {
                 "name": "obj",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             },
             {
                 "name": "arr",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

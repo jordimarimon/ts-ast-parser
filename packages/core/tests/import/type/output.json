@@ -6,7 +6,6 @@
                 "name": "TypeA",
                 "kind": "named",
                 "importPath": "./type-a.js",
-                "isBareModuleSpecifier": false,
                 "isTypeOnly": true
             }
         ],
@@ -14,8 +13,6 @@
             {
                 "kind": "variable",
                 "name": "x",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "TypeA"
                 },
@@ -25,8 +22,7 @@
         "exports": [
             {
                 "name": "x",
-                "type": "default",
-                "isTypeOnly": false
+                "type": "default"
             }
         ]
     }

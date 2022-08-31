@@ -4,142 +4,93 @@
         "imports": [],
         "declarations": [
             {
-                "name": "Foo",
                 "kind": "class",
+                "name": "Foo",
                 "jsDoc": [
                     {
                         "kind": "description",
                         "value": "Example `Foo` class"
                     }
                 ],
-                "decorators": [],
-                "typeParameters": [],
-                "heritage": [],
                 "members": [
                     {
                         "kind": "field",
-                        "static": true,
-                        "modifier": "public",
-                        "optional": false,
-                        "jsDoc": [],
-                        "decorators": [],
-                        "default": "'Hello World'",
                         "name": "staticBar",
-                        "readOnly": true,
+                        "modifier": "public",
                         "type": {
                             "text": "\"Hello World\""
-                        }
+                        },
+                        "static": true,
+                        "default": "'Hello World'",
+                        "readOnly": true
                     },
                     {
                         "kind": "field",
-                        "static": false,
-                        "modifier": "public",
-                        "optional": true,
-                        "jsDoc": [],
-                        "decorators": [],
-                        "default": "",
                         "name": "bar",
-                        "readOnly": false,
+                        "modifier": "public",
                         "type": {
                             "text": "number"
-                        }
+                        },
+                        "optional": true
                     },
                     {
                         "kind": "field",
-                        "static": false,
-                        "modifier": "public",
-                        "optional": false,
-                        "jsDoc": [],
-                        "decorators": [],
-                        "default": "",
                         "name": "message",
-                        "readOnly": true,
+                        "modifier": "public",
                         "type": {
                             "text": "string | undefined"
-                        }
+                        },
+                        "readOnly": true
                     },
                     {
+                        "kind": "method",
                         "name": "log",
-                        "decorators": [],
-                        "jsDoc": [],
                         "return": {
                             "type": {
                                 "text": "void"
                             }
                         },
-                        "async": false,
                         "parameters": [
                             {
                                 "name": "message",
-                                "decorators": [],
-                                "jsDoc": [],
-                                "optional": false,
-                                "default": "",
                                 "type": {
                                     "text": "string"
-                                },
-                                "rest": false
+                                }
                             }
                         ],
-                        "typeParameters": [],
-                        "kind": "method",
-                        "static": false,
                         "modifier": "public",
                         "readOnly": true
                     },
                     {
+                        "kind": "method",
                         "name": "add",
-                        "decorators": [],
-                        "jsDoc": [],
                         "return": {
                             "type": {
                                 "text": "number"
                             }
                         },
-                        "async": false,
-                        "parameters": [],
-                        "typeParameters": [],
-                        "kind": "method",
-                        "static": false,
-                        "modifier": "public",
-                        "readOnly": false
+                        "modifier": "public"
                     }
                 ],
                 "ctor": {
-                    "jsDoc": [],
                     "parameters": [
                         {
                             "name": "x",
-                            "decorators": [],
-                            "jsDoc": [],
-                            "optional": false,
-                            "default": "",
                             "type": {
                                 "text": "number"
-                            },
-                            "rest": false
+                            }
                         },
                         {
                             "name": "y",
-                            "decorators": [],
-                            "jsDoc": [],
-                            "optional": false,
-                            "default": "",
                             "type": {
                                 "text": "number"
-                            },
-                            "rest": false
+                            }
                         },
                         {
                             "name": "message",
-                            "decorators": [],
-                            "jsDoc": [],
-                            "optional": false,
-                            "default": "",
                             "type": {
                                 "text": "string"
-                            },
-                            "rest": false
+                            }
                         }
                     ]
                 }
@@ -148,8 +99,7 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

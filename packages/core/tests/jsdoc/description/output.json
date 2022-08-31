@@ -6,24 +6,22 @@
             {
                 "kind": "variable",
                 "name": "x",
+                "type": {
+                    "text": "4"
+                },
                 "jsDoc": [
                     {
                         "kind": "description",
                         "value": "This is the description of the variable. This is more content for the description that is too large."
                     }
                 ],
-                "decorators": [],
-                "type": {
-                    "text": "4"
-                },
                 "default": 4
             }
         ],
         "exports": [
             {
                 "name": "x",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

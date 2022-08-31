@@ -1,10 +1,11 @@
+import { DeclarationKind } from './declaration.js';
 import { JSDoc } from './js-doc.js';
 
 
 export interface TypeAliasDeclaration {
-    kind: 'type-alias';
+    kind: DeclarationKind.typeAlias;
     name: string;
-    typeParameters: string[];
     value: string;
-    jsDoc: JSDoc;
+    typeParameters?: string[];
+    jsDoc?: JSDoc;
 }

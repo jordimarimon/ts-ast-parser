@@ -1,4 +1,4 @@
-import { FunctionLikeDeclaration } from './types.js';
+import { GeneratorFunction, FunctionLikeDeclaration } from './types.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
@@ -13,6 +13,10 @@ export function isArrowFunction(expr: ts.Expression | undefined): expr is ts.Arr
 
 export function isFunctionExpression(expr: ts.Expression | undefined): expr is ts.FunctionExpression {
     return expr != null && ts.isFunctionExpression(expr);
+}
+
+export function isGeneratorFunction(func: GeneratorFunction | undefined): boolean {
+    return !!func?.asteriskToken;
 }
 
 export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclaration | ts.VariableStatement {
@@ -49,14 +53,18 @@ export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclara
 }
 
 export function getFunctionReturnType(func: FunctionLikeDeclaration): string {
-    const definedType = func?.type?.getText() || '';
+    if (!func) {
+        return '';
+    }
+
+    const definedType = func.type?.getText() || '';
 
     if (definedType !== '') {
         return definedType;
     }
 
     const checker = Context.checker;
-    const signature = func && checker?.getSignatureFromDeclaration(func);
+    const signature = checker?.getSignatureFromDeclaration(func);
     const returnTypeOfSignature = signature && checker?.getReturnTypeOfSignature(signature);
     const computedType = returnTypeOfSignature && checker?.typeToString(returnTypeOfSignature);
 

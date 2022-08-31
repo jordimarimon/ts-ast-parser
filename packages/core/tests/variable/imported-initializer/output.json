@@ -1,21 +1,17 @@
 [
     {
-        "path": "packages/core/tests/variable/unknown-initializer/index.ts",
+        "path": "packages/core/tests/variable/imported-initializer/index.ts",
         "imports": [
             {
                 "name": "foo",
                 "kind": "named",
-                "importPath": "./foo.js",
-                "isBareModuleSpecifier": false,
-                "isTypeOnly": false
+                "importPath": "./foo.js"
             }
         ],
         "declarations": [
             {
                 "kind": "variable",
                 "name": "bar",
-                "jsDoc": [],
-                "decorators": [],
                 "type": {
                     "text": "4"
                 },
@@ -25,8 +21,7 @@
         "exports": [
             {
                 "name": "bar",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

@@ -6,8 +6,6 @@
             {
                 "name": "Foo",
                 "kind": "interface",
-                "jsDoc": [],
-                "heritage": [],
                 "typeParameters": [
                     "K"
                 ],
@@ -15,39 +13,29 @@
                     {
                         "name": "x",
                         "kind": "field",
-                        "optional": false,
                         "type": {
                             "text": "number"
-                        },
-                        "jsDoc": []
+                        }
                     },
                     {
                         "name": "y",
                         "kind": "field",
-                        "optional": true,
                         "type": {
                             "text": "string | K"
                         },
-                        "jsDoc": []
+                        "optional": true
                     },
                     {
-                        "kind": "method",
                         "name": "bar",
-                        "jsDoc": [],
-                        "decorators": [],
                         "return": {
                             "type": {
                                 "text": "void"
                             }
                         },
-                        "parameters": [],
-                        "typeParameters": []
+                        "kind": "method"
                     },
                     {
-                        "kind": "method",
                         "name": "isBar",
-                        "jsDoc": [],
-                        "decorators": [],
                         "return": {
                             "type": {
                                 "text": "boolean"
@@ -56,47 +44,30 @@
                         "parameters": [
                             {
                                 "name": "a",
-                                "decorators": [],
-                                "jsDoc": [],
-                                "optional": false,
-                                "default": "",
                                 "type": {
                                     "text": "number"
-                                },
-                                "rest": false
+                                }
                             },
                             {
                                 "name": "b",
-                                "decorators": [],
-                                "jsDoc": [],
-                                "optional": false,
-                                "default": "",
                                 "type": {
                                     "text": "string"
-                                },
-                                "rest": false
+                                }
                             }
                         ],
-                        "typeParameters": []
+                        "kind": "method"
                     },
                     {
-                        "kind": "method",
                         "name": "checkBar",
-                        "jsDoc": [],
-                        "decorators": [],
                         "return": {
                             "type": {
                                 "text": "Promise<void>"
                             }
                         },
-                        "parameters": [],
-                        "typeParameters": []
+                        "kind": "method"
                     },
                     {
-                        "kind": "method",
                         "name": "barWithTypedParameter",
-                        "jsDoc": [],
-                        "decorators": [],
                         "return": {
                             "type": {
                                 "text": "T"
@@ -105,25 +76,18 @@
                         "parameters": [
                             {
                                 "name": "c",
-                                "decorators": [],
-                                "jsDoc": [],
-                                "optional": false,
-                                "default": "",
                                 "type": {
                                     "text": "T"
-                                },
-                                "rest": false
+                                }
                             }
                         ],
                         "typeParameters": [
                             "T"
-                        ]
+                        ],
+                        "kind": "method"
                     },
                     {
-                        "kind": "method",
                         "name": "arrowFuncWithTypedParameters",
-                        "jsDoc": [],
-                        "decorators": [],
                         "return": {
                             "type": {
                                 "text": "T"
@@ -132,19 +96,15 @@
                         "parameters": [
                             {
                                 "name": "c",
-                                "decorators": [],
-                                "jsDoc": [],
-                                "optional": false,
-                                "default": "",
                                 "type": {
                                     "text": "T"
-                                },
-                                "rest": false
+                                }
                             }
                         ],
                         "typeParameters": [
                             "T"
-                        ]
+                        ],
+                        "kind": "method"
                     }
                 ]
             }
@@ -152,8 +112,7 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

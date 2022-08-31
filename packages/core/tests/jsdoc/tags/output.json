@@ -6,6 +6,9 @@
             {
                 "kind": "variable",
                 "name": "x",
+                "type": {
+                    "text": "4"
+                },
                 "jsDoc": [
                     {
                         "kind": "description",
@@ -26,18 +29,18 @@
                     {
                         "kind": "fires",
                         "value": {
-                            "name": "eventName",
                             "type": "CustomEvent<number>",
+                            "name": "eventName",
                             "description": "Event Description"
                         }
                     },
                     {
                         "kind": "cssprop",
                         "value": {
-                            "name": "--size",
                             "default": "1rem",
-                            "description": "Element size",
-                            "optional": true
+                            "optional": true,
+                            "name": "--size",
+                            "description": "Element size"
                         }
                     },
                     {
@@ -48,18 +51,13 @@
                         }
                     }
                 ],
-                "decorators": [],
-                "type": {
-                    "text": "4"
-                },
                 "default": 4
             }
         ],
         "exports": [
             {
                 "name": "x",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

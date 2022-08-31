@@ -1,5 +1,5 @@
-import { getAllJSDoc, findJSDoc, isFunctionDeclaration, resolveExpression } from '../utils/index.js';
-import { JSDocTagName, Module, VariableDeclaration } from '../models/index.js';
+import { getAllJSDoc, findJSDoc, isFunctionDeclaration, resolveExpression, tryAddProperty } from '../utils/index.js';
+import { DeclarationKind, JSDocTagName, Module, VariableDeclaration } from '../models/index.js';
 import { getDecorators } from '../utils/decorator.js';
 import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
@@ -41,18 +41,19 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
         // The computed type from the TypeScript TypeChecker (as a last resource)
         const computedType = checker?.typeToString(checker?.getTypeAtLocation(declaration), declaration) || '';
 
-        const variable: VariableDeclaration = {
-            kind: 'variable',
+        const tmpl: VariableDeclaration = {
+            kind: DeclarationKind.variable,
             name,
-            jsDoc,
-            decorators,
             type: jsDocDefinedType
                 ? {text: jsDocDefinedType}
                 : {text: userDefinedType ?? computedType},
-            default: defaultValue ?? resolveExpression(declaration.initializer),
         };
 
-        moduleDoc.declarations.push(variable);
+        tryAddProperty(tmpl, 'jsDoc', jsDoc);
+        tryAddProperty(tmpl, 'decorators', decorators);
+        tryAddProperty(tmpl, 'default', defaultValue ?? resolveExpression(declaration.initializer));
+
+        moduleDoc.declarations.push(tmpl);
     }
 
 }

@@ -6,35 +6,28 @@
             {
                 "kind": "function",
                 "name": "sleep",
-                "decorators": [],
-                "typeParameters": [],
-                "jsDoc": [],
                 "return": {
                     "type": {
                         "text": "Promise<void>"
                     }
                 },
-                "async": true,
                 "parameters": [
                     {
                         "name": "amount",
-                        "decorators": [],
-                        "jsDoc": [],
-                        "optional": true,
-                        "default": 500,
                         "type": {
                             "text": "number"
                         },
-                        "rest": false
+                        "optional": true,
+                        "default": 500
                     }
-                ]
+                ],
+                "async": true
             }
         ],
         "exports": [
             {
                 "name": "sleep",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

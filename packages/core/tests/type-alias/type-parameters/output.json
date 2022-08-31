@@ -1,6 +1,7 @@
 [
     {
         "path": "packages/core/tests/type-alias/type-parameters/index.ts",
+        "imports": [],
         "declarations": [
             {
                 "name": "Foo",
@@ -21,10 +22,8 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
-        ],
-        "imports": []
+        ]
     }
 ]

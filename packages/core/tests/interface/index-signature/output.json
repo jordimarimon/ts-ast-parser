@@ -6,9 +6,6 @@
             {
                 "name": "StringArray",
                 "kind": "interface",
-                "typeParameters": [],
-                "heritage": [],
-                "jsDoc": [],
                 "members": [
                     {
                         "name": "index",
@@ -17,20 +14,15 @@
                         },
                         "kind": "field",
                         "indexSignature": true,
-                        "optional": false,
                         "type": {
                             "text": "string"
-                        },
-                        "jsDoc": []
+                        }
                     }
                 ]
             },
             {
                 "name": "NumberOrStringDictionary",
                 "kind": "interface",
-                "typeParameters": [],
-                "heritage": [],
-                "jsDoc": [],
                 "members": [
                     {
                         "name": "index",
@@ -39,29 +31,23 @@
                         },
                         "kind": "field",
                         "indexSignature": true,
-                        "optional": false,
                         "type": {
                             "text": "number | string"
-                        },
-                        "jsDoc": []
+                        }
                     },
                     {
                         "name": "length",
                         "kind": "field",
-                        "optional": false,
                         "type": {
                             "text": "number"
-                        },
-                        "jsDoc": []
+                        }
                     },
                     {
                         "name": "name",
                         "kind": "field",
-                        "optional": false,
                         "type": {
                             "text": "string"
-                        },
-                        "jsDoc": []
+                        }
                     }
                 ]
             }
@@ -69,13 +55,11 @@
         "exports": [
             {
                 "name": "StringArray",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             },
             {
                 "name": "NumberOrStringDictionary",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

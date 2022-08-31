@@ -1,0 +1,97 @@
+[
+    {
+        "path": "packages/core/tests/decorator/accessor/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "configurable",
+                "return": {
+                    "type": {
+                        "text": "(_target: Point, _propertyKey: string, descriptor: PropertyDescriptor) => void"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "value",
+                        "type": {
+                            "text": "boolean"
+                        }
+                    }
+                ]
+            },
+            {
+                "kind": "class",
+                "name": "Point",
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "x",
+                        "type": {
+                            "text": "number"
+                        },
+                        "decorators": [
+                            {
+                                "name": "configurable",
+                                "parameters": [
+                                    false
+                                ],
+                                "href": {
+                                    "path": "packages/core/tests/decorator/accessor/index.ts"
+                                }
+                            }
+                        ],
+                        "modifier": "public",
+                        "readOnly": true
+                    },
+                    {
+                        "kind": "field",
+                        "name": "y",
+                        "type": {
+                            "text": "number"
+                        },
+                        "decorators": [
+                            {
+                                "name": "configurable",
+                                "parameters": [
+                                    false
+                                ],
+                                "href": {
+                                    "path": "packages/core/tests/decorator/accessor/index.ts"
+                                }
+                            }
+                        ],
+                        "modifier": "public",
+                        "readOnly": true
+                    }
+                ],
+                "ctor": {
+                    "parameters": [
+                        {
+                            "name": "x",
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        {
+                            "name": "y",
+                            "type": {
+                                "text": "number"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "exports": [
+            {
+                "name": "configurable",
+                "type": "named"
+            },
+            {
+                "name": "Point",
+                "type": "named"
+            }
+        ]
+    }
+]

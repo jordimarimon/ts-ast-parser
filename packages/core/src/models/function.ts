@@ -14,8 +14,9 @@ export interface FunctionLike {
     typeParameters?: string[];
     return: FunctionReturn;
     async?: boolean;
+    generator?: boolean;
     decorators?: Decorator[];
-    jsDoc: JSDoc;
+    jsDoc?: JSDoc;
 }
 
 export interface FunctionDeclaration extends FunctionLike {

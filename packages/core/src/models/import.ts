@@ -11,6 +11,6 @@ export interface Import {
     name: string;
     kind: ImportType;
     importPath: string;
-    isBareModuleSpecifier: boolean;
-    isTypeOnly: boolean;
+    isBareModuleSpecifier?: boolean;
+    isTypeOnly?: boolean;
 }

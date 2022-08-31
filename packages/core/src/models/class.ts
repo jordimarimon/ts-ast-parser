@@ -14,34 +14,37 @@ export enum ModifierType {
 
 export type ClassMember = ClassField | ClassMethod;
 
-export interface ClassField extends PropertyLike {
-    kind: 'field';
+export interface ClassMemberLike {
     static?: boolean;
     modifier?: ModifierType;
     readOnly?: boolean;
+    abstract?: boolean;
+    override?: boolean;
+}
+
+export interface ClassField extends PropertyLike, ClassMemberLike {
+    kind: 'field';
     writeOnly?: boolean;
 }
 
-export interface ClassMethod extends FunctionLike {
+export interface ClassMethod extends FunctionLike, ClassMemberLike {
     kind: 'method';
-    static?: boolean;
-    modifier?: ModifierType;
-    readOnly?: boolean;
 }
 
 export interface Constructor {
-    jsDoc: JSDoc;
-    parameters: Parameter[];
+    jsDoc?: JSDoc;
+    parameters?: Parameter[];
 }
 
 export interface ClassLike {
     name: string;
-    members: ClassMember[];
-    jsDoc: JSDoc;
+    members?: ClassMember[];
+    jsDoc?: JSDoc;
     typeParameters?: string[];
     heritage?: Reference[];
     decorators?: Decorator[];
     ctor?: Constructor;
+    abstract?: boolean;
 }
 
 export interface ClassDeclaration extends ClassLike {

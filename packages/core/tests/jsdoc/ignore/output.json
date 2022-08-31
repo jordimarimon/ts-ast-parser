@@ -1,8 +1,8 @@
 [
     {
         "path": "packages/core/tests/jsdoc/ignore/index.ts",
+        "imports": [],
         "declarations": [],
-        "exports": [],
-        "imports": []
+        "exports": []
     }
 ]

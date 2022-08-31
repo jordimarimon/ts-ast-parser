@@ -3,7 +3,7 @@ interface Props {
     b?: string;
 }
 
-export interface RequiredProps extends Required<Props> {
+export interface RequiredProps extends Props {
     c: boolean;
 }
 

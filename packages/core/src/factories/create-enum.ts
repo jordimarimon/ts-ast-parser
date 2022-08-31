@@ -1,5 +1,5 @@
 import { EnumDeclaration, EnumMember, Module } from '../models/index.js';
-import { getAllJSDoc } from '../utils/index.js';
+import { getAllJSDoc, tryAddProperty } from '../utils/index.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
 
@@ -27,10 +27,10 @@ function createEnum(node: ts.EnumDeclaration, moduleDoc: Module): void {
     const tmpl: EnumDeclaration = {
         kind: 'enum',
         name,
-        decorators: [],
-        members: getEnumMembers(node),
-        jsDoc: getAllJSDoc(node),
     };
+
+    tryAddProperty(tmpl, 'members', getEnumMembers(node));
+    tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
 
     moduleDoc.declarations.push(tmpl);
 }

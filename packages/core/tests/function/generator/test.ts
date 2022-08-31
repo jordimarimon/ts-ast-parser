@@ -2,13 +2,13 @@ import { describe, expect, it } from 'vitest';
 import { getFixture } from '../../utils.js';
 
 
-const category = 'variable';
-const subcategory = 'unknown-initializer';
+const category = 'function';
+const subcategory = 'generator';
 const {actual, expected} = getFixture(category, subcategory);
 
 describe(`${category}/${subcategory}`, () => {
 
-    it('should extract the expected metadata', () => {
+    it.skip('should extract the expected metadata', () => {
         expect(actual).to.deep.equal(expected);
     });
 

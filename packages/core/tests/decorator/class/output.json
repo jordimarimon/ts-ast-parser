@@ -1,0 +1,76 @@
+[
+    {
+        "path": "packages/core/tests/decorator/class/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "sealed",
+                "return": {
+                    "type": {
+                        "text": "void"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "constructor",
+                        "type": {
+                            "text": "typeof BugReport"
+                        }
+                    }
+                ]
+            },
+            {
+                "kind": "class",
+                "name": "BugReport",
+                "decorators": [
+                    {
+                        "name": "sealed",
+                        "href": {
+                            "path": "packages/core/tests/decorator/class/index.ts"
+                        }
+                    }
+                ],
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "type",
+                        "modifier": "public",
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "'report'"
+                    },
+                    {
+                        "kind": "field",
+                        "name": "title",
+                        "modifier": "public",
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ],
+                "ctor": {
+                    "parameters": [
+                        {
+                            "name": "t",
+                            "type": {
+                                "text": "string"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "exports": [
+            {
+                "name": "sealed",
+                "type": "named"
+            },
+            {
+                "name": "BugReport",
+                "type": "named"
+            }
+        ]
+    }
+]

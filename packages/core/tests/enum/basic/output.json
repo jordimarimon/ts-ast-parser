@@ -6,8 +6,6 @@
             {
                 "kind": "enum",
                 "name": "Fruit",
-                "decorators": [],
-                "jsDoc": [],
                 "members": [
                     {
                         "name": "Apple",
@@ -31,8 +29,7 @@
         "exports": [
             {
                 "name": "Fruit",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

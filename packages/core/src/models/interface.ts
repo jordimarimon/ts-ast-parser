@@ -11,5 +11,5 @@ export interface InterfaceField extends ClassField {
 
 export interface InterfaceDeclaration extends ClassLike {
     kind: 'interface';
-    members: InterfaceMember[];
+    members?: InterfaceMember[];
 }

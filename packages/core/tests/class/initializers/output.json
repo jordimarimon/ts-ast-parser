@@ -4,95 +4,61 @@
         "imports": [],
         "declarations": [
             {
-                "name": "Foo",
                 "kind": "class",
-                "jsDoc": [],
-                "decorators": [],
-                "typeParameters": [],
-                "heritage": [],
+                "name": "Foo",
                 "members": [
                     {
                         "kind": "field",
-                        "static": false,
-                        "modifier": "public",
-                        "optional": false,
-                        "jsDoc": [],
-                        "decorators": [],
-                        "default": "'bar'",
                         "name": "bar",
-                        "readOnly": true,
+                        "modifier": "public",
                         "type": {
                             "text": "undefined | string"
-                        }
+                        },
+                        "readOnly": true
                     },
                     {
                         "kind": "field",
-                        "static": false,
-                        "modifier": "public",
-                        "optional": false,
-                        "jsDoc": [],
-                        "decorators": [],
-                        "default": "'foo'",
                         "name": "foo",
-                        "readOnly": false,
+                        "modifier": "public",
                         "type": {
                             "text": "string"
-                        }
+                        },
+                        "default": "'foo'"
                     },
                     {
                         "kind": "field",
-                        "static": false,
-                        "modifier": "public",
-                        "optional": false,
-                        "jsDoc": [],
-                        "decorators": [],
-                        "default": 3,
                         "name": "x",
-                        "readOnly": false,
+                        "modifier": "public",
                         "type": {
                             "text": "number"
-                        }
+                        },
+                        "default": 3
                     },
                     {
                         "kind": "field",
-                        "static": false,
-                        "modifier": "public",
-                        "optional": false,
-                        "jsDoc": [],
-                        "decorators": [],
-                        "default": 3,
                         "name": "y",
-                        "readOnly": false,
+                        "modifier": "public",
                         "type": {
                             "text": "number"
-                        }
+                        },
+                        "default": 3
                     },
                     {
                         "kind": "field",
-                        "static": false,
-                        "modifier": "public",
-                        "optional": false,
-                        "jsDoc": [],
-                        "decorators": [],
-                        "default": "add",
                         "name": "myAdd",
-                        "readOnly": false,
+                        "modifier": "public",
                         "type": {
                             "text": "(x: number, y: number) => number"
-                        }
+                        },
+                        "default": "add"
                     }
-                ],
-                "ctor": {
-                    "jsDoc": [],
-                    "parameters": []
-                }
+                ]
             }
         ],
         "exports": [
             {
                 "name": "Foo",
-                "type": "named",
-                "isTypeOnly": false
+                "type": "named"
             }
         ]
     }

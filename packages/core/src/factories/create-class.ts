@@ -1,3 +1,4 @@
+import { tryAddProperty } from '../utils/try-add-property.js';
 import { createFunctionLike } from './create-function.js';
 import { getDecorators } from '../utils/decorator.js';
 import { NodeFactory } from './node-factory.js';
@@ -9,6 +10,7 @@ import {
     ClassMember,
     ClassMethod,
     Constructor,
+    DeclarationKind,
     JSDocTagName,
     Module,
 } from '../models/index.js';
@@ -20,8 +22,10 @@ import {
     getReturnStatement,
     getTypeParameters,
     getVisibilityModifier,
+    isAbstract,
     isArrowFunction,
     isFunctionExpression,
+    isOverride,
     isReadOnly,
     isStaticMember,
     resolveExpression,
@@ -54,22 +58,20 @@ function createClass(node: ts.ClassDeclaration | ts.ClassExpression, moduleDoc: 
         return ts.isConstructorDeclaration(member);
     });
 
-    const tmpl: ClassDeclaration = {
-        name,
-        kind: 'class',
-        jsDoc: getAllJSDoc(node),
-        decorators: getDecorators(node),
-        typeParameters: getTypeParameters(node),
-        heritage: getInheritanceChainRefs(node),
-        members: [
-            ...getClassMembersFromPropertiesAndMethods(node),
-            ...getClassMembersFromPropertyAccessors(node),
-        ],
-    };
+    const tmpl: ClassDeclaration = {kind: DeclarationKind.class, name};
+
+    tryAddProperty(tmpl, 'decorators', getDecorators(node));
+    tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
+    tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
+    tryAddProperty(tmpl, 'heritage', getInheritanceChainRefs(node));
+    tryAddProperty(tmpl, 'abstract', isAbstract(node));
+    tryAddProperty(tmpl, 'members', [
+        ...getClassMembersFromPropertiesAndMethods(node),
+        ...getClassMembersFromPropertyAccessors(node),
+    ]);
 
     if (ctorDecl !== undefined) {
-        tmpl.ctor = createConstructor(ctorDecl);
-
+        tryAddProperty(tmpl, 'ctor', createConstructor(ctorDecl));
         resolveDefaultValueFromConstructor(tmpl, ctorDecl);
     }
 
@@ -141,13 +143,18 @@ function findAllPropertyAccessors(members: ts.NodeArray<ts.ClassElement>): { [ke
 }
 
 function createMethod(node: ts.MethodDeclaration | ts.PropertyDeclaration): ClassMethod {
-    return {
-        ...createFunctionLike(node),
+    const tmpl: ClassMethod = {
         kind: 'method',
-        static: isStaticMember(node),
-        modifier: getVisibilityModifier(node),
-        readOnly: isReadOnly(node),
+        ...createFunctionLike(node),
     };
+
+    tryAddProperty(tmpl, 'static', isStaticMember(node));
+    tryAddProperty(tmpl, 'modifier', getVisibilityModifier(node));
+    tryAddProperty(tmpl, 'readOnly', isReadOnly(node));
+    tryAddProperty(tmpl, 'abstract', isAbstract(node));
+    tryAddProperty(tmpl, 'override', isOverride(node));
+
+    return tmpl;
 }
 
 function createFieldFromProperty(node: ts.PropertyDeclaration): ClassField {
@@ -165,27 +172,34 @@ function createFieldFromProperty(node: ts.PropertyDeclaration): ClassField {
 
     const defaultValue = findJSDoc<string>(JSDocTagName.default, jsDoc)?.value;
 
-    return {
-        kind: 'field',
-        static: isStaticMember(node),
-        modifier: getVisibilityModifier(node),
-        optional: !!node.questionToken,
-        jsDoc,
-        decorators: getDecorators(node),
-        default: defaultValue ?? resolveExpression(node.initializer),
+    const tmpl: ClassField = {
+        kind: DeclarationKind.field,
         name: node.name?.getText() ?? '',
-        readOnly: isReadOnly(node),
+        modifier: getVisibilityModifier(node),
         type: jsDocDefinedType
             ? {text: jsDocDefinedType}
             : {text: userDefinedType ?? computedType},
     };
+
+    tryAddProperty(tmpl, 'static', isStaticMember(node));
+    tryAddProperty(tmpl, 'optional', !!node.questionToken);
+    tryAddProperty(tmpl, 'jsDoc', jsDoc);
+    tryAddProperty(tmpl, 'decorators', getDecorators(node));
+    tryAddProperty(tmpl, 'default', defaultValue ?? resolveExpression(node.initializer));
+    tryAddProperty(tmpl, 'readOnly', isReadOnly(node));
+    tryAddProperty(tmpl, 'abstract', isAbstract(node));
+    tryAddProperty(tmpl, 'override', isOverride(node));
+
+    return tmpl;
 }
 
 function createConstructor(node: ts.ConstructorDeclaration): Constructor {
-    return {
-        jsDoc: getAllJSDoc(node),
-        parameters: getParameters(node),
-    };
+    const ctor: Constructor = {};
+
+    tryAddProperty(ctor, 'jsDoc', getAllJSDoc(node));
+    tryAddProperty(ctor, 'parameters', getParameters(node));
+
+    return ctor;
 }
 
 function createFieldFromPropertyAccessor(propertyAccessor: PropertyAccessor): ClassMember | null {
@@ -205,17 +219,21 @@ function createFieldFromPropertyAccessor(propertyAccessor: PropertyAccessor): Cl
         // The computed type from the TypeScript TypeChecker (as a last resource)
         const computedType = checker?.typeToString(checker?.getTypeAtLocation(getter), getter) || '';
 
-        return {
+        const tmpl: ClassField = {
+            kind: DeclarationKind.field,
             name,
-            jsDoc,
-            kind: 'field',
-            decorators: getDecorators(getter),
-            static: isStaticMember(getter),
-            modifier: getVisibilityModifier(getter),
-            readOnly: hasReadOnlyTag ?? setter === undefined,
             type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
-            default: returnValue,
         };
+
+        tryAddProperty(tmpl, 'jsDoc', jsDoc);
+        tryAddProperty(tmpl, 'decorators', getDecorators(getter));
+        tryAddProperty(tmpl, 'static', isStaticMember(getter));
+        tryAddProperty(tmpl, 'override', isOverride(getter));
+        tryAddProperty(tmpl, 'modifier', getVisibilityModifier(getter));
+        tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? setter === undefined);
+        tryAddProperty(tmpl, 'default', returnValue);
+
+        return tmpl;
     }
 
     if (setter == null) {
@@ -226,16 +244,20 @@ function createFieldFromPropertyAccessor(propertyAccessor: PropertyAccessor): Cl
     const jsDoc = getAllJSDoc(setter);
     const parameters = getParameters(setter);
 
-    return {
+    const tmpl: ClassField = {
+        kind: DeclarationKind.field,
         name,
-        kind: 'field',
-        static: isStaticMember(setter),
-        modifier: getVisibilityModifier(setter),
-        writeOnly: true,
-        decorators: getDecorators(setter),
         type: parameters[0]?.type ?? {text: ''},
-        jsDoc,
+        writeOnly: true,
     };
+
+    tryAddProperty(tmpl, 'jsDoc', jsDoc);
+    tryAddProperty(tmpl, 'static', isStaticMember(setter));
+    tryAddProperty(tmpl, 'override', isOverride(setter));
+    tryAddProperty(tmpl, 'modifier', getVisibilityModifier(setter));
+    tryAddProperty(tmpl, 'decorators', getDecorators(setter));
+
+    return tmpl;
 }
 
 function resolveDefaultValueFromConstructor(tmpl: ClassDeclaration, ctorDecl: ts.ConstructorDeclaration): void {
@@ -264,7 +286,7 @@ function resolveDefaultValueFromConstructor(tmpl: ClassDeclaration, ctorDecl: ts
         const rhs = expr.right;
 
         // If the right hand side value is a constructor parameter, we can't resolve the value statically
-        if (ts.isIdentifier(rhs) && tmpl.ctor?.parameters.some(param => param.name === rhs.escapedText)) {
+        if (ts.isIdentifier(rhs) && tmpl.ctor?.parameters?.some(param => param.name === rhs.escapedText)) {
             continue;
         }
 

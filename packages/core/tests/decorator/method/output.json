@@ -1,0 +1,80 @@
+[
+    {
+        "path": "packages/core/tests/decorator/method/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "enumerable",
+                "return": {
+                    "type": {
+                        "text": "(_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor) => void"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "value",
+                        "type": {
+                            "text": "boolean"
+                        }
+                    }
+                ]
+            },
+            {
+                "kind": "class",
+                "name": "Greeter",
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "greeting",
+                        "modifier": "public",
+                        "type": {
+                            "text": "string"
+                        }
+                    },
+                    {
+                        "kind": "method",
+                        "name": "greet",
+                        "return": {
+                            "type": {
+                                "text": "string"
+                            }
+                        },
+                        "decorators": [
+                            {
+                                "name": "enumerable",
+                                "parameters": [
+                                    false
+                                ],
+                                "href": {
+                                    "path": "packages/core/tests/decorator/method/index.ts"
+                                }
+                            }
+                        ],
+                        "modifier": "public"
+                    }
+                ],
+                "ctor": {
+                    "parameters": [
+                        {
+                            "name": "message",
+                            "type": {
+                                "text": "string"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "exports": [
+            {
+                "name": "enumerable",
+                "type": "named"
+            },
+            {
+                "name": "Greeter",
+                "type": "named"
+            }
+        ]
+    }
+]

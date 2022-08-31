@@ -9,6 +9,8 @@ export type FunctionLikeDeclaration = ts.FunctionDeclaration |
     ts.MethodDeclaration |
     null;
 
+export type GeneratorFunction = ts.FunctionDeclaration | ts.FunctionExpression | ts.MethodDeclaration;
+
 export type NodeWithTypeParameter = ts.TypeAliasDeclaration |
     ts.InterfaceDeclaration |
     ts.ClassDeclaration |

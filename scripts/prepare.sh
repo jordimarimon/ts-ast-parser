@@ -2,7 +2,7 @@
 
 if [[ ! -d ".git" ]]
 then
-    echo "El directori actual no és un directori de git vàlid.";
+    echo "Current directory is not a valid git directory.";
     exit 1;
 fi
 

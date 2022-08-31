@@ -6,18 +6,13 @@
             {
                 "name": "TypeA",
                 "kind": "interface",
-                "typeParameters": [],
-                "heritage": [],
-                "jsDoc": [],
                 "members": [
                     {
                         "name": "foo",
                         "kind": "field",
-                        "optional": false,
                         "type": {
                             "text": "string"
-                        },
-                        "jsDoc": []
+                        }
                     }
                 ]
             }
