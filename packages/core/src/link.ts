@@ -1,6 +1,7 @@
 import * as path from 'path';
 import {
     ClassDeclaration,
+    ClassMember,
     Declaration,
     DeclarationKind,
     InterfaceDeclaration,
@@ -45,10 +46,26 @@ function convertClassAbsolutePathToRelative(decl: ClassDeclaration): void {
     }
 
     for (const member of members) {
-        const memberDecorators = member.decorators ?? [];
+        convertClassMemberAbsolutePathToRelative(member);
+    }
+}
 
-        for (const decorator of memberDecorators) {
-            normalizePath(decorator);
+function convertClassMemberAbsolutePathToRelative(member: ClassMember): void {
+    const memberDecorators = member.decorators ?? [];
+
+    for (const decorator of memberDecorators) {
+        normalizePath(decorator);
+    }
+
+    if (member.kind === DeclarationKind.method) {
+        const parameters = member.parameters ?? [];
+
+        for (const param of parameters) {
+            const paramDecorators = param.decorators ?? [];
+
+            for (const decorator of paramDecorators) {
+                normalizePath(decorator);
+            }
         }
     }
 }
