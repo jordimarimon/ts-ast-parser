@@ -4,7 +4,13 @@ import ts from 'typescript';
 
 
 export function isAsyncFunction(func: FunctionLikeDeclaration): boolean {
-    return !!func?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
+    if (!func) {
+        return false;
+    }
+
+    const modifiers = ts.canHaveModifiers(func) ? (ts.getModifiers(func) ?? []) : [];
+
+    return modifiers.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
 }
 
 export function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunction {

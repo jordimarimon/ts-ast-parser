@@ -6,32 +6,38 @@ import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-export function getInheritedDeclarations(node: NodeWithHeritageClause): ts.Declaration[] {
+// FIXME(Jordi M.): When the parent type uses a utility type like `Required`
+//  that changes the meaning of the declaration (from possible optional to not optional),
+//  we are still unable to get the modified declaration and we only get the original one.
+//  The symbol has the transient flag set (prop.getFlags()), which means it has been
+//  created it by the checker instead of the binder.
+
+// The keys are the name of the base types and values the
+// inherited members from that base type
+export type InheritedDeclarations = {baseSymbol: ts.Symbol | undefined; properties: ts.Symbol[]}[];
+
+export function getInheritedDeclarations(node: ts.Node): InheritedDeclarations {
     const checker = Context.checker;
     const type = checker?.getTypeAtLocation(node);
     const baseTypes = type?.getBaseTypes() ?? [];
-    const decls: ts.Declaration[] = [];
+
+    let result: InheritedDeclarations = [];
 
     for (const baseType of baseTypes) {
-        const props = baseType.getProperties();
+        const superNode = baseType.getSymbol()?.getDeclarations()?.[0];
+        const superInheritedDeclarations = superNode ? getInheritedDeclarations(superNode) : [];
 
-        for (const prop of props) {
-            const decl = prop.getDeclarations()?.[0];
-
-            // FIXME(Jordi M.): When the parent type uses a utility type like `Required`
-            //  that changes the meaning of the declaration (from possible optional to not optional),
-            //  we are still using the original declaration instead of the modified
-            //  one (which I'm not sure if we can get from the TS Compiler API).
-            //  The symbol has the transient flag set (prop.getFlags()), which means it has been
-            //  created it by the checker instead of the binder.
-
-            if (decl) {
-                decls.push(decl);
-            }
-        }
+        result = [
+            ...result,
+            ...superInheritedDeclarations,
+            {
+                baseSymbol: baseType.getSymbol(),
+                properties: baseType.getProperties(),
+            },
+        ];
     }
 
-    return decls;
+    return result;
 }
 
 export function getInheritanceChainRefs(node: NodeWithHeritageClause): Reference[] {
@@ -124,4 +130,39 @@ function getHeritageMetadata(identifier: ts.Node): {kind: DeclarationKind | unde
     }
 
     return {kind: undefined, path};
+}
+
+export function isInheritedMember(name: string, inheritedMembers: InheritedDeclarations): boolean {
+    for (const inheritedDecl of inheritedMembers) {
+        for (const prop of inheritedDecl.properties) {
+            if (prop.getName() === name) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+export function getInheritedMemberReference(name: string, inheritedMembers: InheritedDeclarations): Reference | null {
+    for (const inheritedDecl of inheritedMembers) {
+        const props = inheritedDecl.properties;
+
+        if (!props?.some(prop => prop.getName() === name)) {
+            continue;
+        }
+
+        const decl = inheritedDecl.baseSymbol?.getDeclarations()?.[0];
+        const isClass = decl && (ts.isClassDeclaration(decl) || ts.isClassExpression(decl));
+
+        return {
+            name: inheritedDecl.baseSymbol?.getName() ?? '',
+            kind: isClass ? DeclarationKind.class : DeclarationKind.interface,
+            href: {
+                path: decl?.getSourceFile()?.fileName ?? '',
+            },
+        };
+    }
+
+    return null;
 }

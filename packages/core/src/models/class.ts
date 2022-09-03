@@ -20,6 +20,7 @@ export interface ClassMemberLike {
     readOnly?: boolean;
     abstract?: boolean;
     override?: boolean;
+    inheritedFrom?: Reference;
 }
 
 export interface ClassField extends PropertyLike, ClassMemberLike {

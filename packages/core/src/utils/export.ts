@@ -10,7 +10,9 @@ import ts from 'typescript';
  *
  */
 export function hasExportKeyword(node: ts.Node): node is ts.Node {
-    return !!node.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ExportKeyword);
+    const modifiers = ts.canHaveModifiers(node) ? (ts.getModifiers(node) ?? []) : [];
+
+    return modifiers.some(mod => mod.kind === ts.SyntaxKind.ExportKeyword);
 }
 
 /**
@@ -20,7 +22,9 @@ export function hasExportKeyword(node: ts.Node): node is ts.Node {
  *
  */
 export function hasDefaultKeyword(node: ts.Node): boolean {
-    return !!node.modifiers?.some(mod => mod.kind === ts.SyntaxKind.DefaultKeyword);
+    const modifiers = ts.canHaveModifiers(node) ? (ts.getModifiers(node) ?? []) : [];
+
+    return modifiers.some(mod => mod.kind === ts.SyntaxKind.DefaultKeyword);
 }
 
 /**

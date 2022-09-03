@@ -3,7 +3,8 @@ import ts from 'typescript';
 
 
 export function getVisibilityModifier(member: ts.ClassElement): ModifierType {
-    const hasPrivateModifier = member.modifiers?.some(mod => {
+    const modifiers = ts.canHaveModifiers(member) ? (ts.getModifiers(member) ?? []) : [];
+    const hasPrivateModifier = modifiers.some(mod => {
         return mod.kind === ts.SyntaxKind.PrivateKeyword;
     });
 
@@ -11,7 +12,7 @@ export function getVisibilityModifier(member: ts.ClassElement): ModifierType {
         return ModifierType.private;
     }
 
-    const hasProtectedModifier = member.modifiers?.some(mod => {
+    const hasProtectedModifier = modifiers.some(mod => {
         return mod.kind === ts.SyntaxKind.ProtectedKeyword;
     });
 
@@ -23,17 +24,41 @@ export function getVisibilityModifier(member: ts.ClassElement): ModifierType {
 }
 
 export function isReadOnly(member: ts.ClassElement | undefined): boolean {
-    return !!member?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ReadonlyKeyword);
+    if (!member) {
+        return false;
+    }
+
+    const modifiers = ts.canHaveModifiers(member) ? (ts.getModifiers(member) ?? []) : [];
+
+    return modifiers.some(mod => mod.kind === ts.SyntaxKind.ReadonlyKeyword);
 }
 
 export function isStaticMember(member: ts.ClassElement | undefined): boolean {
-    return !!member?.modifiers?.some?.(mod => mod.kind === ts.SyntaxKind.StaticKeyword);
+    if (!member) {
+        return false;
+    }
+
+    const modifiers = ts.canHaveModifiers(member) ? (ts.getModifiers(member) ?? []) : [];
+
+    return modifiers.some(mod => mod.kind === ts.SyntaxKind.StaticKeyword);
 }
 
-export function isAbstract(node: ts.ClassElement | ts.ClassExpression | ts.ClassDeclaration | undefined): boolean {
-    return !!node?.modifiers?.some?.(mod => mod.kind === ts.SyntaxKind.AbstractKeyword);
+export function isAbstract(member: ts.ClassElement | ts.ClassExpression | ts.ClassDeclaration | undefined): boolean {
+    if (!member) {
+        return false;
+    }
+
+    const modifiers = ts.canHaveModifiers(member) ? (ts.getModifiers(member) ?? []) : [];
+
+    return modifiers.some(mod => mod.kind === ts.SyntaxKind.AbstractKeyword);
 }
 
-export function isOverride(node: ts.ClassElement | undefined): boolean {
-    return !!node?.modifiers?.some?.(mod => mod.kind === ts.SyntaxKind.OverrideKeyword);
+export function isOverride(member: ts.ClassElement | undefined): boolean {
+    if (!member) {
+        return false;
+    }
+
+    const modifiers = ts.canHaveModifiers(member) ? (ts.getModifiers(member) ?? []) : [];
+
+    return modifiers.some(mod => mod.kind === ts.SyntaxKind.OverrideKeyword);
 }

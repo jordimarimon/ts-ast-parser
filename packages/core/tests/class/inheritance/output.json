@@ -1,24 +1,24 @@
 [
     {
-        "path": "packages/core/tests/class/extends-clause/index.ts",
+        "path": "packages/core/tests/class/inheritance/index.ts",
         "imports": [],
         "declarations": [
             {
                 "kind": "class",
-                "name": "Bar",
+                "name": "Class1",
                 "members": [
                     {
                         "kind": "field",
-                        "name": "bar",
+                        "name": "foo",
                         "modifier": "public",
                         "type": {
                             "text": "number"
                         },
-                        "default": 4
+                        "default": 3
                     },
                     {
                         "kind": "method",
-                        "name": "add",
+                        "name": "someMethod",
                         "return": {
                             "type": {
                                 "text": "number"
@@ -44,12 +44,12 @@
             },
             {
                 "kind": "class",
-                "name": "Foo",
+                "name": "Class2",
                 "heritage": [
                     {
-                        "name": "Bar",
+                        "name": "Class1",
                         "href": {
-                            "path": "packages/core/tests/class/extends-clause/index.ts"
+                            "path": "packages/core/tests/class/inheritance/index.ts"
                         },
                         "kind": "class"
                     }
@@ -62,19 +62,60 @@
                         "type": {
                             "text": "number"
                         },
-                        "default": 3,
+                        "default": 4
+                    }
+                ]
+            },
+            {
+                "kind": "class",
+                "name": "Class3",
+                "heritage": [
+                    {
+                        "name": "Class2",
+                        "href": {
+                            "path": "packages/core/tests/class/inheritance/index.ts"
+                        },
+                        "kind": "class"
+                    }
+                ],
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4,
                         "override": true,
                         "inheritedFrom": {
-                            "name": "Bar",
+                            "name": "Class1",
                             "kind": "class",
                             "href": {
-                                "path": "packages/core/tests/class/extends-clause/index.ts"
+                                "path": "packages/core/tests/class/inheritance/index.ts"
+                            }
+                        }
+                    },
+                    {
+                        "kind": "field",
+                        "name": "bar",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 5,
+                        "override": true,
+                        "inheritedFrom": {
+                            "name": "Class2",
+                            "kind": "class",
+                            "href": {
+                                "path": "packages/core/tests/class/inheritance/index.ts"
                             }
                         }
                     },
                     {
                         "kind": "method",
-                        "name": "add",
+                        "name": "someMethod",
                         "return": {
                             "type": {
                                 "text": "number"
@@ -83,12 +124,6 @@
                         "parameters": [
                             {
                                 "name": "x",
-                                "type": {
-                                    "text": "number"
-                                }
-                            },
-                            {
-                                "name": "y",
                                 "type": {
                                     "text": "number"
                                 }
@@ -97,47 +132,27 @@
                         "modifier": "public",
                         "override": true,
                         "inheritedFrom": {
-                            "name": "Bar",
+                            "name": "Class1",
                             "kind": "class",
                             "href": {
-                                "path": "packages/core/tests/class/extends-clause/index.ts"
+                                "path": "packages/core/tests/class/inheritance/index.ts"
                             }
                         }
-                    },
-                    {
-                        "kind": "method",
-                        "name": "mult",
-                        "return": {
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        "parameters": [
-                            {
-                                "name": "x",
-                                "type": {
-                                    "text": "number"
-                                }
-                            },
-                            {
-                                "name": "y",
-                                "type": {
-                                    "text": "number"
-                                }
-                            }
-                        ],
-                        "modifier": "public"
                     }
                 ]
             }
         ],
         "exports": [
             {
-                "name": "Bar",
+                "name": "Class1",
                 "type": "named"
             },
             {
-                "name": "Foo",
+                "name": "Class2",
+                "type": "named"
+            },
+            {
+                "name": "Class3",
                 "type": "named"
             }
         ]

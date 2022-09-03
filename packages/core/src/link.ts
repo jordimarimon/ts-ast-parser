@@ -53,6 +53,10 @@ function convertClassAbsolutePathToRelative(decl: ClassDeclaration): void {
 function convertClassMemberAbsolutePathToRelative(member: ClassMember): void {
     const memberDecorators = member.decorators ?? [];
 
+    if (member.inheritedFrom) {
+        normalizePath(member.inheritedFrom);
+    }
+
     for (const decorator of memberDecorators) {
         normalizePath(decorator);
     }
