@@ -58,15 +58,21 @@ function resolveComplexExpression(expr: ts.Expression): unknown {
 
     if (ts.isIdentifier(expr) || ts.isPropertyAccessExpression(expr)) {
         const reference = checker?.getSymbolAtLocation(expr);
-        const refExpr = reference?.declarations?.[0];
+
+        let refExpr = reference?.declarations?.[0];
 
         if (refExpr == null) {
             return text;
         }
 
-        // FIXME(Jordi M.): Resolve initializers that are identifiers
         if (ts.isImportSpecifier(refExpr)) {
-            return text;
+            const importedSymbol = reference && checker?.getAliasedSymbol(reference);
+
+            refExpr = importedSymbol?.declarations?.[0];
+
+            if (refExpr == null) {
+                return text;
+            }
         }
 
         if (ts.isVariableDeclaration(refExpr) || ts.isPropertyDeclaration(refExpr)) {

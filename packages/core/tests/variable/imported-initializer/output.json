@@ -15,7 +15,7 @@
                 "type": {
                     "text": "4"
                 },
-                "default": "foo"
+                "default": 4
             }
         ],
         "exports": [
