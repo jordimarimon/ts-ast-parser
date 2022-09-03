@@ -10,5 +10,45 @@
         ],
         "declarations": [],
         "exports": []
+    },
+    {
+        "path": "packages/core/tests/import/namespace/foo.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "x",
+                "type": {
+                    "text": "4"
+                },
+                "default": 4
+            },
+            {
+                "kind": "class",
+                "name": "Foo",
+                "members": [
+                    {
+                        "kind": "method",
+                        "name": "bar",
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
+                        "modifier": "public"
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "x",
+                "type": "named"
+            },
+            {
+                "name": "Foo",
+                "type": "named"
+            }
+        ]
     }
 ]

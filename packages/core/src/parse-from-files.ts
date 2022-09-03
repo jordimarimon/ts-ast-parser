@@ -1,4 +1,5 @@
-import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
+import { getResolvedCompilerOptions } from './compiler-options.js';
+import { formatDiagnostics, logError } from './utils/index.js';
 import { callPlugins } from './call-plugins.js';
 import { Module } from './models/index.js';
 import { Options } from './options.js';
@@ -23,11 +24,17 @@ import ts from 'typescript';
 export function parseFromFiles(
     files: readonly string[],
     options: Partial<Options> = {},
-    compilerOptions: ts.CompilerOptions = DEFAULT_COMPILER_OPTIONS,
+    compilerOptions?: ts.CompilerOptions,
 ): Module[] {
     const modules: Module[] = [];
     const sourceFiles: (ts.SourceFile | undefined)[] = [];
-    const program = ts.createProgram(files, compilerOptions);
+    const program = ts.createProgram(files, getResolvedCompilerOptions(compilerOptions));
+    const diagnostics = program.getSemanticDiagnostics();
+
+    if (diagnostics.length) {
+        logError('Error analysing source files:', formatDiagnostics(diagnostics));
+        return [];
+    }
 
     Context.options = options;
     Context.checker = program.getTypeChecker();

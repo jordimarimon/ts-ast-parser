@@ -15,8 +15,6 @@ export function link(modules: Module[]): void {
     for (const module of modules) {
         for (const decl of module.declarations) {
             convertAbsolutePathToRelative(decl);
-
-            // TODO(Jordi M.): Resolve initializers that are identifiers
         }
     }
 

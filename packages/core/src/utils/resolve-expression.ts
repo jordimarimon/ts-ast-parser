@@ -64,8 +64,7 @@ function resolveComplexExpression(expr: ts.Expression): unknown {
             return text;
         }
 
-        // FIXME(Jordi M.): We may not have yet processed the information for the imported file.
-        //  Need to resolve the value after collecting all information.
+        // FIXME(Jordi M.): Resolve initializers that are identifiers
         if (ts.isImportSpecifier(refExpr)) {
             return text;
         }

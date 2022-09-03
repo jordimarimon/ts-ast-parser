@@ -16,7 +16,7 @@
                 "name": "format",
                 "return": {
                     "type": {
-                        "text": "any"
+                        "text": "{ (target: Function): void; (target: Object, propertyKey: string | symbol): void; }"
                     }
                 },
                 "parameters": [

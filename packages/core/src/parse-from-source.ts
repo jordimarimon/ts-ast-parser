@@ -1,4 +1,4 @@
-import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
+import { DEFAULT_COMPILER_OPTIONS } from './compiler-options.js';
 import { createCompilerHost } from './compiler-host.js';
 import { callPlugins } from './call-plugins.js';
 import { Module } from './models/index.js';

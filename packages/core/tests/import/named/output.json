@@ -10,5 +10,33 @@
         ],
         "declarations": [],
         "exports": []
+    },
+    {
+        "path": "packages/core/tests/import/named/foo.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "class",
+                "name": "Foo",
+                "members": [
+                    {
+                        "kind": "method",
+                        "name": "bar",
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
+                        "modifier": "public"
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named"
+            }
+        ]
     }
 ]

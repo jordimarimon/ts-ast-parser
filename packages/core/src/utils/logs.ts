@@ -1,3 +1,4 @@
+import ts from 'typescript';
 import chalk from 'chalk';
 
 //
@@ -25,4 +26,20 @@ export function logError(message: string, payload?: unknown): void {
 
 export function logInfo(message: string): void {
     console.log(chalk.blue(`${LIB_PREFIX}: ${message}`));
+}
+
+export function formatDiagnostics(diagnostics: readonly ts.Diagnostic[]): string {
+    const diagnosticsHost: ts.FormatDiagnosticsHost = {
+        getCanonicalFileName(name: string): string {
+            return name;
+        },
+        getCurrentDirectory(): string {
+            return process.cwd();
+        },
+        getNewLine(): string {
+            return '\n';
+        },
+    };
+
+    return ts.formatDiagnosticsWithColorAndContext(diagnostics, diagnosticsHost);
 }

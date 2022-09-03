@@ -25,5 +25,30 @@
                 "type": "default"
             }
         ]
+    },
+    {
+        "path": "packages/core/tests/import/type/type-a.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "TypeA",
+                "kind": "interface",
+                "members": [
+                    {
+                        "name": "foo",
+                        "kind": "field",
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "TypeA",
+                "type": "named"
+            }
+        ]
     }
 ]

@@ -1,4 +1,3 @@
-import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
 import { parseFromFiles } from './parse-from-files.js';
 import { Module } from './models/index.js';
 import { Options } from './options.js';
@@ -31,7 +30,7 @@ const IGNORE: string[] = [
 export function parseFromGlob(
     patterns: string | string[] = ['**/*.{ts,tsx}'],
     options: Partial<Options> = {},
-    compilerOptions: ts.CompilerOptions = DEFAULT_COMPILER_OPTIONS,
+    compilerOptions?: ts.CompilerOptions,
 ): Module[] {
     const arrPatterns = Array.isArray(patterns) ? patterns : [patterns];
     const paths = globbySync([...arrPatterns, ...IGNORE]);

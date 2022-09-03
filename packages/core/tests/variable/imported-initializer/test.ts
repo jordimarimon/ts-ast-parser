@@ -4,7 +4,7 @@ import { getFixture } from '../../utils.js';
 
 const category = 'variable';
 const subcategory = 'imported-initializer';
-const {actual, expected} = getFixture(category, subcategory);
+const {actual, expected} = getFixture(category, subcategory, ['foo.ts']);
 
 describe(`${category}/${subcategory}`, () => {
 

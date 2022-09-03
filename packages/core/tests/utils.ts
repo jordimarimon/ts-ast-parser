@@ -5,10 +5,17 @@ import fs from 'fs';
 
 const {pathname: cwd} = new URL('../../..', import.meta.url);
 
-export function getFixture(category: string, subcategory = ''): {actual: unknown; expected: unknown} {
+export function getFixture(
+    category: string,
+    subcategory = '',
+    importedFiles: string[] = [],
+): { actual: unknown; expected: unknown } {
     const testFilePath = getTestFilePath(category, subcategory);
     const expectedOutputFile = readExpectedOutput(category, subcategory);
-    const modules = parseFromFiles([testFilePath]);
+    const importedFilePaths = importedFiles.map(fileName => {
+        return path.join(cwd, 'packages', 'core', 'tests', category, subcategory, fileName);
+    });
+    const modules = parseFromFiles([testFilePath, ...importedFilePaths]);
 
     return {actual: modules, expected: expectedOutputFile};
 }
