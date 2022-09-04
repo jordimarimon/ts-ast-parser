@@ -63,14 +63,7 @@
                             "text": "number"
                         },
                         "default": 3,
-                        "override": true,
-                        "inheritedFrom": {
-                            "name": "Bar",
-                            "kind": "class",
-                            "href": {
-                                "path": "packages/core/tests/class/extends-clause/index.ts"
-                            }
-                        }
+                        "override": true
                     },
                     {
                         "kind": "method",
@@ -95,14 +88,7 @@
                             }
                         ],
                         "modifier": "public",
-                        "override": true,
-                        "inheritedFrom": {
-                            "name": "Bar",
-                            "kind": "class",
-                            "href": {
-                                "path": "packages/core/tests/class/extends-clause/index.ts"
-                            }
-                        }
+                        "override": true
                     },
                     {
                         "kind": "method",

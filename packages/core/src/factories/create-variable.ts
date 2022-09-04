@@ -1,9 +1,15 @@
-import { getAllJSDoc, findJSDoc, isFunctionDeclaration, resolveExpression, tryAddProperty } from '../utils/index.js';
 import { DeclarationKind, JSDocTagName, Module, VariableDeclaration } from '../models/index.js';
 import { getDecorators } from '../utils/decorator.js';
 import { NodeFactory } from './node-factory.js';
-import { Context } from '../context.js';
 import ts from 'typescript';
+import {
+    findJSDoc,
+    getAllJSDoc,
+    getType,
+    isFunctionDeclaration,
+    resolveExpression,
+    tryAddProperty,
+} from '../utils/index.js';
 
 
 export const variableFactory: NodeFactory<ts.VariableStatement> = {
@@ -18,7 +24,6 @@ export const variableFactory: NodeFactory<ts.VariableStatement> = {
 
 function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
 
-    const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);
     const decorators = getDecorators(node);
 
@@ -39,7 +44,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
         const userDefinedType = declaration.type?.getText();
 
         // The computed type from the TypeScript TypeChecker (as a last resource)
-        const computedType = checker?.typeToString(checker?.getTypeAtLocation(declaration), declaration) || '';
+        const computedType = getType(declaration);
 
         const tmpl: VariableDeclaration = {
             kind: DeclarationKind.variable,

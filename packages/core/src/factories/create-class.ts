@@ -18,12 +18,12 @@ import {
     getAllJSDoc,
     getInheritanceChainRefs,
     getInheritedDeclarations,
-    getInheritedMemberReference,
     getParameters,
     getReturnStatement,
+    getType,
     getTypeParameters,
     getVisibilityModifier,
-    InheritedDeclarations,
+    InheritedSymbols,
     isAbstract,
     isArrowFunction,
     isFunctionExpression,
@@ -87,7 +87,7 @@ function createClass(node: NodeType, moduleDoc: Module): void {
 
 function getClassMembersFromPropertiesAndMethods(
     node: NodeType,
-    inheritedMembers: InheritedDeclarations,
+    inheritedMembers: InheritedSymbols,
 ): ClassMember[] {
     const members: ClassMember[] = [];
 
@@ -109,7 +109,7 @@ function getClassMembersFromPropertiesAndMethods(
     return members;
 }
 
-function getClassMembersFromPropertyAccessors(node: NodeType, inheritedMembers: InheritedDeclarations): ClassMember[] {
+function getClassMembersFromPropertyAccessors(node: NodeType, inheritedMembers: InheritedSymbols): ClassMember[] {
     const members: ClassMember[] = [];
     const propertyAccessors = findAllPropertyAccessors(node.members);
 
@@ -154,7 +154,7 @@ function findAllPropertyAccessors(members: ts.NodeArray<ts.ClassElement>): { [ke
 
 function createMethod(
     node: ts.MethodDeclaration | ts.PropertyDeclaration,
-    inheritedMembers: InheritedDeclarations,
+    inheritedMembers: InheritedSymbols,
 ): ClassMethod {
     const tmpl: ClassMethod = {
         kind: 'method',
@@ -169,28 +169,17 @@ function createMethod(
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'override', overrides);
 
-    if (overrides) {
-        tryAddProperty(tmpl, 'inheritedFrom', getInheritedMemberReference(tmpl.name, inheritedMembers));
-    }
-
     return tmpl;
 }
 
-function createFieldFromProperty(node: ts.PropertyDeclaration, inheritedMembers: InheritedDeclarations): ClassField {
-    const checker = Context.checker;
+function createFieldFromProperty(node: ts.PropertyDeclaration, inheritedMembers: InheritedSymbols): ClassField {
     const jsDoc = getAllJSDoc(node);
     const name = node.name?.getText() ?? '';
-
-    // If user specifies the type in the declaration (`x: string = "Foo";)
-    const userDefinedType = node.type?.getText();
-
-    // If user specifies the type in the JSDoc -> we take it
-    const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-
-    // The computed type from the TypeScript TypeChecker (as a last resource)
-    const computedType = checker?.typeToString(checker?.getTypeAtLocation(node), node) || '';
-
     const defaultValue = findJSDoc<string>(JSDocTagName.default, jsDoc)?.value;
+    const userDefinedType = node.type?.getText();
+    const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
+    const computedType = getType(node);
+    const overrides = isOverride(node) || isInheritedMember(name, inheritedMembers);
 
     const tmpl: ClassField = {
         kind: DeclarationKind.field,
@@ -201,8 +190,6 @@ function createFieldFromProperty(node: ts.PropertyDeclaration, inheritedMembers:
             : {text: userDefinedType ?? computedType},
     };
 
-    const overrides = isOverride(node) || isInheritedMember(name, inheritedMembers);
-
     tryAddProperty(tmpl, 'static', isStaticMember(node));
     tryAddProperty(tmpl, 'optional', !!node.questionToken);
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
@@ -211,10 +198,6 @@ function createFieldFromProperty(node: ts.PropertyDeclaration, inheritedMembers:
     tryAddProperty(tmpl, 'readOnly', isReadOnly(node));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'override', overrides);
-
-    if (overrides) {
-        tryAddProperty(tmpl, 'inheritedFrom', getInheritedMemberReference(name, inheritedMembers));
-    }
 
     return tmpl;
 }
@@ -230,7 +213,7 @@ function createConstructor(node: ts.ConstructorDeclaration): Constructor {
 
 function createFieldFromPropertyAccessor(
     propertyAccessor: PropertyAccessor,
-    inheritedMembers: InheritedDeclarations,
+    inheritedMembers: InheritedSymbols,
 ): ClassMember | null {
     const {getter, setter} = propertyAccessor;
     const checker = Context.checker;
@@ -264,10 +247,6 @@ function createFieldFromPropertyAccessor(
         tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? setter === undefined);
         tryAddProperty(tmpl, 'default', returnValue);
 
-        if (overrides) {
-            tryAddProperty(tmpl, 'inheritedFrom', getInheritedMemberReference(name, inheritedMembers));
-        }
-
         return tmpl;
     }
 
@@ -292,10 +271,6 @@ function createFieldFromPropertyAccessor(
     tryAddProperty(tmpl, 'override', overrides);
     tryAddProperty(tmpl, 'modifier', getVisibilityModifier(setter));
     tryAddProperty(tmpl, 'decorators', getDecorators(setter));
-
-    if (overrides) {
-        tryAddProperty(tmpl, 'inheritedFrom', getInheritedMemberReference(name, inheritedMembers));
-    }
 
     return tmpl;
 }

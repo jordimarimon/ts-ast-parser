@@ -13,7 +13,7 @@
                 "kind": "variable",
                 "name": "bar",
                 "type": {
-                    "text": "4"
+                    "text": "number"
                 },
                 "default": 4
             }
@@ -33,7 +33,7 @@
                 "kind": "variable",
                 "name": "foo",
                 "type": {
-                    "text": "4"
+                    "text": "number"
                 },
                 "default": 4
             }

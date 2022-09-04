@@ -6,6 +6,7 @@ export * from './get-location.js';
 export * from './inheritance.js';
 export * from './parameters.js';
 export * from './function.js';
+export * from './get-type.js';
 export * from './export.js';
 export * from './js-doc.js';
 export * from './mixins.js';

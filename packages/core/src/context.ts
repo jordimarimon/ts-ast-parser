@@ -5,6 +5,8 @@ import ts from 'typescript';
 export interface ParserContext {
     checker: ts.TypeChecker | null;
     options: Partial<Options>;
+    compilerOptions: ts.CompilerOptions;
+    normalizePath: (path: string | undefined) => string;
 }
 
 /**
@@ -17,5 +19,9 @@ export const Context: ParserContext = {
     checker: null,
 
     options: {},
+
+    compilerOptions: {},
+
+    normalizePath: path => path ?? '',
 
 };

@@ -15,7 +15,7 @@
                 "kind": "variable",
                 "name": "blue",
                 "type": {
-                    "text": "Colors.Blue"
+                    "text": "Colors"
                 },
                 "default": "Colors.Blue"
             },

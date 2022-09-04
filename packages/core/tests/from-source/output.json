@@ -6,7 +6,7 @@
             "kind": "variable",
             "name": "foo",
             "type": {
-                "text": "true"
+                "text": "boolean"
             },
             "default": true
         }

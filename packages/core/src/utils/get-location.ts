@@ -10,6 +10,6 @@ export function getLocation(node: ts.Node): {path: string; decl: ts.Declaration 
 
     return {
         decl,
-        path: sourceFile?.fileName ?? '',
+        path: Context.normalizePath(sourceFile?.fileName),
     };
 }

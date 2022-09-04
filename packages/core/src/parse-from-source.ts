@@ -30,8 +30,9 @@ export function parseFromSource(
 
     Context.checker = program.getTypeChecker();
     Context.options = options;
+    Context.compilerOptions = compilerOptions;
 
-    const moduleDoc = collect(fileName, sourceFile);
+    const moduleDoc = collect(sourceFile);
 
     clean([moduleDoc]);
 

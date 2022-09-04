@@ -7,7 +7,7 @@
                 "kind": "variable",
                 "name": "foo",
                 "type": {
-                    "text": "3"
+                    "text": "number"
                 },
                 "default": 3
             },
@@ -15,7 +15,7 @@
                 "kind": "variable",
                 "name": "bar",
                 "type": {
-                    "text": "3"
+                    "text": "number"
                 },
                 "default": 3
             },
@@ -23,7 +23,7 @@
                 "kind": "variable",
                 "name": "bar2",
                 "type": {
-                    "text": "3"
+                    "text": "number"
                 },
                 "default": 3
             },
@@ -31,7 +31,7 @@
                 "kind": "variable",
                 "name": "str",
                 "type": {
-                    "text": "\"Hello\""
+                    "text": "string"
                 },
                 "default": "'Hello'"
             },
@@ -39,7 +39,7 @@
                 "kind": "variable",
                 "name": "num",
                 "type": {
-                    "text": "4"
+                    "text": "number"
                 },
                 "default": 4
             },
@@ -47,7 +47,7 @@
                 "kind": "variable",
                 "name": "bool",
                 "type": {
-                    "text": "false"
+                    "text": "boolean"
                 }
             },
             {

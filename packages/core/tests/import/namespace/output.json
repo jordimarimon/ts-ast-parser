@@ -19,7 +19,7 @@
                 "kind": "variable",
                 "name": "x",
                 "type": {
-                    "text": "4"
+                    "text": "number"
                 },
                 "default": 4
             },

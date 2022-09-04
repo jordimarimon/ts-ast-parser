@@ -87,14 +87,7 @@
                             "text": "number"
                         },
                         "default": 4,
-                        "override": true,
-                        "inheritedFrom": {
-                            "name": "Class1",
-                            "kind": "class",
-                            "href": {
-                                "path": "packages/core/tests/class/inheritance/index.ts"
-                            }
-                        }
+                        "override": true
                     },
                     {
                         "kind": "field",
@@ -104,14 +97,7 @@
                             "text": "number"
                         },
                         "default": 5,
-                        "override": true,
-                        "inheritedFrom": {
-                            "name": "Class2",
-                            "kind": "class",
-                            "href": {
-                                "path": "packages/core/tests/class/inheritance/index.ts"
-                            }
-                        }
+                        "override": true
                     },
                     {
                         "kind": "method",
@@ -130,14 +116,7 @@
                             }
                         ],
                         "modifier": "public",
-                        "override": true,
-                        "inheritedFrom": {
-                            "name": "Class1",
-                            "kind": "class",
-                            "href": {
-                                "path": "packages/core/tests/class/inheritance/index.ts"
-                            }
-                        }
+                        "override": true
                     }
                 ]
             }

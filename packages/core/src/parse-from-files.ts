@@ -6,7 +6,6 @@ import { Options } from './options.js';
 import { Context } from './context.js';
 import { collect } from './collect.js';
 import { clean } from './clean.js';
-import { link } from './link.js';
 import * as path from 'path';
 import ts from 'typescript';
 
@@ -28,7 +27,8 @@ export function parseFromFiles(
 ): Module[] {
     const modules: Module[] = [];
     const sourceFiles: (ts.SourceFile | undefined)[] = [];
-    const program = ts.createProgram(files, getResolvedCompilerOptions(compilerOptions));
+    const resolvedCompilerOptions = getResolvedCompilerOptions(compilerOptions);
+    const program = ts.createProgram(files, resolvedCompilerOptions);
     const diagnostics = program.getSemanticDiagnostics();
 
     if (diagnostics.length) {
@@ -38,17 +38,16 @@ export function parseFromFiles(
 
     Context.options = options;
     Context.checker = program.getTypeChecker();
+    Context.compilerOptions = resolvedCompilerOptions;
+    Context.normalizePath = filePath => filePath ? path.normalize(path.relative(process.cwd(), filePath)) : '';
 
     for (const file of files) {
-        const modulePath = path.normalize(path.relative(process.cwd(), file));
         const sourceFile = program.getSourceFile(file);
-        const moduleDoc = collect(modulePath, sourceFile);
+        const moduleDoc = collect(sourceFile);
 
         sourceFiles.push(sourceFile);
         modules.push(moduleDoc);
     }
-
-    link(modules);
 
     clean(modules);
 

@@ -12,16 +12,19 @@ import ts from 'typescript';
 //  The symbol has the transient flag set (prop.getFlags()), which means it has been
 //  created it by the checker instead of the binder.
 
-// The keys are the name of the base types and values the
-// inherited members from that base type
-export type InheritedDeclarations = {baseSymbol: ts.Symbol | undefined; properties: ts.Symbol[]}[];
+export interface InheritedSymbol {
+    baseSymbol: ts.Symbol | undefined;
+    properties: ts.Symbol[];
+}
 
-export function getInheritedDeclarations(node: ts.Node): InheritedDeclarations {
+export type InheritedSymbols = InheritedSymbol[];
+
+export function getInheritedDeclarations(node: ts.Node): InheritedSymbols {
     const checker = Context.checker;
     const type = checker?.getTypeAtLocation(node);
     const baseTypes = type?.getBaseTypes() ?? [];
 
-    let result: InheritedDeclarations = [];
+    let result: InheritedSymbols = [];
 
     for (const baseType of baseTypes) {
         const superNode = baseType.getSymbol()?.getDeclarations()?.[0];
@@ -132,7 +135,7 @@ function getHeritageMetadata(identifier: ts.Node): {kind: DeclarationKind | unde
     return {kind: undefined, path};
 }
 
-export function isInheritedMember(name: string, inheritedMembers: InheritedDeclarations): boolean {
+export function isInheritedMember(name: string, inheritedMembers: InheritedSymbols): boolean {
     for (const inheritedDecl of inheritedMembers) {
         for (const prop of inheritedDecl.properties) {
             if (prop.getName() === name) {
@@ -144,7 +147,7 @@ export function isInheritedMember(name: string, inheritedMembers: InheritedDecla
     return false;
 }
 
-export function getInheritedMemberReference(name: string, inheritedMembers: InheritedDeclarations): Reference | null {
+export function getInheritedMemberReference(name: string, inheritedMembers: InheritedSymbols): Reference | null {
     for (const inheritedDecl of inheritedMembers) {
         const props = inheritedDecl.properties;
 
@@ -159,7 +162,7 @@ export function getInheritedMemberReference(name: string, inheritedMembers: Inhe
             name: inheritedDecl.baseSymbol?.getName() ?? '',
             kind: isClass ? DeclarationKind.class : DeclarationKind.interface,
             href: {
-                path: decl?.getSourceFile()?.fileName ?? '',
+                path: Context.normalizePath(decl?.getSourceFile()?.fileName),
             },
         };
     }
