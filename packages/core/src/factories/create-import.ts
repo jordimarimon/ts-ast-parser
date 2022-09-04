@@ -2,10 +2,12 @@ import { Import, ImportType, Module } from '../models/index.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
 import {
+    getOriginalImportPath,
     isBareModuleSpecifier,
     isDefaultImport,
     isNamedImport,
     isNamespaceImport,
+    matchesTsConfigPath,
     tryAddProperty,
 } from '../utils/index.js';
 
@@ -19,53 +21,86 @@ export const importFactory: NodeFactory<ts.ImportDeclaration> = {
 };
 
 function createImport(node: ts.ImportDeclaration, moduleDoc: Module): void {
-    const imports: Import[] = [];
+    let imports: Import[] = [];
 
     if (isDefaultImport(node)) {
-        const modSpecifier = (node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
-        const tmpl: Import = {
-            name: node.importClause?.name?.escapedText ?? '',
-            kind: ImportType.default,
-            importPath: modSpecifier,
-        };
-
-        tryAddProperty(tmpl, 'isTypeOnly', !!node?.importClause?.isTypeOnly);
-        tryAddProperty(tmpl, 'isBareModuleSpecifier', isBareModuleSpecifier(modSpecifier));
-
-        imports.push(tmpl);
+        imports.push(createDefaultImport(node));
     }
 
     if (isNamedImport(node)) {
-        const elements = (node.importClause?.namedBindings as ts.NamedImports).elements ?? [];
-
-        for (const element of elements) {
-            const modSpecifier = (node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
-            const tmpl: Import = {
-                name: element.name.escapedText ?? '',
-                kind: ImportType.named,
-                importPath: modSpecifier,
-            };
-
-            tryAddProperty(tmpl, 'isTypeOnly', !!node?.importClause?.isTypeOnly);
-            tryAddProperty(tmpl, 'isBareModuleSpecifier', isBareModuleSpecifier(modSpecifier));
-
-            imports.push(tmpl);
-        }
+        imports = imports.concat(createNamedImport(node));
     }
 
     if (isNamespaceImport(node)) {
-        const modSpecifier = (node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
+        imports.push(createNamespaceImport(node));
+    }
+
+    moduleDoc.imports = imports;
+}
+
+function createDefaultImport(node: ts.ImportDeclaration): Import {
+    const modSpecifier = (node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
+    const identifier = node.importClause?.name;
+    const originalPath = getOriginalImportPath(identifier);
+    const tmpl: Import = {
+        name: identifier?.escapedText ?? '',
+        kind: ImportType.default,
+        importPath: modSpecifier,
+    };
+
+    if (matchesTsConfigPath(modSpecifier)) {
+        tmpl.originalPath = originalPath;
+    }
+
+    tryAddProperty(tmpl, 'isTypeOnly', !!node?.importClause?.isTypeOnly);
+    tryAddProperty(tmpl, 'isBareModuleSpecifier', isBareModuleSpecifier(modSpecifier));
+
+    return tmpl;
+}
+
+function createNamedImport(node: ts.ImportDeclaration): Import[] {
+    const elements = (node.importClause?.namedBindings as ts.NamedImports).elements ?? [];
+    const modSpecifier = (node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
+    const result: Import[] = [];
+
+    for (const element of elements) {
+        const name = element.name.escapedText ?? '';
+        const originalPath = getOriginalImportPath(element.name);
         const tmpl: Import = {
-            name: (node.importClause?.namedBindings as ts.NamespaceImport).name.escapedText ?? '',
-            kind: ImportType.namespace,
+            name,
+            kind: ImportType.named,
             importPath: modSpecifier,
         };
+
+        if (matchesTsConfigPath(modSpecifier)) {
+            tmpl.originalPath = originalPath;
+        }
 
         tryAddProperty(tmpl, 'isTypeOnly', !!node?.importClause?.isTypeOnly);
         tryAddProperty(tmpl, 'isBareModuleSpecifier', isBareModuleSpecifier(modSpecifier));
 
-        imports.push(tmpl);
+        result.push(tmpl);
     }
 
-    moduleDoc.imports = imports;
+    return result;
+}
+
+function createNamespaceImport(node: ts.ImportDeclaration): Import {
+    const modSpecifier = (node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
+    const identifier = (node.importClause?.namedBindings as ts.NamespaceImport).name;
+    const originalPath = getOriginalImportPath(identifier);
+    const tmpl: Import = {
+        name: identifier.escapedText ?? '',
+        kind: ImportType.namespace,
+        importPath: modSpecifier,
+    };
+
+    if (matchesTsConfigPath(modSpecifier)) {
+        tmpl.originalPath = originalPath;
+    }
+
+    tryAddProperty(tmpl, 'isTypeOnly', !!node?.importClause?.isTypeOnly);
+    tryAddProperty(tmpl, 'isBareModuleSpecifier', isBareModuleSpecifier(modSpecifier));
+
+    return tmpl;
 }

@@ -1,21 +1,22 @@
-import { parseFromFiles } from '../src/index.js';
+import { parseFromFiles, Options } from '../src/index.js';
+import ts from 'typescript';
 import path from 'path';
 import fs from 'fs';
 
-
-const {pathname: cwd} = new URL('../../..', import.meta.url);
 
 export function getFixture(
     category: string,
     subcategory = '',
     importedFiles: string[] = [],
+    options: Partial<Options> = {},
+    compilerOptions?: ts.CompilerOptions,
 ): { actual: unknown; expected: unknown } {
     const testFilePath = getTestFilePath(category, subcategory);
     const expectedOutputFile = readExpectedOutput(category, subcategory);
     const importedFilePaths = importedFiles.map(fileName => {
-        return path.join(cwd, 'packages', 'core', 'tests', category, subcategory, fileName);
+        return path.join(process.cwd(), 'packages', 'core', 'tests', category, subcategory, fileName);
     });
-    const modules = parseFromFiles([testFilePath, ...importedFilePaths]);
+    const modules = parseFromFiles([testFilePath, ...importedFilePaths], options, compilerOptions);
 
     return {actual: modules, expected: expectedOutputFile};
 }
@@ -25,7 +26,7 @@ export function logObject(obj: unknown): void {
 }
 
 export function readExpectedOutput(category: string, subcategory = '', fileName = 'output.json'): unknown {
-    const expectedOutputPath = path.join(cwd, 'packages', 'core', 'tests', category, subcategory, fileName);
+    const expectedOutputPath = path.join(process.cwd(), 'packages', 'core', 'tests', category, subcategory, fileName);
 
     if (!fs.existsSync(expectedOutputPath)) {
         return;
@@ -35,5 +36,5 @@ export function readExpectedOutput(category: string, subcategory = '', fileName 
 }
 
 export function getTestFilePath(category: string, subcategory = ''): string {
-    return path.join(cwd, 'packages', 'core', 'tests', category, subcategory, 'index.ts');
+    return path.join(process.cwd(), 'packages', 'core', 'tests', category, subcategory, 'index.ts');
 }
