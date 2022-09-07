@@ -42,7 +42,8 @@
                         "name": "Pick<Todo, 'title' | 'completed'>",
                         "href": {
                             "path": "node_modules/typescript/lib/lib.es5.d.ts"
-                        }
+                        },
+                        "kind": "type-alias"
                     }
                 ]
             }

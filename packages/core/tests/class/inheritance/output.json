@@ -57,6 +57,41 @@
                 "members": [
                     {
                         "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3,
+                        "inheritedFrom": "Class1"
+                    },
+                    {
+                        "kind": "method",
+                        "name": "someMethod",
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ],
+                        "modifier": "public",
+                        "inheritedFrom": "Class1"
+                    },
+                    {
+                        "kind": "field",
                         "name": "bar",
                         "modifier": "public",
                         "type": {

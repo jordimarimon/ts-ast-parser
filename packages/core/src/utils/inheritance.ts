@@ -1,6 +1,7 @@
 import { DeclarationKind, Reference, SourceReference } from '../models/index.js';
 import { tryAddProperty } from './try-add-property.js';
 import { NodeWithHeritageClause } from './types.js';
+import { isThirdPartyImport } from './import.js';
 import { getLocation } from './get-location.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
@@ -13,34 +14,42 @@ import ts from 'typescript';
 //  created it by the checker instead of the binder.
 
 export interface InheritedSymbol {
-    baseSymbol: ts.Symbol | undefined;
+    symbol: ts.Symbol | undefined;
     properties: ts.Symbol[];
 }
 
-export type InheritedSymbols = InheritedSymbol[];
-
-export function getInheritedDeclarations(node: ts.Node): InheritedSymbols {
+export function getParentSymbol(node: ts.Node): InheritedSymbol | null {
     const checker = Context.checker;
     const type = checker?.getTypeAtLocation(node);
-    const baseTypes = type?.getBaseTypes() ?? [];
+    const baseType = type?.getBaseTypes()?.[0]; // We want the direct parent
 
-    let result: InheritedSymbols = [];
-
-    for (const baseType of baseTypes) {
-        const superNode = baseType.getSymbol()?.getDeclarations()?.[0];
-        const superInheritedDeclarations = superNode ? getInheritedDeclarations(superNode) : [];
-
-        result = [
-            ...result,
-            ...superInheritedDeclarations,
-            {
-                baseSymbol: baseType.getSymbol(),
-                properties: baseType.getProperties(),
-            },
-        ];
+    if (!baseType) {
+        return null;
     }
 
-    return result;
+    const superNode = baseType.getSymbol()?.getDeclarations()?.[0];
+
+    // We don't output metadata for the properties of 3rd party declarations.
+    // For example the HTMLElement class has 287 properties... we just can't document
+    // 3rd party inheritances
+    if (isThirdPartyImport(superNode?.getSourceFile().fileName ?? '')) {
+        return {
+            symbol: baseType.getSymbol(),
+            properties: [],
+        };
+    }
+
+    return {
+        symbol: baseType.getSymbol(),
+
+        // Remove properties that come from third party parent classes
+        properties: baseType.getProperties().filter(p => {
+            const decl = p.getDeclarations()?.[0];
+            const filePath = decl?.getSourceFile()?.fileName ?? '';
+
+            return !isThirdPartyImport(filePath);
+        }),
+    };
 }
 
 export function getInheritanceChainRefs(node: NodeWithHeritageClause): Reference[] {
@@ -58,7 +67,7 @@ export function getInheritanceChainRefs(node: NodeWithHeritageClause): Reference
                 continue;
             }
 
-            const {kind, path} = getHeritageMetadata(expr);
+            const {path, decl} = getLocation(expr);
 
             let name = expr.escapedText ?? '';
 
@@ -72,7 +81,7 @@ export function getInheritanceChainRefs(node: NodeWithHeritageClause): Reference
             const ref: Reference = {name};
             tryAddProperty(sourceRef, 'path', path);
             tryAddProperty(ref, 'href', sourceRef);
-            tryAddProperty(ref, 'kind', kind);
+            tryAddProperty(ref, 'kind', getDeclarationKind(decl));
 
             references.push(ref);
         }
@@ -111,61 +120,36 @@ function getTypeArgumentNames(typeArguments: ts.NodeArray<ts.TypeNode>): string[
     return names;
 }
 
-function getHeritageMetadata(identifier: ts.Node): {kind: DeclarationKind | undefined; path: string} {
-    const {path, decl} = getLocation(identifier);
-
+function getDeclarationKind(decl: ts.Node | undefined): DeclarationKind | null {
     if (!decl) {
-        return {kind: undefined, path: ''};
+        return null;
+    }
+
+    if (ts.isClassDeclaration(decl) || ts.isClassExpression(decl)) {
+        return DeclarationKind.class;
     }
 
     if (ts.isInterfaceDeclaration(decl)) {
-        return {
-            kind: DeclarationKind.interface,
-            path,
-        };
+        return DeclarationKind.interface;
     }
 
-    if (ts.isClassDeclaration(decl)) {
-        return {
-            kind: DeclarationKind.class,
-            path,
-        };
+    if (ts.isTypeAliasDeclaration(decl) || ts.isTypeNode(decl)) {
+        return DeclarationKind.typeAlias;
     }
 
-    return {kind: undefined, path};
+    return null;
 }
 
-export function isInheritedMember(name: string, inheritedMembers: InheritedSymbols): boolean {
-    for (const inheritedDecl of inheritedMembers) {
-        for (const prop of inheritedDecl.properties) {
-            if (prop.getName() === name) {
-                return true;
-            }
+export function isInheritedMember(name: string, inheritedSymbol: InheritedSymbol | null): boolean {
+    if (!inheritedSymbol) {
+        return false;
+    }
+
+    for (const prop of inheritedSymbol.properties) {
+        if (prop.getName() === name) {
+            return true;
         }
     }
 
     return false;
-}
-
-export function getInheritedMemberReference(name: string, inheritedMembers: InheritedSymbols): Reference | null {
-    for (const inheritedDecl of inheritedMembers) {
-        const props = inheritedDecl.properties;
-
-        if (!props?.some(prop => prop.getName() === name)) {
-            continue;
-        }
-
-        const decl = inheritedDecl.baseSymbol?.getDeclarations()?.[0];
-        const isClass = decl && (ts.isClassDeclaration(decl) || ts.isClassExpression(decl));
-
-        return {
-            name: inheritedDecl.baseSymbol?.getName() ?? '',
-            kind: isClass ? DeclarationKind.class : DeclarationKind.interface,
-            href: {
-                path: Context.normalizePath(decl?.getSourceFile()?.fileName),
-            },
-        };
-    }
-
-    return null;
 }

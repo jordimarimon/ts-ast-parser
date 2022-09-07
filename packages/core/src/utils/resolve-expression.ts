@@ -1,3 +1,4 @@
+import { isThirdPartyImport } from './import.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
@@ -53,31 +54,44 @@ function isBooleanLiteral(expr: ts.Expression | ts.Declaration): boolean {
 }
 
 function resolveComplexExpression(expr: ts.Expression): unknown {
-    const checker = Context.checker;
     const text = expr.getText() ?? '';
 
     if (ts.isIdentifier(expr) || ts.isPropertyAccessExpression(expr)) {
-        const reference = checker?.getSymbolAtLocation(expr);
+        return resolveVariableExpression(expr);
+    }
 
-        let refExpr = reference?.declarations?.[0];
+    return text;
+}
+
+function resolveVariableExpression(expr: ts.Identifier | ts.PropertyAccessExpression): unknown {
+    const checker = Context.checker;
+    const reference = checker?.getSymbolAtLocation(expr);
+    const text = expr.getText() ?? '';
+
+    let refExpr = reference?.declarations?.[0];
+
+    if (refExpr == null) {
+        return text;
+    }
+
+    if (ts.isImportSpecifier(refExpr)) {
+        const importedSymbol = reference && checker?.getAliasedSymbol(reference);
+        refExpr = importedSymbol?.declarations?.[0];
 
         if (refExpr == null) {
             return text;
         }
 
-        if (ts.isImportSpecifier(refExpr)) {
-            const importedSymbol = reference && checker?.getAliasedSymbol(reference);
+        const importPath = refExpr.getSourceFile().fileName;
 
-            refExpr = importedSymbol?.declarations?.[0];
-
-            if (refExpr == null) {
-                return text;
-            }
+        // We don't resolve identifiers that come from 3rd party libraries
+        if (isThirdPartyImport(importPath)) {
+            return text;
         }
+    }
 
-        if (ts.isVariableDeclaration(refExpr) || ts.isPropertyDeclaration(refExpr)) {
-            return resolveExpression(refExpr.initializer);
-        }
+    if (ts.isVariableDeclaration(refExpr) || ts.isPropertyDeclaration(refExpr)) {
+        return resolveExpression(refExpr.initializer);
     }
 
     return text;
