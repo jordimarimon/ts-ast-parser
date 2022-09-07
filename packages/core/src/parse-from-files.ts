@@ -1,4 +1,4 @@
-import { getResolvedCompilerOptions } from './compiler-options.js';
+import { getResolvedCompilerOptions } from './resolve-compiler-options.js';
 import { formatDiagnostics, logError } from './utils/index.js';
 import { callPlugins } from './call-plugins.js';
 import { Module } from './models/index.js';
