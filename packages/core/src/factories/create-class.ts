@@ -14,7 +14,7 @@ import {
     Module,
 } from '../models/index.js';
 import {
-    findJSDoc,
+    findJSDoc, getAliasedSymbolIfNecessary,
     getAllJSDoc,
     getInheritanceChainRefs,
     getParameters,
@@ -97,7 +97,17 @@ function getInheritedMembers(parentSymbol: InheritedSymbol | null, childMembers:
         return [];
     }
 
-    const parentClassName = parentSymbol?.symbol?.getName() ?? '';
+    // When the parent class is defined as the default export, we need to get the aliased symbol
+    const aliasedSymbol = parentSymbol?.symbol && getAliasedSymbolIfNecessary(parentSymbol?.symbol);
+    const aliasDecl = aliasedSymbol?.declarations?.[0];
+
+    // When the parent class is defined as the default export, the following string will equal "default",
+    // which is not what we want to (hence the below conditional)
+    let parenName = parentSymbol?.symbol?.getName() ?? '';
+
+    if (aliasDecl && isClassNode(aliasDecl)) {
+        parenName = aliasDecl.name?.getText() ?? '';
+    }
 
     // Parent members that haven't been override
     const nonOverrideNodes: ts.Node[] = [];
@@ -124,7 +134,7 @@ function getInheritedMembers(parentSymbol: InheritedSymbol | null, childMembers:
     ];
 
     for (const inheritedMember of inheritedMembers) {
-        inheritedMember.inheritedFrom = parentClassName;
+        inheritedMember.inheritedFrom = parenName;
     }
 
     return inheritedMembers;

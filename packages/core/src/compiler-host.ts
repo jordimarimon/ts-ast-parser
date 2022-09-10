@@ -22,7 +22,7 @@ export function createCompilerHost(fileName: string, code: string): ts.CompilerH
             files[name] = ts.createSourceFile(name, content, ts.ScriptTarget.Latest, true);
         },
 
-        getDefaultLibFileName: (options: ts.CompilerOptions) => ts.getDefaultLibFilePath(options),
+        getDefaultLibFileName: () => 'lib.d.ts',
 
         useCaseSensitiveFileNames: () => false,
 

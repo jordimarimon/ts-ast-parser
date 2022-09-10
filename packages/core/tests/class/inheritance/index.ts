@@ -8,11 +8,11 @@ export class Class1 {
 
 export class Class2 extends Class1 {
     bar = 4;
+
+    override foo = 5;
 }
 
 export class Class3 extends Class2 {
-
-    override foo = 4;
 
     // @ts-expect-error We don't wan to put the "override" keyword to make
     // sure we are also able to detect the override without it

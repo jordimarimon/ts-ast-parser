@@ -11,6 +11,7 @@ export * from './export.js';
 export * from './js-doc.js';
 export * from './mixins.js';
 export * from './import.js';
+export * from './symbol.js';
 export * from './class.js';
 export * from './types.js';
 export * from './logs.js';

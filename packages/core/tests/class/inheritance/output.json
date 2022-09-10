@@ -56,16 +56,6 @@
                 ],
                 "members": [
                     {
-                        "kind": "field",
-                        "name": "foo",
-                        "modifier": "public",
-                        "type": {
-                            "text": "number"
-                        },
-                        "default": 3,
-                        "inheritedFrom": "Class1"
-                    },
-                    {
                         "kind": "method",
                         "name": "someMethod",
                         "return": {
@@ -98,6 +88,16 @@
                             "text": "number"
                         },
                         "default": 4
+                    },
+                    {
+                        "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 5,
+                        "override": true
                     }
                 ]
             },
@@ -121,8 +121,9 @@
                         "type": {
                             "text": "number"
                         },
-                        "default": 4,
-                        "override": true
+                        "default": 5,
+                        "override": true,
+                        "inheritedFrom": "Class2"
                     },
                     {
                         "kind": "field",
