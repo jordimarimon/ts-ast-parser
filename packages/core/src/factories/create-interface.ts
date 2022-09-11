@@ -1,4 +1,3 @@
-import { findJSDoc, getAllJSDoc, getInheritanceChainRefs, getTypeParameters, tryAddProperty } from '../utils/index.js';
 import { createFunctionLike } from './create-function.js';
 import { NodeFactory } from './node-factory.js';
 import { Context } from '../context.js';
@@ -12,6 +11,13 @@ import {
     JSDocTagName,
     Module,
 } from '../models/index.js';
+import {
+    findJSDoc,
+    getAllJSDoc,
+    getExtendClauseReferences,
+    getTypeParameters,
+    tryAddProperty,
+} from '../utils/index.js';
 
 
 export const interfaceFactory: NodeFactory<ts.InterfaceDeclaration> = {
@@ -34,11 +40,12 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
         name,
         kind: DeclarationKind.interface,
     };
+    const extendClauseRefs = getExtendClauseReferences(node);
 
     tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
     tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
     tryAddProperty(tmpl, 'members', getInterfaceMembers(node));
-    tryAddProperty(tmpl, 'heritage', getInheritanceChainRefs(node));
+    tryAddProperty(tmpl, 'heritage', extendClauseRefs.map(e => e.reference));
 
     moduleDoc.declarations.push(tmpl);
 }

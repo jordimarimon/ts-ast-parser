@@ -7,3 +7,4 @@ This is a list of libraries of interest from where to source ideas:
 * [API Extractor](https://api-extractor.com/)
 * [Type Doc](https://typedoc.org/)
 * [Lit Analyzer](https://github.com/lit/lit/tree/main/packages/labs/analyzer)
+* [tsutils](https://github.com/ajafff/tsutils)

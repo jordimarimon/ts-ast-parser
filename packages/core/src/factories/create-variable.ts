@@ -5,7 +5,7 @@ import ts from 'typescript';
 import {
     findJSDoc,
     getAllJSDoc,
-    getType,
+    getTypeName,
     isFunctionDeclaration,
     resolveExpression,
     tryAddProperty,
@@ -44,7 +44,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
         const userDefinedType = declaration.type?.getText();
 
         // The computed type from the TypeScript TypeChecker (as a last resource)
-        const computedType = getType(declaration);
+        const computedType = getTypeName(declaration);
 
         const tmpl: VariableDeclaration = {
             kind: DeclarationKind.variable,

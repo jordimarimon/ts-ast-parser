@@ -23,3 +23,7 @@ export type NodeWithParameters = FunctionLikeDeclaration |
     ts.ConstructorDeclaration;
 
 export type NodeWithHeritageClause = ts.InterfaceDeclaration | ts.ClassDeclaration | ts.ClassExpression;
+
+export type NodeWithType<T = ts.Node> = {node: T; type: ts.Type | undefined};
+
+export type SymbolWithType = {symbol: ts.Symbol; type: ts.Type | undefined};

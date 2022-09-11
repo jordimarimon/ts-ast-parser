@@ -3,7 +3,8 @@ interface Props {
     b?: string;
 }
 
-export interface RequiredProps extends Props {
+// Extends a TypeAliasDeclaration that has a MappedTypeNode
+export interface RequiredProps extends Required<Props> {
     c: boolean;
 }
 
@@ -16,5 +17,3 @@ interface Todo {
 export interface TodoPreview extends Pick<Todo, 'title' | 'completed'> {
     preview: string;
 }
-
-

@@ -1,3 +1,4 @@
+import { TypeParameter } from './type-parameter.js';
 import { Parameter } from './parameter.js';
 import { Decorator } from './decorator.js';
 import { JSDoc } from './js-doc.js';
@@ -11,7 +12,7 @@ export interface FunctionReturn {
 export interface FunctionLike {
     name: string;
     parameters?: Parameter[];
-    typeParameters?: string[];
+    typeParameters?: TypeParameter[];
     return: FunctionReturn;
     async?: boolean;
     generator?: boolean;

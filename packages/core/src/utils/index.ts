@@ -2,6 +2,7 @@ export * from './resolve-expression.js';
 export * from './return-statement.js';
 export * from './try-add-property.js';
 export * from './not-empty-array.js';
+export * from './type-parameter.js';
 export * from './get-location.js';
 export * from './inheritance.js';
 export * from './parameters.js';

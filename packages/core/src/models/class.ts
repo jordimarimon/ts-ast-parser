@@ -1,3 +1,4 @@
+import { TypeParameter } from './type-parameter.js';
 import { PropertyLike } from './property.js';
 import { FunctionLike } from './function.js';
 import { Reference } from './reference.js';
@@ -41,7 +42,7 @@ export interface ClassLike {
     name: string;
     members?: ClassMember[];
     jsDoc?: JSDoc;
-    typeParameters?: string[];
+    typeParameters?: TypeParameter[];
     heritage?: Reference[];
     decorators?: Decorator[];
     ctor?: Constructor;

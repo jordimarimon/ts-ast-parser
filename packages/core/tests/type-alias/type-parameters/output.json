@@ -14,8 +14,12 @@
                     }
                 ],
                 "typeParameters": [
-                    "T",
-                    "K"
+                    {
+                        "name": "T"
+                    },
+                    {
+                        "name": "K"
+                    }
                 ]
             }
         ],

@@ -1,24 +1,40 @@
 import { DeclarationKind, Reference, SourceReference } from '../models/index.js';
+import { NodeWithHeritageClause, SymbolWithType } from './types.js';
 import { tryAddProperty } from './try-add-property.js';
-import { NodeWithHeritageClause } from './types.js';
 import { isThirdPartyImport } from './import.js';
 import { getLocation } from './get-location.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-// FIXME(Jordi M.): When the parent type uses a utility type like `Required`
-//  that changes the meaning of the declaration (from possible optional to not optional),
-//  we are still unable to get the modified declaration and we only get the original one.
-//  The symbol has the transient flag set (prop.getFlags()), which means it has been
-//  created it by the checker instead of the binder.
-
 export interface InheritedSymbol {
     symbol: ts.Symbol | undefined;
-    properties: ts.Symbol[];
+    properties: SymbolWithType[];
 }
 
-export function getParentSymbol(node: ts.Node): InheritedSymbol | null {
+export interface ExtendClauseRef {
+    symbol: ts.Symbol | undefined;
+    reference: Reference;
+}
+
+export function resolveInheritedName(
+    inheritedSymbol: InheritedSymbol | null,
+    extendClauseRefs: ExtendClauseRef[],
+): string {
+    if (!inheritedSymbol) {
+        return '';
+    }
+
+    for (const extendClauseRef of extendClauseRefs) {
+        if (extendClauseRef.symbol === inheritedSymbol.symbol) {
+            return extendClauseRef.reference.name;
+        }
+    }
+
+    return '';
+}
+
+export function getInheritedSymbol(node: ts.Node): InheritedSymbol | null {
     const checker = Context.checker;
     const type = checker?.getTypeAtLocation(node);
     const baseType = type?.getBaseTypes()?.[0]; // We want the direct parent
@@ -27,34 +43,46 @@ export function getParentSymbol(node: ts.Node): InheritedSymbol | null {
         return null;
     }
 
-    const superNode = baseType.getSymbol()?.getDeclarations()?.[0];
+    const symbol = baseType.getSymbol();
+    const superNode = symbol?.getDeclarations()?.[0];
 
     // We don't output metadata for the properties of 3rd party declarations.
     // For example the HTMLElement class has 287 properties... we just can't document
     // 3rd party inheritances
     if (isThirdPartyImport(superNode?.getSourceFile().fileName ?? '')) {
         return {
-            symbol: baseType.getSymbol(),
+            symbol,
             properties: [],
         };
     }
 
-    return {
-        symbol: baseType.getSymbol(),
+    const properties: SymbolWithType[] = [];
+
+    for (const prop of baseType.getProperties()) {
+        const decl = prop.getDeclarations()?.[0];
+        const filePath = decl?.getSourceFile()?.fileName ?? '';
 
         // Remove properties that come from third party parent classes
-        properties: baseType.getProperties().filter(p => {
-            const decl = p.getDeclarations()?.[0];
-            const filePath = decl?.getSourceFile()?.fileName ?? '';
+        if (isThirdPartyImport(filePath)) {
+            continue;
+        }
 
-            return !isThirdPartyImport(filePath);
-        }),
+        properties.push({
+            symbol: prop,
+            type: checker?.getTypeOfSymbolAtLocation(prop, node),
+        });
+    }
+
+    return {
+        symbol,
+        properties,
     };
 }
 
-export function getInheritanceChainRefs(node: NodeWithHeritageClause): Reference[] {
+export function getExtendClauseReferences(node: NodeWithHeritageClause): ExtendClauseRef[] {
     const heritageClauses = node.heritageClauses ?? [];
-    const references: Reference[] = [];
+    const references: ExtendClauseRef[] = [];
+    const checker = Context.checker;
 
     for (const heritageClause of heritageClauses) {
         const types = heritageClause.types ?? [];
@@ -68,6 +96,7 @@ export function getInheritanceChainRefs(node: NodeWithHeritageClause): Reference
             }
 
             const {path, decl} = getLocation(expr);
+            const symbol = checker?.getSymbolAtLocation(expr);
 
             let name = expr.escapedText ?? '';
 
@@ -83,14 +112,14 @@ export function getInheritanceChainRefs(node: NodeWithHeritageClause): Reference
             tryAddProperty(ref, 'href', sourceRef);
             tryAddProperty(ref, 'kind', getDeclarationKind(decl));
 
-            references.push(ref);
+            references.push({reference: ref, symbol});
         }
     }
 
     return references;
 }
 
-function getTypeArgumentNames(typeArguments: ts.NodeArray<ts.TypeNode>): string[] {
+function getTypeArgumentNames(typeArguments: ts.NodeArray<ts.TypeNode> | ts.TypeNode[]): string[] {
     const names: string[] = [];
 
     for (const typeArgument of typeArguments) {
@@ -104,14 +133,8 @@ function getTypeArgumentNames(typeArguments: ts.NodeArray<ts.TypeNode>): string[
 
                 name += `<${argNames.join(', ')}>`;
             }
-        }
-
-        if (ts.isUnionTypeNode(typeArgument)) {
-            name += typeArgument.types.map(t => t.getText()).join(' | ');
-        }
-
-        if (ts.isIntersectionTypeNode(typeArgument)) {
-            name += typeArgument.types.map(t => t.getText()).join(' & ');
+        } else {
+            name += typeArgument.getText();
         }
 
         names.push(name);
@@ -140,13 +163,13 @@ function getDeclarationKind(decl: ts.Node | undefined): DeclarationKind | null {
     return null;
 }
 
-export function isInheritedMember(name: string, inheritedSymbol: InheritedSymbol | null): boolean {
+export function isInheritedMember(name: string, inheritedSymbol: InheritedSymbol | null | undefined): boolean {
     if (!inheritedSymbol) {
         return false;
     }
 
     for (const prop of inheritedSymbol.properties) {
-        if (prop.getName() === name) {
+        if (prop.symbol.getName() === name) {
             return true;
         }
     }

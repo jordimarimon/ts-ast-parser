@@ -1,32 +1,34 @@
-import { NodeWithParameters, NodeWithTypeParameter } from './types.js';
 import { JSDocTagName, Parameter } from '../models/index.js';
 import { resolveExpression } from './resolve-expression.js';
 import { tryAddProperty } from './try-add-property.js';
 import { findJSDoc, getAllJSDoc } from './js-doc.js';
+import { NodeWithParameters } from './types.js';
 import { getDecorators } from './decorator.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-export function getTypeParameters(node: NodeWithTypeParameter): string[] {
-    return node?.typeParameters?.map(t => t.name?.getText() || '').filter(x => x) ?? [];
-}
+export function getParameters(node: NodeWithParameters, functionLikeType?: ts.Type): Parameter[] {
+    // In class methods, we use the type from the call
+    // signature to resolve types based on implementation in cases where
+    // the methods uses typed parameters
 
-export function getParameters(node: NodeWithParameters): Parameter[] {
     const parameters: Parameter[] = [];
     const originalParameters = node?.parameters ?? [];
+    const callSignature = functionLikeType?.getCallSignatures()?.[0];
     const checker = Context.checker;
 
-    for (const param of originalParameters) {
+    for (let i = 0; i < originalParameters.length; i++) {
+        const param = originalParameters[i];
         const jsDoc = getAllJSDoc(param);
         const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-        const userDefinedType = param.type?.getText();
+        const contextType = callSignature && checker?.typeToString(callSignature?.getTypeParameterAtPosition(i));
         const computedType = checker?.typeToString(checker?.getTypeAtLocation(param), param) || '';
         const parameter: Parameter = {
             name: param.name.getText(),
             type: jsDocDefinedType
                 ? {text: jsDocDefinedType}
-                : {text: userDefinedType ?? computedType},
+                : {text: contextType ?? computedType},
         };
 
         tryAddProperty(parameter, 'decorators', getDecorators(param));

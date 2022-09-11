@@ -12,7 +12,7 @@
                         "name": "bar",
                         "modifier": "public",
                         "type": {
-                            "text": "undefined | string"
+                            "text": "string | undefined"
                         },
                         "readOnly": true
                     },

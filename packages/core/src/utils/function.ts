@@ -58,7 +58,14 @@ export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclara
     return !!initializer && (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer));
 }
 
-export function getFunctionReturnType(func: FunctionLikeDeclaration): string {
+export function getFunctionReturnTypeFromFunctionType(type: ts.Type): string {
+    const checker = Context.checker;
+    const callSignature = type.getCallSignatures()?.[0];
+
+    return callSignature ? (checker?.typeToString(callSignature.getReturnType()) ?? '') : '';
+}
+
+export function getFunctionReturnTypeFromDeclaration(func: FunctionLikeDeclaration): string {
     if (!func) {
         return '';
     }

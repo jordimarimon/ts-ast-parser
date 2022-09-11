@@ -17,11 +17,11 @@
                 ],
                 "heritage": [
                     {
-                        "name": "Props",
+                        "name": "Required<Props>",
                         "href": {
-                            "path": "packages/core/tests/interface/utility-types/index.ts"
+                            "path": "node_modules/typescript/lib/lib.es5.d.ts"
                         },
-                        "kind": "interface"
+                        "kind": "type-alias"
                     }
                 ]
             },

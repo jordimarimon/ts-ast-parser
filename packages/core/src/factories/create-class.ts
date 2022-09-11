@@ -14,11 +14,11 @@ import {
     Module,
 } from '../models/index.js';
 import {
-    findJSDoc, getAliasedSymbolIfNecessary,
+    findJSDoc,
     getAllJSDoc,
-    getInheritanceChainRefs,
+    getExtendClauseReferences,
+    getInheritedSymbol,
     getParameters,
-    getParentSymbol,
     getReturnStatement,
     getType,
     getTypeParameters,
@@ -31,7 +31,9 @@ import {
     isOverride,
     isReadOnly,
     isStaticMember,
+    NodeWithType,
     resolveExpression,
+    resolveInheritedName,
     tryAddProperty,
 } from '../utils/index.js';
 
@@ -65,22 +67,24 @@ function createClass(node: NodeType, moduleDoc: Module): void {
     });
 
     const tmpl: ClassDeclaration = {kind: DeclarationKind.class, name};
-    const parentSymbol = getParentSymbol(node);
-    const classMembers = Array.from(node.members);
+    const parentClass = getInheritedSymbol(node);
+    const classMembers = Array.from(node.members).map(m => ({node: m, type: getType(m)}));
+    const extendClauseRefs = getExtendClauseReferences(node);
+    const resolvedParentClassName = resolveInheritedName(parentClass, extendClauseRefs);
 
     let resultMembers = [
-        ...getClassMembersFromPropertiesAndMethods(classMembers, parentSymbol),
-        ...getClassMembersFromPropertyAccessors(classMembers, parentSymbol),
+        ...getClassMembersFromPropertiesAndMethods(classMembers, parentClass),
+        ...getClassMembersFromPropertyAccessors(classMembers, parentClass),
     ];
     resultMembers = [
-        ...getInheritedMembers(parentSymbol, resultMembers),
+        ...getInheritedMembers(parentClass, resolvedParentClassName, resultMembers),
         ...resultMembers,
     ];
 
     tryAddProperty(tmpl, 'decorators', getDecorators(node));
     tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
     tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
-    tryAddProperty(tmpl, 'heritage', getInheritanceChainRefs(node));
+    tryAddProperty(tmpl, 'heritage', extendClauseRefs.map(e => e.reference));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'members', resultMembers);
 
@@ -92,84 +96,80 @@ function createClass(node: NodeType, moduleDoc: Module): void {
     moduleDoc.declarations.push(tmpl);
 }
 
-function getInheritedMembers(parentSymbol: InheritedSymbol | null, childMembers: ClassMember[]): ClassMember[] {
-    if (!parentSymbol) {
+function getInheritedMembers(
+    parentClass: InheritedSymbol | null,
+    parentName: string,
+    childMembers: ClassMember[],
+): ClassMember[] {
+    if (!parentClass) {
         return [];
     }
 
-    // When the parent class is defined as the default export, we need to get the aliased symbol
-    const aliasedSymbol = parentSymbol?.symbol && getAliasedSymbolIfNecessary(parentSymbol?.symbol);
-    const aliasDecl = aliasedSymbol?.declarations?.[0];
+    const nonOverrideNodes: NodeWithType[] = [];
 
-    // When the parent class is defined as the default export, the following string will equal "default",
-    // which is not what we want to (hence the below conditional)
-    let parenName = parentSymbol?.symbol?.getName() ?? '';
+    for (const prop of parentClass.properties) {
+        const propName = prop.symbol.getName();
 
-    if (aliasDecl && isClassNode(aliasDecl)) {
-        parenName = aliasDecl.name?.getText() ?? '';
-    }
-
-    // Parent members that haven't been override
-    const nonOverrideNodes: ts.Node[] = [];
-
-    for (const parentMemberNode of parentSymbol.properties) {
-        const parentMemberNodeName = parentMemberNode.getName();
-
-        if (childMembers.some(childMember => childMember.name === parentMemberNodeName)) {
+        // Ignore override members
+        if (childMembers.some(childMember => childMember.name === propName)) {
             continue;
         }
 
-        const decl = parentMemberNode.getDeclarations()?.[0];
+        const d = prop.symbol.getDeclarations()?.[0];
 
-        if (!decl) {
+        if (!d) {
             continue;
         }
 
-        nonOverrideNodes.push(decl);
+        nonOverrideNodes.push({node: d, type: prop.type});
     }
 
     const inheritedMembers = [
-        ...getClassMembersFromPropertiesAndMethods(nonOverrideNodes, null),
-        ...getClassMembersFromPropertyAccessors(nonOverrideNodes, null),
+        ...getClassMembersFromPropertiesAndMethods(nonOverrideNodes),
+        ...getClassMembersFromPropertyAccessors(nonOverrideNodes),
     ];
 
     for (const inheritedMember of inheritedMembers) {
-        inheritedMember.inheritedFrom = parenName;
+        inheritedMember.inheritedFrom = parentName;
     }
 
     return inheritedMembers;
 }
 
 function getClassMembersFromPropertiesAndMethods(
-    members: ts.Node[],
-    parentSymbol: InheritedSymbol | null,
+    members: NodeWithType[],
+    parentClass?: InheritedSymbol | null,
 ): ClassMember[] {
     const result: ClassMember[] = [];
 
     for (const member of members) {
-        const isProperty = ts.isPropertyDeclaration(member);
+        const {node, type} = member;
+        const isProperty = ts.isPropertyDeclaration(node);
         const isPropertyMethod = isProperty &&
-            (isArrowFunction(member.initializer) || isFunctionExpression(member.initializer));
+            (isArrowFunction(node.initializer) || isFunctionExpression(node.initializer));
 
-        if (ts.isMethodDeclaration(member) || isPropertyMethod) {
-            result.push(createMethod(member, parentSymbol));
+        if (ts.isMethodDeclaration(node) || isPropertyMethod) {
+            result.push(createMethod({node, type}, parentClass));
             continue;
         }
 
         if (isProperty) {
-            result.push(createFieldFromProperty(member, parentSymbol));
+            result.push(createFieldFromProperty({node, type}, parentClass));
         }
     }
 
     return result;
 }
 
-function getClassMembersFromPropertyAccessors(members: ts.Node[], parentSymbol: InheritedSymbol | null): ClassMember[] {
+function getClassMembersFromPropertyAccessors(
+    members: NodeWithType[],
+    parentClass?: InheritedSymbol | null,
+): ClassMember[] {
     const result: ClassMember[] = [];
     const propertyAccessors = findAllPropertyAccessors(members);
 
     for (const propertyAccessor in propertyAccessors) {
-        const field = createFieldFromPropertyAccessor(propertyAccessors[propertyAccessor], parentSymbol);
+        const field = createFieldFromPropertyAccessor(propertyAccessors[propertyAccessor], parentClass);
 
         if (field != null) {
             result.push(field);
@@ -179,28 +179,30 @@ function getClassMembersFromPropertyAccessors(members: ts.Node[], parentSymbol: 
     return result;
 }
 
-function findAllPropertyAccessors(members: ts.Node[]): { [key: string]: PropertyAccessor } {
-    const propertyAccessors: { [key: string]: PropertyAccessor } = {};
+function findAllPropertyAccessors(members: NodeWithType[]): { [key: string]: NodeWithType<PropertyAccessor> } {
+    const propertyAccessors: { [key: string]: NodeWithType<PropertyAccessor> } = {};
 
     for (const member of members) {
-        if (ts.isGetAccessor(member)) {
-            const name = member.name?.getText() ?? '';
+        const {node, type} = member;
+
+        if (ts.isGetAccessor(node)) {
+            const name = node.name?.getText() ?? '';
 
             if (!propertyAccessors[name]) {
-                propertyAccessors[name] = {};
+                propertyAccessors[name] = {node: {}, type};
             }
 
-            propertyAccessors[name].getter = member;
+            propertyAccessors[name].node.getter = node;
         }
 
-        if (ts.isSetAccessor(member)) {
-            const name = member.name?.getText() ?? '';
+        if (ts.isSetAccessor(node)) {
+            const name = node.name?.getText() ?? '';
 
             if (!propertyAccessors[name]) {
-                propertyAccessors[name] = {};
+                propertyAccessors[name] = {node: {}, type};
             }
 
-            propertyAccessors[name].setter = member;
+            propertyAccessors[name].node.setter = node;
         }
     }
 
@@ -208,15 +210,16 @@ function findAllPropertyAccessors(members: ts.Node[]): { [key: string]: Property
 }
 
 function createMethod(
-    node: ts.MethodDeclaration | ts.PropertyDeclaration,
-    parentSymbol: InheritedSymbol | null,
+    member: NodeWithType<ts.MethodDeclaration | ts.PropertyDeclaration>,
+    parentClass?: InheritedSymbol | null,
 ): ClassMethod {
+    const {node, type} = member;
     const tmpl: ClassMethod = {
         kind: 'method',
-        ...createFunctionLike(node),
+        ...createFunctionLike(node, type),
     };
 
-    const overrides = isOverride(node) || isInheritedMember(tmpl.name, parentSymbol);
+    const overrides = isOverride(node) || isInheritedMember(tmpl.name, parentClass);
 
     tryAddProperty(tmpl, 'static', isStaticMember(node));
     tryAddProperty(tmpl, 'modifier', getVisibilityModifier(node));
@@ -227,22 +230,24 @@ function createMethod(
     return tmpl;
 }
 
-function createFieldFromProperty(node: ts.PropertyDeclaration, parentSymbol: InheritedSymbol | null): ClassField {
+function createFieldFromProperty(
+    member: NodeWithType<ts.PropertyDeclaration>,
+    parentClass?: InheritedSymbol | null,
+): ClassField {
+    const {node, type} = member;
+    const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);
     const name = node.name?.getText() ?? '';
     const defaultValue = findJSDoc<string>(JSDocTagName.default, jsDoc)?.value;
-    const userDefinedType = node.type?.getText();
+    const computedType = type ? (checker?.typeToString(type) ?? '') : '';
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const computedType = getType(node);
-    const overrides = isOverride(node) || isInheritedMember(name, parentSymbol);
+    const overrides = isOverride(node) || isInheritedMember(name, parentClass);
 
     const tmpl: ClassField = {
         kind: DeclarationKind.field,
         name,
         modifier: getVisibilityModifier(node),
-        type: jsDocDefinedType
-            ? {text: jsDocDefinedType}
-            : {text: userDefinedType ?? computedType},
+        type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
     };
 
     tryAddProperty(tmpl, 'static', isStaticMember(node));
@@ -267,10 +272,11 @@ function createConstructor(node: ts.ConstructorDeclaration): Constructor {
 }
 
 function createFieldFromPropertyAccessor(
-    propertyAccessor: PropertyAccessor,
-    parentSymbol: InheritedSymbol | null,
+    propertyAccessor: NodeWithType<PropertyAccessor>,
+    parentClass?: InheritedSymbol | null,
 ): ClassMember | null {
-    const {getter, setter} = propertyAccessor;
+    const {node, type} = propertyAccessor;
+    const {getter, setter} = node;
     const checker = Context.checker;
 
     if (getter != null) {
@@ -279,14 +285,9 @@ function createFieldFromPropertyAccessor(
         const hasReadOnlyTag = findJSDoc<boolean>(JSDocTagName.readonly, jsDoc)?.value;
         const returnStatement = getReturnStatement(getter.body);
         const returnValue = resolveExpression(returnStatement?.expression);
-
-        // If user specifies the type in the JSDoc -> we take it
         const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-
-        // The computed type from the TypeScript TypeChecker (as a last resource)
-        const computedType = checker?.typeToString(checker?.getTypeAtLocation(getter), getter) || '';
-
-        const overrides = isOverride(getter) || isInheritedMember(name, parentSymbol);
+        const computedType = type ? (checker?.typeToString(type) ?? '') : '';
+        const overrides = isOverride(getter) || isInheritedMember(name, parentClass);
 
         const tmpl: ClassField = {
             kind: DeclarationKind.field,
@@ -312,7 +313,7 @@ function createFieldFromPropertyAccessor(
     const name = setter.name?.getText();
     const jsDoc = getAllJSDoc(setter);
     const parameters = getParameters(setter);
-    const overrides = isOverride(setter) || isInheritedMember(name, parentSymbol);
+    const overrides = isOverride(setter) || isInheritedMember(name, parentClass);
 
     const tmpl: ClassField = {
         kind: DeclarationKind.field,

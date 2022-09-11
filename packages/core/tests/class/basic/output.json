@@ -29,7 +29,7 @@
                         "name": "bar",
                         "modifier": "public",
                         "type": {
-                            "text": "number"
+                            "text": "number | undefined"
                         },
                         "optional": true
                     },

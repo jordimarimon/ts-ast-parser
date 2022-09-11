@@ -7,7 +7,9 @@
                 "name": "Foo",
                 "kind": "interface",
                 "typeParameters": [
-                    "K"
+                    {
+                        "name": "K"
+                    }
                 ],
                 "members": [
                     {
@@ -82,7 +84,9 @@
                             }
                         ],
                         "typeParameters": [
-                            "T"
+                            {
+                                "name": "T"
+                            }
                         ],
                         "kind": "method"
                     },
@@ -102,7 +106,9 @@
                             }
                         ],
                         "typeParameters": [
-                            "T"
+                            {
+                                "name": "T"
+                            }
                         ],
                         "kind": "method"
                     }
