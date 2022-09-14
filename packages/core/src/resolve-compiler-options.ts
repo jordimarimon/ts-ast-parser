@@ -4,9 +4,7 @@ import path from 'path';
 
 
 export function getResolvedCompilerOptions(compilerOptions?: ts.CompilerOptions): ts.CompilerOptions {
-    let resolvedCompilerOptions = compilerOptions;
-
-    if (!resolvedCompilerOptions) {
+    if (!compilerOptions) {
         const fileExists = (filePath: string) => ts.sys.fileExists(filePath);
         const readFile = (filePath: string) => ts.sys.readFile(filePath);
         const configFileName = ts.findConfigFile(process.cwd(), fileExists, 'tsconfig.json');
@@ -21,11 +19,11 @@ export function getResolvedCompilerOptions(compilerOptions?: ts.CompilerOptions)
                 path.relative(process.cwd(), configFileName),
             );
 
-            resolvedCompilerOptions = commandLine.options;
-        } else {
-            resolvedCompilerOptions = DEFAULT_COMPILER_OPTIONS;
+            return commandLine.options;
         }
+
+        return DEFAULT_COMPILER_OPTIONS;
     }
 
-    return resolvedCompilerOptions;
+    return compilerOptions;
 }

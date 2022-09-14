@@ -8,6 +8,7 @@ import ts from 'typescript';
 
 
 export interface InheritedSymbol {
+    baseType: ts.BaseType;
     symbol: ts.Symbol | undefined;
     properties: SymbolWithType[];
 }
@@ -17,27 +18,10 @@ export interface ExtendClauseRef {
     reference: Reference;
 }
 
-export function resolveInheritedName(
-    inheritedSymbol: InheritedSymbol | null,
-    extendClauseRefs: ExtendClauseRef[],
-): string {
-    if (!inheritedSymbol) {
-        return '';
-    }
-
-    for (const extendClauseRef of extendClauseRefs) {
-        if (extendClauseRef.symbol === inheritedSymbol.symbol) {
-            return extendClauseRef.reference.name;
-        }
-    }
-
-    return '';
-}
-
 export function getInheritedSymbol(node: ts.Node): InheritedSymbol | null {
     const checker = Context.checker;
     const type = checker?.getTypeAtLocation(node);
-    const baseType = type?.getBaseTypes()?.[0]; // We want the direct parent
+    const baseType = type?.getBaseTypes()?.[0];
 
     if (!baseType) {
         return null;
@@ -48,10 +32,15 @@ export function getInheritedSymbol(node: ts.Node): InheritedSymbol | null {
 
     // We don't output metadata for the properties of 3rd party declarations.
     // For example the HTMLElement class has 287 properties... we just can't document
-    // 3rd party inheritances
-    if (isThirdPartyImport(superNode?.getSourceFile().fileName ?? '')) {
+    // 3rd party inheritances.
+    // Don't ignore utility types like `Required`, `Pick`, etc...
+    if (
+        isThirdPartyImport(superNode?.getSourceFile().fileName ?? '') &&
+        (superNode && !ts.isMappedTypeNode(superNode))
+    ) {
         return {
             symbol,
+            baseType,
             properties: [],
         };
     }
@@ -75,6 +64,7 @@ export function getInheritedSymbol(node: ts.Node): InheritedSymbol | null {
 
     return {
         symbol,
+        baseType,
         properties,
     };
 }

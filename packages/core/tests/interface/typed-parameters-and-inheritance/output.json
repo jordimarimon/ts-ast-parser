@@ -1,0 +1,112 @@
+[
+    {
+        "path": "packages/core/tests/interface/typed-parameters-and-inheritance/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "interface",
+                "typeParameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
+                "members": [
+                    {
+                        "name": "index",
+                        "indexType": {
+                            "text": "number"
+                        },
+                        "kind": "field",
+                        "indexSignature": true,
+                        "type": {
+                            "text": "T"
+                        }
+                    },
+                    {
+                        "name": "field",
+                        "kind": "field",
+                        "type": {
+                            "text": "T"
+                        }
+                    },
+                    {
+                        "name": "method",
+                        "return": {
+                            "type": {
+                                "text": "T"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "a",
+                                "type": {
+                                    "text": "T"
+                                }
+                            }
+                        ],
+                        "kind": "method"
+                    }
+                ]
+            },
+            {
+                "name": "Bar",
+                "kind": "interface",
+                "heritage": [
+                    {
+                        "name": "Foo<string>",
+                        "href": {
+                            "path": "packages/core/tests/interface/typed-parameters-and-inheritance/index.ts"
+                        },
+                        "kind": "interface"
+                    }
+                ],
+                "members": [
+                    {
+                        "name": "field",
+                        "kind": "field",
+                        "type": {
+                            "text": "string"
+                        },
+                        "inheritedFrom": "Foo<string>"
+                    },
+                    {
+                        "name": "method",
+                        "return": {
+                            "type": {
+                                "text": "string"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "a",
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ],
+                        "kind": "method",
+                        "inheritedFrom": "Foo<string>"
+                    },
+                    {
+                        "name": "childField",
+                        "kind": "field",
+                        "type": {
+                            "text": "number"
+                        }
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named"
+            },
+            {
+                "name": "Bar",
+                "type": "named"
+            }
+        ]
+    }
+]

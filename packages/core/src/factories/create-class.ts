@@ -33,7 +33,6 @@ import {
     isStaticMember,
     NodeWithType,
     resolveExpression,
-    resolveInheritedName,
     tryAddProperty,
 } from '../utils/index.js';
 
@@ -70,7 +69,7 @@ function createClass(node: NodeType, moduleDoc: Module): void {
     const parentClass = getInheritedSymbol(node);
     const classMembers = Array.from(node.members).map(m => ({node: m, type: getType(m)}));
     const extendClauseRefs = getExtendClauseReferences(node);
-    const resolvedParentClassName = resolveInheritedName(parentClass, extendClauseRefs);
+    const resolvedParentClassName = extendClauseRefs[0]?.reference?.name ?? '';
 
     let resultMembers = [
         ...getClassMembersFromPropertiesAndMethods(classMembers, parentClass),

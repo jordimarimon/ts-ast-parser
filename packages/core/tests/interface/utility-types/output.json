@@ -6,15 +6,6 @@
             {
                 "name": "RequiredProps",
                 "kind": "interface",
-                "members": [
-                    {
-                        "name": "c",
-                        "kind": "field",
-                        "type": {
-                            "text": "boolean"
-                        }
-                    }
-                ],
                 "heritage": [
                     {
                         "name": "Required<Props>",
@@ -23,20 +14,38 @@
                         },
                         "kind": "type-alias"
                     }
+                ],
+                "members": [
+                    {
+                        "name": "a",
+                        "kind": "field",
+                        "optional": true,
+                        "type": {
+                            "text": "number"
+                        },
+                        "inheritedFrom": "Required<Props>"
+                    },
+                    {
+                        "name": "b",
+                        "kind": "field",
+                        "optional": true,
+                        "type": {
+                            "text": "string"
+                        },
+                        "inheritedFrom": "Required<Props>"
+                    },
+                    {
+                        "name": "c",
+                        "kind": "field",
+                        "type": {
+                            "text": "boolean"
+                        }
+                    }
                 ]
             },
             {
                 "name": "TodoPreview",
                 "kind": "interface",
-                "members": [
-                    {
-                        "name": "preview",
-                        "kind": "field",
-                        "type": {
-                            "text": "string"
-                        }
-                    }
-                ],
                 "heritage": [
                     {
                         "name": "Pick<Todo, 'title' | 'completed'>",
@@ -44,6 +53,31 @@
                             "path": "node_modules/typescript/lib/lib.es5.d.ts"
                         },
                         "kind": "type-alias"
+                    }
+                ],
+                "members": [
+                    {
+                        "name": "title",
+                        "kind": "field",
+                        "type": {
+                            "text": "string"
+                        },
+                        "inheritedFrom": "Pick<Todo, 'title' | 'completed'>"
+                    },
+                    {
+                        "name": "completed",
+                        "kind": "field",
+                        "type": {
+                            "text": "boolean"
+                        },
+                        "inheritedFrom": "Pick<Todo, 'title' | 'completed'>"
+                    },
+                    {
+                        "name": "preview",
+                        "kind": "field",
+                        "type": {
+                            "text": "string"
+                        }
                     }
                 ]
             }

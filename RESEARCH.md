@@ -8,3 +8,4 @@ This is a list of libraries of interest from where to source ideas:
 * [Type Doc](https://typedoc.org/)
 * [Lit Analyzer](https://github.com/lit/lit/tree/main/packages/labs/analyzer)
 * [tsutils](https://github.com/ajafff/tsutils)
+* [documen.ts](https://github.com/d-fischer/documen.ts)
