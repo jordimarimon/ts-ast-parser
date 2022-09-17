@@ -1,3 +1,4 @@
+import { DeclarationKind } from './declaration-kind.js';
 import { TypeParameter } from './type-parameter.js';
 import { PropertyLike } from './property.js';
 import { FunctionLike } from './function.js';
@@ -25,12 +26,12 @@ export interface ClassMemberLike {
 }
 
 export interface ClassField extends PropertyLike, ClassMemberLike {
-    kind: 'field';
+    kind: DeclarationKind.field;
     writeOnly?: boolean;
 }
 
 export interface ClassMethod extends FunctionLike, ClassMemberLike {
-    kind: 'method';
+    kind: DeclarationKind.method;
 }
 
 export interface Constructor {
@@ -50,5 +51,5 @@ export interface ClassLike {
 }
 
 export interface ClassDeclaration extends ClassLike {
-    kind: 'class';
+    kind: DeclarationKind.class;
 }

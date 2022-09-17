@@ -1,4 +1,5 @@
 import { ClassField, ClassLike, ClassMethod } from './class.js';
+import { DeclarationKind } from './declaration-kind.js';
 import { Type } from './type.js';
 
 
@@ -10,6 +11,6 @@ export interface InterfaceField extends ClassField {
 }
 
 export interface InterfaceDeclaration extends ClassLike {
-    kind: 'interface';
+    kind: DeclarationKind.interface;
     members?: InterfaceMember[];
 }

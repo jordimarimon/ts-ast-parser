@@ -1,8 +1,9 @@
+import { DeclarationKind } from './declaration-kind.js';
 import { JSDoc } from './js-doc.js';
 
 
 export interface EnumDeclaration {
-    kind: 'enum';
+    kind: DeclarationKind.enum;
     name: string;
     members?: EnumMember[];
     jsDoc?: JSDoc;

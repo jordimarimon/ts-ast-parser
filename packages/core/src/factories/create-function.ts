@@ -1,4 +1,4 @@
-import { FunctionDeclaration, FunctionLike, Module } from '../models/index.js';
+import { DeclarationKind, FunctionDeclaration, FunctionLike, Module } from '../models/index.js';
 import { getDecorators } from '../utils/decorator.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
@@ -27,7 +27,7 @@ export const functionFactory: NodeFactory<ts.VariableStatement | ts.FunctionDecl
 
 function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, moduleDoc: Module): void {
     const tmpl: FunctionDeclaration = {
-        kind: 'function',
+        kind: DeclarationKind.function,
         ...createFunctionLike(node),
     };
 

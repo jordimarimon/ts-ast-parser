@@ -1,4 +1,4 @@
-import { DeclarationKind } from './declaration.js';
+import { DeclarationKind } from './declaration-kind.js';
 
 
 export interface Reference {

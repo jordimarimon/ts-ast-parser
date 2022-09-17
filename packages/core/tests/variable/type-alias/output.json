@@ -7,7 +7,7 @@
                 "kind": "variable",
                 "name": "name",
                 "type": {
-                    "text": "StringAlias"
+                    "text": "string"
                 },
                 "default": "'John Doe'"
             }

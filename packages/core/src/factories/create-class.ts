@@ -214,7 +214,7 @@ function createMethod(
 ): ClassMethod {
     const {node, type} = member;
     const tmpl: ClassMethod = {
-        kind: 'method',
+        kind: DeclarationKind.method,
         ...createFunctionLike(node, type),
     };
 

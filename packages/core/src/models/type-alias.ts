@@ -1,5 +1,5 @@
+import { DeclarationKind } from './declaration-kind.js';
 import { TypeParameter } from './type-parameter.js';
-import { DeclarationKind } from './declaration.js';
 import { JSDoc } from './js-doc.js';
 
 

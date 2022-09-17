@@ -1,3 +1,4 @@
+import { DeclarationKind } from './declaration-kind.js';
 import { TypeParameter } from './type-parameter.js';
 import { Parameter } from './parameter.js';
 import { Decorator } from './decorator.js';
@@ -21,5 +22,5 @@ export interface FunctionLike {
 }
 
 export interface FunctionDeclaration extends FunctionLike {
-    kind: 'function';
+    kind: DeclarationKind.function;
 }

@@ -23,7 +23,7 @@
                 "kind": "variable",
                 "name": "bar",
                 "type": {
-                    "text": "{x: number; y?: number}"
+                    "text": "{ x: number; y?: number; }"
                 },
                 "default": "{x: 4, y: 4}"
             }

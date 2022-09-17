@@ -26,10 +26,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
 
     const jsDoc = getAllJSDoc(node);
     const decorators = getDecorators(node);
-
-    // If user specifies the type in the JSDoc -> we take it
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-
     const defaultValue = findJSDoc<string>(JSDocTagName.default, jsDoc)?.value;
 
     for (const declaration of node.declarationList.declarations) {
@@ -40,18 +37,10 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
             continue;
         }
 
-        // If user specifies the type in the declaration (`const x: string = "Foo";)
-        const userDefinedType = declaration.type?.getText();
-
-        // The computed type from the TypeScript TypeChecker (as a last resource)
-        const computedType = getTypeName(declaration);
-
         const tmpl: VariableDeclaration = {
             kind: DeclarationKind.variable,
             name,
-            type: jsDocDefinedType
-                ? {text: jsDocDefinedType}
-                : {text: userDefinedType ?? computedType},
+            type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: getTypeName(declaration)},
         };
 
         tryAddProperty(tmpl, 'jsDoc', jsDoc);
