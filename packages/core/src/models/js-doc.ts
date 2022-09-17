@@ -25,6 +25,7 @@ export enum JSDocTagName {
     ignore = 'ignore',
     category = 'category',
     typedef = 'typedef',
+    typeParam = 'typeParam',
 
     // Custom Elements
     reflect = 'reflect',
@@ -59,6 +60,8 @@ export type JSDocResult =
     { kind: JSDocTagName.internal; value: boolean } |
     { kind: JSDocTagName.ignore; value: boolean } |
     { kind: JSDocTagName.category; value: string } |
+    { kind: JSDocTagName.typedef; value: { name: string; type: string } } |
+    { kind: JSDocTagName.typeParam; value: { name: string; default?: string; description: string } } |
     { kind: JSDocTagName.reflect; value: boolean } |
     { kind: JSDocTagName.cssprop; value: { name: string; default: string; description: string } } |
     { kind: JSDocTagName.cssproperty; value: { name: string; default: string; description: string } } |
