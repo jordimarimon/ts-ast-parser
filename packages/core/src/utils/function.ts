@@ -13,6 +13,10 @@ export function isAsyncFunction(func: FunctionLikeDeclaration): boolean {
     return modifiers.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
 }
 
+export function getReturnStatement(node: ts.Block | undefined): ts.ReturnStatement | undefined {
+    return node?.statements.find(ts.isReturnStatement);
+}
+
 export function isArrowFunction(expr: ts.Expression | undefined): expr is ts.ArrowFunction {
     return expr != null && ts.isArrowFunction(expr);
 }

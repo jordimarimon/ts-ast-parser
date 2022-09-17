@@ -1,5 +1,5 @@
-import { getReturnStatement } from './return-statement.js';
 import { resolveExpression } from './resolve-expression.js';
+import { getReturnStatement } from './function.js';
 import { MixinNodes } from '../models/index.js';
 import ts from 'typescript';
 

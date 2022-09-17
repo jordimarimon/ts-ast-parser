@@ -14,10 +14,15 @@ export function getType(node: ts.Node): ts.Type | undefined {
     const type = checker?.getTypeAtLocation(node);
 
     // Don't generalize the type of declarations like "const x = [4, 5] as const"
-    if (ts.hasOnlyExpressionInitializer(node) && node.initializer && ts.isAsExpression(node.initializer)) {
+    if (isExplicitTypeSet(node)) {
         return type;
     }
 
     // Don't use the inferred literal types like "const x = 4" gives "x: 4" instead of "x: number"
     return type && checker?.getBaseTypeOfLiteralType(type);
+}
+
+export function isExplicitTypeSet(node: ts.Node): boolean {
+    return ts.hasOnlyExpressionInitializer(node) && !!node.initializer &&
+        (ts.isAsExpression(node.initializer) || ts.isTypeAssertionExpression(node));
 }
