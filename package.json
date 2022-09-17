@@ -33,6 +33,7 @@
         "prepare": "./scripts/prepare.sh",
         "upgrade": "rm -rf node_modules package-lock.json && npm i",
         "bump": "npx ncu -u -x typescript,@types/node,@typescript/lib-dom",
+        "bump:pkg": "node ./scripts/bump.mjs",
         "lint": "eslint \"**/*.ts\" --max-warnings 0",
         "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0",
         "analyse": "source-map-explorer ./dist/**.js",
