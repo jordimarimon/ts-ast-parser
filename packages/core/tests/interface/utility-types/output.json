@@ -19,7 +19,6 @@
                     {
                         "name": "a",
                         "kind": "field",
-                        "optional": true,
                         "type": {
                             "text": "number"
                         },
@@ -28,7 +27,6 @@
                     {
                         "name": "b",
                         "kind": "field",
-                        "optional": true,
                         "type": {
                             "text": "string"
                         },

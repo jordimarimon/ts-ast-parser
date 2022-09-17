@@ -16,9 +16,11 @@ import {
     getAllJSDoc,
     getExtendClauseReferences,
     getInheritedSymbol,
+    getSymbolAtLocation,
     getType,
     getTypeParameters,
     InheritedSymbol,
+    isOptional,
     NodeWithType,
     tryAddProperty,
 } from '../utils/index.js';
@@ -44,10 +46,15 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
         name,
         kind: DeclarationKind.interface,
     };
+
     const parentInterface = getInheritedSymbol(node);
     const extendClauseRefs = getExtendClauseReferences(node);
     const resolvedParentInterfaceName = extendClauseRefs[0]?.reference?.name ?? '';
-    const nodeMembers = Array.from(node.members).map(m => ({node: m, type: getType(m)}));
+    const nodeMembers = Array.from(node.members).map(m => ({
+        node: m,
+        symbol: getSymbolAtLocation(m),
+        type: getType(m),
+    }));
     const interfaceMembers = getInterfaceMembers(nodeMembers);
     const inheritedMembers = getInheritedMembers(parentInterface, resolvedParentInterfaceName, interfaceMembers);
 
@@ -71,20 +78,21 @@ function getInheritedMembers(
     const nonOverrideNodes: NodeWithType[] = [];
 
     for (const prop of parentInterface.properties) {
-        const propName = prop.symbol.getName();
+        const symbol = prop.symbol;
+        const propName = symbol.getName();
 
         // Ignore override members
         if (childMembers.some(childMember => childMember.name === propName)) {
             continue;
         }
 
-        const d = prop.symbol.getDeclarations()?.[0];
+        const d = symbol.getDeclarations()?.[0];
 
         if (!d) {
             continue;
         }
 
-        nonOverrideNodes.push({node: d, type: prop.type});
+        nonOverrideNodes.push({symbol, node: d, type: prop.type});
     }
 
     const inheritedMembers = getInterfaceMembers(nonOverrideNodes);
@@ -100,18 +108,18 @@ function getInterfaceMembers(members: NodeWithType[]): ClassMember[] {
     const result: ClassMember[] = [];
 
     for (const member of members) {
-        const {node, type} = member;
+        const {node, type, symbol} = member;
 
         if (ts.isPropertySignature(node)) {
-            result.push(createInterfaceFieldFromPropertySignature({node, type}));
+            result.push(createInterfaceFieldFromPropertySignature({node, type, symbol}));
         }
 
         if (ts.isMethodSignature(node)) {
-            result.push(createInterfaceMethod({node, type}));
+            result.push(createInterfaceMethod({node, type, symbol}));
         }
 
         if (ts.isIndexSignatureDeclaration(node)) {
-            result.push(createInterfaceFieldFromIndexSignature({node, type}));
+            result.push(createInterfaceFieldFromIndexSignature({node, type, symbol}));
         }
     }
 
@@ -148,7 +156,7 @@ function createInterfaceFieldFromIndexSignature(member: NodeWithType<ts.IndexSig
 }
 
 function createInterfaceFieldFromPropertySignature(member: NodeWithType<ts.PropertySignature>): ClassMember {
-    const {node, type} = member;
+    const {node, type, symbol} = member;
 
     if (node.type?.kind === ts.SyntaxKind.FunctionType) {
         return createInterfaceMethod(member);
@@ -166,7 +174,7 @@ function createInterfaceFieldFromPropertySignature(member: NodeWithType<ts.Prope
         type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
     };
 
-    tryAddProperty(tmpl, 'optional', !!node.questionToken);
+    tryAddProperty(tmpl, 'optional', !!symbol && isOptional(symbol));
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
 
     return tmpl;

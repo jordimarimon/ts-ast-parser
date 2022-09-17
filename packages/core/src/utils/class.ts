@@ -33,6 +33,10 @@ export function isReadOnly(member: ts.ClassElement | undefined): boolean {
     return modifiers.some(mod => mod.kind === ts.SyntaxKind.ReadonlyKeyword);
 }
 
+export function isOptional(symbol: ts.Symbol): boolean {
+    return (symbol.flags & ts.SymbolFlags.Optional) === ts.SymbolFlags.Optional;
+}
+
 export function isStaticMember(member: ts.ClassElement | undefined): boolean {
     if (!member) {
         return false;

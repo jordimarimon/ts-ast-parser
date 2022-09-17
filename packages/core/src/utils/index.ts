@@ -15,3 +15,4 @@ export * from './symbol.js';
 export * from './class.js';
 export * from './types.js';
 export * from './logs.js';
+export * from './node.js';

@@ -20,6 +20,7 @@ import {
     getInheritedSymbol,
     getParameters,
     getReturnStatement,
+    getSymbolAtLocation,
     getType,
     getTypeParameters,
     getVisibilityModifier,
@@ -28,6 +29,7 @@ import {
     isArrowFunction,
     isFunctionExpression,
     isInheritedMember,
+    isOptional,
     isOverride,
     isReadOnly,
     isStaticMember,
@@ -67,7 +69,11 @@ function createClass(node: NodeType, moduleDoc: Module): void {
 
     const tmpl: ClassDeclaration = {kind: DeclarationKind.class, name};
     const parentClass = getInheritedSymbol(node);
-    const classMembers = Array.from(node.members).map(m => ({node: m, type: getType(m)}));
+    const classMembers = Array.from(node.members).map(m => ({
+        node: m,
+        symbol: getSymbolAtLocation(m),
+        type: getType(m),
+    }));
     const extendClauseRefs = getExtendClauseReferences(node);
     const resolvedParentClassName = extendClauseRefs[0]?.reference?.name ?? '';
 
@@ -107,20 +113,21 @@ function getInheritedMembers(
     const nonOverrideNodes: NodeWithType[] = [];
 
     for (const prop of parentClass.properties) {
-        const propName = prop.symbol.getName();
+        const symbol = prop.symbol;
+        const propName = symbol.getName();
 
         // Ignore override members
         if (childMembers.some(childMember => childMember.name === propName)) {
             continue;
         }
 
-        const d = prop.symbol.getDeclarations()?.[0];
+        const d = symbol.getDeclarations()?.[0];
 
         if (!d) {
             continue;
         }
 
-        nonOverrideNodes.push({node: d, type: prop.type});
+        nonOverrideNodes.push({symbol, node: d, type: prop.type});
     }
 
     const inheritedMembers = [
@@ -142,18 +149,18 @@ function getClassMembersFromPropertiesAndMethods(
     const result: ClassMember[] = [];
 
     for (const member of members) {
-        const {node, type} = member;
+        const {node, type, symbol} = member;
         const isProperty = ts.isPropertyDeclaration(node);
         const isPropertyMethod = isProperty &&
             (isArrowFunction(node.initializer) || isFunctionExpression(node.initializer));
 
         if (ts.isMethodDeclaration(node) || isPropertyMethod) {
-            result.push(createMethod({node, type}, parentClass));
+            result.push(createMethod({node, type, symbol}, parentClass));
             continue;
         }
 
         if (isProperty) {
-            result.push(createFieldFromProperty({node, type}, parentClass));
+            result.push(createFieldFromProperty({node, type, symbol}, parentClass));
         }
     }
 
@@ -182,13 +189,13 @@ function findAllPropertyAccessors(members: NodeWithType[]): { [key: string]: Nod
     const propertyAccessors: { [key: string]: NodeWithType<PropertyAccessor> } = {};
 
     for (const member of members) {
-        const {node, type} = member;
+        const {node, type, symbol} = member;
 
         if (ts.isGetAccessor(node)) {
             const name = node.name?.getText() ?? '';
 
             if (!propertyAccessors[name]) {
-                propertyAccessors[name] = {node: {}, type};
+                propertyAccessors[name] = {node: {}, type, symbol};
             }
 
             propertyAccessors[name].node.getter = node;
@@ -198,7 +205,7 @@ function findAllPropertyAccessors(members: NodeWithType[]): { [key: string]: Nod
             const name = node.name?.getText() ?? '';
 
             if (!propertyAccessors[name]) {
-                propertyAccessors[name] = {node: {}, type};
+                propertyAccessors[name] = {node: {}, type, symbol};
             }
 
             propertyAccessors[name].node.setter = node;
@@ -233,7 +240,7 @@ function createFieldFromProperty(
     member: NodeWithType<ts.PropertyDeclaration>,
     parentClass?: InheritedSymbol | null,
 ): ClassField {
-    const {node, type} = member;
+    const {node, type, symbol} = member;
     const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);
     const name = node.name?.getText() ?? '';
@@ -250,7 +257,7 @@ function createFieldFromProperty(
     };
 
     tryAddProperty(tmpl, 'static', isStaticMember(node));
-    tryAddProperty(tmpl, 'optional', !!node.questionToken);
+    tryAddProperty(tmpl, 'optional', !!symbol && isOptional(symbol));
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
     tryAddProperty(tmpl, 'decorators', getDecorators(node));
     tryAddProperty(tmpl, 'default', defaultValue ?? resolveExpression(node.initializer));
