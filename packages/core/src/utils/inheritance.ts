@@ -1,6 +1,7 @@
 import { DeclarationKind, Reference, SourceReference } from '../models/index.js';
 import { NodeWithHeritageClause, SymbolWithType } from './types.js';
 import { tryAddProperty } from './try-add-property.js';
+import { getSymbolAtLocation } from './symbol.js';
 import { isThirdPartyImport } from './import.js';
 import { getLocation } from './get-location.js';
 import { Context } from '../context.js';
@@ -72,7 +73,6 @@ export function getInheritedSymbol(node: ts.Node): InheritedSymbol | null {
 export function getExtendClauseReferences(node: NodeWithHeritageClause): ExtendClauseRef[] {
     const heritageClauses = node.heritageClauses ?? [];
     const references: ExtendClauseRef[] = [];
-    const checker = Context.checker;
 
     for (const heritageClause of heritageClauses) {
         const types = heritageClause.types ?? [];
@@ -86,7 +86,7 @@ export function getExtendClauseReferences(node: NodeWithHeritageClause): ExtendC
             }
 
             const {path, decl} = getLocation(expr);
-            const symbol = checker?.getSymbolAtLocation(expr);
+            const symbol = getSymbolAtLocation(expr);
 
             let name = expr.escapedText ?? '';
 

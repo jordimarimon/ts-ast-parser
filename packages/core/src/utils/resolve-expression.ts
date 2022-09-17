@@ -1,6 +1,5 @@
-import { getAliasedSymbolIfNecessary } from './symbol.js';
+import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
 import { isThirdPartyImport } from './import.js';
-import { Context } from '../context.js';
 import ts from 'typescript';
 
 
@@ -63,8 +62,7 @@ function parseStringToFloat(text: string): number | string {
 }
 
 function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression): unknown {
-    const checker = Context.checker;
-    const reference = getAliasedSymbolIfNecessary(checker?.getSymbolAtLocation(expr));
+    const reference = getAliasedSymbolIfNecessary(getSymbolAtLocation(expr));
     const text = expr.getText() ?? '';
     const refExpr = reference?.declarations?.[0];
     const importPath = refExpr?.getSourceFile().fileName ?? '';

@@ -1,4 +1,4 @@
-import { getAliasedSymbolIfNecessary } from './symbol.js';
+import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
 import { isNotEmptyArray } from './not-empty-array.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
@@ -24,8 +24,7 @@ export function getOriginalImportPath(node: ts.Identifier | undefined): string {
         return '';
     }
 
-    const checker = Context.checker;
-    const symbol = getAliasedSymbolIfNecessary(checker?.getSymbolAtLocation(node));
+    const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(node));
     const decl = symbol?.declarations?.[0];
     const originalFilePath = decl?.getSourceFile().fileName ?? '';
 
