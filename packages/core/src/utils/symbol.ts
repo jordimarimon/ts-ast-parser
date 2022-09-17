@@ -2,17 +2,17 @@ import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-export function getAliasedSymbolIfNecessary(symbol: ts.Symbol): ts.Symbol {
+export function getAliasedSymbolIfNecessary(symbol: ts.Symbol | undefined): ts.Symbol | undefined {
     const checker = Context.checker;
 
-    if (!checker) {
+    if (!checker || !symbol) {
         return symbol;
     }
 
     // We have to check first, because the TS TypeChecker will throw an
-    // error if there no alias
+    // error if there is no alias
     if ((symbol.flags & ts.SymbolFlags.Alias) !== 0) {
-        return checker.getAliasedSymbol(symbol);
+        return getAliasedSymbolIfNecessary(checker.getAliasedSymbol(symbol));
     }
 
     return symbol;

@@ -10,7 +10,7 @@ export function resolveExpression(expression: ts.Expression | undefined): unknow
 
     let expr = expression;
 
-    if (ts.isAsExpression(expression)) {
+    if (ts.isAsExpression(expression) || ts.isTypeAssertionExpression(expression)) {
         expr = expression.expression;
     }
 

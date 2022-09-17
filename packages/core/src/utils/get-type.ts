@@ -13,6 +13,7 @@ export function getType(node: ts.Node): ts.Type | undefined {
     const checker = Context.checker;
     const type = checker?.getTypeAtLocation(node);
 
+    // Don't generalize the type of declarations like "const x = [4, 5] as const"
     if (ts.hasOnlyExpressionInitializer(node) && node.initializer && ts.isAsExpression(node.initializer)) {
         return type;
     }

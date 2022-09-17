@@ -7,10 +7,10 @@ import ts from 'typescript';
 
 const IGNORE: string[] = [
     '!node_modules/**/*.*',
-    '!**/*.test.{js,js}',
-    '!**/*.suite.{js,js}',
-    '!**/*.config.{js,js}',
-    '!**/*.d.js',
+    '!**/*.test.{ts,js}',
+    '!**/*.suite.{ts,js}',
+    '!**/*.config.{ts,js}',
+    '!**/*.d.ts',
 ];
 
 /**

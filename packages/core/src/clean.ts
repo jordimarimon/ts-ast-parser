@@ -3,6 +3,7 @@ import {
     ClassDeclaration,
     ClassMethod,
     Constructor,
+    DeclarationKind,
     FunctionDeclaration,
     ModifierType,
     Module,
@@ -33,11 +34,11 @@ function cleanDeclaration(index: number, moduleDoc: Module): void {
         }
     }
 
-    if (decl.kind === 'class') {
+    if (decl.kind === DeclarationKind.class) {
         removeNonPublicClassElements(decl);
     }
 
-    if (decl.kind === 'function') {
+    if (decl.kind === DeclarationKind.function) {
         removeNonPublicParameters(decl);
     }
 }
@@ -53,7 +54,7 @@ function removeNonPublicClassElements(declaration: ClassDeclaration): void {
             declaration.members?.splice(i, 1);
         }
 
-        if (member?.kind === 'method') {
+        if (member?.kind === DeclarationKind.method) {
             removeNonPublicParameters(member);
         }
     }

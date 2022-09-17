@@ -17,8 +17,9 @@
                 "heritage": [
                     {
                         "name": "Foo",
+                        "kind": "class",
                         "href": {
-                            "path": "packages/core/tests/import/paths/index.ts"
+                            "path": "packages/core/tests/import/paths/foo.ts"
                         }
                     }
                 ],

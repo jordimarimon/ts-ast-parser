@@ -1,10 +1,6 @@
 import ts from 'typescript';
 
 
-// Inspired by the following resources:
-//      https://learning-notes.mistermicheels.com/javascript/typescript/compiler-api/
-//      https://github.com/AlCalzone/virtual-tsc/blob/master/src/virtual-fs.ts
-//      https://github.com/AlCalzone/virtual-tsc/blob/master/src/host.ts
 export function createCompilerHost(fileName: string, code: string): ts.CompilerHost {
 
     const sourceFile = ts.createSourceFile(fileName, code, ts.ScriptTarget.Latest, true);

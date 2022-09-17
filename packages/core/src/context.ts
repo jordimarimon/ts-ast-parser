@@ -22,6 +22,7 @@ export const Context: ParserContext = {
 
     compilerOptions: {},
 
+    // Normalizing the path depends on the environment (browser or NodeJS)
     normalizePath: path => path ?? '',
 
 };
