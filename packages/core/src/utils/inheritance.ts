@@ -39,6 +39,21 @@ export function getConstructors(node: ts.ClassDeclaration | ts.ClassExpression):
     return type?.getConstructSignatures() ?? [];
 }
 
+export function getIndexSignature(node: ts.InterfaceDeclaration): SymbolWithContextType | null {
+    const checker = Context.checker;
+    const indexSymbol = getSymbolAtLocation(node)?.members?.get('__index' as ts.__String);
+    const decl = indexSymbol?.getDeclarations()?.[0];
+
+    if (!decl || !ts.isIndexSignatureDeclaration(decl)) {
+        return null;
+    }
+
+    return {
+        symbol: indexSymbol,
+        type: checker?.getTypeOfSymbolAtLocation(indexSymbol, node),
+    };
+}
+
 export function getExtendClauseReferences(node: NodeWithHeritageClause): ExtendClauseRef[] {
     const heritageClauses = node.heritageClauses ?? [];
     const references: ExtendClauseRef[] = [];

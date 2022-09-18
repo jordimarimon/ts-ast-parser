@@ -21,6 +21,7 @@ import {
     isReadOnly,
     SymbolWithContextType,
     tryAddProperty,
+    getIndexSignature, getParameters,
 } from '../utils/index.js';
 
 
@@ -48,6 +49,11 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
     const extendClauseRefs = getExtendClauseReferences(node);
     const interfaceMembers = getInstanceProperties(node);
     const members = getMembers(interfaceMembers);
+    const indexSignatureDecl = getIndexSignature(node);
+
+    if (indexSignatureDecl) {
+        members.push(createInterfaceFieldFromIndexSignature(indexSignatureDecl));
+    }
 
     tryAddProperty(tmpl, 'heritage', extendClauseRefs.map(e => e.reference));
     tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
@@ -82,36 +88,29 @@ function tryAddDecl(decl: ts.Declaration, member: SymbolWithContextType, result:
     if (ts.isMethodSignature(decl)) {
         result.push(createInterfaceMethod(decl, member));
     }
-
-    if (ts.isIndexSignatureDeclaration(decl)) {
-        result.push(createInterfaceFieldFromIndexSignature(decl, member));
-    }
 }
 
-function createInterfaceFieldFromIndexSignature(
-    node: ts.IndexSignatureDeclaration,
-    member: SymbolWithContextType,
-): InterfaceField {
-    const checker = Context.checker;
-    const {type, inherited} = member;
+function createInterfaceFieldFromIndexSignature(member: SymbolWithContextType): InterfaceField {
+    const {symbol, type} = member;
+    const node = symbol?.getDeclarations()?.[0] as ts.IndexSignatureDeclaration;
     const jsDoc = getAllJSDoc(node);
 
     const valueJSDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const valueComputedType = (type && checker?.typeToString(type)) || '';
+    const nodeType = node.type?.getText() ?? '';
 
-    const param = node.parameters?.[0];
-    const paramComputedType = checker?.typeToString(checker?.getTypeAtLocation(param), param) || '';
+    const callSignature = type?.getCallSignatures()?.[0];
+    const param = getParameters(node, callSignature)[0];
 
     const tmpl: InterfaceField = {
-        name: param.name?.getText() ?? '',
-        indexType: {text: paramComputedType},
+        name: param?.name ?? '',
+        indexType: param?.type ?? {text: ''},
         kind: DeclarationKind.field,
         indexSignature: true,
-        type: valueJSDocDefinedType ? {text: valueJSDocDefinedType} : {text: valueComputedType},
+        type: {text: valueJSDocDefinedType || nodeType},
     };
 
     tryAddProperty(tmpl, 'optional', !!node.questionToken);
-    tryAddProperty(tmpl, 'inherited', inherited);
+    tryAddProperty(tmpl, 'inherited', false);
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
 
     return tmpl;
