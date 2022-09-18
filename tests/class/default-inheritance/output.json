@@ -33,22 +33,22 @@
                 "members": [
                     {
                         "kind": "field",
-                        "name": "foo",
-                        "modifier": "public",
-                        "type": {
-                            "text": "number"
-                        },
-                        "default": 4,
-                        "inheritedFrom": "Class1"
-                    },
-                    {
-                        "kind": "field",
                         "name": "bar",
                         "modifier": "public",
                         "type": {
                             "text": "number"
                         },
                         "default": 3
+                    },
+                    {
+                        "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4,
+                        "inherited": true
                     }
                 ]
             }

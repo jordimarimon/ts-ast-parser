@@ -23,7 +23,7 @@
                         "name": "y",
                         "kind": "field",
                         "type": {
-                            "text": "string | K | undefined"
+                            "text": "string | K"
                         },
                         "optional": true
                     },

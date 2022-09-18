@@ -23,6 +23,18 @@
             {
                 "kind": "class",
                 "name": "Greeter",
+                "constructors": [
+                    {
+                        "parameters": [
+                            {
+                                "name": "message",
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ]
+                    }
+                ],
                 "members": [
                     {
                         "kind": "field",
@@ -53,17 +65,7 @@
                         ],
                         "modifier": "public"
                     }
-                ],
-                "ctor": {
-                    "parameters": [
-                        {
-                            "name": "message",
-                            "type": {
-                                "text": "string"
-                            }
-                        }
-                    ]
-                }
+                ]
             }
         ],
         "exports": [

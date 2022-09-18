@@ -12,17 +12,24 @@
                         "href": {
                             "path": "node_modules/typescript/lib/lib.es5.d.ts"
                         },
-                        "kind": "type-alias"
+                        "kind": "interface"
                     }
                 ],
                 "members": [
+                    {
+                        "name": "c",
+                        "kind": "field",
+                        "type": {
+                            "text": "boolean"
+                        }
+                    },
                     {
                         "name": "a",
                         "kind": "field",
                         "type": {
                             "text": "number"
                         },
-                        "inheritedFrom": "Required<Props>"
+                        "inherited": true
                     },
                     {
                         "name": "b",
@@ -30,14 +37,7 @@
                         "type": {
                             "text": "string"
                         },
-                        "inheritedFrom": "Required<Props>"
-                    },
-                    {
-                        "name": "c",
-                        "kind": "field",
-                        "type": {
-                            "text": "boolean"
-                        }
+                        "inherited": true
                     }
                 ]
             },
@@ -50,17 +50,24 @@
                         "href": {
                             "path": "node_modules/typescript/lib/lib.es5.d.ts"
                         },
-                        "kind": "type-alias"
+                        "kind": "interface"
                     }
                 ],
                 "members": [
+                    {
+                        "name": "preview",
+                        "kind": "field",
+                        "type": {
+                            "text": "string"
+                        }
+                    },
                     {
                         "name": "title",
                         "kind": "field",
                         "type": {
                             "text": "string"
                         },
-                        "inheritedFrom": "Pick<Todo, 'title' | 'completed'>"
+                        "inherited": true
                     },
                     {
                         "name": "completed",
@@ -68,14 +75,7 @@
                         "type": {
                             "text": "boolean"
                         },
-                        "inheritedFrom": "Pick<Todo, 'title' | 'completed'>"
-                    },
-                    {
-                        "name": "preview",
-                        "kind": "field",
-                        "type": {
-                            "text": "string"
-                        }
+                        "inherited": true
                     }
                 ]
             }

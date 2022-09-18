@@ -43,6 +43,7 @@ function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, mod
 export function createFunctionLike(node: ts.Node, funcType?: ts.Type): FunctionLike {
     const jsDoc = getAllJSDoc(node);
     const func = getFunctionNode(node);
+    const callSignature = funcType?.getCallSignatures()?.[0];
 
     const tmpl: FunctionLike = {
         name: getFunctionName(node),
@@ -57,7 +58,7 @@ export function createFunctionLike(node: ts.Node, funcType?: ts.Type): FunctionL
 
     tryAddProperty(tmpl, 'decorators', getDecorators(node));
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
-    tryAddProperty(tmpl, 'parameters', getParameters(func, funcType));
+    tryAddProperty(tmpl, 'parameters', getParameters(func, callSignature));
     tryAddProperty(tmpl, 'typeParameters', getTypeParameters(func));
 
     if (!ts.isPropertySignature(node) && !ts.isMethodSignature(node)) {

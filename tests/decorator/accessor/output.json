@@ -23,6 +23,24 @@
             {
                 "kind": "class",
                 "name": "Point",
+                "constructors": [
+                    {
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ]
+                    }
+                ],
                 "members": [
                     {
                         "kind": "field",
@@ -64,23 +82,7 @@
                         "modifier": "public",
                         "readOnly": true
                     }
-                ],
-                "ctor": {
-                    "parameters": [
-                        {
-                            "name": "x",
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        {
-                            "name": "y",
-                            "type": {
-                                "text": "number"
-                            }
-                        }
-                    ]
-                }
+                ]
             }
         ],
         "exports": [

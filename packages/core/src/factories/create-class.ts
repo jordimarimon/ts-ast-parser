@@ -16,30 +16,25 @@ import {
 import {
     findJSDoc,
     getAllJSDoc,
+    getConstructors,
     getExtendClauseReferences,
-    getInheritedSymbol,
+    getInstanceProperties,
     getParameters,
     getReturnStatement,
-    getSymbolAtLocation,
-    getType,
+    getStaticProperties,
     getTypeParameters,
     getVisibilityModifier,
-    InheritedSymbol,
     isAbstract,
     isArrowFunction,
     isFunctionExpression,
-    isInheritedMember,
     isOptional,
-    isOverride,
     isReadOnly,
     isStaticMember,
-    NodeWithType,
     resolveExpression,
+    SymbolWithContextType,
     tryAddProperty,
 } from '../utils/index.js';
 
-
-type PropertyAccessor = { getter?: ts.GetAccessorDeclaration; setter?: ts.SetAccessorDeclaration };
 
 type NodeType = ts.ClassDeclaration | ts.ClassExpression;
 
@@ -63,191 +58,93 @@ function createClass(node: NodeType, moduleDoc: Module): void {
         return;
     }
 
-    const ctorDecl = node.members.find((member): member is ts.ConstructorDeclaration => {
-        return ts.isConstructorDeclaration(member);
-    });
-
     const tmpl: ClassDeclaration = {kind: DeclarationKind.class, name};
-    const parentClass = getInheritedSymbol(node);
-    const classMembers = Array.from(node.members).map(m => ({
-        node: m,
-        symbol: getSymbolAtLocation(m),
-        type: getType(m),
-    }));
+    const instanceProperties = getInstanceProperties(node);
+    const staticProperties = getStaticProperties(node);
     const extendClauseRefs = getExtendClauseReferences(node);
-    const resolvedParentClassName = extendClauseRefs[0]?.reference?.name ?? '';
-
-    let resultMembers = [
-        ...getClassMembersFromPropertiesAndMethods(classMembers, parentClass),
-        ...getClassMembersFromPropertyAccessors(classMembers, parentClass),
-    ];
-    resultMembers = [
-        ...getInheritedMembers(parentClass, resolvedParentClassName, resultMembers),
-        ...resultMembers,
+    const constructors = getConstructors(node);
+    const members = [
+        ...getMembers(staticProperties),
+        ...getMembers(instanceProperties),
     ];
 
+    tryAddProperty(tmpl, 'constructors', createConstructors(constructors));
     tryAddProperty(tmpl, 'decorators', getDecorators(node));
     tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
     tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
     tryAddProperty(tmpl, 'heritage', extendClauseRefs.map(e => e.reference));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
-    tryAddProperty(tmpl, 'members', resultMembers);
-
-    if (ctorDecl !== undefined) {
-        tryAddProperty(tmpl, 'ctor', createConstructor(ctorDecl));
-        resolveDefaultValueFromConstructor(tmpl, ctorDecl);
-    }
+    tryAddProperty(tmpl, 'members', members);
 
     moduleDoc.declarations.push(tmpl);
 }
 
-function getInheritedMembers(
-    parentClass: InheritedSymbol | null,
-    parentName: string,
-    childMembers: ClassMember[],
-): ClassMember[] {
-    if (!parentClass) {
-        return [];
-    }
-
-    const nonOverrideNodes: NodeWithType[] = [];
-
-    for (const prop of parentClass.properties) {
-        const symbol = prop.symbol;
-        const propName = symbol.getName();
-
-        // Ignore override members
-        if (childMembers.some(childMember => childMember.name === propName)) {
-            continue;
-        }
-
-        const d = symbol.getDeclarations()?.[0];
-
-        if (!d) {
-            continue;
-        }
-
-        nonOverrideNodes.push({symbol, node: d, type: prop.type});
-    }
-
-    const inheritedMembers = [
-        ...getClassMembersFromPropertiesAndMethods(nonOverrideNodes),
-        ...getClassMembersFromPropertyAccessors(nonOverrideNodes),
-    ];
-
-    for (const inheritedMember of inheritedMembers) {
-        inheritedMember.inheritedFrom = parentName;
-    }
-
-    return inheritedMembers;
-}
-
-function getClassMembersFromPropertiesAndMethods(
-    members: NodeWithType[],
-    parentClass?: InheritedSymbol | null,
-): ClassMember[] {
+function getMembers(members: SymbolWithContextType[]): ClassMember[] {
     const result: ClassMember[] = [];
 
     for (const member of members) {
-        const {node, type, symbol} = member;
-        const isProperty = ts.isPropertyDeclaration(node);
-        const isPropertyMethod = isProperty &&
-            (isArrowFunction(node.initializer) || isFunctionExpression(node.initializer));
+        const {symbol} = member;
+        const decl = symbol?.getDeclarations()?.[0];
 
-        if (ts.isMethodDeclaration(node) || isPropertyMethod) {
-            result.push(createMethod({node, type, symbol}, parentClass));
+        if (!decl) {
             continue;
         }
 
-        if (isProperty) {
-            result.push(createFieldFromProperty({node, type, symbol}, parentClass));
-        }
+        tryAddDecl(decl, member, result);
     }
 
     return result;
 }
 
-function getClassMembersFromPropertyAccessors(
-    members: NodeWithType[],
-    parentClass?: InheritedSymbol | null,
-): ClassMember[] {
-    const result: ClassMember[] = [];
-    const propertyAccessors = findAllPropertyAccessors(members);
+function tryAddDecl(decl: ts.Declaration, member: SymbolWithContextType, result: ClassMember[]): void {
+    const isProperty = ts.isPropertyDeclaration(decl);
+    const isPropertyMethod = isProperty &&
+        (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer));
 
-    for (const propertyAccessor in propertyAccessors) {
-        const field = createFieldFromPropertyAccessor(propertyAccessors[propertyAccessor], parentClass);
-
-        if (field != null) {
-            result.push(field);
-        }
+    if (ts.isMethodDeclaration(decl) || isPropertyMethod) {
+        result.push(createMethod(decl, member));
+        return;
     }
 
-    return result;
-}
-
-function findAllPropertyAccessors(members: NodeWithType[]): { [key: string]: NodeWithType<PropertyAccessor> } {
-    const propertyAccessors: { [key: string]: NodeWithType<PropertyAccessor> } = {};
-
-    for (const member of members) {
-        const {node, type, symbol} = member;
-
-        if (ts.isGetAccessor(node)) {
-            const name = node.name?.getText() ?? '';
-
-            if (!propertyAccessors[name]) {
-                propertyAccessors[name] = {node: {}, type, symbol};
-            }
-
-            propertyAccessors[name].node.getter = node;
-        }
-
-        if (ts.isSetAccessor(node)) {
-            const name = node.name?.getText() ?? '';
-
-            if (!propertyAccessors[name]) {
-                propertyAccessors[name] = {node: {}, type, symbol};
-            }
-
-            propertyAccessors[name].node.setter = node;
-        }
+    if (isProperty) {
+        result.push(createFieldFromProperty(decl, member));
+        return;
     }
 
-    return propertyAccessors;
+    if (ts.isGetAccessor(decl) || ts.isSetAccessor(decl)) {
+        result.push(createFieldFromPropertyAccessor(member));
+    }
 }
 
 function createMethod(
-    member: NodeWithType<ts.MethodDeclaration | ts.PropertyDeclaration>,
-    parentClass?: InheritedSymbol | null,
+    node: ts.MethodDeclaration | ts.PropertyDeclaration,
+    member: SymbolWithContextType,
 ): ClassMethod {
-    const {node, type, symbol} = member;
+    const {symbol, type, inherited, overrides} = member;
     const tmpl: ClassMethod = {
         kind: DeclarationKind.method,
         ...createFunctionLike(node, type),
     };
-
-    const overrides = isOverride(node) || isInheritedMember(tmpl.name, parentClass);
 
     tryAddProperty(tmpl, 'static', isStaticMember(node));
     tryAddProperty(tmpl, 'modifier', getVisibilityModifier(node));
     tryAddProperty(tmpl, 'readOnly', isReadOnly(symbol, node));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'override', overrides);
+    tryAddProperty(tmpl, 'inherited', !overrides && inherited);
 
     return tmpl;
 }
 
-function createFieldFromProperty(
-    member: NodeWithType<ts.PropertyDeclaration>,
-    parentClass?: InheritedSymbol | null,
-): ClassField {
-    const {node, type, symbol} = member;
+function createFieldFromProperty(node: ts.PropertyDeclaration, member: SymbolWithContextType): ClassField {
+    const {inherited, type, symbol, overrides} = member;
     const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);
     const name = node.name?.getText() ?? '';
     const defaultValue = findJSDoc<string>(JSDocTagName.default, jsDoc)?.value;
     const computedType = type ? (checker?.typeToString(type) ?? '') : '';
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const overrides = isOverride(node) || isInheritedMember(name, parentClass);
+    const hasReadOnlyTag = findJSDoc<boolean>(JSDocTagName.readonly, jsDoc)?.value;
 
     const tmpl: ClassField = {
         kind: DeclarationKind.field,
@@ -261,29 +158,42 @@ function createFieldFromProperty(
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
     tryAddProperty(tmpl, 'decorators', getDecorators(node));
     tryAddProperty(tmpl, 'default', defaultValue ?? resolveExpression(node.initializer));
-    tryAddProperty(tmpl, 'readOnly', isReadOnly(symbol, node));
+    tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? isReadOnly(symbol, node));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'override', overrides);
+    tryAddProperty(tmpl, 'inherited', !overrides && inherited);
 
     return tmpl;
 }
 
-function createConstructor(node: ts.ConstructorDeclaration): Constructor {
-    const ctor: Constructor = {};
+function createConstructors(signatures: readonly ts.Signature[]): Constructor[] {
+    const result: Constructor[] = [];
 
-    tryAddProperty(ctor, 'jsDoc', getAllJSDoc(node));
-    tryAddProperty(ctor, 'parameters', getParameters(node));
+    for (const sign of signatures) {
+        const ctor: Constructor = {};
+        const decl = sign.getDeclaration();
 
-    return ctor;
+        if (!decl) {
+            continue;
+        }
+
+        tryAddProperty(ctor, 'jsDoc', getAllJSDoc(decl));
+        tryAddProperty(ctor, 'parameters', getParameters(decl, sign));
+
+        if (Object.keys(ctor).length) {
+            result.push(ctor);
+        }
+    }
+
+    return result;
 }
 
-function createFieldFromPropertyAccessor(
-    propertyAccessor: NodeWithType<PropertyAccessor>,
-    parentClass?: InheritedSymbol | null,
-): ClassMember | null {
-    const {node, type} = propertyAccessor;
-    const {getter, setter} = node;
+function createFieldFromPropertyAccessor(member: SymbolWithContextType): ClassMember {
     const checker = Context.checker;
+    const {symbol, type, inherited, overrides} = member;
+    const decls = symbol?.getDeclarations() ?? [];
+    const getter = decls.find(ts.isGetAccessor);
+    const hasSetter = decls.some(ts.isSetAccessor);
 
     if (getter != null) {
         const name = getter.name?.getText();
@@ -293,7 +203,6 @@ function createFieldFromPropertyAccessor(
         const returnValue = resolveExpression(returnStatement?.expression);
         const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
         const computedType = type ? (checker?.typeToString(type) ?? '') : '';
-        const overrides = isOverride(getter) || isInheritedMember(name, parentClass);
 
         const tmpl: ClassField = {
             kind: DeclarationKind.field,
@@ -306,25 +215,26 @@ function createFieldFromPropertyAccessor(
         tryAddProperty(tmpl, 'static', isStaticMember(getter));
         tryAddProperty(tmpl, 'override', overrides);
         tryAddProperty(tmpl, 'modifier', getVisibilityModifier(getter));
-        tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? setter === undefined);
+        tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? (isReadOnly(symbol, getter) || !hasSetter));
         tryAddProperty(tmpl, 'default', returnValue);
+        tryAddProperty(tmpl, 'inherited', !overrides && inherited);
 
         return tmpl;
     }
 
-    if (setter == null) {
-        return null;
-    }
-
-    const name = setter.name?.getText();
+    // We can assume it exists because this function is only called when there
+    // is a property accessor defined and if the GetAccessor is not defined,
+    // it must be the SetAccessor.
+    const setter = decls.find(ts.isSetAccessor) as ts.SetAccessorDeclaration;
+    const name = setter.name?.getText() ?? '';
     const jsDoc = getAllJSDoc(setter);
-    const parameters = getParameters(setter);
-    const overrides = isOverride(setter) || isInheritedMember(name, parentClass);
+    const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
+    const computedType = type ? (checker?.typeToString(type) ?? '') : '';
 
     const tmpl: ClassField = {
         kind: DeclarationKind.field,
         name,
-        type: parameters[0]?.type ?? {text: ''},
+        type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
         writeOnly: true,
     };
 
@@ -333,42 +243,7 @@ function createFieldFromPropertyAccessor(
     tryAddProperty(tmpl, 'override', overrides);
     tryAddProperty(tmpl, 'modifier', getVisibilityModifier(setter));
     tryAddProperty(tmpl, 'decorators', getDecorators(setter));
+    tryAddProperty(tmpl, 'inherited', !overrides && inherited);
 
     return tmpl;
-}
-
-function resolveDefaultValueFromConstructor(tmpl: ClassDeclaration, ctorDecl: ts.ConstructorDeclaration): void {
-    const statements = ctorDecl.body?.statements ?? [];
-
-    for (const statement of statements) {
-        if (!ts.isExpressionStatement(statement)) {
-            continue;
-        }
-
-        const expr = statement.expression;
-
-        if (!ts.isBinaryExpression(expr)) {
-            continue;
-        }
-
-        const lhs = expr.left;
-
-        // We want something like `this.bar = ...`
-        if (!ts.isPropertyAccessExpression(lhs)) {
-            continue;
-        }
-
-        const lhsName = lhs.name.getText() ?? '';
-        const field = tmpl.members?.find(mem => mem.kind === 'field' && mem.name === lhsName) as ClassField | undefined;
-        const rhs = expr.right;
-
-        // If the right hand side value is a constructor parameter, we can't resolve the value statically
-        if (ts.isIdentifier(rhs) && tmpl.ctor?.parameters?.some(param => param.name === rhs.escapedText)) {
-            continue;
-        }
-
-        if (field?.default === '') {
-            field.default = resolveExpression(rhs);
-        }
-    }
 }

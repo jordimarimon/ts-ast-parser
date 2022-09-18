@@ -59,8 +59,10 @@ function removeNonPublicClassElements(declaration: ClassDeclaration): void {
         }
     }
 
-    if (declaration.ctor !== undefined) {
-        removeNonPublicParameters(declaration.ctor);
+    const constructors = declaration.constructors ?? [];
+
+    for (const ctor of constructors) {
+        removeNonPublicParameters(ctor);
     }
 }
 

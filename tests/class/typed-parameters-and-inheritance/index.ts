@@ -9,6 +9,14 @@ export interface TypeY<T> {
 export class ClassB<T = unknown> {
     fieldInB?: T;
 
+    set setterInB(a: T) {
+        this.fieldInB = a;
+    }
+
+    constructor(value: T) {
+        this.fieldInB = value;
+    }
+
     myFunction(a: T): T {
         return a;
     }

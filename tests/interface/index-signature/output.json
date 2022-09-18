@@ -5,36 +5,12 @@
         "declarations": [
             {
                 "name": "StringArray",
-                "kind": "interface",
-                "members": [
-                    {
-                        "name": "index",
-                        "indexType": {
-                            "text": "number"
-                        },
-                        "kind": "field",
-                        "indexSignature": true,
-                        "type": {
-                            "text": "string"
-                        }
-                    }
-                ]
+                "kind": "interface"
             },
             {
                 "name": "NumberOrStringDictionary",
                 "kind": "interface",
                 "members": [
-                    {
-                        "name": "index",
-                        "indexType": {
-                            "text": "string"
-                        },
-                        "kind": "field",
-                        "indexSignature": true,
-                        "type": {
-                            "text": "number | string"
-                        }
-                    },
                     {
                         "name": "length",
                         "kind": "field",

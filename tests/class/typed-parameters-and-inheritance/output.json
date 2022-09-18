@@ -34,10 +34,22 @@
             {
                 "kind": "class",
                 "name": "ClassB",
+                "constructors": [
+                    {
+                        "parameters": [
+                            {
+                                "name": "value",
+                                "type": {
+                                    "text": "T"
+                                }
+                            }
+                        ]
+                    }
+                ],
                 "typeParameters": [
                     {
-                        "default": "unknown",
-                        "name": "T"
+                        "name": "T",
+                        "default": "unknown"
                     }
                 ],
                 "members": [
@@ -46,9 +58,18 @@
                         "name": "fieldInB",
                         "modifier": "public",
                         "type": {
-                            "text": "T | undefined"
+                            "text": "T"
                         },
                         "optional": true
+                    },
+                    {
+                        "kind": "field",
+                        "name": "setterInB",
+                        "type": {
+                            "text": "T"
+                        },
+                        "writeOnly": true,
+                        "modifier": "public"
                     },
                     {
                         "kind": "method",
@@ -73,6 +94,18 @@
             {
                 "kind": "class",
                 "name": "ClassA",
+                "constructors": [
+                    {
+                        "parameters": [
+                            {
+                                "name": "value",
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ]
+                    }
+                ],
                 "heritage": [
                     {
                         "name": "ClassB<string>",
@@ -85,13 +118,41 @@
                 "members": [
                     {
                         "kind": "field",
+                        "name": "interfaceField",
+                        "modifier": "public",
+                        "type": {
+                            "text": "TypeY<string>"
+                        },
+                        "optional": true
+                    },
+                    {
+                        "kind": "field",
+                        "name": "typeField",
+                        "modifier": "public",
+                        "type": {
+                            "text": "TypeX<string>"
+                        },
+                        "optional": true
+                    },
+                    {
+                        "kind": "field",
                         "name": "fieldInB",
                         "modifier": "public",
                         "type": {
                             "text": "string"
                         },
                         "optional": true,
-                        "inheritedFrom": "ClassB<string>"
+                        "inherited": true
+                    },
+                    {
+                        "kind": "field",
+                        "name": "setterInB",
+                        "type": {
+                            "text": "string"
+                        },
+                        "writeOnly": true,
+                        "modifier": "public",
+                        "inherited": true
                     },
                     {
                         "kind": "method",
@@ -110,25 +171,7 @@
                             }
                         ],
                         "modifier": "public",
-                        "inheritedFrom": "ClassB<string>"
-                    },
-                    {
-                        "kind": "field",
-                        "name": "interfaceField",
-                        "modifier": "public",
-                        "type": {
-                            "text": "TypeY<string> | undefined"
-                        },
-                        "optional": true
-                    },
-                    {
-                        "kind": "field",
-                        "name": "typeField",
-                        "modifier": "public",
-                        "type": {
-                            "text": "TypeX<string> | undefined"
-                        },
-                        "optional": true
+                        "inherited": true
                     }
                 ]
             }

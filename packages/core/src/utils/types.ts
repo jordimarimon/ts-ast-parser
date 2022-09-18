@@ -1,4 +1,5 @@
 import ts from 'typescript';
+import { Reference } from '../models/index.js';
 
 
 export type FunctionLikeDeclaration = ts.FunctionDeclaration |
@@ -11,6 +12,8 @@ export type FunctionLikeDeclaration = ts.FunctionDeclaration |
 
 export type GeneratorFunction = ts.FunctionDeclaration | ts.FunctionExpression | ts.MethodDeclaration;
 
+export type InterfaceOrClassDeclaration = ts.ClassDeclaration | ts.ClassExpression | ts.InterfaceDeclaration;
+
 export type NodeWithTypeParameter = ts.TypeAliasDeclaration |
     ts.InterfaceDeclaration |
     ts.ClassDeclaration |
@@ -20,10 +23,21 @@ export type NodeWithTypeParameter = ts.TypeAliasDeclaration |
 
 export type NodeWithParameters = FunctionLikeDeclaration |
     ts.SetAccessorDeclaration |
+    ts.SignatureDeclaration |
     ts.ConstructorDeclaration;
 
 export type NodeWithHeritageClause = ts.InterfaceDeclaration | ts.ClassDeclaration | ts.ClassExpression;
 
-export type NodeWithType<T = ts.Node> = {symbol: ts.Symbol | undefined; node: T; type: ts.Type | undefined};
+export type SymbolWithLocation = { path: string; symbol: ts.Symbol | undefined };
 
-export type SymbolWithType = {symbol: ts.Symbol; type: ts.Type | undefined};
+export type SymbolWithContextType = {
+    symbol: ts.Symbol | undefined;
+    type: ts.Type | undefined;
+    overrides?: boolean;
+    inherited?: boolean;
+};
+
+export type ExtendClauseRef = {
+    symbol: ts.Symbol | undefined;
+    reference: Reference;
+};

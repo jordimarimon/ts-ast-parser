@@ -22,7 +22,7 @@ export interface ClassMemberLike {
     readOnly?: boolean;
     abstract?: boolean;
     override?: boolean;
-    inheritedFrom?: string;
+    inherited?: boolean;
 }
 
 export interface ClassField extends PropertyLike, ClassMemberLike {
@@ -46,7 +46,7 @@ export interface ClassLike {
     typeParameters?: TypeParameter[];
     heritage?: Reference[];
     decorators?: Decorator[];
-    ctor?: Constructor;
+    constructors?: Constructor[];
     abstract?: boolean;
 }
 

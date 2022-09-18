@@ -6,6 +6,30 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "constructors": [
+                    {
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "message",
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ]
+                    }
+                ],
                 "jsDoc": [
                     {
                         "kind": "description",
@@ -18,7 +42,7 @@
                         "name": "staticBar",
                         "modifier": "public",
                         "type": {
-                            "text": "string"
+                            "text": "\"Hello World\""
                         },
                         "static": true,
                         "default": "'Hello World'",
@@ -29,7 +53,7 @@
                         "name": "bar",
                         "modifier": "public",
                         "type": {
-                            "text": "number | undefined"
+                            "text": "number"
                         },
                         "optional": true
                     },
@@ -71,29 +95,7 @@
                         },
                         "modifier": "public"
                     }
-                ],
-                "ctor": {
-                    "parameters": [
-                        {
-                            "name": "x",
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        {
-                            "name": "y",
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        {
-                            "name": "message",
-                            "type": {
-                                "text": "string"
-                            }
-                        }
-                    ]
-                }
+                ]
             }
         ],
         "exports": [

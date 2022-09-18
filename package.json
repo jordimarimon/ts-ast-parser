@@ -22,7 +22,7 @@
     },
     "scripts": {
         "start": "npm-run-all -p dev:*",
-        "build": "tsc --build packages/${PACKAGE:-*}/tsconfig.build.json",
+        "build": "tsc --build packages/${PACKAGE:-*}/tsconfig.json",
         "doc": "npm-run-all clear:doc -p build:*",
         "build:11ty": "NODE_ENV=production eleventy --config=.eleventy.cjs",
         "build:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css",

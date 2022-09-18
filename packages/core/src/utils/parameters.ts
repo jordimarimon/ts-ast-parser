@@ -8,15 +8,13 @@ import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-export function getParameters(node: NodeWithParameters, functionLikeType?: ts.Type): Parameter[] {
+export function getParameters(node: NodeWithParameters, callSignature?: ts.Signature): Parameter[] {
     // In class methods, we use the type from the call
     // signature to resolve types based on implementation in cases where
     // the methods uses typed parameters
 
     const parameters: Parameter[] = [];
     const originalParameters = node?.parameters ?? [];
-    const callSignature = functionLikeType?.getCallSignatures()?.[0];
-
 
     for (let i = 0; i < originalParameters.length; i++) {
         const param = originalParameters[i];

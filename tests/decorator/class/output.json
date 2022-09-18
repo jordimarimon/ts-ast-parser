@@ -23,6 +23,18 @@
             {
                 "kind": "class",
                 "name": "BugReport",
+                "constructors": [
+                    {
+                        "parameters": [
+                            {
+                                "name": "t",
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ]
+                    }
+                ],
                 "decorators": [
                     {
                         "name": "sealed",
@@ -49,17 +61,7 @@
                             "text": "string"
                         }
                     }
-                ],
-                "ctor": {
-                    "parameters": [
-                        {
-                            "name": "t",
-                            "type": {
-                                "text": "string"
-                            }
-                        }
-                    ]
-                }
+                ]
             }
         ],
         "exports": [

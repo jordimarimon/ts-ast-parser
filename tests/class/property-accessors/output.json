@@ -8,16 +8,6 @@
                 "name": "Foo",
                 "members": [
                     {
-                        "kind": "method",
-                        "name": "log",
-                        "return": {
-                            "type": {
-                                "text": "void"
-                            }
-                        },
-                        "modifier": "public"
-                    },
-                    {
                         "kind": "field",
                         "name": "staticBar",
                         "type": {
@@ -44,6 +34,16 @@
                             "text": "number"
                         },
                         "writeOnly": true,
+                        "modifier": "public"
+                    },
+                    {
+                        "kind": "method",
+                        "name": "log",
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
                         "modifier": "public"
                     }
                 ]

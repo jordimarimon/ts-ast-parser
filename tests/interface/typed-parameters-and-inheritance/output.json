@@ -13,17 +13,6 @@
                 ],
                 "members": [
                     {
-                        "name": "index",
-                        "indexType": {
-                            "text": "number"
-                        },
-                        "kind": "field",
-                        "indexSignature": true,
-                        "type": {
-                            "text": "T"
-                        }
-                    },
-                    {
                         "name": "field",
                         "kind": "field",
                         "type": {
@@ -63,12 +52,19 @@
                 ],
                 "members": [
                     {
+                        "name": "childField",
+                        "kind": "field",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
                         "name": "field",
                         "kind": "field",
                         "type": {
                             "text": "string"
                         },
-                        "inheritedFrom": "Foo<string>"
+                        "inherited": true
                     },
                     {
                         "name": "method",
@@ -86,14 +82,7 @@
                             }
                         ],
                         "kind": "method",
-                        "inheritedFrom": "Foo<string>"
-                    },
-                    {
-                        "name": "childField",
-                        "kind": "field",
-                        "type": {
-                            "text": "number"
-                        }
+                        "inherited": true
                     }
                 ]
             }
