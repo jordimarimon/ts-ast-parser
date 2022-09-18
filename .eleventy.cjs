@@ -23,12 +23,12 @@ module.exports = (eleventyConfig) => {
         });
     });
     eleventyConfig.addCollection('writers', (collections) => {
-        return collections.getFilteredByTag('toMarkdown').sort((a, b) => {
+        return collections.getFilteredByTag('writers').sort((a, b) => {
             return a.data.order - b.data.order;
         });
     });
     eleventyConfig.addCollection('readers', (collections) => {
-        return collections.getFilteredByTag('toMarkdown').sort((a, b) => {
+        return collections.getFilteredByTag('readers').sort((a, b) => {
             return a.data.order - b.data.order;
         });
     });
