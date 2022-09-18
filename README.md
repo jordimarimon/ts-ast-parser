@@ -28,7 +28,7 @@
 
 ## What it is
 
-Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata.  
+Simplifies the TypeScript AST generated from the TypeScript compiler to help extract helpful metadata.
 
 This metadata then can be used to generate documentation.
 
@@ -59,10 +59,13 @@ Also provides:
 
 - Helper class for reading and searching in the metadata **(coming soon)**
 
-## Packages
+## Projects in this monorepo
 
-* [@ts-ast-parser/core](./packages/core)
-* [@ts-ast-parser/to-markdown](./packages/writers)
+| Name                                         | Description                                                                            |
+|----------------------------------------------|----------------------------------------------------------------------------------------|
+| [@ts-ast-parser/core](./packages/core)       | Reads the TS Compiler AST and outputs a simplified version of it                       |
+| [@ts-ast-parser/writers](./packages/writers) | Generates Markdown or HTML from the output of [@ts-ast-parser/core](./packages/core)   |
+| [@ts-ast-parser/readers](./packages/readers) | Facilitates reading and searching the output of [@ts-ast-parser/core](./packages/core) |
 
 ## Documentation
 
