@@ -5,6 +5,7 @@
     "description": "Simplifies TypeScript AST for generating documentation",
     "homepage": "https://jordimarimon.github.io/ts-ast-parser",
     "license": "MIT",
+    "type": "module",
     "workspaces": [
         "packages/*"
     ],
@@ -23,9 +24,9 @@
         "start": "npm-run-all -p dev:*",
         "build": "tsc --build packages/${PACKAGE:-*}/tsconfig.build.json",
         "doc": "npm-run-all clear:doc -p build:*",
-        "build:11ty": "NODE_ENV=production eleventy",
+        "build:11ty": "NODE_ENV=production eleventy --config=.eleventy.cjs",
         "build:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css",
-        "dev:11ty": "eleventy --serve",
+        "dev:11ty": "eleventy --serve --config=.eleventy.cjs",
         "dev:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css --watch",
         "deploy:doc": "gh-pages -d _site -m \"docs: update documentation\"",
         "test": "vitest run --config vitest.config.ts",

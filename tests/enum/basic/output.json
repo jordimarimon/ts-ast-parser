@@ -1,0 +1,36 @@
+[
+    {
+        "path": "tests/enum/basic/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "enum",
+                "name": "Fruit",
+                "members": [
+                    {
+                        "name": "Apple",
+                        "value": 0
+                    },
+                    {
+                        "name": "Orange",
+                        "value": 1
+                    },
+                    {
+                        "name": "Mango",
+                        "value": 2
+                    },
+                    {
+                        "name": "Cherry",
+                        "value": 3
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Fruit",
+                "type": "named"
+            }
+        ]
+    }
+]

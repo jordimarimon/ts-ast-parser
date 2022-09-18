@@ -1,0 +1,46 @@
+[
+    {
+        "path": "tests/variable/complex-types/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "foo",
+                "type": {
+                    "text": "Colors"
+                },
+                "default": "Colors.Red"
+            },
+            {
+                "kind": "variable",
+                "name": "blue",
+                "type": {
+                    "text": "Colors"
+                },
+                "default": "Colors.Blue"
+            },
+            {
+                "kind": "variable",
+                "name": "bar",
+                "type": {
+                    "text": "{ x: number; y?: number; }"
+                },
+                "default": "{x: 4, y: 4}"
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "type": "named"
+            },
+            {
+                "name": "blue",
+                "type": "named"
+            },
+            {
+                "name": "bar",
+                "type": "named"
+            }
+        ]
+    }
+]

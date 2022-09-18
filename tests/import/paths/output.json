@@ -1,0 +1,74 @@
+[
+    {
+        "path": "tests/import/paths/index.ts",
+        "imports": [
+            {
+                "name": "Foo",
+                "kind": "named",
+                "importPath": "custom-path/foo",
+                "isBareModuleSpecifier": true,
+                "originalPath": "tests/import/paths/foo.ts"
+            }
+        ],
+        "declarations": [
+            {
+                "kind": "class",
+                "name": "Bar",
+                "heritage": [
+                    {
+                        "name": "Foo",
+                        "kind": "class",
+                        "href": {
+                            "path": "tests/import/paths/foo.ts"
+                        }
+                    }
+                ],
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "bar",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4,
+                        "override": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Bar",
+                "type": "named"
+            }
+        ]
+    },
+    {
+        "path": "tests/import/paths/foo.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "class",
+                "name": "Foo",
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "bar",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named"
+            }
+        ]
+    }
+]

@@ -1,0 +1,76 @@
+[
+    {
+        "path": "tests/class/third-party-inheritance/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "class",
+                "name": "FooElement",
+                "heritage": [
+                    {
+                        "name": "HTMLElement",
+                        "href": {
+                            "path": "node_modules/@typescript/lib-dom/index.d.ts"
+                        },
+                        "kind": "interface"
+                    }
+                ],
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    }
+                ]
+            },
+            {
+                "kind": "class",
+                "name": "BarElement",
+                "heritage": [
+                    {
+                        "name": "FooElement",
+                        "href": {
+                            "path": "tests/class/third-party-inheritance/index.ts"
+                        },
+                        "kind": "class"
+                    }
+                ],
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3,
+                        "inheritedFrom": "FooElement"
+                    },
+                    {
+                        "kind": "field",
+                        "name": "bar",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "FooElement",
+                "type": "named"
+            },
+            {
+                "name": "BarElement",
+                "type": "named"
+            }
+        ]
+    }
+]

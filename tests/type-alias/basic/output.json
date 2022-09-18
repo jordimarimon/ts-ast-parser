@@ -1,0 +1,19 @@
+[
+    {
+        "path": "tests/type-alias/basic/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "type-alias",
+                "value": "{\n    bar: number;\n}"
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named"
+            }
+        ]
+    }
+]

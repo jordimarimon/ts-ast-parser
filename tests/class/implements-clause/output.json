@@ -1,0 +1,86 @@
+[
+    {
+        "path": "tests/class/implements-clause/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Bar",
+                "kind": "interface",
+                "members": [
+                    {
+                        "name": "add",
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ],
+                        "kind": "method"
+                    }
+                ]
+            },
+            {
+                "kind": "class",
+                "name": "Foo",
+                "heritage": [
+                    {
+                        "name": "Bar",
+                        "href": {
+                            "path": "tests/class/implements-clause/index.ts"
+                        },
+                        "kind": "interface"
+                    }
+                ],
+                "members": [
+                    {
+                        "kind": "method",
+                        "name": "add",
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ],
+                        "modifier": "public"
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Bar",
+                "type": "named"
+            },
+            {
+                "name": "Foo",
+                "type": "named"
+            }
+        ]
+    }
+]

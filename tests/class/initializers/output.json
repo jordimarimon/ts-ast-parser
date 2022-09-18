@@ -1,0 +1,65 @@
+[
+    {
+        "path": "tests/class/initializers/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "class",
+                "name": "Foo",
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "bar",
+                        "modifier": "public",
+                        "type": {
+                            "text": "string | undefined"
+                        },
+                        "readOnly": true
+                    },
+                    {
+                        "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "'foo'"
+                    },
+                    {
+                        "kind": "field",
+                        "name": "x",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    },
+                    {
+                        "kind": "field",
+                        "name": "y",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    },
+                    {
+                        "kind": "field",
+                        "name": "myAdd",
+                        "modifier": "public",
+                        "type": {
+                            "text": "(x: number, y: number) => number"
+                        },
+                        "default": "add"
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named"
+            }
+        ]
+    }
+]

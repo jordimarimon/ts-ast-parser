@@ -1,0 +1,22 @@
+[
+    {
+        "path": "tests/from-glob/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "foo",
+                "type": {
+                    "text": "boolean"
+                },
+                "default": true
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "type": "named"
+            }
+        ]
+    }
+]

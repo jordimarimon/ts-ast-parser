@@ -1,0 +1,175 @@
+[
+    {
+        "path": "tests/class/inheritance/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "class",
+                "name": "Class1",
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    },
+                    {
+                        "kind": "method",
+                        "name": "someMethod",
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ],
+                        "modifier": "public"
+                    }
+                ]
+            },
+            {
+                "kind": "class",
+                "name": "Class2",
+                "heritage": [
+                    {
+                        "name": "Class1",
+                        "href": {
+                            "path": "tests/class/inheritance/index.ts"
+                        },
+                        "kind": "class"
+                    }
+                ],
+                "members": [
+                    {
+                        "kind": "method",
+                        "name": "someMethod",
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ],
+                        "modifier": "public",
+                        "inheritedFrom": "Class1"
+                    },
+                    {
+                        "kind": "field",
+                        "name": "bar",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4
+                    },
+                    {
+                        "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 5,
+                        "override": true
+                    }
+                ]
+            },
+            {
+                "kind": "class",
+                "name": "Class3",
+                "heritage": [
+                    {
+                        "name": "Class2",
+                        "href": {
+                            "path": "tests/class/inheritance/index.ts"
+                        },
+                        "kind": "class"
+                    }
+                ],
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "foo",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 5,
+                        "override": true,
+                        "inheritedFrom": "Class2"
+                    },
+                    {
+                        "kind": "field",
+                        "name": "bar",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 5,
+                        "override": true
+                    },
+                    {
+                        "kind": "method",
+                        "name": "someMethod",
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ],
+                        "modifier": "public",
+                        "override": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Class1",
+                "type": "named"
+            },
+            {
+                "name": "Class2",
+                "type": "named"
+            },
+            {
+                "name": "Class3",
+                "type": "named"
+            }
+        ]
+    }
+]

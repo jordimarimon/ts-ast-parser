@@ -1,0 +1,66 @@
+[
+    {
+        "path": "tests/interface/index-signature/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "StringArray",
+                "kind": "interface",
+                "members": [
+                    {
+                        "name": "index",
+                        "indexType": {
+                            "text": "number"
+                        },
+                        "kind": "field",
+                        "indexSignature": true,
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "NumberOrStringDictionary",
+                "kind": "interface",
+                "members": [
+                    {
+                        "name": "index",
+                        "indexType": {
+                            "text": "string"
+                        },
+                        "kind": "field",
+                        "indexSignature": true,
+                        "type": {
+                            "text": "number | string"
+                        }
+                    },
+                    {
+                        "name": "length",
+                        "kind": "field",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "kind": "field",
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "StringArray",
+                "type": "named"
+            },
+            {
+                "name": "NumberOrStringDictionary",
+                "type": "named"
+            }
+        ]
+    }
+]

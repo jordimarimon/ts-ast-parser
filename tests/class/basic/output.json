@@ -1,0 +1,106 @@
+[
+    {
+        "path": "tests/class/basic/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "class",
+                "name": "Foo",
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "Example `Foo` class"
+                    }
+                ],
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "staticBar",
+                        "modifier": "public",
+                        "type": {
+                            "text": "string"
+                        },
+                        "static": true,
+                        "default": "'Hello World'",
+                        "readOnly": true
+                    },
+                    {
+                        "kind": "field",
+                        "name": "bar",
+                        "modifier": "public",
+                        "type": {
+                            "text": "number | undefined"
+                        },
+                        "optional": true
+                    },
+                    {
+                        "kind": "field",
+                        "name": "message",
+                        "modifier": "public",
+                        "type": {
+                            "text": "string | undefined"
+                        },
+                        "readOnly": true
+                    },
+                    {
+                        "kind": "method",
+                        "name": "log",
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "message",
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ],
+                        "modifier": "public",
+                        "readOnly": true
+                    },
+                    {
+                        "kind": "method",
+                        "name": "add",
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "modifier": "public"
+                    }
+                ],
+                "ctor": {
+                    "parameters": [
+                        {
+                            "name": "x",
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        {
+                            "name": "y",
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        {
+                            "name": "message",
+                            "type": {
+                                "text": "string"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "type": "named"
+            }
+        ]
+    }
+]

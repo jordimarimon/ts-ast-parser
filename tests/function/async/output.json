@@ -1,0 +1,34 @@
+[
+    {
+        "path": "tests/function/async/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "sleep",
+                "return": {
+                    "type": {
+                        "text": "Promise<void>"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "amount",
+                        "type": {
+                            "text": "number"
+                        },
+                        "optional": true,
+                        "default": 500
+                    }
+                ],
+                "async": true
+            }
+        ],
+        "exports": [
+            {
+                "name": "sleep",
+                "type": "named"
+            }
+        ]
+    }
+]

@@ -1,0 +1,7 @@
+{
+    "layout": "base",
+    "tags": "writers",
+    "module": "writers",
+    "withHeader": true,
+    "withSideBar": true
+}

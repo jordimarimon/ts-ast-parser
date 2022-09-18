@@ -1,0 +1,22 @@
+[
+    {
+        "path": "tests/export/named/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "foo",
+                "type": {
+                    "text": "number"
+                },
+                "default": 4
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "type": "named"
+            }
+        ]
+    }
+]

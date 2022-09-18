@@ -62,7 +62,7 @@ Also provides:
 ## Packages
 
 * [@ts-ast-parser/core](./packages/core)
-* [@ts-ast-parser/to-markdown](./packages/to-markdown)
+* [@ts-ast-parser/to-markdown](./packages/writers)
 
 ## Documentation
 

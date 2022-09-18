@@ -1,0 +1,91 @@
+[
+    {
+        "path": "tests/function/anonymous/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "myAdd",
+                "return": {
+                    "type": {
+                        "text": "number"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "x",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "name": "y",
+                        "type": {
+                            "text": "number"
+                        }
+                    }
+                ]
+            },
+            {
+                "kind": "function",
+                "name": "myAdd2",
+                "return": {
+                    "type": {
+                        "text": "number"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "x",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "name": "y",
+                        "type": {
+                            "text": "number"
+                        }
+                    }
+                ]
+            },
+            {
+                "kind": "function",
+                "name": "",
+                "return": {
+                    "type": {
+                        "text": "number"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "x",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "name": "y",
+                        "type": {
+                            "text": "number"
+                        }
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "myAdd",
+                "type": "named"
+            },
+            {
+                "name": "myAdd2",
+                "type": "named"
+            },
+            {
+                "name": "",
+                "type": "default"
+            }
+        ]
+    }
+]

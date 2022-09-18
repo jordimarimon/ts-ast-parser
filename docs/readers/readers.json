@@ -1,0 +1,7 @@
+{
+    "layout": "base",
+    "tags": "readers",
+    "module": "readers",
+    "withHeader": true,
+    "withSideBar": true
+}

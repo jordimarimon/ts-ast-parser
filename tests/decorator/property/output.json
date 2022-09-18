@@ -1,0 +1,120 @@
+[
+    {
+        "path": "tests/decorator/property/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "name": "formatMetadataKey",
+                "type": {
+                    "text": "unique symbol"
+                },
+                "default": "Symbol('format')"
+            },
+            {
+                "kind": "function",
+                "name": "format",
+                "return": {
+                    "type": {
+                        "text": "{ (target: Function): void; (target: Object, propertyKey: string | symbol): void; }"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "formatString",
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ]
+            },
+            {
+                "kind": "function",
+                "name": "getFormat",
+                "return": {
+                    "type": {
+                        "text": "any"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "target",
+                        "type": {
+                            "text": "Greeter"
+                        }
+                    },
+                    {
+                        "name": "propertyKey",
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ]
+            },
+            {
+                "kind": "class",
+                "name": "Greeter",
+                "members": [
+                    {
+                        "kind": "field",
+                        "name": "greeting",
+                        "modifier": "public",
+                        "type": {
+                            "text": "string"
+                        },
+                        "decorators": [
+                            {
+                                "name": "format",
+                                "parameters": [
+                                    "'Hello, %s'"
+                                ],
+                                "href": {
+                                    "path": "tests/decorator/property/index.ts"
+                                }
+                            }
+                        ],
+                        "readOnly": true
+                    },
+                    {
+                        "kind": "method",
+                        "name": "greet",
+                        "return": {
+                            "type": {
+                                "text": "string"
+                            }
+                        },
+                        "modifier": "public"
+                    }
+                ],
+                "ctor": {
+                    "parameters": [
+                        {
+                            "name": "message",
+                            "type": {
+                                "text": "string"
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "exports": [
+            {
+                "name": "formatMetadataKey",
+                "type": "named"
+            },
+            {
+                "name": "format",
+                "type": "named"
+            },
+            {
+                "name": "getFormat",
+                "type": "named"
+            },
+            {
+                "name": "Greeter",
+                "type": "named"
+            }
+        ]
+    }
+]

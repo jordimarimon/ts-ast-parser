@@ -29,7 +29,12 @@
         "lib": [
             "es2020",
             "dom"
-        ]
+        ],
+        "paths": {
+            "@ts-ast-parser/*": [
+                "./packages/*/src"
+            ]
+        }
     },
     "exclude": [
         "**node_modules**"
