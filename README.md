@@ -54,6 +54,7 @@ Supported output formats:
 
 - JSON
 - Markdown **(coming soon)**
+- HTML **(coming soon)**
 
 Also provides:
 
