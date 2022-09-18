@@ -219,7 +219,7 @@ function createMethod(
     member: NodeWithType<ts.MethodDeclaration | ts.PropertyDeclaration>,
     parentClass?: InheritedSymbol | null,
 ): ClassMethod {
-    const {node, type} = member;
+    const {node, type, symbol} = member;
     const tmpl: ClassMethod = {
         kind: DeclarationKind.method,
         ...createFunctionLike(node, type),
@@ -229,7 +229,7 @@ function createMethod(
 
     tryAddProperty(tmpl, 'static', isStaticMember(node));
     tryAddProperty(tmpl, 'modifier', getVisibilityModifier(node));
-    tryAddProperty(tmpl, 'readOnly', isReadOnly(node));
+    tryAddProperty(tmpl, 'readOnly', isReadOnly(symbol, node));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'override', overrides);
 
@@ -257,11 +257,11 @@ function createFieldFromProperty(
     };
 
     tryAddProperty(tmpl, 'static', isStaticMember(node));
-    tryAddProperty(tmpl, 'optional', !!symbol && isOptional(symbol));
+    tryAddProperty(tmpl, 'optional', isOptional(symbol));
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
     tryAddProperty(tmpl, 'decorators', getDecorators(node));
     tryAddProperty(tmpl, 'default', defaultValue ?? resolveExpression(node.initializer));
-    tryAddProperty(tmpl, 'readOnly', isReadOnly(node));
+    tryAddProperty(tmpl, 'readOnly', isReadOnly(symbol, node));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'override', overrides);
 

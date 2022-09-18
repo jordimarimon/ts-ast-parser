@@ -111,6 +111,14 @@
                             }
                         ],
                         "kind": "method"
+                    },
+                    {
+                        "kind": "field",
+                        "name": "z",
+                        "readOnly": true,
+                        "type": {
+                            "text": "number"
+                        }
                     }
                 ]
             }

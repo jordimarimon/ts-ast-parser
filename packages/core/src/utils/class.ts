@@ -23,21 +23,21 @@ export function getVisibilityModifier(member: ts.ClassElement): ModifierType {
     return ModifierType.public;
 }
 
-export function isReadOnly(member: ts.ClassElement | undefined): boolean {
-    if (!member) {
+export function isReadOnly(symbol: ts.Symbol | undefined, member: ts.Declaration | undefined): boolean {
+    if (!member || !symbol) {
         return false;
     }
 
-    const modifiers = ts.canHaveModifiers(member) ? (ts.getModifiers(member) ?? []) : [];
+    const modifiers = ts.getCombinedModifierFlags(member);
 
-    return modifiers.some(mod => mod.kind === ts.SyntaxKind.ReadonlyKeyword);
+    return (modifiers & ts.ModifierFlags.Readonly) === ts.ModifierFlags.Readonly;
 }
 
-export function isOptional(symbol: ts.Symbol): boolean {
-    return (symbol.flags & ts.SymbolFlags.Optional) === ts.SymbolFlags.Optional;
+export function isOptional(symbol: ts.Symbol | undefined): boolean {
+    return !!symbol && (symbol.flags & ts.SymbolFlags.Optional) === ts.SymbolFlags.Optional;
 }
 
-export function isStaticMember(member: ts.ClassElement | undefined): boolean {
+export function isStaticMember(member: ts.Declaration | undefined): boolean {
     if (!member) {
         return false;
     }
@@ -47,7 +47,7 @@ export function isStaticMember(member: ts.ClassElement | undefined): boolean {
     return modifiers.some(mod => mod.kind === ts.SyntaxKind.StaticKeyword);
 }
 
-export function isAbstract(member: ts.ClassElement | ts.ClassExpression | ts.ClassDeclaration | undefined): boolean {
+export function isAbstract(member: ts.Declaration | undefined): boolean {
     if (!member) {
         return false;
     }
@@ -57,7 +57,7 @@ export function isAbstract(member: ts.ClassElement | ts.ClassExpression | ts.Cla
     return modifiers.some(mod => mod.kind === ts.SyntaxKind.AbstractKeyword);
 }
 
-export function isOverride(member: ts.ClassElement | undefined): boolean {
+export function isOverride(member: ts.Declaration | undefined): boolean {
     if (!member) {
         return false;
     }

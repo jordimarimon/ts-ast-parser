@@ -6,4 +6,5 @@ export interface Foo<K> {
     checkBar(): Promise<void>;
     barWithTypedParameter<T>(c: T): T;
     arrowFuncWithTypedParameters: <T>(c: T) => T;
+    readonly z: number;
 }

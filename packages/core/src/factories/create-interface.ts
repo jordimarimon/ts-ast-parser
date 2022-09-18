@@ -20,7 +20,7 @@ import {
     getType,
     getTypeParameters,
     InheritedSymbol,
-    isOptional,
+    isOptional, isReadOnly,
     NodeWithType,
     tryAddProperty,
 } from '../utils/index.js';
@@ -174,7 +174,8 @@ function createInterfaceFieldFromPropertySignature(member: NodeWithType<ts.Prope
         type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
     };
 
-    tryAddProperty(tmpl, 'optional', !!symbol && isOptional(symbol));
+    tryAddProperty(tmpl, 'readOnly', isReadOnly(symbol, node));
+    tryAddProperty(tmpl, 'optional', isOptional(symbol));
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
 
     return tmpl;
