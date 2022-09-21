@@ -53,7 +53,7 @@
         "@typescript-eslint/parser": "^5.37.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.72",
         "@vitest/coverage-c8": "^0.23.2",
-        "ace-builds": "^1.10.1",
+        "ace-builds": "^1.11.0",
         "autoprefixer": "^10.4.11",
         "c8": "^7.12.0",
         "chalk": "^5.0.1",
