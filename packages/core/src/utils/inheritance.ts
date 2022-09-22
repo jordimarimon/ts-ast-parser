@@ -1,3 +1,4 @@
+import { InterfaceOrClassDeclaration, NodeWithHeritageClause, SymbolWithContextType } from './types.js';
 import { DeclarationKind, Reference, SourceReference } from '../models/index.js';
 import { tryAddProperty } from './try-add-property.js';
 import { getSymbolAtLocation } from './symbol.js';
@@ -6,12 +7,6 @@ import { getLocation } from './get-location.js';
 import { Context } from '../context.js';
 import { isOverride } from './class.js';
 import ts from 'typescript';
-import {
-    ExtendClauseRef,
-    InterfaceOrClassDeclaration,
-    NodeWithHeritageClause,
-    SymbolWithContextType,
-} from './types.js';
 
 
 export function getInstanceProperties(node: InterfaceOrClassDeclaration): SymbolWithContextType[] {
@@ -54,9 +49,9 @@ export function getIndexSignature(node: ts.InterfaceDeclaration): SymbolWithCont
     };
 }
 
-export function getExtendClauseReferences(node: NodeWithHeritageClause): ExtendClauseRef[] {
+export function getExtendClauseReferences(node: NodeWithHeritageClause): Reference[] {
     const heritageClauses = node.heritageClauses ?? [];
-    const references: ExtendClauseRef[] = [];
+    const references: Reference[] = [];
 
     for (const heritageClause of heritageClauses) {
         const types = heritageClause.types ?? [];
@@ -85,7 +80,7 @@ export function getExtendClauseReferences(node: NodeWithHeritageClause): ExtendC
             tryAddProperty(ref, 'href', sourceRef);
             tryAddProperty(ref, 'kind', getInterfaceOrClassSymbolKind(symbol));
 
-            references.push({reference: ref, symbol});
+            references.push(ref);
         }
     }
 

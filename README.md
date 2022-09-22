@@ -49,6 +49,7 @@ Extracts metadata from:
 - Inheritance
 - Mixins **(coming soon)**
 - Custom elements **(coming soon)**
+- JS Files **(coming soon)**
 
 Supported output formats:
 

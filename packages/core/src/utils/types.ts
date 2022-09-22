@@ -1,5 +1,4 @@
 import ts from 'typescript';
-import { Reference } from '../models/index.js';
 
 
 export type FunctionLikeDeclaration = ts.FunctionDeclaration |
@@ -35,9 +34,4 @@ export type SymbolWithContextType = {
     type: ts.Type | undefined;
     overrides?: boolean;
     inherited?: boolean;
-};
-
-export type ExtendClauseRef = {
-    symbol: ts.Symbol | undefined;
-    reference: Reference;
 };

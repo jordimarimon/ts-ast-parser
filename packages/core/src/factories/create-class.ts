@@ -61,7 +61,6 @@ function createClass(node: NodeType, moduleDoc: Module): void {
     const tmpl: ClassDeclaration = {kind: DeclarationKind.class, name};
     const instanceProperties = getInstanceProperties(node);
     const staticProperties = getStaticProperties(node);
-    const extendClauseRefs = getExtendClauseReferences(node);
     const constructors = getConstructors(node);
     const members = [
         ...getMembers(staticProperties),
@@ -72,7 +71,7 @@ function createClass(node: NodeType, moduleDoc: Module): void {
     tryAddProperty(tmpl, 'decorators', getDecorators(node));
     tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
     tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
-    tryAddProperty(tmpl, 'heritage', extendClauseRefs.map(e => e.reference));
+    tryAddProperty(tmpl, 'heritage', getExtendClauseReferences(node));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'members', members);
 
@@ -83,20 +82,20 @@ function getMembers(members: SymbolWithContextType[]): ClassMember[] {
     const result: ClassMember[] = [];
 
     for (const member of members) {
-        const {symbol} = member;
-        const decl = symbol?.getDeclarations()?.[0];
-
-        if (!decl) {
-            continue;
-        }
-
-        tryAddDecl(decl, member, result);
+        tryAddDecl(member, result);
     }
 
     return result;
 }
 
-function tryAddDecl(decl: ts.Declaration, member: SymbolWithContextType, result: ClassMember[]): void {
+function tryAddDecl(member: SymbolWithContextType, result: ClassMember[]): void {
+    const {symbol} = member;
+    const decl = symbol?.getDeclarations()?.[0];
+
+    if (!decl) {
+        return;
+    }
+
     const isProperty = ts.isPropertyDeclaration(decl);
     const isPropertyMethod = isProperty &&
         (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer));

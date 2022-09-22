@@ -14,14 +14,15 @@ import {
 import {
     findJSDoc,
     getAllJSDoc,
-    getInstanceProperties,
     getExtendClauseReferences,
+    getIndexSignature,
+    getInstanceProperties,
+    getParameters,
     getTypeParameters,
     isOptional,
     isReadOnly,
     SymbolWithContextType,
     tryAddProperty,
-    getIndexSignature, getParameters,
 } from '../utils/index.js';
 
 
@@ -46,7 +47,6 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
         kind: DeclarationKind.interface,
     };
 
-    const extendClauseRefs = getExtendClauseReferences(node);
     const interfaceMembers = getInstanceProperties(node);
     const members = getMembers(interfaceMembers);
     const indexSignatureDecl = getIndexSignature(node);
@@ -55,7 +55,7 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
         members.push(createInterfaceFieldFromIndexSignature(indexSignatureDecl));
     }
 
-    tryAddProperty(tmpl, 'heritage', extendClauseRefs.map(e => e.reference));
+    tryAddProperty(tmpl, 'heritage', getExtendClauseReferences(node));
     tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
     tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
     tryAddProperty(tmpl, 'members', members);
@@ -67,20 +67,20 @@ function getMembers(members: SymbolWithContextType[]): ClassMember[] {
     const result: ClassMember[] = [];
 
     for (const member of members) {
-        const {symbol} = member;
-        const decl = symbol?.getDeclarations()?.[0];
-
-        if (!decl) {
-            continue;
-        }
-
-        tryAddDecl(decl, member, result);
+        tryAddDecl(member, result);
     }
 
     return result;
 }
 
-function tryAddDecl(decl: ts.Declaration, member: SymbolWithContextType, result: ClassMember[]): void {
+function tryAddDecl(member: SymbolWithContextType, result: ClassMember[]): void {
+    const {symbol} = member;
+    const decl = symbol?.getDeclarations()?.[0];
+
+    if (!decl) {
+        return;
+    }
+
     if (ts.isPropertySignature(decl)) {
         result.push(createInterfaceFieldFromPropertySignature(decl, member));
     }
