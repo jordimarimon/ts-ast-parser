@@ -1,4 +1,4 @@
-import { parseFromFiles, Options } from '@ts-ast-parser/core';
+import { parseFromFiles, Options, Module } from '@ts-ast-parser/core';
 import ts from 'typescript';
 import path from 'path';
 import fs from 'fs';
@@ -12,7 +12,7 @@ export function getFixture(
     importedFiles: string[] = [],
     options: Partial<Options> = {},
     compilerOptions?: ts.CompilerOptions,
-): { actual: unknown; expected: unknown } {
+): { actual: Module[]; expected: Module[] } {
     const testFilePath = getTestFilePath(category, subcategory);
     const expectedOutputFile = readExpectedOutput(category, subcategory);
     const importedFilePaths = importedFiles.map(fileName => {
@@ -27,11 +27,11 @@ export function logObject(obj: unknown): void {
     console.log(JSON.stringify(obj, null, 4));
 }
 
-export function readExpectedOutput(category: string, subcategory = '', fileName = 'output.json'): unknown {
+export function readExpectedOutput(category: string, subcategory = '', fileName = 'output.json'): Module[] {
     const expectedOutputPath = path.join(basedDir, category, subcategory, fileName);
 
     if (!fs.existsSync(expectedOutputPath)) {
-        return;
+        return [];
     }
 
     return JSON.parse(fs.readFileSync(expectedOutputPath, 'utf-8'));

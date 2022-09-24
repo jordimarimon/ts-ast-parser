@@ -10,6 +10,10 @@ export class Reader {
         this._modules = modules.map(mod => new ModuleReader(mod));
     }
 
+    getAll(): ModuleReader[] {
+        return this._modules;
+    }
+
     getAllModulesWithPath(path: string): ModuleReader[] {
         const regExp = new RegExp(path);
 
