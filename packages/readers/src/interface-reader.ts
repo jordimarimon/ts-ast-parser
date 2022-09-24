@@ -3,10 +3,10 @@ import { DeclarationKind, InterfaceDeclaration } from '@ts-ast-parser/core';
 
 export class InterfaceReader {
 
-    private readonly _name: string;
+    private readonly _decl: InterfaceDeclaration;
 
     constructor(decl: InterfaceDeclaration) {
-        this._name = decl.name;
+        this._decl = decl;
     }
 
     getKind(): DeclarationKind {
@@ -14,7 +14,7 @@ export class InterfaceReader {
     }
 
     getName(): string {
-        return this._name;
+        return this._decl.name ?? '';
     }
 
 }

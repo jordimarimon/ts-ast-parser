@@ -3,49 +3,34 @@ import { Import, ImportType } from '@ts-ast-parser/core';
 
 export class ImportReader {
 
-    private readonly _name: string;
-
-    private readonly _kind: ImportType;
-
-    private readonly _path: string;
-
-    private readonly _originalPath: string;
-
-    private readonly _isBareModule: boolean;
-
-    private readonly _isTypeOnly: boolean;
+    private readonly _import: Import;
 
     constructor(imp: Import) {
-        this._name = imp.name;
-        this._kind = imp.kind;
-        this._path = imp.importPath;
-        this._originalPath = imp.originalPath ?? imp.importPath;
-        this._isBareModule = !!imp.isBareModuleSpecifier;
-        this._isTypeOnly = !!imp.isTypeOnly;
+        this._import = imp;
     }
 
     getName(): string {
-        return this._name;
+        return this._import.name ?? '';
     }
 
     getKind(): ImportType {
-        return this._kind;
+        return this._import.kind;
     }
 
     getPath(): string {
-        return this._path;
+        return this._import.importPath ?? '';
     }
 
     getOriginalPath(): string {
-        return this._originalPath;
+        return this._import.originalPath ?? '';
     }
 
     isBareModule(): boolean {
-        return this._isBareModule;
+        return !!this._import.isBareModuleSpecifier;
     }
 
     isTypeOnly(): boolean {
-        return this._isTypeOnly;
+        return !!this._import.isTypeOnly;
     }
 
 }

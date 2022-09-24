@@ -3,13 +3,10 @@ import { ClassDeclaration, DeclarationKind } from '@ts-ast-parser/core';
 
 export class ClassReader {
 
-    private readonly _name: string;
-
-    private readonly _abstract: boolean;
+    private readonly _decl: ClassDeclaration;
 
     constructor(decl: ClassDeclaration) {
-        this._name = decl.name;
-        this._abstract = !!decl.abstract;
+        this._decl = decl;
     }
 
     getKind(): DeclarationKind {
@@ -17,11 +14,11 @@ export class ClassReader {
     }
 
     getName(): string {
-        return this._name;
+        return this._decl.name ?? '';
     }
 
     isAbstract(): boolean {
-        return this._abstract;
+        return !!this._decl.abstract;
     }
 
 }

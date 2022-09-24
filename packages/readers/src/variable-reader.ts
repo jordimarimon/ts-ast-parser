@@ -3,10 +3,10 @@ import { DeclarationKind, VariableDeclaration } from '@ts-ast-parser/core';
 
 export class VariableReader {
 
-    private readonly _name: string;
+    private readonly _decl: VariableDeclaration;
 
     constructor(decl: VariableDeclaration) {
-        this._name = decl.name;
+        this._decl = decl;
     }
 
     getKind(): DeclarationKind {
@@ -14,7 +14,7 @@ export class VariableReader {
     }
 
     getName(): string {
-        return this._name;
+        return this._decl.name ?? '';
     }
 
 }

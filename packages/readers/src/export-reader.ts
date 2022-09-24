@@ -3,39 +3,30 @@ import { Export, ExportType } from '@ts-ast-parser/core';
 
 export class ExportReader {
 
-    private readonly _name: string;
-
-    private readonly _type: ExportType;
-
-    private readonly _isTypeOnly: boolean;
-
-    private readonly _referenceName: string | undefined;
+    private readonly _export: Export;
 
     constructor(exp: Export) {
-        this._name = exp.name;
-        this._type = exp.type;
-        this._isTypeOnly = !!exp.isTypeOnly;
-        this._referenceName = exp.referenceName;
+        this._export = exp;
     }
 
     getName(): string {
-        return this._name;
+        return this._export.name ?? '';
     }
 
     getType(): ExportType {
-        return this._type;
+        return this._export.type;
     }
 
     getReferenceName(): string {
-        return this._referenceName ?? '';
+        return this._export.referenceName ?? '';
     }
 
     isTypeOnly(): boolean {
-        return this._isTypeOnly;
+        return !!this._export.isTypeOnly;
     }
 
     isReexport(): boolean {
-        return this._referenceName != undefined;
+        return this._export.referenceName != undefined;
     }
 
 }

@@ -3,10 +3,10 @@ import { DeclarationKind, EnumDeclaration } from '@ts-ast-parser/core';
 
 export class EnumReader {
 
-    private readonly _name: string;
+    private readonly _decl;
 
     constructor(decl: EnumDeclaration) {
-        this._name = decl.name;
+        this._decl = decl;
     }
 
     getKind(): DeclarationKind {
@@ -14,7 +14,7 @@ export class EnumReader {
     }
 
     getName(): string {
-        return this._name;
+        return this._decl.name ?? '';
     }
 
 }

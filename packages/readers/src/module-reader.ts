@@ -13,7 +13,7 @@ import { EnumReader } from './enum-reader.js';
 
 export class ModuleReader {
 
-    private readonly _path: string;
+    private readonly _module: Module;
 
     private readonly _imports: ImportReader[];
 
@@ -22,14 +22,14 @@ export class ModuleReader {
     private readonly _declarations: DeclarationReader[];
 
     constructor(module: Module) {
-        this._path = module.path;
+        this._module = module;
         this._imports = module.imports.map(imp => new ImportReader(imp));
         this._exports = module.exports.map(exp => new ExportReader(exp));
         this._declarations = module.declarations.map(decl => this._createDeclarationReader(decl));
     }
 
     getPath(): string {
-        return this._path;
+        return this._module.path ?? '';
     }
 
     getImports(): ImportReader[] {

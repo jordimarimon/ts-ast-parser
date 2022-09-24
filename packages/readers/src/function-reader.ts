@@ -3,10 +3,10 @@ import { DeclarationKind, FunctionDeclaration } from '@ts-ast-parser/core';
 
 export class FunctionReader {
 
-    private readonly _name: string;
+    private readonly _decl: FunctionDeclaration;
 
     constructor(decl: FunctionDeclaration) {
-        this._name = decl.name;
+        this._decl = decl;
     }
 
     getKind(): DeclarationKind {
@@ -14,7 +14,7 @@ export class FunctionReader {
     }
 
     getName(): string {
-        return this._name;
+        return this._decl.name ?? '';
     }
 
 }
