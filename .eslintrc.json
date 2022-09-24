@@ -4,6 +4,7 @@
         "node": true
     },
     "overrides": [
+
         {
             "files": "**/*.ts",
             "parser": "@typescript-eslint/parser",
@@ -380,6 +381,14 @@
                         "extendDefaults": true
                     }
                 ]
+            }
+        },
+
+        {
+            "files": "tests/**/*.ts",
+            "rules": {
+                "no-unused-expressions": "off",
+                "@typescript-eslint/no-unused-expressions": "off"
             }
         }
     ]

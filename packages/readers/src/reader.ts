@@ -28,4 +28,8 @@ export class Reader {
         return this._modules.filter(mod => mod.getImports().find(imp => imp.getName() === importSymbolName));
     }
 
+    getAllModulesWithExport(exportSymbolName: string): ModuleReader[] {
+        return this._modules.filter(mod => mod.getExports().find(imp => imp.getName() === exportSymbolName));
+    }
+
 }
