@@ -54,8 +54,6 @@ Extracts metadata from:
 Supported output formats:
 
 - JSON
-- Markdown **(coming soon)**
-- HTML **(coming soon)**
 
 Also provides:
 
@@ -66,7 +64,6 @@ Also provides:
 | Name                                         | Description                                                                            |
 |----------------------------------------------|----------------------------------------------------------------------------------------|
 | [@ts-ast-parser/core](./packages/core)       | Reads the TS Compiler AST and outputs a simplified version of it                       |
-| [@ts-ast-parser/writers](./packages/writers) | Generates Markdown or HTML from the output of [@ts-ast-parser/core](./packages/core)   |
 | [@ts-ast-parser/readers](./packages/readers) | Facilitates reading and searching the output of [@ts-ast-parser/core](./packages/core) |
 
 ## Documentation
