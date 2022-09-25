@@ -1,11 +1,14 @@
 import { ClassDeclaration, DeclarationKind } from '@ts-ast-parser/core';
+import { JSDocReader } from './jsdoc-reader.js';
 
 
-export class ClassReader {
+export class ClassReader extends JSDocReader {
 
     private readonly _decl: ClassDeclaration;
 
     constructor(decl: ClassDeclaration) {
+        super(decl.jsDoc);
+
         this._decl = decl;
     }
 

@@ -1,12 +1,19 @@
 import { DeclarationKind, TypeAliasDeclaration } from '@ts-ast-parser/core';
+import { TypeParameterReader } from './type-parameter-reader.js';
+import { JSDocReader } from './jsdoc-reader.js';
 
 
-export class TypeAliasReader {
+export class TypeAliasReader extends JSDocReader {
 
     private readonly _decl: TypeAliasDeclaration;
 
+    private readonly _typeParams: TypeParameterReader[];
+
     constructor(decl: TypeAliasDeclaration) {
+        super(decl.jsDoc);
+
         this._decl = decl;
+        this._typeParams = (decl.typeParameters ?? []).map(t => new TypeParameterReader(t));
     }
 
     getKind(): DeclarationKind {
@@ -15,6 +22,14 @@ export class TypeAliasReader {
 
     getName(): string {
         return this._decl.name ?? '';
+    }
+
+    getValue(): string {
+        return this._decl.value ?? '';
+    }
+
+    getTypeParameters(): TypeParameterReader[] {
+        return this._typeParams;
     }
 
 }

@@ -1,35 +1,21 @@
-import { JSDoc, JSDocTagName, JSDocTagValue } from '@ts-ast-parser/core';
+import { JSDoc, JSDocTagValue } from '@ts-ast-parser/core';
 
 
 export class JSDocReader {
 
-    private readonly _jsDoc: JSDoc;
+    private readonly _jsDoc: {[key: string]: JSDocTagValue} = {};
 
     constructor(jsDoc: JSDoc = []) {
-        this._jsDoc = jsDoc;
-    }
-
-    getJSDocTag(name: string): JSDocTagValue {
-        return this._jsDoc.find(tag => tag.kind === name) as JSDocTagValue;
+        jsDoc.forEach(tag => {
+            this._jsDoc[tag.kind] = tag.value as JSDocTagValue;
+        });
     }
 
     hasJSDocTag(name: string): boolean {
-        return this._jsDoc.some(tag => tag.kind === name);
+        return this._jsDoc[name] !== undefined;
     }
 
-    getJSDocDescription(): string {
-        const tagValue = this.getJSDocTag(JSDocTagName.description) as string;
-
-        return tagValue ?? '';
-    }
-
-    getJSDocSummary(): string {
-        const tagValue = this.getJSDocTag(JSDocTagName.summary) as string;
-
-        return tagValue ?? '';
-    }
-
-    isDeprecated(): boolean {
-        return this._jsDoc.some(tag => tag.kind === JSDocTagName.deprecated);
+    getJSDocTag(name: string): JSDocTagValue | undefined {
+        return this._jsDoc[name];
     }
 }
