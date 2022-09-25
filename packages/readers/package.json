@@ -39,8 +39,5 @@
     "dependencies": {
         "@ts-ast-parser/core": "0.0.0",
         "tslib": "^2.4.0"
-    },
-    "peerDependencies": {
-        "typescript": "^4.8.2"
     }
 }
