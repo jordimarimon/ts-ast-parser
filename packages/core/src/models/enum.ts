@@ -12,4 +12,5 @@ export interface EnumDeclaration {
 export interface EnumMember {
     name: string;
     value: string | number;
+    jsDoc?: JSDoc;
 }

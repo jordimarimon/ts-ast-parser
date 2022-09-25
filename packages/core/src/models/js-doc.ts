@@ -40,9 +40,19 @@ export enum JSDocTagName {
     tagname = 'tagname',
 }
 
+export type JSDocTagObjectValue = {
+    name?: string;
+    type?: string;
+    default?: string;
+    optional?: boolean;
+    description?: string;
+};
+
+export type JSDocTagValue = JSDocTagObjectValue | string | boolean;
+
 export type JSDocResult =
     { kind: JSDocTagName.description; value: string } |
-    { kind: JSDocTagName.param; value: { name: string; default: string; options: boolean; description: string } } |
+    { kind: JSDocTagName.param; value: { name: string; default: string; optional: boolean; description: string } } |
     { kind: JSDocTagName.returns; value: string } |
     { kind: JSDocTagName.type; value: string } |
     { kind: JSDocTagName.summary; value: string } |

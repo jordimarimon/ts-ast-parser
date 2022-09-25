@@ -56,7 +56,10 @@ function getEnumMembers(node: ts.EnumDeclaration): EnumMember[] {
             value = defaultInitializer++;
         }
 
-        members.push({name, value});
+        const tmpl: EnumMember = {name, value};
+        tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(member));
+
+        members.push(tmpl);
     }
 
     return members;
