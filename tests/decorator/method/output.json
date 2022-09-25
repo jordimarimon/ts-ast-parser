@@ -55,10 +55,10 @@
                         "decorators": [
                             {
                                 "name": "enumerable",
-                                "parameters": [
+                                "arguments": [
                                     false
                                 ],
-                                "href": {
+                                "source": {
                                     "path": "tests/decorator/method/index.ts"
                                 }
                             }

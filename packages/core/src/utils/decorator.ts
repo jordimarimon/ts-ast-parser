@@ -27,7 +27,7 @@ export function createDecorator(decorator: ts.Decorator): Decorator | null {
 
         return {
             name: expr.escapedText ?? '',
-            href: {path},
+            source: {path},
         };
     }
 
@@ -37,8 +37,8 @@ export function createDecorator(decorator: ts.Decorator): Decorator | null {
 
         return {
             name: ts.isIdentifier(identifier) ? (identifier.escapedText ?? '') : '',
-            parameters: expr.arguments.map(arg => resolveExpression(arg)),
-            href: {path},
+            arguments: expr.arguments.map(arg => resolveExpression(arg)),
+            source: {path},
         };
     }
 

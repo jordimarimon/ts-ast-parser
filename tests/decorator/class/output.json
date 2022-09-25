@@ -38,7 +38,7 @@
                 "decorators": [
                     {
                         "name": "sealed",
-                        "href": {
+                        "source": {
                             "path": "tests/decorator/class/index.ts"
                         }
                     }

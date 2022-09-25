@@ -77,10 +77,10 @@
                         "decorators": [
                             {
                                 "name": "format",
-                                "parameters": [
+                                "arguments": [
                                     "'Hello, %s'"
                                 ],
-                                "href": {
+                                "source": {
                                     "path": "tests/decorator/property/index.ts"
                                 }
                             }

@@ -15,4 +15,5 @@ export * from './property.js';
 export * from './reference.js';
 export * from './type.js';
 export * from './type-alias.js';
+export * from './type-parameter.js';
 export * from './variable.js';

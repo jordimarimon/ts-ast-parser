@@ -51,10 +51,10 @@
                         "decorators": [
                             {
                                 "name": "configurable",
-                                "parameters": [
+                                "arguments": [
                                     false
                                 ],
-                                "href": {
+                                "source": {
                                     "path": "tests/decorator/accessor/index.ts"
                                 }
                             }
@@ -71,10 +71,10 @@
                         "decorators": [
                             {
                                 "name": "configurable",
-                                "parameters": [
+                                "arguments": [
                                     false
                                 ],
-                                "href": {
+                                "source": {
                                     "path": "tests/decorator/accessor/index.ts"
                                 }
                             }
