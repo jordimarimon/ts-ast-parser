@@ -48,7 +48,7 @@
                 "heritage": [
                     {
                         "name": "Class1",
-                        "href": {
+                        "source": {
                             "path": "tests/class/inheritance/index.ts"
                         },
                         "kind": "class"
@@ -107,7 +107,7 @@
                 "heritage": [
                     {
                         "name": "Class2",
-                        "href": {
+                        "source": {
                             "path": "tests/class/inheritance/index.ts"
                         },
                         "kind": "class"

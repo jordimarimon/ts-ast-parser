@@ -1,4 +1,4 @@
-import { JSDoc, JSDocComment, JSDocNode, JSDocTagName } from '../models/index.js';
+import { JSDoc, JSDocComment, JSDocNode, JSDocTagName, JSDocTagValue } from '../models/index.js';
 import { Spec } from 'comment-parser/primitives';
 import { logError, logWarning } from './logs.js';
 import { Context } from '../context.js';
@@ -57,7 +57,7 @@ function collectJsDoc(jsDocComment: JSDocComment, doc: JSDoc): void {
     }
 }
 
-function getJSTagValue(name: string, tag: Spec): unknown {
+function getJSTagValue(name: string, tag: Spec): JSDocTagValue {
     const jsDocHandlers = Context.options.jsDocHandlers ?? {};
 
     if (jsDocHandlers[name] !== undefined) {
@@ -79,8 +79,8 @@ function getJSTagValue(name: string, tag: Spec): unknown {
     return getComplexJSTagValue(name, tag);
 }
 
-function getComplexJSTagValue(name: string, tag: Spec): unknown {
-    const result: {[key: string]: string | boolean} = {};
+function getComplexJSTagValue(name: string, tag: Spec): JSDocTagValue {
+    const result: JSDocTagValue = {};
     const defaultValue = tag.default ?? '';
     const descriptionValue = normalizeDescription(tag.description);
     const nameValue = tag.name ?? '';
@@ -90,23 +90,23 @@ function getComplexJSTagValue(name: string, tag: Spec): unknown {
     const hasType = typeValue !== '';
 
     if (hasDefault) {
-        result['default'] = defaultValue;
+        result.default = defaultValue;
     }
 
     if (hasOptional) {
-        result['optional'] = true;
+        result.optional = true;
     }
 
     if (hasType) {
-        result['type'] = typeValue;
+        result.type = typeValue;
     }
 
     if (name) {
-        result['name'] = nameValue;
+        result.name = nameValue;
     }
 
     if (descriptionValue) {
-        result['description'] = descriptionValue;
+        result.description = descriptionValue;
     }
 
     return result;

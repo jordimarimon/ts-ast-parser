@@ -9,7 +9,7 @@
                 "heritage": [
                     {
                         "name": "HTMLElement",
-                        "href": {
+                        "source": {
                             "path": "node_modules/@typescript/lib-dom/index.d.ts"
                         },
                         "kind": "interface"
@@ -33,7 +33,7 @@
                 "heritage": [
                     {
                         "name": "FooElement",
-                        "href": {
+                        "source": {
                             "path": "tests/class/third-party-inheritance/index.ts"
                         },
                         "kind": "class"

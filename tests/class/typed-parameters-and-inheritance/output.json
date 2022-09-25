@@ -109,7 +109,7 @@
                 "heritage": [
                     {
                         "name": "ClassB<string>",
-                        "href": {
+                        "source": {
                             "path": "tests/class/typed-parameters-and-inheritance/index.ts"
                         },
                         "kind": "class"

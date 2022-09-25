@@ -4,7 +4,7 @@ import { DeclarationKind } from './declaration-kind.js';
 export interface Reference {
     name: string;
     kind?: DeclarationKind;
-    href?: SourceReference;
+    source?: SourceReference;
 }
 
 export interface SourceReference {

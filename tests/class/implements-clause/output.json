@@ -38,7 +38,7 @@
                 "heritage": [
                     {
                         "name": "Bar",
-                        "href": {
+                        "source": {
                             "path": "tests/class/implements-clause/index.ts"
                         },
                         "kind": "interface"

@@ -77,7 +77,7 @@ export function getExtendClauseReferences(node: NodeWithHeritageClause): Referen
             const sourceRef: SourceReference = {};
             const ref: Reference = {name};
             tryAddProperty(sourceRef, 'path', path);
-            tryAddProperty(ref, 'href', sourceRef);
+            tryAddProperty(ref, 'source', sourceRef);
             tryAddProperty(ref, 'kind', getInterfaceOrClassSymbolKind(symbol));
 
             references.push(ref);

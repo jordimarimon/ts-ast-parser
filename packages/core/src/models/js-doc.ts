@@ -82,7 +82,7 @@ export type JSDocResult =
     { kind: JSDocTagName.event; value: { name: string; type: string; description: string } } |
     { kind: JSDocTagName.tag; value: string } |
     { kind: JSDocTagName.tagname; value: string } |
-    { kind: string; value: unknown };
+    { kind: string; value: JSDocTagValue };
 
 export type JSDoc = JSDocResult[];
 

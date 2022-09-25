@@ -9,7 +9,7 @@
                 "heritage": [
                     {
                         "name": "Required<Props>",
-                        "href": {
+                        "source": {
                             "path": "node_modules/typescript/lib/lib.es5.d.ts"
                         },
                         "kind": "interface"
@@ -47,7 +47,7 @@
                 "heritage": [
                     {
                         "name": "Pick<Todo, 'title' | 'completed'>",
-                        "href": {
+                        "source": {
                             "path": "node_modules/typescript/lib/lib.es5.d.ts"
                         },
                         "kind": "interface"

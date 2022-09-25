@@ -55,7 +55,7 @@
                 "heritage": [
                     {
                         "name": "Foo<string>",
-                        "href": {
+                        "source": {
                             "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
                         },
                         "kind": "interface"

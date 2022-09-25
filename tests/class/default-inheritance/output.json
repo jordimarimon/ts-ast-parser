@@ -24,7 +24,7 @@
                 "heritage": [
                     {
                         "name": "Class1",
-                        "href": {
+                        "source": {
                             "path": "tests/class/default-inheritance/index.ts"
                         },
                         "kind": "class"

@@ -7,7 +7,7 @@ import { Type } from './type.js';
 
 
 export interface FunctionReturn {
-    type?: Type;
+    type: Type;
 }
 
 export interface FunctionLike {

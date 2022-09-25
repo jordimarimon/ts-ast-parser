@@ -48,7 +48,7 @@
                 "heritage": [
                     {
                         "name": "Bar",
-                        "href": {
+                        "source": {
                             "path": "tests/class/extends-clause/index.ts"
                         },
                         "kind": "class"
