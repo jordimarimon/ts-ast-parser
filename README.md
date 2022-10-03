@@ -56,7 +56,7 @@ Supported output formats:
 
 Also provides:
 
-- Helper class for reading and searching in the metadata **(coming soon)**
+- Helper class for reading and searching in the metadata
 
 ## Projects in this monorepo
 
