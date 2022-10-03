@@ -2,6 +2,7 @@ const {buildSync} = require('esbuild');
 const path = require('path');
 const fs = require('fs');
 
+
 const PATH = path.join(__dirname, '..', 'docs', 'assets', 'js');
 
 function build(entryPoints) {

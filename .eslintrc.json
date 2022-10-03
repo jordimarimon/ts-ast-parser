@@ -388,7 +388,8 @@
             "files": "tests/**/*.ts",
             "rules": {
                 "no-unused-expressions": "off",
-                "@typescript-eslint/no-unused-expressions": "off"
+                "@typescript-eslint/no-unused-expressions": "off",
+                "sonarjs/no-duplicate-string": "off"
             }
         }
     ]

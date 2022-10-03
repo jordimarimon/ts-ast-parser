@@ -48,7 +48,8 @@
                 "name": "bool",
                 "type": {
                     "text": "boolean"
-                }
+                },
+                "default": false
             },
             {
                 "kind": "variable",

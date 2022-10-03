@@ -3,6 +3,7 @@ import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs';
 
+
 const mainPkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8'));
 const packages = globbySync(path.join('packages/*', 'package.json'));
 
