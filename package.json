@@ -50,7 +50,7 @@
         "@commitlint/config-conventional": "^17.1.0",
         "@types/node": "~18.7.3",
         "@typescript-eslint/eslint-plugin": "^5.39.0",
-        "@typescript-eslint/parser": "^5.39.0",
+        "@typescript-eslint/parser": "^5.40.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.72",
         "@vitest/coverage-c8": "^0.23.2",
         "ace-builds": "^1.11.2",
