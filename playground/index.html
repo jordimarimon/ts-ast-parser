@@ -44,6 +44,8 @@
 
 <main class="main full-page ">
     
+
+
 <!-- Only visible in small screens -->
 <button id="change-view-button" class="hidden btn btn-filled playground__view-control">
     Change View
@@ -51,7 +53,15 @@
 
 <section class="playground">
 
-    <select id="select-code-example" aria-label="Select a sample code" class="playground__select"></select>
+    
+    <label for="select-code-example" class="select">
+        <select id="select-code-example" aria-label="Select a sample code" class="select__control"></select>
+
+        <svg class="select__arrow-down" viewbox="0 0 10 6">
+            <polyline points="1 1 5 5 9 1"></polyline>
+        </svg>
+    </label>
+
 
     <div id="code-editor" class="code-editor skeleton"></div>
 
@@ -80,9 +90,7 @@
         </p>
 
         <p class="flex items-center font-bold text-success mt-6 text-md md:text-lg">
-            <span class="material-icons mie-2">
-                check_circle
-            </span>
+            <span class="material-icons mie-2">check_circle</span>
             <span>The following generates metadata:</span>
         </p>
 
