@@ -1,4 +1,4 @@
-import { DeclarationKind, FunctionDeclaration } from '@ts-ast-parser/core';
+import { ClassMethod, DeclarationKind, FunctionDeclaration } from '@ts-ast-parser/core';
 import { TypeParameterReader } from './type-parameter-reader.js';
 import { DecoratorReader } from './decorator-reader.js';
 import { ParameterReader } from './parameter-reader.js';
@@ -8,7 +8,7 @@ import { TypeReader } from './type-reader.js';
 
 export class FunctionReader extends JSDocReader {
 
-    private readonly _decl: FunctionDeclaration;
+    private readonly _decl: FunctionDeclaration | ClassMethod;
 
     private readonly _returnType: TypeReader;
 
@@ -18,7 +18,7 @@ export class FunctionReader extends JSDocReader {
 
     private readonly _params: ParameterReader[];
 
-    constructor(decl: FunctionDeclaration) {
+    constructor(decl: FunctionDeclaration | ClassMethod) {
         super(decl.jsDoc);
 
         this._decl = decl;
@@ -55,6 +55,10 @@ export class FunctionReader extends JSDocReader {
 
     getDecorators(): DecoratorReader[] {
         return this._decorators;
+    }
+
+    getDecoratorWithName(name: string): DecoratorReader | undefined {
+        return this._decorators.find(d => d.getName() === name);
     }
 
     isAsync(): boolean {
