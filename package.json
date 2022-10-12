@@ -88,6 +88,6 @@
         "tslib": "^2.4.0",
         "typescript": "^4.8.2",
         "vite-tsconfig-paths": "^3.5.1",
-        "vitest": "^0.23.2"
+        "vitest": "^0.24.1"
     }
 }
