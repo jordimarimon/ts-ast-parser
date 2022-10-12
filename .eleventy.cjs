@@ -1,5 +1,5 @@
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
-const esBuildPlugin = require('./scripts/build.cjs');
+const esBuildPlugin = require('./scripts/build-docs.cjs');
 const {DateTime} = require('luxon');
 
 module.exports = (eleventyConfig) => {

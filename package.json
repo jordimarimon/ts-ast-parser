@@ -21,14 +21,17 @@
         "npm": ">=7.0.0"
     },
     "scripts": {
-        "start": "npm-run-all -p dev:*",
-        "build": "tsc --build packages/${PACKAGE:-*}/tsconfig.json",
-        "doc": "npm-run-all clear:doc -p build:*",
+        "build": "npm-run-all build:esm build:cjs",
+        "build:cjs": "node ./scripts/build-pkgs.mjs",
+        "build:esm": "tsc --build packages/${PACKAGE:-*}/tsconfig.json",
+        "doc": "npm-run-all doc:clear -p build:11ty build:css",
+        "doc:clear": "rm -rf ./_site",
+        "doc:start": "npm-run-all -p dev:11ty dev:css",
+        "doc:deploy": "gh-pages -d _site -m \"docs: update documentation\"",
         "build:11ty": "NODE_ENV=production eleventy --config=.eleventy.cjs",
         "build:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css",
         "dev:11ty": "eleventy --serve --config=.eleventy.cjs",
         "dev:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css --watch",
-        "deploy:doc": "gh-pages -d _site -m \"docs: update documentation\"",
         "test": "vitest run --config vitest.config.ts",
         "coverage": "vitest run --coverage --config vitest.config.ts",
         "prepare": "./scripts/prepare.sh",
@@ -37,8 +40,7 @@
         "bump:pkg": "node ./scripts/bump.mjs",
         "lint": "eslint \"**/*.ts\" --max-warnings 0",
         "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0",
-        "analyse": "source-map-explorer ./dist/**.js",
-        "clear:doc": "rm -rf ./_site"
+        "analyse": "source-map-explorer ./dist/**.js"
     },
     "lint-staged": {
         "**/*.ts": "npm run lint:fix"

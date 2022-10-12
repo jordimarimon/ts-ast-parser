@@ -15,9 +15,6 @@ function build(entryPoints) {
         target: 'es2020',
         outdir: '_site/assets/js',
         entryNames: '[name]',
-        loader: {
-            '.ttf': 'file'
-        }
     });
 }
 
