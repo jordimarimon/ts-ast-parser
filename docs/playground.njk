@@ -5,6 +5,8 @@ tags: page
 order: 2
 ---
 
+{% from "macros/select.njk" import select %}
+
 <!-- Only visible in small screens -->
 <button id="change-view-button" class="hidden btn btn-filled playground__view-control">
     Change View
@@ -12,7 +14,7 @@ order: 2
 
 <section class="playground">
 
-    <select id="select-code-example" aria-label="Select a sample code" class="playground__select"></select>
+    {{ select("select-code-example", "Select a sample code") }}
 
     <div id="code-editor" class="code-editor skeleton"></div>
 
@@ -41,9 +43,7 @@ order: 2
         </p>
 
         <p class="flex items-center font-bold text-success mt-6 text-md md:text-lg">
-            <span class="material-icons mie-2">
-                check_circle
-            </span>
+            <span class="material-icons mie-2">check_circle</span>
             <span>The following generates metadata:</span>
         </p>
 

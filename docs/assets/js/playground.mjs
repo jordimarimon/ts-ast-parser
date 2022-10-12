@@ -88,6 +88,7 @@ function main() {
 
         for (const exampleCode in exampleCodes) {
             const optionEl = document.createElement('option');
+            optionEl.classList.add('option');
             optionEl.value = exampleCode;
             optionEl.textContent = exampleCode[0].toUpperCase() + exampleCode.slice(1);
             optionEl.selected = exampleCode === 'class';

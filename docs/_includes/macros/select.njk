@@ -1,0 +1,9 @@
+{% macro select(id, label) %}
+    <label for="{{ id }}" class="select">
+        <select id="{{ id }}" aria-label="{{ label }}" class="select__control"></select>
+
+        <svg class="select__arrow-down" viewbox="0 0 10 6">
+            <polyline points="1 1 5 5 9 1"></polyline>
+        </svg>
+    </label>
+{% endmacro %}

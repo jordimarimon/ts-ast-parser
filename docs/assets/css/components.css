@@ -92,6 +92,58 @@
 }
 
 /*//////////////////////////////////////////////////////////////////////////////
+/////////// SELECT
+//////////////////////////////////////////////////////////////////////////////*/
+
+.select {
+    position: relative;
+    min-width: 12.5rem;
+
+    .select__control {
+        -webkit-appearance: none;
+        padding: theme("spacing.2") theme("spacing.10") theme("spacing.2") theme("spacing.3");
+        width: 100%;
+        border: 1px solid hsl(var(--color-border));
+        border-radius: var(--border-radius);
+        background: hsl(var(--color-neutral-0));
+        box-shadow: 0 1px 3px hsl(var(--color-neutral-900) / 10%);
+        cursor: pointer;
+        font-family: inherit;
+        font-size: var(--font-size-md);
+        transition: all 150ms ease;
+
+        &:focus {
+            outline: none;
+            border-color: hsl(var(--color-primary));
+            box-shadow: 0 0 0 2px hsl(var(--color-primary) / 20%);
+        }
+    }
+
+    .select__control:focus + .select__arrow-down {
+        stroke: hsl(var(--color-primary));
+    }
+
+    .select__arrow-down {
+        position: absolute;
+        right: 0.75rem;
+        top: calc(50% - 3px);
+        width: 10px;
+        height: 6px;
+        stroke-width: 2px;
+        stroke: hsl(var(--color-text));
+        fill: none;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        pointer-events: none;
+    }
+
+    .option {
+        color: hsl(var(--color-text));
+    }
+}
+
+
+/*//////////////////////////////////////////////////////////////////////////////
 /////////// HEADER
 //////////////////////////////////////////////////////////////////////////////*/
 
@@ -312,12 +364,11 @@
     }
 }
 
-.playground__select {
+.playground .select {
     position: absolute;
     top: .5rem;
     right: .5rem;
     width: 10rem;
-    height: var(--height);
     z-index: var(--playground-select-z-index);
 
     @screen md {
