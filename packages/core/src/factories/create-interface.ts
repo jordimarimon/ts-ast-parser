@@ -36,12 +36,6 @@ export const interfaceFactory: NodeFactory<ts.InterfaceDeclaration> = {
 
 function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void {
     const name = node.name?.getText() ?? '';
-    const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === name);
-
-    if (alreadyExists) {
-        return;
-    }
-
     const tmpl: InterfaceDeclaration = {
         name,
         kind: DeclarationKind.interface,

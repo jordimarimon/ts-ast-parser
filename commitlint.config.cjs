@@ -1,7 +1,11 @@
 module.exports = {
     extends: ['@commitlint/config-conventional'],
     rules: {
-        'body-max-line-length': [0, 'always'],
+        'header-max-length': [2, 'always', 100],
+        'body-leading-blank': [2, 'always'],
+        'body-max-line-length': [2, 'always', 100],
         'body-max-length': [0, 'always'],
+        'footer-leading-blank': [2, 'always'],
+        'footer-max-line-length': [2, 'always', 100],
     },
 };

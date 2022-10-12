@@ -1,6 +1,10 @@
 export const DECORATOR_CODE = `
 export function enumerable(value: boolean) {
-    return function (_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor): void {
+    return function (
+        _target: Greeter,
+        _propertyKey: string,
+        descriptor: PropertyDescriptor,
+    ): void {
         descriptor.enumerable = value;
     };
 }

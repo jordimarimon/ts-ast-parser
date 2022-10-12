@@ -18,12 +18,6 @@ function isEnum(node: ts.Node): node is ts.EnumDeclaration {
 
 function createEnum(node: ts.EnumDeclaration, moduleDoc: Module): void {
     const name = node.name?.getText();
-    const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === name);
-
-    if (alreadyExists) {
-        return;
-    }
-
     const tmpl: EnumDeclaration = {
         kind: DeclarationKind.enum,
         name,

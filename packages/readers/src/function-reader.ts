@@ -41,6 +41,10 @@ export class FunctionReader extends JSDocReader {
         return this._params;
     }
 
+    getParameterByName(name: string): ParameterReader | undefined {
+        return this._params.find(p => p.getName() === name);
+    }
+
     getReturnType(): TypeReader {
         return this._returnType;
     }

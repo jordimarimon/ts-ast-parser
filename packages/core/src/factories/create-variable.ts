@@ -31,13 +31,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
 
     for (const declaration of node.declarationList.declarations) {
         const name = declaration?.name?.getText() ?? '';
-        const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === name);
         const defaultValue = jsDocDefaultValue ?? resolveExpression(declaration.initializer);
-
-        if (alreadyExists) {
-            continue;
-        }
-
         const tmpl: VariableDeclaration = {
             kind: DeclarationKind.variable,
             name,

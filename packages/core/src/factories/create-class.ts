@@ -52,12 +52,6 @@ function isClassNode(node: ts.Node): node is NodeType {
 
 function createClass(node: NodeType, moduleDoc: Module): void {
     const name = node.name?.getText() ?? '';
-    const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === name);
-
-    if (alreadyExists) {
-        return;
-    }
-
     const tmpl: ClassDeclaration = {kind: DeclarationKind.class, name};
     const instanceProperties = getInstanceProperties(node);
     const staticProperties = getStaticProperties(node);

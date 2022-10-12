@@ -4,8 +4,8 @@ import ts from 'typescript';
 
 export interface NodeFactory<T extends ts.Node = ts.Node> {
 
-    isNode: (node: ts.Node) => node is T;
+    isNode(node: ts.Node): node is T;
 
-    create: (node: T, moduleDoc: Module) => void;
+    create(node: T, moduleDoc: Module): void;
 
 }

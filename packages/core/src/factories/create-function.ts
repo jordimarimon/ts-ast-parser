@@ -31,12 +31,6 @@ function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, mod
         ...createFunctionLike(node),
     };
 
-    const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === tmpl.name);
-
-    if (alreadyExists) {
-        return;
-    }
-
     moduleDoc.declarations.push(tmpl);
 }
 

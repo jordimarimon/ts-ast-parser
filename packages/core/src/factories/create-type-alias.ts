@@ -14,12 +14,6 @@ export const typeAliasFactory: NodeFactory<ts.TypeAliasDeclaration> = {
 
 function createTypeAlias(node: ts.TypeAliasDeclaration, moduleDoc: Module): void {
     const name = node.name?.getText();
-    const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === name);
-
-    if (alreadyExists) {
-        return;
-    }
-
     const tmpl: TypeAliasDeclaration = {
         name,
         kind: DeclarationKind.typeAlias,

@@ -53,7 +53,9 @@ export class ModuleReader {
     }
 
     getDeclarationsByCategory(category: string): DeclarationReader[] {
-        return this._declarations.filter(decl => decl.getJSDocTag(JSDocTagName.category) === category);
+        return this._declarations.filter(decl => {
+            return decl.getJSDocTag(JSDocTagName.category)?.getDescription() === category;
+        });
     }
 
     private _createDeclarationReader(decl: Declaration): DeclarationReader {

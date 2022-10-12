@@ -2,9 +2,9 @@ name: Build and Test
 
 on:
     push:
-        branches: [ "main", "dev" ]
+        branches: [ "dev" ]
     pull_request:
-        branches: [ "main", "dev" ]
+        branches: [ "dev" ]
 
 jobs:
     analyse:
@@ -15,16 +15,20 @@ jobs:
             actions: read
             contents: read
             security-events: write
+        strategy:
+            matrix:
+                node-version: [ 16.x, 18.x ]
         steps:
             -   name: Checkout repository
                 uses: actions/checkout@v3
 
-            -   name: Setup Node.js 16.x
+            -   name: Setup Node.js ${{ matrix.node-version }}
                 uses: actions/setup-node@v3
                 with:
-                    node-version: 16.x
+                    node-version: ${{ matrix.node-version }}
 
             -   name: Install dependencies
+                # TODO(Jordi M.): Remove legacy-peer-deps strategy
                 run: npm ci --legacy-peer-deps
 
             -   name: Build

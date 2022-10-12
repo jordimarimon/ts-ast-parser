@@ -14,6 +14,10 @@ export class Reader {
         return this._modules;
     }
 
+    getModuleByIndex(index: number): ModuleReader | null {
+        return this._modules[index] ?? null;
+    }
+
     getAllModulesWithPath(path: string): ModuleReader[] {
         const regExp = new RegExp(path);
 
