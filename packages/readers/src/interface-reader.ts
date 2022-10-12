@@ -35,6 +35,10 @@ export class InterfaceReader extends JSDocReader {
         return this._decl.line;
     }
 
+    getNamespace(): string {
+        return this._decl.namespace ?? '';
+    }
+
     getAllMembers(): (PropertyReader | FunctionReader)[] {
         return this._members;
     }

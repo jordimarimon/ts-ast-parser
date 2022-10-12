@@ -33,6 +33,7 @@ import {
     isStaticMember,
     resolveExpression,
     SymbolWithContextType,
+    tryAddNamespace,
     tryAddProperty,
 } from '../utils/index.js';
 
@@ -73,6 +74,7 @@ function createClass(node: NodeType, moduleDoc: Module): void {
     tryAddProperty(tmpl, 'heritage', getExtendClauseReferences(node));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'members', members);
+    tryAddNamespace(node, tmpl);
 
     moduleDoc.declarations.push(tmpl);
 }

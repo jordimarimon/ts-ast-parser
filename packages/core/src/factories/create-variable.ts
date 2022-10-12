@@ -30,6 +30,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
     const jsDocDefaultValue = findJSDoc<string>(JSDocTagName.default, jsDoc)?.value;
     const line = getLinePosition(node);
+    const namespace = (node.parent?.parent as ts.ModuleDeclaration)?.name?.getText() ?? '';
 
     for (const declaration of node.declarationList.declarations) {
         const name = declaration?.name?.getText() ?? '';
@@ -47,6 +48,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
 
         tryAddProperty(tmpl, 'jsDoc', jsDoc);
         tryAddProperty(tmpl, 'decorators', decorators);
+        tryAddProperty(tmpl, 'namespace', namespace);
 
         moduleDoc.declarations.push(tmpl);
     }

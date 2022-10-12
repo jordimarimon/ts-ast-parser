@@ -43,6 +43,10 @@ export class ClassReader extends JSDocReader {
         return this._decl.line;
     }
 
+    getNamespace(): string {
+        return this._decl.namespace ?? '';
+    }
+
     isAbstract(): boolean {
         return !!this._decl.abstract;
     }

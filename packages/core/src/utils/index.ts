@@ -5,6 +5,7 @@ export * from './type-parameter.js';
 export * from './get-location.js';
 export * from './inheritance.js';
 export * from './parameters.js';
+export * from './namespace.js';
 export * from './function.js';
 export * from './get-type.js';
 export * from './export.js';

@@ -1,5 +1,5 @@
+import { getAllJSDoc, getLinePosition, tryAddNamespace, tryAddProperty } from '../utils/index.js';
 import { DeclarationKind, EnumDeclaration, EnumMember, Module } from '../models/index.js';
-import { getAllJSDoc, getLinePosition, tryAddProperty } from '../utils/index.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
 
@@ -26,6 +26,7 @@ function createEnum(node: ts.EnumDeclaration, moduleDoc: Module): void {
 
     tryAddProperty(tmpl, 'members', getEnumMembers(node));
     tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
+    tryAddNamespace(node, tmpl);
 
     moduleDoc.declarations.push(tmpl);
 }

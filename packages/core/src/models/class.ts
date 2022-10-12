@@ -49,6 +49,7 @@ export interface ClassLike {
     decorators?: Decorator[];
     constructors?: Constructor[];
     abstract?: boolean;
+    namespace?: string;
 }
 
 export interface ClassDeclaration extends ClassLike {

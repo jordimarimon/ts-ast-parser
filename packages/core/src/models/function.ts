@@ -20,6 +20,7 @@ export interface FunctionLike {
     generator?: boolean;
     decorators?: Decorator[];
     jsDoc?: JSDoc;
+    namespace?: string;
 }
 
 export interface FunctionDeclaration extends FunctionLike {

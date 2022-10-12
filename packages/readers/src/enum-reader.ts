@@ -28,6 +28,10 @@ export class EnumReader extends JSDocReader {
         return this._decl.line;
     }
 
+    getNamespace(): string {
+        return this._decl.namespace ?? '';
+    }
+
     getMembers(): EnumMemberReader[] {
         return this._members;
     }

@@ -12,4 +12,8 @@ export class MixinReader extends JSDocReader {
         return '';
     }
 
+    getNamespace(): string {
+        return '';
+    }
+
 }

@@ -32,6 +32,10 @@ export class VariableReader extends JSDocReader {
         return this._decl.line;
     }
 
+    getNamespace(): string {
+        return this._decl.namespace ?? '';
+    }
+
     getType(): TypeReader {
         return this._type;
     }

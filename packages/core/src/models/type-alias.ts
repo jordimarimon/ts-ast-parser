@@ -10,4 +10,5 @@ export interface TypeAliasDeclaration {
     value: string;
     typeParameters?: TypeParameter[];
     jsDoc?: JSDoc;
+    namespace?: string;
 }

@@ -1,4 +1,4 @@
-import { getAllJSDoc, getLinePosition, getTypeParameters, tryAddProperty } from '../utils/index.js';
+import { getAllJSDoc, getLinePosition, getTypeParameters, tryAddNamespace, tryAddProperty } from '../utils/index.js';
 import { DeclarationKind, Module, TypeAliasDeclaration } from '../models/index.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
@@ -23,6 +23,7 @@ function createTypeAlias(node: ts.TypeAliasDeclaration, moduleDoc: Module): void
 
     tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
     tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
+    tryAddNamespace(node, tmpl);
 
     moduleDoc.declarations.push(tmpl);
 }

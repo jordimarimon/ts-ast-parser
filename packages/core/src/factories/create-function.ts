@@ -14,6 +14,7 @@ import {
     isAsyncFunction,
     isFunctionDeclaration,
     isGeneratorFunction,
+    tryAddNamespace,
     tryAddProperty,
 } from '../utils/index.js';
 
@@ -31,6 +32,8 @@ function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, mod
         kind: DeclarationKind.function,
         ...createFunctionLike(node),
     };
+
+    tryAddNamespace(node, tmpl);
 
     moduleDoc.declarations.push(tmpl);
 }

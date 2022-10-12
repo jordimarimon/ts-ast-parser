@@ -23,6 +23,7 @@ import {
     isOptional,
     isReadOnly,
     SymbolWithContextType,
+    tryAddNamespace,
     tryAddProperty,
 } from '../utils/index.js';
 
@@ -55,6 +56,7 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
     tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
     tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
     tryAddProperty(tmpl, 'members', members);
+    tryAddNamespace(node, tmpl);
 
     moduleDoc.declarations.push(tmpl);
 }

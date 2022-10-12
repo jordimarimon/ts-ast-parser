@@ -52,6 +52,10 @@ export class ModuleReader {
         return this._declarations.find(decl => decl.getName() === name) ?? null;
     }
 
+    getAllDeclarationsInNamespace(name: string): DeclarationReader[] {
+        return this._declarations.filter(decl => decl.getNamespace() === name);
+    }
+
     getDeclarationsByCategory(category: string): DeclarationReader[] {
         return this._declarations.filter(decl => {
             return decl.getJSDocTag(JSDocTagName.category)?.getDescription() === category;

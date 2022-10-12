@@ -8,6 +8,7 @@ export interface EnumDeclaration {
     line: number;
     members?: EnumMember[];
     jsDoc?: JSDoc;
+    namespace?: string;
 }
 
 export interface EnumMember {

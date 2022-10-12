@@ -41,6 +41,10 @@ export class FunctionReader extends JSDocReader {
         return this._decl.line;
     }
 
+    getNamespace(): string {
+        return this._decl.namespace ?? '';
+    }
+
     getParameters(): ParameterReader[] {
         return this._params;
     }
