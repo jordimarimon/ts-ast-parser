@@ -1,3 +1,4 @@
+import { JSDocTagValue } from './models/index.js';
 import { Spec } from 'comment-parser/primitives';
 
 
@@ -13,5 +14,5 @@ export interface Options {
 }
 
 export type JSDocHandlers = {
-    [key: string]: (tag: Spec) => unknown;
+    [key: string]: (tag: Spec) => JSDocTagValue;
 };

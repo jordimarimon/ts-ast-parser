@@ -6,6 +6,7 @@
             {
                 "kind": "function",
                 "name": "sum",
+                "line": 8,
                 "return": {
                     "type": {
                         "text": "number"

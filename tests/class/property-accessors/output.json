@@ -6,10 +6,12 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "line": 1,
                 "members": [
                     {
                         "kind": "field",
                         "name": "staticBar",
+                        "line": 3,
                         "type": {
                             "text": "string"
                         },
@@ -21,6 +23,7 @@
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 11,
                         "type": {
                             "text": "string"
                         },
@@ -30,6 +33,7 @@
                     {
                         "kind": "field",
                         "name": "fooBar",
+                        "line": 19,
                         "type": {
                             "text": "number"
                         },
@@ -39,6 +43,7 @@
                     {
                         "kind": "method",
                         "name": "log",
+                        "line": 23,
                         "return": {
                             "type": {
                                 "text": "void"

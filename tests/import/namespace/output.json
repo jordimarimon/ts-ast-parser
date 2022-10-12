@@ -18,6 +18,7 @@
             {
                 "kind": "variable",
                 "name": "x",
+                "line": 1,
                 "type": {
                     "text": "number"
                 },
@@ -26,10 +27,12 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "line": 3,
                 "members": [
                     {
                         "kind": "method",
                         "name": "bar",
+                        "line": 5,
                         "return": {
                             "type": {
                                 "text": "void"

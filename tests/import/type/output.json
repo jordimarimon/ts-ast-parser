@@ -13,6 +13,7 @@
             {
                 "kind": "variable",
                 "name": "x",
+                "line": 4,
                 "type": {
                     "text": "TypeA"
                 },
@@ -32,11 +33,13 @@
         "declarations": [
             {
                 "name": "TypeA",
+                "line": 1,
                 "kind": "interface",
                 "members": [
                     {
                         "name": "foo",
                         "kind": "field",
+                        "line": 2,
                         "type": {
                             "text": "string"
                         }

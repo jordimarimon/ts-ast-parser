@@ -1,5 +1,5 @@
 import { DeclarationKind, EnumDeclaration, EnumMember, Module } from '../models/index.js';
-import { getAllJSDoc, tryAddProperty } from '../utils/index.js';
+import { getAllJSDoc, getLinePosition, tryAddProperty } from '../utils/index.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
 
@@ -19,8 +19,9 @@ function isEnum(node: ts.Node): node is ts.EnumDeclaration {
 function createEnum(node: ts.EnumDeclaration, moduleDoc: Module): void {
     const name = node.name?.getText();
     const tmpl: EnumDeclaration = {
-        kind: DeclarationKind.enum,
         name,
+        line: getLinePosition(node),
+        kind: DeclarationKind.enum,
     };
 
     tryAddProperty(tmpl, 'members', getEnumMembers(node));

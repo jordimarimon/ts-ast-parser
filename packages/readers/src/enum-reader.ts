@@ -24,6 +24,10 @@ export class EnumReader extends JSDocReader {
         return this._decl.name ?? '';
     }
 
+    getLine(): number {
+        return this._decl.line;
+    }
+
     getMembers(): EnumMemberReader[] {
         return this._members;
     }

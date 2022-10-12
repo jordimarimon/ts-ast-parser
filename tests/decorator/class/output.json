@@ -6,6 +6,7 @@
             {
                 "kind": "function",
                 "name": "sealed",
+                "line": 1,
                 "return": {
                     "type": {
                         "text": "void"
@@ -23,6 +24,7 @@
             {
                 "kind": "class",
                 "name": "BugReport",
+                "line": 6,
                 "constructors": [
                     {
                         "parameters": [
@@ -47,6 +49,7 @@
                     {
                         "kind": "field",
                         "name": "type",
+                        "line": 9,
                         "modifier": "public",
                         "type": {
                             "text": "string"
@@ -56,6 +59,7 @@
                     {
                         "kind": "field",
                         "name": "title",
+                        "line": 11,
                         "modifier": "public",
                         "type": {
                             "text": "string"

@@ -6,10 +6,12 @@
             {
                 "name": "TypeA",
                 "kind": "interface",
+                "line": 1,
                 "members": [
                     {
                         "name": "foo",
                         "kind": "field",
+                        "line": 2,
                         "type": {
                             "text": "string"
                         }

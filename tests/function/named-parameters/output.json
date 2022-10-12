@@ -6,6 +6,7 @@
             {
                 "kind": "function",
                 "name": "foo",
+                "line": 8,
                 "return": {
                     "type": {
                         "text": "number"

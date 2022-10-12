@@ -41,6 +41,7 @@ export enum JSDocTagName {
 }
 
 export type JSDocTagObjectValue = {
+    [key: string]: unknown;
     name?: string;
     type?: string;
     default?: string;

@@ -6,6 +6,7 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "line": 4,
                 "constructors": [
                     {
                         "parameters": [
@@ -40,6 +41,7 @@
                     {
                         "kind": "field",
                         "name": "staticBar",
+                        "line": 6,
                         "modifier": "public",
                         "type": {
                             "text": "\"Hello World\""
@@ -51,6 +53,7 @@
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 8,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -60,6 +63,7 @@
                     {
                         "kind": "field",
                         "name": "message",
+                        "line": 10,
                         "modifier": "public",
                         "type": {
                             "text": "string | undefined"
@@ -69,6 +73,7 @@
                     {
                         "kind": "method",
                         "name": "log",
+                        "line": 22,
                         "return": {
                             "type": {
                                 "text": "void"
@@ -88,6 +93,7 @@
                     {
                         "kind": "method",
                         "name": "add",
+                        "line": 26,
                         "return": {
                             "type": {
                                 "text": "number"

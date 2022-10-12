@@ -6,6 +6,7 @@
             {
                 "kind": "enum",
                 "name": "Fruit",
+                "line": 1,
                 "members": [
                     {
                         "name": "Apple",

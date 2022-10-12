@@ -9,6 +9,10 @@ export class JSDocValueReader {
         this._jsDocTagValue = jsDocTagValue;
     }
 
+    getRawValue(): JSDocTagValue {
+        return this._jsDocTagValue;
+    }
+
     getDescription(): string {
         if (typeof this._jsDocTagValue === 'string') {
             return this._jsDocTagValue;

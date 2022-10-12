@@ -6,6 +6,7 @@
             {
                 "name": "RequiredProps",
                 "kind": "interface",
+                "line": 7,
                 "heritage": [
                     {
                         "name": "Required<Props>",
@@ -18,6 +19,7 @@
                 "members": [
                     {
                         "name": "c",
+                        "line": 8,
                         "kind": "field",
                         "type": {
                             "text": "boolean"
@@ -25,6 +27,7 @@
                     },
                     {
                         "name": "a",
+                        "line": 2,
                         "kind": "field",
                         "type": {
                             "text": "number"
@@ -33,6 +36,7 @@
                     },
                     {
                         "name": "b",
+                        "line": 3,
                         "kind": "field",
                         "type": {
                             "text": "string"
@@ -44,6 +48,7 @@
             {
                 "name": "TodoPreview",
                 "kind": "interface",
+                "line": 17,
                 "heritage": [
                     {
                         "name": "Pick<Todo, 'title' | 'completed'>",
@@ -56,6 +61,7 @@
                 "members": [
                     {
                         "name": "preview",
+                        "line": 18,
                         "kind": "field",
                         "type": {
                             "text": "string"
@@ -63,6 +69,7 @@
                     },
                     {
                         "name": "title",
+                        "line": 12,
                         "kind": "field",
                         "type": {
                             "text": "string"
@@ -71,6 +78,7 @@
                     },
                     {
                         "name": "completed",
+                        "line": 14,
                         "kind": "field",
                         "type": {
                             "text": "boolean"

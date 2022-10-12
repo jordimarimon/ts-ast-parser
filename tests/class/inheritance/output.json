@@ -6,10 +6,12 @@
             {
                 "kind": "class",
                 "name": "Class1",
+                "line": 1,
                 "members": [
                     {
                         "kind": "field",
                         "name": "foo",
+                        "line": 2,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -19,6 +21,7 @@
                     {
                         "kind": "method",
                         "name": "someMethod",
+                        "line": 4,
                         "return": {
                             "type": {
                                 "text": "number"
@@ -45,6 +48,7 @@
             {
                 "kind": "class",
                 "name": "Class2",
+                "line": 9,
                 "heritage": [
                     {
                         "name": "Class1",
@@ -58,6 +62,7 @@
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 10,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -67,6 +72,7 @@
                     {
                         "kind": "field",
                         "name": "foo",
+                        "line": 12,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -77,6 +83,7 @@
                     {
                         "kind": "method",
                         "name": "someMethod",
+                        "line": 4,
                         "return": {
                             "type": {
                                 "text": "number"
@@ -104,6 +111,7 @@
             {
                 "kind": "class",
                 "name": "Class3",
+                "line": 15,
                 "heritage": [
                     {
                         "name": "Class2",
@@ -117,6 +125,7 @@
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 19,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -127,6 +136,7 @@
                     {
                         "kind": "method",
                         "name": "someMethod",
+                        "line": 23,
                         "return": {
                             "type": {
                                 "text": "number"
@@ -146,6 +156,7 @@
                     {
                         "kind": "field",
                         "name": "foo",
+                        "line": 12,
                         "modifier": "public",
                         "type": {
                             "text": "number"

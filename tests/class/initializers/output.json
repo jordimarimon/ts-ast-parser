@@ -6,10 +6,12 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "line": 7,
                 "members": [
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 9,
                         "modifier": "public",
                         "type": {
                             "text": "string | undefined"
@@ -19,6 +21,7 @@
                     {
                         "kind": "field",
                         "name": "foo",
+                        "line": 11,
                         "modifier": "public",
                         "type": {
                             "text": "string"
@@ -28,6 +31,7 @@
                     {
                         "kind": "field",
                         "name": "x",
+                        "line": 13,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -37,6 +41,7 @@
                     {
                         "kind": "field",
                         "name": "y",
+                        "line": 15,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -46,6 +51,7 @@
                     {
                         "kind": "field",
                         "name": "myAdd",
+                        "line": 17,
                         "modifier": "public",
                         "type": {
                             "text": "(x: number, y: number) => number"

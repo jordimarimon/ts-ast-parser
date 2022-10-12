@@ -12,6 +12,7 @@ export interface FunctionReturn {
 
 export interface FunctionLike {
     name: string;
+    line: number;
     parameters?: Parameter[];
     typeParameters?: TypeParameter[];
     return: FunctionReturn;

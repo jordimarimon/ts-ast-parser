@@ -5,6 +5,7 @@
         "declarations": [
             {
                 "kind": "variable",
+                "line": 4,
                 "name": "formatMetadataKey",
                 "type": {
                     "text": "unique symbol"
@@ -14,6 +15,7 @@
             {
                 "kind": "function",
                 "name": "format",
+                "line": 7,
                 "return": {
                     "type": {
                         "text": "{ (target: Function): void; (target: Object, propertyKey: string | symbol): void; }"
@@ -31,6 +33,7 @@
             {
                 "kind": "function",
                 "name": "getFormat",
+                "line": 12,
                 "return": {
                     "type": {
                         "text": "any"
@@ -54,6 +57,7 @@
             {
                 "kind": "class",
                 "name": "Greeter",
+                "line": 16,
                 "constructors": [
                     {
                         "parameters": [
@@ -70,6 +74,7 @@
                     {
                         "kind": "field",
                         "name": "greeting",
+                        "line": 18,
                         "modifier": "public",
                         "type": {
                             "text": "string"
@@ -90,6 +95,7 @@
                     {
                         "kind": "method",
                         "name": "greet",
+                        "line": 25,
                         "return": {
                             "type": {
                                 "text": "string"

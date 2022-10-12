@@ -5,6 +5,7 @@
         "declarations": [
             {
                 "kind": "variable",
+                "line": 2,
                 "name": "foo",
                 "type": {
                     "text": "number"

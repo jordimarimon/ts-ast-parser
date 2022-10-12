@@ -8,5 +8,6 @@ export interface Reference {
 }
 
 export interface SourceReference {
+    line?: number;
     path?: string;
 }

@@ -18,10 +18,12 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "line": 1,
                 "members": [
                     {
                         "kind": "method",
                         "name": "bar",
+                        "line": 3,
                         "return": {
                             "type": {
                                 "text": "void"

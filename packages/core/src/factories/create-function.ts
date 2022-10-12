@@ -8,6 +8,7 @@ import {
     getFunctionNode,
     getFunctionReturnTypeFromDeclaration,
     getFunctionReturnTypeFromFunctionType,
+    getLinePosition,
     getParameters,
     getTypeParameters,
     isAsyncFunction,
@@ -41,6 +42,7 @@ export function createFunctionLike(node: ts.Node, funcType?: ts.Type): FunctionL
 
     const tmpl: FunctionLike = {
         name: getFunctionName(node),
+        line: getLinePosition(node),
         return: {
             type: {
                 text: funcType

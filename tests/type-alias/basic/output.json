@@ -5,6 +5,7 @@
         "declarations": [
             {
                 "name": "Foo",
+                "line": 1,
                 "kind": "type-alias",
                 "value": "{\n    bar: number;\n}"
             }

@@ -6,6 +6,7 @@
             {
                 "kind": "variable",
                 "name": "foo",
+                "line": 1,
                 "type": {
                     "text": "number"
                 },

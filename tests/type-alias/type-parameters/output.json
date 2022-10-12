@@ -6,6 +6,7 @@
             {
                 "name": "Foo",
                 "kind": "type-alias",
+                "line": 4,
                 "value": "{\n    x: T;\n    y: K;\n}",
                 "jsDoc": [
                     {

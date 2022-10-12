@@ -41,6 +41,7 @@ export interface Constructor {
 
 export interface ClassLike {
     name: string;
+    line: number;
     members?: ClassMember[];
     jsDoc?: JSDoc;
     typeParameters?: TypeParameter[];

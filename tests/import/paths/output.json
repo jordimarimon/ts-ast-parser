@@ -14,6 +14,7 @@
             {
                 "kind": "class",
                 "name": "Bar",
+                "line": 7,
                 "heritage": [
                     {
                         "name": "Foo",
@@ -27,6 +28,7 @@
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 8,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -51,10 +53,12 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "line": 1,
                 "members": [
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 2,
                         "modifier": "public",
                         "type": {
                             "text": "number"

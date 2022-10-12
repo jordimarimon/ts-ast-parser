@@ -14,3 +14,7 @@ export function getLocation(node: ts.Node): SymbolWithLocation {
         path: Context.normalizePath(sourceFile?.fileName),
     };
 }
+
+export function getLinePosition(node: ts.Node): number {
+    return node.getSourceFile().getLineAndCharacterOfPosition(node.getStart()).line + 1;
+}

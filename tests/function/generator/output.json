@@ -6,6 +6,7 @@
             {
                 "kind": "function",
                 "name": "foo",
+                "line": 2,
                 "return": {
                     "type": {
                         "text": "Generator<number, string, unknown>"

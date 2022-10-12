@@ -24,6 +24,10 @@ export class TypeAliasReader extends JSDocReader {
         return this._decl.name ?? '';
     }
 
+    getLine(): number {
+        return this._decl.line;
+    }
+
     getValue(): string {
         return this._decl.value ?? '';
     }

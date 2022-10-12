@@ -6,11 +6,13 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "line": 1,
                 "abstract": true,
                 "members": [
                     {
                         "kind": "field",
                         "name": "y",
+                        "line": 3,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -20,6 +22,7 @@
                     {
                         "kind": "field",
                         "name": "x",
+                        "line": 5,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -29,6 +32,7 @@
                     {
                         "kind": "method",
                         "name": "add",
+                        "line": 7,
                         "return": {
                             "type": {
                                 "text": "number"

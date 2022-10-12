@@ -19,6 +19,7 @@ import {
     getConstructors,
     getExtendClauseReferences,
     getInstanceProperties,
+    getLinePosition,
     getParameters,
     getReturnStatement,
     getStaticProperties,
@@ -52,7 +53,11 @@ function isClassNode(node: ts.Node): node is NodeType {
 
 function createClass(node: NodeType, moduleDoc: Module): void {
     const name = node.name?.getText() ?? '';
-    const tmpl: ClassDeclaration = {kind: DeclarationKind.class, name};
+    const tmpl: ClassDeclaration = {
+        name,
+        line: getLinePosition(node),
+        kind: DeclarationKind.class,
+    };
     const instanceProperties = getInstanceProperties(node);
     const staticProperties = getStaticProperties(node);
     const constructors = getConstructors(node);
@@ -140,8 +145,9 @@ function createFieldFromProperty(node: ts.PropertyDeclaration, member: SymbolWit
     const hasReadOnlyTag = findJSDoc<boolean>(JSDocTagName.readonly, jsDoc)?.value;
 
     const tmpl: ClassField = {
-        kind: DeclarationKind.field,
         name,
+        line: getLinePosition(node),
+        kind: DeclarationKind.field,
         modifier: getVisibilityModifier(node),
         type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
     };
@@ -198,8 +204,9 @@ function createFieldFromPropertyAccessor(member: SymbolWithContextType): ClassMe
         const computedType = type ? (checker?.typeToString(type) ?? '') : '';
 
         const tmpl: ClassField = {
-            kind: DeclarationKind.field,
             name,
+            line: getLinePosition(getter),
+            kind: DeclarationKind.field,
             type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
         };
 
@@ -225,8 +232,9 @@ function createFieldFromPropertyAccessor(member: SymbolWithContextType): ClassMe
     const computedType = type ? (checker?.typeToString(type) ?? '') : '';
 
     const tmpl: ClassField = {
-        kind: DeclarationKind.field,
         name,
+        line: getLinePosition(setter),
+        kind: DeclarationKind.field,
         type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
         writeOnly: true,
     };

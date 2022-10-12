@@ -6,6 +6,7 @@
             {
                 "kind": "function",
                 "name": "sleep",
+                "line": 2,
                 "return": {
                     "type": {
                         "text": "Promise<void>"

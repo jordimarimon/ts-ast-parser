@@ -17,6 +17,7 @@ import {
     getExtendClauseReferences,
     getIndexSignature,
     getInstanceProperties,
+    getLinePosition,
     getParameters,
     getTypeParameters,
     isOptional,
@@ -38,6 +39,7 @@ function createInterface(node: ts.InterfaceDeclaration, moduleDoc: Module): void
     const name = node.name?.getText() ?? '';
     const tmpl: InterfaceDeclaration = {
         name,
+        line: getLinePosition(node),
         kind: DeclarationKind.interface,
     };
 
@@ -97,8 +99,9 @@ function createInterfaceFieldFromIndexSignature(member: SymbolWithContextType): 
 
     const tmpl: InterfaceField = {
         name: param?.name ?? '',
-        indexType: param?.type ?? {text: ''},
+        line: getLinePosition(node),
         kind: DeclarationKind.field,
+        indexType: param?.type ?? {text: ''},
         indexSignature: true,
         type: {text: valueJSDocDefinedType || nodeType},
     };
@@ -129,6 +132,7 @@ function createInterfaceFieldFromPropertySignature(
 
     const tmpl: InterfaceField = {
         name: node.name?.getText() ?? '',
+        line: getLinePosition(node),
         kind: DeclarationKind.field,
         type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
     };

@@ -6,9 +6,11 @@
             {
                 "name": "Bar",
                 "kind": "interface",
+                "line": 1,
                 "members": [
                     {
                         "name": "add",
+                        "line": 2,
                         "return": {
                             "type": {
                                 "text": "number"
@@ -35,6 +37,7 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "line": 5,
                 "heritage": [
                     {
                         "name": "Bar",
@@ -48,6 +51,7 @@
                     {
                         "kind": "method",
                         "name": "add",
+                        "line": 7,
                         "return": {
                             "type": {
                                 "text": "number"

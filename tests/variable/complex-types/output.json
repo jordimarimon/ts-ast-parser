@@ -6,6 +6,7 @@
             {
                 "kind": "variable",
                 "name": "foo",
+                "line": 8,
                 "type": {
                     "text": "Colors"
                 },
@@ -14,6 +15,7 @@
             {
                 "kind": "variable",
                 "name": "blue",
+                "line": 9,
                 "type": {
                     "text": "Colors"
                 },
@@ -22,6 +24,7 @@
             {
                 "kind": "variable",
                 "name": "bar",
+                "line": 10,
                 "type": {
                     "text": "{ x: number; y?: number; }"
                 },

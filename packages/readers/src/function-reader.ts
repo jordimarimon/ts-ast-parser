@@ -37,6 +37,10 @@ export class FunctionReader extends JSDocReader {
         return this._decl.name ?? '';
     }
 
+    getLine(): number {
+        return this._decl.line;
+    }
+
     getParameters(): ParameterReader[] {
         return this._params;
     }

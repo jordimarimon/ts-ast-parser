@@ -6,6 +6,7 @@
             {
                 "kind": "function",
                 "name": "enumerable",
+                "line": 1,
                 "return": {
                     "type": {
                         "text": "(_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor) => void"
@@ -23,6 +24,7 @@
             {
                 "kind": "class",
                 "name": "Greeter",
+                "line": 7,
                 "constructors": [
                     {
                         "parameters": [
@@ -39,6 +41,7 @@
                     {
                         "kind": "field",
                         "name": "greeting",
+                        "line": 9,
                         "modifier": "public",
                         "type": {
                             "text": "string"
@@ -47,6 +50,7 @@
                     {
                         "kind": "method",
                         "name": "greet",
+                        "line": 15,
                         "return": {
                             "type": {
                                 "text": "string"

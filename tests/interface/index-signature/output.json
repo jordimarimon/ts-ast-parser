@@ -6,9 +6,11 @@
             {
                 "name": "StringArray",
                 "kind": "interface",
+                "line": 1,
                 "members": [
                     {
                         "name": "index",
+                        "line": 2,
                         "indexType": {
                             "text": "number"
                         },
@@ -23,9 +25,11 @@
             {
                 "name": "NumberOrStringDictionary",
                 "kind": "interface",
+                "line": 5,
                 "members": [
                     {
                         "name": "length",
+                        "line": 7,
                         "kind": "field",
                         "type": {
                             "text": "number"
@@ -33,6 +37,7 @@
                     },
                     {
                         "name": "name",
+                        "line": 8,
                         "kind": "field",
                         "type": {
                             "text": "string"
@@ -40,6 +45,7 @@
                     },
                     {
                         "name": "index",
+                        "line": 6,
                         "indexType": {
                             "text": "string"
                         },

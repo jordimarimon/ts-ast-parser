@@ -6,10 +6,12 @@
             {
                 "kind": "class",
                 "name": "Class1",
+                "line": 1,
                 "members": [
                     {
                         "kind": "field",
                         "name": "foo",
+                        "line": 2,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -21,6 +23,7 @@
             {
                 "kind": "class",
                 "name": "Class2",
+                "line": 5,
                 "heritage": [
                     {
                         "name": "Class1",
@@ -34,6 +37,7 @@
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 6,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -43,6 +47,7 @@
                     {
                         "kind": "field",
                         "name": "foo",
+                        "line": 2,
                         "modifier": "public",
                         "type": {
                             "text": "number"

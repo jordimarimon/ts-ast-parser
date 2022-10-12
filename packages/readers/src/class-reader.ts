@@ -39,6 +39,10 @@ export class ClassReader extends JSDocReader {
         return this._decl.name ?? '';
     }
 
+    getLine(): number {
+        return this._decl.line;
+    }
+
     isAbstract(): boolean {
         return !!this._decl.abstract;
     }

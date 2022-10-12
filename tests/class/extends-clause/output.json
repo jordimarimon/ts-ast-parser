@@ -6,10 +6,12 @@
             {
                 "kind": "class",
                 "name": "Bar",
+                "line": 1,
                 "members": [
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 3,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -19,6 +21,7 @@
                     {
                         "kind": "method",
                         "name": "add",
+                        "line": 5,
                         "return": {
                             "type": {
                                 "text": "number"
@@ -45,6 +48,7 @@
             {
                 "kind": "class",
                 "name": "Foo",
+                "line": 10,
                 "heritage": [
                     {
                         "name": "Bar",
@@ -58,6 +62,7 @@
                     {
                         "kind": "field",
                         "name": "bar",
+                        "line": 12,
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -68,6 +73,7 @@
                     {
                         "kind": "method",
                         "name": "add",
+                        "line": 14,
                         "return": {
                             "type": {
                                 "text": "number"
@@ -93,6 +99,7 @@
                     {
                         "kind": "method",
                         "name": "mult",
+                        "line": 18,
                         "return": {
                             "type": {
                                 "text": "number"

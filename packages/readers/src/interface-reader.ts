@@ -31,6 +31,10 @@ export class InterfaceReader extends JSDocReader {
         return this._decl.name ?? '';
     }
 
+    getLine(): number {
+        return this._decl.line;
+    }
+
     getAllMembers(): (PropertyReader | FunctionReader)[] {
         return this._members;
     }

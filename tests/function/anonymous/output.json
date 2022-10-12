@@ -5,6 +5,7 @@
         "declarations": [
             {
                 "kind": "function",
+                "line": 2,
                 "name": "myAdd",
                 "return": {
                     "type": {
@@ -28,6 +29,7 @@
             },
             {
                 "kind": "function",
+                "line": 6,
                 "name": "myAdd2",
                 "return": {
                     "type": {
@@ -51,6 +53,7 @@
             },
             {
                 "kind": "function",
+                "line": 10,
                 "name": "",
                 "return": {
                     "type": {

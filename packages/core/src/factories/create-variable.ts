@@ -5,6 +5,7 @@ import ts from 'typescript';
 import {
     findJSDoc,
     getAllJSDoc,
+    getLinePosition,
     getTypeName,
     isFunctionDeclaration,
     resolveExpression,
@@ -28,12 +29,14 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
     const decorators = getDecorators(node);
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
     const jsDocDefaultValue = findJSDoc<string>(JSDocTagName.default, jsDoc)?.value;
+    const line = getLinePosition(node);
 
     for (const declaration of node.declarationList.declarations) {
         const name = declaration?.name?.getText() ?? '';
         const defaultValue = jsDocDefaultValue ?? resolveExpression(declaration.initializer);
         const tmpl: VariableDeclaration = {
             kind: DeclarationKind.variable,
+            line,
             name,
             type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: getTypeName(declaration)},
         };

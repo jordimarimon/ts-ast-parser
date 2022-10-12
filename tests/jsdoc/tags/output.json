@@ -6,6 +6,7 @@
             {
                 "kind": "variable",
                 "name": "x",
+                "line": 8,
                 "type": {
                     "text": "number"
                 },
@@ -25,30 +26,6 @@
                     {
                         "kind": "category",
                         "value": "Variable"
-                    },
-                    {
-                        "kind": "fires",
-                        "value": {
-                            "type": "CustomEvent<number>",
-                            "name": "eventName",
-                            "description": "Event Description"
-                        }
-                    },
-                    {
-                        "kind": "cssprop",
-                        "value": {
-                            "default": "1rem",
-                            "optional": true,
-                            "name": "--size",
-                            "description": "Element size"
-                        }
-                    },
-                    {
-                        "kind": "csspart",
-                        "value": {
-                            "name": "somePart",
-                            "description": "Description of the part"
-                        }
                     }
                 ],
                 "default": 4

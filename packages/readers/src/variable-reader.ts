@@ -28,6 +28,10 @@ export class VariableReader extends JSDocReader {
         return this._decl.name ?? '';
     }
 
+    getLine(): number | undefined {
+        return this._decl.line;
+    }
+
     getType(): TypeReader {
         return this._type;
     }

@@ -1,4 +1,4 @@
-import { getAllJSDoc, getTypeParameters, tryAddProperty } from '../utils/index.js';
+import { getAllJSDoc, getLinePosition, getTypeParameters, tryAddProperty } from '../utils/index.js';
 import { DeclarationKind, Module, TypeAliasDeclaration } from '../models/index.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
@@ -16,6 +16,7 @@ function createTypeAlias(node: ts.TypeAliasDeclaration, moduleDoc: Module): void
     const name = node.name?.getText();
     const tmpl: TypeAliasDeclaration = {
         name,
+        line: getLinePosition(node),
         kind: DeclarationKind.typeAlias,
         value: node.type?.getText(),
     };
