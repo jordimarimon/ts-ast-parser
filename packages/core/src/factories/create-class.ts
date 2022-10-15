@@ -120,7 +120,7 @@ function createMethod(
     node: ts.MethodDeclaration | ts.PropertyDeclaration,
     member: SymbolWithContextType,
 ): ClassMethod {
-    const {symbol, type, inherited, overrides} = member;
+    const {type, inherited, overrides} = member;
     const tmpl: ClassMethod = {
         kind: DeclarationKind.method,
         ...createFunctionLike(node, type),
@@ -128,7 +128,7 @@ function createMethod(
 
     tryAddProperty(tmpl, 'static', isStaticMember(node));
     tryAddProperty(tmpl, 'modifier', getVisibilityModifier(node));
-    tryAddProperty(tmpl, 'readOnly', isReadOnly(symbol, node));
+    tryAddProperty(tmpl, 'readOnly', isReadOnly(node));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'override', overrides);
     tryAddProperty(tmpl, 'inherited', !overrides && inherited);
@@ -159,7 +159,7 @@ function createFieldFromProperty(node: ts.PropertyDeclaration, member: SymbolWit
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
     tryAddProperty(tmpl, 'decorators', getDecorators(node));
     tryAddProperty(tmpl, 'default', defaultValue ?? resolveExpression(node.initializer));
-    tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? isReadOnly(symbol, node));
+    tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? isReadOnly(node));
     tryAddProperty(tmpl, 'abstract', isAbstract(node));
     tryAddProperty(tmpl, 'override', overrides);
     tryAddProperty(tmpl, 'inherited', !overrides && inherited);
@@ -217,7 +217,7 @@ function createFieldFromPropertyAccessor(member: SymbolWithContextType): ClassMe
         tryAddProperty(tmpl, 'static', isStaticMember(getter));
         tryAddProperty(tmpl, 'override', overrides);
         tryAddProperty(tmpl, 'modifier', getVisibilityModifier(getter));
-        tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? (isReadOnly(symbol, getter) || !hasSetter));
+        tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? (isReadOnly(getter) || !hasSetter));
         tryAddProperty(tmpl, 'default', returnValue);
         tryAddProperty(tmpl, 'inherited', !overrides && inherited);
 

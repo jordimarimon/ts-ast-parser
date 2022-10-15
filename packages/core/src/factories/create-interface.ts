@@ -139,7 +139,7 @@ function createInterfaceFieldFromPropertySignature(
         type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
     };
 
-    tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? isReadOnly(symbol, node));
+    tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? isReadOnly(node));
     tryAddProperty(tmpl, 'optional', isOptional(symbol));
     tryAddProperty(tmpl, 'inherited', inherited);
     tryAddProperty(tmpl, 'jsDoc', jsDoc);

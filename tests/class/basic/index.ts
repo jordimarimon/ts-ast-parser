@@ -7,6 +7,8 @@ export class Foo {
 
     bar?: number;
 
+    #_privateField = 4;
+
     readonly message: string | undefined;
 
     private readonly _x: number = 4;
@@ -20,7 +22,7 @@ export class Foo {
     }
 
     readonly log = (message: string): void => {
-        console.log(message);
+        console.log(message + this.#_privateField);
     };
 
     add(): number {

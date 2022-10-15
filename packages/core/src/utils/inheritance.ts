@@ -132,7 +132,7 @@ function createSymbolWithContextType(node: InterfaceOrClassDeclaration, symbols:
             symbol: propSymbol,
             inherited,
             type: propType,
-            overrides: isOverride(propSymbol, decl) || (inherited && isDeclFromThisNode),
+            overrides: isOverride(decl) || (inherited && isDeclFromThisNode),
         });
     }
 
