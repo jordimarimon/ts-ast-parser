@@ -1,4 +1,4 @@
-import { extractMixinNodes, hasDefaultKeyword, hasExportKeyword, tryAddProperty } from '../utils/index.js';
+import { hasDefaultKeyword, hasExportKeyword, tryAddProperty } from '../utils/index.js';
 import { Export, ExportType, Module } from '../models/index.js';
 import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
@@ -36,12 +36,6 @@ function createExportFromCurrentDeclaration(node: ts.Node, moduleDoc: Module): v
     //      ...
 
     const isDefault = hasDefaultKeyword(node);
-    const mixinNodes = extractMixinNodes(node);
-
-    if (mixinNodes !== null) {
-        // TODO(Jordi M.): Add export for mixins
-        return;
-    }
 
     if (ts.isVariableStatement(node)) {
         for (const declaration of node.declarationList.declarations) {

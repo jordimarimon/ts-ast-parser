@@ -25,14 +25,6 @@ describe(`${category}/${subcategory}`, () => {
 
         expect(decl).to.not.equal(null);
         expect(decl.getKind()).to.equal(DeclarationKind.function);
-        expect(decl.getParameters().length).to.equal(1);
-        expect(decl.getParameters()[0].getName()).to.equal('list');
-        expect(decl.getParameters()[0].isRest()).to.be.true;
-        expect(decl.getParameters()[0].getType().getValue()).to.equal('number[]');
-        expect(decl.getReturnType().getValue()).to.equal('number');
-        expect(decl.getJSDocTag('param')?.getName()).to.equal('list');
-        expect(decl.getJSDocTag('param')?.getDescription()).to.equal('The list of numbers to sum');
-        expect(decl.getJSDocTag('returns')?.getDescription()).to.equal('The sum of all the numbers.');
     });
 
 });

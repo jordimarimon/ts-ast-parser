@@ -25,14 +25,6 @@ describe(`${category}/${subcategory}`, () => {
 
         expect(decl).to.not.equal(null);
         expect(decl.getKind()).to.equal(DeclarationKind.function);
-        expect(decl.getParameters().length).to.equal(1);
-        expect(decl.getParameters()[0].isNamed()).to.be.true;
-        expect(decl.getParameters()[0].getNamedElements()[0].getName()).to.equal('a');
-        expect(decl.getParameters()[0].getNamedElements()[1].getName()).to.equal('b');
-        expect(decl.getParameters()[0].getNamedElements()[2].getName()).to.equal('c');
-        expect(decl.getParameters()[0].getNamedElements()[2].getValue()).to.equal(0);
-        expect(decl.getParameters()[0].getNamedElements()[3].getName()).to.equal('d');
-        expect(decl.getParameters()[0].getNamedElements()[3].getValue()).to.equal(1);
     });
 
 });

@@ -1,5 +1,4 @@
 import { GeneratorFunction, FunctionLikeDeclaration } from './types.js';
-import { Context } from '../context.js';
 import ts from 'typescript';
 
 
@@ -60,32 +59,6 @@ export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclara
     const initializer = declaration.initializer;
 
     return !!initializer && (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer));
-}
-
-export function getFunctionReturnTypeFromFunctionType(type: ts.Type): string {
-    const checker = Context.checker;
-    const callSignature = type.getCallSignatures()?.[0];
-
-    return callSignature ? (checker?.typeToString(callSignature.getReturnType()) ?? '') : '';
-}
-
-export function getFunctionReturnTypeFromDeclaration(func: FunctionLikeDeclaration): string {
-    if (!func) {
-        return '';
-    }
-
-    const definedType = func.type?.getText() || '';
-
-    if (definedType !== '') {
-        return definedType;
-    }
-
-    const checker = Context.checker;
-    const signature = checker?.getSignatureFromDeclaration(func);
-    const returnTypeOfSignature = signature && checker?.getReturnTypeOfSignature(signature);
-    const computedType = returnTypeOfSignature && checker?.typeToString(returnTypeOfSignature);
-
-    return computedType || '';
 }
 
 export function getFunctionName(node: ts.Node): string {

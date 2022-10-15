@@ -25,9 +25,7 @@ describe(`${category}/${subcategory}`, () => {
 
         expect(decl).to.not.equal(null);
         expect(decl.getKind()).to.equal(DeclarationKind.function);
-        expect(decl.getParameters().length).to.equal(0);
         expect(decl.isGenerator()).to.be.true;
-        expect(decl.getReturnType().getValue()).to.equal('Generator<number, string, unknown>');
     });
 
 });

@@ -26,11 +26,6 @@ describe(`${category}/${subcategory}`, () => {
         expect(decl).to.not.equal(null);
         expect(decl.getKind()).to.equal(DeclarationKind.function);
         expect(decl.isAsync()).to.be.true;
-        expect(decl.getParameters().length).to.equal(1);
-        expect(decl.getParameters()[0].getName()).to.equal('amount');
-        expect(decl.getParameters()[0].isOptional()).to.be.true;
-        expect(decl.getParameters()[0].getDefault()).to.equal(500);
-        expect(decl.getReturnType().getValue()).to.equal('Promise<void>');
     });
 
 });

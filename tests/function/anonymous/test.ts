@@ -25,10 +25,6 @@ describe(`${category}/${subcategory}`, () => {
 
         expect(decl).to.not.equal(null);
         expect(decl.getKind()).to.equal(DeclarationKind.function);
-        expect(decl.getParameters().length).to.equal(2);
-        expect(decl.getParameters()[0].getName()).to.equal('x');
-        expect(decl.getParameters()[1].getName()).to.equal('y');
-        expect(decl.getReturnType().getValue()).to.equal('number');
     });
 
     it('should have a function named "myAdd2"', () => {
@@ -37,10 +33,6 @@ describe(`${category}/${subcategory}`, () => {
 
         expect(decl).to.not.equal(null);
         expect(decl.getKind()).to.equal(DeclarationKind.function);
-        expect(decl.getParameters().length).to.equal(2);
-        expect(decl.getParameters()[0].getName()).to.equal('x');
-        expect(decl.getParameters()[1].getName()).to.equal('y');
-        expect(decl.getReturnType().getValue()).to.equal('number');
     });
 
     it('should have an anonymous function ""', () => {
@@ -49,10 +41,6 @@ describe(`${category}/${subcategory}`, () => {
 
         expect(decl).to.not.equal(null);
         expect(decl.getKind()).to.equal(DeclarationKind.function);
-        expect(decl.getParameters().length).to.equal(2);
-        expect(decl.getParameters()[0].getName()).to.equal('x');
-        expect(decl.getParameters()[1].getName()).to.equal('y');
-        expect(decl.getReturnType().getValue()).to.equal('number');
     });
 
 });

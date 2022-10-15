@@ -13,7 +13,7 @@
         "useUnknownInCatchVariables": true,
         "exactOptionalPropertyTypes": true,
         "sourceMap": true,
-        "declaration": false,
+        "declaration": true,
         "composite": true,
         "incremental": true,
         "downlevelIteration": true,

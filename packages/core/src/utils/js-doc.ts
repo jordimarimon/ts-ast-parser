@@ -5,8 +5,8 @@ import { Context } from '../context.js';
 import { parse } from 'comment-parser';
 
 
-export function shouldIgnore(declaration: {jsDoc?: JSDoc} | undefined): boolean {
-    return !!declaration?.jsDoc?.some(tag => {
+export function shouldIgnore(declaration: unknown | undefined): boolean {
+    return !!(declaration as {jsDoc?: JSDoc})?.jsDoc?.some(tag => {
         return tag.kind === JSDocTagName.ignore || tag.kind === JSDocTagName.internal;
     });
 }

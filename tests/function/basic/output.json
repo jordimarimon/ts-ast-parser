@@ -6,36 +6,40 @@
             {
                 "kind": "function",
                 "name": "sum",
-                "line": 8,
-                "return": {
-                    "type": {
-                        "text": "number"
-                    }
-                },
-                "jsDoc": [
+                "signatures": [
                     {
-                        "kind": "description",
-                        "value": "Function that sums all the numbers in a list."
-                    },
-                    {
-                        "kind": "param",
-                        "value": {
-                            "name": "list",
-                            "description": "The list of numbers to sum"
-                        }
-                    },
-                    {
-                        "kind": "returns",
-                        "value": "The sum of all the numbers."
-                    }
-                ],
-                "parameters": [
-                    {
-                        "name": "list",
-                        "type": {
-                            "text": "number[]"
+                        "line": 8,
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
                         },
-                        "rest": true
+                        "jsDoc": [
+                            {
+                                "kind": "description",
+                                "value": "Function that sums all the numbers in a list."
+                            },
+                            {
+                                "kind": "param",
+                                "value": {
+                                    "name": "list",
+                                    "description": "The list of numbers to sum"
+                                }
+                            },
+                            {
+                                "kind": "returns",
+                                "value": "The sum of all the numbers."
+                            }
+                        ],
+                        "parameters": [
+                            {
+                                "name": "list",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "rest": true
+                            }
+                        ]
                     }
                 ]
             }

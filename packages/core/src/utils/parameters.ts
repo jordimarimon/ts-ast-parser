@@ -8,7 +8,7 @@ import { Context } from '../context.js';
 import ts from 'typescript';
 
 
-export function getParameters(node: NodeWithParameters, callSignature?: ts.Signature): Parameter[] {
+export function getParameters(node: NodeWithParameters, callSignature: ts.Signature): Parameter[] {
     // In class methods, we use the type from the call
     // signature to resolve types based on implementation in cases where
     // the methods uses typed parameters
@@ -32,18 +32,15 @@ export function getParameters(node: NodeWithParameters, callSignature?: ts.Signa
 function createSimpleParameter(
     param: ts.ParameterDeclaration,
     position: number,
-    callSignature?: ts.Signature,
+    callSignature: ts.Signature,
 ): Parameter {
     const checker = Context.checker;
     const jsDoc = getAllJSDoc(param);
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const contextType = callSignature && checker?.typeToString(callSignature?.getTypeParameterAtPosition(position));
-    const computedType = checker?.typeToString(checker?.getTypeAtLocation(param), param) || '';
+    const contextType = checker?.typeToString(callSignature.getTypeParameterAtPosition(position));
     const tmpl: Parameter = {
         name: param.name.getText(),
-        type: jsDocDefinedType
-            ? {text: jsDocDefinedType}
-            : {text: contextType ?? computedType},
+        type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: contextType ?? ''},
     };
 
     tryAddProperty(tmpl, 'decorators', getDecorators(param));

@@ -1,10 +1,9 @@
 import { shouldIgnore } from './utils/index.js';
 import {
     ClassDeclaration,
-    ClassMethod,
     Constructor,
     DeclarationKind,
-    FunctionDeclaration,
+    FunctionSignature,
     ModifierType,
     Module,
 } from './models/index.js';
@@ -14,10 +13,18 @@ export function clean(moduleDocs: Module[]): void {
     for (const moduleDoc of moduleDocs) {
         let i = moduleDoc.declarations.length;
 
+        removeDuplicateExports(moduleDoc);
+
         while (i--) {
             cleanDeclaration(i, moduleDoc);
         }
     }
+}
+
+function removeDuplicateExports(moduleDoc: Module): void {
+    moduleDoc.exports = moduleDoc.exports.filter((value, index, exports) => {
+        return index === exports.findIndex(e => e.name === value.name && e.type === value.type);
+    });
 }
 
 function cleanDeclaration(index: number, moduleDoc: Module): void {
@@ -39,7 +46,9 @@ function cleanDeclaration(index: number, moduleDoc: Module): void {
     }
 
     if (decl.kind === DeclarationKind.function) {
-        removeNonPublicParameters(decl);
+        for (const signature of decl.signatures) {
+            removeNonPublicParameters(signature);
+        }
     }
 }
 
@@ -55,7 +64,9 @@ function removeNonPublicClassElements(declaration: ClassDeclaration): void {
         }
 
         if (member?.kind === DeclarationKind.method) {
-            removeNonPublicParameters(member);
+            for (const signature of member.signatures) {
+                removeNonPublicParameters(signature);
+            }
         }
     }
 
@@ -66,7 +77,7 @@ function removeNonPublicClassElements(declaration: ClassDeclaration): void {
     }
 }
 
-function removeNonPublicParameters(declaration: FunctionDeclaration | ClassMethod | Constructor): void {
+function removeNonPublicParameters(declaration: FunctionSignature | Constructor): void {
     let i = declaration.parameters?.length ?? 0;
 
     while (i--) {

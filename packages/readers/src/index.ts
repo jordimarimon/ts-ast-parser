@@ -15,6 +15,7 @@ export * from './named-parameter-element-reader.js';
 export * from './parameter-reader.js';
 export * from './property-reader.js';
 export * from './reader.js';
+export * from './signature-reader.js';
 export * from './type-alias-reader.js';
 export * from './type-parameter-reader.js';
 export * from './type-reader.js';
