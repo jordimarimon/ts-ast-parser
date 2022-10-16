@@ -1,4 +1,4 @@
-import { parseFromFiles, Options, Module } from '@ts-ast-parser/core';
+import { parseFromFiles, Module } from '@ts-ast-parser/core';
 import ts from 'typescript';
 import path from 'path';
 import fs from 'fs';
@@ -10,7 +10,6 @@ export function getFixture(
     category: string,
     subcategory = '',
     importedFiles: string[] = [],
-    options: Partial<Options> = {},
     compilerOptions?: ts.CompilerOptions,
 ): { actual: Module[]; expected: Module[] } {
     const testFilePath = getTestFilePath(category, subcategory);
@@ -18,7 +17,7 @@ export function getFixture(
     const importedFilePaths = importedFiles.map(fileName => {
         return path.join(basedDir, category, subcategory, fileName);
     });
-    const modules = parseFromFiles([testFilePath, ...importedFilePaths], options, compilerOptions);
+    const modules = parseFromFiles([testFilePath, ...importedFilePaths], compilerOptions);
 
     return {actual: modules, expected: expectedOutputFile};
 }

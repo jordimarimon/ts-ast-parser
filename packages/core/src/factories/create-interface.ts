@@ -154,8 +154,8 @@ function createInterfaceMethod(
     const {type, inherited} = member;
 
     const tmpl: ClassMethod = {
-        ...createFunctionLike(node, type),
         kind: DeclarationKind.method,
+        ...createFunctionLike(node, type),
     };
 
     tryAddProperty(tmpl, 'inherited', inherited);

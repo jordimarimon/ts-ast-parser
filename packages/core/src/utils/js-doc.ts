@@ -1,7 +1,6 @@
 import { JSDoc, JSDocComment, JSDocNode, JSDocTagName, JSDocTagValue } from '../models/index.js';
 import { Spec } from 'comment-parser/primitives';
-import { logError, logWarning } from './logs.js';
-import { Context } from '../context.js';
+import { logWarning } from './logs.js';
 import { parse } from 'comment-parser';
 
 
@@ -58,16 +57,6 @@ function collectJsDoc(jsDocComment: JSDocComment, doc: JSDoc): void {
 }
 
 function getJSTagValue(name: string, tag: Spec): JSDocTagValue {
-    const jsDocHandlers = Context.options.jsDocHandlers ?? {};
-
-    if (jsDocHandlers[name] !== undefined) {
-        try {
-            return jsDocHandlers[name](tag) ?? '';
-        } catch (error: unknown) {
-            logError(`The JSDoc Handler "${name}" has thrown the following error: `, error);
-        }
-    }
-
     if (isBooleanJSDoc(name)) {
         return true;
     }
