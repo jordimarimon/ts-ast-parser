@@ -1,14 +1,17 @@
 import { ClassMethod, DeclarationKind, FunctionDeclaration } from '@ts-ast-parser/core';
 import { DecoratorReader } from './decorator-reader.js';
+import { JSDocReader } from './jsdoc-reader.js';
 
 
-export class FunctionReader {
+export class FunctionReader extends JSDocReader {
 
     private readonly _decl: FunctionDeclaration | ClassMethod;
 
     private readonly _decorators: DecoratorReader[];
 
     constructor(decl: FunctionDeclaration | ClassMethod) {
+        super(decl.jsDoc);
+
         this._decl = decl;
         this._decorators = (decl.decorators ?? []).map(d => new DecoratorReader(d));
     }

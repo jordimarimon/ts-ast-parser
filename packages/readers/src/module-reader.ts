@@ -1,4 +1,4 @@
-import { Declaration, DeclarationKind, Module } from '@ts-ast-parser/core';
+import { Declaration, DeclarationKind, JSDocTagName, Module } from '@ts-ast-parser/core';
 import { DeclarationReader } from './declaration-reader.js';
 import { TypeAliasReader } from './type-alias-reader.js';
 import { InterfaceReader } from './interface-reader.js';
@@ -54,6 +54,12 @@ export class ModuleReader {
 
     getAllDeclarationsInNamespace(name: string): DeclarationReader[] {
         return this._declarations.filter(decl => decl.getNamespace() === name);
+    }
+
+    getDeclarationsByCategory(category: string): DeclarationReader[] {
+        return this._declarations.filter(decl => {
+            return decl.getJSDocTag(JSDocTagName.category)?.getDescription() === category;
+        });
     }
 
     private _createDeclarationReader(decl: Declaration): DeclarationReader {

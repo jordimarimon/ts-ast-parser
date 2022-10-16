@@ -24,6 +24,7 @@ export interface FunctionLike {
     async?: boolean;
     generator?: boolean;
     decorators?: Decorator[];
+    jsDoc?: JSDoc;
     signatures: FunctionSignature[];
 }
 

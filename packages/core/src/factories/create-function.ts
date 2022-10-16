@@ -9,7 +9,7 @@ import {
     getFunctionNode,
     getLinePosition,
     getParameters,
-    getSymbolAtLocation,
+    getSignatures,
     getTypeParameters,
     isAsyncFunction,
     isFunctionDeclaration,
@@ -68,27 +68,17 @@ function createSignature(signature: ts.Signature): FunctionSignature {
 }
 
 export function createFunctionLike(node: ts.Node, type?: ts.Type | undefined): FunctionLike {
-    const checker = Context.checker;
     const func = getFunctionNode(node);
-
-    let signatures: readonly ts.Signature[];
-
-    if (!type) {
-        const symbol = func && getSymbolAtLocation(func);
-        const declarations = symbol?.getDeclarations() ?? [];
-        signatures = declarations
-            .map(d => checker?.getSignatureFromDeclaration(d as ts.SignatureDeclaration))
-            .filter((s): s is ts.Signature => !!s);
-    } else {
-        // FIXME(Jordi M.): It doesn't return the signature that has the implementation
-        //  of the method body when there is overloading
-        signatures = type.getNonNullableType().getCallSignatures();
-    }
-
+    const signatures = getSignatures(func, type);
     const tmpl: FunctionLike = {
         name: getFunctionName(node),
         signatures: signatures.map(s => createSignature(s)),
     };
+
+    if (node !== func) {
+        const jsDoc = getAllJSDoc(node);
+        tryAddProperty(tmpl, 'jsDoc', jsDoc);
+    }
 
     tryAddProperty(tmpl, 'decorators', getDecorators(node));
 
