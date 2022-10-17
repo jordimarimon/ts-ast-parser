@@ -14,6 +14,7 @@ export default defineConfig({
     },
 
     plugins: [
+        // @ts-expect-error TS says it's not callable
         tsconfigPaths(),
     ],
 

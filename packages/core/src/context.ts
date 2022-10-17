@@ -1,10 +1,8 @@
-import { Options } from './options.js';
 import ts from 'typescript';
 
 
 export interface ParserContext {
     checker: ts.TypeChecker | null;
-    options: Partial<Options>;
     compilerOptions: ts.CompilerOptions;
     normalizePath: (path: string | undefined) => string;
 }
@@ -17,8 +15,6 @@ export interface ParserContext {
 export const Context: ParserContext = {
 
     checker: null,
-
-    options: {},
 
     compilerOptions: {},
 

@@ -5,73 +5,139 @@
         "declarations": [
             {
                 "kind": "function",
-                "line": 2,
                 "name": "myAdd",
-                "return": {
-                    "type": {
-                        "text": "number"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "x",
-                        "type": {
-                            "text": "number"
+                        "line": 8,
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "This is a description"
+                    },
+                    {
+                        "kind": "param",
+                        "value": {
+                            "name": "x"
                         }
                     },
                     {
-                        "name": "y",
-                        "type": {
-                            "text": "number"
+                        "kind": "param",
+                        "value": {
+                            "name": "y"
                         }
                     }
                 ]
             },
             {
                 "kind": "function",
-                "line": 6,
                 "name": "myAdd2",
-                "return": {
-                    "type": {
-                        "text": "number"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "x",
-                        "type": {
-                            "text": "number"
+                        "line": 18,
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "This is a description"
+                    },
+                    {
+                        "kind": "param",
+                        "value": {
+                            "name": "x"
                         }
                     },
                     {
-                        "name": "y",
-                        "type": {
-                            "text": "number"
+                        "kind": "param",
+                        "value": {
+                            "name": "y"
                         }
                     }
                 ]
             },
             {
                 "kind": "function",
-                "line": 10,
                 "name": "",
-                "return": {
-                    "type": {
-                        "text": "number"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "x",
-                        "type": {
-                            "text": "number"
-                        }
-                    },
-                    {
-                        "name": "y",
-                        "type": {
-                            "text": "number"
-                        }
+                        "line": 28,
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "jsDoc": [
+                            {
+                                "kind": "description",
+                                "value": "This is a description"
+                            },
+                            {
+                                "kind": "param",
+                                "value": {
+                                    "name": "x"
+                                }
+                            },
+                            {
+                                "kind": "param",
+                                "value": {
+                                    "name": "y"
+                                }
+                            }
+                        ],
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ]
                     }
                 ]
             }

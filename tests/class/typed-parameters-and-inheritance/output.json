@@ -5,8 +5,8 @@
         "declarations": [
             {
                 "name": "TypeX",
-                "kind": "type-alias",
                 "line": 1,
+                "kind": "type-alias",
                 "value": "{\n    fieldInType: T;\n}",
                 "typeParameters": [
                     {
@@ -16,8 +16,8 @@
             },
             {
                 "name": "TypeY",
-                "kind": "interface",
                 "line": 5,
+                "kind": "interface",
                 "typeParameters": [
                     {
                         "name": "T"
@@ -35,9 +35,9 @@
                 ]
             },
             {
-                "kind": "class",
                 "name": "ClassB",
                 "line": 9,
+                "kind": "class",
                 "constructors": [
                     {
                         "parameters": [
@@ -58,9 +58,9 @@
                 ],
                 "members": [
                     {
-                        "kind": "field",
                         "name": "fieldInB",
                         "line": 10,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "T"
@@ -68,9 +68,9 @@
                         "optional": true
                     },
                     {
-                        "kind": "field",
                         "name": "setterInB",
                         "line": 12,
+                        "kind": "field",
                         "type": {
                             "text": "T"
                         },
@@ -80,18 +80,22 @@
                     {
                         "kind": "method",
                         "name": "myFunction",
-                        "line": 20,
-                        "return": {
-                            "type": {
-                                "text": "T"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "a",
-                                "type": {
-                                    "text": "T"
-                                }
+                                "line": 20,
+                                "return": {
+                                    "type": {
+                                        "text": "T"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "type": {
+                                            "text": "T"
+                                        }
+                                    }
+                                ]
                             }
                         ],
                         "modifier": "public"
@@ -99,9 +103,9 @@
                 ]
             },
             {
-                "kind": "class",
                 "name": "ClassA",
                 "line": 25,
+                "kind": "class",
                 "constructors": [
                     {
                         "parameters": [
@@ -125,9 +129,9 @@
                 ],
                 "members": [
                     {
-                        "kind": "field",
                         "name": "interfaceField",
                         "line": 26,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "TypeY<string>"
@@ -135,9 +139,9 @@
                         "optional": true
                     },
                     {
-                        "kind": "field",
                         "name": "typeField",
                         "line": 28,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "TypeX<string>"
@@ -145,9 +149,9 @@
                         "optional": true
                     },
                     {
-                        "kind": "field",
                         "name": "fieldInB",
                         "line": 10,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "string"
@@ -156,9 +160,9 @@
                         "inherited": true
                     },
                     {
-                        "kind": "field",
                         "name": "setterInB",
                         "line": 12,
+                        "kind": "field",
                         "type": {
                             "text": "string"
                         },
@@ -169,18 +173,22 @@
                     {
                         "kind": "method",
                         "name": "myFunction",
-                        "line": 20,
-                        "return": {
-                            "type": {
-                                "text": "string"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "a",
-                                "type": {
-                                    "text": "string"
-                                }
+                                "line": 20,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "type": {
+                                            "text": "string"
+                                        }
+                                    }
+                                ]
                             }
                         ],
                         "modifier": "public",

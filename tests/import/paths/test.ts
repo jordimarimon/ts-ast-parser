@@ -18,7 +18,7 @@ const compilerOptions: ts.CompilerOptions = {
         'custom-path/foo': ['./foo.ts'],
     },
 };
-const {actual, expected} = getFixture(category, subcategory, ['foo.ts'], {}, compilerOptions);
+const {actual, expected} = getFixture(category, subcategory, ['foo.ts'], compilerOptions);
 const reader = new Reader(actual);
 
 describe(`${category}/${subcategory}`, () => {

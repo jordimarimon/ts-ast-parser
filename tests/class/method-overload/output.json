@@ -1,77 +1,55 @@
 [
     {
-        "path": "tests/class/implements-clause/index.ts",
+        "path": "tests/class/method-overload/index.ts",
         "imports": [],
         "declarations": [
             {
-                "name": "Bar",
+                "name": "Foo",
                 "line": 1,
-                "kind": "interface",
+                "kind": "class",
                 "members": [
                     {
                         "kind": "method",
                         "name": "add",
                         "signatures": [
                             {
-                                "line": 2,
+                                "line": 3,
                                 "return": {
                                     "type": {
-                                        "text": "number"
+                                        "text": "string"
                                     }
                                 },
                                 "parameters": [
                                     {
-                                        "name": "x",
+                                        "name": "a",
                                         "type": {
-                                            "text": "number"
+                                            "text": "string"
                                         }
                                     },
                                     {
-                                        "name": "y",
+                                        "name": "b",
                                         "type": {
-                                            "text": "number"
+                                            "text": "string"
                                         }
                                     }
                                 ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "name": "Foo",
-                "line": 5,
-                "kind": "class",
-                "heritage": [
-                    {
-                        "name": "Bar",
-                        "source": {
-                            "path": "tests/class/implements-clause/index.ts"
-                        },
-                        "kind": "interface"
-                    }
-                ],
-                "members": [
-                    {
-                        "kind": "method",
-                        "name": "add",
-                        "signatures": [
+                            },
                             {
-                                "line": 7,
+                                "line": 4,
                                 "return": {
                                     "type": {
-                                        "text": "number"
+                                        "text": "string"
                                     }
                                 },
                                 "parameters": [
                                     {
-                                        "name": "x",
+                                        "name": "a",
                                         "type": {
                                             "text": "number"
                                         }
                                     },
                                     {
-                                        "name": "y",
+                                        "name": "b",
                                         "type": {
                                             "text": "number"
                                         }
@@ -85,10 +63,6 @@
             }
         ],
         "exports": [
-            {
-                "name": "Bar",
-                "type": "named"
-            },
             {
                 "name": "Foo",
                 "type": "named"

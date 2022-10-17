@@ -4,9 +4,9 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "class",
                 "name": "Foo",
                 "line": 4,
+                "kind": "class",
                 "constructors": [
                     {
                         "parameters": [
@@ -39,9 +39,9 @@
                 ],
                 "members": [
                     {
-                        "kind": "field",
                         "name": "staticBar",
                         "line": 6,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "\"Hello World\""
@@ -51,9 +51,9 @@
                         "readOnly": true
                     },
                     {
-                        "kind": "field",
                         "name": "bar",
                         "line": 8,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -61,9 +61,9 @@
                         "optional": true
                     },
                     {
-                        "kind": "field",
                         "name": "message",
                         "line": 12,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "string | undefined"
@@ -73,18 +73,22 @@
                     {
                         "kind": "method",
                         "name": "log",
-                        "line": 24,
-                        "return": {
-                            "type": {
-                                "text": "void"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "message",
-                                "type": {
-                                    "text": "string"
-                                }
+                                "line": 24,
+                                "return": {
+                                    "type": {
+                                        "text": "void"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "message",
+                                        "type": {
+                                            "text": "string"
+                                        }
+                                    }
+                                ]
                             }
                         ],
                         "modifier": "public",
@@ -93,12 +97,16 @@
                     {
                         "kind": "method",
                         "name": "add",
-                        "line": 28,
-                        "return": {
-                            "type": {
-                                "text": "number"
+                        "signatures": [
+                            {
+                                "line": 28,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                }
                             }
-                        },
+                        ],
                         "modifier": "public"
                     }
                 ]

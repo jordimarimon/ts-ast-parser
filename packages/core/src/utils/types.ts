@@ -17,6 +17,7 @@ export type NodeWithTypeParameter = ts.TypeAliasDeclaration |
     ts.InterfaceDeclaration |
     ts.ClassDeclaration |
     ts.ClassExpression |
+    ts.SignatureDeclaration |
     FunctionLikeDeclaration |
     null;
 

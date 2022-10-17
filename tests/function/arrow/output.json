@@ -6,12 +6,25 @@
             {
                 "kind": "function",
                 "name": "sum",
-                "line": 8,
-                "return": {
-                    "type": {
-                        "text": "number"
+                "signatures": [
+                    {
+                        "line": 8,
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "list",
+                                "type": {
+                                    "text": "number[]"
+                                },
+                                "rest": true
+                            }
+                        ]
                     }
-                },
+                ],
                 "jsDoc": [
                     {
                         "kind": "description",
@@ -27,15 +40,6 @@
                     {
                         "kind": "returns",
                         "value": "The sum of all the numbers."
-                    }
-                ],
-                "parameters": [
-                    {
-                        "name": "list",
-                        "type": {
-                            "text": "number[]"
-                        },
-                        "rest": true
                     }
                 ]
             }

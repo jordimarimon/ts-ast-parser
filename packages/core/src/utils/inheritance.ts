@@ -109,7 +109,7 @@ function createSymbolWithContextType(node: InterfaceOrClassDeclaration, symbols:
     for (const propSymbol of symbols) {
         const decl = propSymbol.getDeclarations()?.[0];
         const filePath = decl?.getSourceFile()?.fileName ?? '';
-        const propType = node ? checker?.getTypeOfSymbolAtLocation(propSymbol, node) : undefined;
+        const propType = checker?.getTypeOfSymbolAtLocation(propSymbol, node);
 
         if (!decl) {
             continue;

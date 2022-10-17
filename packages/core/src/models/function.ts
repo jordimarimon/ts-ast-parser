@@ -10,17 +10,22 @@ export interface FunctionReturn {
     type: Type;
 }
 
-export interface FunctionLike {
-    name: string;
+export interface FunctionSignature {
     line: number;
     parameters?: Parameter[];
     typeParameters?: TypeParameter[];
     return: FunctionReturn;
+    jsDoc?: JSDoc;
+}
+
+export interface FunctionLike {
+    name: string;
+    namespace?: string;
     async?: boolean;
     generator?: boolean;
     decorators?: Decorator[];
     jsDoc?: JSDoc;
-    namespace?: string;
+    signatures: FunctionSignature[];
 }
 
 export interface FunctionDeclaration extends FunctionLike {

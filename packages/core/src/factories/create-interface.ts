@@ -97,13 +97,13 @@ function createInterfaceFieldFromIndexSignature(member: SymbolWithContextType): 
     const nodeType = node.type?.getText() ?? '';
 
     const callSignature = type?.getCallSignatures()?.[0];
-    const param = getParameters(node, callSignature)[0];
+    const params = callSignature ? getParameters(node, callSignature) : [];
 
     const tmpl: InterfaceField = {
-        name: param?.name ?? '',
+        name: params?.[0]?.name ?? '',
         line: getLinePosition(node),
         kind: DeclarationKind.field,
-        indexType: param?.type ?? {text: ''},
+        indexType: params?.[0]?.type ?? {text: ''},
         indexSignature: true,
         type: {text: valueJSDocDefinedType || nodeType},
     };
@@ -154,8 +154,8 @@ function createInterfaceMethod(
     const {type, inherited} = member;
 
     const tmpl: ClassMethod = {
-        ...createFunctionLike(node, type),
         kind: DeclarationKind.method,
+        ...createFunctionLike(node, type),
     };
 
     tryAddProperty(tmpl, 'inherited', inherited);

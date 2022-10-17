@@ -6,25 +6,29 @@
             {
                 "kind": "function",
                 "name": "enumerable",
-                "line": 1,
-                "return": {
-                    "type": {
-                        "text": "(_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor) => void"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "value",
-                        "type": {
-                            "text": "boolean"
-                        }
+                        "line": 1,
+                        "return": {
+                            "type": {
+                                "text": "(_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor) => void"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "value",
+                                "type": {
+                                    "text": "boolean"
+                                }
+                            }
+                        ]
                     }
                 ]
             },
             {
-                "kind": "class",
                 "name": "Greeter",
                 "line": 7,
+                "kind": "class",
                 "constructors": [
                     {
                         "parameters": [
@@ -39,9 +43,9 @@
                 ],
                 "members": [
                     {
-                        "kind": "field",
                         "name": "greeting",
                         "line": 9,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "string"
@@ -50,12 +54,16 @@
                     {
                         "kind": "method",
                         "name": "greet",
-                        "line": 15,
-                        "return": {
-                            "type": {
-                                "text": "string"
+                        "signatures": [
+                            {
+                                "line": 15,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                }
                             }
-                        },
+                        ],
                         "decorators": [
                             {
                                 "name": "enumerable",

@@ -4,15 +4,15 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "class",
                 "name": "Foo",
                 "line": 1,
+                "kind": "class",
                 "abstract": true,
                 "members": [
                     {
-                        "kind": "field",
                         "name": "y",
                         "line": 3,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -20,9 +20,9 @@
                         "default": 4
                     },
                     {
-                        "kind": "field",
                         "name": "x",
                         "line": 5,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -32,24 +32,28 @@
                     {
                         "kind": "method",
                         "name": "add",
-                        "line": 7,
-                        "return": {
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "x",
-                                "type": {
-                                    "text": "number"
-                                }
-                            },
-                            {
-                                "name": "y",
-                                "type": {
-                                    "text": "number"
-                                }
+                                "line": 7,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
                             }
                         ],
                         "modifier": "public",

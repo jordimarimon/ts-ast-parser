@@ -1,4 +1,5 @@
-import { GeneratorFunction, FunctionLikeDeclaration } from './types.js';
+import { FunctionLikeDeclaration, GeneratorFunction } from './types.js';
+import { getSymbolAtLocation } from './symbol.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
@@ -27,6 +28,31 @@ export function isFunctionExpression(expr: ts.Expression | undefined): expr is t
 
 export function isGeneratorFunction(func: GeneratorFunction | undefined): boolean {
     return !!func?.asteriskToken;
+}
+
+export function getSignatures(node: FunctionLikeDeclaration, type?: ts.Type | undefined): readonly ts.Signature[] {
+    const checker = Context.checker;
+
+    let funcType: ts.Type | null | undefined = type;
+
+    if (!funcType) {
+        const symbol = node && getSymbolAtLocation(node);
+        funcType = node && symbol && checker?.getTypeOfSymbolAtLocation(symbol, node.getSourceFile());
+    }
+
+    // Anonymous functions
+    if (!funcType) {
+        const signature = node && checker?.getSignatureFromDeclaration(node);
+        return signature ? [signature] : [];
+    }
+
+    // FIXME(Jordi M.): It doesn't return the signature that has the implementation
+    //  of the method/function body when there is overloading.
+    //  We could do something like:
+    //          symbol.getDeclarations().map(d => checker.getSignatureFromDeclaration(d))
+    //  but this won't work for methods in classes or interfaces as we need the context
+    //  of the implementation (type parameters resolved).
+    return funcType.getNonNullableType().getCallSignatures();
 }
 
 export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclaration | ts.VariableStatement {
@@ -60,32 +86,6 @@ export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclara
     const initializer = declaration.initializer;
 
     return !!initializer && (ts.isArrowFunction(initializer) || ts.isFunctionExpression(initializer));
-}
-
-export function getFunctionReturnTypeFromFunctionType(type: ts.Type): string {
-    const checker = Context.checker;
-    const callSignature = type.getCallSignatures()?.[0];
-
-    return callSignature ? (checker?.typeToString(callSignature.getReturnType()) ?? '') : '';
-}
-
-export function getFunctionReturnTypeFromDeclaration(func: FunctionLikeDeclaration): string {
-    if (!func) {
-        return '';
-    }
-
-    const definedType = func.type?.getText() || '';
-
-    if (definedType !== '') {
-        return definedType;
-    }
-
-    const checker = Context.checker;
-    const signature = checker?.getSignatureFromDeclaration(func);
-    const returnTypeOfSignature = signature && checker?.getReturnTypeOfSignature(signature);
-    const computedType = returnTypeOfSignature && checker?.typeToString(returnTypeOfSignature);
-
-    return computedType || '';
 }
 
 export function getFunctionName(node: ts.Node): string {

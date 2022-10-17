@@ -31,103 +31,123 @@
                         "optional": true
                     },
                     {
+                        "kind": "method",
                         "name": "bar",
-                        "line": 4,
-                        "return": {
-                            "type": {
-                                "text": "void"
+                        "signatures": [
+                            {
+                                "line": 4,
+                                "return": {
+                                    "type": {
+                                        "text": "void"
+                                    }
+                                }
                             }
-                        },
-                        "kind": "method"
+                        ]
                     },
                     {
+                        "kind": "method",
                         "name": "isBar",
-                        "line": 5,
-                        "return": {
-                            "type": {
-                                "text": "boolean"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "a",
-                                "type": {
-                                    "text": "number"
-                                }
-                            },
-                            {
-                                "name": "b",
-                                "type": {
-                                    "text": "string"
-                                }
+                                "line": 5,
+                                "return": {
+                                    "type": {
+                                        "text": "boolean"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "b",
+                                        "type": {
+                                            "text": "string"
+                                        }
+                                    }
+                                ]
                             }
-                        ],
-                        "kind": "method"
+                        ]
                     },
                     {
+                        "kind": "method",
                         "name": "checkBar",
-                        "line": 6,
-                        "return": {
-                            "type": {
-                                "text": "Promise<void>"
+                        "signatures": [
+                            {
+                                "line": 6,
+                                "return": {
+                                    "type": {
+                                        "text": "Promise<void>"
+                                    }
+                                }
                             }
-                        },
-                        "kind": "method"
+                        ]
                     },
                     {
+                        "kind": "method",
                         "name": "barWithTypedParameter",
-                        "line": 7,
-                        "return": {
-                            "type": {
-                                "text": "T"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "c",
-                                "type": {
-                                    "text": "T"
-                                }
+                                "line": 7,
+                                "return": {
+                                    "type": {
+                                        "text": "T"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "c",
+                                        "type": {
+                                            "text": "T"
+                                        }
+                                    }
+                                ],
+                                "typeParameters": [
+                                    {
+                                        "name": "T"
+                                    }
+                                ]
                             }
-                        ],
-                        "typeParameters": [
-                            {
-                                "name": "T"
-                            }
-                        ],
-                        "kind": "method"
+                        ]
                     },
                     {
+                        "kind": "method",
                         "name": "arrowFuncWithTypedParameters",
-                        "line": 8,
-                        "return": {
-                            "type": {
-                                "text": "T"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "c",
-                                "type": {
-                                    "text": "T"
-                                }
+                                "line": 8,
+                                "return": {
+                                    "type": {
+                                        "text": "T"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "c",
+                                        "type": {
+                                            "text": "T"
+                                        }
+                                    }
+                                ],
+                                "typeParameters": [
+                                    {
+                                        "name": "T"
+                                    }
+                                ]
                             }
-                        ],
-                        "typeParameters": [
-                            {
-                                "name": "T"
-                            }
-                        ],
-                        "kind": "method"
+                        ]
                     },
                     {
-                        "kind": "field",
                         "name": "z",
                         "line": 9,
-                        "readOnly": true,
+                        "kind": "field",
                         "type": {
                             "text": "number"
-                        }
+                        },
+                        "readOnly": true
                     }
                 ]
             }

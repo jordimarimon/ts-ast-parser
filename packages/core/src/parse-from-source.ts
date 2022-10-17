@@ -2,7 +2,6 @@ import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
 import { createCompilerHost } from './compiler-host.js';
 import { Module } from './models/index.js';
 import { Context } from './context.js';
-import { Options } from './options.js';
 import { collect } from './collect.js';
 import { clean } from './clean.js';
 import ts from 'typescript';
@@ -12,24 +11,19 @@ import ts from 'typescript';
  * Extracts the metadata from a TypeScript code snippet
  *
  * @param source - A string that represents the TypeScript source code
- * @param options - Options that can be used to configure the output metadata
  * @param compilerOptions - Options to pass to the TypeScript compiler
  *
  * @returns The metadata extracted from the source code provided
  */
-export function parseFromSource(
-    source: string,
-    options: Partial<Options> = {},
-    compilerOptions: ts.CompilerOptions = DEFAULT_COMPILER_OPTIONS,
-): Module {
+export function parseFromSource(source: string, compilerOptions?: ts.CompilerOptions): Module {
     const fileName = 'unknown.ts';
     const compilerHost = createCompilerHost(fileName, source);
-    const program = ts.createProgram([fileName], compilerOptions, compilerHost);
+    const resolvedCompilerOptions = compilerOptions ?? DEFAULT_COMPILER_OPTIONS;
+    const program = ts.createProgram([fileName], resolvedCompilerOptions, compilerHost);
     const sourceFile = program.getSourceFile(fileName);
 
     Context.checker = program.getTypeChecker();
-    Context.options = options;
-    Context.compilerOptions = compilerOptions;
+    Context.compilerOptions = resolvedCompilerOptions;
 
     const moduleDoc = collect(sourceFile);
 

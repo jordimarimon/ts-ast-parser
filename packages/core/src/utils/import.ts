@@ -16,7 +16,7 @@ export function isBareModuleSpecifier(importPath: string): boolean {
 }
 
 export function isThirdPartyImport(importPath: string): boolean {
-    return /.*node_modules\/.+/.test(importPath) || /^https?:\/\/.+/.test(importPath);
+    return importPath.length < 1000 && (/.*node_modules\/.+/.test(importPath) || /^https?:\/\/.+/.test(importPath));
 }
 
 export function getOriginalImportPath(node: ts.Identifier | undefined): string {

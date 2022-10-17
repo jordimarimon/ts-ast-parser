@@ -1,7 +1,7 @@
 import { FunctionReader, Reader } from '@ts-ast-parser/readers';
+import { DeclarationKind } from '@ts-ast-parser/core';
 import { describe, expect, it } from 'vitest';
 import { getFixture } from '../../utils.js';
-import { DeclarationKind } from '@ts-ast-parser/core';
 
 
 const category = 'function';
@@ -22,14 +22,15 @@ describe(`${category}/${subcategory}`, () => {
     it('should have a function named "sum"', () => {
         const mod = reader.getModuleByIndex(0);
         const decl = mod?.getDeclarationByName('sum') as FunctionReader;
+        const signature = decl.getSignatures()[0];
 
         expect(decl).to.not.equal(null);
         expect(decl.getKind()).to.equal(DeclarationKind.function);
-        expect(decl.getParameters().length).to.equal(1);
-        expect(decl.getParameters()[0].getName()).to.equal('list');
-        expect(decl.getParameters()[0].isRest()).to.be.true;
-        expect(decl.getParameters()[0].getType().getValue()).to.equal('number[]');
-        expect(decl.getReturnType().getValue()).to.equal('number');
+        expect(signature.getParameters().length).to.equal(1);
+        expect(signature.getParameters()[0].getName()).to.equal('list');
+        expect(signature.getParameters()[0].isRest()).to.be.true;
+        expect(signature.getParameters()[0].getType().getValue()).to.equal('number[]');
+        expect(signature.getReturnType().getValue()).to.equal('number');
         expect(decl.getJSDocTag('param')?.getName()).to.equal('list');
         expect(decl.getJSDocTag('param')?.getDescription()).to.equal('The list of numbers to sum');
         expect(decl.getJSDocTag('returns')?.getDescription()).to.equal('The sum of all the numbers.');
