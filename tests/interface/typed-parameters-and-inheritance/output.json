@@ -22,30 +22,34 @@
                         }
                     },
                     {
+                        "kind": "method",
                         "name": "method",
-                        "line": 4,
-                        "return": {
-                            "type": {
-                                "text": "T"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "a",
-                                "type": {
-                                    "text": "T"
-                                }
+                                "line": 4,
+                                "return": {
+                                    "type": {
+                                        "text": "T"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "type": {
+                                            "text": "T"
+                                        }
+                                    }
+                                ]
                             }
-                        ],
-                        "kind": "method"
+                        ]
                     },
                     {
-                        "name": "index",
+                        "name": "",
                         "line": 2,
-                        "indexType": {
-                            "text": "number"
-                        },
                         "kind": "field",
+                        "indexType": {
+                            "text": ""
+                        },
                         "indexSignature": true,
                         "type": {
                             "text": "T"
@@ -85,22 +89,26 @@
                         "inherited": true
                     },
                     {
+                        "kind": "method",
                         "name": "method",
-                        "line": 4,
-                        "return": {
-                            "type": {
-                                "text": "string"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "a",
-                                "type": {
-                                    "text": "string"
-                                }
+                                "line": 4,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "type": {
+                                            "text": "string"
+                                        }
+                                    }
+                                ]
                             }
                         ],
-                        "kind": "method",
                         "inherited": true
                     }
                 ]

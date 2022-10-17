@@ -35,7 +35,7 @@
                             {
                                 "name": "list",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number[]"
                                 },
                                 "rest": true
                             }

@@ -12,8 +12,8 @@
         "declarations": [
             {
                 "kind": "variable",
-                "name": "x",
                 "line": 4,
+                "name": "x",
                 "type": {
                     "text": "TypeA"
                 },
@@ -38,8 +38,8 @@
                 "members": [
                     {
                         "name": "foo",
-                        "kind": "field",
                         "line": 2,
+                        "kind": "field",
                         "type": {
                             "text": "string"
                         }

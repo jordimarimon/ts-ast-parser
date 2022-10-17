@@ -6,67 +6,75 @@
             {
                 "kind": "function",
                 "name": "required",
-                "line": 7,
-                "return": {
-                    "type": {
-                        "text": "void"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "target",
-                        "type": {
-                            "text": "Object"
-                        }
-                    },
-                    {
-                        "name": "propertyKey",
-                        "type": {
-                            "text": "string | symbol"
-                        }
-                    },
-                    {
-                        "name": "parameterIndex",
-                        "type": {
-                            "text": "number"
-                        }
+                        "line": 7,
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "target",
+                                "type": {
+                                    "text": "Object"
+                                }
+                            },
+                            {
+                                "name": "propertyKey",
+                                "type": {
+                                    "text": "string | symbol"
+                                }
+                            },
+                            {
+                                "name": "parameterIndex",
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "kind": "function",
                 "name": "validate",
-                "line": 13,
-                "return": {
-                    "type": {
-                        "text": "void"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "target",
-                        "type": {
-                            "text": "BugReport"
-                        }
-                    },
-                    {
-                        "name": "propertyName",
-                        "type": {
-                            "text": "string"
-                        }
-                    },
-                    {
-                        "name": "descriptor",
-                        "type": {
-                            "text": "TypedPropertyDescriptor<(...args: any[]) => any>"
-                        }
+                        "line": 13,
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "target",
+                                "type": {
+                                    "text": "BugReport"
+                                }
+                            },
+                            {
+                                "name": "propertyName",
+                                "type": {
+                                    "text": "string"
+                                }
+                            },
+                            {
+                                "name": "descriptor",
+                                "type": {
+                                    "text": "TypedPropertyDescriptor<(...args: any[]) => any>"
+                                }
+                            }
+                        ]
                     }
                 ]
             },
             {
-                "kind": "class",
                 "name": "BugReport",
                 "line": 37,
+                "kind": "class",
                 "constructors": [
                     {
                         "parameters": [
@@ -81,9 +89,9 @@
                 ],
                 "members": [
                     {
-                        "kind": "field",
                         "name": "type",
                         "line": 39,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "string"
@@ -91,9 +99,9 @@
                         "default": "'report'"
                     },
                     {
-                        "kind": "field",
                         "name": "title",
                         "line": 41,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "string"
@@ -103,34 +111,38 @@
                     {
                         "kind": "method",
                         "name": "print",
-                        "line": 47,
-                        "return": {
-                            "type": {
-                                "text": "string"
+                        "signatures": [
+                            {
+                                "line": 47,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "verbose",
+                                        "type": {
+                                            "text": "boolean"
+                                        },
+                                        "decorators": [
+                                            {
+                                                "name": "required",
+                                                "source": {
+                                                    "path": "tests/decorator/parameter/index.ts"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
                             }
-                        },
+                        ],
                         "decorators": [
                             {
                                 "name": "validate",
                                 "source": {
                                     "path": "tests/decorator/parameter/index.ts"
                                 }
-                            }
-                        ],
-                        "parameters": [
-                            {
-                                "name": "verbose",
-                                "type": {
-                                    "text": "boolean"
-                                },
-                                "decorators": [
-                                    {
-                                        "name": "required",
-                                        "source": {
-                                            "path": "tests/decorator/parameter/index.ts"
-                                        }
-                                    }
-                                ]
                             }
                         ],
                         "modifier": "public"

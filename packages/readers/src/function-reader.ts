@@ -1,5 +1,6 @@
 import { ClassMethod, DeclarationKind, FunctionDeclaration } from '@ts-ast-parser/core';
 import { DecoratorReader } from './decorator-reader.js';
+import { SignatureReader } from './signature-reader.js';
 import { JSDocReader } from './jsdoc-reader.js';
 
 
@@ -9,11 +10,14 @@ export class FunctionReader extends JSDocReader {
 
     private readonly _decorators: DecoratorReader[];
 
+    private readonly _signatures: SignatureReader[];
+
     constructor(decl: FunctionDeclaration | ClassMethod) {
         super(decl.jsDoc);
 
         this._decl = decl;
         this._decorators = (decl.decorators ?? []).map(d => new DecoratorReader(d));
+        this._signatures = (decl.signatures ?? []).map(s => new SignatureReader(s));
     }
 
     getKind(): DeclarationKind {
@@ -31,6 +35,10 @@ export class FunctionReader extends JSDocReader {
 
     getDecorators(): DecoratorReader[] {
         return this._decorators;
+    }
+
+    getSignatures(): SignatureReader[] {
+        return this._signatures;
     }
 
     getDecoratorWithName(name: string): DecoratorReader | undefined {

@@ -5,39 +5,43 @@
         "declarations": [
             {
                 "name": "Bar",
-                "kind": "interface",
                 "line": 1,
+                "kind": "interface",
                 "members": [
                     {
+                        "kind": "method",
                         "name": "add",
-                        "line": 2,
-                        "return": {
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "x",
-                                "type": {
-                                    "text": "number"
-                                }
-                            },
-                            {
-                                "name": "y",
-                                "type": {
-                                    "text": "number"
-                                }
+                                "line": 2,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
                             }
-                        ],
-                        "kind": "method"
+                        ]
                     }
                 ]
             },
             {
-                "kind": "class",
                 "name": "Foo",
                 "line": 5,
+                "kind": "class",
                 "heritage": [
                     {
                         "name": "Bar",
@@ -51,24 +55,28 @@
                     {
                         "kind": "method",
                         "name": "add",
-                        "line": 7,
-                        "return": {
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "x",
-                                "type": {
-                                    "text": "number"
-                                }
-                            },
-                            {
-                                "name": "y",
-                                "type": {
-                                    "text": "number"
-                                }
+                                "line": 7,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
                             }
                         ],
                         "modifier": "public"

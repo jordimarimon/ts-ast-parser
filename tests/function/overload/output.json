@@ -50,28 +50,6 @@
                                 }
                             }
                         ]
-                    },
-                    {
-                        "line": 3,
-                        "return": {
-                            "type": {
-                                "text": "string"
-                            }
-                        },
-                        "parameters": [
-                            {
-                                "name": "a",
-                                "type": {
-                                    "text": "unknown"
-                                }
-                            },
-                            {
-                                "name": "b",
-                                "type": {
-                                    "text": "unknown"
-                                }
-                            }
-                        ]
                     }
                 ]
             }

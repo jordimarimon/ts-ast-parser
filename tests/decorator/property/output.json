@@ -15,49 +15,57 @@
             {
                 "kind": "function",
                 "name": "format",
-                "line": 7,
-                "return": {
-                    "type": {
-                        "text": "{ (target: Function): void; (target: Object, propertyKey: string | symbol): void; }"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "formatString",
-                        "type": {
-                            "text": "string"
-                        }
+                        "line": 7,
+                        "return": {
+                            "type": {
+                                "text": "{ (target: Function): void; (target: Object, propertyKey: string | symbol): void; }"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "formatString",
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ]
                     }
                 ]
             },
             {
                 "kind": "function",
                 "name": "getFormat",
-                "line": 12,
-                "return": {
-                    "type": {
-                        "text": "any"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "target",
-                        "type": {
-                            "text": "Greeter"
-                        }
-                    },
-                    {
-                        "name": "propertyKey",
-                        "type": {
-                            "text": "string"
-                        }
+                        "line": 12,
+                        "return": {
+                            "type": {
+                                "text": "any"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "target",
+                                "type": {
+                                    "text": "Greeter"
+                                }
+                            },
+                            {
+                                "name": "propertyKey",
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ]
                     }
                 ]
             },
             {
-                "kind": "class",
                 "name": "Greeter",
                 "line": 16,
+                "kind": "class",
                 "constructors": [
                     {
                         "parameters": [
@@ -72,9 +80,9 @@
                 ],
                 "members": [
                     {
-                        "kind": "field",
                         "name": "greeting",
                         "line": 18,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "string"
@@ -95,12 +103,16 @@
                     {
                         "kind": "method",
                         "name": "greet",
-                        "line": 25,
-                        "return": {
-                            "type": {
-                                "text": "string"
+                        "signatures": [
+                            {
+                                "line": 25,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                }
                             }
-                        },
+                        ],
                         "modifier": "public"
                     }
                 ]

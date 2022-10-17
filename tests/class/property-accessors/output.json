@@ -4,14 +4,14 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "class",
                 "name": "Foo",
                 "line": 1,
+                "kind": "class",
                 "members": [
                     {
-                        "kind": "field",
                         "name": "staticBar",
                         "line": 3,
+                        "kind": "field",
                         "type": {
                             "text": "string"
                         },
@@ -21,9 +21,9 @@
                         "default": "'Hello World'"
                     },
                     {
-                        "kind": "field",
                         "name": "bar",
                         "line": 11,
+                        "kind": "field",
                         "type": {
                             "text": "string"
                         },
@@ -31,9 +31,9 @@
                         "default": "''"
                     },
                     {
-                        "kind": "field",
                         "name": "fooBar",
                         "line": 19,
+                        "kind": "field",
                         "type": {
                             "text": "number"
                         },
@@ -43,12 +43,16 @@
                     {
                         "kind": "method",
                         "name": "log",
-                        "line": 23,
-                        "return": {
-                            "type": {
-                                "text": "void"
+                        "signatures": [
+                            {
+                                "line": 23,
+                                "return": {
+                                    "type": {
+                                        "text": "void"
+                                    }
+                                }
                             }
-                        },
+                        ],
                         "modifier": "public"
                     }
                 ]

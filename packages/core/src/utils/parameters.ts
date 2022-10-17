@@ -14,54 +14,49 @@ export function getParameters(node: NodeWithParameters, callSignature: ts.Signat
     // the methods uses typed parameters
 
     const parameters: Parameter[] = [];
-    const originalParameters = node?.parameters ?? [];
+    const nodeParameters = node?.parameters ?? [];
+    const symbolParameters = callSignature.parameters ?? [];
 
-    for (let i = 0; i < originalParameters.length; i++) {
-        const param = originalParameters[i];
+    for (let i = 0; i < symbolParameters.length; i++) {
+        const nodeParam = nodeParameters[i];
+        const symbolParam = symbolParameters[i];
 
-        if (ts.isObjectBindingPattern(param.name)) {
-            parameters.push(createNamedParameter(param, i, callSignature));
+        if (ts.isObjectBindingPattern(nodeParam.name)) {
+            parameters.push(createNamedParameter(nodeParam, symbolParam));
         } else {
-            parameters.push(createSimpleParameter(param, i, callSignature));
+            parameters.push(createSimpleParameter(nodeParam, symbolParam));
         }
     }
 
     return parameters;
 }
 
-function createSimpleParameter(
-    param: ts.ParameterDeclaration,
-    position: number,
-    callSignature: ts.Signature,
-): Parameter {
+function createSimpleParameter(nodeParam: ts.ParameterDeclaration, symbolParam: ts.Symbol): Parameter {
     const checker = Context.checker;
-    const jsDoc = getAllJSDoc(param);
+    const jsDoc = getAllJSDoc(nodeParam);
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const contextType = checker?.typeToString(callSignature.getTypeParameterAtPosition(position));
+    const contextType = checker?.typeToString(checker?.getTypeOfSymbolAtLocation(symbolParam, nodeParam));
+
     const tmpl: Parameter = {
-        name: param.name.getText(),
-        type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: contextType ?? ''},
+        name: symbolParam.getName() ?? '',
+        type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: contextType ?? (nodeParam.type?.getText() ?? '')},
     };
 
-    tryAddProperty(tmpl, 'decorators', getDecorators(param));
+    tryAddProperty(tmpl, 'decorators', getDecorators(nodeParam));
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
-    tryAddProperty(tmpl, 'optional', !!checker?.isOptionalParameter(param));
-    tryAddProperty(tmpl, 'default', resolveExpression(param?.initializer));
-    tryAddProperty(tmpl, 'rest', !!(param?.dotDotDotToken && param.type?.kind === ts.SyntaxKind.ArrayType));
+    tryAddProperty(tmpl, 'optional', !!checker?.isOptionalParameter(nodeParam));
+    tryAddProperty(tmpl, 'default', resolveExpression(nodeParam?.initializer));
+    tryAddProperty(tmpl, 'rest', !!(nodeParam?.dotDotDotToken && nodeParam.type?.kind === ts.SyntaxKind.ArrayType));
 
     return tmpl;
 }
 
-function createNamedParameter(
-    param: ts.ParameterDeclaration,
-    position: number,
-    callSignature?: ts.Signature,
-): Parameter {
+function createNamedParameter(nodeParam: ts.ParameterDeclaration, symbolParam: ts.Symbol): Parameter {
     const checker = Context.checker;
-    const jsDoc = getAllJSDoc(param);
+    const jsDoc = getAllJSDoc(nodeParam);
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const contextType = callSignature && checker?.typeToString(callSignature?.getTypeParameterAtPosition(position));
-    const computedType = checker?.typeToString(checker?.getTypeAtLocation(param), param) || '';
+    const contextType = checker?.typeToString(checker?.getTypeOfSymbolAtLocation(symbolParam, nodeParam));
+    const computedType = checker?.typeToString(checker?.getTypeAtLocation(nodeParam), nodeParam) || '';
     const tmpl: Parameter = {
         name: '__namedParameter',
         named: true,
@@ -69,7 +64,7 @@ function createNamedParameter(
             ? {text: jsDocDefinedType}
             : {text: contextType ?? computedType},
     };
-    const bindings = (param.name as ts.ObjectBindingPattern)?.elements ?? [];
+    const bindings = (nodeParam.name as ts.ObjectBindingPattern)?.elements ?? [];
     const resultNamedParamElements: NamedParameterElement[] = [];
 
     for (const binding of bindings) {
@@ -77,7 +72,7 @@ function createNamedParameter(
     }
 
     tryAddProperty(tmpl, 'elements', resultNamedParamElements);
-    tryAddProperty(tmpl, 'optional', !!checker?.isOptionalParameter(param));
+    tryAddProperty(tmpl, 'optional', !!checker?.isOptionalParameter(nodeParam));
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
 
     return tmpl;

@@ -90,12 +90,16 @@
             {
                 "kind": "function",
                 "name": "logFoo",
-                "line": 25,
-                "return": {
-                    "type": {
-                        "text": "string"
+                "signatures": [
+                    {
+                        "line": 25,
+                        "return": {
+                            "type": {
+                                "text": "string"
+                            }
+                        }
                     }
-                },
+                ],
                 "namespace": "Foo"
             }
         ],

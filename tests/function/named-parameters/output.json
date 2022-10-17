@@ -6,35 +6,39 @@
             {
                 "kind": "function",
                 "name": "foo",
-                "line": 8,
-                "return": {
-                    "type": {
-                        "text": "number"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "__namedParameter",
-                        "named": true,
-                        "elements": [
-                            {
-                                "name": "a"
-                            },
-                            {
-                                "name": "b"
-                            },
-                            {
-                                "name": "c",
-                                "value": 0
-                            },
-                            {
-                                "name": "d",
-                                "value": 1
+                        "line": 8,
+                        "return": {
+                            "type": {
+                                "text": "number"
                             }
-                        ],
-                        "type": {
-                            "text": "NamedParameters"
-                        }
+                        },
+                        "parameters": [
+                            {
+                                "name": "__namedParameter",
+                                "named": true,
+                                "type": {
+                                    "text": "NamedParameters"
+                                },
+                                "elements": [
+                                    {
+                                        "name": "a"
+                                    },
+                                    {
+                                        "name": "b"
+                                    },
+                                    {
+                                        "name": "c",
+                                        "value": 0
+                                    },
+                                    {
+                                        "name": "d",
+                                        "value": 1
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             }

@@ -4,14 +4,14 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "class",
                 "name": "Class1",
                 "line": 1,
+                "kind": "class",
                 "members": [
                     {
-                        "kind": "field",
                         "name": "foo",
                         "line": 2,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -21,9 +21,9 @@
                 ]
             },
             {
-                "kind": "class",
                 "name": "Class2",
                 "line": 5,
+                "kind": "class",
                 "heritage": [
                     {
                         "name": "Class1",
@@ -35,9 +35,9 @@
                 ],
                 "members": [
                     {
-                        "kind": "field",
                         "name": "bar",
                         "line": 6,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -45,9 +45,9 @@
                         "default": 3
                     },
                     {
-                        "kind": "field",
                         "name": "foo",
                         "line": 2,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"

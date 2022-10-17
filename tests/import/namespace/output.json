@@ -17,27 +17,31 @@
         "declarations": [
             {
                 "kind": "variable",
-                "name": "x",
                 "line": 1,
+                "name": "x",
                 "type": {
                     "text": "number"
                 },
                 "default": 4
             },
             {
-                "kind": "class",
                 "name": "Foo",
                 "line": 3,
+                "kind": "class",
                 "members": [
                     {
                         "kind": "method",
                         "name": "bar",
-                        "line": 5,
-                        "return": {
-                            "type": {
-                                "text": "void"
+                        "signatures": [
+                            {
+                                "line": 5,
+                                "return": {
+                                    "type": {
+                                        "text": "void"
+                                    }
+                                }
                             }
-                        },
+                        ],
                         "modifier": "public"
                     }
                 ]

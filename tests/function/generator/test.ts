@@ -22,10 +22,13 @@ describe(`${category}/${subcategory}`, () => {
     it('should have a function named "foo"', () => {
         const mod = reader.getModuleByIndex(0);
         const decl = mod?.getDeclarationByName('foo') as FunctionReader;
+        const signature = decl.getSignatures()[0];
 
         expect(decl).to.not.equal(null);
         expect(decl.getKind()).to.equal(DeclarationKind.function);
         expect(decl.isGenerator()).to.be.true;
+        expect(signature.getParameters().length).to.equal(0);
+        expect(signature.getReturnType().getValue()).to.equal('Generator<number, string, unknown>');
     });
 
 });

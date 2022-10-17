@@ -6,29 +6,29 @@
                 "name": "Foo",
                 "kind": "named",
                 "importPath": "custom-path/foo",
-                "isBareModuleSpecifier": true,
-                "originalPath": "tests/import/paths/foo.ts"
+                "originalPath": "tests/import/paths/foo.ts",
+                "isBareModuleSpecifier": true
             }
         ],
         "declarations": [
             {
-                "kind": "class",
                 "name": "Bar",
                 "line": 7,
+                "kind": "class",
                 "heritage": [
                     {
                         "name": "Foo",
-                        "kind": "class",
                         "source": {
                             "path": "tests/import/paths/foo.ts"
-                        }
+                        },
+                        "kind": "class"
                     }
                 ],
                 "members": [
                     {
-                        "kind": "field",
                         "name": "bar",
                         "line": 8,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -51,14 +51,14 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "class",
                 "name": "Foo",
                 "line": 1,
+                "kind": "class",
                 "members": [
                     {
-                        "kind": "field",
                         "name": "bar",
                         "line": 2,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"

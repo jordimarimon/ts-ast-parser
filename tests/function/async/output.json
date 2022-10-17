@@ -6,20 +6,24 @@
             {
                 "kind": "function",
                 "name": "sleep",
-                "line": 2,
-                "return": {
-                    "type": {
-                        "text": "Promise<void>"
-                    }
-                },
-                "parameters": [
+                "signatures": [
                     {
-                        "name": "amount",
-                        "type": {
-                            "text": "number"
+                        "line": 2,
+                        "return": {
+                            "type": {
+                                "text": "Promise<void>"
+                            }
                         },
-                        "optional": true,
-                        "default": 500
+                        "parameters": [
+                            {
+                                "name": "amount",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "optional": true,
+                                "default": 500
+                            }
+                        ]
                     }
                 ],
                 "async": true

@@ -16,19 +16,23 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "class",
                 "name": "Foo",
                 "line": 1,
+                "kind": "class",
                 "members": [
                     {
                         "kind": "method",
                         "name": "bar",
-                        "line": 3,
-                        "return": {
-                            "type": {
-                                "text": "number"
+                        "signatures": [
+                            {
+                                "line": 3,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                }
                             }
-                        },
+                        ],
                         "modifier": "public"
                     }
                 ]

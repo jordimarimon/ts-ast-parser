@@ -4,14 +4,14 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "class",
                 "name": "Bar",
                 "line": 1,
+                "kind": "class",
                 "members": [
                     {
-                        "kind": "field",
                         "name": "bar",
                         "line": 3,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -21,24 +21,28 @@
                     {
                         "kind": "method",
                         "name": "add",
-                        "line": 5,
-                        "return": {
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "x",
-                                "type": {
-                                    "text": "number"
-                                }
-                            },
-                            {
-                                "name": "y",
-                                "type": {
-                                    "text": "number"
-                                }
+                                "line": 5,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
                             }
                         ],
                         "modifier": "public"
@@ -46,9 +50,9 @@
                 ]
             },
             {
-                "kind": "class",
                 "name": "Foo",
                 "line": 10,
+                "kind": "class",
                 "heritage": [
                     {
                         "name": "Bar",
@@ -60,9 +64,9 @@
                 ],
                 "members": [
                     {
-                        "kind": "field",
                         "name": "bar",
                         "line": 12,
+                        "kind": "field",
                         "modifier": "public",
                         "type": {
                             "text": "number"
@@ -73,24 +77,28 @@
                     {
                         "kind": "method",
                         "name": "add",
-                        "line": 14,
-                        "return": {
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "x",
-                                "type": {
-                                    "text": "number"
-                                }
-                            },
-                            {
-                                "name": "y",
-                                "type": {
-                                    "text": "number"
-                                }
+                                "line": 14,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
                             }
                         ],
                         "modifier": "public",
@@ -99,24 +107,28 @@
                     {
                         "kind": "method",
                         "name": "mult",
-                        "line": 18,
-                        "return": {
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        "parameters": [
+                        "signatures": [
                             {
-                                "name": "x",
-                                "type": {
-                                    "text": "number"
-                                }
-                            },
-                            {
-                                "name": "y",
-                                "type": {
-                                    "text": "number"
-                                }
+                                "line": 18,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
                             }
                         ],
                         "modifier": "public"
