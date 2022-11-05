@@ -47,7 +47,7 @@ function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, mod
 
 function createSignature(signature: ts.Signature): FunctionSignature {
     const checker = Context.checker;
-    const returnTypeOfSignature = signature && checker?.getReturnTypeOfSignature(signature);
+    const returnTypeOfSignature = checker?.getReturnTypeOfSignature(signature);
     const returnType = returnTypeOfSignature && checker?.typeToString(returnTypeOfSignature);
     const declaration = signature.getDeclaration();
     const jsDoc = getAllJSDoc(declaration);

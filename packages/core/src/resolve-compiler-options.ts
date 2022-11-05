@@ -26,7 +26,10 @@ function getTsConfigOptions(): ts.CompilerOptions | null {
             path.relative(process.cwd(), configFileName),
         );
 
-        return commandLine.options;
+        return {
+            ...commandLine.options,
+            declaration: true,
+        };
     }
 
     return null;
