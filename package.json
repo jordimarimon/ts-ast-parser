@@ -17,21 +17,21 @@
         "url": "https://github.com/jordimarimon/ts-ast-parser/issues"
     },
     "engines": {
-        "node": "^12.20.0 || ^14.13.1 || >=16.0.0",
-        "npm": ">=7.0.0"
+        "node": ">=18.0.0",
+        "npm": ">=8.0.0"
     },
     "scripts": {
         "build": "npm-run-all build:esm build:cjs",
         "build:cjs": "node ./scripts/build-pkgs.mjs",
-        "build:esm": "tsc --build packages/${PACKAGE:-*}/tsconfig.json",
-        "doc": "npm-run-all doc:clear -p build:11ty build:css",
+        "build:esm": "tsc --build packages/*/tsconfig.json",
+        "doc:build": "npm-run-all doc:clear -p doc:build:11ty doc:build:css",
         "doc:clear": "rm -rf ./_site",
-        "doc:start": "npm-run-all -p dev:11ty dev:css",
+        "doc:start": "npm-run-all -p doc:start:11ty doc:start:css",
         "doc:deploy": "gh-pages -d _site -m \"docs: update documentation\"",
-        "build:11ty": "NODE_ENV=production eleventy --config=.eleventy.cjs",
-        "build:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css",
-        "dev:11ty": "eleventy --serve --config=.eleventy.cjs",
-        "dev:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css --watch",
+        "doc:build:11ty": "NODE_ENV=production eleventy --config=.eleventy.cjs",
+        "doc:build:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css",
+        "doc:start:11ty": "eleventy --serve --config=.eleventy.cjs",
+        "doc:start:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css --watch",
         "test": "vitest run --config vitest.config.ts",
         "coverage": "vitest run --coverage --config vitest.config.ts",
         "prepare": "./scripts/prepare.sh",
@@ -39,8 +39,7 @@
         "bump": "npx ncu -u -x typescript,@types/node,@typescript/lib-dom",
         "bump:pkg": "node ./scripts/bump.mjs",
         "lint": "eslint \"**/*.ts\" --max-warnings 0",
-        "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0",
-        "analyse": "source-map-explorer ./dist/**.js"
+        "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0"
     },
     "lint-staged": {
         "**/*.ts": "npm run lint:fix"

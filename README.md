@@ -1,7 +1,5 @@
 <h1 style="text-align: center; border-bottom: none" align="center">
     <div>TypeScript Abstract Syntax Tree Parser</div>
-    <br/>
-    <div>🚨🚨 NOTE: This is still a work in progress 🚨🚨</div>
 </h1>
 
 <br/>

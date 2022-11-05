@@ -17,7 +17,7 @@ for (const pkg of pkgs) {
         sourcemap: false,
         bundle: true,
         format: 'cjs',
-        target: 'node12.20.0',
+        target: 'node18',
         platform: 'node',
     });
 }

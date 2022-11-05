@@ -47,6 +47,7 @@
     --color-background: var(--color-neutral-0);
     --color-primary: var(--color-neutral-700);
     --color-border: var(--color-neutral-100);
+    --color-prose: 199 95% 74%;
 
     --height: 2.5rem;
     --height-lg: 3rem;

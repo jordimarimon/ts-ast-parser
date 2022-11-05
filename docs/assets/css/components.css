@@ -155,6 +155,7 @@
     align-items: center;
     width: 100%;
     height: var(--navbar-height);
+    background-color: hsl(var(--color-background));
     padding-inline: theme("spacing.4");
     border-bottom: 1px solid hsl(var(--color-border));
     z-index: var(--navbar-z-index);
@@ -175,7 +176,6 @@
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
-    height: 100vh;
 
     &.has-navbar {
         padding-top: calc(var(--navbar-height) + theme("spacing.6"));
@@ -199,6 +199,7 @@
 
     &.full-page {
         align-items: center;
+        height: 100vh;
     }
 }
 

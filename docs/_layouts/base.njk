@@ -49,10 +49,13 @@
 {% endif %}
 
 <main class="main {% if module %}module{% else %}full-page{% endif %} {% if withHeader %}has-navbar{% endif %}">
-    {{ content | safe }}
-
     {% if module %}
-    {% include "partials/_pagination.njk" %}
+    <div class="mx-auto w-lg max-w-full">
+        {{ content | safe }}
+        {% include "partials/_pagination.njk" %}
+    </div>
+    {% else %}
+        {{ content | safe }}
     {% endif %}
 </main>
 

@@ -12,6 +12,18 @@
     font-weight: bold;
 }
 
+.heading-3 {
+    font-size: theme("fontSize.2xl");
+    font-weight: bold;
+}
+
+.prose {
+    font-weight: bold;
+    border-bottom: 1px solid hsl(var(--color-prose));
+    text-decoration: none;
+    color: hsl(var(--color-text));
+}
+
 /*//////////////////////////////////////////////////////////////////////////////
 /////////// POSITIONING
 //////////////////////////////////////////////////////////////////////////////*/

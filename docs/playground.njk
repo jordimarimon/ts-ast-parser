@@ -47,13 +47,13 @@ order: 2
             <span>The following generates metadata:</span>
         </p>
 
-        {% highlight "ts" %}
+{% highlight "ts" %}
 export function foo(bar: number): string {
     return `${bar} is also foo`;
 }
 
 export const x = 3;
-        {% endhighlight %}
+{% endhighlight %}
 
         <p class="flex items-center font-bold mt-4 text-danger text-md md:text-lg">
             <span class="material-icons mie-2">
@@ -62,12 +62,12 @@ export const x = 3;
             <span>The following won't generate any metadata:</span>
         </p>
 
-        {% highlight "ts" %}
+{% highlight "ts" %}
 function foo(bar: number): string {
     return `${bar} is also foo`;
 }
 
 const x = 3;
-        {% endhighlight %}
+{% endhighlight %}
     </section>
 </dialog>

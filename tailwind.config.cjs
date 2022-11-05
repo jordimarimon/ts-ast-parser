@@ -60,7 +60,11 @@ module.exports = {
             'pill': '100vmax',
         },
 
-        extend: {},
+        extend: {
+            width: {
+                lg: '64rem'
+            }
+        },
     },
 
     plugins: [

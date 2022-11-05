@@ -3,8 +3,151 @@ title: Overview
 order: 1
 ---
 
-<h1 class="heading-2">
+<h1 class="heading-2 mb-10">
     {{ title }}
 </h1>
 
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        What this package does?
+    </h2>
 
+    <p class="text-md">
+        This package provides functions to help obtain useful information from your TypeScript source code.
+    </p>
+</section>
+
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        How does it benefit me?
+    </h2>
+
+    <p class="text-md">
+        This can help you automate the generation of a documentation website for any project you're working on.
+        There are a lot of libraries out there that help you create static documentation websites from markdown files:
+    </p>
+
+    <ul class="flex flex-col gap-2 list-disc pis-8 my-4">
+        <li>
+            <a href="https://docusaurus.io/" class="prose" target="_blank">Docusaurus</a>
+        </li>
+
+        <li>
+            <a href="https://docsify.js.org/#/" class="prose" target="_blank">Docsify</a>
+        </li>
+
+        <li>
+            <a href="https://www.gitbook.com/" class="prose" target="_blank">GitBook</a>
+        </li>
+
+        <li>
+            <a href="https://vitepress.vuejs.org/" class="prose" target="_blank">VitePress</a>
+        </li>
+    </ul>
+
+    <p class="text-md">
+        This package can help you automate the generation of the markdown files that
+        explain the public API of your project.
+    </p>
+</section>
+
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        An Example:
+    </h2>
+
+    <p class="text-md">
+        The following example shows the information you can get from a TypeScript function.
+    </p>
+
+    <p class="text-md my-2">
+        Given the following code:
+    </p>
+
+{% highlight "ts" %}
+/**
+* Function that sums all the numbers in a list.
+*
+* @param list - The list of numbers to sum
+*
+* @returns The sum of all the numbers.
+*/
+export function sum(...list: number[]): number {
+    return list.reduce((acc, curr) => acc + curr, 0);
+}
+{% endhighlight %}
+
+    <p class="text-md my-2">
+        The output information in JSON format will look like:
+    </p>
+
+{% highlight "json" %}
+[
+    {
+        "path": "relative-path-from-the-root-of-your-project-where-the-typescript-file-is-located",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "function",
+                "name": "sum",
+                "signatures": [
+                    {
+                        "line": 8,
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "jsDoc": [
+                            {
+                                "kind": "description",
+                                "value": "Function that sums all the numbers in a list."
+                            },
+                            {
+                                "kind": "param",
+                                "value": {
+                                    "name": "list",
+                                    "description": "The list of numbers to sum"
+                                }
+                            },
+                            {
+                                "kind": "returns",
+                                "value": "The sum of all the numbers."
+                            }
+                        ],
+                        "parameters": [
+                            {
+                                "name": "list",
+                                "type": {
+                                    "text": "number[]"
+                                },
+                                "rest": true
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "sum",
+                "type": "named"
+            }
+        ]
+    }
+]
+{% endhighlight %}
+
+    <p class="text-md my-2">
+        For more examples, have a look at the
+        <a
+            target="_blank"
+            href="{{ '/playground/' | url }}"
+            rel="noopener noreferrer"
+            class="prose"
+        >
+            playground.
+        </a>
+    </p>
+
+</section>
