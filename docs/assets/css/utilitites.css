@@ -24,6 +24,17 @@
     color: hsl(var(--color-text));
 }
 
+.code {
+    font-size: var(--font-size-md);
+    font-weight: 400;
+    border-radius: var(--border-radius);
+    background-color: hsl(var(--color-neutral-700));
+    color: hsl(var(--color-neutral-0));
+    padding: theme("spacing.1") theme("spacing.2");
+    margin-inline: theme("spacing.1");
+    white-space: pre-wrap;
+}
+
 /*//////////////////////////////////////////////////////////////////////////////
 /////////// POSITIONING
 //////////////////////////////////////////////////////////////////////////////*/
