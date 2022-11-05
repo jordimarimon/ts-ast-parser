@@ -40,6 +40,17 @@
     --color-danger-800: 0 70% 35%;
     --color-danger-900: 0 63% 31%;
 
+    /* Warning */
+    --color-warning-100: 55 92% 95%;
+    --color-warning-200: 48 96% 89%;
+    --color-warning-300: 48 97% 77%;
+    --color-warning-400: 46 97% 65%;
+    --color-warning-500: 43 96% 56%;
+    --color-warning-600: 38 92% 50%;
+    --color-warning-700: 32 95% 44%;
+    --color-warning-800: 26 90% 37%;
+    --color-warning-900: 23 82% 31%;
+
     --color-accent: 271 81% 56%;
 
     --color-title: var(--color-neutral-900);

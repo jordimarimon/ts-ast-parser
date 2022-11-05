@@ -412,3 +412,23 @@
         }
     }
 }
+
+/*//////////////////////////////////////////////////////////////////////////////
+/////////// ALERT
+//////////////////////////////////////////////////////////////////////////////*/
+
+.alert {
+    display: block;
+    width: 100%;
+    font-size: var(--font-size-md);
+    padding: theme("spacing.4");
+    border-radius: var(--border-radius);
+    border-inline-start-width: 4px;
+    border-inline-start-style: solid;
+
+    &.alert-warning {
+        color: hsl(var(--color-warning-900));
+        background-color: hsl(var(--color-warning-100));
+        border-inline-start-color: hsl(var(--color-warning-700));
+    }
+}
