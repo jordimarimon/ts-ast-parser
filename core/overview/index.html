@@ -167,15 +167,92 @@
 
 <main class="main module has-navbar">
     
-<h1 class="heading-2">
+    <div class="mx-auto w-lg max-w-full">
+        
+<h1 class="heading-2 mb-10">
     Overview
 </h1>
 
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        What this package does?
+    </h2>
 
+    <p class="text-md">
+        This package provides functions to help obtain useful information from your TypeScript source code.
+    </p>
+</section>
 
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        How does it benefit me?
+    </h2>
 
-    
-    
+    <p class="text-md">
+        This can help you automate the generation of a documentation website for any project you're working on.
+        There are a lot of libraries out there that help you create static documentation websites from markdown files:
+    </p>
+
+    <ul class="flex flex-col gap-2 list-disc pis-8 my-4">
+        <li>
+            <a href="https://docusaurus.io/" class="prose" target="_blank">Docusaurus</a>
+        </li>
+
+        <li>
+            <a href="https://docsify.js.org/#/" class="prose" target="_blank">Docsify</a>
+        </li>
+
+        <li>
+            <a href="https://www.gitbook.com/" class="prose" target="_blank">GitBook</a>
+        </li>
+
+        <li>
+            <a href="https://vitepress.vuejs.org/" class="prose" target="_blank">VitePress</a>
+        </li>
+    </ul>
+
+    <p class="text-md">
+        This package can help you automate the generation of the markdown files that
+        explain the public API of your project.
+    </p>
+</section>
+
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        An Example:
+    </h2>
+
+    <p class="text-md">
+        The following example shows the information you can get from a TypeScript function.
+    </p>
+
+    <p class="text-md my-2">
+        Given the following code:
+    </p>
+
+<pre class="language-ts"><code class="language-ts"><span class="token comment">/**<br>* Function that sums all the numbers in a list.<br>*<br>* @param list - The list of numbers to sum<br>*<br>* @returns The sum of all the numbers.<br>*/</span><br><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">sum</span><span class="token punctuation">(</span><span class="token operator">...</span>list<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> list<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span> curr<span class="token punctuation">)</span> <span class="token operator">=></span> acc <span class="token operator">+</span> curr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span></code></pre>
+
+    <p class="text-md my-2">
+        The output information in JSON format will look like:
+    </p>
+
+<pre class="language-json"><code class="language-json"><span class="token punctuation">[</span><br>    <span class="token punctuation">{</span><br>        <span class="token property">"path"</span><span class="token operator">:</span> <span class="token string">"relative-path-from-the-root-of-your-project-where-the-typescript-file-is-located"</span><span class="token punctuation">,</span><br>        <span class="token property">"imports"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><br>        <span class="token property">"declarations"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>            <span class="token punctuation">{</span><br>                <span class="token property">"kind"</span><span class="token operator">:</span> <span class="token string">"function"</span><span class="token punctuation">,</span><br>                <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"sum"</span><span class="token punctuation">,</span><br>                <span class="token property">"signatures"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>                    <span class="token punctuation">{</span><br>                        <span class="token property">"line"</span><span class="token operator">:</span> <span class="token number">8</span><span class="token punctuation">,</span><br>                        <span class="token property">"return"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>                            <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>                                <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"number"</span><br>                            <span class="token punctuation">}</span><br>                        <span class="token punctuation">}</span><span class="token punctuation">,</span><br>                        <span class="token property">"jsDoc"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>                            <span class="token punctuation">{</span><br>                                <span class="token property">"kind"</span><span class="token operator">:</span> <span class="token string">"description"</span><span class="token punctuation">,</span><br>                                <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"Function that sums all the numbers in a list."</span><br>                            <span class="token punctuation">}</span><span class="token punctuation">,</span><br>                            <span class="token punctuation">{</span><br>                                <span class="token property">"kind"</span><span class="token operator">:</span> <span class="token string">"param"</span><span class="token punctuation">,</span><br>                                <span class="token property">"value"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>                                    <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"list"</span><span class="token punctuation">,</span><br>                                    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"The list of numbers to sum"</span><br>                                <span class="token punctuation">}</span><br>                            <span class="token punctuation">}</span><span class="token punctuation">,</span><br>                            <span class="token punctuation">{</span><br>                                <span class="token property">"kind"</span><span class="token operator">:</span> <span class="token string">"returns"</span><span class="token punctuation">,</span><br>                                <span class="token property">"value"</span><span class="token operator">:</span> <span class="token string">"The sum of all the numbers."</span><br>                            <span class="token punctuation">}</span><br>                        <span class="token punctuation">]</span><span class="token punctuation">,</span><br>                        <span class="token property">"parameters"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>                            <span class="token punctuation">{</span><br>                                <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"list"</span><span class="token punctuation">,</span><br>                                <span class="token property">"type"</span><span class="token operator">:</span> <span class="token punctuation">{</span><br>                                    <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"number[]"</span><br>                                <span class="token punctuation">}</span><span class="token punctuation">,</span><br>                                <span class="token property">"rest"</span><span class="token operator">:</span> <span class="token boolean">true</span><br>                            <span class="token punctuation">}</span><br>                        <span class="token punctuation">]</span><br>                    <span class="token punctuation">}</span><br>                <span class="token punctuation">]</span><br>            <span class="token punctuation">}</span><br>        <span class="token punctuation">]</span><span class="token punctuation">,</span><br>        <span class="token property">"exports"</span><span class="token operator">:</span> <span class="token punctuation">[</span><br>            <span class="token punctuation">{</span><br>                <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"sum"</span><span class="token punctuation">,</span><br>                <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"named"</span><br>            <span class="token punctuation">}</span><br>        <span class="token punctuation">]</span><br>    <span class="token punctuation">}</span><br><span class="token punctuation">]</span></code></pre>
+
+    <p class="text-md my-2">
+        For more examples, have a look at the
+        <a
+            target="_blank"
+            href="/ts-ast-parser/playground/"
+            rel="noopener noreferrer"
+            class="prose"
+        >
+            playground.
+        </a>
+    </p>
+
+</section>
+
+        
 
 
 
@@ -190,6 +267,7 @@
     
 </div>
 
+    </div>
     
 </main>
 
