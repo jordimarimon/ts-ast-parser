@@ -1,6 +1,6 @@
 {
     "name": "@ts-ast-parser/readers",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "author": "Jordi Marimon Palarea",
     "description": "Allows to read and search the output metadata of @ts-ast-parser/core",
     "homepage": "https://jordimarimon.github.io/ts-ast-parser",
@@ -39,7 +39,7 @@
         "node": ">=18.0.0"
     },
     "dependencies": {
-        "@ts-ast-parser/core": "0.0.0",
+        "@ts-ast-parser/core": "0.1.0",
         "tslib": "^2.4.0"
     }
 }
