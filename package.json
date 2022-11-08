@@ -51,7 +51,7 @@
         "@commitlint/cli": "^17.1.2",
         "@commitlint/config-conventional": "^17.1.0",
         "@types/node": "~18.7.3",
-        "@typescript-eslint/eslint-plugin": "^5.42.0",
+        "@typescript-eslint/eslint-plugin": "^5.42.1",
         "@typescript-eslint/parser": "^5.42.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.72",
         "@vitest/coverage-c8": "^0.24.5",
