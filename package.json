@@ -54,7 +54,7 @@
         "@typescript-eslint/eslint-plugin": "^5.42.0",
         "@typescript-eslint/parser": "^5.42.0",
         "@typescript/lib-dom": "npm:@types/web@^0.0.72",
-        "@vitest/coverage-c8": "^0.24.5",
+        "@vitest/coverage-c8": "^0.25.2",
         "ace-builds": "^1.12.5",
         "autoprefixer": "^10.4.12",
         "c8": "^7.12.0",
