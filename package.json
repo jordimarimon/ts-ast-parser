@@ -87,7 +87,7 @@
         "tailwindcss-logical": "^3.0.0",
         "tslib": "^2.4.0",
         "typescript": "^4.8.2",
-        "vite-tsconfig-paths": "^3.5.1",
+        "vite-tsconfig-paths": "^4.0.1",
         "vitest": "^0.24.5"
     }
 }
