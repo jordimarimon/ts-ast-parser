@@ -41,11 +41,6 @@ You can optionally specify the path (or part of it) from where to search and exe
 
     npm run test -- <test-file-path>
 
-The following example will execute all the tests in package `core`:
+The following example will execute all tests related to functions:
 
-    npm run test -- core
-
-Or maybe you want to execute all tests related to functions in the package `core`:
-
-    # Executes all test files in "packages/core/tests/function"
     npm run test -- function
