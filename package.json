@@ -63,7 +63,7 @@
         "cssnano": "^5.1.14",
         "esbuild": "^0.15.10",
         "eslint": "^8.30.0",
-        "eslint-import-resolver-typescript": "^3.5.1",
+        "eslint-import-resolver-typescript": "^3.5.2",
         "eslint-plugin-import": "^2.26.0",
         "eslint-plugin-sonarjs": "^0.16.0",
         "gh-pages": "^4.0.0",
