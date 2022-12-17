@@ -3,9 +3,9 @@ title: Overview
 order: 1
 ---
 
-<h1 class="heading-2 mb-10">
-    {{ title }}
-</h1>
+{% from "macros/heading.njk" import heading %}
+
+{{ heading(title) }}
 
 <section class="mb-10">
     <h2 class="heading-3 mb-4">
