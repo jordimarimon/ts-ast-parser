@@ -181,9 +181,13 @@
     
     <div class="mx-auto w-lg max-w-full">
         
-<h1 class="heading-2 mb-10">
-    Getting Started
-</h1>
+
+
+
+    <h1 class="heading-2 mb-10">
+        Getting Started
+    </h1>
+
 
 <section class="mb-10">
     <h2 class="heading-3 mb-4">
@@ -191,7 +195,7 @@
     </h2>
 
     <p class="text-md mb-4">
-        The required version is currently the latest LTS major version of NodeJS (<code class="code">&gt;=18.0.0</code>).
+        The required version is currently the active LTS of NodeJS (<code class="code">&gt;=18.0.0</code>).
     </p>
 
     <p class="text-md mb-4">
@@ -243,9 +247,22 @@
     </h2>
 
     <p class="text-md mb-4">
-        Same as with ESM but instead of using the <code class="code">import</code> keyword, you use
-        <code class="code">require</code>.
+        You can provide the array of files that you would like to obtain information of:
     </p>
+
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> parseFromFiles <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@ts-ast-parser/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">const</span> metadata <span class="token operator">=</span> <span class="token function">parseFromFiles</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'test1.ts'</span><span class="token punctuation">,</span> <span class="token string">'test2.ts'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+    <p class="text-md mb-4">
+        Or you can provide a glob or an array of globs instead:
+    </p>
+
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> parseFromGlob <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@ts-ast-parser/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">const</span> metadata <span class="token operator">=</span> <span class="token function">parseFromGlob</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'**/*.ts'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+    <p class="text-md mb-4">
+        Finally, there is also support for getting information from a code snippet:
+    </p>
+
+<pre class="language-js"><code class="language-js"><span class="token keyword">const</span> <span class="token punctuation">{</span> parseFromSource <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'@ts-ast-parser/core'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token keyword">const</span> metadata <span class="token operator">=</span> <span class="token function">parseFromSource</span><span class="token punctuation">(</span><span class="token string">'const foo = true;export { foo };'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 </section>
 
 
