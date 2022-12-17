@@ -3,9 +3,96 @@ title: Overview
 order: 1
 ---
 
-{% from "macros/under-development-alert.njk" import underDevelopmentAlert %}
 {% from "macros/heading.njk" import heading %}
 
 {{ heading(title) }}
 
-{{ underDevelopmentAlert() }}
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        What this package does?
+    </h2>
+
+    <p class="text-md">
+        This package helps with reading and searching the simplified AST that has been generated
+        using the <code class="code">@ts-ast-parser/core</code> package.
+    </p>
+</section>
+
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        An Example:
+    </h2>
+
+    <p class="text-md mb-2">
+        Given the following code:
+    </p>
+
+{% highlight "ts" %}
+// index.ts
+
+/**
+* Function that sums all the numbers in a list.
+*
+* @param list - The list of numbers to sum
+*
+* @returns The sum of all the numbers.
+*/
+export function sum(...list: number[]): number {
+    return list.reduce((acc, curr) => acc + curr, 0);
+}
+
+/**
+* This is the description of the class.
+*/
+export default class Point {
+
+    /** The x coordinate  */
+    x: number;
+
+    /** The y coordinate */
+    y: number;
+
+    /**
+    * @param {number} x - The initial x coordinate
+    * @param {number} y - The initial y coordinate
+    */
+    constructor(x = 0, y = 0) {
+        this.x = x;
+        this.y = y;
+    }
+
+    /**
+    * Scales the coordinates by a given factor.
+    *
+    * @param {number} n - The scale factor
+    */
+    scale(n: number): void {
+        this.x *= n;
+        this.y *= n;
+    }
+}
+{% endhighlight %}
+
+    <p class="text-md my-4">
+        You could instantiate a reader to help you find the information that you need:
+    </p>
+
+{% highlight "js" %}
+import { parseFromFiles } from '@ts-ast-parser/core';
+import { DeclarationKind, Reader } from '@ts-ast-parser/readers';
+
+const metadata = parseFromFiles(['index.ts']);
+const reader = new Reader(metadata);
+
+// Get all the class declarations
+const classes = reader
+    .getAll() // Returns all modules (all *.ts files analysed)
+    .flatMap(module => module.getDeclarationByKind(DeclarationKind.class)) as ClassReader[];
+
+// Retrieve the method "scale" of the class "Point" defined in "test.ts"
+const scaleFunc = classes.find(clazz => clazz.getName() === 'Point').getMethodWithName('scale');
+
+// Retrieve the description text "Scales the coordinates by a given factor."
+const scaleFuncDescription = scaleFunc.getJSDocTag('description');
+{% endhighlight %}
+</section>
