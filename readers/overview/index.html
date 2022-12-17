@@ -184,18 +184,39 @@
 
 
 
-
     <h1 class="heading-2 mb-10">
         Overview
     </h1>
 
 
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        What this package does?
+    </h2>
 
-    <div class="alert alert-warning">
-        <span class="mie-4">🚧</span>
-        <span>Still under progress. Soon will be available.</span>
-    </div>
+    <p class="text-md">
+        This package helps with reading and searching the simplified AST that has been generated
+        using the <code class="code">@ts-ast-parser/core</code> package.
+    </p>
+</section>
 
+<section class="mb-10">
+    <h2 class="heading-3 mb-4">
+        An Example:
+    </h2>
+
+    <p class="text-md mb-2">
+        Given the following code:
+    </p>
+
+<pre class="language-ts"><code class="language-ts"><span class="token comment">// index.ts</span><br><br><span class="token comment">/**<br>* Function that sums all the numbers in a list.<br>*<br>* @param list - The list of numbers to sum<br>*<br>* @returns The sum of all the numbers.<br>*/</span><br><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">sum</span><span class="token punctuation">(</span><span class="token operator">...</span>list<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">number</span> <span class="token punctuation">{</span><br>    <span class="token keyword">return</span> list<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span> curr<span class="token punctuation">)</span> <span class="token operator">=></span> acc <span class="token operator">+</span> curr<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token punctuation">}</span><br><br><span class="token comment">/**<br>* This is the description of the class.<br>*/</span><br><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span><br><br>    <span class="token comment">/** The x coordinate  */</span><br>    x<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span><br><br>    <span class="token comment">/** The y coordinate */</span><br>    y<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">;</span><br><br>    <span class="token comment">/**<br>    * @param {number} x - The initial x coordinate<br>    * @param {number} y - The initial y coordinate<br>    */</span><br>    <span class="token function">constructor</span><span class="token punctuation">(</span>x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span> y <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span>y <span class="token operator">=</span> y<span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br><br>    <span class="token comment">/**<br>    * Scales the coordinates by a given factor.<br>    *<br>    * @param {number} n - The scale factor<br>    */</span><br>    <span class="token function">scale</span><span class="token punctuation">(</span>n<span class="token operator">:</span> <span class="token builtin">number</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">*=</span> n<span class="token punctuation">;</span><br>        <span class="token keyword">this</span><span class="token punctuation">.</span>y <span class="token operator">*=</span> n<span class="token punctuation">;</span><br>    <span class="token punctuation">}</span><br><span class="token punctuation">}</span></code></pre>
+
+    <p class="text-md my-4">
+        You could instantiate a reader to help you find the information that you need:
+    </p>
+
+<pre class="language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> parseFromFiles <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@ts-ast-parser/core'</span><span class="token punctuation">;</span><br><span class="token keyword">import</span> <span class="token punctuation">{</span> DeclarationKind<span class="token punctuation">,</span> Reader <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@ts-ast-parser/readers'</span><span class="token punctuation">;</span><br><br><span class="token keyword">const</span> metadata <span class="token operator">=</span> <span class="token function">parseFromFiles</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'index.ts'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><span class="token keyword">const</span> reader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Reader</span><span class="token punctuation">(</span>metadata<span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token comment">// Get all the class declarations</span><br><span class="token keyword">const</span> classes <span class="token operator">=</span> reader<br>    <span class="token punctuation">.</span><span class="token function">getAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment">// Returns all modules (all *.ts files analysed)</span><br>    <span class="token punctuation">.</span><span class="token function">flatMap</span><span class="token punctuation">(</span><span class="token parameter">module</span> <span class="token operator">=></span> module<span class="token punctuation">.</span><span class="token function">getDeclarationByKind</span><span class="token punctuation">(</span>DeclarationKind<span class="token punctuation">.</span>class<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">as</span> ClassReader<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span><br><br><span class="token comment">// Retrieve the method "scale" of the class "Point" defined in "test.ts"</span><br><span class="token keyword">const</span> scaleFunc <span class="token operator">=</span> classes<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token parameter">clazz</span> <span class="token operator">=></span> clazz<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'Point'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getMethodWithName</span><span class="token punctuation">(</span><span class="token string">'scale'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><br><br><span class="token comment">// Retrieve the description text "Scales the coordinates by a given factor."</span><br><span class="token keyword">const</span> scaleFuncDescription <span class="token operator">=</span> scaleFunc<span class="token punctuation">.</span><span class="token function">getJSDocTag</span><span class="token punctuation">(</span><span class="token string">'description'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+</section>
 
         
 
