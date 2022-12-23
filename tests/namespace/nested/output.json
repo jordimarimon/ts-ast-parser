@@ -5,7 +5,7 @@
         "declarations": [
             {
                 "name": "BarType",
-                "line": 5,
+                "line": 7,
                 "kind": "type-alias",
                 "value": "string | number",
                 "namespace": "Foo.Bar"
