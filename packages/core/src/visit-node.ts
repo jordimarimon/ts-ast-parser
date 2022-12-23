@@ -6,6 +6,7 @@ import ts from 'typescript';
 
 export function visitNode(rootNode: ts.Node | ts.SourceFile, moduleDoc: Module): void {
 
+    // TODO(Jordi M.): Find a better way to deal with namespaces
     if (isNamespace(rootNode) && hasExportKeyword(rootNode)) {
         (rootNode.body as ts.ModuleBlock).statements.forEach(s => visitNode(s, moduleDoc));
         return;

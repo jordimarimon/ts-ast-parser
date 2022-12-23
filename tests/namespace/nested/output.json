@@ -1,0 +1,21 @@
+[
+    {
+        "path": "tests/namespace/nested/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "BarType",
+                "line": 5,
+                "kind": "type-alias",
+                "value": "string | number",
+                "namespace": "Foo.Bar"
+            }
+        ],
+        "exports": [
+            {
+                "name": "BarType",
+                "type": "named"
+            }
+        ]
+    }
+]
