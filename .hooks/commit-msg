@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 export NVM_DIR="$HOME/.nvm/nvm.sh"
 . "$(dirname $NVM_DIR)/nvm.sh"

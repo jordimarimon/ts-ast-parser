@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 export NVM_DIR="$HOME/.nvm/nvm.sh"
 . "$(dirname $NVM_DIR)/nvm.sh"
@@ -9,5 +9,15 @@ b=${a#*(-> }
 v=${b%%[)| ]*}
 
 export PATH="$NVM_DIR/versions/node/$v/bin:$PATH"
+
+local_branch="$(git rev-parse --abbrev-ref HEAD)"
+valid_branch_regex="^(feature|bugfix|refactor)\/[a-z0-9._-]+$"
+
+if [[ $local_branch != "HEAD" && $local_branch != "dev" && $local_branch != "main" && ! $local_branch =~ $valid_branch_regex ]]; then
+    echo "There is something wrong with your branch name. Your commit will be rejected."
+    echo "Branch names in this project must adhere to this contract: $valid_branch_regex."
+    echo "You should rename your branch to a valid name and try again."
+    exit 1
+fi
 
 npx lint-staged --allow-empty
