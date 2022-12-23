@@ -11,4 +11,5 @@ export interface Export {
     type: ExportType;
     referenceName?: string; // the original name used when using the `as` keyword
     isTypeOnly?: boolean;
+    module?: string; // If we're reexporting from another module
 }

@@ -1,0 +1,35 @@
+[
+    {
+        "path": "tests/export/namespace/index.ts",
+        "imports": [],
+        "declarations": [],
+        "exports": [
+            {
+                "name": "*",
+                "type": "namespace",
+                "module": "'./foo.js'"
+            }
+        ]
+    },
+    {
+        "path": "tests/export/namespace/foo.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "variable",
+                "line": 1,
+                "name": "foo",
+                "type": {
+                    "text": "number"
+                },
+                "default": 4
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "type": "named"
+            }
+        ]
+    }
+]

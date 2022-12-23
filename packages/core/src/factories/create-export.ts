@@ -74,15 +74,17 @@ function createExportFromAssignment(node: ts.ExportAssignment, moduleDoc: Module
 function createExportFromPreviousDeclaration(node: ts.ExportDeclaration, moduleDoc: Module): void {
     // Case when one exports previous declared declarations
     const isNamed = node.exportClause && ts.isNamedExports(node.exportClause);
+    const isReexport = node?.moduleSpecifier !== undefined;
+    const moduleSpecifier = node.moduleSpecifier?.getText() ?? '';
 
-    // CASE of "export { x, y as z };"
-    if (isNamed) {
+    if (isNamed) { // CASE of "export { x, y as z };"
         for (const el of (node.exportClause.elements ?? [])) {
             const exp: Export = {
                 name: el.name?.escapedText ?? '',
                 type: ExportType.named,
             };
 
+            tryAddProperty(exp, 'module', moduleSpecifier);
             tryAddProperty(exp, 'isTypeOnly', node.isTypeOnly ?? false);
 
             // case where the "as" keyword is being used
@@ -92,5 +94,12 @@ function createExportFromPreviousDeclaration(node: ts.ExportDeclaration, moduleD
 
             moduleDoc.exports.push(exp);
         }
+    } else if (isReexport) { // CASE export * from './foo.js';
+        moduleDoc.exports.push({
+            name: '*',
+            type: ExportType.namespace,
+            module: moduleSpecifier,
+        });
     }
+
 }
