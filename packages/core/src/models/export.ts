@@ -2,6 +2,7 @@ export enum ExportType {
     all = 'all',
     default = 'default',
     namespace = 'namespace',
+    star = 'star',
     named = 'named',
     equals = 'equals',
 }

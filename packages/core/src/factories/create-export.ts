@@ -74,6 +74,7 @@ function createExportFromAssignment(node: ts.ExportAssignment, moduleDoc: Module
 function createExportFromPreviousDeclaration(node: ts.ExportDeclaration, moduleDoc: Module): void {
     // Case when one exports previous declared declarations
     const isNamed = node.exportClause && ts.isNamedExports(node.exportClause);
+    const isNamespaced = node.exportClause && ts.isNamespaceExport(node.exportClause);
     const isReexport = node?.moduleSpecifier !== undefined;
     const moduleSpecifier = node.moduleSpecifier?.getText() ?? '';
 
@@ -94,10 +95,19 @@ function createExportFromPreviousDeclaration(node: ts.ExportDeclaration, moduleD
 
             moduleDoc.exports.push(exp);
         }
+    } else if (isNamespaced) {
+        const exp: Export = {
+            name: node.exportClause.name?.escapedText ?? '',
+            type: ExportType.namespace,
+        };
+
+        tryAddProperty(exp, 'module', moduleSpecifier);
+
+        moduleDoc.exports.push(exp);
     } else if (isReexport) { // CASE export * from './foo.js';
         moduleDoc.exports.push({
             name: '*',
-            type: ExportType.namespace,
+            type: ExportType.star,
             module: moduleSpecifier,
         });
     }

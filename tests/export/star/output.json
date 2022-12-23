@@ -5,8 +5,8 @@
         "declarations": [],
         "exports": [
             {
-                "name": "bar",
-                "type": "namespace",
+                "name": "*",
+                "type": "star",
                 "module": "'./foo.js'"
             }
         ]
