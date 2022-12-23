@@ -78,8 +78,8 @@ export default class Point {
     </p>
 
 {% highlight "js" %}
-import { parseFromFiles } from '@ts-ast-parser/core';
-import { DeclarationKind, Reader } from '@ts-ast-parser/readers';
+import { DeclarationKind, parseFromFiles } from '@ts-ast-parser/core';
+import { ClassReader, Reader } from '@ts-ast-parser/readers';
 
 const metadata = parseFromFiles(['index.ts']);
 const reader = new Reader(metadata);
@@ -89,7 +89,7 @@ const classes = reader
     .getAll() // Returns all modules (all *.ts files analysed)
     .flatMap(module => module.getDeclarationByKind(DeclarationKind.class)) as ClassReader[];
 
-// Retrieve the method "scale" of the class "Point" defined in "test.ts"
+// Retrieve the method "scale" of the class "Point" defined in "index.ts"
 const scaleFunc = classes.find(clazz => clazz.getName() === 'Point').getMethodWithName('scale');
 
 // Retrieve the description text "Scales the coordinates by a given factor."
