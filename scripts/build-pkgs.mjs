@@ -2,6 +2,7 @@ import { buildSync } from 'esbuild';
 import path from 'path';
 import fs from 'fs';
 
+
 const pkgs = fs
     .readdirSync(path.join(process.cwd(), 'packages'), {withFileTypes: true})
     .filter(d => d.isDirectory())
@@ -17,7 +18,7 @@ for (const pkg of pkgs) {
         sourcemap: false,
         bundle: true,
         format: 'cjs',
-        target: 'node18',
+        target: 'node14.20.0',
         platform: 'node',
     });
 }

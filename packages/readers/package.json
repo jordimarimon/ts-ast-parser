@@ -36,10 +36,13 @@
         "README.md"
     ],
     "engines": {
-        "node": ">=18.0.0"
+        "node": "^14.20.0 || ^16.0.0 || ^18.0.0"
     },
     "dependencies": {
-        "@ts-ast-parser/core": "0.1.0",
         "tslib": "^2.4.1"
+    },
+    "peerDependencies": {
+        "@ts-ast-parser/core": "0.1.0",
+        "typescript": "^4.0.2"
     }
 }

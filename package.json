@@ -17,8 +17,8 @@
         "url": "https://github.com/jordimarimon/ts-ast-parser/issues"
     },
     "engines": {
-        "node": ">=18.0.0",
-        "npm": ">=8.0.0"
+        "node": "^14.20.0 || ^16.0.0 || ^18.0.0",
+        "npm": "^7.0.0 || ^8.0.0"
     },
     "scripts": {
         "build": "npm-run-all build:esm build:cjs",
@@ -40,7 +40,7 @@
         "coverage": "vitest run --coverage --config vitest.config.ts",
         "prepare": "./scripts/prepare.sh",
         "upgrade": "rm -rf node_modules package-lock.json && npm i",
-        "bump": "npx ncu -u",
+        "bump": "npx ncu -u -x typescript",
         "bump:pkg": "node ./scripts/bump.mjs",
         "lint": "eslint \"**/*.ts\" --max-warnings 0",
         "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0"

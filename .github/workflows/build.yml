@@ -17,7 +17,7 @@ jobs:
             security-events: write
         strategy:
             matrix:
-                node-version: [ 16.x, 18.x ]
+                node-version: [ 14.20.0, 16.x, 18.x ]
         steps:
             -   name: Checkout repository
                 uses: actions/checkout@v3
@@ -27,9 +27,11 @@ jobs:
                 with:
                     node-version: ${{ matrix.node-version }}
 
+            -   name: Install latest NPM
+                run: npm i -g npm@latest
+
             -   name: Install dependencies
-                # TODO(Jordi M.): Remove legacy-peer-deps strategy
-                run: npm ci --legacy-peer-deps
+                run: npm ci
 
             -   name: Build
                 run: npm run build
