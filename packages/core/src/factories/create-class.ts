@@ -1,7 +1,6 @@
 import { createFunctionLike } from './create-function.js';
 import { getDecorators } from '../utils/decorator.js';
 import { NodeFactory } from './node-factory.js';
-import { Context } from '../context.js';
 import ts from 'typescript';
 import {
     ClassDeclaration,
@@ -23,6 +22,7 @@ import {
     getParameters,
     getReturnStatement,
     getStaticProperties,
+    getTypeInfoFromTsType,
     getTypeParameters,
     getVisibilityModifier,
     isAbstract,
@@ -138,11 +138,9 @@ function createMethod(
 
 function createFieldFromProperty(node: ts.PropertyDeclaration, member: SymbolWithContextType): ClassField {
     const {inherited, type, symbol, overrides} = member;
-    const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);
     const name = node.name?.getText() ?? '';
     const defaultValue = findJSDoc<string>(JSDocTagName.default, jsDoc)?.value;
-    const computedType = type ? (checker?.typeToString(type) ?? '') : '';
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
     const hasReadOnlyTag = findJSDoc<boolean>(JSDocTagName.readonly, jsDoc)?.value;
 
@@ -151,7 +149,7 @@ function createFieldFromProperty(node: ts.PropertyDeclaration, member: SymbolWit
         line: getLinePosition(node),
         kind: DeclarationKind.field,
         modifier: getVisibilityModifier(node),
-        type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
+        type: jsDocDefinedType ? {text: jsDocDefinedType} : getTypeInfoFromTsType(type),
     };
 
     tryAddProperty(tmpl, 'static', isStaticMember(node));
@@ -190,7 +188,6 @@ function createConstructors(signatures: readonly ts.Signature[]): Constructor[] 
 }
 
 function createFieldFromPropertyAccessor(member: SymbolWithContextType): ClassMember {
-    const checker = Context.checker;
     const {symbol, type, inherited, overrides} = member;
     const decls = symbol?.getDeclarations() ?? [];
     const getter = decls.find(ts.isGetAccessor);
@@ -203,13 +200,12 @@ function createFieldFromPropertyAccessor(member: SymbolWithContextType): ClassMe
         const returnStatement = getReturnStatement(getter.body);
         const returnValue = resolveExpression(returnStatement?.expression);
         const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-        const computedType = type ? (checker?.typeToString(type) ?? '') : '';
 
         const tmpl: ClassField = {
             name,
             line: getLinePosition(getter),
             kind: DeclarationKind.field,
-            type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
+            type: jsDocDefinedType ? {text: jsDocDefinedType} : getTypeInfoFromTsType(type),
         };
 
         tryAddProperty(tmpl, 'jsDoc', jsDoc);
@@ -231,13 +227,12 @@ function createFieldFromPropertyAccessor(member: SymbolWithContextType): ClassMe
     const name = setter.name?.getText() ?? '';
     const jsDoc = getAllJSDoc(setter);
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const computedType = type ? (checker?.typeToString(type) ?? '') : '';
 
     const tmpl: ClassField = {
         name,
         line: getLinePosition(setter),
         kind: DeclarationKind.field,
-        type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
+        type: jsDocDefinedType ? {text: jsDocDefinedType} : getTypeInfoFromTsType(type),
         writeOnly: true,
     };
 

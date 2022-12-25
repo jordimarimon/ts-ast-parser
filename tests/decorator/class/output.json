@@ -45,6 +45,7 @@
                     {
                         "name": "sealed",
                         "source": {
+                            "line": 1,
                             "path": "tests/decorator/class/index.ts"
                         }
                     }

@@ -57,6 +57,7 @@
                     {
                         "name": "Bar",
                         "source": {
+                            "line": 1,
                             "path": "tests/class/extends-clause/index.ts"
                         },
                         "kind": "class"

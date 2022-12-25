@@ -19,6 +19,7 @@
                     {
                         "name": "Foo",
                         "source": {
+                            "line": 1,
                             "path": "tests/import/paths/foo.ts"
                         },
                         "kind": "class"

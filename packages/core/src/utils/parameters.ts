@@ -6,6 +6,7 @@ import { NodeWithParameters } from './types.js';
 import { getDecorators } from './decorator.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
+import { getTypeInfoFromNode, getTypeInfoFromTsType } from './get-type.js';
 
 
 export function getParameters(node: NodeWithParameters, callSignature: ts.Signature): Parameter[] {
@@ -35,11 +36,13 @@ function createSimpleParameter(nodeParam: ts.ParameterDeclaration, symbolParam: 
     const checker = Context.checker;
     const jsDoc = getAllJSDoc(nodeParam);
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const contextType = checker?.typeToString(checker?.getTypeOfSymbolAtLocation(symbolParam, nodeParam));
+    const type = checker?.getTypeOfSymbolAtLocation(symbolParam, nodeParam);
 
     const tmpl: Parameter = {
         name: symbolParam.getName() ?? '',
-        type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: contextType ?? (nodeParam.type?.getText() ?? '')},
+        type: jsDocDefinedType
+            ? {text: jsDocDefinedType}
+            : (type ? getTypeInfoFromTsType(type) : getTypeInfoFromNode(nodeParam)),
     };
 
     tryAddProperty(tmpl, 'decorators', getDecorators(nodeParam));

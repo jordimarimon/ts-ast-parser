@@ -46,6 +46,7 @@
                     {
                         "name": "Bar",
                         "source": {
+                            "line": 1,
                             "path": "tests/class/implements-clause/index.ts"
                         },
                         "kind": "interface"

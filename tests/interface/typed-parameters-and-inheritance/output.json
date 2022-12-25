@@ -18,7 +18,14 @@
                         "line": 3,
                         "kind": "field",
                         "type": {
-                            "text": "T"
+                            "text": "T",
+                            "sources": [
+                                {
+                                    "text": "T",
+                                    "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
+                                    "line": 1
+                                }
+                            ]
                         }
                     },
                     {
@@ -29,14 +36,28 @@
                                 "line": 4,
                                 "return": {
                                     "type": {
-                                        "text": "T"
+                                        "text": "T",
+                                        "sources": [
+                                            {
+                                                "text": "T",
+                                                "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
+                                                "line": 1
+                                            }
+                                        ]
                                     }
                                 },
                                 "parameters": [
                                     {
                                         "name": "a",
                                         "type": {
-                                            "text": "T"
+                                            "text": "T",
+                                            "sources": [
+                                                {
+                                                    "text": "T",
+                                                    "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
+                                                    "line": 1
+                                                }
+                                            ]
                                         }
                                     }
                                 ]
@@ -65,6 +86,7 @@
                     {
                         "name": "Foo<string>",
                         "source": {
+                            "line": 1,
                             "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
                         },
                         "kind": "interface"

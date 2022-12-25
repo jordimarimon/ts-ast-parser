@@ -29,7 +29,14 @@
                         "line": 6,
                         "kind": "field",
                         "type": {
-                            "text": "T"
+                            "text": "T",
+                            "sources": [
+                                {
+                                    "text": "T",
+                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "line": 5
+                                }
+                            ]
                         }
                     }
                 ]
@@ -44,7 +51,14 @@
                             {
                                 "name": "value",
                                 "type": {
-                                    "text": "T"
+                                    "text": "T",
+                                    "sources": [
+                                        {
+                                            "text": "T",
+                                            "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                            "line": 9
+                                        }
+                                    ]
                                 }
                             }
                         ]
@@ -63,7 +77,14 @@
                         "kind": "field",
                         "modifier": "public",
                         "type": {
-                            "text": "T"
+                            "text": "T",
+                            "sources": [
+                                {
+                                    "text": "T",
+                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "line": 9
+                                }
+                            ]
                         },
                         "optional": true
                     },
@@ -72,7 +93,14 @@
                         "line": 12,
                         "kind": "field",
                         "type": {
-                            "text": "T"
+                            "text": "T",
+                            "sources": [
+                                {
+                                    "text": "T",
+                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "line": 9
+                                }
+                            ]
                         },
                         "writeOnly": true,
                         "modifier": "public"
@@ -85,14 +113,28 @@
                                 "line": 20,
                                 "return": {
                                     "type": {
-                                        "text": "T"
+                                        "text": "T",
+                                        "sources": [
+                                            {
+                                                "text": "T",
+                                                "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                                "line": 9
+                                            }
+                                        ]
                                     }
                                 },
                                 "parameters": [
                                     {
                                         "name": "a",
                                         "type": {
-                                            "text": "T"
+                                            "text": "T",
+                                            "sources": [
+                                                {
+                                                    "text": "T",
+                                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                                    "line": 9
+                                                }
+                                            ]
                                         }
                                     }
                                 ]
@@ -122,6 +164,7 @@
                     {
                         "name": "ClassB<string>",
                         "source": {
+                            "line": 9,
                             "path": "tests/class/typed-parameters-and-inheritance/index.ts"
                         },
                         "kind": "class"
@@ -134,7 +177,14 @@
                         "kind": "field",
                         "modifier": "public",
                         "type": {
-                            "text": "TypeY<string>"
+                            "text": "TypeY<string>",
+                            "sources": [
+                                {
+                                    "text": "TypeY<string>",
+                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "line": 5
+                                }
+                            ]
                         },
                         "optional": true
                     },
@@ -144,7 +194,14 @@
                         "kind": "field",
                         "modifier": "public",
                         "type": {
-                            "text": "TypeX<string>"
+                            "text": "TypeX<string>",
+                            "sources": [
+                                {
+                                    "text": "TypeX<string>",
+                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "line": 1
+                                }
+                            ]
                         },
                         "optional": true
                     },

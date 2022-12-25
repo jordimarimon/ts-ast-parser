@@ -49,7 +49,14 @@
                             {
                                 "name": "target",
                                 "type": {
-                                    "text": "Greeter"
+                                    "text": "Greeter",
+                                    "sources": [
+                                        {
+                                            "text": "Greeter",
+                                            "path": "tests/decorator/property/index.ts",
+                                            "line": 16
+                                        }
+                                    ]
                                 }
                             },
                             {
@@ -94,7 +101,8 @@
                                     "'Hello, %s'"
                                 ],
                                 "source": {
-                                    "path": "tests/decorator/property/index.ts"
+                                    "path": "tests/decorator/property/index.ts",
+                                    "line": 7
                                 }
                             }
                         ],

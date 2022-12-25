@@ -28,7 +28,11 @@ export type NodeWithParameters = FunctionLikeDeclaration |
 
 export type NodeWithHeritageClause = ts.InterfaceDeclaration | ts.ClassDeclaration | ts.ClassExpression;
 
-export type SymbolWithLocation = { path: string; symbol: ts.Symbol | undefined };
+export type SymbolWithLocation = {
+    path: string;
+    line: number | null;
+    symbol: ts.Symbol | undefined;
+};
 
 export type SymbolWithContextType = {
     symbol: ts.Symbol | undefined;

@@ -1,5 +1,5 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
-import { isThirdPartyImport } from './import.js';
+import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
 
@@ -52,7 +52,7 @@ function isBooleanLiteral(expr: ts.Expression | ts.Declaration): boolean {
 }
 
 function parseStringToFloat(text: string): number | string {
-    const parsedValue = Number.parseFloat(text);
+    const parsedValue = parseFloat(text);
 
     if (!isNaN(parsedValue)) {
         return parsedValue;
@@ -72,7 +72,7 @@ function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression): u
     }
 
     // We don't resolve identifiers that come from 3rd party libraries
-    if (isThirdPartyImport(importPath)) {
+    if (isThirdParty(importPath)) {
         return text;
     }
 

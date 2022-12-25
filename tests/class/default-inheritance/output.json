@@ -28,6 +28,7 @@
                     {
                         "name": "Class1",
                         "source": {
+                            "line": 1,
                             "path": "tests/class/default-inheritance/index.ts"
                         },
                         "kind": "class"

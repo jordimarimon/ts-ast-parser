@@ -1,6 +1,5 @@
 import { createFunctionLike } from './create-function.js';
 import { NodeFactory } from './node-factory.js';
-import { Context } from '../context.js';
 import ts from 'typescript';
 import {
     ClassMember,
@@ -19,6 +18,7 @@ import {
     getInstanceProperties,
     getLinePosition,
     getParameters,
+    getTypeInfoFromTsType,
     getTypeParameters,
     isOptional,
     isReadOnly,
@@ -125,18 +125,15 @@ function createInterfaceFieldFromPropertySignature(
         return createInterfaceMethod(node, member);
     }
 
-    const checker = Context.checker;
     const jsDoc = getAllJSDoc(node);
-
     const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const computedType = (type && checker?.typeToString(type)) || '';
     const hasReadOnlyTag = findJSDoc<boolean>(JSDocTagName.readonly, jsDoc)?.value;
 
     const tmpl: InterfaceField = {
         name: node.name?.getText() ?? '',
         line: getLinePosition(node),
         kind: DeclarationKind.field,
-        type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: computedType},
+        type: jsDocDefinedType ? {text: jsDocDefinedType} : getTypeInfoFromTsType(type),
     };
 
     tryAddProperty(tmpl, 'readOnly', hasReadOnlyTag ?? isReadOnly(node));

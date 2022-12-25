@@ -15,8 +15,8 @@ export function isBareModuleSpecifier(importPath: string): boolean {
     return !!importPath.replace(/'/g, '')[0].match(/[@a-zA-Z\d]/g);
 }
 
-export function isThirdPartyImport(importPath: string): boolean {
-    return importPath.length < 1000 && (/.*node_modules\/.+/.test(importPath) || /^https?:\/\/.+/.test(importPath));
+export function isThirdParty(path: string): boolean {
+    return path.length < 1000 && (/.*node_modules\/.+/.test(path) || /^https?:\/\/.+/.test(path));
 }
 
 export function getOriginalImportPath(node: ts.Identifier | undefined): string {

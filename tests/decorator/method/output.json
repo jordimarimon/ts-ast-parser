@@ -71,6 +71,7 @@
                                     false
                                 ],
                                 "source": {
+                                    "line": 1,
                                     "path": "tests/decorator/method/index.ts"
                                 }
                             }

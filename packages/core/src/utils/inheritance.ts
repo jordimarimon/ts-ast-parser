@@ -2,8 +2,8 @@ import { InterfaceOrClassDeclaration, NodeWithHeritageClause, SymbolWithContextT
 import { DeclarationKind, Reference, SourceReference } from '../models/index.js';
 import { tryAddProperty } from './try-add-property.js';
 import { getSymbolAtLocation } from './symbol.js';
-import { isThirdPartyImport } from './import.js';
 import { getLocation } from './get-location.js';
+import { isThirdParty } from './import.js';
 import { Context } from '../context.js';
 import { isOverride } from './class.js';
 import ts from 'typescript';
@@ -57,34 +57,49 @@ export function getExtendClauseReferences(node: NodeWithHeritageClause): Referen
         const types = heritageClause.types ?? [];
 
         for (const type of types) {
-            const expr = type.expression;
-            const typeArguments = type.typeArguments;
+            const ref = createReference(type);
 
-            if (!ts.isIdentifier(expr)) {
+            if (!ref) {
                 continue;
             }
-
-            const {path, symbol} = getLocation(expr);
-
-            let name = expr.escapedText ?? '';
-
-            if (typeArguments) {
-                const argNames = getTypeArgumentNames(typeArguments);
-
-                name += `<${argNames.join(', ')}>`;
-            }
-
-            const sourceRef: SourceReference = {};
-            const ref: Reference = {name};
-            tryAddProperty(sourceRef, 'path', path);
-            tryAddProperty(ref, 'source', sourceRef);
-            tryAddProperty(ref, 'kind', getInterfaceOrClassSymbolKind(symbol));
 
             references.push(ref);
         }
     }
 
     return references;
+}
+
+export function createReference(type: ts.ExpressionWithTypeArguments): Reference | null {
+    const expr = type.expression;
+    const typeArguments = type.typeArguments;
+
+    if (!ts.isIdentifier(expr)) {
+        return null;
+    }
+
+    const {path, symbol, line} = getLocation(expr);
+
+    let name = expr.escapedText ?? '';
+
+    if (typeArguments) {
+        const argNames = getTypeArgumentNames(typeArguments);
+
+        name += `<${argNames.join(', ')}>`;
+    }
+
+    const sourceRef: SourceReference = {};
+    const ref: Reference = {name};
+
+    if (path && line != null) {
+        sourceRef.line = line;
+    }
+
+    tryAddProperty(sourceRef, 'path', path);
+    tryAddProperty(ref, 'source', sourceRef);
+    tryAddProperty(ref, 'kind', getInterfaceOrClassSymbolKind(symbol));
+
+    return ref;
 }
 
 export function isInherited(classOrInterfaceNode: ts.Node, memberSymbolToCheck: ts.Symbol): boolean {
@@ -121,7 +136,7 @@ function createSymbolWithContextType(node: InterfaceOrClassDeclaration, symbols:
         }
 
         // Ignore properties that come from third party libraries
-        if (isThirdPartyImport(filePath)) {
+        if (isThirdParty(filePath)) {
             continue;
         }
 

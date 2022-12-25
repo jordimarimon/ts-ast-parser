@@ -6,7 +6,7 @@ import {
     findJSDoc,
     getAllJSDoc,
     getLinePosition,
-    getTypeName,
+    getTypeInfoFromNode,
     isFunctionDeclaration,
     resolveExpression,
     tryAddProperty,
@@ -39,7 +39,7 @@ function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
             kind: DeclarationKind.variable,
             line,
             name,
-            type: jsDocDefinedType ? {text: jsDocDefinedType} : {text: getTypeName(declaration)},
+            type: jsDocDefinedType ? {text: jsDocDefinedType} : getTypeInfoFromNode(declaration),
         };
 
         if (defaultValue !== '') {

@@ -52,7 +52,14 @@
                             {
                                 "name": "target",
                                 "type": {
-                                    "text": "BugReport"
+                                    "text": "BugReport",
+                                    "sources": [
+                                        {
+                                            "text": "BugReport",
+                                            "path": "tests/decorator/parameter/index.ts",
+                                            "line": 37
+                                        }
+                                    ]
                                 }
                             },
                             {
@@ -129,6 +136,7 @@
                                             {
                                                 "name": "required",
                                                 "source": {
+                                                    "line": 7,
                                                     "path": "tests/decorator/parameter/index.ts"
                                                 }
                                             }
@@ -141,6 +149,7 @@
                             {
                                 "name": "validate",
                                 "source": {
+                                    "line": 13,
                                     "path": "tests/decorator/parameter/index.ts"
                                 }
                             }

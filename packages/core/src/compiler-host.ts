@@ -1,6 +1,9 @@
 import ts from 'typescript';
 
 
+//
+// We use it to fake the file system when working in a browser environment.
+//
 export function createCompilerHost(fileName: string, code: string): ts.CompilerHost {
 
     const sourceFile = ts.createSourceFile(fileName, code, ts.ScriptTarget.Latest, true);

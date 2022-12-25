@@ -1,4 +1,4 @@
-import { Type } from '@ts-ast-parser/core';
+import { Type, TypeReference } from '@ts-ast-parser/core';
 
 
 export class TypeReader {
@@ -13,8 +13,12 @@ export class TypeReader {
         return this._type.text ?? '';
     }
 
-    getSourceReference(): string {
-        return this._type.source?.path ?? '';
+    getSourceReferences(): TypeReference[] {
+        return this._type.sources ?? [];
+    }
+
+    getSourceReference(name: string): TypeReference | null {
+        return this._type.sources?.find(s => s.text === name) ?? null;
     }
 
 }

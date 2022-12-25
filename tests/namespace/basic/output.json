@@ -68,6 +68,7 @@
                     {
                         "name": "IFoo",
                         "source": {
+                            "line": 17,
                             "path": "tests/namespace/basic/index.ts"
                         },
                         "kind": "interface"

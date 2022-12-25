@@ -10,6 +10,7 @@ import {
     getLinePosition,
     getParameters,
     getSignatures,
+    getTypeInfoFromTsType,
     getTypeParameters,
     isAsyncFunction,
     isFunctionDeclaration,
@@ -48,15 +49,12 @@ function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, mod
 function createSignature(signature: ts.Signature): FunctionSignature {
     const checker = Context.checker;
     const returnTypeOfSignature = checker?.getReturnTypeOfSignature(signature);
-    const returnType = returnTypeOfSignature && checker?.typeToString(returnTypeOfSignature);
     const declaration = signature.getDeclaration();
     const jsDoc = getAllJSDoc(declaration);
     const tmpl: FunctionSignature = {
         line: getLinePosition(declaration),
         return: {
-            type: {
-                text: returnType ?? '',
-            },
+            type: getTypeInfoFromTsType(returnTypeOfSignature),
         },
     };
 
@@ -75,6 +73,8 @@ export function createFunctionLike(node: ts.Node, type?: ts.Type | undefined): F
         signatures: signatures.map(s => createSignature(s)),
     };
 
+    // If it's a variable declaration that has an anonymous functions as initializer,
+    // we need to retrieve the JSDoc from the variable declaration
     if (node !== func) {
         const jsDoc = getAllJSDoc(node);
         tryAddProperty(tmpl, 'jsDoc', jsDoc);

@@ -15,7 +15,14 @@
                 "line": 4,
                 "name": "x",
                 "type": {
-                    "text": "TypeA"
+                    "text": "TypeA",
+                    "sources": [
+                        {
+                            "line": 1,
+                            "path": "tests/import/type/type-a.ts",
+                            "text": "TypeA"
+                        }
+                    ]
                 },
                 "default": "{foo: 'bar'}"
             }

@@ -42,7 +42,7 @@ describe(`${category}/${subcategory}`, () => {
         const decl = mod?.getDeclarationByName('bar') as VariableReader;
 
         expect(decl).to.not.equal(null);
-        expect(decl.getType().getValue()).to.equal('{ x: number; y?: number; }');
+        expect(decl.getType().getValue()).to.equal('TypeX');
         expect(decl.getDefault()).to.equal('{x: 4, y: 4}');
     });
 

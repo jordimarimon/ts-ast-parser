@@ -10,9 +10,6 @@
                 "heritage": [
                     {
                         "name": "HTMLElement",
-                        "source": {
-                            "path": "node_modules/@typescript/lib-dom/index.d.ts"
-                        },
                         "kind": "interface"
                     }
                 ],
@@ -37,6 +34,7 @@
                     {
                         "name": "FooElement",
                         "source": {
+                            "line": 1,
                             "path": "tests/class/third-party-inheritance/index.ts"
                         },
                         "kind": "class"

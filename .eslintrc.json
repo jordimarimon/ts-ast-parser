@@ -198,10 +198,7 @@
                 "no-return-await": "off",
                 "@typescript-eslint/array-type": "error",
                 "@typescript-eslint/await-thenable": "error",
-                "@typescript-eslint/brace-style": [
-                    "error",
-                    "1tbs"
-                ],
+                "@typescript-eslint/brace-style": "off",
                 "@typescript-eslint/comma-dangle": [
                     "error",
                     "always-multiline"

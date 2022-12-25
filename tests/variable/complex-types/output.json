@@ -4,34 +4,118 @@
         "imports": [],
         "declarations": [
             {
+                "name": "TypeArray",
+                "line": 10,
+                "kind": "type-alias",
+                "value": "TypeX[]"
+            },
+            {
                 "kind": "variable",
+                "line": 12,
                 "name": "foo",
-                "line": 8,
                 "type": {
-                    "text": "Colors"
+                    "text": "Colors",
+                    "sources": [
+                        {
+                            "text": "Colors",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 1
+                        }
+                    ]
                 },
                 "default": "Colors.Red"
             },
             {
                 "kind": "variable",
+                "line": 13,
                 "name": "blue",
-                "line": 9,
                 "type": {
-                    "text": "Colors"
+                    "text": "Colors",
+                    "sources": [
+                        {
+                            "text": "Colors",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 1
+                        }
+                    ]
                 },
                 "default": "Colors.Blue"
             },
             {
                 "kind": "variable",
+                "line": 14,
                 "name": "bar",
-                "line": 10,
                 "type": {
-                    "text": "{ x: number; y?: number; }"
+                    "text": "TypeX",
+                    "sources": [
+                        {
+                            "text": "TypeX",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 8
+                        }
+                    ]
                 },
                 "default": "{x: 4, y: 4}"
+            },
+            {
+                "kind": "variable",
+                "line": 15,
+                "name": "bar2",
+                "type": {
+                    "text": "TypeX & TypeY",
+                    "sources": [
+                        {
+                            "text": "TypeX",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 8
+                        },
+                        {
+                            "text": "TypeY",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 9
+                        }
+                    ]
+                },
+                "default": "{x: 3}"
+            },
+            {
+                "kind": "variable",
+                "line": 16,
+                "name": "foo2",
+                "type": {
+                    "text": "TypeX[]",
+                    "sources": [
+                        {
+                            "text": "TypeX",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 8
+                        }
+                    ]
+                },
+                "default": "[]"
+            },
+            {
+                "kind": "variable",
+                "line": 17,
+                "name": "foo3",
+                "type": {
+                    "text": "TypeArray",
+                    "sources": [
+                        {
+                            "line": 10,
+                            "path": "tests/variable/complex-types/index.ts",
+                            "text": "TypeArray"
+                        }
+                    ]
+                },
+                "default": "[]"
             }
         ],
         "exports": [
+            {
+                "name": "TypeArray",
+                "type": "named"
+            },
             {
                 "name": "foo",
                 "type": "named"
@@ -42,6 +126,18 @@
             },
             {
                 "name": "bar",
+                "type": "named"
+            },
+            {
+                "name": "bar2",
+                "type": "named"
+            },
+            {
+                "name": "foo2",
+                "type": "named"
+            },
+            {
+                "name": "foo3",
                 "type": "named"
             }
         ]

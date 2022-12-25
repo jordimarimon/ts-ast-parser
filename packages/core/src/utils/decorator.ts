@@ -1,5 +1,4 @@
 import { resolveExpression } from './resolve-expression.js';
-import { ts4_8 } from '../@types/typescript/index.js';
 import { getLocation } from './get-location.js';
 import { Decorator } from '../models/index.js';
 import { isTS4_8 } from './version.js';
@@ -12,8 +11,7 @@ export function getDecorators(node: ts.Node): Decorator[] {
     let nodeDecorators: readonly ts.Decorator[] = [];
 
     if (isTS4_8()) {
-        const _ts = (ts as unknown as typeof ts4_8);
-        nodeDecorators = _ts.canHaveDecorators(node) ? (_ts.getDecorators(node) ?? []) : [];
+        nodeDecorators = ts.canHaveDecorators(node) ? (ts.getDecorators(node) ?? []) : [];
     } else {
         nodeDecorators = node.decorators ?? [];
     }
@@ -33,21 +31,36 @@ export function createDecorator(decorator: ts.Decorator): Decorator | null {
     const expr = decorator.expression;
 
     if (ts.isIdentifier(expr)) {
-        const {path} = getLocation(expr);
+        const {path, line} = getLocation(expr);
+        const name = expr.escapedText ?? '';
 
-        return {
-            name: expr.escapedText ?? '',
-            source: {path},
-        };
+        if (path && line != null) {
+            return {
+                name,
+                source: {path, line},
+            };
+        }
+
+        return {name};
     }
 
     if (ts.isCallExpression(expr)) {
         const identifier = expr.expression;
-        const {path} = getLocation(identifier);
+        const {path, line} = getLocation(identifier);
+        const name = ts.isIdentifier(identifier) ? (identifier.escapedText ?? '') : '';
+        const args = expr.arguments.map(arg => resolveExpression(arg));
+
+        if (path && line != null) {
+            return {
+                name,
+                arguments: args,
+                source: {path, line},
+            };
+        }
 
         return {
-            name: ts.isIdentifier(identifier) ? (identifier.escapedText ?? '') : '',
-            arguments: expr.arguments.map(arg => resolveExpression(arg)),
+            name,
+            arguments: args,
             source: {path},
         };
     }

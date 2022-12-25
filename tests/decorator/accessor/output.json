@@ -62,6 +62,7 @@
                                     false
                                 ],
                                 "source": {
+                                    "line": 1,
                                     "path": "tests/decorator/accessor/index.ts"
                                 }
                             }
@@ -83,6 +84,7 @@
                                     false
                                 ],
                                 "source": {
+                                    "line": 1,
                                     "path": "tests/decorator/accessor/index.ts"
                                 }
                             }

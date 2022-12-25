@@ -57,6 +57,7 @@
                     {
                         "name": "Class1",
                         "source": {
+                            "line": 1,
                             "path": "tests/class/inheritance/index.ts"
                         },
                         "kind": "class"
@@ -124,6 +125,7 @@
                     {
                         "name": "Class2",
                         "source": {
+                            "line": 9,
                             "path": "tests/class/inheritance/index.ts"
                         },
                         "kind": "class"
