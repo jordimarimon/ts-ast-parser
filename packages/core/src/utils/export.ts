@@ -1,3 +1,4 @@
+import { getModifiers } from './modifiers.js';
 import ts from 'typescript';
 
 
@@ -10,9 +11,7 @@ import ts from 'typescript';
  *
  */
 export function hasExportKeyword(node: ts.Node): node is ts.Node {
-    const modifiers = ts.canHaveModifiers(node) ? (ts.getModifiers(node) ?? []) : [];
-
-    return modifiers.some(mod => mod.kind === ts.SyntaxKind.ExportKeyword);
+    return getModifiers(node).some(mod => mod.kind === ts.SyntaxKind.ExportKeyword);
 }
 
 /**
@@ -22,7 +21,5 @@ export function hasExportKeyword(node: ts.Node): node is ts.Node {
  *
  */
 export function hasDefaultKeyword(node: ts.Node): boolean {
-    const modifiers = ts.canHaveModifiers(node) ? (ts.getModifiers(node) ?? []) : [];
-
-    return modifiers.some(mod => mod.kind === ts.SyntaxKind.DefaultKeyword);
+    return getModifiers(node).some(mod => mod.kind === ts.SyntaxKind.DefaultKeyword);
 }

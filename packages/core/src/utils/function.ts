@@ -1,5 +1,6 @@
 import { FunctionLikeDeclaration, GeneratorFunction } from './types.js';
 import { getSymbolAtLocation } from './symbol.js';
+import { getModifiers } from './modifiers.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
@@ -9,9 +10,7 @@ export function isAsyncFunction(func: FunctionLikeDeclaration): boolean {
         return false;
     }
 
-    const modifiers = ts.canHaveModifiers(func) ? (ts.getModifiers(func) ?? []) : [];
-
-    return modifiers.some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
+    return getModifiers(func).some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
 }
 
 export function getReturnStatement(node: ts.Block | undefined): ts.ReturnStatement | undefined {

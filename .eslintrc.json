@@ -58,7 +58,7 @@
                 "no-unreachable-loop": "error",
                 "no-unused-private-class-members": "error",
                 "block-scoped-var": "error",
-                "camelcase": "error",
+                "camelcase": "off",
                 "complexity": [
                     "error",
                     50
