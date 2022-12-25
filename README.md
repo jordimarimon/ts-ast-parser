@@ -24,6 +24,8 @@
 
 <br/>
 
+> This project is still in beta until we reach version 1.0.0. There could be breaking changes between minor versions.
+
 ## What it is
 
 Simplifies the TypeScript AST generated from the TypeScript compiler for information that may be useful.
