@@ -4,7 +4,7 @@ import { getFixture } from '../../utils.js';
 
 
 const category = 'export';
-const subcategory = 'namespace';
+const subcategory = 'star';
 const {actual, expected} = getFixture(category, subcategory, ['foo.ts']);
 const reader = new Reader(actual);
 

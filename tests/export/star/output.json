@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/export/namespace/index.ts",
+        "path": "tests/export/star/index.ts",
         "imports": [],
         "declarations": [],
         "exports": [
@@ -12,7 +12,7 @@
         ]
     },
     {
-        "path": "tests/export/namespace/foo.ts",
+        "path": "tests/export/star/foo.ts",
         "imports": [],
         "declarations": [
             {
