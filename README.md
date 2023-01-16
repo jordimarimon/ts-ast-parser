@@ -28,13 +28,11 @@
 
 ## What it is
 
-Simplifies the TypeScript AST generated from the TypeScript compiler for information that may be useful.
-
-This information then can be used to generate documentation.
+Simplifies the TypeScript AST generated from the TypeScript compiler.
 
 ## Features
 
-Extracts metadata from:
+Reflects the following declarations:
 
 - Import declarations
 - Export declarations
@@ -53,10 +51,6 @@ Extracts metadata from:
 Supported output formats:
 
 - JSON
-
-Also provides:
-
-- Helper class for reading and searching in the metadata
 
 ## Projects in this monorepo
 
