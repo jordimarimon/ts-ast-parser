@@ -2,6 +2,7 @@ import { getOriginalImportPath, isBareModuleSpecifier, matchesTsConfigPath } fro
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { Import, ImportKind } from '../models/import.js';
 import { ImportNode } from './import-node.js';
+import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
 
@@ -21,6 +22,10 @@ export class DefaultImportNode implements ImportNode {
         const identifier = this._node.importClause?.name;
 
         return identifier?.escapedText ?? '';
+    }
+
+    getType(): NodeType {
+        return NodeType.Import;
     }
 
     getKind(): ImportKind {

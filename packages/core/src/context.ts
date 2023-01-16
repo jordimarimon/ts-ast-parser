@@ -10,7 +10,7 @@ export interface AnalyzerContext {
 /**
  * This defines the global context that can be accessed from anywhere.
  *
- * Context is defined only at the start of the parsing by the `parseFrom*` functions.
+ * Context is defined only at the start of the parsing by the `parseFrom*` function.
  */
 export const Context: AnalyzerContext = {
 
