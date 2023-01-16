@@ -1,4 +1,4 @@
-import { Type, TypeReference } from '../models/index.js';
+import { Type, TypeReference } from '../models/type.js';
 import { tryAddProperty } from './try-add-property.js';
 import { getLocation } from './get-location.js';
 import { Context } from '../context.js';

@@ -1,4 +1,4 @@
-import { ModifierType } from '../models/index.js';
+import { ModifierType } from '../models/class.js';
 import ts from 'typescript';
 
 

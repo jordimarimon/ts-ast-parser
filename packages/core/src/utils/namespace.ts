@@ -1,4 +1,4 @@
-import { Declaration } from '../models/index.js';
+import { Declaration } from '../models/declaration.js';
 import ts from 'typescript';
 
 

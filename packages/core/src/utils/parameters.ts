@@ -1,12 +1,13 @@
-import { JSDocTagName, NamedParameterElement, Parameter } from '../models/index.js';
+import { getTypeInfoFromNode, getTypeInfoFromTsType } from './get-type.js';
+import { NamedParameterElement, Parameter } from '../models/parameter.js';
 import { resolveExpression } from './resolve-expression.js';
 import { tryAddProperty } from './try-add-property.js';
 import { findJSDoc, getAllJSDoc } from './js-doc.js';
+import { JSDocTagName } from '../models/js-doc.js';
 import { NodeWithParameters } from './types.js';
 import { getDecorators } from './decorator.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
-import { getTypeInfoFromNode, getTypeInfoFromTsType } from './get-type.js';
 
 
 export function getParameters(node: NodeWithParameters, callSignature: ts.Signature): Parameter[] {

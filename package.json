@@ -34,8 +34,6 @@
         "doc:start:css": "postcss docs/assets/css/main.css -o _site/assets/css/main.css --watch",
         "doc:api": "node scripts/generate-api-reference.mjs",
         "publish:all": "npm publish --access public --workspaces",
-        "publish:core": "npm publish --access public --workspace ./packages/core",
-        "publish:readers": "npm publish --access public --workspace ./packages/readers",
         "test": "vitest run --config vitest.config.ts",
         "coverage": "vitest run --coverage --config vitest.config.ts",
         "prepare": "./scripts/prepare.sh",

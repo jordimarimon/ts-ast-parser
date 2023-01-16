@@ -1,6 +1,6 @@
 import { resolveExpression } from './resolve-expression.js';
 import { getReturnStatement } from './function.js';
-import { MixinNodes } from '../models/index.js';
+import { MixinNodes } from '../models/mixin.js';
 import ts from 'typescript';
 
 

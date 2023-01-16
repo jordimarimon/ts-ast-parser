@@ -1,5 +1,6 @@
 import { InterfaceOrClassDeclaration, NodeWithHeritageClause, SymbolWithContextType } from './types.js';
-import { DeclarationKind, Reference, SourceReference } from '../models/index.js';
+import { Reference, SourceReference } from '../models/reference.js';
+import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from './try-add-property.js';
 import { getSymbolAtLocation } from './symbol.js';
 import { getLocation } from './get-location.js';

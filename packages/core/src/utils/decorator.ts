@@ -1,6 +1,6 @@
 import { resolveExpression } from './resolve-expression.js';
+import { Decorator } from '../models/decorator.js';
 import { getLocation } from './get-location.js';
-import { Decorator } from '../models/index.js';
 import { isTS4_8 } from './version.js';
 import ts from 'typescript';
 

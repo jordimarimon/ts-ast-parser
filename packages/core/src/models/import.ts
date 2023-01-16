@@ -1,4 +1,4 @@
-export enum ImportType {
+export enum ImportKind {
     default = 'default',
     named = 'named',
     namespace = 'namespace',
@@ -9,7 +9,7 @@ export enum ImportType {
 
 export interface Import {
     name: string;
-    kind: ImportType;
+    kind: ImportKind;
     importPath: string;
     isBareModuleSpecifier?: boolean;
     isTypeOnly?: boolean;

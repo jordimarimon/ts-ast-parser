@@ -1,4 +1,4 @@
-import { JSDoc, JSDocComment, JSDocNode, JSDocTagName, JSDocTagValue } from '../models/index.js';
+import { JSDoc, JSDocComment, JSDocNode, JSDocTagName, JSDocTagValue } from '../models/js-doc.js';
 import { Spec } from 'comment-parser/primitives';
 import { logWarning } from './logs.js';
 import { parse } from 'comment-parser';
