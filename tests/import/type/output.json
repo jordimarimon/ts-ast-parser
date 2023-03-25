@@ -1,0 +1,21 @@
+[
+    {
+        "path": "tests/import/type/index.ts",
+        "imports": [
+            {
+                "name": "TypeA",
+                "kind": "named",
+                "importPath": "./type-a.js",
+                "isTypeOnly": true
+            }
+        ],
+        "declarations": [],
+        "exports": []
+    },
+    {
+        "path": "tests/import/type/type-a.ts",
+        "imports": [],
+        "declarations": [],
+        "exports": []
+    }
+]

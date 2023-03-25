@@ -8,6 +8,10 @@ import { Context } from '../context.js';
 import ts from 'typescript';
 
 
+const factories = [
+    importFactory,
+];
+
 export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     private readonly _node: ts.SourceFile;
@@ -32,13 +36,13 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     getImports(): ImportNode[] {
-        return [];
+        return this._imports;
     }
 
     toPOJO(): Module {
         const tmpl: Module = {
             path: this.getPath(),
-            imports: [],
+            imports: this._imports.map(imp => imp.toPOJO()),
             exports: [],
             declarations: [],
         };
@@ -49,17 +53,13 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     private _visitNode(rootNode: ts.Node | ts.SourceFile): void {
-        const factories = [
-            importFactory,
-        ];
-
         for (const factory of factories) {
             if (factory.isNode(rootNode)) {
                 this._add(factory.create(rootNode));
             }
         }
 
-        ts.forEachChild(rootNode, (node: ts.Node) => this._visitNode(node));
+        ts.forEachChild(rootNode, node => this._visitNode(node));
     }
 
     private _add(reflectedNodes: ReflectedNode[]): void {

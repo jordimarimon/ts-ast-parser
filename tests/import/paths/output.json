@@ -1,0 +1,22 @@
+[
+    {
+        "path": "tests/import/paths/index.ts",
+        "imports": [
+            {
+                "name": "Foo",
+                "kind": "named",
+                "importPath": "custom-path/foo",
+                "originalPath": "tests/import/paths/foo.ts",
+                "isBareModuleSpecifier": true
+            }
+        ],
+        "declarations": [],
+        "exports": []
+    },
+    {
+        "path": "tests/import/paths/foo.ts",
+        "imports": [],
+        "declarations": [],
+        "exports": []
+    }
+]

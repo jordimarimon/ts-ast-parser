@@ -1,0 +1,20 @@
+[
+    {
+        "path": "tests/import/namespace/index.ts",
+        "imports": [
+            {
+                "name": "Namespace",
+                "kind": "namespace",
+                "importPath": "./foo.js"
+            }
+        ],
+        "declarations": [],
+        "exports": []
+    },
+    {
+        "path": "tests/import/namespace/foo.ts",
+        "imports": [],
+        "declarations": [],
+        "exports": []
+    }
+]

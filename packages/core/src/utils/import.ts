@@ -36,7 +36,7 @@ export function matchesTsConfigPath(importPath: string): boolean {
 
     for (const pattern in paths) {
         const regExp = new RegExp(pattern);
-        const matches = regExp.test(importPath);
+        const matches = importPath.length < 1000 && regExp.test(importPath);
 
         if (matches) {
             return true;

@@ -2,9 +2,6 @@ export enum ImportKind {
     default = 'default',
     named = 'named',
     namespace = 'namespace',
-    aliased = 'aliased',
-    string = 'string',
-    externalModule = 'externalModule',
 }
 
 export interface Import {

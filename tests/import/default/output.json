@@ -1,0 +1,20 @@
+[
+    {
+        "path": "tests/import/default/index.ts",
+        "imports": [
+            {
+                "name": "Foo",
+                "kind": "default",
+                "importPath": "./foo.js"
+            }
+        ],
+        "declarations": [],
+        "exports": []
+    },
+    {
+        "path": "tests/import/default/foo.ts",
+        "imports": [],
+        "exports": [],
+        "declarations": []
+    }
+]

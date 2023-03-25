@@ -1,20 +1,18 @@
 {% macro detail(itemName) %}
-<li>
-    <details class="w-full" open>
-        <summary class="flex items-center h-normal">
-            <span class="material-icons">chevron_right</span>
-            <span class="mis-2">{{ itemName }}</span>
-        </summary>
+<details class="w-full">
+    <summary class="flex items-center h-normal">
+        <span class="material-icons">chevron_right</span>
+        <span class="mis-2">{{ itemName }}</span>
+    </summary>
 
-        <ul class="flex flex-col items-start mis-6">
-            {% for child in collections[itemName | makeCollectionName] %}
-                <li class="flex items-center {% if (child.url | url) == (page.url | url) %}active{% endif %}">
-                    <a href="{{ child.url | url }}">
-                        {{ child.data.title }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    </details>
-</li>
+    <ul class="flex flex-col items-start mis-6">
+        {% for child in collections[itemName | makeCollectionName] %}
+            <li class="flex items-center {% if (child.url | url) == (page.url | url) %}active{% endif %}">
+                <a href="{{ child.url | url }}">
+                    {{ child.data.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</details>
 {% endmacro %}

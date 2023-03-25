@@ -28,7 +28,7 @@
 
 ## What it is
 
-Simplifies the TypeScript AST generated from the TypeScript compiler.
+Reflects a simplified version of the TypeScript AST generated from the TypeScript compiler.
 
 ## Features
 
@@ -54,10 +54,9 @@ Supported output formats:
 
 ## Projects in this monorepo
 
-| Name                                         | Version                                                                                                                                    | Description                                                      |
-|----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
-| [@ts-ast-parser/core](./packages/core)       | [![@ts-ast-parser/core](https://img.shields.io/npm/v/@ts-ast-parser/core.svg)](https://www.npmjs.com/package/@ts-ast-parser/core)          | Reads the TS Compiler AST and outputs a simplified version of it |
-| [@ts-ast-parser/readers](./packages/readers) | [![@ts-ast-parser/readers](https://img.shields.io/npm/v/@ts-ast-parser/readers.svg)](https://www.npmjs.com/package/@ts-ast-parser/readers) | Helps to read and search the reflected AST.                      |
+| Name                                         | Version                                                                                                                                    | Description                                                       |
+|----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| [@ts-ast-parser/core](./packages/core)       | [![@ts-ast-parser/core](https://img.shields.io/npm/v/@ts-ast-parser/core.svg)](https://www.npmjs.com/package/@ts-ast-parser/core)          | Reads the TS Compiler AST and reflects a simplified version of it |
 
 ## Documentation
 
