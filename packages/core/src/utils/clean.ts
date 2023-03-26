@@ -5,33 +5,33 @@ import { Module } from '../models/module.js';
 import { shouldIgnore } from './js-doc.js';
 
 
-export function clean(moduleDoc: Module): void {
-    let i = moduleDoc.declarations.length;
+export function clean(reflectedModule: Module): void {
+    let i = reflectedModule.declarations.length;
 
-    removeDuplicateExports(moduleDoc);
+    removeDuplicateExports(reflectedModule);
 
     while (i--) {
-        cleanDeclaration(i, moduleDoc);
+        cleanDeclaration(i, reflectedModule);
     }
 }
 
-function removeDuplicateExports(moduleDoc: Module): void {
-    moduleDoc.exports = moduleDoc.exports.filter((value, index, exports) => {
-        return index === exports.findIndex(e => e.name === value.name && e.type === value.type);
+function removeDuplicateExports(reflectedModule: Module): void {
+    reflectedModule.exports = reflectedModule.exports.filter((value, index, exports) => {
+        return index === exports.findIndex(e => e.name === value.name && e.kind === value.kind);
     });
 }
 
-function cleanDeclaration(index: number, moduleDoc: Module): void {
-    const decl = moduleDoc.declarations[index];
+function cleanDeclaration(index: number, reflectedModule: Module): void {
+    const decl = reflectedModule.declarations[index];
 
-    // If the export has an "AS" keyword, we need to use the "referenceName"
-    const exportIdx = moduleDoc.exports.findIndex(exp => (exp.referenceName || exp.name) === decl.name);
+    // If the export has an "AS" keyword, we need to use the "originalName"
+    const exportIdx = reflectedModule.exports.findIndex(exp => (exp.originalName || exp.name) === decl.name);
 
     if (exportIdx === -1 || shouldIgnore(decl)) {
-        moduleDoc.declarations.splice(index, 1);
+        reflectedModule.declarations.splice(index, 1);
 
         if (exportIdx !== -1) {
-            moduleDoc.exports.splice(exportIdx, 1);
+            reflectedModule.exports.splice(exportIdx, 1);
         }
     }
 

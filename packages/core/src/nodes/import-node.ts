@@ -8,6 +8,7 @@ export interface ImportNode extends ReflectedNode<Import, ts.ImportDeclaration> 
     getKind(): ImportKind;
     getImportPath(): string;
     getOriginalPath(): string;
+    getReferenceName(): string;
     isTypeOnly(): boolean;
     isBareModuleSpecifier(): boolean;
 }

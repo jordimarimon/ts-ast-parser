@@ -24,6 +24,10 @@ export class NamespaceImportNode implements ImportNode {
         return identifier?.escapedText ?? '';
     }
 
+    getReferenceName(): string {
+        return this.getName();
+    }
+
     getType(): NodeType {
         return NodeType.Import;
     }

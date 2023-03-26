@@ -25,6 +25,10 @@ export class NamedImportNode implements ImportNode {
         return this._element.name.escapedText ?? '';
     }
 
+    getReferenceName(): string {
+        return this._element.propertyName?.escapedText ?? this.getName();
+    }
+
     getType(): NodeType {
         return NodeType.Import;
     }
@@ -53,11 +57,16 @@ export class NamedImportNode implements ImportNode {
 
     toPOJO(): Import {
         const originalPath = this.getOriginalPath();
+        const referenceName = this.getReferenceName();
         const tmpl: Import = {
             name: this.getName(),
             kind: this.getKind(),
             importPath: this.getImportPath(),
         };
+
+        if (referenceName !== tmpl.name) {
+            tmpl.referenceName = referenceName;
+        }
 
         if (originalPath !== tmpl.importPath) {
             tmpl.originalPath = originalPath;

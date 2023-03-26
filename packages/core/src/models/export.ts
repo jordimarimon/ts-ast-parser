@@ -1,5 +1,4 @@
-export enum ExportType {
-    all = 'all',
+export enum ExportKind {
     default = 'default',
     namespace = 'namespace',
     star = 'star',
@@ -9,8 +8,8 @@ export enum ExportType {
 
 export interface Export {
     name: string;
-    type: ExportType;
-    referenceName?: string; // the original name used when using the `as` keyword
+    kind: ExportKind;
+    originalName?: string; // the original name used when using the `as` keyword
     isTypeOnly?: boolean;
     module?: string; // If we're reexporting from another module
 }
