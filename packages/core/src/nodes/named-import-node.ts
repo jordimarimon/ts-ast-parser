@@ -29,7 +29,7 @@ export class NamedImportNode implements ImportNode {
         return this._element.propertyName?.escapedText ?? this.getName();
     }
 
-    getType(): NodeType {
+    getNodeType(): NodeType {
         return NodeType.Import;
     }
 

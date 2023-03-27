@@ -7,7 +7,7 @@ export interface ReflectedNode<Model extends object = object, T extends ts.Node 
     /**
      * The type of node. Can be an import, an export or a declaration
      */
-    getType(): NodeType;
+    getNodeType(): NodeType;
 
     /**
      * Returns the original TS node

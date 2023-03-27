@@ -5,7 +5,7 @@ import ts from 'typescript';
 
 export function resolveExpression(expression: ts.Expression | undefined): unknown {
     if (expression == null) {
-        return '';
+        return undefined;
     }
 
     let expr = expression;
@@ -15,7 +15,7 @@ export function resolveExpression(expression: ts.Expression | undefined): unknow
     }
 
     if (expr == null) {
-        return '';
+        return undefined;
     }
 
     const text = expr.getText() ?? '';

@@ -22,7 +22,7 @@ export class ReExportNode implements ExportNode {
         return ExportKind.star;
     }
 
-    getType(): NodeType {
+    getNodeType(): NodeType {
         return NodeType.Export;
     }
 

@@ -25,7 +25,7 @@ export class NamedExportNode implements ExportNode {
         return ExportKind.named;
     }
 
-    getType(): NodeType {
+    getNodeType(): NodeType {
         return NodeType.Export;
     }
 

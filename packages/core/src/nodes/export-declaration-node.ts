@@ -36,7 +36,7 @@ export class ExportDeclarationNode implements ExportNode {
         return (this._node as Exclude<ExportDeclarationNodeType, ts.VariableStatement>).name?.getText() ?? '';
     }
 
-    getType(): NodeType {
+    getNodeType(): NodeType {
         return NodeType.Export;
     }
 

@@ -27,7 +27,7 @@ export class NamespaceExportNode implements ExportNode {
         return ExportKind.namespace;
     }
 
-    getType(): NodeType {
+    getNodeType(): NodeType {
         return NodeType.Export;
     }
 

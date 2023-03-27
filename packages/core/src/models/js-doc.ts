@@ -44,6 +44,7 @@ export type JSDocTagObjectValue = {
     [key: string]: unknown;
     name?: string;
     type?: string;
+    value?: unknown;
     default?: string;
     optional?: boolean;
     description?: string;

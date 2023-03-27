@@ -1,21 +1,15 @@
-import { exportAssignmentFactory, exportDeclarationFactory } from '../factories/create-export.js';
-import { importFactory } from '../factories/create-import.js';
+import { DeclarationKind } from '../models/declaration-kind.js';
 import { DeclarationNode } from './declaration-node.js';
 import { ReflectedNode } from './reflected-node.js';
+import { JSDocTagName } from '../models/js-doc.js';
 import { ExportNode } from './export-node.js';
 import { ImportNode } from './import-node.js';
+import factories from '../factories/index.js';
 import { Module } from '../models/module.js';
 import { NodeType } from '../models/node.js';
-import { clean } from '../utils/clean.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
-
-const factories = [
-    importFactory,
-    exportDeclarationFactory,
-    exportAssignmentFactory,
-];
 
 export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
@@ -40,7 +34,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         return Context.normalizePath(this._node.fileName);
     }
 
-    getType(): NodeType {
+    getNodeType(): NodeType {
         return NodeType.Module;
     }
 
@@ -56,24 +50,37 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         return this._declarations;
     }
 
+    getDeclarationByKind(kind: DeclarationKind): DeclarationNode[] {
+        return this._declarations.filter(decl => decl.getKind() === kind);
+    }
+
+    getDeclarationByName(name: string): DeclarationNode | null {
+        return this._declarations.find(decl => decl.getName() === name) ?? null;
+    }
+
+    getAllDeclarationsInNamespace(name: string): DeclarationNode[] {
+        return this._declarations.filter(decl => decl.getNamespace() === name);
+    }
+
+    getDeclarationsByCategory(category: string): DeclarationNode[] {
+        return this._declarations.filter(decl => {
+            return decl.getJSDoc().getJSDocTag(JSDocTagName.category)?.getDescription() === category;
+        });
+    }
+
     toPOJO(): Module {
-        const tmpl: Module = {
+        return {
             path: this.getPath(),
             imports: this._imports.map(imp => imp.toPOJO()),
             exports: this._exports.map(exp => exp.toPOJO()),
             declarations: this._declarations.map(dec => dec.toPOJO()),
         };
-
-        clean(tmpl);
-
-        return tmpl;
     }
 
     private _visitNode(rootNode: ts.Node | ts.SourceFile): void {
         for (const factory of factories) {
             if (factory.isNode(rootNode)) {
-                // FIXME(Jordi M.): This is an ugly hack to avoid TS complaining about the type of the factory
-                this._add((factory.create as (node: ts.Node) => ReflectedNode[])(rootNode));
+                this._add(factory.create(rootNode));
             }
         }
 
@@ -97,15 +104,15 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     private _isImportNode(reflectedNode: ReflectedNode): reflectedNode is ImportNode {
-        return reflectedNode.getType() === NodeType.Import;
+        return reflectedNode.getNodeType() === NodeType.Import;
     }
 
     private _isExportNode(reflectedNode: ReflectedNode): reflectedNode is ExportNode {
-        return reflectedNode.getType() === NodeType.Export;
+        return reflectedNode.getNodeType() === NodeType.Export;
     }
 
     private _isDeclarationNode(reflectedNode: ReflectedNode): reflectedNode is DeclarationNode {
-        return reflectedNode.getType() === NodeType.Declaration;
+        return reflectedNode.getNodeType() === NodeType.Declaration;
     }
 
 }

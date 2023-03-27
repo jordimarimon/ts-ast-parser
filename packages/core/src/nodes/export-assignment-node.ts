@@ -19,7 +19,7 @@ export class ExportAssignmentNode implements ExportNode {
         return this._node.expression.getText() ?? '';
     }
 
-    getType(): NodeType {
+    getNodeType(): NodeType {
         return NodeType.Export;
     }
 

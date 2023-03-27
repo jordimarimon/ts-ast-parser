@@ -28,7 +28,7 @@ export class NamespaceImportNode implements ImportNode {
         return this.getName();
     }
 
-    getType(): NodeType {
+    getNodeType(): NodeType {
         return NodeType.Import;
     }
 
