@@ -1,6 +1,6 @@
 import { Export, ExportKind } from '../models/export.js';
 import { hasDefaultKeyword } from '../utils/export.js';
-import { ExportNode } from './export-node.js';
+import { ReflectedNode } from './reflected-node.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
@@ -17,7 +17,7 @@ export type ExportDeclarationNodeType = ts.FunctionDeclaration |
 //      export class Foo {}
 //      export default function foo() {}
 //      ...
-export class ExportDeclarationNode implements ExportNode {
+export class ExportDeclarationNode implements ReflectedNode<Export, ExportDeclarationNodeType> {
 
     private readonly _node: ExportDeclarationNodeType;
 
@@ -41,27 +41,11 @@ export class ExportDeclarationNode implements ExportNode {
     }
 
     getKind(): ExportKind {
-        return hasDefaultKeyword(this._node) ? ExportKind.default : ExportKind.named;
+        return hasDefaultKeyword(this._node) ? ExportKind.Default : ExportKind.Named;
     }
 
-    isTypeOnly(): boolean {
-        return false;
-    }
-
-    getOriginalName(): string {
-        return this.getName();
-    }
-
-    getTSNode(): ts.Node {
+    getTSNode(): ExportDeclarationNodeType {
         return this._node;
-    }
-
-    isReexport(): boolean {
-        return false;
-    }
-
-    getModule(): string {
-        return '';
     }
 
     toPOJO(): Export {

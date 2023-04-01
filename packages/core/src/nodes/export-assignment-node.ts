@@ -1,5 +1,5 @@
 import { Export, ExportKind } from '../models/export.js';
-import { ExportNode } from './export-node.js';
+import { ReflectedNode } from './reflected-node.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
@@ -7,7 +7,7 @@ import ts from 'typescript';
 // Case of:
 //      export default 4;
 //      export = class Foo {};
-export class ExportAssignmentNode implements ExportNode {
+export class ExportAssignmentNode implements ReflectedNode<Export, ts.ExportAssignment> {
 
     private readonly _node: ts.ExportAssignment;
 
@@ -24,27 +24,15 @@ export class ExportAssignmentNode implements ExportNode {
     }
 
     getKind(): ExportKind {
-        return this._node.isExportEquals ? ExportKind.equals : ExportKind.default;
+        return this._node.isExportEquals ? ExportKind.Equals : ExportKind.Default;
     }
 
     isTypeOnly(): boolean {
         return false;
     }
 
-    getOriginalName(): string {
-        return this.getName();
-    }
-
     getTSNode(): ts.ExportAssignment {
         return this._node;
-    }
-
-    isReexport(): boolean {
-        return false;
-    }
-
-    getModule(): string {
-        return '';
     }
 
     toPOJO(): Export {

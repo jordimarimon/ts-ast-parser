@@ -12,7 +12,6 @@ module.exports = {
         'scope-empty': [0, 'never'],
         'scope-enum': [2, 'always', [
             'core',
-            'readers',
             'deps',
         ]],
     },

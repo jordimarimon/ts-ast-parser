@@ -1,9 +1,8 @@
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { DeclarationNode } from './declaration-node.js';
+import { ExportNode, ImportNode, is } from './is.js';
 import { ReflectedNode } from './reflected-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { ExportNode } from './export-node.js';
-import { ImportNode } from './import-node.js';
 import factories from '../factories/index.js';
 import { Module } from '../models/module.js';
 import { NodeType } from '../models/node.js';
@@ -94,30 +93,18 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     private _add(reflectedNodes: ReflectedNode[]): void {
         for (const reflectedNode of reflectedNodes) {
-            if (this._isImportNode(reflectedNode)) {
+            if (is.ImportNode(reflectedNode)) {
                 this._imports.push(reflectedNode);
             }
 
-            if (this._isExportNode(reflectedNode)) {
+            if (is.ExportNode(reflectedNode)) {
                 this._exports.push(reflectedNode);
             }
 
-            if (this._isDeclarationNode(reflectedNode)) {
+            if (is.DeclarationNode(reflectedNode)) {
                 this._declarations.push(reflectedNode);
             }
         }
-    }
-
-    private _isImportNode(reflectedNode: ReflectedNode): reflectedNode is ImportNode {
-        return reflectedNode.getNodeType() === NodeType.Import;
-    }
-
-    private _isExportNode(reflectedNode: ReflectedNode): reflectedNode is ExportNode {
-        return reflectedNode.getNodeType() === NodeType.Export;
-    }
-
-    private _isDeclarationNode(reflectedNode: ReflectedNode): reflectedNode is DeclarationNode {
-        return reflectedNode.getNodeType() === NodeType.Declaration;
     }
 
 }

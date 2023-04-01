@@ -1,7 +1,7 @@
 export enum ImportKind {
-    default = 'default',
-    named = 'named',
-    namespace = 'namespace',
+    Default = 'Default',
+    Named = 'Named',
+    Namespace = 'Namespace',
 }
 
 export interface Import {

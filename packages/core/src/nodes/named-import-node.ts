@@ -1,12 +1,12 @@
 import { getOriginalImportPath, isBareModuleSpecifier, matchesTsConfigPath } from '../utils/import.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { Import, ImportKind } from '../models/import.js';
-import { ImportNode } from './import-node.js';
+import { ReflectedNode } from './reflected-node.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
 
-export class NamedImportNode implements ImportNode {
+export class NamedImportNode implements ReflectedNode<Import, ts.ImportDeclaration> {
 
     private readonly _node: ts.ImportDeclaration;
 
@@ -34,7 +34,7 @@ export class NamedImportNode implements ImportNode {
     }
 
     getKind(): ImportKind {
-        return ImportKind.named;
+        return ImportKind.Named;
     }
 
     getImportPath(): string {

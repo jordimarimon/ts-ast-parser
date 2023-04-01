@@ -10,3 +10,4 @@ This is a list of libraries of interest from where to source ideas:
 * [tsutils](https://github.com/ajafff/tsutils)
 * [documen.ts](https://github.com/d-fischer/documen.ts)
 * [node typescript parser](https://github.com/buehler/node-typescript-parser)
+* [tsquery](https://github.com/phenomnomnominal/tsquery)

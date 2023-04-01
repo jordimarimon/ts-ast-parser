@@ -4,12 +4,11 @@ import { NamespaceExportNode } from '../nodes/namespace-export-node.js';
 import { NamedExportNode } from '../nodes/named-export-node.js';
 import { ReExportNode } from '../nodes/re-export-node.js';
 import { hasExportKeyword } from '../utils/export.js';
+import { ExportStatementNode } from '../nodes/is.js';
 import { NodeFactory } from './node-factory.js';
 import { Export } from '../models/export.js';
 import ts from 'typescript';
 
-
-type ExportStatementNode = NamedExportNode | NamespaceExportNode | ReExportNode;
 
 export const exportDeclarationFactory: NodeFactory<Export, ExportDeclarationNode, ts.Node> = {
 

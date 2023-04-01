@@ -1,12 +1,12 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { Export, ExportKind } from '../models/export.js';
-import { ExportNode } from './export-node.js';
+import { ReflectedNode } from './reflected-node.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
 
 // CASE of "export { x, y as z };"
-export class NamedExportNode implements ExportNode {
+export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclaration> {
 
     private readonly _node: ts.ExportDeclaration;
 
@@ -22,7 +22,7 @@ export class NamedExportNode implements ExportNode {
     }
 
     getKind(): ExportKind {
-        return ExportKind.named;
+        return ExportKind.Named;
     }
 
     getNodeType(): NodeType {

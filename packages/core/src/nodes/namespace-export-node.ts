@@ -1,13 +1,12 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { Export, ExportKind } from '../models/export.js';
-import { ExportNode } from './export-node.js';
+import { ReflectedNode } from './reflected-node.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
 
-
 // CASE export * as bar from './foo.js';
-export class NamespaceExportNode implements ExportNode {
+export class NamespaceExportNode implements ReflectedNode<Export, ts.ExportDeclaration> {
 
     private readonly _node: ts.ExportDeclaration;
 
@@ -24,7 +23,7 @@ export class NamespaceExportNode implements ExportNode {
     }
 
     getKind(): ExportKind {
-        return ExportKind.namespace;
+        return ExportKind.Namespace;
     }
 
     getNodeType(): NodeType {
@@ -35,20 +34,8 @@ export class NamespaceExportNode implements ExportNode {
         return this._node.moduleSpecifier?.getText() ?? '';
     }
 
-    getOriginalName(): string {
-        return this.getName();
-    }
-
     getTSNode(): ts.ExportDeclaration {
         return this._node;
-    }
-
-    isTypeOnly(): boolean {
-        return false;
-    }
-
-    isReexport(): boolean {
-        return false;
     }
 
     toPOJO(): Export {

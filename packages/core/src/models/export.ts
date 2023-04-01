@@ -1,9 +1,9 @@
 export enum ExportKind {
-    default = 'default',
-    namespace = 'namespace',
-    star = 'star',
-    named = 'named',
-    equals = 'equals',
+    Default = 'Default',
+    Namespace = 'Namespace',
+    Star = 'Star',
+    Named = 'Named',
+    Equals = 'Equals',
 }
 
 export interface Export {

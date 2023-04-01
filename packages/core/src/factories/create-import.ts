@@ -2,9 +2,9 @@ import { isDefaultImport, isNamedImport, isNamespaceImport } from '../utils/impo
 import { NamespaceImportNode } from '../nodes/namespace-import-node.js';
 import { DefaultImportNode } from '../nodes/default-import-node.js';
 import { NamedImportNode } from '../nodes/named-import-node.js';
-import { ImportNode } from '../nodes/import-node.js';
 import { NodeFactory } from './node-factory.js';
 import { Import } from '../models/import.js';
+import { ImportNode } from '../nodes/is.js';
 import ts from 'typescript';
 
 

@@ -7,7 +7,7 @@ import ts from 'typescript';
 
 
 /**
- * Given am array of TypeScript file paths and some configurable options,
+ * Given an array of TypeScript file paths and some configurable options,
  * reflects a simplified version of the TypeScript Abstract Syntax Tree.
  *
  * @param files - An array of paths where the TypeScripts files are located
