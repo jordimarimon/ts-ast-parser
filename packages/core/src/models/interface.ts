@@ -11,6 +11,6 @@ export interface InterfaceField extends ClassField {
 }
 
 export interface InterfaceDeclaration extends ClassLike {
-    kind: DeclarationKind.interface;
+    kind: DeclarationKind.Interface;
     members?: InterfaceMember[];
 }

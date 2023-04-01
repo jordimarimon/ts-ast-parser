@@ -10,5 +10,5 @@ export interface MixinNodes {
 }
 
 export interface MixinDeclaration extends FunctionLike, ClassLike {
-    kind: DeclarationKind.mixin;
+    kind: DeclarationKind.Mixin;
 }

@@ -26,12 +26,12 @@ export interface ClassMemberLike {
 }
 
 export interface ClassField extends PropertyLike, ClassMemberLike {
-    kind: DeclarationKind.field;
+    kind: DeclarationKind.Field;
     writeOnly?: boolean;
 }
 
 export interface ClassMethod extends FunctionLike, ClassMemberLike {
-    kind: DeclarationKind.method;
+    kind: DeclarationKind.Method;
 }
 
 export interface Constructor {
@@ -53,5 +53,5 @@ export interface ClassLike {
 }
 
 export interface ClassDeclaration extends ClassLike {
-    kind: DeclarationKind.class;
+    kind: DeclarationKind.Class;
 }

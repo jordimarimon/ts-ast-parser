@@ -184,5 +184,5 @@ function getInterfaceOrClassSymbolKind(symbol: ts.Symbol | undefined): Declarati
         return null;
     }
 
-    return ts.SymbolFlags.Class & symbol.flags ? DeclarationKind.class : DeclarationKind.interface;
+    return ts.SymbolFlags.Class & symbol.flags ? DeclarationKind.Class : DeclarationKind.Interface;
 }

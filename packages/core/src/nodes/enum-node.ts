@@ -21,8 +21,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
         return NodeType.Declaration;
     }
 
-    getKind(): DeclarationKind.enum {
-        return DeclarationKind.enum;
+    getKind(): DeclarationKind.Enum {
+        return DeclarationKind.Enum;
     }
 
     getTSNode(): ts.EnumDeclaration {

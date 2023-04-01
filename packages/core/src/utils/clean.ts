@@ -35,11 +35,11 @@ function cleanDeclaration(index: number, reflectedModule: Module): void {
         }
     }
 
-    if (decl.kind === DeclarationKind.class) {
+    if (decl.kind === DeclarationKind.Class) {
         removeNonPublicClassElements(decl);
     }
 
-    if (decl.kind === DeclarationKind.function) {
+    if (decl.kind === DeclarationKind.Function) {
         for (const signature of decl.signatures) {
             removeNonPublicParameters(signature);
         }
@@ -57,7 +57,7 @@ function removeNonPublicClassElements(declaration: ClassDeclaration): void {
             declaration.members?.splice(i, 1);
         }
 
-        if (member?.kind === DeclarationKind.method) {
+        if (member?.kind === DeclarationKind.Method) {
             for (const signature of member.signatures) {
                 removeNonPublicParameters(signature);
             }

@@ -78,13 +78,18 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     private _visitNode(rootNode: ts.Node | ts.SourceFile): void {
+        let isFactoryFound = false;
+
         for (const factory of factories) {
             if (factory.isNode(rootNode)) {
                 this._add(factory.create(rootNode));
+                isFactoryFound = true;
             }
         }
 
-        ts.forEachChild(rootNode, node => this._visitNode(node));
+        if (!isFactoryFound) {
+            ts.forEachChild(rootNode, node => this._visitNode(node));
+        }
     }
 
     private _add(reflectedNodes: ReflectedNode[]): void {

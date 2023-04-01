@@ -6,6 +6,7 @@ import { getLinePosition } from '../utils/get-location.js';
 import { getTypeInfoFromNode } from '../utils/get-type.js';
 import { DeclarationNode } from './declaration-node.js';
 import { getDecorators } from '../utils/decorator.js';
+import { getNamespace } from '../utils/namespace.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import { NodeType } from '../models/node.js';
@@ -37,8 +38,8 @@ export class VariableDeclarationNode implements DeclarationNode<VariableDeclarat
         return NodeType.Declaration;
     }
 
-    getKind(): DeclarationKind.variable {
-        return DeclarationKind.variable;
+    getKind(): DeclarationKind.Variable {
+        return DeclarationKind.Variable;
     }
 
     getDecorators(): DecoratorNode[] {
@@ -62,7 +63,7 @@ export class VariableDeclarationNode implements DeclarationNode<VariableDeclarat
     }
 
     getNamespace(): string {
-        return (this._node.parent?.parent as ts.ModuleDeclaration)?.name?.getText() ?? '';
+        return getNamespace(this._node);
     }
 
     getJSDoc(): JSDocNode {

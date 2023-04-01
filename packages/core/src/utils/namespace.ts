@@ -1,4 +1,3 @@
-import { Declaration } from '../models/declaration.js';
 import ts from 'typescript';
 
 
@@ -21,11 +20,11 @@ export function getNamespaceName(node: ts.ModuleDeclaration): string {
     return path.reverse().join('.');
 }
 
-export function tryAddNamespace(node: ts.Node, doc: Declaration): void {
+export function getNamespace(node: ts.Node): string {
     // The parent is a "ModuleBlock" and the grandfather is the ModuleDeclaration (the namespace)
     if (!isNamespace(node.parent?.parent)) {
-        return;
+        return '';
     }
 
-    doc.namespace = getNamespaceName(node.parent.parent);
+    return getNamespaceName(node.parent.parent);
 }

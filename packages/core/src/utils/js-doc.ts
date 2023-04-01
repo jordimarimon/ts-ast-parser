@@ -1,4 +1,4 @@
-import { JSDoc, JSDocComment, JSDocNode, JSDocTagName, JSDocTagValue } from '../models/js-doc.js';
+import { JSDoc, JSDocTSComment, JSDocTSNode, JSDocTagName, JSDocTagValue } from '../models/js-doc.js';
 import { Spec } from 'comment-parser/primitives';
 import { logWarning } from './logs.js';
 import { parse } from 'comment-parser';
@@ -10,7 +10,7 @@ export function shouldIgnore(declaration: unknown | undefined): boolean {
     });
 }
 
-export function getAllJSDoc(node: JSDocNode): JSDoc {
+export function getAllJSDoc(node: JSDocTSNode): JSDoc {
     const doc: JSDoc = [];
 
     for (const jsDocComment of (node.jsDoc ?? [])) {
@@ -24,7 +24,7 @@ export function findJSDoc<T>(name: JSDocTagName, doc: JSDoc): {kind: JSDocTagNam
     return doc.find(d => d.kind === name) as {kind: JSDocTagName; value: T} | undefined;
 }
 
-function collectJsDoc(jsDocComment: JSDocComment, doc: JSDoc): void {
+function collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
     const parsedJsDocComment = parse(jsDocComment.getFullText()) ?? [];
 
     for (const block of parsedJsDocComment) {

@@ -3,7 +3,7 @@ import { JSDoc } from './js-doc.js';
 
 
 export interface EnumDeclaration {
-    kind: DeclarationKind.enum;
+    kind: DeclarationKind.Enum;
     name: string;
     line: number;
     members?: EnumMember[];

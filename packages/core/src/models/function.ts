@@ -29,5 +29,5 @@ export interface FunctionLike {
 }
 
 export interface FunctionDeclaration extends FunctionLike {
-    kind: DeclarationKind.function;
+    kind: DeclarationKind.Function;
 }
