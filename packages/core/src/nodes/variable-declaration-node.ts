@@ -8,7 +8,6 @@ import { DeclarationNode } from './declaration-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { getAllJSDoc } from '../utils/js-doc.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import { Type } from '../models/type.js';
@@ -67,7 +66,7 @@ export class VariableDeclarationNode implements DeclarationNode<VariableDeclarat
     }
 
     getJSDoc(): JSDocNode {
-        return new JSDocNode(getAllJSDoc(this._node));
+        return new JSDocNode(this._node);
     }
 
     hasDefault(): boolean {

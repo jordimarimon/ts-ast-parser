@@ -5,7 +5,6 @@ import { tryAddProperty } from './try-add-property.js';
 import { findJSDoc, getAllJSDoc } from './js-doc.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import { NodeWithParameters } from './types.js';
-import { getDecorators } from './decorator.js';
 import { Context } from '../context.js';
 import ts from 'typescript';
 
@@ -46,7 +45,7 @@ function createSimpleParameter(nodeParam: ts.ParameterDeclaration, symbolParam: 
             : (type ? getTypeInfoFromTsType(type) : getTypeInfoFromNode(nodeParam)),
     };
 
-    tryAddProperty(tmpl, 'decorators', getDecorators(nodeParam));
+    // tryAddProperty(tmpl, 'decorators', getDecorators(nodeParam));
     tryAddProperty(tmpl, 'jsDoc', jsDoc);
     tryAddProperty(tmpl, 'optional', !!checker?.isOptionalParameter(nodeParam));
     tryAddProperty(tmpl, 'default', resolveExpression(nodeParam?.initializer));

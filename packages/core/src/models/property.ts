@@ -9,6 +9,6 @@ export interface PropertyLike {
     type: Type;
     default?: unknown;
     optional?: boolean;
-    decorators?: Decorator[];
+    decorators?: readonly Decorator[];
     jsDoc?: JSDoc;
 }

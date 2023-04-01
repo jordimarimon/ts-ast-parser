@@ -1,0 +1,83 @@
+import { DeclarationKind } from '../models/declaration-kind.js';
+import { tryAddProperty } from '../utils/try-add-property.js';
+import { getLinePosition } from '../utils/get-location.js';
+import { DeclarationNode } from './declaration-node.js';
+import { EnumMemberNode } from './enum-member-node.js';
+import { EnumDeclaration } from '../models/enum.js';
+import { NodeType } from '../models/node.js';
+import { JSDocNode } from './jsdoc-node.js';
+import ts from 'typescript';
+
+
+export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclaration> {
+
+    private readonly _node: ts.EnumDeclaration;
+
+    constructor(node: ts.EnumDeclaration) {
+        this._node = node;
+    }
+
+    getNodeType(): NodeType {
+        return NodeType.Declaration;
+    }
+
+    getKind(): DeclarationKind.enum {
+        return DeclarationKind.enum;
+    }
+
+    getTSNode(): ts.EnumDeclaration {
+        return this._node;
+    }
+
+    getName(): string {
+        return this._node.name?.getText() ?? '';
+    }
+
+    getLine(): number {
+        return getLinePosition(this._node);
+    }
+
+    getNamespace(): string {
+        return (this._node.parent?.parent as ts.ModuleDeclaration)?.name?.getText() ?? '';
+    }
+
+    getJSDoc(): JSDocNode {
+        return new JSDocNode(this._node);
+    }
+
+    getMembers(): EnumMemberNode[] {
+        let defaultInitializer = 0;
+
+        return this._node.members.map(member => {
+            let value: string | number = member.initializer?.getText() ?? '';
+
+            if (value !== '') {
+                const possibleNumericValue = parseInt(value);
+
+                if (!isNaN(possibleNumericValue)) {
+                    defaultInitializer = possibleNumericValue + 1;
+                    value = possibleNumericValue;
+                }
+            } else {
+                value = defaultInitializer++;
+            }
+
+            return new EnumMemberNode(member, value);
+        });
+    }
+
+    toPOJO(): EnumDeclaration {
+        const tmpl: EnumDeclaration = {
+            kind: this.getKind(),
+            name: this.getName(),
+            line: this.getLine(),
+        };
+
+        tryAddProperty(tmpl, 'namespace', this.getNamespace());
+        tryAddProperty(tmpl, 'members', this.getMembers().map(member => member.toPOJO()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
+
+        return tmpl;
+    }
+
+}
