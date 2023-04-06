@@ -52,7 +52,9 @@ export class NamedImportNode implements ReflectedNode<Import, ts.ImportDeclarati
     getOriginalPath(): string {
         const importPath = this.getImportPath();
 
-        return matchesTsConfigPath(importPath) ? getOriginalImportPath(this._element.name) : importPath;
+        return matchesTsConfigPath(importPath, this._context.compilerOptions)
+            ? getOriginalImportPath(this._element.name, this._context)
+            : importPath;
     }
 
     isTypeOnly(): boolean {

@@ -1,6 +1,7 @@
 import { resolveExpression } from './resolve-expression.js';
 import { getReturnStatement } from './function.js';
 import { MixinNodes } from '../models/mixin.js';
+import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 
@@ -8,19 +9,19 @@ import ts from 'typescript';
 // Extracts the function and class nodes that are used to define a Mixin
 //
 
-export function extractMixinNodes(node: ts.Node): MixinNodes | null {
+export function extractMixinNodes(node: ts.Node, context: AnalyzerContext): MixinNodes | null {
     if (ts.isVariableStatement(node)) {
-        extractMixinNodesFromVariableStatement(node);
+        extractMixinNodesFromVariableStatement(node, context.checker);
     }
 
     if (ts.isFunctionDeclaration(node)) {
-        extractMixinNodesFromFunctionDeclaration(node);
+        extractMixinNodesFromFunctionDeclaration(node, context.checker);
     }
 
     return null;
 }
 
-function extractMixinNodesFromVariableStatement(node: ts.VariableStatement): MixinNodes | null {
+function extractMixinNodesFromVariableStatement(node: ts.VariableStatement, checker: ts.TypeChecker): MixinNodes | null {
     //
     // CASE 1: We have a mixin declared in the form of:
     //
@@ -76,7 +77,7 @@ function extractMixinNodesFromVariableStatement(node: ts.VariableStatement): Mix
         }
 
         const classDeclarationName = classDeclaration.name?.getText?.();
-        const returnValue = resolveExpression(returnStatement?.expression);
+        const returnValue = resolveExpression(returnStatement?.expression, checker);
 
         if (classDeclarationName === returnValue) {
             return {
@@ -89,7 +90,7 @@ function extractMixinNodesFromVariableStatement(node: ts.VariableStatement): Mix
     return null;
 }
 
-function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration): MixinNodes | null {
+function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration, checker: ts.TypeChecker): MixinNodes | null {
     if (node.body == null || !ts.isBlock(node.body)) {
         return null;
     }
@@ -120,7 +121,7 @@ function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration):
     }
 
     const classDeclarationName = classDeclaration.name?.getText?.();
-    const returnValue = resolveExpression(returnStatement?.expression);
+    const returnValue = resolveExpression(returnStatement?.expression, checker);
 
     if (classDeclarationName === returnValue) {
         return {

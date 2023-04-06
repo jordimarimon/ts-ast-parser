@@ -3,7 +3,7 @@ import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { VariableDeclaration } from '../models/variable.js';
 import { getLinePosition } from '../utils/get-location.js';
-import { getTypeInfoFromNode } from '../utils/get-type.js';
+import { getTypeFromNode } from '../utils/get-type.js';
 import { DeclarationNode } from './declaration-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
@@ -61,13 +61,15 @@ export class VariableDeclarationNode implements DeclarationNode<VariableDeclarat
     getType(): Type {
         const jsDocType = this.getJSDoc().getJSDocTag(JSDocTagName.type)?.getValue<string>() ?? '';
 
-        return jsDocType ? {text: jsDocType} : getTypeInfoFromNode(this._declaration);
+        return jsDocType
+            ? {text: jsDocType}
+            : getTypeFromNode(this._declaration, this._context);
     }
 
     getDefault(): unknown {
         const jsDocDefaultValue = this.getJSDoc().getJSDocTag(JSDocTagName.default)?.getValue<string>();
 
-        return jsDocDefaultValue ?? resolveExpression(this._declaration.initializer);
+        return jsDocDefaultValue ?? resolveExpression(this._declaration.initializer, this._context.checker);
     }
 
     getNamespace(): string {

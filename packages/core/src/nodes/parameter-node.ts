@@ -1,4 +1,4 @@
-import { getTypeInfoFromNode, getTypeInfoFromTsType } from '../utils/get-type.js';
+import { getTypeFromNode, getTypeFromTSType } from '../utils/get-type.js';
 import { NamedParameterElement, Parameter } from '../models/parameter.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
@@ -33,7 +33,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
     }
 
     getNodeType(): NodeType {
-        return NodeType.Declaration;
+        return NodeType.Other;
     }
 
     getTSNode(): ts.ParameterDeclaration {
@@ -65,11 +65,13 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
 
         const type = checker.getTypeOfSymbolAtLocation(this._symbol, this._node);
 
-        return type ? getTypeInfoFromTsType(type) : getTypeInfoFromNode(this._node);
+        return type
+            ? getTypeFromTSType(type, this._context)
+            : getTypeFromNode(this._node, this._context);
     }
 
     getDefault(): unknown {
-        return resolveExpression(this._node.initializer);
+        return resolveExpression(this._node.initializer, this._context.checker);
     }
 
     getDecorators(): DecoratorNode[] {
@@ -130,7 +132,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
             name: binding.name?.getText() || '',
         };
 
-        tryAddProperty(tmpl, 'value', resolveExpression(binding?.initializer));
+        tryAddProperty(tmpl, 'value', resolveExpression(binding?.initializer, this._context.checker));
 
         return tmpl;
     }

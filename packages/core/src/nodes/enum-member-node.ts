@@ -23,7 +23,7 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
     }
 
     getNodeType(): NodeType {
-        return NodeType.Declaration;
+        return NodeType.Other;
     }
 
     getName(): string {

@@ -8,6 +8,7 @@ import { enumFactory } from './create-enum.js';
 
 export default [
     importFactory,
+    functionFactory,
     variableFactory,
     enumFactory,
     typeAliasFactory,

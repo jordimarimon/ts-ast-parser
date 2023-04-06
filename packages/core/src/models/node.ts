@@ -3,4 +3,5 @@ export enum NodeType {
     Import,
     Declaration,
     Export,
+    Other,
 }

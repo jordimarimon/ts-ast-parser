@@ -59,7 +59,7 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
     }
 
     getTypeParameters(): TypeParameterNode[] {
-        return this._node.typeParameters?.map(tp => new TypeParameterNode(tp)) ?? [];
+        return this._node.typeParameters?.map(tp => new TypeParameterNode(tp, this._context)) ?? [];
     }
 
     toPOJO(): TypeAliasDeclaration {

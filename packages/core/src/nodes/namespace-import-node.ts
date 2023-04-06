@@ -48,7 +48,9 @@ export class NamespaceImportNode implements ReflectedNode<Import, ts.ImportDecla
         const identifier = (this._node.importClause?.namedBindings as ts.NamespaceImport)?.name;
         const importPath = this.getImportPath();
 
-        return matchesTsConfigPath(importPath) ? getOriginalImportPath(identifier) : importPath;
+        return matchesTsConfigPath(importPath, this._context.compilerOptions)
+            ? getOriginalImportPath(identifier, this._context)
+            : importPath;
     }
 
     isTypeOnly(): boolean {

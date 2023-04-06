@@ -98,7 +98,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Class
         let funcType: ts.Type | null | undefined = this._member?.type;
 
         if (!funcType) {
-            const symbol = func && getSymbolAtLocation(func);
+            const symbol = func && getSymbolAtLocation(func, this._context.checker);
             funcType = func && symbol && checker?.getTypeOfSymbolAtLocation(symbol, func.getSourceFile());
         }
 

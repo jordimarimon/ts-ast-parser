@@ -46,14 +46,14 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
     }
 
     getNodeType(): NodeType {
-        return NodeType.Declaration;
+        return NodeType.Other;
     }
 
     getArguments(): unknown[] {
         const expr = this._decorator.expression;
 
         if (ts.isCallExpression(expr)) {
-            return expr.arguments.map(arg => resolveExpression(arg));
+            return expr.arguments.map(arg => resolveExpression(arg, this._context.checker));
         }
 
         return [];
@@ -63,11 +63,11 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
         const expr = this._decorator.expression;
 
         if (ts.isIdentifier(expr)) {
-            return getLocation(expr).line;
+            return getLocation(expr, this._context).line;
         }
 
         if (ts.isCallExpression(expr)) {
-            return getLocation(expr.expression).line;
+            return getLocation(expr.expression, this._context).line;
         }
 
         return null;
@@ -81,11 +81,11 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
         const expr = this._decorator.expression;
 
         if (ts.isIdentifier(expr)) {
-            return getLocation(expr).path;
+            return getLocation(expr, this._context).path;
         }
 
         if (ts.isCallExpression(expr)) {
-            return getLocation(expr.expression).path;
+            return getLocation(expr.expression, this._context).path;
         }
 
         return '';
