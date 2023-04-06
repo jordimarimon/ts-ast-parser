@@ -3,10 +3,10 @@ import { DeclarationNode } from './declaration-node.js';
 import { ExportNode, ImportNode, is } from './is.js';
 import { ReflectedNode } from './reflected-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
+import { AnalyzerContext } from '../context.js';
 import factories from '../factories/index.js';
 import { Module } from '../models/module.js';
 import { NodeType } from '../models/node.js';
-import { Context } from '../context.js';
 import ts from 'typescript';
 
 
@@ -20,8 +20,11 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     private readonly _declarations: DeclarationNode[] = [];
 
-    constructor(node: ts.SourceFile) {
+    private readonly _context: AnalyzerContext;
+
+    constructor(node: ts.SourceFile, context: AnalyzerContext) {
         this._node = node;
+        this._context = context;
         this._visitNode(node);
     }
 
@@ -30,11 +33,15 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     getPath(): string {
-        return Context.normalizePath(this._node.fileName);
+        return this._context.normalizePath(this._node.fileName);
     }
 
     getNodeType(): NodeType {
         return NodeType.Module;
+    }
+
+    getContext(): AnalyzerContext {
+        return this._context;
     }
 
     getImports(): ImportNode[] {
@@ -81,8 +88,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
         for (const factory of factories) {
             if (factory.isNode(rootNode)) {
-                this._add(factory.create(rootNode));
                 isFactoryFound = true;
+                this._add(factory.create(rootNode, this._context));
             }
         }
 

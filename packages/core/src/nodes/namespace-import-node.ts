@@ -2,6 +2,7 @@ import { getOriginalImportPath, matchesTsConfigPath, isBareModuleSpecifier } fro
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { Import, ImportKind } from '../models/import.js';
 import { ReflectedNode } from './reflected-node.js';
+import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
@@ -10,12 +11,19 @@ export class NamespaceImportNode implements ReflectedNode<Import, ts.ImportDecla
 
     private readonly _node: ts.ImportDeclaration;
 
-    constructor(node: ts.ImportDeclaration) {
+    private readonly _context: AnalyzerContext;
+
+    constructor(node: ts.ImportDeclaration, context: AnalyzerContext) {
         this._node = node;
+        this._context = context;
     }
 
     getTSNode(): ts.ImportDeclaration {
         return this._node;
+    }
+
+    getContext(): AnalyzerContext {
+        return this._context;
     }
 
     getName(): string {

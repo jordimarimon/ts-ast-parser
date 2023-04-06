@@ -8,7 +8,7 @@ import ts from 'typescript';
 /**
  * A reflected node that represents a declaration.
  */
-export interface DeclarationNode<Model extends Declaration = Declaration, TSNode extends ts.Node = ts.Node> extends ReflectedNode<Model, TSNode> {
+export interface DeclarationNode<Model extends object = Declaration, TSNode extends ts.Node | ts.Signature = ts.Node> extends ReflectedNode<Model, TSNode> {
     /**
      * Returns the name of the declaration.
      */

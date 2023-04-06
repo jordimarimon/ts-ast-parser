@@ -1,7 +1,7 @@
 import { getResolvedCompilerOptions } from './resolve-compiler-options.js';
 import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
 import { ModuleNode } from './nodes/module-node.js';
-import { Context } from './context.js';
+import { AnalyzerContext } from './context.js';
 import * as path from 'path';
 import ts from 'typescript';
 
@@ -26,9 +26,11 @@ export function parseFromFiles(files: readonly string[], compilerOptions?: ts.Co
         return [];
     }
 
-    Context.checker = program.getTypeChecker();
-    Context.compilerOptions = resolvedCompilerOptions;
-    Context.normalizePath = filePath => filePath ? path.normalize(path.relative(process.cwd(), filePath)) : '';
+    const context: AnalyzerContext = {
+        checker: program.getTypeChecker(),
+        compilerOptions: resolvedCompilerOptions,
+        normalizePath: filePath => filePath ? path.normalize(path.relative(process.cwd(), filePath)) : '',
+    };
 
     for (const file of files) {
         const sourceFile = program.getSourceFile(file);
@@ -38,7 +40,7 @@ export function parseFromFiles(files: readonly string[], compilerOptions?: ts.Co
             continue;
         }
 
-        modules.push(new ModuleNode(sourceFile));
+        modules.push(new ModuleNode(sourceFile, context));
     }
 
     return modules;

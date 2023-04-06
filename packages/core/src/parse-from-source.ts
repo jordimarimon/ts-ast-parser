@@ -2,7 +2,7 @@ import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
 import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
 import { createCompilerHost } from './compiler-host.js';
 import { ModuleNode } from './nodes/module-node.js';
-import { Context } from './context.js';
+import { AnalyzerContext } from './context.js';
 import ts from 'typescript';
 
 
@@ -33,8 +33,11 @@ export function parseFromSource(source: string, compilerOptions?: ts.CompilerOpt
         return null;
     }
 
-    Context.checker = program.getTypeChecker();
-    Context.compilerOptions = resolvedCompilerOptions;
+    const context: AnalyzerContext = {
+        checker: program.getTypeChecker(),
+        compilerOptions: resolvedCompilerOptions,
+        normalizePath: path => path ?? '',
+    };
 
-    return new ModuleNode(sourceFile);
+    return new ModuleNode(sourceFile, context);
 }

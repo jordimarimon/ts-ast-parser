@@ -1,6 +1,7 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { Export, ExportKind } from '../models/export.js';
 import { ReflectedNode } from './reflected-node.js';
+import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
@@ -10,8 +11,11 @@ export class NamespaceExportNode implements ReflectedNode<Export, ts.ExportDecla
 
     private readonly _node: ts.ExportDeclaration;
 
-    constructor(node: ts.ExportDeclaration) {
+    private readonly _context: AnalyzerContext;
+
+    constructor(node: ts.ExportDeclaration, context: AnalyzerContext) {
         this._node = node;
+        this._context = context;
     }
 
     getName(): string {
@@ -20,6 +24,10 @@ export class NamespaceExportNode implements ReflectedNode<Export, ts.ExportDecla
         }
 
         return this._node.exportClause.name?.escapedText ?? '';
+    }
+
+    getContext(): AnalyzerContext {
+        return this._context;
     }
 
     getKind(): ExportKind {

@@ -15,6 +15,7 @@ import { ImportKind } from '../models/import.js';
 import { ExportKind } from '../models/export.js';
 import { NodeType } from '../models/node.js';
 import { EnumNode } from './enum-node.js';
+import ts from 'typescript';
 
 
 export type ImportNode = DefaultImportNode | NamedImportNode | NamespaceImportNode;
@@ -22,6 +23,12 @@ export type ImportNode = DefaultImportNode | NamedImportNode | NamespaceImportNo
 export type ExportStatementNode = NamedExportNode | NamespaceExportNode | ReExportNode;
 
 export type ExportNode = ExportDeclarationNode | ExportAssignmentNode | ExportStatementNode;
+
+export type FunctionLikeNode = ts.VariableStatement
+    | ts.FunctionDeclaration
+    | ts.MethodDeclaration
+    | ts.PropertyDeclaration
+    | ts.PropertySignature;
 
 
 export const is = {

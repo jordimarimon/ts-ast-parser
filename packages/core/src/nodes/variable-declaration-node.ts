@@ -9,6 +9,7 @@ import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
+import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import { Type } from '../models/type.js';
@@ -21,9 +22,16 @@ export class VariableDeclarationNode implements DeclarationNode<VariableDeclarat
 
     private readonly _declaration: ts.VariableDeclaration;
 
-    constructor(node: ts.VariableStatement, declaration: ts.VariableDeclaration) {
+    private readonly _context: AnalyzerContext;
+
+    constructor(node: ts.VariableStatement, declaration: ts.VariableDeclaration, context: AnalyzerContext) {
         this._node = node;
         this._declaration = declaration;
+        this._context = context;
+    }
+
+    getContext(): AnalyzerContext {
+        return this._context;
     }
 
     getName(): string {
@@ -43,7 +51,7 @@ export class VariableDeclarationNode implements DeclarationNode<VariableDeclarat
     }
 
     getDecorators(): DecoratorNode[] {
-        return getDecorators(this._node).map(d => new DecoratorNode(d));
+        return getDecorators(this._node).map(d => new DecoratorNode(d, this._context));
     }
 
     getLine(): number {

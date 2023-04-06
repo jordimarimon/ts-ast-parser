@@ -2,6 +2,7 @@ import { getOriginalImportPath, isBareModuleSpecifier, matchesTsConfigPath } fro
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { Import, ImportKind } from '../models/import.js';
 import { ReflectedNode } from './reflected-node.js';
+import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
@@ -10,8 +11,11 @@ export class DefaultImportNode implements ReflectedNode<Import, ts.ImportDeclara
 
     private readonly _node: ts.ImportDeclaration;
 
-    constructor(node: ts.ImportDeclaration) {
+    private readonly _context: AnalyzerContext;
+
+    constructor(node: ts.ImportDeclaration, context: AnalyzerContext) {
         this._node = node;
+        this._context = context;
     }
 
     getName(): string {
@@ -22,6 +26,10 @@ export class DefaultImportNode implements ReflectedNode<Import, ts.ImportDeclara
 
     getTSNode(): ts.ImportDeclaration {
         return this._node;
+    }
+
+    getContext(): AnalyzerContext {
+        return this._context;
     }
 
     getNodeType(): NodeType {

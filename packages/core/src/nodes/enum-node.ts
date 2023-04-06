@@ -4,6 +4,7 @@ import { getLinePosition } from '../utils/get-location.js';
 import { DeclarationNode } from './declaration-node.js';
 import { EnumMemberNode } from './enum-member-node.js';
 import { EnumDeclaration } from '../models/enum.js';
+import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
@@ -13,8 +14,11 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     private readonly _node: ts.EnumDeclaration;
 
-    constructor(node: ts.EnumDeclaration) {
+    private readonly _context: AnalyzerContext;
+
+    constructor(node: ts.EnumDeclaration, context: AnalyzerContext) {
         this._node = node;
+        this._context = context;
     }
 
     getNodeType(): NodeType {
@@ -27,6 +31,10 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     getTSNode(): ts.EnumDeclaration {
         return this._node;
+    }
+
+    getContext(): AnalyzerContext {
+        return this._context;
     }
 
     getName(): string {
@@ -62,7 +70,7 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
                 value = defaultInitializer++;
             }
 
-            return new EnumMemberNode(member, value);
+            return new EnumMemberNode(member, value, this._context);
         });
     }
 

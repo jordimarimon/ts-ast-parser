@@ -2,15 +2,21 @@ import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getLocation } from '../utils/get-location.js';
 import { Decorator } from '../models/decorator.js';
+import { ReflectedNode } from './reflected-node.js';
+import { AnalyzerContext } from '../context.js';
+import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 
 
-export class DecoratorNode {
+export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
 
     private readonly _decorator: ts.Decorator;
 
-    constructor(decorator: ts.Decorator) {
+    private readonly _context: AnalyzerContext;
+
+    constructor(decorator: ts.Decorator, context: AnalyzerContext) {
         this._decorator = decorator;
+        this._context = context;
     }
 
     getName(): string {
@@ -29,6 +35,18 @@ export class DecoratorNode {
         }
 
         return '';
+    }
+
+    getTSNode(): ts.Decorator {
+        return this._decorator;
+    }
+
+    getContext(): AnalyzerContext {
+        return this._context;
+    }
+
+    getNodeType(): NodeType {
+        return NodeType.Declaration;
     }
 
     getArguments(): unknown[] {

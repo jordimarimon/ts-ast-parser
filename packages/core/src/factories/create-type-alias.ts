@@ -1,6 +1,7 @@
 import { TypeAliasDeclaration } from '../models/type-alias.js';
 import { TypeAliasNode } from '../nodes/type-alias-node.js';
 import { NodeFactory } from './node-factory.js';
+import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 
@@ -8,8 +9,8 @@ export const typeAliasFactory: NodeFactory<TypeAliasDeclaration, TypeAliasNode, 
 
     isNode: (node: ts.Node): node is ts.TypeAliasDeclaration => ts.isTypeAliasDeclaration(node),
 
-    create: (node: ts.TypeAliasDeclaration): TypeAliasNode[] => {
-        return [new TypeAliasNode(node)];
+    create: (node: ts.TypeAliasDeclaration, context: AnalyzerContext): TypeAliasNode[] => {
+        return [new TypeAliasNode(node, context)];
     },
 
 };

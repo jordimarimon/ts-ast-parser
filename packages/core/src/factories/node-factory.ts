@@ -1,11 +1,12 @@
 import { ReflectedNode } from '../nodes/reflected-node.js';
+import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 
-export interface NodeFactory<Model extends object, AstNode extends ReflectedNode<Model>, T extends ts.Node> {
+export interface NodeFactory<Model extends object, Node extends ReflectedNode<Model>, TSNode extends ts.Node> {
 
-    isNode(node: ts.Node): node is T;
+    isNode(node: ts.Node): node is TSNode;
 
-    create(node: ts.Node): AstNode[];
+    create(node: ts.Node, context: AnalyzerContext): Node[];
 
 }
