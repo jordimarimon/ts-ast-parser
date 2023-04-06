@@ -1,4 +1,4 @@
-import { isNamedNode } from './node.js';
+import { isNamedNode } from './named-node.js';
 import ts from 'typescript';
 
 

@@ -1,5 +1,5 @@
-import { getVisibilityModifier, isAbstract, isReadOnly, isStaticMember } from '../utils/class.js';
-import { FunctionLikeDeclaration, SymbolWithContextType } from '../utils/types.js';
+import { getVisibilityModifier, isAbstract, isReadOnly, isStaticMember } from '../utils/class-member.js';
+import { FunctionLikeDeclaration, FunctionLikeNode, SymbolWithContextType } from '../utils/is.js';
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
@@ -15,7 +15,6 @@ import { ClassMethod } from '../models/class.js';
 import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { FunctionLikeNode } from './is.js';
 import ts from 'typescript';
 
 

@@ -32,7 +32,6 @@ export * from './nodes/enum-member-node.js';
 export * from './nodes/enum-node.js';
 export * from './nodes/export-assignment-node.js';
 export * from './nodes/export-declaration-node.js';
-export * from './nodes/is.js';
 export * from './nodes/jsdoc-node.js';
 export * from './nodes/jsdoc-value-node.js';
 export * from './nodes/module-node.js';
@@ -45,3 +44,6 @@ export * from './nodes/reflected-node.js';
 export * from './nodes/type-alias-node.js';
 export * from './nodes/type-parameter-node.js';
 export * from './nodes/variable-declaration-node.js';
+
+// UTILS
+export * from './utils/is.js';

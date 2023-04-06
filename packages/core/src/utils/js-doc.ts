@@ -20,10 +20,6 @@ export function getAllJSDoc(node: JSDocTSNode): JSDoc {
     return doc;
 }
 
-export function findJSDoc<T>(name: JSDocTagName, doc: JSDoc): {kind: JSDocTagName; value: T} | undefined {
-    return doc.find(d => d.kind === name) as {kind: JSDocTagName; value: T} | undefined;
-}
-
 function collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
     const parsedJsDocComment = parse(jsDocComment.getFullText()) ?? [];
 

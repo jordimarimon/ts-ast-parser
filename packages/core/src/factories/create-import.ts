@@ -5,7 +5,7 @@ import { NamedImportNode } from '../nodes/named-import-node.js';
 import { NodeFactory } from './node-factory.js';
 import { AnalyzerContext } from '../context.js';
 import { Import } from '../models/import.js';
-import { ImportNode } from '../nodes/is.js';
+import { ImportNode } from '../utils/is.js';
 import ts from 'typescript';
 
 

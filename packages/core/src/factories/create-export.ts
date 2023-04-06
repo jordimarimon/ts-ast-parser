@@ -4,7 +4,7 @@ import { NamespaceExportNode } from '../nodes/namespace-export-node.js';
 import { NamedExportNode } from '../nodes/named-export-node.js';
 import { ReExportNode } from '../nodes/re-export-node.js';
 import { hasExportKeyword } from '../utils/export.js';
-import { ExportStatementNode } from '../nodes/is.js';
+import { ExportStatementNode } from '../utils/is.js';
 import { NodeFactory } from './node-factory.js';
 import { AnalyzerContext } from '../context.js';
 import { Export } from '../models/export.js';
