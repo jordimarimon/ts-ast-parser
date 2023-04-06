@@ -15,7 +15,7 @@ export interface AnalyzerContext {
      * The TypeScript type checker.
      * Useful to resolve the types of the symbols and declarations.
      */
-    checker: ts.TypeChecker | null;
+    checker: ts.TypeChecker;
 
     /**
      * The TypeScript compiler options.
