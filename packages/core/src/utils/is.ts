@@ -1,4 +1,4 @@
-import { VariableDeclarationNode } from '../nodes/variable-declaration-node.js';
+import { VariableNode } from '../nodes/variable-node.js';
 import { ExportDeclarationNode } from '../nodes/export-declaration-node.js';
 import { ExportAssignmentNode } from '../nodes/export-assignment-node.js';
 import { NamespaceExportNode } from '../nodes/namespace-export-node.js';
@@ -16,6 +16,7 @@ import { ExportKind } from '../models/export.js';
 import { NodeType } from '../models/node.js';
 import { EnumNode } from '../nodes/enum-node.js';
 import ts from 'typescript';
+import { FunctionNode } from '../nodes/function-node.js';
 
 
 export type ImportNode = DefaultImportNode | NamedImportNode | NamespaceImportNode;
@@ -99,12 +100,16 @@ export const is = {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Enum;
     },
 
-    VariableNode: (node: ReflectedNode): node is VariableDeclarationNode => {
+    VariableNode: (node: ReflectedNode): node is VariableNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Variable;
     },
 
     TypeAliasNode: (node: ReflectedNode): node is TypeAliasNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.TypeAlias;
+    },
+
+    FunctionNode: (node: ReflectedNode): node is FunctionNode => {
+        return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Function;
     },
 
     // EXPORTS

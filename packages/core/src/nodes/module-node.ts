@@ -1,6 +1,6 @@
 import { DeclarationKind } from '../models/declaration-kind.js';
-import { DeclarationNode } from './declaration-node.js';
 import { ExportNode, ImportNode, is } from '../utils/is.js';
+import { DeclarationNode } from './declaration-node.js';
 import { ReflectedNode } from './reflected-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import { AnalyzerContext } from '../context.js';

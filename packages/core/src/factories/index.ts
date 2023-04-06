@@ -12,7 +12,6 @@ export default [
     variableFactory,
     enumFactory,
     typeAliasFactory,
-    functionFactory,
     exportDeclarationFactory,
     exportAssignmentFactory,
     exportStatementFactory,

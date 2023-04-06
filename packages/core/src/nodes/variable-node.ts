@@ -16,7 +16,7 @@ import { Type } from '../models/type.js';
 import ts from 'typescript';
 
 
-export class VariableDeclarationNode implements DeclarationNode<VariableDeclaration, ts.VariableDeclaration> {
+export class VariableNode implements DeclarationNode<VariableDeclaration, ts.VariableDeclaration> {
 
     private readonly _node: ts.VariableStatement;
 
