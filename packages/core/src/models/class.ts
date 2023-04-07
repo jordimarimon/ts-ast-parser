@@ -1,5 +1,6 @@
 import { DeclarationKind } from './declaration-kind.js';
 import { TypeParameter } from './type-parameter.js';
+import { MemberKind } from './member-kind.js';
 import { PropertyLike } from './property.js';
 import { FunctionLike } from './function.js';
 import { Reference } from './reference.js';
@@ -14,11 +15,8 @@ export enum ModifierType {
     protected = 'protected',
 }
 
-export type ClassMember = ClassField | ClassMethod;
-
 export interface ClassMemberLike {
     static?: boolean;
-    modifier?: ModifierType;
     readOnly?: boolean;
     abstract?: boolean;
     override?: boolean;
@@ -26,32 +24,30 @@ export interface ClassMemberLike {
 }
 
 export interface ClassField extends PropertyLike, ClassMemberLike {
-    kind: DeclarationKind.Field;
+    kind: MemberKind.Property;
     writeOnly?: boolean;
 }
 
 export interface ClassMethod extends FunctionLike, ClassMemberLike {
-    kind: DeclarationKind.Method;
+    kind: MemberKind.Method;
 }
 
 export interface Constructor {
     jsDoc?: JSDoc;
-    parameters?: Parameter[];
+    parameters?: readonly Parameter[];
 }
 
-export interface ClassLike {
+export interface ClassDeclaration {
     name: string;
     line: number;
-    members?: ClassMember[];
+    kind: DeclarationKind.Class;
+    properties?: readonly ClassField[];
+    methods?: readonly ClassMethod[];
     jsDoc?: JSDoc;
-    typeParameters?: TypeParameter[];
-    heritage?: Reference[];
-    decorators?: Decorator[];
-    constructors?: Constructor[];
+    typeParameters?: readonly TypeParameter[];
+    heritage?: readonly Reference[];
+    decorators?: readonly Decorator[];
+    constructors?: readonly Constructor[];
     abstract?: boolean;
     namespace?: string;
-}
-
-export interface ClassDeclaration extends ClassLike {
-    kind: DeclarationKind.Class;
 }

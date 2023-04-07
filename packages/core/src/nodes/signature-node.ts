@@ -1,8 +1,8 @@
 import { FunctionReturn, FunctionSignature } from '../models/function.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
-import { getTypeFromTSType } from '../utils/get-type.js';
 import { getLinePosition } from '../utils/get-location.js';
+import { getTypeFromTSType } from '../utils/get-type.js';
 import { ReflectedNode } from './reflected-node.js';
 import { ParameterNode } from './parameter-node.js';
 import { AnalyzerContext } from '../context.js';

@@ -1,62 +1,45 @@
-import { VariableNode } from '../nodes/variable-node.js';
 import { ExportDeclarationNode } from '../nodes/export-declaration-node.js';
+import { SideEffectImportNode } from '../nodes/side-effect-import-node.js';
 import { ExportAssignmentNode } from '../nodes/export-assignment-node.js';
 import { NamespaceExportNode } from '../nodes/namespace-export-node.js';
 import { NamespaceImportNode } from '../nodes/namespace-import-node.js';
-import { DeclarationKind } from '../models/declaration-kind.js';
 import { DefaultImportNode } from '../nodes/default-import-node.js';
+import { DeclarationKind } from '../models/declaration-kind.js';
 import { NamedImportNode } from '../nodes/named-import-node.js';
 import { NamedExportNode } from '../nodes/named-export-node.js';
 import { DeclarationNode } from '../nodes/declaration-node.js';
 import { TypeAliasNode } from '../nodes/type-alias-node.js';
 import { ReflectedNode } from '../nodes/reflected-node.js';
 import { ReExportNode } from '../nodes/re-export-node.js';
+import { FunctionNode } from '../nodes/function-node.js';
+import { VariableNode } from '../nodes/variable-node.js';
 import { ImportKind } from '../models/import.js';
 import { ExportKind } from '../models/export.js';
-import { NodeType } from '../models/node.js';
 import { EnumNode } from '../nodes/enum-node.js';
+import { NodeType } from '../models/node.js';
 import ts from 'typescript';
-import { FunctionNode } from '../nodes/function-node.js';
 
 
-export type ImportNode = DefaultImportNode | NamedImportNode | NamespaceImportNode;
+export type ImportNode = DefaultImportNode | NamedImportNode | NamespaceImportNode | SideEffectImportNode;
 
 export type ExportStatementNode = NamedExportNode | NamespaceExportNode | ReExportNode;
 
 export type ExportNode = ExportDeclarationNode | ExportAssignmentNode | ExportStatementNode;
 
-export type FunctionLikeNode = ts.VariableStatement
+export type NodeWithFunctionDeclaration = ts.VariableStatement
     | ts.FunctionDeclaration
     | ts.MethodDeclaration
     | ts.PropertyDeclaration
     | ts.PropertySignature;
 
-export type FunctionLikeDeclaration = ts.FunctionDeclaration |
+export type PropertyLikeNode = ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration;
+
+export type FunctionLikeNode = ts.FunctionDeclaration |
     ts.ArrowFunction |
     ts.MethodSignature |
     ts.FunctionExpression |
     ts.FunctionTypeNode |
-    ts.MethodDeclaration |
-    null;
-
-export type GeneratorFunction = ts.FunctionDeclaration | ts.FunctionExpression | ts.MethodDeclaration;
-
-export type InterfaceOrClassDeclaration = ts.ClassDeclaration | ts.ClassExpression | ts.InterfaceDeclaration;
-
-export type NodeWithTypeParameter = ts.TypeAliasDeclaration |
-    ts.InterfaceDeclaration |
-    ts.ClassDeclaration |
-    ts.ClassExpression |
-    ts.SignatureDeclaration |
-    FunctionLikeDeclaration |
-    null;
-
-export type NodeWithParameters = FunctionLikeDeclaration |
-    ts.SetAccessorDeclaration |
-    ts.SignatureDeclaration |
-    ts.ConstructorDeclaration;
-
-export type NodeWithHeritageClause = ts.InterfaceDeclaration | ts.ClassDeclaration | ts.ClassExpression;
+    ts.MethodDeclaration;
 
 export type SymbolWithLocation = {
     path: string;
@@ -64,7 +47,7 @@ export type SymbolWithLocation = {
     symbol: ts.Symbol | undefined;
 };
 
-export type SymbolWithContextType = {
+export type SymbolWithContext = {
     symbol: ts.Symbol | undefined;
     type: ts.Type | undefined;
     overrides?: boolean;
@@ -91,6 +74,10 @@ export const is = {
         return is.ImportNode(node) && node.getKind() === ImportKind.Namespace;
     },
 
+    SideEffectImportNode: (node: ReflectedNode): node is SideEffectImportNode => {
+        return is.ImportNode(node) && node.getKind() === ImportKind.SideEffect;
+    },
+
     // DECLARATIONS
     DeclarationNode: (node: ReflectedNode): node is DeclarationNode => {
         return node.getNodeType() === NodeType.Declaration;
@@ -111,6 +98,8 @@ export const is = {
     FunctionNode: (node: ReflectedNode): node is FunctionNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Function;
     },
+
+    // MEMBERS
 
     // EXPORTS
     ExportNode: (node: ReflectedNode): node is ExportNode => {

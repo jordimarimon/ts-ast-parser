@@ -1,6 +1,8 @@
+import { ClassField, ClassMethod, Constructor } from './class.js';
 import { DeclarationKind } from './declaration-kind.js';
-import { FunctionLike } from './function.js';
-import { ClassLike } from './class.js';
+import { FunctionSignature } from './function.js';
+import { Decorator } from './decorator.js';
+import { JSDoc } from './js-doc.js';
 import ts from 'typescript';
 
 
@@ -9,6 +11,15 @@ export interface MixinNodes {
     class: ts.ClassExpression | ts.ClassDeclaration;
 }
 
-export interface MixinDeclaration extends FunctionLike, ClassLike {
+export interface MixinDeclaration {
+    name: string;
     kind: DeclarationKind.Mixin;
+    signatures: readonly FunctionSignature[];
+    namespace?: string;
+    async?: boolean;
+    decorators?: readonly Decorator[];
+    jsDoc?: JSDoc;
+    properties?: readonly ClassField[];
+    methods?: readonly ClassMethod[];
+    constructors?: readonly Constructor[];
 }

@@ -46,7 +46,6 @@ export function matchesTsConfigPath(importPath: string, compilerOptions: ts.Comp
     return false;
 }
 
-
 export function isDefaultImport(node: ts.ImportDeclaration): boolean {
     //
     // Case of:
@@ -81,4 +80,12 @@ export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
     }
 
     return !!namespaceImports?.name && !isNamedImport(node);
+}
+
+export function isSideEffectImport(node: ts.ImportDeclaration): boolean {
+    //
+    // Case of:
+    //      import './my-module.js';
+    //
+    return Object.prototype.hasOwnProperty.call(node, 'importClause') && node.importClause == null;
 }

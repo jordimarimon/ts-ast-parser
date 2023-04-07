@@ -1,11 +1,12 @@
-import { getVisibilityModifier, isAbstract, isReadOnly, isStaticMember } from '../utils/class-member.js';
-import { FunctionLikeDeclaration, FunctionLikeNode, SymbolWithContextType } from '../utils/is.js';
+import { FunctionLikeNode, NodeWithFunctionDeclaration, SymbolWithContext } from '../utils/is.js';
+import { isAbstract, isReadOnly, isStaticMember } from '../utils/class-member.js';
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { FunctionDeclaration } from '../models/function.js';
 import { getSymbolAtLocation } from '../utils/symbol.js';
 import { DeclarationNode } from './declaration-node.js';
+import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
 import { getModifiers } from '../utils/modifiers.js';
@@ -18,15 +19,15 @@ import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
-export class FunctionNode implements DeclarationNode<FunctionDeclaration | ClassMethod, FunctionLikeNode> {
+export class FunctionNode implements DeclarationNode<FunctionDeclaration | ClassMethod, NodeWithFunctionDeclaration> {
 
-    private readonly _node: FunctionLikeNode;
+    private readonly _node: NodeWithFunctionDeclaration;
 
-    private readonly _member: SymbolWithContextType | undefined;
+    private readonly _member: SymbolWithContext | undefined;
 
     private readonly _context: AnalyzerContext;
 
-    constructor(node: FunctionLikeNode, context: AnalyzerContext, member?: SymbolWithContextType | undefined) {
+    constructor(node: NodeWithFunctionDeclaration, context: AnalyzerContext, member?: SymbolWithContext | undefined) {
         this._node = node;
         this._member = member;
         this._context = context;
@@ -64,13 +65,13 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Class
         return this._context;
     }
 
-    getKind(): DeclarationKind.Method | DeclarationKind.Function {
+    getKind(): MemberKind.Method | DeclarationKind.Function {
         return ts.isPropertyDeclaration(this._node) || ts.isMethodDeclaration(this._node)
-            ? DeclarationKind.Method
+            ? MemberKind.Method
             : DeclarationKind.Function;
     }
 
-    getTSNode(): FunctionLikeNode {
+    getTSNode(): NodeWithFunctionDeclaration {
         return this._node;
     }
 
@@ -153,7 +154,6 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Class
 
         if (ts.isPropertyDeclaration(this._node) || ts.isMethodDeclaration(this._node)) {
             tryAddProperty(tmpl as ClassMethod, 'static', isStaticMember(this._node));
-            tryAddProperty(tmpl as ClassMethod, 'modifier', getVisibilityModifier(this._node));
             tryAddProperty(tmpl as ClassMethod, 'readOnly', isReadOnly(this._node));
             tryAddProperty(tmpl as ClassMethod, 'abstract', isAbstract(this._node));
             tryAddProperty(tmpl as ClassMethod, 'override', this._member?.overrides);
@@ -163,7 +163,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Class
         return tmpl;
     }
 
-    private _getFunctionNode(): FunctionLikeDeclaration {
+    private _getFunctionNode(): FunctionLikeNode | null {
         let func: ts.Node | undefined | null = this._node;
 
         if (ts.isVariableStatement(this._node)) {

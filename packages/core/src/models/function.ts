@@ -12,20 +12,20 @@ export interface FunctionReturn {
 
 export interface FunctionSignature {
     line: number;
-    parameters?: Parameter[];
-    typeParameters?: TypeParameter[];
+    parameters?: readonly Parameter[];
+    typeParameters?: readonly TypeParameter[];
     return: FunctionReturn;
     jsDoc?: JSDoc;
 }
 
 export interface FunctionLike {
     name: string;
+    signatures: readonly FunctionSignature[];
     namespace?: string;
     async?: boolean;
     generator?: boolean;
-    decorators?: Decorator[];
+    decorators?: readonly Decorator[];
     jsDoc?: JSDoc;
-    signatures: FunctionSignature[];
 }
 
 export interface FunctionDeclaration extends FunctionLike {

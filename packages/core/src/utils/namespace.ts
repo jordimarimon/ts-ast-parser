@@ -22,9 +22,15 @@ export function getNamespaceName(node: ts.ModuleDeclaration): string {
 
 export function getNamespace(node: ts.Node): string {
     // The parent is a "ModuleBlock" and the grandfather is the ModuleDeclaration (the namespace)
-    if (!isNamespace(node.parent?.parent)) {
+    let currNode = node.parent?.parent;
+
+    while (currNode && !isNamespace(currNode)) {
+        currNode = currNode.parent;
+    }
+
+    if (!currNode) {
         return '';
     }
 
-    return getNamespaceName(node.parent.parent);
+    return getNamespaceName(currNode);
 }

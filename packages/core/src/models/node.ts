@@ -1,7 +1,7 @@
 export enum NodeType {
-    Module,
-    Import,
-    Declaration,
-    Export,
-    Other,
+    Module = 'Module',
+    Import = 'Import',
+    Declaration = 'Declaration',
+    Export = 'Export',
+    Other = 'Other',
 }
