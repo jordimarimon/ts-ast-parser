@@ -1,6 +1,11 @@
 ---
 title: Getting Started
 order: 2
+layout: base
+withHeader: true
+withSideBar: true
+tags: module
+module: getting-started
 ---
 
 {% from "macros/heading.njk" import heading %}
@@ -39,7 +44,7 @@ pnpm add -D @ts-ast-parser/core
 
 <section class="mb-10">
     <h2 class="heading-3 mb-4">
-        Using in it with ESM
+        How to use it
     </h2>
 
     <p class="text-md mb-4">
@@ -48,8 +53,9 @@ pnpm add -D @ts-ast-parser/core
 
 {% highlight "js" %}
 import { parseFromFiles } from '@ts-ast-parser/core';
+// const { parseFromFiles } = require('@ts-ast-parser/core');
 
-const metadata = parseFromFiles(['test1.ts', 'test2.ts']);
+const reflectedModules = parseFromFiles(['test1.ts', 'test2.ts']);
 {% endhighlight %}
 
     <p class="text-md mb-4">
@@ -58,8 +64,9 @@ const metadata = parseFromFiles(['test1.ts', 'test2.ts']);
 
 {% highlight "js" %}
 import { parseFromGlob } from '@ts-ast-parser/core';
+// const { parseFromGlob } = require('@ts-ast-parser/core');
 
-const metadata = parseFromGlob('**/*.ts');
+const reflectedModules = parseFromGlob('**/*.ts');
 {% endhighlight %}
 
     <p class="text-md mb-4">
@@ -68,44 +75,9 @@ const metadata = parseFromGlob('**/*.ts');
 
 {% highlight "js" %}
 import { parseFromSource } from '@ts-ast-parser/core';
+// const { parseFromSource } = require('@ts-ast-parser/core');
 
-const metadata = parseFromSource('const foo = true;export { foo };');
-{% endhighlight %}
-</section>
-
-<section class="mb-10">
-    <h2 class="heading-3 mb-4">
-        Using in it with CJS
-    </h2>
-
-    <p class="text-md mb-4">
-        You can provide the array of files that you would like to obtain information of:
-    </p>
-
-{% highlight "js" %}
-const { parseFromFiles } = require('@ts-ast-parser/core');
-
-const metadata = parseFromFiles(['test1.ts', 'test2.ts']);
-{% endhighlight %}
-
-    <p class="text-md mb-4">
-        Or you can provide a glob or an array of globs instead:
-    </p>
-
-{% highlight "js" %}
-const { parseFromGlob } = require('@ts-ast-parser/core');
-
-const metadata = parseFromGlob(['**/*.ts']);
-{% endhighlight %}
-
-    <p class="text-md mb-4">
-        Finally, there is also support for getting information from a code snippet:
-    </p>
-
-{% highlight "js" %}
-const { parseFromSource } = require('@ts-ast-parser/core');
-
-const metadata = parseFromSource('const foo = true;export { foo };');
+const reflectedModules = parseFromSource('const foo = true;export { foo };');
 {% endhighlight %}
 </section>
 

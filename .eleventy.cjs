@@ -1,6 +1,41 @@
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const esBuildPlugin = require('./scripts/build-docs.cjs');
+const postcssPresetEnv = require('postcss-preset-env');
+const tailwindNesting = require('tailwindcss/nesting');
+const autoprefixer = require('autoprefixer');
+const atImport = require('postcss-import');
+const tailwind = require('tailwindcss');
 const {DateTime} = require('luxon');
+const postcss = require('postcss');
+const cssnano = require('cssnano');
+const path = require('path');
+const fs = require('fs');
+
+
+let pendingPostCss = undefined;
+
+const cssPath = path.join(process.cwd(), 'docs', 'assets', 'css');
+const postcssProcessor = postcss([
+    atImport({
+        path: [cssPath],
+    }),
+    postcssPresetEnv(),
+    tailwindNesting(),
+    tailwind(),
+    autoprefixer(),
+    cssnano({
+        // See: https://cssnano.co/docs/what-are-optimisations#what-optimisations-do-you-support
+        // See: https://github.com/cssnano/cssnano/tree/master/packages/cssnano-preset-default
+        preset: ['default', {
+            discardComments: {
+                removeAll: true,
+            },
+            discardDuplicates: true,
+            discardOverridden: true,
+            discardEmpty: true,
+        }],
+    }),
+]);
 
 module.exports = (eleventyConfig) => {
 
@@ -8,22 +43,44 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addPassthroughCopy('docs/favicon.ico');
     eleventyConfig.addPassthroughCopy({'docs/robots.txt': '/robots.txt'});
     eleventyConfig.addPassthroughCopy({
-        'node_modules/jsoneditor/dist/img/jsoneditor-icons.svg': '/assets/css/img/jsoneditor-icons.svg',
+        'node_modules/jsoneditor/dist/img/jsoneditor-icons.svg': '/playground/img/jsoneditor-icons.svg',
     });
 
-    // Make sure the nav items are ordered correctly
+    // Compile the CSS
+    eleventyConfig.addNunjucksAsyncFilter('postcss', (fileName, done) => {
+        if (!pendingPostCss) {
+            pendingPostCss = new Promise((resolve, reject) => {
+                const stylesheet = path.join(cssPath, fileName);
+                const cssCode = fs.readFileSync(stylesheet, 'utf-8');
+
+                pendingPostCss = postcssProcessor
+                    .process(cssCode, {from: undefined})
+                    .then(result => resolve(result.css))
+                    .catch(error => reject(error));
+            });
+        }
+
+        pendingPostCss
+            .then(css => {
+                pendingPostCss = undefined;
+                done(null, css);
+            })
+            .catch(error => {
+                pendingPostCss = undefined;
+                done(error, null);
+            });
+    });
+
+    eleventyConfig.addWatchTarget(path.join(cssPath, '*.css'));
+
+    // Make sure the sidebar items are ordered correctly
     eleventyConfig.addCollection('page', (collections) => {
         return collections.getFilteredByTag('page').sort((a, b) => {
             return a.data.order - b.data.order;
         });
     });
-    eleventyConfig.addCollection('core', (collections) => {
-        return collections.getFilteredByTag('core').sort((a, b) => {
-            return a.data.order - b.data.order;
-        });
-    });
-    eleventyConfig.addCollection('readers', (collections) => {
-        return collections.getFilteredByTag('readers').sort((a, b) => {
+    eleventyConfig.addCollection('module', (collections) => {
+        return collections.getFilteredByTag('module').sort((a, b) => {
             return a.data.order - b.data.order;
         });
     });

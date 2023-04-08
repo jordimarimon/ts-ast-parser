@@ -14,7 +14,14 @@ order: 2
 
 <section class="playground">
 
-    {{ select("select-code-example", "Select a sample code") }}
+    {{ select("select-code-example", "Select a sample code", [
+        {value: 'class', label: 'Class'},
+        {value: 'decorator', label: 'Decorator'},
+        {value: 'enum', label: 'Enum'},
+        {value: 'function', label: 'Function'},
+        {value: 'interface', label: 'Interface'},
+        {value: 'variable', label: 'Variable'}
+    ]) }}
 
     <div id="code-editor" class="code-editor skeleton"></div>
 
@@ -39,12 +46,12 @@ order: 2
         </header>
 
         <p class="text text-md md:text-lg">
-            Only declarations that are explicitly exported will output metadata.
+            Only declarations that are explicitly exported will be reflected.
         </p>
 
         <p class="flex items-center font-bold text-success mt-6 text-md md:text-lg">
             <span class="material-icons mie-2">check_circle</span>
-            <span>The following generates metadata:</span>
+            <span>The following declarations will be reflected:</span>
         </p>
 
 {% highlight "ts" %}
@@ -59,7 +66,7 @@ export const x = 3;
             <span class="material-icons mie-2">
                 cancel
             </span>
-            <span>The following won't generate any metadata:</span>
+            <span>The following declarations won't be reflected:</span>
         </p>
 
 {% highlight "ts" %}

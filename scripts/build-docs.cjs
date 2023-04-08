@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 
 
-const PATH = path.join(__dirname, '..', 'docs', 'assets', 'js');
+const PATH = path.join(process.cwd(), 'docs', 'assets', 'js');
 
 function build(entryPoints) {
     buildSync({

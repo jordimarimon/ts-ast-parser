@@ -23,105 +23,72 @@ const exampleCodes = {
     variable: VARIABLE_CODE,
 };
 
-function main() {
-    const CODE_EDITOR_VIEW = 'code-editor';
-    const JSON_EDITOR_VIEW = 'json-editor';
+const CODE_EDITOR_VIEW = 'code-editor';
+const JSON_EDITOR_VIEW = 'json-editor';
 
-    const selectCodeExampleEl = document.getElementById('select-code-example');
+const selectCodeExampleEl = document.getElementById('select-code-example');
 
-    const codeEditorEl = document.getElementById('code-editor');
-    const jsonEditorEl = document.getElementById('json-editor');
+const codeEditorEl = document.getElementById('code-editor');
+const jsonEditorEl = document.getElementById('json-editor');
 
-    const parseButton = document.getElementById('parse-button');
-    const changeViewButton = document.getElementById('change-view-button');
+const parseButton = document.getElementById('parse-button');
+const changeViewButton = document.getElementById('change-view-button');
 
-    const dialogEl = document.getElementById('dialog');
-    const dialogElCloseButton = document.getElementById('dialog-button-close');
+const dialogEl = document.getElementById('dialog');
+const dialogElCloseButton = document.getElementById('dialog-button-close');
 
-    let view = CODE_EDITOR_VIEW;
+const parseCode = code => parseFromSource(code).toPOJO();
 
-    if (dialogEl) {
-        dialogEl.showModal();
-    }
+let view = CODE_EDITOR_VIEW;
 
-    if (dialogElCloseButton) {
-        const cb = () => {
-            dialogEl?.close();
-            dialogElCloseButton?.removeEventListener('click', cb);
-        };
+dialogEl?.showModal();
+dialogElCloseButton?.addEventListener('click', () => dialogEl?.close(), {once: true});
 
-        dialogElCloseButton.addEventListener('click', cb);
-    }
+const jsonEditor = new JSONEditor(jsonEditorEl, {mode: 'view'});
+jsonEditor.set(parseCode(CLASS_CODE));
 
-    if (!codeEditorEl || !jsonEditorEl || !parseButton || !changeViewButton) {
-        return;
-    }
+const codeEditor = ace.edit(codeEditorEl);
+const TypeScriptMode = aceTypeScript.Mode;
+codeEditor.session.setMode(new TypeScriptMode());
+codeEditor.setTheme(aceTheme);
+codeEditor.setOptions({fontSize: '14pt'});
+codeEditor.setValue(CLASS_CODE);
+codeEditor.session.selection.clearSelection();
 
-    const jsonEditor = new JSONEditor(jsonEditorEl, {mode: 'view'});
-    jsonEditor.set(parseFromSource(CLASS_CODE));
+const parse = () => {
+    const code = codeEditor.getValue();
+    const metadata = parseCode(code);
 
-    const codeEditor = ace.edit(codeEditorEl);
-    const TypeScriptMode = aceTypeScript.Mode;
-    codeEditor.session.setMode(new TypeScriptMode());
-    codeEditor.setTheme(aceTheme);
-    codeEditor.setOptions({fontSize: '14pt'});
-    codeEditor.setValue(CLASS_CODE);
+    jsonEditor?.set(metadata);
+};
+
+const change = (code) => {
+    const metadata = parseCode(code);
+
+    codeEditor.setValue(code);
     codeEditor.session.selection.clearSelection();
+    jsonEditor.set(metadata);
+};
 
-    const parse = () => {
-        const code = codeEditor.getValue();
-        const metadata = parseFromSource(code);
+selectCodeExampleEl?.addEventListener('change', () => {
+    const value = selectCodeExampleEl?.value;
+    change(exampleCodes[value]);
+});
 
-        jsonEditor.set(metadata);
-    };
+parseButton?.addEventListener('click', parse);
 
-    const change = (code) => {
-        const metadata = parseFromSource(code);
-
-        codeEditor.setValue(code);
-        codeEditor.session.selection.clearSelection();
-        jsonEditor.set(metadata);
-    };
-
-    if (selectCodeExampleEl) {
-        const fragment = document.createDocumentFragment();
-
-        for (const exampleCode in exampleCodes) {
-            const optionEl = document.createElement('option');
-            optionEl.classList.add('option');
-            optionEl.value = exampleCode;
-            optionEl.textContent = exampleCode[0].toUpperCase() + exampleCode.slice(1);
-            optionEl.selected = exampleCode === 'class';
-
-            fragment.appendChild(optionEl);
-        }
-
-        selectCodeExampleEl.appendChild(fragment);
-
-        selectCodeExampleEl.addEventListener('change', () => {
-            const value = selectCodeExampleEl.value;
-
-            change(exampleCodes[value]);
-        });
+changeViewButton?.addEventListener('click', () => {
+    if (view === CODE_EDITOR_VIEW) {
+        view = JSON_EDITOR_VIEW;
+        parse();
+    } else {
+        view = CODE_EDITOR_VIEW;
     }
 
-    parseButton.addEventListener('click', parse);
+    codeEditorEl?.classList.toggle('hidden');
+    jsonEditorEl?.classList.toggle('hidden');
+});
 
-    changeViewButton.addEventListener('click', () => {
-        if (view === CODE_EDITOR_VIEW) {
-            view = JSON_EDITOR_VIEW;
-            parse();
-        } else {
-            view = CODE_EDITOR_VIEW;
-        }
-
-        codeEditorEl.classList.toggle('hidden');
-        jsonEditorEl.classList.toggle('hidden');
-    });
-
-    codeEditorEl.classList.remove('skeleton');
-    jsonEditorEl.classList.remove('skeleton');
-    changeViewButton.classList.remove('hidden');
-}
-
-main();
+codeEditorEl?.classList.remove('skeleton');
+jsonEditorEl?.classList.remove('skeleton');
+changeViewButton?.classList.remove('hidden');

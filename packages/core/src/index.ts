@@ -52,6 +52,3 @@ export * from './nodes/signature-node.js';
 export * from './nodes/type-alias-node.js';
 export * from './nodes/type-parameter-node.js';
 export * from './nodes/variable-node.js';
-
-// UTILS
-export * from './utils/is.js';

@@ -15,6 +15,14 @@
                     </a>
                 </li>
             {% endfor %}
+
+            {% for item in collections.module %}
+                <li class="flex items-center {% if (item.url | url) == (page.url | url) %}active{% endif %}">
+                    <a href="{{ item.url | url }}">
+                        {{ item.data.title }}
+                    </a>
+                </li>
+            {% endfor %}
         </ul>
     </nav>
 
