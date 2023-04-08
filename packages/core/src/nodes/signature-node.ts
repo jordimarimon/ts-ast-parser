@@ -57,10 +57,19 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
     getParameters(): ParameterNode[] {
         const symbolParameters = this._node.parameters ?? [];
         const declarationParameters = this._node.getDeclaration().parameters ?? [];
+        const result: ParameterNode[] = [];
 
-        return declarationParameters.map((param, index) => {
-            return new ParameterNode(param, symbolParameters[index], this._context);
-        });
+        for (let index = 0; index < declarationParameters.length; index++) {
+            const node = new ParameterNode(declarationParameters[index], symbolParameters[index], this._context);
+
+            if (node.getJSDoc().isIgnored()) {
+                continue;
+            }
+
+            result.push(node);
+        }
+
+        return result;
     }
 
     getParameterByName(name: string): ParameterNode | null {

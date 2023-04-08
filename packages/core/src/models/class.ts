@@ -42,7 +42,9 @@ export interface ClassDeclaration {
     line: number;
     kind: DeclarationKind.Class;
     properties?: readonly ClassField[];
+    staticProperties?: readonly ClassField[];
     methods?: readonly ClassMethod[];
+    staticMethods?: readonly ClassMethod[];
     jsDoc?: JSDoc;
     typeParameters?: readonly TypeParameter[];
     heritage?: readonly Reference[];

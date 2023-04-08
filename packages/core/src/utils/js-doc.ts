@@ -4,12 +4,6 @@ import { logWarning } from './logs.js';
 import { parse } from 'comment-parser';
 
 
-export function shouldIgnore(declaration: unknown | undefined): boolean {
-    return !!(declaration as {jsDoc?: JSDoc})?.jsDoc?.some(tag => {
-        return tag.kind === JSDocTagName.ignore || tag.kind === JSDocTagName.internal;
-    });
-}
-
 export function getAllJSDoc(node: JSDocTSNode): JSDoc {
     const doc: JSDoc = [];
 

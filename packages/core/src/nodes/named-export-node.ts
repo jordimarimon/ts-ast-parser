@@ -25,6 +25,10 @@ export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclarati
         return this._element.name?.escapedText ?? '';
     }
 
+    getOriginalName(): string {
+        return this._element.propertyName?.escapedText ?? '';
+    }
+
     getKind(): ExportKind {
         return ExportKind.Named;
     }
@@ -39,10 +43,6 @@ export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclarati
 
     isTypeOnly(): boolean {
         return this._node.isTypeOnly ?? false;
-    }
-
-    getOriginalName(): string {
-        return this._element.propertyName?.escapedText ?? '';
     }
 
     getModule(): string {

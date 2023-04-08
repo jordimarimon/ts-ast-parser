@@ -40,6 +40,10 @@ export class ExportDeclarationNode implements ReflectedNode<Export, ExportDeclar
         return (this._node as Exclude<ExportDeclarationNodeType, ts.VariableStatement>).name?.getText() ?? '';
     }
 
+    getOriginalName(): string {
+        return this.getName();
+    }
+
     getNodeType(): NodeType {
         return NodeType.Export;
     }

@@ -9,13 +9,15 @@ import { JSDoc } from './js-doc.js';
 import { Type } from './type.js';
 
 
-export interface InterfaceMethod extends FunctionLike, PropertyLike {
+export interface InterfaceMethod extends FunctionLike {
     kind: MemberKind.Method;
+    optional?: boolean;
 }
 
 export interface IndexSignature extends PropertyLike {
     kind: MemberKind.IndexSignature;
     indexType?: Type;
+    readOnly?: boolean;
 }
 
 export interface InterfaceDeclaration {
@@ -23,8 +25,10 @@ export interface InterfaceDeclaration {
     line: number;
     kind: DeclarationKind.Interface;
     properties?: ClassField[];
+    staticProperties?: ClassField[];
     indexSignatures?: IndexSignature[];
     methods?: InterfaceMethod[];
+    staticMethods?: InterfaceMethod[];
     jsDoc?: JSDoc;
     typeParameters?: TypeParameter[];
     heritage?: Reference[];

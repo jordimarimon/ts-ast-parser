@@ -29,10 +29,9 @@ export type ExportNode = ExportDeclarationNode | ExportAssignmentNode | ExportSt
 export type NodeWithFunctionDeclaration = ts.VariableStatement
     | ts.FunctionDeclaration
     | ts.MethodDeclaration
+    | ts.MethodSignature
     | ts.PropertyDeclaration
     | ts.PropertySignature;
-
-export type PropertyLikeNode = ts.PropertyDeclaration | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration;
 
 export type FunctionLikeNode = ts.FunctionDeclaration |
     ts.ArrowFunction |
@@ -40,6 +39,12 @@ export type FunctionLikeNode = ts.FunctionDeclaration |
     ts.FunctionExpression |
     ts.FunctionTypeNode |
     ts.MethodDeclaration;
+
+export type PropertyLikeNode = ts.PropertyDeclaration | ts.PropertySignature | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration;
+
+export type ClassLikeNode = ts.ClassDeclaration | ts.ClassExpression;
+
+export type InterfaceOrClassDeclaration = ClassLikeNode | ts.InterfaceDeclaration;
 
 export type SymbolWithLocation = {
     path: string;
@@ -98,8 +103,6 @@ export const is = {
     FunctionNode: (node: ReflectedNode): node is FunctionNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Function;
     },
-
-    // MEMBERS
 
     // EXPORTS
     ExportNode: (node: ReflectedNode): node is ExportNode => {

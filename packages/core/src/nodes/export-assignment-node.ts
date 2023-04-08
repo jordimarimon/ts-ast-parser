@@ -23,6 +23,10 @@ export class ExportAssignmentNode implements ReflectedNode<Export, ts.ExportAssi
         return this._node.expression.getText() ?? '';
     }
 
+    getOriginalName(): string {
+        return this.getName();
+    }
+
     getNodeType(): NodeType {
         return NodeType.Export;
     }

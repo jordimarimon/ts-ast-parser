@@ -16,16 +16,20 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     private readonly _imports: ImportNode[] = [];
 
-    private readonly _exports: ExportNode[] = [];
-
-    private readonly _declarations: DeclarationNode[] = [];
-
     private readonly _context: AnalyzerContext;
+
+    private _exports: ExportNode[] = [];
+
+    private _declarations: DeclarationNode[] = [];
 
     constructor(node: ts.SourceFile, context: AnalyzerContext) {
         this._node = node;
         this._context = context;
+
         this._visitNode(node);
+
+        this._removeDuplicatedExports();
+        this._removeNonPublicDeclarations();
     }
 
     getTSNode(): ts.SourceFile {
@@ -57,29 +61,29 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     getDeclarationByKind(kind: DeclarationKind): DeclarationNode[] {
-        return this._declarations.filter(decl => decl.getKind() === kind);
+        return this.getDeclarations().filter(decl => decl.getKind() === kind);
     }
 
     getDeclarationByName(name: string): DeclarationNode | null {
-        return this._declarations.find(decl => decl.getName() === name) ?? null;
+        return this.getDeclarations().find(decl => decl.getName() === name) ?? null;
     }
 
     getAllDeclarationsInNamespace(name: string): DeclarationNode[] {
-        return this._declarations.filter(decl => decl.getNamespace() === name);
+        return this.getDeclarations().filter(decl => decl.getNamespace() === name);
     }
 
     getDeclarationsByCategory(category: string): DeclarationNode[] {
-        return this._declarations.filter(decl => {
-            return decl.getJSDoc().getJSDocTag(JSDocTagName.category)?.getDescription() === category;
+        return this.getDeclarations().filter(decl => {
+            return decl.getJSDoc().getJSDocTag(JSDocTagName.category)?.getValue<string>() === category;
         });
     }
 
     toPOJO(): Module {
         return {
             path: this.getPath(),
-            imports: this._imports.map(imp => imp.toPOJO()),
-            exports: this._exports.map(exp => exp.toPOJO()),
-            declarations: this._declarations.map(dec => dec.toPOJO()),
+            imports: this.getImports().map(imp => imp.toPOJO()),
+            exports: this.getExports().map(exp => exp.toPOJO()),
+            declarations: this.getDeclarations().map(dec => dec.toPOJO()),
         };
     }
 
@@ -112,6 +116,23 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
                 this._declarations.push(reflectedNode);
             }
         }
+    }
+
+    private _removeNonPublicDeclarations(): void {
+        this._declarations = this._declarations.filter(decl => {
+            // If the export has an "AS" keyword, we need to use the "originalName"
+            const hasExport = this._exports.some(exp => exp.getOriginalName() === decl.getName());
+
+            return hasExport && !decl.getJSDoc().isIgnored();
+        });
+    }
+
+    private _removeDuplicatedExports(): void {
+        this._exports = this._exports.filter((value, index, exports) => {
+            return index === exports.findIndex(e => {
+                return e.getName() === value.getName() && e.getKind() === value.getKind();
+            });
+        });
     }
 
 }

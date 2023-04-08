@@ -26,6 +26,10 @@ export class NamespaceExportNode implements ReflectedNode<Export, ts.ExportDecla
         return this._node.exportClause.name?.escapedText ?? '';
     }
 
+    getOriginalName(): string {
+        return this.getName();
+    }
+
     getContext(): AnalyzerContext {
         return this._context;
     }

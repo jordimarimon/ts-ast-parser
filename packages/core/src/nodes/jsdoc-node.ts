@@ -1,4 +1,4 @@
-import { JSDoc, JSDocTagValue } from '../models/js-doc.js';
+import { JSDoc, JSDocTagName, JSDocTagValue } from '../models/js-doc.js';
 import { JSDocValueNode } from './jsdoc-value-node.js';
 import { getAllJSDoc } from '../utils/js-doc.js';
 import ts from 'typescript';
@@ -20,6 +20,12 @@ export class JSDocNode {
 
     getJSDocTag(name: string): JSDocValueNode | undefined {
         return this._jsDoc[name];
+    }
+
+    isIgnored(): boolean {
+        return this.hasJSDocTag(JSDocTagName.ignore) ||
+            this.hasJSDocTag(JSDocTagName.internal) ||
+            this.hasJSDocTag(JSDocTagName.private);
     }
 
     toPOJO(): JSDoc {

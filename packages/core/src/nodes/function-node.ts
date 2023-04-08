@@ -1,9 +1,12 @@
 import { FunctionLikeNode, NodeWithFunctionDeclaration, SymbolWithContext } from '../utils/is.js';
-import { isAbstract, isReadOnly, isStaticMember } from '../utils/class-member.js';
+import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } from '../utils/member.js';
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
+import { ClassMethod, ModifierType } from '../models/class.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { FunctionDeclaration } from '../models/function.js';
+import { getLinePosition } from '../utils/get-location.js';
+import { InterfaceMethod } from '../models/interface.js';
 import { getSymbolAtLocation } from '../utils/symbol.js';
 import { DeclarationNode } from './declaration-node.js';
 import { MemberKind } from '../models/member-kind.js';
@@ -12,7 +15,6 @@ import { getNamespace } from '../utils/namespace.js';
 import { getModifiers } from '../utils/modifiers.js';
 import { DecoratorNode } from './decorator-node.js';
 import { SignatureNode } from './signature-node.js';
-import { ClassMethod } from '../models/class.js';
 import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
@@ -67,12 +69,17 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Class
 
     getKind(): MemberKind.Method | DeclarationKind.Function {
         return ts.isPropertyDeclaration(this._node) || ts.isMethodDeclaration(this._node)
+            || ts.isPropertySignature(this._node) || ts.isMethodSignature(this._node)
             ? MemberKind.Method
             : DeclarationKind.Function;
     }
 
     getTSNode(): NodeWithFunctionDeclaration {
         return this._node;
+    }
+
+    getLine(): number {
+        return getLinePosition(this._node);
     }
 
     getNamespace(): string {
@@ -119,6 +126,14 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Class
         });
     }
 
+    getModifier(): ModifierType | null {
+        if (!ts.isClassElement(this._node)) {
+            return null;
+        }
+
+        return getVisibilityModifier(this._node);
+    }
+
     isGenerator(): boolean {
         const func = this._getFunctionNode();
 
@@ -139,10 +154,35 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Class
         return getModifiers(func).some(mod => mod.kind === ts.SyntaxKind.AsyncKeyword);
     }
 
-    toPOJO(): FunctionDeclaration | ClassMethod {
-        const tmpl: FunctionDeclaration | ClassMethod = {
+    isOptional(): boolean {
+        return !!this._member && isOptional(this._member.symbol);
+    }
+
+    isStatic(): boolean {
+        return (ts.isPropertyDeclaration(this._node) || ts.isMethodDeclaration(this._node)) && isStatic(this._node);
+    }
+
+    isReadOnly(): boolean {
+        return (ts.isPropertyDeclaration(this._node) || ts.isMethodDeclaration(this._node)) && isReadOnly(this._node);
+    }
+
+    isAbstract(): boolean {
+        return (ts.isPropertyDeclaration(this._node) || ts.isMethodDeclaration(this._node)) && isAbstract(this._node);
+    }
+
+    isInherited(): boolean {
+        return !this._member?.overrides && !!this._member?.inherited;
+    }
+
+    overrides(): boolean {
+        return !!this._member?.overrides;
+    }
+
+    toPOJO(): FunctionDeclaration | ClassMethod | InterfaceMethod {
+        const tmpl: FunctionDeclaration | ClassMethod | InterfaceMethod = {
             name: this.getName(),
             kind: this.getKind(),
+            line: this.getLine(),
             signatures: this.getSignatures().map(signature => signature.toPOJO()),
         };
 
@@ -153,11 +193,15 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Class
         tryAddProperty(tmpl, 'generator', this.isGenerator());
 
         if (ts.isPropertyDeclaration(this._node) || ts.isMethodDeclaration(this._node)) {
-            tryAddProperty(tmpl as ClassMethod, 'static', isStaticMember(this._node));
-            tryAddProperty(tmpl as ClassMethod, 'readOnly', isReadOnly(this._node));
-            tryAddProperty(tmpl as ClassMethod, 'abstract', isAbstract(this._node));
-            tryAddProperty(tmpl as ClassMethod, 'override', this._member?.overrides);
-            tryAddProperty(tmpl as ClassMethod, 'inherited', !this._member?.overrides && this._member?.inherited);
+            tryAddProperty(tmpl as ClassMethod, 'static', this.isStatic());
+            tryAddProperty(tmpl as ClassMethod, 'readOnly', this.isReadOnly());
+            tryAddProperty(tmpl as ClassMethod, 'abstract', this.isAbstract());
+            tryAddProperty(tmpl as ClassMethod, 'override', this.overrides());
+            tryAddProperty(tmpl as ClassMethod, 'inherited', this.isInherited());
+        }
+
+        if (ts.isMethodSignature(this._node) || ts.isPropertySignature(this._node)) {
+            tryAddProperty(tmpl as InterfaceMethod, 'optional', this.isOptional());
         }
 
         return tmpl;

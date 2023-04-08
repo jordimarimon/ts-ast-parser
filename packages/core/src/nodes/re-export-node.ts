@@ -22,6 +22,10 @@ export class ReExportNode implements ReflectedNode<Export, ts.ExportDeclaration>
         return '*';
     }
 
+    getOriginalName(): string {
+        return this.getName();
+    }
+
     getKind(): ExportKind {
         return ExportKind.Star;
     }

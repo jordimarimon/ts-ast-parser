@@ -1,7 +1,8 @@
-import { isAbstract, isOptional, isStaticMember } from '../utils/class-member.js';
+import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } from '../utils/member.js';
 import { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
+import { ClassField, ModifierType } from '../models/class.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getReturnStatement } from '../utils/function.js';
 import { getTypeFromTSType } from '../utils/get-type.js';
@@ -10,7 +11,6 @@ import { getDecorators } from '../utils/decorator.js';
 import { ReflectedNode } from './reflected-node.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { ClassField } from '../models/class.js';
 import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
@@ -101,6 +101,14 @@ export class PropertyNode implements ReflectedNode<ClassField, PropertyLikeNode>
         return resolveExpression((this._node as ts.PropertyDeclaration).initializer, this._context.checker);
     }
 
+    getModifier(): ModifierType | null {
+        if (!ts.isClassElement(this._node)) {
+            return null;
+        }
+
+        return getVisibilityModifier(this._node);
+    }
+
     getJSDoc(): JSDocNode {
         const [getter, setter] = this._getAccessors();
 
@@ -137,21 +145,21 @@ export class PropertyNode implements ReflectedNode<ClassField, PropertyLikeNode>
         const [getter, setter] = this._getAccessors();
 
         if (getter) {
-            return isStaticMember(getter);
+            return isStatic(getter);
         }
 
         if (setter) {
-            return isStaticMember(setter);
+            return isStatic(setter);
         }
 
-        return isStaticMember(this._node);
+        return isStatic(this._node);
     }
 
     isReadOnly(): boolean {
         const readOnlyTag = !!this.getJSDoc().getJSDocTag(JSDocTagName.readonly)?.getValue();
         const [getter, setter] = this._getAccessors();
 
-        return readOnlyTag || (!!getter && !setter);
+        return readOnlyTag || (!!getter && !setter) || isReadOnly(this._node);
     }
 
     isWriteOnly(): boolean {

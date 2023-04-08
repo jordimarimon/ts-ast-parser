@@ -20,6 +20,7 @@ export interface FunctionSignature {
 
 export interface FunctionLike {
     name: string;
+    line: number;
     signatures: readonly FunctionSignature[];
     namespace?: string;
     async?: boolean;
