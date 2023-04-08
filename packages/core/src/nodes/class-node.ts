@@ -86,6 +86,12 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         const result: SignatureNode[] = [];
 
         for (const signature of signatures) {
+            // If there is no declaration for the constructor, don't add it
+            // to the list of constructors.
+            if (!signature.getDeclaration()) {
+                continue;
+            }
+
             const node = new SignatureNode(signature, this._context);
 
             if (node.getPath()) {

@@ -4,17 +4,44 @@
         "imports": [
             {
                 "name": "Foo",
-                "kind": "named",
+                "kind": "Named",
                 "importPath": "./foo.js"
             }
         ],
-        "declarations": [],
-        "exports": []
+        "exports": [],
+        "declarations": []
     },
     {
         "path": "tests/import/named/foo.ts",
         "imports": [],
-        "declarations": [],
-        "exports": []
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "Class",
+                "line": 1,
+                "methods": [
+                    {
+                        "name": "bar",
+                        "kind": "Method",
+                        "signatures": [
+                            {
+                                "line": 3,
+                                "return": {
+                                    "type": {
+                                        "text": "void"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
     }
 ]

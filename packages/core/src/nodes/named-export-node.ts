@@ -26,7 +26,7 @@ export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclarati
     }
 
     getOriginalName(): string {
-        return this._element.propertyName?.escapedText ?? '';
+        return this._element.propertyName?.escapedText || this.getName();
     }
 
     getKind(): ExportKind {
@@ -54,16 +54,20 @@ export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclarati
     }
 
     isReexport(): boolean {
-        return this.getOriginalName() !== '';
+        return this.getOriginalName() !== this.getName();
     }
 
     toPOJO(): Export {
+        const originalName = this.getOriginalName();
         const tmpl: Export = {
             name: this.getName(),
             kind: this.getKind(),
         };
 
-        tryAddProperty(tmpl, 'originalName', this.getOriginalName());
+        if (originalName !== tmpl.name) {
+            tryAddProperty(tmpl, 'originalName', this.getOriginalName());
+        }
+
         tryAddProperty(tmpl, 'isTypeOnly', this.isTypeOnly());
         tryAddProperty(tmpl, 'module', this.getModule());
 

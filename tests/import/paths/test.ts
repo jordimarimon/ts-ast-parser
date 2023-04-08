@@ -16,12 +16,13 @@ const compilerOptions: ts.CompilerOptions = {
         'custom-path/foo': ['./foo.ts'],
     },
 };
-const {actual, expected} = getFixture(category, subcategory, ['foo.ts'], compilerOptions);
+const {actual, expected} = getFixture({category, subcategory, importedFiles: ['foo.ts'], compilerOptions});
 
 describe(`${category}/${subcategory}`, () => {
 
     it('should reflect the expected AST', () => {
-        expect(actual.map(m => m.toPOJO())).to.deep.equal(expected);
+        const result = actual.map(m => m.toPOJO());
+        expect(result).to.deep.equal(expected);
     });
 
 });

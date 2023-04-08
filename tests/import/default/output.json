@@ -38,10 +38,7 @@
                         "kind": "Method",
                         "signatures": [
                             {
-                                "source": {
-                                    "path": "tests/import/default/foo.ts",
-                                    "line": 3
-                                },
+                                "line": 3,
                                 "return": {
                                     "type": {
                                         "text": "number"

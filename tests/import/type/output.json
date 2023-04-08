@@ -4,18 +4,62 @@
         "imports": [
             {
                 "name": "TypeA",
-                "kind": "named",
+                "kind": "Named",
                 "importPath": "./type-a.js",
                 "isTypeOnly": true
             }
         ],
-        "declarations": [],
-        "exports": []
+        "exports": [
+            {
+                "name": "x",
+                "kind": "Default"
+            }
+        ],
+        "declarations": [
+            {
+                "name": "x",
+                "kind": "Variable",
+                "line": 4,
+                "type": {
+                    "text": "TypeA",
+                    "sources": [
+                        {
+                            "text": "TypeA",
+                            "path": "tests/import/type/type-a.ts",
+                            "line": 1
+                        }
+                    ]
+                },
+                "default": "{foo: 'bar'}"
+            }
+        ]
     },
     {
         "path": "tests/import/type/type-a.ts",
         "imports": [],
-        "declarations": [],
-        "exports": []
+        "exports": [
+            {
+                "name": "TypeA",
+                "kind": "Named",
+                "isTypeOnly": true
+            }
+        ],
+        "declarations": [
+            {
+                "name": "TypeA",
+                "kind": "Interface",
+                "line": 1,
+                "properties": [
+                    {
+                        "name": "foo",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ]
+            }
+        ]
     }
 ]

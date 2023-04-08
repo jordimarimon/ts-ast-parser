@@ -82,10 +82,7 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
 
     toPOJO(): FunctionSignature {
         const tmpl: FunctionSignature = {
-            source: {
-                path: this.getPath(),
-                line: this.getLine(),
-            },
+            line: this.getLine(),
             return: this.getReturnType(),
         };
 

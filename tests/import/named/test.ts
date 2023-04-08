@@ -4,12 +4,13 @@ import { getFixture } from '../../utils.js';
 
 const category = 'import';
 const subcategory = 'named';
-const {actual, expected} = getFixture(category, subcategory, ['foo.ts']);
+const {actual, expected} = getFixture({category, subcategory, importedFiles: ['foo.ts']});
 
 describe(`${category}/${subcategory}`, () => {
 
     it('should reflect the expected AST', () => {
-        expect(actual.map(m => m.toPOJO())).to.deep.equal(expected);
+        const result = actual.map(m => m.toPOJO());
+        expect(result).to.deep.equal(expected);
     });
 
 });

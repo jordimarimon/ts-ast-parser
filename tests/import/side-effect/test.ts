@@ -3,7 +3,7 @@ import { getFixture } from '../../utils.js';
 
 
 const category = 'import';
-const subcategory = 'namespace';
+const subcategory = 'side-effect';
 const {actual, expected} = getFixture({category, subcategory, importedFiles: ['foo.ts']});
 
 describe(`${category}/${subcategory}`, () => {

@@ -1,0 +1,41 @@
+[
+    {
+        "path": "tests/import/side-effect/index.ts",
+        "imports": [
+            {
+                "kind": "SideEffect",
+                "importPath": "./foo.js"
+            }
+        ],
+        "exports": [],
+        "declarations": []
+    },
+    {
+        "path": "tests/import/side-effect/foo.ts",
+        "imports": [],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "Class",
+                "line": 1,
+                "properties": [
+                    {
+                        "name": "bar",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    }
+                ]
+            }
+        ]
+    }
+]
