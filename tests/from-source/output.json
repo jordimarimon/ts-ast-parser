@@ -1,0 +1,21 @@
+{
+    "path": "unknown.ts",
+    "imports": [],
+    "declarations": [
+        {
+            "kind": "Variable",
+            "name": "foo",
+            "line": 1,
+            "type": {
+                "text": "boolean"
+            },
+            "default": true
+        }
+    ],
+    "exports": [
+        {
+            "name": "foo",
+            "kind": "Named"
+        }
+    ]
+}
