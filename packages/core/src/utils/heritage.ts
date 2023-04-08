@@ -7,10 +7,27 @@ import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export function isCustomElement(_node: InterfaceOrClassDeclaration, _context: AnalyzerContext): boolean {
-    // TODO
+export function isCustomElement(node: InterfaceOrClassDeclaration, context: AnalyzerContext): boolean {
+    const type = context.checker.getTypeAtLocation(node);
+    const baseTypes = context.checker.getBaseTypes(type as ts.InterfaceType);
+
+    for (const baseType of baseTypes) {
+        if (hasHTMLElementAsBase(baseType, context.checker)) {
+            return true;
+        }
+    }
+
     return false;
+}
+
+export function hasHTMLElementAsBase(type: ts.Type, checker: ts.TypeChecker): boolean {
+    const name = type.getSymbol()?.getName();
+
+    if (name === 'HTMLElement') {
+        return true;
+    }
+
+    return checker.getBaseTypes(type as ts.InterfaceType).some(t => hasHTMLElementAsBase(t, checker));
 }
 
 export function getExtendClauseReferences(node: InterfaceOrClassDeclaration, context: AnalyzerContext): Reference[] {

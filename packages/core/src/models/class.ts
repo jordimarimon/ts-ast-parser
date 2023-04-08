@@ -1,11 +1,10 @@
+import { FunctionLike, FunctionSignature } from './function.js';
 import { DeclarationKind } from './declaration-kind.js';
 import { TypeParameter } from './type-parameter.js';
 import { MemberKind } from './member-kind.js';
 import { PropertyLike } from './property.js';
-import { FunctionLike } from './function.js';
 import { Reference } from './reference.js';
 import { Decorator } from './decorator.js';
-import { Parameter } from './parameter.js';
 import { JSDoc } from './js-doc.js';
 
 
@@ -32,11 +31,6 @@ export interface ClassMethod extends FunctionLike, ClassMemberLike {
     kind: MemberKind.Method;
 }
 
-export interface Constructor {
-    jsDoc?: JSDoc;
-    parameters?: readonly Parameter[];
-}
-
 export interface ClassDeclaration {
     name: string;
     line: number;
@@ -49,7 +43,8 @@ export interface ClassDeclaration {
     typeParameters?: readonly TypeParameter[];
     heritage?: readonly Reference[];
     decorators?: readonly Decorator[];
-    constructors?: readonly Constructor[];
+    constructors?: readonly FunctionSignature[];
     abstract?: boolean;
     namespace?: string;
+    customElement?: boolean;
 }

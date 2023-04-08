@@ -1,5 +1,5 @@
-import { ClassField, ClassMethod, Constructor } from './class.js';
 import { DeclarationKind } from './declaration-kind.js';
+import { ClassField, ClassMethod } from './class.js';
 import { FunctionSignature } from './function.js';
 import { Decorator } from './decorator.js';
 import { JSDoc } from './js-doc.js';
@@ -21,5 +21,5 @@ export interface MixinDeclaration {
     jsDoc?: JSDoc;
     properties?: readonly ClassField[];
     methods?: readonly ClassMethod[];
-    constructors?: readonly Constructor[];
+    constructors?: readonly FunctionSignature[];
 }

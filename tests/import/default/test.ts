@@ -9,7 +9,8 @@ const {actual, expected} = getFixture(category, subcategory, ['foo.ts']);
 describe(`${category}/${subcategory}`, () => {
 
     it('should reflect the expected AST', () => {
-        expect(actual.map(m => m.toPOJO())).to.deep.equal(expected);
+        const snapshot = actual.map(m => m.toPOJO());
+        expect(snapshot).to.deep.equal(expected);
     });
 
 });

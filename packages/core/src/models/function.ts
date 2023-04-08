@@ -1,5 +1,6 @@
 import { DeclarationKind } from './declaration-kind.js';
 import { TypeParameter } from './type-parameter.js';
+import { SourceReference } from './reference.js';
 import { Parameter } from './parameter.js';
 import { Decorator } from './decorator.js';
 import { JSDoc } from './js-doc.js';
@@ -11,7 +12,7 @@ export interface FunctionReturn {
 }
 
 export interface FunctionSignature {
-    line: number;
+    source?: SourceReference;
     parameters?: readonly Parameter[];
     typeParameters?: readonly TypeParameter[];
     return: FunctionReturn;
@@ -20,7 +21,6 @@ export interface FunctionSignature {
 
 export interface FunctionLike {
     name: string;
-    line: number;
     signatures: readonly FunctionSignature[];
     namespace?: string;
     async?: boolean;

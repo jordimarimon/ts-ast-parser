@@ -1,8 +1,9 @@
 import { getInstanceMembers, getStaticMembers, isAbstract } from '../utils/member.js';
 import { getExtendClauseReferences, isCustomElement } from '../utils/heritage.js';
+import { ClassDeclaration, ClassMethod, ModifierType } from '../models/class.js';
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
-import { ClassDeclaration, ModifierType } from '../models/class.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
+import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { DeclarationNode } from './declaration-node.js';
@@ -82,8 +83,17 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         const symbol = checker.getTypeAtLocation(this._node).getSymbol();
         const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, this._node);
         const signatures = type?.getConstructSignatures() ?? [];
+        const result: SignatureNode[] = [];
 
-        return signatures.map(s => new SignatureNode(s, this._context));
+        for (const signature of signatures) {
+            const node = new SignatureNode(signature, this._context);
+
+            if (node.getPath()) {
+                result.push(node);
+            }
+        }
+
+        return result;
     }
 
     getProperties(): PropertyNode[] {
@@ -132,6 +142,19 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             kind: this.getKind(),
             line: this.getLine(),
         };
+
+        tryAddProperty(tmpl, 'constructors', this.getConstructors().map(c => c.toPOJO()));
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.toPOJO()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.toPOJO()));
+        tryAddProperty(tmpl, 'heritage', this.getHeritage());
+        tryAddProperty(tmpl, 'abstract', this.isAbstract());
+        tryAddProperty(tmpl, 'customElement', this.isCustomElement());
+        tryAddProperty(tmpl, 'namespace', this.getNamespace());
+        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.toPOJO()));
+        tryAddProperty(tmpl, 'staticProperties', this.getStaticProperties().map(p => p.toPOJO()));
+        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.toPOJO()) as ClassMethod[]);
+        tryAddProperty(tmpl, 'staticMethods', this.getStaticMethods().map(m => m.toPOJO()) as ClassMethod[]);
 
         return tmpl;
     }

@@ -1,7 +1,8 @@
+import { InterfaceDeclaration, InterfaceMethod } from '../models/interface.js';
 import { getExtendClauseReferences } from '../utils/heritage.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { IndexSignatureNode } from './index-signature-node.js';
-import { InterfaceDeclaration } from '../models/interface.js';
+import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getSymbolAtLocation } from '../utils/symbol.js';
@@ -141,6 +142,14 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
             kind: this.getKind(),
             line: this.getLine(),
         };
+
+        tryAddProperty(tmpl, 'heritage', this.getHeritage());
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.toPOJO()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
+        tryAddProperty(tmpl, 'namespace', this.getNamespace());
+        tryAddProperty(tmpl, 'indexSignature', this.getIndexSignature()?.toPOJO());
+        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.toPOJO()));
+        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.toPOJO()) as InterfaceMethod[]);
 
         return tmpl;
     }

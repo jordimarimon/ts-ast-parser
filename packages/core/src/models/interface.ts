@@ -24,13 +24,13 @@ export interface InterfaceDeclaration {
     name: string;
     line: number;
     kind: DeclarationKind.Interface;
-    properties?: ClassField[];
-    staticProperties?: ClassField[];
-    indexSignatures?: IndexSignature[];
-    methods?: InterfaceMethod[];
-    staticMethods?: InterfaceMethod[];
+    properties?: readonly ClassField[];
+    staticProperties?: readonly ClassField[];
+    indexSignature?: IndexSignature;
+    methods?: readonly InterfaceMethod[];
+    staticMethods?: readonly InterfaceMethod[];
     jsDoc?: JSDoc;
-    typeParameters?: TypeParameter[];
-    heritage?: Reference[];
+    typeParameters?: readonly TypeParameter[];
+    heritage?: readonly Reference[];
     namespace?: string;
 }

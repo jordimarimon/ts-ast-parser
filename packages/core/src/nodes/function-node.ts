@@ -182,7 +182,6 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Class
         const tmpl: FunctionDeclaration | ClassMethod | InterfaceMethod = {
             name: this.getName(),
             kind: this.getKind(),
-            line: this.getLine(),
             signatures: this.getSignatures().map(signature => signature.toPOJO()),
         };
 
