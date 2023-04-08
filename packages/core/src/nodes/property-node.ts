@@ -77,13 +77,13 @@ export class PropertyNode implements ReflectedNode<ClassField, PropertyLikeNode>
     }
 
     getType(): Type {
-        const jsDocType = this.getJSDoc().getJSDocTag(JSDocTagName.type)?.getValue<string>() ?? '';
+        const jsDocType = this.getJSDoc().getTag(JSDocTagName.type)?.getValue<string>() ?? '';
 
         return jsDocType ? {text: jsDocType} : getTypeFromTSType(this._member.type, this._context);
     }
 
     getDefault(): unknown {
-        const jsDocDefaultValue = this.getJSDoc().getJSDocTag(JSDocTagName.default)?.getValue<string>() ?? '';
+        const jsDocDefaultValue = this.getJSDoc().getTag(JSDocTagName.default)?.getValue<string>() ?? '';
         const [getter, setter] = this._getAccessors();
 
         if (jsDocDefaultValue) {
@@ -156,7 +156,7 @@ export class PropertyNode implements ReflectedNode<ClassField, PropertyLikeNode>
     }
 
     isReadOnly(): boolean {
-        const readOnlyTag = !!this.getJSDoc().getJSDocTag(JSDocTagName.readonly)?.getValue();
+        const readOnlyTag = !!this.getJSDoc().getTag(JSDocTagName.readonly)?.getValue();
         const [getter, setter] = this._getAccessors();
 
         return readOnlyTag || (!!getter && !setter) || isReadOnly(this._node);

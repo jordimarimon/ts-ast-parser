@@ -1,1 +1,24 @@
-
+[
+    {
+        "path": "tests/export/renamed/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Variable",
+                "name": "foo",
+                "line": 1,
+                "type": {
+                    "text": "number"
+                },
+                "default": 4
+            }
+        ],
+        "exports": [
+            {
+                "name": "bar",
+                "kind": "Named",
+                "originalName": "foo"
+            }
+        ]
+    }
+]

@@ -59,7 +59,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
     }
 
     getType(): Type {
-        const jsDocType = this.getJSDoc().getJSDocTag(JSDocTagName.type)?.getValue<string>() ?? '';
+        const jsDocType = this.getJSDoc().getTag(JSDocTagName.type)?.getValue<string>() ?? '';
 
         return jsDocType
             ? {text: jsDocType}
@@ -67,7 +67,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
     }
 
     getDefault(): unknown {
-        const jsDocDefaultValue = this.getJSDoc().getJSDocTag(JSDocTagName.default)?.getValue<string>();
+        const jsDocDefaultValue = this.getJSDoc().getTag(JSDocTagName.default)?.getValue<string>();
 
         return jsDocDefaultValue ?? resolveExpression(this._declaration.initializer, this._context.checker);
     }

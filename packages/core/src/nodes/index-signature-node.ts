@@ -59,7 +59,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
     }
 
     getType(): Type {
-        const jsDocType = this.getJSDoc().getJSDocTag(JSDocTagName.type)?.getValue<string>();
+        const jsDocType = this.getJSDoc().getTag(JSDocTagName.type)?.getValue<string>();
 
         return {
             text: jsDocType || this._node.type?.getText() || '',

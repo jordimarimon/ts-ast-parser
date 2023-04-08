@@ -49,7 +49,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
     }
 
     getType(): Type {
-        const jsDocType = this.getJSDoc().getJSDocTag(JSDocTagName.type)?.getValue<string>() ?? '';
+        const jsDocType = this.getJSDoc().getTag(JSDocTagName.type)?.getValue<string>() ?? '';
         const checker = this._context.checker;
 
         if (jsDocType) {

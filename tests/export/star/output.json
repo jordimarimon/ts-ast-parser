@@ -1,1 +1,35 @@
-
+[
+    {
+        "path": "tests/export/star/index.ts",
+        "imports": [],
+        "declarations": [],
+        "exports": [
+            {
+                "name": "*",
+                "kind": "Star",
+                "module": "'./foo.js'"
+            }
+        ]
+    },
+    {
+        "path": "tests/export/star/foo.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Variable",
+                "line": 1,
+                "name": "foo",
+                "type": {
+                    "text": "number"
+                },
+                "default": 4
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

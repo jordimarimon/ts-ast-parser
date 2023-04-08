@@ -27,6 +27,7 @@ export * from './models/type-parameter.js';
 export * from './models/variable.js';
 
 // NODES
+export * from './nodes/class-node.js';
 export * from './nodes/declaration-node.js';
 export * from './nodes/decorator-node.js';
 export * from './nodes/default-import-node.js';
@@ -36,6 +37,7 @@ export * from './nodes/export-assignment-node.js';
 export * from './nodes/export-declaration-node.js';
 export * from './nodes/function-node.js';
 export * from './nodes/index-signature-node.js';
+export * from './nodes/interface-node.js';
 export * from './nodes/jsdoc-node.js';
 export * from './nodes/jsdoc-value-node.js';
 export * from './nodes/module-node.js';

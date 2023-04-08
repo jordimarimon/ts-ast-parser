@@ -1,1 +1,30 @@
-
+[
+    {
+        "path": "tests/export/type/index.ts",
+        "imports": [],
+        "exports": [
+            {
+                "name": "TypeA",
+                "kind": "Named",
+                "isTypeOnly": true
+            }
+        ],
+        "declarations": [
+            {
+                "name": "TypeA",
+                "kind": "Interface",
+                "line": 1,
+                "properties": [
+                    {
+                        "name": "foo",
+                        "kind": "Property",
+                        "line": 2,
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ]
+            }
+        ]
+    }
+]

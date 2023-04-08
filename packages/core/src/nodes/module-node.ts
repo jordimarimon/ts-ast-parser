@@ -74,7 +74,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     getDeclarationsByCategory(category: string): DeclarationNode[] {
         return this.getDeclarations().filter(decl => {
-            return decl.getJSDoc().getJSDocTag(JSDocTagName.category)?.getValue<string>() === category;
+            return decl.getJSDoc().getTag(JSDocTagName.category)?.getValue<string>() === category;
         });
     }
 

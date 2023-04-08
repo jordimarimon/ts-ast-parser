@@ -1,4 +1,4 @@
-import { JSDoc, JSDocTagName, JSDocTagValue } from '../models/js-doc.js';
+import { JSDoc, JSDocTagName } from '../models/js-doc.js';
 import { JSDocValueNode } from './jsdoc-value-node.js';
 import { getAllJSDoc } from '../utils/js-doc.js';
 import ts from 'typescript';
@@ -6,30 +6,49 @@ import ts from 'typescript';
 
 export class JSDocNode {
 
-    private readonly _jsDoc: {[key: string]: JSDocValueNode} = {};
+    // There could be more than one JSDoc tag with the same name.
+    // For example the `@param` tag can be used multiple times.
+    private readonly _jsDoc: {[key: string]: JSDocValueNode[]} = {};
 
     constructor(node: ts.Node) {
         getAllJSDoc(node).forEach(tag => {
-            this._jsDoc[tag.kind] = new JSDocValueNode(tag.value as JSDocTagValue);
+            if (this._jsDoc[tag.kind] === undefined) {
+                this._jsDoc[tag.kind] = [];
+            }
+
+            this._jsDoc[tag.kind].push(new JSDocValueNode(tag.value));
         });
     }
 
-    hasJSDocTag(name: string): boolean {
+    hasTag(name: string): boolean {
         return this._jsDoc[name] !== undefined;
     }
 
-    getJSDocTag(name: string): JSDocValueNode | undefined {
-        return this._jsDoc[name];
+    /**
+     * Returns the first JSDoc tag with the given name.
+     *
+     * @param name - The name of the JSDoc tag.
+     *
+     * @returns The first JSDoc tag with the given name or `undefined` if no such tag exists.
+     */
+    getTag(name: string): JSDocValueNode | undefined {
+        return this._jsDoc[name]?.[0];
+    }
+
+    getAllTags(name: string): JSDocValueNode[] {
+        return this._jsDoc[name] ?? [];
     }
 
     isIgnored(): boolean {
-        return this.hasJSDocTag(JSDocTagName.ignore) ||
-            this.hasJSDocTag(JSDocTagName.internal) ||
-            this.hasJSDocTag(JSDocTagName.private);
+        return this.hasTag(JSDocTagName.ignore) ||
+            this.hasTag(JSDocTagName.internal) ||
+            this.hasTag(JSDocTagName.private);
     }
 
     toPOJO(): JSDoc {
-        return Object.entries(this._jsDoc).map(([kind, value]) => ({kind, value: value.toPOJO()}));
+        return Object.entries(this._jsDoc).flatMap(([kind, value]) => {
+            return value.map(v => ({ kind, value: v.toPOJO() }));
+        });
     }
 
 }
