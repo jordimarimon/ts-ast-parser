@@ -29,6 +29,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         this._visitNode(node);
 
         this._removeDuplicatedExports();
+        this._removeDuplicatedDeclarations();
         this._removeNonPublicDeclarations();
     }
 
@@ -74,7 +75,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     getDeclarationsByCategory(category: string): DeclarationNode[] {
         return this.getDeclarations().filter(decl => {
-            return decl.getJSDoc().getTag(JSDocTagName.category)?.getValue<string>() === category;
+            return decl.getJSDoc()?.getTag(JSDocTagName.category)?.getValue<string>() === category;
         });
     }
 
@@ -119,7 +120,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         this._declarations = this._declarations.filter(decl => {
             // If the export has an "AS" keyword, we need to use the "originalName"
             const index = this._exports.findIndex(exp => exp.getOriginalName() === decl.getName());
-            const isIgnored = decl.getJSDoc().isIgnored();
+            const isIgnored = !!decl.getJSDoc()?.isIgnored();
 
             if (index === -1) {
                 return false;
@@ -139,6 +140,14 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
             return index === exports.findIndex(e => {
                 return e.getName() === value.getName() && e.getKind() === value.getKind();
             });
+        });
+    }
+
+    private _removeDuplicatedDeclarations(): void {
+        this._declarations = this._declarations.filter((value, index, declarations) => {
+            // If there is already a declaration that has been declared before with the same name
+            // ignore the one that has been defined last.
+            return !declarations.some((d, i) => d.getName() === value.getName() && i < index);
         });
     }
 

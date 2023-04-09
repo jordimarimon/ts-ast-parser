@@ -132,7 +132,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
             name: binding.name?.getText() || '',
         };
 
-        tryAddProperty(tmpl, 'value', resolveExpression(binding?.initializer, this._context.checker));
+        tryAddProperty(tmpl, 'default', resolveExpression(binding?.initializer, this._context.checker));
 
         return tmpl;
     }

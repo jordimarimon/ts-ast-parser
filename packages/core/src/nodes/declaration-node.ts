@@ -18,7 +18,7 @@ export interface DeclarationNode<Model extends object = Declaration, TSNode exte
     /**
      * Returns the JSDoc comments attached to this declaration.
      */
-    getJSDoc(): JSDocNode;
+    getJSDoc(): JSDocNode | null;
 
     /**
      * Returns the type of Node.

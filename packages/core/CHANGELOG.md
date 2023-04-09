@@ -18,6 +18,7 @@
   `methods` and `staticMethods`. 
 * The package `@ts-ast-parser/readers` has been deleted. There is no need for this packages as know all the 
   functionalities are already included in the package `@ts-ast-parser/core`.
+* The field `value` in a `NamedParameter` has been changed to `default`.
 
 # [0.2.0](https://github.com/jordimarimon/ts-ast-parser/compare/0.1.0...0.2.0) (2022-12-25)
 

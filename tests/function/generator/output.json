@@ -1,0 +1,29 @@
+[
+    {
+        "path": "tests/function/generator/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Function",
+                "name": "foo",
+                "signatures": [
+                    {
+                        "line": 2,
+                        "return": {
+                            "type": {
+                                "text": "Generator<number, string, unknown>"
+                            }
+                        }
+                    }
+                ],
+                "generator": true
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

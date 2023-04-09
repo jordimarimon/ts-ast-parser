@@ -1,0 +1,68 @@
+[
+    {
+        "path": "tests/function/overload/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Function",
+                "name": "add",
+                "signatures": [
+                    {
+                        "line": 1,
+                        "return": {
+                            "type": {
+                                "text": "string"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "a",
+                                "line": 1,
+                                "type": {
+                                    "text": "string"
+                                }
+                            },
+                            {
+                                "name": "b",
+                                "line": 1,
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "line": 2,
+                        "return": {
+                            "type": {
+                                "text": "string"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "a",
+                                "line": 2,
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "b",
+                                "line": 2,
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "add",
+                "kind": "Named"
+            }
+        ]
+    }
+]

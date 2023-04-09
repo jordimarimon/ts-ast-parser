@@ -1,0 +1,40 @@
+[
+    {
+        "path": "tests/function/async/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Function",
+                "name": "sleep",
+                "signatures": [
+                    {
+                        "line": 2,
+                        "return": {
+                            "type": {
+                                "text": "Promise<void>"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "amount",
+                                "line": 2,
+                                "type": {
+                                    "text": "number"
+                                },
+                                "optional": true,
+                                "default": 500
+                            }
+                        ]
+                    }
+                ],
+                "async": true
+            }
+        ],
+        "exports": [
+            {
+                "name": "sleep",
+                "kind": "Named"
+            }
+        ]
+    }
+]

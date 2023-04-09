@@ -1,0 +1,54 @@
+[
+    {
+        "path": "tests/function/named-parameters/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Function",
+                "name": "foo",
+                "signatures": [
+                    {
+                        "line": 8,
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "__namedParameter",
+                                "named": true,
+                                "line": 8,
+                                "type": {
+                                    "text": "NamedParameters"
+                                },
+                                "elements": [
+                                    {
+                                        "name": "a"
+                                    },
+                                    {
+                                        "name": "b"
+                                    },
+                                    {
+                                        "name": "c",
+                                        "default": 0
+                                    },
+                                    {
+                                        "name": "d",
+                                        "default": 1
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

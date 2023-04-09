@@ -9,5 +9,5 @@ export interface Parameter extends PropertyLike {
 
 export interface NamedParameterElement {
     name: string;
-    value?: unknown;
+    default?: unknown;
 }

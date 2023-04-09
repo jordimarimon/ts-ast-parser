@@ -1,0 +1,55 @@
+[
+    {
+        "path": "tests/function/arrow/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Function",
+                "name": "sum",
+                "signatures": [
+                    {
+                        "line": 8,
+                        "return": {
+                            "type": {
+                                "text": "number"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "list",
+                                "line": 8,
+                                "type": {
+                                    "text": "number[]"
+                                },
+                                "rest": true
+                            }
+                        ]
+                    }
+                ],
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "Function that sums all the numbers in a list."
+                    },
+                    {
+                        "kind": "param",
+                        "value": {
+                            "name": "list",
+                            "description": "The list of numbers to sum"
+                        }
+                    },
+                    {
+                        "kind": "returns",
+                        "value": "The sum of all the numbers."
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "sum",
+                "kind": "Named"
+            }
+        ]
+    }
+]

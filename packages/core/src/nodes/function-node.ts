@@ -82,8 +82,18 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         return getNamespace(this._node);
     }
 
-    getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node);
+    getJSDoc(): JSDocNode | null {
+        // Function/Method declarations have the JSDoc in the signature also.
+        // We don't want to emit it twice in these cases.
+        if (
+            ts.isVariableStatement(this._node) ||
+            ts.isPropertyDeclaration(this._node) ||
+            ts.isPropertySignature(this._node)
+        ) {
+            return new JSDocNode(this._node);
+        }
+
+        return null;
     }
 
     getDecorators(): DecoratorNode[] {
@@ -98,8 +108,12 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         const func = this._getFunctionNode();
         const checker = this._context.checker;
 
+        // For methods in classes or interfaces as we need the context
+        // of the implementation (type parameters resolved). That's why we use
+        // the type provided by the class/interface member.
         let funcType: ts.Type | null | undefined = this._member?.type;
 
+        // When it's not a method or a property in a class or interface
         if (!funcType) {
             const symbol = func && getSymbolAtLocation(func, this._context.checker);
             funcType = func && symbol && checker?.getTypeOfSymbolAtLocation(symbol, func.getSourceFile());
@@ -111,12 +125,8 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
             return signature ? [new SignatureNode(signature, this._context)] : [];
         }
 
-        // FIXME(Jordi M.): It doesn't return the signature that has the implementation
-        //  of the method/function body when there is overloading.
-        //  We could do something like:
-        //          symbol.getDeclarations().map(d => checker.getSignatureFromDeclaration(d))
-        //  but this won't work for methods in classes or interfaces as we need the context
-        //  of the implementation (type parameters resolved).
+        // It doesn't return the signature that has the implementation
+        // of the method/function body when there is overloading.
         return funcType.getNonNullableType().getCallSignatures().map(signature => {
             return new SignatureNode(signature, this._context);
         });
@@ -147,7 +157,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
     }
 
     isOptional(): boolean {
-        return !!this._member && isOptional(this._member.symbol);
+        return isOptional(this._member?.symbol);
     }
 
     isStatic(): boolean {
@@ -178,7 +188,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         };
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc()?.toPOJO());
         tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.toPOJO()));
         tryAddProperty(tmpl, 'async', this.isAsync());
         tryAddProperty(tmpl, 'generator', this.isGenerator());
