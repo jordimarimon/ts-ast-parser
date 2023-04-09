@@ -1,44 +1,20 @@
-import { FunctionLike, FunctionSignature } from './function.js';
 import { DeclarationKind } from './declaration-kind.js';
 import { TypeParameter } from './type-parameter.js';
-import { MemberKind } from './member-kind.js';
-import { PropertyLike } from './property.js';
+import { FunctionSignature } from './function.js';
+import { Field, Method } from './member.js';
 import { Reference } from './reference.js';
 import { Decorator } from './decorator.js';
 import { JSDoc } from './js-doc.js';
 
 
-export enum ModifierType {
-    public = 'public',
-    private = 'private',
-    protected = 'protected',
-}
-
-export interface ClassMemberLike {
-    static?: boolean;
-    readOnly?: boolean;
-    abstract?: boolean;
-    override?: boolean;
-    inherited?: boolean;
-}
-
-export interface ClassField extends PropertyLike, ClassMemberLike {
-    kind: MemberKind.Property;
-    writeOnly?: boolean;
-}
-
-export interface ClassMethod extends FunctionLike, ClassMemberLike {
-    kind: MemberKind.Method;
-}
-
 export interface ClassDeclaration {
     name: string;
     line: number;
     kind: DeclarationKind.Class;
-    properties?: readonly ClassField[];
-    staticProperties?: readonly ClassField[];
-    methods?: readonly ClassMethod[];
-    staticMethods?: readonly ClassMethod[];
+    properties?: readonly Field[];
+    staticProperties?: readonly Field[];
+    methods?: readonly Method[];
+    staticMethods?: readonly Method[];
     jsDoc?: JSDoc;
     typeParameters?: readonly TypeParameter[];
     heritage?: readonly Reference[];

@@ -4,6 +4,7 @@ import { tryAddProperty } from './try-add-property.js';
 import { InterfaceOrClassDeclaration } from './is.js';
 import { getLocation } from './get-location.js';
 import { AnalyzerContext } from '../context.js';
+import { hasFlag } from './member.js';
 import ts from 'typescript';
 
 
@@ -64,9 +65,7 @@ export function createReference(type: ts.ExpressionWithTypeArguments, context: A
     let name = expr.escapedText ?? '';
 
     if (typeArguments) {
-        const argNames = getTypeArgumentNames(typeArguments);
-
-        name += `<${argNames.join(', ')}>`;
+        name += `<${getTypeArgumentNames(typeArguments).join(', ')}>`;
     }
 
     const sourceRef: SourceReference = {};
@@ -93,9 +92,7 @@ function getTypeArgumentNames(typeArguments: ts.NodeArray<ts.TypeNode> | ts.Type
             name = typeArgument.typeName.getText() ?? '';
 
             if (typeArgument.typeArguments) {
-                const argNames = getTypeArgumentNames(typeArgument.typeArguments);
-
-                name += `<${argNames.join(', ')}>`;
+                name += `<${getTypeArgumentNames(typeArgument.typeArguments).join(', ')}>`;
             }
         } else {
             name += typeArgument.getText();
@@ -112,5 +109,5 @@ function getInterfaceOrClassSymbolKind(symbol: ts.Symbol | undefined): Declarati
         return null;
     }
 
-    return ts.SymbolFlags.Class & symbol.flags ? DeclarationKind.Class : DeclarationKind.Interface;
+    return hasFlag(symbol.flags, ts.SymbolFlags.Class) ? DeclarationKind.Class : DeclarationKind.Interface;
 }

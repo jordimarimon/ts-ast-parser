@@ -1,6 +1,6 @@
 import { ClassLikeNode, InterfaceOrClassDeclaration, SymbolWithContext } from './is.js';
+import { ModifierType } from '../models/member.js';
 import { getSymbolAtLocation } from './symbol.js';
-import { ModifierType } from '../models/class.js';
 import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
@@ -68,8 +68,8 @@ export function createSymbolsWithContext(
         const isDeclFromThisNode = members.some(memberName => memberName === propSymbol.getName());
 
         result.push({
-            symbol: propSymbol,
             inherited,
+            symbol: propSymbol,
             type: propType,
             overrides: isOverride(decl) || (inherited && isDeclFromThisNode),
         });
@@ -97,24 +97,49 @@ export function isInherited(
     });
 }
 
-export function isReadOnly(member: ts.Declaration | undefined): boolean {
-    return !!member && hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Readonly);
+export function isMember(node: ts.Node | undefined): node is ts.Declaration {
+    if (!node) {
+        return false;
+    }
+
+    return ts.isMethodSignature(node) || ts.isPropertySignature(node) ||
+        ts.isPropertyDeclaration(node) || ts.isMethodDeclaration(node);
 }
 
-export function isOverride(member: ts.Declaration | undefined): boolean {
-    return !!member && hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Override);
+export function isReadOnly(member: ts.Node | undefined): boolean {
+    if (!isMember(member)) {
+        return false;
+    }
+
+    return hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Readonly);
+}
+
+export function isOverride(member: ts.Node | undefined): boolean {
+    if (!isMember(member)) {
+        return false;
+    }
+
+    return hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Override);
 }
 
 export function isOptional(symbol: ts.Symbol | undefined): boolean {
     return !!symbol && hasFlag(symbol.flags, ts.SymbolFlags.Optional);
 }
 
-export function isStatic(member: ts.Declaration | undefined): boolean {
-    return !!member && hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Static);
+export function isStatic(member: ts.Node | undefined): boolean {
+    if (!isMember(member)) {
+        return false;
+    }
+
+    return hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Static);
 }
 
-export function isAbstract(member: ts.Declaration | undefined): boolean {
-    return !!member && hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Abstract);
+export function isAbstract(member: ts.Node | undefined): boolean {
+    if (!isMember(member)) {
+        return false;
+    }
+
+    return hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Abstract);
 }
 
 export function hasFlag(flags: number, flagToCheck: number): boolean {

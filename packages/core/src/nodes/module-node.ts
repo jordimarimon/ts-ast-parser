@@ -82,24 +82,19 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         return {
             path: this.getPath(),
             imports: this.getImports().map(imp => imp.toPOJO()),
-            exports: this.getExports().map(exp => exp.toPOJO()),
             declarations: this.getDeclarations().map(dec => dec.toPOJO()),
+            exports: this.getExports().map(exp => exp.toPOJO()),
         };
     }
 
     private _visitNode(rootNode: ts.Node | ts.SourceFile): void {
-        let isFactoryFound = false;
-
         for (const factory of factories) {
             if (factory.isNode(rootNode)) {
-                isFactoryFound = true;
                 this._add(factory.create(rootNode, this._context));
             }
         }
 
-        if (!isFactoryFound) {
-            ts.forEachChild(rootNode, node => this._visitNode(node));
-        }
+        ts.forEachChild(rootNode, node => this._visitNode(node));
     }
 
     private _add(reflectedNodes: ReflectedNode[]): void {

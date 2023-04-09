@@ -1,6 +1,6 @@
 import { DeclarationKind } from './declaration-kind.js';
-import { ClassField, ClassMethod } from './class.js';
 import { FunctionSignature } from './function.js';
+import { Field, Method } from './member.js';
 import { Decorator } from './decorator.js';
 import { JSDoc } from './js-doc.js';
 import ts from 'typescript';
@@ -16,10 +16,9 @@ export interface MixinDeclaration {
     kind: DeclarationKind.Mixin;
     signatures: readonly FunctionSignature[];
     namespace?: string;
-    async?: boolean;
     decorators?: readonly Decorator[];
     jsDoc?: JSDoc;
-    properties?: readonly ClassField[];
-    methods?: readonly ClassMethod[];
+    properties?: readonly Field[];
+    methods?: readonly Method[];
     constructors?: readonly FunctionSignature[];
 }

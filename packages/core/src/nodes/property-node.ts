@@ -2,9 +2,9 @@ import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } f
 import { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { ClassField, ModifierType } from '../models/class.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getReturnStatement } from '../utils/function.js';
+import { Field, ModifierType } from '../models/member.js';
 import { getTypeFromTSType } from '../utils/get-type.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
@@ -18,7 +18,7 @@ import { Type } from '../models/type.js';
 import ts from 'typescript';
 
 
-export class PropertyNode implements ReflectedNode<ClassField, PropertyLikeNode> {
+export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
 
     private readonly _node: PropertyLikeNode;
 
@@ -156,7 +156,7 @@ export class PropertyNode implements ReflectedNode<ClassField, PropertyLikeNode>
     }
 
     isReadOnly(): boolean {
-        const readOnlyTag = !!this.getJSDoc().getTag(JSDocTagName.readonly)?.getValue();
+        const readOnlyTag = !!this.getJSDoc().getTag(JSDocTagName.readonly)?.getValue<boolean>();
         const [getter, setter] = this._getAccessors();
 
         return readOnlyTag || (!!getter && !setter) || isReadOnly(this._node);
@@ -180,8 +180,8 @@ export class PropertyNode implements ReflectedNode<ClassField, PropertyLikeNode>
         return !!this._member.overrides;
     }
 
-    toPOJO(): ClassField {
-        const tmpl: ClassField = {
+    toPOJO(): Field {
+        const tmpl: Field = {
             name: this.getName(),
             line: this.getLine(),
             kind: this.getKind(),

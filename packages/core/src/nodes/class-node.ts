@@ -1,12 +1,13 @@
 import { getInstanceMembers, getStaticMembers, isAbstract } from '../utils/member.js';
 import { getExtendClauseReferences, isCustomElement } from '../utils/heritage.js';
-import { ClassDeclaration, ClassMethod, ModifierType } from '../models/class.js';
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
+import { Method, ModifierType } from '../models/member.js';
 import { DeclarationNode } from './declaration-node.js';
+import { ClassDeclaration } from '../models/class.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
 import { SignatureNode } from './signature-node.js';
@@ -159,8 +160,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
         tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.toPOJO()));
         tryAddProperty(tmpl, 'staticProperties', this.getStaticProperties().map(p => p.toPOJO()));
-        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.toPOJO()) as ClassMethod[]);
-        tryAddProperty(tmpl, 'staticMethods', this.getStaticMethods().map(m => m.toPOJO()) as ClassMethod[]);
+        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.toPOJO()) as Method[]);
+        tryAddProperty(tmpl, 'staticMethods', this.getStaticMethods().map(m => m.toPOJO()) as Method[]);
 
         return tmpl;
     }
