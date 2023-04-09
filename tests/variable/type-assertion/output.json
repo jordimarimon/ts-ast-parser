@@ -1,0 +1,62 @@
+[
+    {
+        "path": "tests/variable/type-assertion/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Variable",
+                "name": "code",
+                "line": 1,
+                "type": {
+                    "text": "unknown"
+                },
+                "default": 123
+            },
+            {
+                "kind": "Variable",
+                "name": "code2",
+                "line": 2,
+                "type": {
+                    "text": "number"
+                },
+                "default": 123
+            },
+            {
+                "kind": "Variable",
+                "name": "code3",
+                "line": 3,
+                "type": {
+                    "text": "number"
+                },
+                "default": 123
+            },
+            {
+                "kind": "Variable",
+                "name": "x",
+                "line": 4,
+                "type": {
+                    "text": "readonly [4, 5]"
+                },
+                "default": "[4, 5]"
+            }
+        ],
+        "exports": [
+            {
+                "name": "code",
+                "kind": "Named"
+            },
+            {
+                "name": "code2",
+                "kind": "Named"
+            },
+            {
+                "name": "code3",
+                "kind": "Named"
+            },
+            {
+                "name": "x",
+                "kind": "Named"
+            }
+        ]
+    }
+]

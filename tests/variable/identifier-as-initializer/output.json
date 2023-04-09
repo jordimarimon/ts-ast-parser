@@ -1,0 +1,114 @@
+[
+    {
+        "path": "tests/variable/identifier-as-initializer/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Variable",
+                "name": "foo",
+                "line": 1,
+                "type": {
+                    "text": "number"
+                },
+                "default": 3
+            },
+            {
+                "kind": "Variable",
+                "name": "bar",
+                "line": 2,
+                "type": {
+                    "text": "number"
+                },
+                "default": 3
+            },
+            {
+                "kind": "Variable",
+                "name": "bar2",
+                "line": 3,
+                "type": {
+                    "text": "number"
+                },
+                "default": 3
+            },
+            {
+                "kind": "Variable",
+                "name": "str",
+                "line": 4,
+                "type": {
+                    "text": "string"
+                },
+                "default": "'Hello'"
+            },
+            {
+                "kind": "Variable",
+                "name": "num",
+                "line": 5,
+                "type": {
+                    "text": "number"
+                },
+                "default": 4
+            },
+            {
+                "kind": "Variable",
+                "name": "bool",
+                "line": 6,
+                "type": {
+                    "text": "boolean"
+                },
+                "default": false
+            },
+            {
+                "kind": "Variable",
+                "name": "obj",
+                "line": 7,
+                "type": {
+                    "text": "{ x: number; }"
+                },
+                "default": "{x: 3}"
+            },
+            {
+                "kind": "Variable",
+                "name": "arr",
+                "line": 8,
+                "type": {
+                    "text": "number[]"
+                },
+                "default": "[3]"
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            },
+            {
+                "name": "bar",
+                "kind": "Named"
+            },
+            {
+                "name": "bar2",
+                "kind": "Named"
+            },
+            {
+                "name": "str",
+                "kind": "Named"
+            },
+            {
+                "name": "num",
+                "kind": "Named"
+            },
+            {
+                "name": "bool",
+                "kind": "Named"
+            },
+            {
+                "name": "obj",
+                "kind": "Named"
+            },
+            {
+                "name": "arr",
+                "kind": "Named"
+            }
+        ]
+    }
+]

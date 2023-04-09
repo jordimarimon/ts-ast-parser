@@ -1,0 +1,50 @@
+[
+    {
+        "path": "tests/variable/imported-initializer/index.ts",
+        "imports": [
+            {
+                "name": "foo",
+                "kind": "Named",
+                "importPath": "./foo.js"
+            }
+        ],
+        "declarations": [
+            {
+                "kind": "Variable",
+                "name": "bar",
+                "line": 4,
+                "type": {
+                    "text": "number"
+                },
+                "default": 4
+            }
+        ],
+        "exports": [
+            {
+                "name": "bar",
+                "kind": "Named"
+            }
+        ]
+    },
+    {
+        "path": "tests/variable/imported-initializer/foo.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Variable",
+                "name": "foo",
+                "line": 1,
+                "type": {
+                    "text": "number"
+                },
+                "default": 4
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

@@ -5,6 +5,7 @@
 ### Bug Fixes
 
 * Reflect imports with side effects (example: `import './foo.js'`)
+* Imports with different kinds weren't reflected correctly (example: `import Foo, { bar } from './foo'`)
 
 ### 🚨 Breaking Changes
 

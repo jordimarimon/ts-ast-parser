@@ -1,0 +1,23 @@
+[
+    {
+        "path": "tests/variable/basic/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Variable",
+                "line": 2,
+                "name": "foo",
+                "type": {
+                    "text": "number"
+                },
+                "default": "bar + 3"
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

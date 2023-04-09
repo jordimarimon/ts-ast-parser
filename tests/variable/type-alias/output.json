@@ -1,0 +1,23 @@
+[
+    {
+        "path": "tests/variable/type-alias/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Variable",
+                "name": "name",
+                "line": 5,
+                "type": {
+                    "text": "string"
+                },
+                "default": "'John Doe'"
+            }
+        ],
+        "exports": [
+            {
+                "name": "name",
+                "kind": "Named"
+            }
+        ]
+    }
+]

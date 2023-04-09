@@ -1,0 +1,74 @@
+[
+    {
+        "path": "tests/import/multiple/index.ts",
+        "imports": [
+            {
+                "name": "Foo",
+                "kind": "Default",
+                "importPath": "./foo.js"
+            },
+            {
+                "name": "bar",
+                "kind": "Named",
+                "importPath": "./foo.js"
+            }
+        ],
+        "declarations": [],
+        "exports": []
+    },
+    {
+        "path": "tests/import/multiple/foo.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "Class",
+                "line": 1,
+                "methods": [
+                    {
+                        "name": "log",
+                        "kind": "Method",
+                        "signatures": [
+                            {
+                                "line": 3,
+                                "return": {
+                                    "type": {
+                                        "text": "void"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "type": {
+                                            "text": "number"
+                                        },
+                                        "line": 3
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "bar",
+                "kind": "Variable",
+                "line": 11,
+                "type": {
+                    "text": "number"
+                },
+                "default": 5
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Default"
+            },
+            {
+                "name": "bar",
+                "kind": "Named"
+            }
+        ]
+    }
+]

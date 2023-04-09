@@ -1,0 +1,145 @@
+[
+    {
+        "path": "tests/variable/complex-types/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "TypeArray",
+                "line": 10,
+                "kind": "TypeAlias",
+                "value": "TypeX[]"
+            },
+            {
+                "kind": "Variable",
+                "line": 12,
+                "name": "foo",
+                "type": {
+                    "text": "Colors",
+                    "sources": [
+                        {
+                            "text": "Colors",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 1
+                        }
+                    ]
+                },
+                "default": "Colors.Red"
+            },
+            {
+                "kind": "Variable",
+                "line": 13,
+                "name": "blue",
+                "type": {
+                    "text": "Colors",
+                    "sources": [
+                        {
+                            "text": "Colors",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 1
+                        }
+                    ]
+                },
+                "default": "Colors.Blue"
+            },
+            {
+                "kind": "Variable",
+                "line": 14,
+                "name": "bar",
+                "type": {
+                    "text": "TypeX",
+                    "sources": [
+                        {
+                            "text": "TypeX",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 8
+                        }
+                    ]
+                },
+                "default": "{x: 4, y: 4}"
+            },
+            {
+                "kind": "Variable",
+                "line": 15,
+                "name": "bar2",
+                "type": {
+                    "text": "TypeX & TypeY",
+                    "sources": [
+                        {
+                            "text": "TypeX",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 8
+                        },
+                        {
+                            "text": "TypeY",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 9
+                        }
+                    ]
+                },
+                "default": "{x: 3}"
+            },
+            {
+                "kind": "Variable",
+                "line": 16,
+                "name": "foo2",
+                "type": {
+                    "text": "TypeX[]",
+                    "sources": [
+                        {
+                            "text": "TypeX",
+                            "path": "tests/variable/complex-types/index.ts",
+                            "line": 8
+                        }
+                    ]
+                },
+                "default": "[]"
+            },
+            {
+                "kind": "Variable",
+                "line": 17,
+                "name": "foo3",
+                "type": {
+                    "text": "TypeArray",
+                    "sources": [
+                        {
+                            "line": 10,
+                            "path": "tests/variable/complex-types/index.ts",
+                            "text": "TypeArray"
+                        }
+                    ]
+                },
+                "default": "[]"
+            }
+        ],
+        "exports": [
+            {
+                "name": "TypeArray",
+                "kind": "Named"
+            },
+            {
+                "name": "foo",
+                "kind": "Named"
+            },
+            {
+                "name": "blue",
+                "kind": "Named"
+            },
+            {
+                "name": "bar",
+                "kind": "Named"
+            },
+            {
+                "name": "bar2",
+                "kind": "Named"
+            },
+            {
+                "name": "foo2",
+                "kind": "Named"
+            },
+            {
+                "name": "foo3",
+                "kind": "Named"
+            }
+        ]
+    }
+]

@@ -1,4 +1,4 @@
-import { parseFromFiles, ModuleNode, Module } from '@ts-ast-parser/core';
+import { Module, ModuleNode, parseFromFiles } from '@ts-ast-parser/core';
 import ts from 'typescript';
 import path from 'path';
 import fs from 'fs';
