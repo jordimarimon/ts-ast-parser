@@ -79,12 +79,12 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         });
     }
 
-    toPOJO(): Module {
+    serialize(): Module {
         return {
             path: this.getPath(),
-            imports: this.getImports().map(imp => imp.toPOJO()),
-            declarations: this.getDeclarations().map(dec => dec.toPOJO()),
-            exports: this.getExports().map(exp => exp.toPOJO()),
+            imports: this.getImports().map(imp => imp.serialize()),
+            declarations: this.getDeclarations().map(dec => dec.serialize()),
+            exports: this.getExports().map(exp => exp.serialize()),
         };
     }
 

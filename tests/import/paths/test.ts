@@ -21,7 +21,7 @@ const {actual, expected} = getFixture({category, subcategory, importedFiles: ['f
 describe(`${category}/${subcategory}`, () => {
 
     it('should reflect the expected AST', () => {
-        const result = actual.map(m => m.toPOJO());
+        const result = actual.map(m => m.serialize());
         expect(result).to.deep.equal(expected);
     });
 

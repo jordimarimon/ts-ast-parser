@@ -24,6 +24,6 @@ export interface ReflectedNode<Model extends object = object, T extends ts.Node 
     /**
      * Returns a simple readonly JavaScript object without methods or internal state.
      */
-    toPOJO(): Model;
+    serialize(): Model;
 
 }

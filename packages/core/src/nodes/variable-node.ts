@@ -84,7 +84,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
         return this.getDefault() !== undefined;
     }
 
-    toPOJO(): VariableDeclaration {
+    serialize(): VariableDeclaration {
         const defaultValue = this.getDefault();
         const tmpl: VariableDeclaration = {
             name: this.getName(),
@@ -97,8 +97,8 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
             tmpl.default = defaultValue;
         }
 
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.toPOJO()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
 
         return tmpl;

@@ -45,9 +45,9 @@ export class JSDocNode {
             this.hasTag(JSDocTagName.private);
     }
 
-    toPOJO(): JSDoc {
+    serialize(): JSDoc {
         return Object.entries(this._jsDoc).flatMap(([kind, value]) => {
-            return value.map(v => ({ kind, value: v.toPOJO() }));
+            return value.map(v => ({ kind, value: v.serialize() }));
         });
     }
 

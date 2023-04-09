@@ -74,7 +74,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         return this._parameter.isOptional();
     }
 
-    toPOJO(): IndexSignature {
+    serialize(): IndexSignature {
         const tmpl: IndexSignature = {
             name: this.getName(),
             line: this.getLine(),
@@ -84,7 +84,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         };
 
         tryAddProperty(tmpl, 'optional', this.isOptional());
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
 
         return tmpl;
     }

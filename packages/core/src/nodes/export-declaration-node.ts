@@ -60,7 +60,7 @@ export class ExportDeclarationNode implements ReflectedNode<Export, ExportDeclar
         return this._node;
     }
 
-    toPOJO(): Export {
+    serialize(): Export {
         return {
             name: this.getName(),
             kind: this.getKind(),

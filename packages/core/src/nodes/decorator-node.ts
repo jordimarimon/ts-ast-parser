@@ -91,7 +91,7 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
         return '';
     }
 
-    toPOJO(): Decorator {
+    serialize(): Decorator {
         const path = this.getPath();
         const line = this.getLine();
         const tmpl: Decorator = {

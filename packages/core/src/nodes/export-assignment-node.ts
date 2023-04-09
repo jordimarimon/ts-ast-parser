@@ -47,7 +47,7 @@ export class ExportAssignmentNode implements ReflectedNode<Export, ts.ExportAssi
         return this._node;
     }
 
-    toPOJO(): Export {
+    serialize(): Export {
         return {
             name: this.getName(),
             kind: this.getKind(),

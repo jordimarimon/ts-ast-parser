@@ -144,7 +144,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         return getExtendClauseReferences(this._node, this._context);
     }
 
-    toPOJO(): InterfaceDeclaration {
+    serialize(): InterfaceDeclaration {
         const tmpl: InterfaceDeclaration = {
             name: this.getName(),
             kind: this.getKind(),
@@ -152,12 +152,12 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         };
 
         tryAddProperty(tmpl, 'heritage', this.getHeritage());
-        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.toPOJO()));
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
-        tryAddProperty(tmpl, 'indexSignature', this.getIndexSignature()?.toPOJO());
-        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.toPOJO()));
-        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.toPOJO()) as Method[]);
+        tryAddProperty(tmpl, 'indexSignature', this.getIndexSignature()?.serialize());
+        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
+        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize()) as Method[]);
 
         return tmpl;
     }

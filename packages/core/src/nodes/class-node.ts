@@ -143,25 +143,25 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         return isAbstract(this._node);
     }
 
-    toPOJO(): ClassDeclaration {
+    serialize(): ClassDeclaration {
         const tmpl: ClassDeclaration = {
             name: this.getName(),
             kind: this.getKind(),
             line: this.getLine(),
         };
 
-        tryAddProperty(tmpl, 'constructors', this.getConstructors().map(c => c.toPOJO()));
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.toPOJO()));
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
-        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.toPOJO()));
+        tryAddProperty(tmpl, 'constructors', this.getConstructors().map(c => c.serialize()));
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
         tryAddProperty(tmpl, 'heritage', this.getHeritage());
         tryAddProperty(tmpl, 'abstract', this.isAbstract());
         tryAddProperty(tmpl, 'customElement', this.isCustomElement());
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
-        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.toPOJO()));
-        tryAddProperty(tmpl, 'staticProperties', this.getStaticProperties().map(p => p.toPOJO()));
-        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.toPOJO()) as Method[]);
-        tryAddProperty(tmpl, 'staticMethods', this.getStaticMethods().map(m => m.toPOJO()) as Method[]);
+        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
+        tryAddProperty(tmpl, 'staticProperties', this.getStaticProperties().map(p => p.serialize()));
+        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize()) as Method[]);
+        tryAddProperty(tmpl, 'staticMethods', this.getStaticMethods().map(m => m.serialize()) as Method[]);
 
         return tmpl;
     }

@@ -121,15 +121,15 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         return !!this._context.checker.isOptionalParameter(this._node);
     }
 
-    toPOJO(): Parameter {
+    serialize(): Parameter {
         const tmpl: Parameter = {
             name: this.getName(),
             type: this.getType(),
             line: this.getLine(),
         };
 
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.toPOJO()));
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
         tryAddProperty(tmpl, 'optional', this.isOptional());
         tryAddProperty(tmpl, 'rest', this.isRest());
         tryAddProperty(tmpl, 'named', this.isNamed());

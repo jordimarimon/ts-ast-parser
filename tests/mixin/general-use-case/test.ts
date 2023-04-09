@@ -9,7 +9,7 @@ const {actual, expected} = getFixture({category, subcategory});
 describe(`${category}/${subcategory}`, () => {
 
     it.skip('should extract the expected metadata', () => {
-        const result = actual.map(m => m.toPOJO());
+        const result = actual.map(m => m.serialize());
         expect(result).to.deep.equal(expected);
     });
 

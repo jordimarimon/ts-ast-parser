@@ -180,16 +180,16 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         return !!this._member?.overrides;
     }
 
-    toPOJO(): FunctionDeclaration | Method {
+    serialize(): FunctionDeclaration | Method {
         const tmpl: FunctionDeclaration | Method = {
             name: this.getName(),
             kind: this.getKind(),
-            signatures: this.getSignatures().map(signature => signature.toPOJO()),
+            signatures: this.getSignatures().map(signature => signature.serialize()),
         };
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc()?.toPOJO());
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.toPOJO()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc()?.serialize());
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
         tryAddProperty(tmpl, 'async', this.isAsync());
         tryAddProperty(tmpl, 'generator', this.isGenerator());
 

@@ -12,7 +12,7 @@ const actual = parseFromGlob(pattern);
 describe(category, () => {
 
     it('should extract the expected metadata', () => {
-        const result = actual.map(m => m.toPOJO());
+        const result = actual.map(m => m.serialize());
         expect(result).to.deep.equal(expected);
     });
 

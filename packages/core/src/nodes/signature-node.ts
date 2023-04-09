@@ -80,15 +80,15 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
         return this.getParameters().find(param => param.getName() === name) ?? null;
     }
 
-    toPOJO(): FunctionSignature {
+    serialize(): FunctionSignature {
         const tmpl: FunctionSignature = {
             line: this.getLine(),
             return: this.getReturnType(),
         };
 
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
-        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.toPOJO()));
-        tryAddProperty(tmpl, 'parameters', this.getParameters().map(param => param.toPOJO()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
+        tryAddProperty(tmpl, 'parameters', this.getParameters().map(param => param.serialize()));
 
         return tmpl;
     }

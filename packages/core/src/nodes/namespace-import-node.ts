@@ -61,7 +61,7 @@ export class NamespaceImportNode implements ReflectedNode<Import, ts.ImportDecla
         return isBareModuleSpecifier(this.getImportPath());
     }
 
-    toPOJO(): Import {
+    serialize(): Import {
         const originalPath = this.getOriginalPath();
         const tmpl: Import = {
             name: this.getName(),

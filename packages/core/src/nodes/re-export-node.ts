@@ -46,7 +46,7 @@ export class ReExportNode implements ReflectedNode<Export, ts.ExportDeclaration>
         return this._node;
     }
 
-    toPOJO(): Export {
+    serialize(): Export {
         const tmpl: Export = {
             name: this.getName(),
             kind: this.getKind(),

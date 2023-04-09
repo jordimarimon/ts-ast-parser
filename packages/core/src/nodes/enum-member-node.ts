@@ -50,13 +50,13 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
         return new JSDocNode(this._node);
     }
 
-    toPOJO(): EnumMember {
+    serialize(): EnumMember {
         const tmpl: EnumMember = {
             name: this.getName(),
             value: this.getValue(),
         };
 
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
 
         return tmpl;
     }

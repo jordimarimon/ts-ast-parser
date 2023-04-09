@@ -46,7 +46,7 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
         return !!this.getDefault();
     }
 
-    toPOJO(): TypeParameter {
+    serialize(): TypeParameter {
         const tmpl: TypeParameter = {
             name: this.getName(),
         };

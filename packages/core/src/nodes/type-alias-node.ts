@@ -62,7 +62,7 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
         return this._node.typeParameters?.map(tp => new TypeParameterNode(tp, this._context)) ?? [];
     }
 
-    toPOJO(): TypeAliasDeclaration {
+    serialize(): TypeAliasDeclaration {
         const tmpl: TypeAliasDeclaration = {
             name: this.getName(),
             kind: this.getKind(),
@@ -71,8 +71,8 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
         };
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
-        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.toPOJO()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
 
         return tmpl;
     }

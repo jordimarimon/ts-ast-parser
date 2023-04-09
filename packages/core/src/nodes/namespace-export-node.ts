@@ -50,7 +50,7 @@ export class NamespaceExportNode implements ReflectedNode<Export, ts.ExportDecla
         return this._node;
     }
 
-    toPOJO(): Export {
+    serialize(): Export {
         const tmpl: Export = {
             name: this.getName(),
             kind: this.getKind(),

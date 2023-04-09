@@ -65,7 +65,7 @@ export class JSDocValueNode {
         return !!this._jsDocTagValue?.optional;
     }
 
-    toPOJO(): JSDocTagValue {
+    serialize(): JSDocTagValue {
         return this._jsDocTagValue;
     }
 

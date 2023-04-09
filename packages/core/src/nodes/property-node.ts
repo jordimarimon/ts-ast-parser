@@ -180,7 +180,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         return !!this._member.overrides;
     }
 
-    toPOJO(): Field {
+    serialize(): Field {
         const tmpl: Field = {
             name: this.getName(),
             line: this.getLine(),
@@ -189,8 +189,8 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         };
 
         tryAddProperty(tmpl, 'optional', this.isOptional());
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.toPOJO()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
         tryAddProperty(tmpl, 'default', this.getDefault());
         tryAddProperty(tmpl, 'static', this.isStatic());
         tryAddProperty(tmpl, 'readOnly', this.isReadOnly());

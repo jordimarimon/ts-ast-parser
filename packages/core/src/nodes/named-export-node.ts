@@ -57,7 +57,7 @@ export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclarati
         return this.getOriginalName() !== this.getName();
     }
 
-    toPOJO(): Export {
+    serialize(): Export {
         const originalName = this.getOriginalName();
         const tmpl: Export = {
             name: this.getName(),

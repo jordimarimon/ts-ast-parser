@@ -7,6 +7,7 @@
 * Reflect imports with side effects (example: `import './foo.js'`)
 * Imports with different kinds weren't reflected correctly (example: `import Foo, { bar } from './foo'`)
 * The parameter type and name of an index signature wasn't being reflected correctly
+* Getters and Setters (property accessors) were not being reflected when defined inside an interface.
 
 ### 🚨 Breaking Changes
 

@@ -42,7 +42,7 @@ export class SideEffectImportNode implements ReflectedNode<Import, ts.ImportDecl
         return isBareModuleSpecifier(this.getImportPath());
     }
 
-    toPOJO(): Import {
+    serialize(): Import {
         const tmpl: Import = {
             kind: ImportKind.SideEffect,
             importPath: this.getImportPath(),

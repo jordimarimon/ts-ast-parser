@@ -74,7 +74,7 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
         });
     }
 
-    toPOJO(): EnumDeclaration {
+    serialize(): EnumDeclaration {
         const tmpl: EnumDeclaration = {
             kind: this.getKind(),
             name: this.getName(),
@@ -82,8 +82,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
         };
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
-        tryAddProperty(tmpl, 'members', this.getMembers().map(member => member.toPOJO()));
-        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().toPOJO());
+        tryAddProperty(tmpl, 'members', this.getMembers().map(member => member.serialize()));
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
 
         return tmpl;
     }
