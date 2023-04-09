@@ -1,10 +1,10 @@
+import { importFactory, declarationFactory, exportFactory } from '../factories/index.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { ExportNode, ImportNode, is } from '../utils/is.js';
 import { DeclarationNode } from './declaration-node.js';
 import { ReflectedNode } from './reflected-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import { AnalyzerContext } from '../context.js';
-import factories from '../factories/index.js';
 import { Module } from '../models/module.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
@@ -89,15 +89,28 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     private _visitNode(rootNode: ts.Node | ts.SourceFile): void {
-        for (const factory of factories) {
+        let declarationFound = false;
+
+        if (importFactory.isNode(rootNode)) {
+            this._add(importFactory.create(rootNode, this._context));
+        }
+
+        for (const factory of declarationFactory) {
+            if (factory.isNode(rootNode)) {
+                this._add(factory.create(rootNode, this._context));
+                declarationFound = true;
+            }
+        }
+
+        for (const factory of exportFactory) {
             if (factory.isNode(rootNode)) {
                 this._add(factory.create(rootNode, this._context));
             }
         }
 
-        // TODO(Jordi M.): This could be done more efficiently by not looping through child nodes
-        //  when we have found a declaration node.
-        ts.forEachChild(rootNode, node => this._visitNode(node));
+        if (!declarationFound) {
+            ts.forEachChild(rootNode, node => this._visitNode(node));
+        }
     }
 
     private _add(reflectedNodes: ReflectedNode[]): void {

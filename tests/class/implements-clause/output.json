@@ -1,1 +1,102 @@
-[]
+[
+    {
+        "path": "tests/class/implements-clause/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Bar",
+                "line": 1,
+                "kind": "Interface",
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "add",
+                        "signatures": [
+                            {
+                                "line": 2,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "line": 2,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "line": 2,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Foo",
+                "line": 5,
+                "kind": "Class",
+                "heritage": [
+                    {
+                        "name": "Bar",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/class/implements-clause/index.ts"
+                        },
+                        "kind": "Interface"
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "add",
+                        "signatures": [
+                            {
+                                "line": 7,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "line": 7,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "line": 7,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Bar",
+                "kind": "Named"
+            },
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

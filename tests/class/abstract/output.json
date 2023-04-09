@@ -1,1 +1,73 @@
-[]
+[
+    {
+        "path": "tests/class/abstract/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "line": 1,
+                "kind": "Class",
+                "abstract": true,
+                "properties": [
+                    {
+                        "name": "y",
+                        "line": 3,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4
+                    },
+                    {
+                        "name": "x",
+                        "line": 5,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "abstract": true
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "add",
+                        "signatures": [
+                            {
+                                "line": 7,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "line": 7,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "line": 7,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "abstract": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

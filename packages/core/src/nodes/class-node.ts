@@ -16,6 +16,7 @@ import { Reference } from '../models/reference.js';
 import { SymbolWithContext } from '../utils/is.js';
 import { FunctionNode } from './function-node.js';
 import { PropertyNode } from './property-node.js';
+import { isThirdParty } from '../utils/import.js';
 import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
@@ -94,8 +95,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             }
 
             const node = new SignatureNode(signature, this._context);
+            const path = node.getPath();
 
-            if (node.getPath()) {
+            if (path && !isThirdParty(path)) {
                 result.push(node);
             }
         }

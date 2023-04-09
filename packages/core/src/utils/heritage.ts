@@ -4,6 +4,7 @@ import { tryAddProperty } from './try-add-property.js';
 import { InterfaceOrClassDeclaration } from './is.js';
 import { getLocation } from './get-location.js';
 import { AnalyzerContext } from '../context.js';
+import { isThirdParty } from './import.js';
 import { hasFlag } from './member.js';
 import ts from 'typescript';
 
@@ -70,12 +71,13 @@ export function createReference(type: ts.ExpressionWithTypeArguments, context: A
 
     const sourceRef: SourceReference = {};
     const ref: Reference = {name};
+    const isFromThirdParty = path && isThirdParty(path);
 
-    if (path && line != null) {
+    if (path && !isFromThirdParty && line != null) {
         sourceRef.line = line;
+        sourceRef.path = path;
     }
 
-    tryAddProperty(sourceRef, 'path', path);
     tryAddProperty(ref, 'source', sourceRef);
     tryAddProperty(ref, 'kind', getInterfaceOrClassSymbolKind(symbol));
 

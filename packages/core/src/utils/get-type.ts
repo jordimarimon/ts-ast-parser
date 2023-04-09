@@ -2,6 +2,7 @@ import { Type, TypeReference } from '../models/type.js';
 import { tryAddProperty } from './try-add-property.js';
 import { getLocation } from './get-location.js';
 import { AnalyzerContext } from '../context.js';
+import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
 
@@ -55,7 +56,7 @@ export function getTypeReferences(type: ts.Type | undefined, context: AnalyzerCo
         const name = checker.typeToString(type) ?? '';
         const {path, line} = getLocation(type, context);
 
-        if (line && path) {
+        if (line != null && path && !isThirdParty(path)) {
             result.push({text: name, path, line});
         }
     }

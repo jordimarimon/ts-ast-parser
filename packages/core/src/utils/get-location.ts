@@ -1,7 +1,6 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
 import { AnalyzerContext } from '../context.js';
 import { SymbolWithLocation } from './is.js';
-import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
 
@@ -16,12 +15,12 @@ export function getLocation(nodeOrType: ts.Node | ts.Type, context: AnalyzerCont
 
     const decl = symbol?.getDeclarations()?.[0];
     const sourceFile = decl?.getSourceFile();
-    const path = context.normalizePath(sourceFile?.fileName);
+    const path = context.normalizePath(sourceFile?.fileName) ?? '';
 
     return {
         symbol,
         line: decl ? getLinePosition(decl) : null,
-        path: isThirdParty(path) ? '' : path,
+        path,
     };
 }
 

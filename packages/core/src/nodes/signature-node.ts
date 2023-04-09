@@ -1,7 +1,7 @@
 import { FunctionReturn, FunctionSignature } from '../models/function.js';
-import { getLinePosition, getLocation } from '../utils/get-location.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
+import { getLinePosition } from '../utils/get-location.js';
 import { getTypeFromTSType } from '../utils/get-type.js';
 import { ReflectedNode } from './reflected-node.js';
 import { ParameterNode } from './parameter-node.js';
@@ -39,7 +39,7 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
     }
 
     getPath(): string {
-        return getLocation(this._node.getDeclaration(), this._context).path;
+        return this._node.getDeclaration()?.getSourceFile()?.fileName ?? '';
     }
 
     getJSDoc(): JSDocNode {

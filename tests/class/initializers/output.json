@@ -1,1 +1,83 @@
-[]
+[
+    {
+        "path": "tests/class/initializers/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Class",
+                "name": "Foo",
+                "line": 7,
+                "constructors": [
+                    {
+                        "line": 19,
+                        "return": {
+                            "type": {
+                                "sources": [
+                                    {
+                                        "line": 7,
+                                        "path": "tests/class/initializers/index.ts",
+                                        "text": "Foo"
+                                    }
+                                ],
+                                "text": "Foo"
+                            }
+                        }
+                    }
+                ],
+                "properties": [
+                    {
+                        "kind": "Property",
+                        "name": "bar",
+                        "line": 9,
+                        "type": {
+                            "text": "string | undefined"
+                        },
+                        "readOnly": true
+                    },
+                    {
+                        "kind": "Property",
+                        "name": "foo",
+                        "line": 11,
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "'foo'"
+                    },
+                    {
+                        "kind": "Property",
+                        "name": "x",
+                        "line": 13,
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    },
+                    {
+                        "kind": "Property",
+                        "name": "y",
+                        "line": 15,
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    },
+                    {
+                        "kind": "Property",
+                        "name": "myAdd",
+                        "line": 17,
+                        "type": {
+                            "text": "(x: number, y: number) => number"
+                        },
+                        "default": "add"
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

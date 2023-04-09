@@ -1,1 +1,202 @@
-[]
+[
+    {
+        "path": "tests/class/inheritance/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Class1",
+                "line": 1,
+                "kind": "Class",
+                "properties": [
+                    {
+                        "name": "foo",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "someMethod",
+                        "signatures": [
+                            {
+                                "line": 4,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "line": 4,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "line": 4,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Class2",
+                "line": 9,
+                "kind": "Class",
+                "heritage": [
+                    {
+                        "name": "Class1",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/class/inheritance/index.ts"
+                        },
+                        "kind": "Class"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "bar",
+                        "line": 10,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4
+                    },
+                    {
+                        "name": "foo",
+                        "line": 12,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 5,
+                        "override": true
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "someMethod",
+                        "signatures": [
+                            {
+                                "line": 4,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "line": 4,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "line": 4,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "inherited": true
+                    }
+                ]
+            },
+            {
+                "name": "Class3",
+                "line": 15,
+                "kind": "Class",
+                "heritage": [
+                    {
+                        "name": "Class2",
+                        "source": {
+                            "line": 9,
+                            "path": "tests/class/inheritance/index.ts"
+                        },
+                        "kind": "Class"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "bar",
+                        "line": 19,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 5,
+                        "override": true
+                    },
+                    {
+                        "name": "foo",
+                        "line": 12,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 5,
+                        "override": true
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "someMethod",
+                        "signatures": [
+                            {
+                                "line": 23,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "line": 23,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "override": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Class1",
+                "kind": "Named"
+            },
+            {
+                "name": "Class2",
+                "kind": "Named"
+            },
+            {
+                "name": "Class3",
+                "kind": "Named"
+            }
+        ]
+    }
+]

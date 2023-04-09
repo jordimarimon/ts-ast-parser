@@ -128,40 +128,40 @@ export function isMember(node: ts.Node | undefined): node is ts.Declaration {
         ts.isPropertyDeclaration(node) || ts.isMethodDeclaration(node);
 }
 
-export function isReadOnly(member: ts.Node | undefined): boolean {
-    if (!isMember(member)) {
+export function isReadOnly(node: ts.Node | undefined): boolean {
+    if (!node || !ts.canHaveModifiers(node) || ts.isVariableStatement(node) || ts.isImportDeclaration(node)) {
         return false;
     }
 
-    return hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Readonly);
+    return hasFlag(ts.getCombinedModifierFlags(node), ts.ModifierFlags.Readonly);
 }
 
-export function isOverride(member: ts.Node | undefined): boolean {
-    if (!isMember(member)) {
+export function isOverride(node: ts.Node | undefined): boolean {
+    if (!node || !ts.canHaveModifiers(node) || ts.isVariableStatement(node) || ts.isImportDeclaration(node)) {
         return false;
     }
 
-    return hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Override);
+    return hasFlag(ts.getCombinedModifierFlags(node), ts.ModifierFlags.Override);
 }
 
 export function isOptional(symbol: ts.Symbol | undefined): boolean {
     return !!symbol && hasFlag(symbol.flags, ts.SymbolFlags.Optional);
 }
 
-export function isStatic(member: ts.Node | undefined): boolean {
-    if (!isMember(member)) {
+export function isStatic(node: ts.Node | undefined): boolean {
+    if (!node || !ts.canHaveModifiers(node) || ts.isVariableStatement(node) || ts.isImportDeclaration(node)) {
         return false;
     }
 
-    return hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Static);
+    return hasFlag(ts.getCombinedModifierFlags(node), ts.ModifierFlags.Static);
 }
 
-export function isAbstract(member: ts.Node | undefined): boolean {
-    if (!isMember(member)) {
+export function isAbstract(node: ts.Node | undefined): boolean {
+    if (!node || !ts.canHaveModifiers(node) || ts.isVariableStatement(node) || ts.isImportDeclaration(node)) {
         return false;
     }
 
-    return hasFlag(ts.getCombinedModifierFlags(member), ts.ModifierFlags.Abstract);
+    return hasFlag(ts.getCombinedModifierFlags(node), ts.ModifierFlags.Abstract);
 }
 
 export function hasFlag(flags: number, flagToCheck: number): boolean {

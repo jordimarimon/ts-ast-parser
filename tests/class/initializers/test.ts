@@ -8,7 +8,7 @@ const {actual, expected} = getFixture({category, subcategory});
 
 describe(`${category}/${subcategory}`, () => {
 
-    it.skip('should reflect the expected AST', () => {
+    it('should reflect the expected AST', () => {
         const result = actual.map(m => m.serialize());
         expect(result).to.deep.equal(expected);
     });

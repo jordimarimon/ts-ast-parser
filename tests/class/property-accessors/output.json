@@ -1,1 +1,77 @@
-[]
+[
+    {
+        "path": "tests/class/property-accessors/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "line": 1,
+                "kind": "Class",
+                "staticProperties": [
+                    {
+                        "name": "staticBar",
+                        "line": 5,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "static": true,
+                        "readOnly": true,
+                        "default": "'Hello World'"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "name",
+                        "line": 3,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "'Foo'"
+                    },
+                    {
+                        "name": "bar",
+                        "line": 13,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "''"
+                    },
+                    {
+                        "name": "fooBar",
+                        "line": 21,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "writeOnly": true
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "log",
+                        "signatures": [
+                            {
+                                "line": 25,
+                                "return": {
+                                    "type": {
+                                        "text": "void"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Default"
+            }
+        ]
+    }
+]

@@ -1,1 +1,70 @@
-[]
+[
+    {
+        "path": "tests/class/default-inheritance/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Class1",
+                "line": 1,
+                "kind": "Class",
+                "properties": [
+                    {
+                        "name": "foo",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4
+                    }
+                ]
+            },
+            {
+                "name": "Class2",
+                "line": 5,
+                "kind": "Class",
+                "heritage": [
+                    {
+                        "name": "Class1",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/class/default-inheritance/index.ts"
+                        },
+                        "kind": "Class"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "bar",
+                        "line": 6,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3
+                    },
+                    {
+                        "name": "foo",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4,
+                        "inherited": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Class1",
+                "kind": "Default"
+            },
+            {
+                "name": "Class2",
+                "kind": "Named"
+            }
+        ]
+    }
+]

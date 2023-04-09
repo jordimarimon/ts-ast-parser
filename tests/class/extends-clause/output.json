@@ -1,1 +1,156 @@
-[]
+[
+    {
+        "path": "tests/class/extends-clause/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Bar",
+                "line": 1,
+                "kind": "Class",
+                "properties": [
+                    {
+                        "name": "bar",
+                        "line": 3,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "add",
+                        "signatures": [
+                            {
+                                "line": 5,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "line": 5,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "line": 5,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Foo",
+                "line": 10,
+                "kind": "Class",
+                "heritage": [
+                    {
+                        "name": "Bar",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/class/extends-clause/index.ts"
+                        },
+                        "kind": "Class"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "bar",
+                        "line": 12,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 3,
+                        "override": true
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "add",
+                        "signatures": [
+                            {
+                                "line": 14,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "line": 14,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "line": 14,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "override": true
+                    },
+                    {
+                        "kind": "Method",
+                        "name": "mult",
+                        "signatures": [
+                            {
+                                "line": 18,
+                                "return": {
+                                    "type": {
+                                        "text": "number"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "line": 18,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "y",
+                                        "line": 18,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Bar",
+                "kind": "Named"
+            },
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

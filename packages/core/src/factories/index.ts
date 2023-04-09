@@ -8,15 +8,19 @@ import { classFactory } from './create-class.js';
 import { enumFactory } from './create-enum.js';
 
 
-export default [
-    importFactory,
+export const declarationFactory = [
     functionFactory,
     variableFactory,
     enumFactory,
     typeAliasFactory,
     classFactory,
     interfaceFactory,
+];
+
+export const exportFactory = [
     exportDeclarationFactory,
     exportAssignmentFactory,
     exportStatementFactory,
 ];
+
+export { importFactory };

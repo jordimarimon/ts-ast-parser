@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { getFixture } from '../../utils.js';
 
 
-const category = 'class';
-const subcategory = 'third-party-inheritance';
+const category = 'variable';
+const subcategory = 'satisfies-operator';
 const {actual, expected} = getFixture({category, subcategory});
 
 describe(`${category}/${subcategory}`, () => {
