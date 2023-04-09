@@ -4,8 +4,8 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "function",
                 "name": "myAdd",
+                "kind": "Function",
                 "signatures": [
                     {
                         "line": 8,
@@ -19,13 +19,15 @@
                                 "name": "x",
                                 "type": {
                                     "text": "number"
-                                }
+                                },
+                                "line": 8
                             },
                             {
                                 "name": "y",
                                 "type": {
                                     "text": "number"
-                                }
+                                },
+                                "line": 8
                             }
                         ]
                     }
@@ -50,8 +52,8 @@
                 ]
             },
             {
-                "kind": "function",
                 "name": "myAdd2",
+                "kind": "Function",
                 "signatures": [
                     {
                         "line": 18,
@@ -65,13 +67,15 @@
                                 "name": "x",
                                 "type": {
                                     "text": "number"
-                                }
+                                },
+                                "line": 18
                             },
                             {
                                 "name": "y",
                                 "type": {
                                     "text": "number"
-                                }
+                                },
+                                "line": 18
                             }
                         ]
                     }
@@ -96,8 +100,8 @@
                 ]
             },
             {
-                "kind": "function",
                 "name": "",
+                "kind": "Function",
                 "signatures": [
                     {
                         "line": 28,
@@ -129,13 +133,15 @@
                                 "name": "x",
                                 "type": {
                                     "text": "number"
-                                }
+                                },
+                                "line": 28
                             },
                             {
                                 "name": "y",
                                 "type": {
                                     "text": "number"
-                                }
+                                },
+                                "line": 28
                             }
                         ]
                     }
@@ -145,15 +151,15 @@
         "exports": [
             {
                 "name": "myAdd",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "myAdd2",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "",
-                "type": "default"
+                "kind": "Default"
             }
         ]
     }

@@ -1,6 +1,6 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
 import { isNotEmptyArray } from './not-empty-array.js';
-import { Context } from '../context.js';
+import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 
@@ -19,24 +19,24 @@ export function isThirdParty(path: string): boolean {
     return path.length < 1000 && (/.*node_modules\/.+/.test(path) || /^https?:\/\/.+/.test(path));
 }
 
-export function getOriginalImportPath(node: ts.Identifier | undefined): string {
+export function getOriginalImportPath(node: ts.Identifier | undefined, context: AnalyzerContext): string {
     if (!node) {
         return '';
     }
 
-    const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(node));
+    const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(node, context.checker), context.checker);
     const decl = symbol?.declarations?.[0];
     const originalFilePath = decl?.getSourceFile().fileName ?? '';
 
-    return Context.normalizePath(originalFilePath);
+    return context.normalizePath(originalFilePath);
 }
 
-export function matchesTsConfigPath(importPath: string): boolean {
-    const paths = Context.compilerOptions.paths ?? {};
+export function matchesTsConfigPath(importPath: string, compilerOptions: ts.CompilerOptions): boolean {
+    const paths = compilerOptions.paths ?? {};
 
     for (const pattern in paths) {
         const regExp = new RegExp(pattern);
-        const matches = regExp.test(importPath);
+        const matches = importPath.length < 1000 && regExp.test(importPath);
 
         if (matches) {
             return true;
@@ -45,7 +45,6 @@ export function matchesTsConfigPath(importPath: string): boolean {
 
     return false;
 }
-
 
 export function isDefaultImport(node: ts.ImportDeclaration): boolean {
     //
@@ -81,4 +80,12 @@ export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
     }
 
     return !!namespaceImports?.name && !isNamedImport(node);
+}
+
+export function isSideEffectImport(node: ts.ImportDeclaration): boolean {
+    //
+    // Case of:
+    //      import './my-module.js';
+    //
+    return Object.prototype.hasOwnProperty.call(node, 'importClause') && node.importClause == null;
 }

@@ -4,12 +4,13 @@ import { getFixture } from '../../utils.js';
 
 const category = 'jsdoc';
 const subcategory = 'ignore';
-const {actual, expected} = getFixture(category, subcategory);
+const {actual, expected} = getFixture({category, subcategory});
 
 describe(`${category}/${subcategory}`, () => {
 
     it('should extract the expected metadata', () => {
-        expect(actual).to.deep.equal(expected);
+        const result = actual.map(m => m.serialize());
+        expect(result).to.deep.equal(expected);
     });
 
 });

@@ -6,10 +6,10 @@
             {
                 "name": "Bar",
                 "line": 1,
-                "kind": "interface",
-                "members": [
+                "kind": "Interface",
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "add",
                         "signatures": [
                             {
@@ -22,12 +22,14 @@
                                 "parameters": [
                                     {
                                         "name": "x",
+                                        "line": 2,
                                         "type": {
                                             "text": "number"
                                         }
                                     },
                                     {
                                         "name": "y",
+                                        "line": 2,
                                         "type": {
                                             "text": "number"
                                         }
@@ -41,7 +43,7 @@
             {
                 "name": "Foo",
                 "line": 5,
-                "kind": "class",
+                "kind": "Class",
                 "heritage": [
                     {
                         "name": "Bar",
@@ -49,12 +51,12 @@
                             "line": 1,
                             "path": "tests/class/implements-clause/index.ts"
                         },
-                        "kind": "interface"
+                        "kind": "Interface"
                     }
                 ],
-                "members": [
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "add",
                         "signatures": [
                             {
@@ -67,20 +69,21 @@
                                 "parameters": [
                                     {
                                         "name": "x",
+                                        "line": 7,
                                         "type": {
                                             "text": "number"
                                         }
                                     },
                                     {
                                         "name": "y",
+                                        "line": 7,
                                         "type": {
                                             "text": "number"
                                         }
                                     }
                                 ]
                             }
-                        ],
-                        "modifier": "public"
+                        ]
                     }
                 ]
             }
@@ -88,11 +91,11 @@
         "exports": [
             {
                 "name": "Bar",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "Foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

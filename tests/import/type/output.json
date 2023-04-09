@@ -4,60 +4,61 @@
         "imports": [
             {
                 "name": "TypeA",
-                "kind": "named",
+                "kind": "Named",
                 "importPath": "./type-a.js",
                 "isTypeOnly": true
-            }
-        ],
-        "declarations": [
-            {
-                "kind": "variable",
-                "line": 4,
-                "name": "x",
-                "type": {
-                    "text": "TypeA",
-                    "sources": [
-                        {
-                            "line": 1,
-                            "path": "tests/import/type/type-a.ts",
-                            "text": "TypeA"
-                        }
-                    ]
-                },
-                "default": "{foo: 'bar'}"
             }
         ],
         "exports": [
             {
                 "name": "x",
-                "type": "default"
+                "kind": "Default"
+            }
+        ],
+        "declarations": [
+            {
+                "name": "x",
+                "kind": "Variable",
+                "line": 4,
+                "type": {
+                    "text": "TypeA",
+                    "sources": [
+                        {
+                            "text": "TypeA",
+                            "path": "tests/import/type/type-a.ts",
+                            "line": 1
+                        }
+                    ]
+                },
+                "default": "{foo: 'bar'}"
             }
         ]
     },
     {
         "path": "tests/import/type/type-a.ts",
         "imports": [],
+        "exports": [
+            {
+                "name": "TypeA",
+                "kind": "Named",
+                "isTypeOnly": true
+            }
+        ],
         "declarations": [
             {
                 "name": "TypeA",
+                "kind": "Interface",
                 "line": 1,
-                "kind": "interface",
-                "members": [
+                "properties": [
                     {
                         "name": "foo",
                         "line": 2,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "string"
                         }
                     }
                 ]
-            }
-        ],
-        "exports": [
-            {
-                "name": "TypeA",
-                "type": "named"
             }
         ]
     }

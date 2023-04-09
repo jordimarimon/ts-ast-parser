@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "function",
+                "kind": "Function",
                 "name": "enumerable",
                 "signatures": [
                     {
@@ -17,6 +17,7 @@
                         "parameters": [
                             {
                                 "name": "value",
+                                "line": 1,
                                 "type": {
                                     "text": "boolean"
                                 }
@@ -28,12 +29,26 @@
             {
                 "name": "Greeter",
                 "line": 7,
-                "kind": "class",
+                "kind": "Class",
                 "constructors": [
                     {
+                        "line": 11,
+                        "return": {
+                            "type": {
+                                "text": "Greeter",
+                                "sources": [
+                                    {
+                                        "line": 7,
+                                        "path": "tests/decorator/method/index.ts",
+                                        "text": "Greeter"
+                                    }
+                                ]
+                            }
+                        },
                         "parameters": [
                             {
                                 "name": "message",
+                                "line": 11,
                                 "type": {
                                     "text": "string"
                                 }
@@ -41,18 +56,19 @@
                         ]
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "greeting",
                         "line": 9,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "string"
                         }
-                    },
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "greet",
                         "signatures": [
                             {
@@ -75,8 +91,7 @@
                                     "path": "tests/decorator/method/index.ts"
                                 }
                             }
-                        ],
-                        "modifier": "public"
+                        ]
                     }
                 ]
             }
@@ -84,11 +99,11 @@
         "exports": [
             {
                 "name": "enumerable",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "Greeter",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

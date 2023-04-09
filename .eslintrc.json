@@ -43,7 +43,7 @@
                 "quotes": ["error", "single"],
                 "semi": ["error", "always"],
                 "linebreak-style": ["error", "unix"],
-                "max-len": ["error", { "code": 120 }],
+                "max-len": "off",
                 "max-statements-per-line": ["error", { "max": 1 }],
                 "no-mixed-spaces-and-tabs": "error",
                 "no-multi-spaces": "error",
@@ -298,7 +298,10 @@
                 "@typescript-eslint/ban-types": [
                     "error",
                     {
-                        "types": {"{}": false},
+                        "types": {
+                            "{}": false,
+                            "Object": false
+                        },
                         "extendDefaults": true
                     }
                 ]

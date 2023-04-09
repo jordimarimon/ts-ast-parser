@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 1,
                 "name": "foo",
                 "type": {
@@ -16,16 +16,16 @@
         "exports": [
             {
                 "name": "foo",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "a",
-                "type": "named",
+                "kind": "Named",
                 "module": "'./foo.js'"
             },
             {
                 "name": "b",
-                "type": "named",
+                "kind": "Named",
                 "module": "'./foo.js'"
             }
         ]
@@ -35,7 +35,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 1,
                 "name": "a",
                 "type": {
@@ -44,7 +44,7 @@
                 "default": 4
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 2,
                 "name": "b",
                 "type": {
@@ -56,11 +56,11 @@
         "exports": [
             {
                 "name": "a",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "b",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

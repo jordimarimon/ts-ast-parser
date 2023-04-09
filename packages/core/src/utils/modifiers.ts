@@ -7,5 +7,6 @@ export function getModifiers(node: ts.Node): readonly ts.Modifier[] {
         return ts.canHaveModifiers(node) ? (ts.getModifiers(node) ?? []) : [];
     }
 
-    return Array.from(node.modifiers ?? []) as ts.Modifier[];
+    // We need to use the assertion because TS removed the property in newer versions
+    return Array.from((node as unknown as {modifiers: readonly ts.Modifier[]}).modifiers ?? []);
 }

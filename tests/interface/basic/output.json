@@ -6,17 +6,17 @@
             {
                 "name": "Foo",
                 "line": 1,
-                "kind": "interface",
+                "kind": "Interface",
                 "typeParameters": [
                     {
                         "name": "K"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "x",
                         "line": 2,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         }
@@ -24,7 +24,7 @@
                     {
                         "name": "y",
                         "line": 3,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "string | K",
                             "sources": [
@@ -38,7 +38,18 @@
                         "optional": true
                     },
                     {
-                        "kind": "method",
+                        "name": "z",
+                        "line": 9,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "readOnly": true
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
                         "name": "bar",
                         "signatures": [
                             {
@@ -52,7 +63,7 @@
                         ]
                     },
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "isBar",
                         "signatures": [
                             {
@@ -65,12 +76,14 @@
                                 "parameters": [
                                     {
                                         "name": "a",
+                                        "line": 5,
                                         "type": {
                                             "text": "number"
                                         }
                                     },
                                     {
                                         "name": "b",
+                                        "line": 5,
                                         "type": {
                                             "text": "string"
                                         }
@@ -80,7 +93,7 @@
                         ]
                     },
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "checkBar",
                         "signatures": [
                             {
@@ -94,7 +107,7 @@
                         ]
                     },
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "barWithTypedParameter",
                         "signatures": [
                             {
@@ -114,6 +127,7 @@
                                 "parameters": [
                                     {
                                         "name": "c",
+                                        "line": 7,
                                         "type": {
                                             "text": "T",
                                             "sources": [
@@ -135,7 +149,7 @@
                         ]
                     },
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "arrowFuncWithTypedParameters",
                         "signatures": [
                             {
@@ -155,6 +169,7 @@
                                 "parameters": [
                                     {
                                         "name": "c",
+                                        "line": 8,
                                         "type": {
                                             "text": "T",
                                             "sources": [
@@ -174,15 +189,6 @@
                                 ]
                             }
                         ]
-                    },
-                    {
-                        "name": "z",
-                        "line": 9,
-                        "kind": "field",
-                        "type": {
-                            "text": "number"
-                        },
-                        "readOnly": true
                     }
                 ]
             }
@@ -190,7 +196,7 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

@@ -1,16 +1,10 @@
-import { JSDoc, JSDocComment, JSDocNode, JSDocTagName, JSDocTagValue } from '../models/index.js';
+import { JSDoc, JSDocTSComment, JSDocTSNode, JSDocTagName, JSDocTagValue } from '../models/js-doc.js';
 import { Spec } from 'comment-parser/primitives';
 import { logWarning } from './logs.js';
 import { parse } from 'comment-parser';
 
 
-export function shouldIgnore(declaration: unknown | undefined): boolean {
-    return !!(declaration as {jsDoc?: JSDoc})?.jsDoc?.some(tag => {
-        return tag.kind === JSDocTagName.ignore || tag.kind === JSDocTagName.internal;
-    });
-}
-
-export function getAllJSDoc(node: JSDocNode): JSDoc {
+export function getAllJSDoc(node: JSDocTSNode): JSDoc {
     const doc: JSDoc = [];
 
     for (const jsDocComment of (node.jsDoc ?? [])) {
@@ -20,19 +14,15 @@ export function getAllJSDoc(node: JSDocNode): JSDoc {
     return doc;
 }
 
-export function findJSDoc<T>(name: JSDocTagName, doc: JSDoc): {kind: JSDocTagName; value: T} | undefined {
-    return doc.find(d => d.kind === name) as {kind: JSDocTagName; value: T} | undefined;
-}
-
-function collectJsDoc(jsDocComment: JSDocComment, doc: JSDoc): void {
-    const parsedJsDocComment = parse(jsDocComment.getFullText()) ?? [];
+function collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
+    const parsedJsDocComment = parse(jsDocComment.getFullText(), {spacing: 'preserve'}) ?? [];
 
     for (const block of parsedJsDocComment) {
         if (block.problems.length) {
             logWarning('There have been problems while parsing the JSDoc: ', block.problems);
         }
 
-        const descriptionValue = block.description ?? '';
+        const descriptionValue = trimNewLines(block.description ?? '');
 
         if (descriptionValue !== '') {
             doc.push({
@@ -62,7 +52,7 @@ function getJSTagValue(name: string, tag: Spec): JSDocTagValue {
     }
 
     if (isStringJSDoc(name)) {
-        return normalizeDescription(tag.description ? `${tag.name} ${tag.description}` : tag.name);
+        return trimNewLines(normalizeDescription(tag.description ? `${tag.name} ${tag.description}` : tag.name));
     }
 
     return getComplexJSTagValue(name, tag);
@@ -71,7 +61,7 @@ function getJSTagValue(name: string, tag: Spec): JSDocTagValue {
 function getComplexJSTagValue(name: string, tag: Spec): JSDocTagValue {
     const result: JSDocTagValue = {};
     const defaultValue = tag.default ?? '';
-    const descriptionValue = normalizeDescription(tag.description);
+    const descriptionValue = trimNewLines(normalizeDescription(tag.description ?? ''));
     const nameValue = tag.name ?? '';
     const typeValue = tag.type ?? '';
     const hasDefault = defaultValue !== '';
@@ -132,7 +122,11 @@ function isStringJSDoc(name: string): boolean {
     return stringJSDocTags.indexOf(name) !== -1;
 }
 
-function normalizeDescription(desc: string): string {
+function trimNewLines(str = ''): string {
+    return str.trim().replace(/^\s+|\s+$/g, '').trim();
+}
+
+function normalizeDescription(desc = ''): string {
     if (desc.startsWith('- ')) {
         return desc.slice(2);
     }

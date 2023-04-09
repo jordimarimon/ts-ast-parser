@@ -6,14 +6,14 @@
             {
                 "name": "Foo",
                 "line": 1,
-                "kind": "type-alias",
+                "kind": "TypeAlias",
                 "value": "{\n    bar: number;\n}"
             }
         ],
         "exports": [
             {
                 "name": "Foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

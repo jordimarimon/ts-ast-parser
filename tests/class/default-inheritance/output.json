@@ -6,13 +6,12 @@
             {
                 "name": "Class1",
                 "line": 1,
-                "kind": "class",
-                "members": [
+                "kind": "Class",
+                "properties": [
                     {
                         "name": "foo",
                         "line": 2,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -23,7 +22,7 @@
             {
                 "name": "Class2",
                 "line": 5,
-                "kind": "class",
+                "kind": "Class",
                 "heritage": [
                     {
                         "name": "Class1",
@@ -31,15 +30,14 @@
                             "line": 1,
                             "path": "tests/class/default-inheritance/index.ts"
                         },
-                        "kind": "class"
+                        "kind": "Class"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "bar",
                         "line": 6,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -48,8 +46,7 @@
                     {
                         "name": "foo",
                         "line": 2,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -62,11 +59,11 @@
         "exports": [
             {
                 "name": "Class1",
-                "type": "default"
+                "kind": "Default"
             },
             {
                 "name": "Class2",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

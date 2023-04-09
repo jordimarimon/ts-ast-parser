@@ -11,7 +11,7 @@ const actual = parseFromSource(source);
 describe(category, () => {
 
     it('should extract the expected metadata', () => {
-        expect(actual).to.deep.equal(expected);
+        expect(actual?.serialize()).to.deep.equal(expected);
     });
 
 });

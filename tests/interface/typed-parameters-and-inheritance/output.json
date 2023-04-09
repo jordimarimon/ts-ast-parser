@@ -6,17 +6,28 @@
             {
                 "name": "Foo",
                 "line": 1,
-                "kind": "interface",
+                "kind": "Interface",
                 "typeParameters": [
                     {
                         "name": "T"
                     }
                 ],
-                "members": [
+                "indexSignature": {
+                    "name": "index",
+                    "line": 2,
+                    "kind": "IndexSignature",
+                    "indexType": {
+                        "text": "number"
+                    },
+                    "type": {
+                        "text": "T"
+                    }
+                },
+                "properties": [
                     {
                         "name": "field",
                         "line": 3,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "T",
                             "sources": [
@@ -27,10 +38,12 @@
                                 }
                             ]
                         }
-                    },
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
                         "name": "method",
+                        "kind": "Method",
                         "signatures": [
                             {
                                 "line": 4,
@@ -49,6 +62,7 @@
                                 "parameters": [
                                     {
                                         "name": "a",
+                                        "line": 4,
                                         "type": {
                                             "text": "T",
                                             "sources": [
@@ -63,25 +77,13 @@
                                 ]
                             }
                         ]
-                    },
-                    {
-                        "name": "",
-                        "line": 2,
-                        "kind": "field",
-                        "indexType": {
-                            "text": ""
-                        },
-                        "indexSignature": true,
-                        "type": {
-                            "text": "T"
-                        }
                     }
                 ]
             },
             {
                 "name": "Bar",
                 "line": 7,
-                "kind": "interface",
+                "kind": "Interface",
                 "heritage": [
                     {
                         "name": "Foo<string>",
@@ -89,14 +91,14 @@
                             "line": 1,
                             "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
                         },
-                        "kind": "interface"
+                        "kind": "Interface"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "childField",
                         "line": 8,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         }
@@ -104,15 +106,17 @@
                     {
                         "name": "field",
                         "line": 3,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "string"
                         },
                         "inherited": true
-                    },
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
                         "name": "method",
+                        "kind": "Method",
                         "signatures": [
                             {
                                 "line": 4,
@@ -124,6 +128,7 @@
                                 "parameters": [
                                     {
                                         "name": "a",
+                                        "line": 4,
                                         "type": {
                                             "text": "string"
                                         }
@@ -139,11 +144,11 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "Bar",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

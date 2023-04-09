@@ -6,11 +6,11 @@
             {
                 "name": "TypeArray",
                 "line": 10,
-                "kind": "type-alias",
+                "kind": "TypeAlias",
                 "value": "TypeX[]"
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 12,
                 "name": "foo",
                 "type": {
@@ -26,7 +26,7 @@
                 "default": "Colors.Red"
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 13,
                 "name": "blue",
                 "type": {
@@ -42,7 +42,7 @@
                 "default": "Colors.Blue"
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 14,
                 "name": "bar",
                 "type": {
@@ -58,7 +58,7 @@
                 "default": "{x: 4, y: 4}"
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 15,
                 "name": "bar2",
                 "type": {
@@ -79,7 +79,7 @@
                 "default": "{x: 3}"
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 16,
                 "name": "foo2",
                 "type": {
@@ -95,7 +95,7 @@
                 "default": "[]"
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 17,
                 "name": "foo3",
                 "type": {
@@ -114,31 +114,31 @@
         "exports": [
             {
                 "name": "TypeArray",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "foo",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "blue",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "bar",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "bar2",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "foo2",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "foo3",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

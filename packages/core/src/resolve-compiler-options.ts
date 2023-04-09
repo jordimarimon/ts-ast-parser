@@ -8,7 +8,10 @@ export function getResolvedCompilerOptions(compilerOptions?: ts.CompilerOptions)
         return getTsConfigOptions() ?? DEFAULT_COMPILER_OPTIONS;
     }
 
-    return compilerOptions;
+    return {
+        ...compilerOptions,
+        declaration: true,
+    };
 }
 
 function getTsConfigOptions(): ts.CompilerOptions | null {

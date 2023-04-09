@@ -4,13 +4,13 @@
         "imports": [
             {
                 "name": "foo",
-                "kind": "named",
+                "kind": "Named",
                 "importPath": "./foo.js"
             }
         ],
         "declarations": [
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "bar",
                 "line": 4,
                 "type": {
@@ -22,7 +22,7 @@
         "exports": [
             {
                 "name": "bar",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     },
@@ -31,7 +31,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "foo",
                 "line": 1,
                 "type": {
@@ -43,7 +43,7 @@
         "exports": [
             {
                 "name": "foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

@@ -1,27 +1,26 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
-import { SymbolWithLocation } from './types.js';
-import { isThirdParty } from './import.js';
-import { Context } from '../context.js';
+import { AnalyzerContext } from '../context.js';
+import { SymbolWithLocation } from './is.js';
 import ts from 'typescript';
 
 
-export function getLocation(nodeOrType: ts.Node | ts.Type): SymbolWithLocation {
+export function getLocation(nodeOrType: ts.Node | ts.Type, context: AnalyzerContext): SymbolWithLocation {
     let symbol: ts.Symbol | undefined;
 
     if ('kind' in nodeOrType) {
-        symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(nodeOrType));
+        symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(nodeOrType, context.checker), context.checker);
     } else {
         symbol = nodeOrType.aliasSymbol ?? nodeOrType.getSymbol();
     }
 
     const decl = symbol?.getDeclarations()?.[0];
     const sourceFile = decl?.getSourceFile();
-    const path = Context.normalizePath(sourceFile?.fileName);
+    const path = context.normalizePath(sourceFile?.fileName) ?? '';
 
     return {
         symbol,
         line: decl ? getLinePosition(decl) : null,
-        path: isThirdParty(path) ? '' : path,
+        path,
     };
 }
 

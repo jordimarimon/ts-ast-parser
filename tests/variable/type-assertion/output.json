@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "code",
                 "line": 1,
                 "type": {
@@ -13,8 +13,8 @@
                 "default": 123
             },
             {
-                "kind": "variable",
-                "name": "employeeCode",
+                "kind": "Variable",
+                "name": "code2",
                 "line": 2,
                 "type": {
                     "text": "number"
@@ -22,9 +22,18 @@
                 "default": 123
             },
             {
-                "kind": "variable",
-                "name": "x",
+                "kind": "Variable",
+                "name": "code3",
                 "line": 3,
+                "type": {
+                    "text": "number"
+                },
+                "default": 123
+            },
+            {
+                "kind": "Variable",
+                "name": "x",
+                "line": 4,
                 "type": {
                     "text": "readonly [4, 5]"
                 },
@@ -34,15 +43,19 @@
         "exports": [
             {
                 "name": "code",
-                "type": "named"
+                "kind": "Named"
             },
             {
-                "name": "employeeCode",
-                "type": "named"
+                "name": "code2",
+                "kind": "Named"
+            },
+            {
+                "name": "code3",
+                "kind": "Named"
             },
             {
                 "name": "x",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

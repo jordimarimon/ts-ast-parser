@@ -193,7 +193,7 @@
         }
     }
 
-    &.module {
+    &.has-sidebar {
         padding-inline: theme("spacing.6");
         padding-bottom: theme("spacing.6");
 

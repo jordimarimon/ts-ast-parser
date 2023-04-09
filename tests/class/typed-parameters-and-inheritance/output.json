@@ -5,8 +5,8 @@
         "declarations": [
             {
                 "name": "TypeX",
+                "kind": "TypeAlias",
                 "line": 1,
-                "kind": "type-alias",
                 "value": "{\n    fieldInType: T;\n}",
                 "typeParameters": [
                     {
@@ -16,18 +16,18 @@
             },
             {
                 "name": "TypeY",
+                "kind": "Interface",
                 "line": 5,
-                "kind": "interface",
                 "typeParameters": [
                     {
                         "name": "T"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "fieldInInterface",
                         "line": 6,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "T",
                             "sources": [
@@ -43,10 +43,23 @@
             },
             {
                 "name": "ClassB",
+                "kind": "Class",
                 "line": 9,
-                "kind": "class",
                 "constructors": [
                     {
+                        "line": 16,
+                        "return": {
+                            "type": {
+                                "text": "ClassB<T>",
+                                "sources": [
+                                    {
+                                        "text": "ClassB<T>",
+                                        "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                        "line": 9
+                                    }
+                                ]
+                            }
+                        },
                         "parameters": [
                             {
                                 "name": "value",
@@ -59,7 +72,8 @@
                                             "line": 9
                                         }
                                     ]
-                                }
+                                },
+                                "line": 16
                             }
                         ]
                     }
@@ -70,12 +84,11 @@
                         "default": "unknown"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "fieldInB",
                         "line": 10,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "T",
                             "sources": [
@@ -91,7 +104,7 @@
                     {
                         "name": "setterInB",
                         "line": 12,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "T",
                             "sources": [
@@ -102,12 +115,13 @@
                                 }
                             ]
                         },
-                        "writeOnly": true,
-                        "modifier": "public"
-                    },
+                        "writeOnly": true
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
                         "name": "myFunction",
+                        "kind": "Method",
                         "signatures": [
                             {
                                 "line": 20,
@@ -135,27 +149,41 @@
                                                     "line": 9
                                                 }
                                             ]
-                                        }
+                                        },
+                                        "line": 20
                                     }
                                 ]
                             }
-                        ],
-                        "modifier": "public"
+                        ]
                     }
                 ]
             },
             {
                 "name": "ClassA",
+                "kind": "Class",
                 "line": 25,
-                "kind": "class",
                 "constructors": [
                     {
+                        "line": 16,
+                        "return": {
+                            "type": {
+                                "text": "ClassA",
+                                "sources": [
+                                    {
+                                        "text": "ClassA",
+                                        "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                        "line": 25
+                                    }
+                                ]
+                            }
+                        },
                         "parameters": [
                             {
                                 "name": "value",
                                 "type": {
                                     "text": "string"
-                                }
+                                },
+                                "line": 16
                             }
                         ]
                     }
@@ -167,15 +195,14 @@
                             "line": 9,
                             "path": "tests/class/typed-parameters-and-inheritance/index.ts"
                         },
-                        "kind": "class"
+                        "kind": "Class"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "interfaceField",
                         "line": 26,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "TypeY<string>",
                             "sources": [
@@ -191,8 +218,7 @@
                     {
                         "name": "typeField",
                         "line": 28,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "TypeX<string>",
                             "sources": [
@@ -208,8 +234,7 @@
                     {
                         "name": "fieldInB",
                         "line": 10,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "string"
                         },
@@ -219,17 +244,18 @@
                     {
                         "name": "setterInB",
                         "line": 12,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "string"
                         },
-                        "writeOnly": true,
-                        "modifier": "public",
-                        "inherited": true
-                    },
+                        "inherited": true,
+                        "writeOnly": true
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
                         "name": "myFunction",
+                        "kind": "Method",
                         "signatures": [
                             {
                                 "line": 20,
@@ -243,12 +269,12 @@
                                         "name": "a",
                                         "type": {
                                             "text": "string"
-                                        }
+                                        },
+                                        "line": 20
                                     }
                                 ]
                             }
                         ],
-                        "modifier": "public",
                         "inherited": true
                     }
                 ]
@@ -257,19 +283,19 @@
         "exports": [
             {
                 "name": "TypeX",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "TypeY",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "ClassB",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "ClassA",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

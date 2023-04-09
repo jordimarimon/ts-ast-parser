@@ -6,14 +6,13 @@
             {
                 "name": "Foo",
                 "line": 1,
-                "kind": "class",
+                "kind": "Class",
                 "abstract": true,
-                "members": [
+                "properties": [
                     {
                         "name": "y",
                         "line": 3,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -22,15 +21,16 @@
                     {
                         "name": "x",
                         "line": 5,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
                         "abstract": true
-                    },
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "add",
                         "signatures": [
                             {
@@ -43,12 +43,14 @@
                                 "parameters": [
                                     {
                                         "name": "x",
+                                        "line": 7,
                                         "type": {
                                             "text": "number"
                                         }
                                     },
                                     {
                                         "name": "y",
+                                        "line": 7,
                                         "type": {
                                             "text": "number"
                                         }
@@ -56,7 +58,6 @@
                                 ]
                             }
                         ],
-                        "modifier": "public",
                         "abstract": true
                     }
                 ]
@@ -65,7 +66,7 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "function",
+                "kind": "Function",
                 "name": "add",
                 "signatures": [
                     {
@@ -17,12 +17,14 @@
                         "parameters": [
                             {
                                 "name": "a",
+                                "line": 1,
                                 "type": {
                                     "text": "string"
                                 }
                             },
                             {
                                 "name": "b",
+                                "line": 1,
                                 "type": {
                                     "text": "string"
                                 }
@@ -39,12 +41,14 @@
                         "parameters": [
                             {
                                 "name": "a",
+                                "line": 2,
                                 "type": {
                                     "text": "number"
                                 }
                             },
                             {
                                 "name": "b",
+                                "line": 2,
                                 "type": {
                                     "text": "number"
                                 }
@@ -57,7 +61,7 @@
         "exports": [
             {
                 "name": "add",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

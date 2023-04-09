@@ -1,0 +1,47 @@
+[
+    {
+        "path": "tests/interface/accessors/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "Interface",
+                "line": 1,
+                "properties": [
+                    {
+                        "name": "bar",
+                        "line": 3,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        }
+                    },
+                    {
+                        "name": "baz",
+                        "line": 6,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "readOnly": true
+                    },
+                    {
+                        "name": "value",
+                        "line": 8,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "writeOnly": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

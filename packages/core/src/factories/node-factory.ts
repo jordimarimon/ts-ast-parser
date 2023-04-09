@@ -1,11 +1,12 @@
-import { Module } from '../models/index.js';
+import { ReflectedNode } from '../nodes/reflected-node.js';
+import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 
-export interface NodeFactory<T extends ts.Node = ts.Node> {
+export interface NodeFactory<Model extends object, Node extends ReflectedNode<Model>, TSNode extends ts.Node> {
 
-    isNode(node: ts.Node): node is T;
+    isNode(node: ts.Node): node is TSNode;
 
-    create(node: T, moduleDoc: Module): void;
+    create(node: ts.Node, context: AnalyzerContext): Node[];
 
 }

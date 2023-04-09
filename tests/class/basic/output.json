@@ -6,24 +6,40 @@
             {
                 "name": "Foo",
                 "line": 4,
-                "kind": "class",
+                "kind": "Class",
                 "constructors": [
                     {
+                        "line": 18,
+                        "return": {
+                            "type": {
+                                "text": "Foo",
+                                "sources": [
+                                    {
+                                        "text": "Foo",
+                                        "path": "tests/class/basic/index.ts",
+                                        "line": 4
+                                    }
+                                ]
+                            }
+                        },
                         "parameters": [
                             {
                                 "name": "x",
+                                "line": 18,
                                 "type": {
                                     "text": "number"
                                 }
                             },
                             {
                                 "name": "y",
+                                "line": 18,
                                 "type": {
                                     "text": "number"
                                 }
                             },
                             {
                                 "name": "message",
+                                "line": 18,
                                 "type": {
                                     "text": "string"
                                 }
@@ -37,24 +53,24 @@
                         "value": "Example `Foo` class"
                     }
                 ],
-                "members": [
+                "staticProperties": [
                     {
                         "name": "staticBar",
                         "line": 6,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "\"Hello World\""
                         },
                         "static": true,
                         "default": "'Hello World'",
                         "readOnly": true
-                    },
+                    }
+                ],
+                "properties": [
                     {
                         "name": "bar",
                         "line": 8,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -63,15 +79,16 @@
                     {
                         "name": "message",
                         "line": 12,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "string | undefined"
                         },
                         "readOnly": true
-                    },
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "log",
                         "signatures": [
                             {
@@ -84,6 +101,7 @@
                                 "parameters": [
                                     {
                                         "name": "message",
+                                        "line": 24,
                                         "type": {
                                             "text": "string"
                                         }
@@ -91,11 +109,10 @@
                                 ]
                             }
                         ],
-                        "modifier": "public",
                         "readOnly": true
                     },
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "add",
                         "signatures": [
                             {
@@ -106,8 +123,7 @@
                                     }
                                 }
                             }
-                        ],
-                        "modifier": "public"
+                        ]
                     }
                 ]
             }
@@ -115,7 +131,7 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

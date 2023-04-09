@@ -6,7 +6,7 @@
             {
                 "name": "BarType",
                 "line": 7,
-                "kind": "type-alias",
+                "kind": "TypeAlias",
                 "value": "string | number",
                 "namespace": "Foo.Bar"
             }
@@ -14,7 +14,7 @@
         "exports": [
             {
                 "name": "BarType",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

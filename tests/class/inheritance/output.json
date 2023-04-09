@@ -6,20 +6,21 @@
             {
                 "name": "Class1",
                 "line": 1,
-                "kind": "class",
-                "members": [
+                "kind": "Class",
+                "properties": [
                     {
                         "name": "foo",
                         "line": 2,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
                         "default": 3
-                    },
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "someMethod",
                         "signatures": [
                             {
@@ -32,27 +33,28 @@
                                 "parameters": [
                                     {
                                         "name": "x",
+                                        "line": 4,
                                         "type": {
                                             "text": "number"
                                         }
                                     },
                                     {
                                         "name": "y",
+                                        "line": 4,
                                         "type": {
                                             "text": "number"
                                         }
                                     }
                                 ]
                             }
-                        ],
-                        "modifier": "public"
+                        ]
                     }
                 ]
             },
             {
                 "name": "Class2",
                 "line": 9,
-                "kind": "class",
+                "kind": "Class",
                 "heritage": [
                     {
                         "name": "Class1",
@@ -60,15 +62,14 @@
                             "line": 1,
                             "path": "tests/class/inheritance/index.ts"
                         },
-                        "kind": "class"
+                        "kind": "Class"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "bar",
                         "line": 10,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -77,16 +78,17 @@
                     {
                         "name": "foo",
                         "line": 12,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
                         "default": 5,
                         "override": true
-                    },
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "someMethod",
                         "signatures": [
                             {
@@ -99,12 +101,14 @@
                                 "parameters": [
                                     {
                                         "name": "x",
+                                        "line": 4,
                                         "type": {
                                             "text": "number"
                                         }
                                     },
                                     {
                                         "name": "y",
+                                        "line": 4,
                                         "type": {
                                             "text": "number"
                                         }
@@ -112,7 +116,6 @@
                                 ]
                             }
                         ],
-                        "modifier": "public",
                         "inherited": true
                     }
                 ]
@@ -120,7 +123,7 @@
             {
                 "name": "Class3",
                 "line": 15,
-                "kind": "class",
+                "kind": "Class",
                 "heritage": [
                     {
                         "name": "Class2",
@@ -128,15 +131,14 @@
                             "line": 9,
                             "path": "tests/class/inheritance/index.ts"
                         },
-                        "kind": "class"
+                        "kind": "Class"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "bar",
                         "line": 19,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -144,7 +146,19 @@
                         "override": true
                     },
                     {
-                        "kind": "method",
+                        "name": "foo",
+                        "line": 12,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 5,
+                        "override": true
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
                         "name": "someMethod",
                         "signatures": [
                             {
@@ -157,6 +171,7 @@
                                 "parameters": [
                                     {
                                         "name": "x",
+                                        "line": 23,
                                         "type": {
                                             "text": "number"
                                         }
@@ -164,18 +179,6 @@
                                 ]
                             }
                         ],
-                        "modifier": "public",
-                        "override": true
-                    },
-                    {
-                        "name": "foo",
-                        "line": 12,
-                        "kind": "field",
-                        "modifier": "public",
-                        "type": {
-                            "text": "number"
-                        },
-                        "default": 5,
                         "override": true
                     }
                 ]
@@ -184,15 +187,15 @@
         "exports": [
             {
                 "name": "Class1",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "Class2",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "Class3",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

@@ -6,54 +6,63 @@
             {
                 "name": "Foo",
                 "line": 1,
-                "kind": "class",
-                "members": [
+                "kind": "Class",
+                "staticProperties": [
                     {
                         "name": "staticBar",
-                        "line": 3,
-                        "kind": "field",
+                        "line": 5,
+                        "kind": "Property",
                         "type": {
                             "text": "string"
                         },
                         "static": true,
-                        "modifier": "public",
                         "readOnly": true,
                         "default": "'Hello World'"
-                    },
+                    }
+                ],
+                "properties": [
                     {
-                        "name": "bar",
-                        "line": 11,
-                        "kind": "field",
+                        "name": "name",
+                        "line": 3,
+                        "kind": "Property",
                         "type": {
                             "text": "string"
                         },
-                        "modifier": "public",
+                        "default": "'Foo'"
+                    },
+                    {
+                        "name": "bar",
+                        "line": 13,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
                         "default": "''"
                     },
                     {
                         "name": "fooBar",
-                        "line": 19,
-                        "kind": "field",
+                        "line": 21,
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
-                        "writeOnly": true,
-                        "modifier": "public"
-                    },
+                        "writeOnly": true
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "log",
                         "signatures": [
                             {
-                                "line": 23,
+                                "line": 25,
                                 "return": {
                                     "type": {
                                         "text": "void"
                                     }
                                 }
                             }
-                        ],
-                        "modifier": "public"
+                        ]
                     }
                 ]
             }
@@ -61,7 +70,7 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "default"
+                "kind": "Default"
             }
         ]
     }

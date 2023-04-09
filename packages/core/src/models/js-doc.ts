@@ -44,6 +44,7 @@ export type JSDocTagObjectValue = {
     [key: string]: unknown;
     name?: string;
     type?: string;
+    value?: unknown;
     default?: string;
     optional?: boolean;
     description?: string;
@@ -93,11 +94,11 @@ export type JSDoc = JSDocResult[];
 // You can also view them in the TS AST Viewer enabling the `show internals` options
 //
 
-export interface JSDocNode extends ts.Node {
-    jsDoc?: JSDocComment[];
+export interface JSDocTSNode extends ts.Node {
+    jsDoc?: JSDocTSComment[];
 }
 
-export interface JSDocComment extends ts.Node {
+export interface JSDocTSComment extends ts.Node {
     kind: ts.SyntaxKind.JSDocComment;
     comment?: string;
     tags?: ts.JSDocTag[];

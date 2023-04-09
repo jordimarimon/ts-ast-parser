@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "enum",
+                "kind": "Enum",
                 "name": "Fruit",
                 "line": 1,
                 "members": [
@@ -38,7 +38,7 @@
         "exports": [
             {
                 "name": "Fruit",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

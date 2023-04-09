@@ -4,17 +4,23 @@
         "imports": [
             {
                 "name": "Foo",
-                "kind": "named",
+                "kind": "Named",
                 "importPath": "custom-path/foo",
                 "originalPath": "tests/import/paths/foo.ts",
                 "isBareModuleSpecifier": true
             }
         ],
+        "exports": [
+            {
+                "name": "Bar",
+                "kind": "Named"
+            }
+        ],
         "declarations": [
             {
                 "name": "Bar",
+                "kind": "Class",
                 "line": 7,
-                "kind": "class",
                 "heritage": [
                     {
                         "name": "Foo",
@@ -22,15 +28,14 @@
                             "line": 1,
                             "path": "tests/import/paths/foo.ts"
                         },
-                        "kind": "class"
+                        "kind": "Class"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "bar",
                         "line": 8,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -39,40 +44,33 @@
                     }
                 ]
             }
-        ],
-        "exports": [
-            {
-                "name": "Bar",
-                "type": "named"
-            }
         ]
     },
     {
         "path": "tests/import/paths/foo.ts",
         "imports": [],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ],
         "declarations": [
             {
                 "name": "Foo",
+                "kind": "Class",
                 "line": 1,
-                "kind": "class",
-                "members": [
+                "properties": [
                     {
                         "name": "bar",
                         "line": 2,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
                         "default": 3
                     }
                 ]
-            }
-        ],
-        "exports": [
-            {
-                "name": "Foo",
-                "type": "named"
             }
         ]
     }

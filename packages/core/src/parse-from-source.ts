@@ -1,33 +1,43 @@
+import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
 import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
 import { createCompilerHost } from './compiler-host.js';
-import { Module } from './models/index.js';
-import { Context } from './context.js';
-import { collect } from './collect.js';
-import { clean } from './clean.js';
+import { ModuleNode } from './nodes/module-node.js';
+import { AnalyzerContext } from './context.js';
 import ts from 'typescript';
 
 
 /**
- * Extracts the metadata from a TypeScript code snippet
+ * Reflects a simplified version of the TypeScript Abstract
+ * Syntax Tree from a TypeScript code snippet
  *
  * @param source - A string that represents the TypeScript source code
  * @param compilerOptions - Options to pass to the TypeScript compiler
  *
- * @returns The metadata extracted from the source code provided
+ * @returns The reflected TypeScript AST
  */
-export function parseFromSource(source: string, compilerOptions?: ts.CompilerOptions): Module {
+export function parseFromSource(source: string, compilerOptions?: ts.CompilerOptions): ModuleNode | null {
     const fileName = 'unknown.ts';
     const compilerHost = createCompilerHost(fileName, source);
     const resolvedCompilerOptions = compilerOptions ?? DEFAULT_COMPILER_OPTIONS;
     const program = ts.createProgram([fileName], resolvedCompilerOptions, compilerHost);
     const sourceFile = program.getSourceFile(fileName);
+    const diagnostics = program.getSemanticDiagnostics();
 
-    Context.checker = program.getTypeChecker();
-    Context.compilerOptions = resolvedCompilerOptions;
+    if (diagnostics.length) {
+        logError('Error analysing source code:', formatDiagnostics(diagnostics));
+        return null;
+    }
 
-    const moduleDoc = collect(sourceFile);
+    if (!sourceFile) {
+        logWarning('Unable to analyze source code.');
+        return null;
+    }
 
-    clean([moduleDoc]);
+    const context: AnalyzerContext = {
+        checker: program.getTypeChecker(),
+        compilerOptions: resolvedCompilerOptions,
+        normalizePath: path => path ?? '',
+    };
 
-    return moduleDoc;
+    return new ModuleNode(sourceFile, context);
 }

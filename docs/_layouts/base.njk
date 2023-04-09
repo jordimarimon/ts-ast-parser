@@ -27,7 +27,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/prismjs@1.28.0/themes/prism-okaidia.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ '/assets/css/main.css' | url }}"/>
+    <style>{{'main.css' | postcss | safe}}</style>
 
     {% if withSideBar %}
     <script async type="module" src="{{ '/assets/js/side-bar.js' | url }}"></script>
@@ -48,7 +48,7 @@
 {% include "partials/_side-bar.njk" %}
 {% endif %}
 
-<main class="main {% if module %}module{% else %}full-page{% endif %} {% if withHeader %}has-navbar{% endif %}">
+<main class="main {% if module %}has-sidebar{% else %}full-page{% endif %} {% if withHeader %}has-navbar{% endif %}">
     {% if module %}
     <div class="mx-auto w-lg max-w-full">
         {{ content | safe }}

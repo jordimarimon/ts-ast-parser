@@ -6,10 +6,10 @@
             {
                 "name": "Foo",
                 "line": 1,
-                "kind": "interface",
-                "members": [
+                "kind": "Interface",
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "add",
                         "signatures": [
                             {
@@ -22,12 +22,14 @@
                                 "parameters": [
                                     {
                                         "name": "a",
+                                        "line": 2,
                                         "type": {
                                             "text": "string"
                                         }
                                     },
                                     {
                                         "name": "b",
+                                        "line": 2,
                                         "type": {
                                             "text": "string"
                                         }
@@ -44,12 +46,14 @@
                                 "parameters": [
                                     {
                                         "name": "a",
+                                        "line": 3,
                                         "type": {
                                             "text": "number"
                                         }
                                     },
                                     {
                                         "name": "b",
+                                        "line": 3,
                                         "type": {
                                             "text": "number"
                                         }
@@ -66,12 +70,14 @@
                                 "parameters": [
                                     {
                                         "name": "a",
+                                        "line": 4,
                                         "type": {
                                             "text": "unknown"
                                         }
                                     },
                                     {
                                         "name": "b",
+                                        "line": 4,
                                         "type": {
                                             "text": "unknown"
                                         }
@@ -86,7 +92,7 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

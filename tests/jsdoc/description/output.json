@@ -4,25 +4,25 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "variable",
                 "name": "x",
-                "line": 7,
+                "kind": "Variable",
+                "line": 12,
                 "type": {
                     "text": "number"
                 },
+                "default": 4,
                 "jsDoc": [
                     {
                         "kind": "description",
-                        "value": "This is the description of the variable. This is more content for the description that is too large."
+                        "value": "This is the description of the variable.\n\nThis is more content for the description\nthat is too large.\n\nThese are options that should be kept in the same format:\n- Option 1\n- Option 2\n- Option 3"
                     }
-                ],
-                "default": 4
+                ]
             }
         ],
         "exports": [
             {
                 "name": "x",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

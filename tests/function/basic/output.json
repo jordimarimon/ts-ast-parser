@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "function",
+                "kind": "Function",
                 "name": "sum",
                 "signatures": [
                     {
@@ -34,6 +34,7 @@
                         "parameters": [
                             {
                                 "name": "list",
+                                "line": 8,
                                 "type": {
                                     "text": "number[]"
                                 },
@@ -47,7 +48,7 @@
         "exports": [
             {
                 "name": "sum",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

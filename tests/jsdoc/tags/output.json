@@ -4,12 +4,13 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "variable",
                 "name": "x",
-                "line": 8,
+                "kind": "Variable",
+                "line": 14,
                 "type": {
                     "text": "number"
                 },
+                "default": 4,
                 "jsDoc": [
                     {
                         "kind": "description",
@@ -24,17 +25,20 @@
                         "value": "https://www.example.com"
                     },
                     {
+                        "kind": "example",
+                        "value": "```\nconst x = 4;\n```"
+                    },
+                    {
                         "kind": "category",
                         "value": "Variable"
                     }
-                ],
-                "default": 4
+                ]
             }
         ],
         "exports": [
             {
                 "name": "x",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

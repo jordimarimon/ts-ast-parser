@@ -6,31 +6,40 @@
             {
                 "name": "StringArray",
                 "line": 1,
-                "kind": "interface",
-                "members": [
-                    {
-                        "name": "",
-                        "line": 2,
-                        "kind": "field",
-                        "indexType": {
-                            "text": ""
-                        },
-                        "indexSignature": true,
-                        "type": {
-                            "text": "string"
-                        }
+                "kind": "Interface",
+                "indexSignature": {
+                    "name": "index",
+                    "line": 2,
+                    "kind": "IndexSignature",
+                    "indexType": {
+                        "text": "number"
+                    },
+                    "type": {
+                        "text": "string"
                     }
-                ]
+                }
+
             },
             {
                 "name": "NumberOrStringDictionary",
                 "line": 5,
-                "kind": "interface",
-                "members": [
+                "kind": "Interface",
+                "indexSignature": {
+                    "name": "index",
+                    "line": 6,
+                    "kind": "IndexSignature",
+                    "indexType": {
+                        "text": "string"
+                    },
+                    "type": {
+                        "text": "number | string"
+                    }
+                },
+                "properties": [
                     {
                         "name": "length",
                         "line": 7,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         }
@@ -38,21 +47,9 @@
                     {
                         "name": "name",
                         "line": 8,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "string"
-                        }
-                    },
-                    {
-                        "name": "",
-                        "line": 6,
-                        "kind": "field",
-                        "indexType": {
-                            "text": ""
-                        },
-                        "indexSignature": true,
-                        "type": {
-                            "text": "number | string"
                         }
                     }
                 ]
@@ -61,11 +58,11 @@
         "exports": [
             {
                 "name": "StringArray",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "NumberOrStringDictionary",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

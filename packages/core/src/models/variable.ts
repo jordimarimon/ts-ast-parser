@@ -3,6 +3,6 @@ import { PropertyLike } from './property.js';
 
 
 export interface VariableDeclaration extends PropertyLike {
-    kind: DeclarationKind.variable;
+    kind: DeclarationKind.Variable;
     namespace?: string;
 }

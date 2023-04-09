@@ -1,6 +1,6 @@
-{% set previousPost = collections[module] | getPreviousCollectionItem(page) %}
+{% set previousPost = collections.module | getPreviousCollectionItem(page) %}
 
-{% set nextPost = collections[module] | getNextCollectionItem(page) %}
+{% set nextPost = collections.module | getNextCollectionItem(page) %}
 
 <div class="pagination">
     {% if previousPost %}

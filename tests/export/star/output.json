@@ -6,7 +6,7 @@
         "exports": [
             {
                 "name": "*",
-                "type": "star",
+                "kind": "Star",
                 "module": "'./foo.js'"
             }
         ]
@@ -16,7 +16,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 1,
                 "name": "foo",
                 "type": {
@@ -28,7 +28,7 @@
         "exports": [
             {
                 "name": "foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

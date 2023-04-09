@@ -1,94 +1,18 @@
-import { DeclarationKind, FunctionDeclaration, FunctionLike, FunctionSignature, Module } from '../models/index.js';
-import { getDecorators } from '../utils/decorator.js';
+import { isFunctionDeclaration } from '../utils/function.js';
+import { FunctionDeclaration } from '../models/function.js';
+import { FunctionNode } from '../nodes/function-node.js';
 import { NodeFactory } from './node-factory.js';
-import { Context } from '../context.js';
+import { AnalyzerContext } from '../context.js';
+import { Method } from '../models/member.js';
 import ts from 'typescript';
-import {
-    getAllJSDoc,
-    getFunctionName,
-    getFunctionNode,
-    getLinePosition,
-    getParameters,
-    getSignatures,
-    getTypeInfoFromTsType,
-    getTypeParameters,
-    isAsyncFunction,
-    isFunctionDeclaration,
-    isGeneratorFunction,
-    tryAddNamespace,
-    tryAddProperty,
-} from '../utils/index.js';
 
 
-export const functionFactory: NodeFactory<ts.VariableStatement | ts.FunctionDeclaration> = {
+export const functionFactory: NodeFactory<FunctionDeclaration | Method, FunctionNode, ts.VariableStatement | ts.FunctionDeclaration> = {
 
     isNode: isFunctionDeclaration,
 
-    create: createFunction,
+    create: (node: ts.VariableStatement | ts.FunctionDeclaration, context: AnalyzerContext): FunctionNode[] => {
+        return [new FunctionNode(node, context)];
+    },
 
 };
-
-function createFunction(node: ts.VariableStatement | ts.FunctionDeclaration, moduleDoc: Module): void {
-    const tmpl: FunctionDeclaration = {
-        kind: DeclarationKind.function,
-        ...createFunctionLike(node),
-    };
-
-    tryAddNamespace(node, tmpl);
-
-    const alreadyExists = moduleDoc?.declarations?.some(decl => decl.name === tmpl.name);
-
-    // Functions can be overloaded
-    if (alreadyExists) {
-        return;
-    }
-
-    moduleDoc.declarations.push(tmpl);
-}
-
-function createSignature(signature: ts.Signature): FunctionSignature {
-    const checker = Context.checker;
-    const returnTypeOfSignature = checker?.getReturnTypeOfSignature(signature);
-    const declaration = signature.getDeclaration();
-    const jsDoc = getAllJSDoc(declaration);
-    const tmpl: FunctionSignature = {
-        line: getLinePosition(declaration),
-        return: {
-            type: getTypeInfoFromTsType(returnTypeOfSignature),
-        },
-    };
-
-    tryAddProperty(tmpl, 'jsDoc', jsDoc);
-    tryAddProperty(tmpl, 'parameters', getParameters(declaration, signature));
-    tryAddProperty(tmpl, 'typeParameters', getTypeParameters(declaration));
-
-    return tmpl;
-}
-
-export function createFunctionLike(node: ts.Node, type?: ts.Type | undefined): FunctionLike {
-    const func = getFunctionNode(node);
-    const signatures = getSignatures(func, type);
-    const tmpl: FunctionLike = {
-        name: getFunctionName(node),
-        signatures: signatures.map(s => createSignature(s)),
-    };
-
-    // If it's a variable declaration that has an anonymous functions as initializer,
-    // we need to retrieve the JSDoc from the variable declaration
-    if (node !== func) {
-        const jsDoc = getAllJSDoc(node);
-        tryAddProperty(tmpl, 'jsDoc', jsDoc);
-    }
-
-    tryAddProperty(tmpl, 'decorators', getDecorators(node));
-
-    if (!ts.isPropertySignature(node) && !ts.isMethodSignature(node)) {
-        tryAddProperty(tmpl, 'async', isAsyncFunction(func));
-    }
-
-    if (func && (ts.isFunctionDeclaration(func) || ts.isFunctionExpression(func) || ts.isMethodDeclaration(func))) {
-        tryAddProperty(tmpl, 'generator', isGeneratorFunction(func));
-    }
-
-    return tmpl;
-}

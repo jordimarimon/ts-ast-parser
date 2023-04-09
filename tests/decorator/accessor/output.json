@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "function",
+                "kind": "Function",
                 "name": "configurable",
                 "signatures": [
                     {
@@ -17,6 +17,7 @@
                         "parameters": [
                             {
                                 "name": "value",
+                                "line": 1,
                                 "type": {
                                     "text": "boolean"
                                 }
@@ -28,18 +29,33 @@
             {
                 "name": "Point",
                 "line": 7,
-                "kind": "class",
+                "kind": "Class",
                 "constructors": [
                     {
+                        "line": 23,
+                        "return": {
+                            "type": {
+                                "text": "Point",
+                                "sources": [
+                                    {
+                                        "line": 7,
+                                        "path": "tests/decorator/accessor/index.ts",
+                                        "text": "Point"
+                                    }
+                                ]
+                            }
+                        },
                         "parameters": [
                             {
                                 "name": "x",
+                                "line": 23,
                                 "type": {
                                     "text": "number"
                                 }
                             },
                             {
                                 "name": "y",
+                                "line": 23,
                                 "type": {
                                     "text": "number"
                                 }
@@ -47,11 +63,11 @@
                         ]
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "x",
                         "line": 9,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -67,13 +83,12 @@
                                 }
                             }
                         ],
-                        "modifier": "public",
                         "readOnly": true
                     },
                     {
                         "name": "y",
                         "line": 14,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
@@ -89,7 +104,6 @@
                                 }
                             }
                         ],
-                        "modifier": "public",
                         "readOnly": true
                     }
                 ]
@@ -98,11 +112,11 @@
         "exports": [
             {
                 "name": "configurable",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "Point",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

@@ -1,56 +1,25 @@
-import { DeclarationKind, JSDocTagName, Module, VariableDeclaration } from '../models/index.js';
-import { getDecorators } from '../utils/decorator.js';
+import { isFunctionDeclaration } from '../utils/function.js';
+import { VariableDeclaration } from '../models/variable.js';
+import { VariableNode } from '../nodes/variable-node.js';
 import { NodeFactory } from './node-factory.js';
+import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
-import {
-    findJSDoc,
-    getAllJSDoc,
-    getLinePosition,
-    getTypeInfoFromNode,
-    isFunctionDeclaration,
-    resolveExpression,
-    tryAddProperty,
-} from '../utils/index.js';
 
 
-export const variableFactory: NodeFactory<ts.VariableStatement> = {
+export const variableFactory: NodeFactory<VariableDeclaration, VariableNode, ts.VariableStatement> = {
 
     isNode: (node: ts.Node): node is ts.VariableStatement => {
         return !isFunctionDeclaration(node) && ts.isVariableStatement(node);
     },
 
-    create: createVariable,
+    create: (node: ts.VariableStatement, context: AnalyzerContext): VariableNode[] => {
+        const result: VariableNode[] = [];
 
-};
-
-function createVariable(node: ts.VariableStatement, moduleDoc: Module): void {
-
-    const jsDoc = getAllJSDoc(node);
-    const decorators = getDecorators(node);
-    const jsDocDefinedType = findJSDoc<string>(JSDocTagName.type, jsDoc)?.value;
-    const jsDocDefaultValue = findJSDoc<string>(JSDocTagName.default, jsDoc)?.value;
-    const line = getLinePosition(node);
-    const namespace = (node.parent?.parent as ts.ModuleDeclaration)?.name?.getText() ?? '';
-
-    for (const declaration of node.declarationList.declarations) {
-        const name = declaration?.name?.getText() ?? '';
-        const defaultValue = jsDocDefaultValue ?? resolveExpression(declaration.initializer);
-        const tmpl: VariableDeclaration = {
-            kind: DeclarationKind.variable,
-            line,
-            name,
-            type: jsDocDefinedType ? {text: jsDocDefinedType} : getTypeInfoFromNode(declaration),
-        };
-
-        if (defaultValue !== '') {
-            tmpl.default = defaultValue;
+        for (const declaration of node.declarationList.declarations) {
+            result.push(new VariableNode(node, declaration, context));
         }
 
-        tryAddProperty(tmpl, 'jsDoc', jsDoc);
-        tryAddProperty(tmpl, 'decorators', decorators);
-        tryAddProperty(tmpl, 'namespace', namespace);
+        return result;
+    },
 
-        moduleDoc.declarations.push(tmpl);
-    }
-
-}
+};

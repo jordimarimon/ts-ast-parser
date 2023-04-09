@@ -2,28 +2,28 @@
     {
         "path": "tests/export/type/index.ts",
         "imports": [],
+        "exports": [
+            {
+                "name": "TypeA",
+                "kind": "Named",
+                "isTypeOnly": true
+            }
+        ],
         "declarations": [
             {
                 "name": "TypeA",
-                "kind": "interface",
+                "kind": "Interface",
                 "line": 1,
-                "members": [
+                "properties": [
                     {
                         "name": "foo",
-                        "kind": "field",
+                        "kind": "Property",
                         "line": 2,
                         "type": {
                             "text": "string"
                         }
                     }
                 ]
-            }
-        ],
-        "exports": [
-            {
-                "name": "TypeA",
-                "type": "named",
-                "isTypeOnly": true
             }
         ]
     }

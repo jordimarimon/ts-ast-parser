@@ -1,5 +1,7 @@
 export default class Foo {
 
+    accessor name = 'Foo';
+
     static get staticBar(): string {
         return 'Hello World';
     }

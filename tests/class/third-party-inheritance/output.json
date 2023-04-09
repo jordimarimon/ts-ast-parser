@@ -4,21 +4,21 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "class",
+                "kind": "Class",
                 "name": "FooElement",
+                "customElement": true,
                 "line": 1,
                 "heritage": [
                     {
                         "name": "HTMLElement",
-                        "kind": "interface"
+                        "kind": "Interface"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
-                        "kind": "field",
+                        "kind": "Property",
                         "name": "foo",
                         "line": 3,
-                        "modifier": "public",
                         "type": {
                             "text": "number"
                         },
@@ -27,8 +27,9 @@
                 ]
             },
             {
-                "kind": "class",
+                "kind": "Class",
                 "name": "BarElement",
+                "customElement": true,
                 "line": 7,
                 "heritage": [
                     {
@@ -37,25 +38,23 @@
                             "line": 1,
                             "path": "tests/class/third-party-inheritance/index.ts"
                         },
-                        "kind": "class"
+                        "kind": "Class"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
-                        "kind": "field",
+                        "kind": "Property",
                         "name": "bar",
                         "line": 9,
-                        "modifier": "public",
                         "type": {
                             "text": "number"
                         },
                         "default": 4
                     },
                     {
-                        "kind": "field",
+                        "kind": "Property",
                         "name": "foo",
                         "line": 3,
-                        "modifier": "public",
                         "type": {
                             "text": "number"
                         },
@@ -68,11 +67,11 @@
         "exports": [
             {
                 "name": "FooElement",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "BarElement",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

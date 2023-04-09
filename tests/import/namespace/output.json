@@ -3,22 +3,32 @@
         "path": "tests/import/namespace/index.ts",
         "imports": [
             {
-                "name": "Namespace",
-                "kind": "namespace",
+                "name": "barFoo",
+                "kind": "Namespace",
                 "importPath": "./foo.js"
             }
         ],
-        "declarations": [],
-        "exports": []
+        "exports": [],
+        "declarations": []
     },
     {
         "path": "tests/import/namespace/foo.ts",
         "imports": [],
+        "exports": [
+            {
+                "name": "x",
+                "kind": "Named"
+            },
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ],
         "declarations": [
             {
-                "kind": "variable",
-                "line": 1,
                 "name": "x",
+                "kind": "Variable",
+                "line": 1,
                 "type": {
                     "text": "number"
                 },
@@ -26,12 +36,12 @@
             },
             {
                 "name": "Foo",
+                "kind": "Class",
                 "line": 3,
-                "kind": "class",
-                "members": [
+                "methods": [
                     {
-                        "kind": "method",
                         "name": "bar",
+                        "kind": "Method",
                         "signatures": [
                             {
                                 "line": 5,
@@ -41,20 +51,9 @@
                                     }
                                 }
                             }
-                        ],
-                        "modifier": "public"
+                        ]
                     }
                 ]
-            }
-        ],
-        "exports": [
-            {
-                "name": "x",
-                "type": "named"
-            },
-            {
-                "name": "Foo",
-                "type": "named"
             }
         ]
     }

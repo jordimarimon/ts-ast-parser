@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 2,
                 "name": "foo",
                 "type": {
@@ -16,7 +16,7 @@
         "exports": [
             {
                 "name": "foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

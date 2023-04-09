@@ -4,25 +4,31 @@
         "imports": [
             {
                 "name": "Foo",
-                "kind": "named",
+                "kind": "Named",
                 "importPath": "./foo.js"
             }
         ],
-        "declarations": [],
-        "exports": []
+        "exports": [],
+        "declarations": []
     },
     {
         "path": "tests/import/named/foo.ts",
         "imports": [],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ],
         "declarations": [
             {
                 "name": "Foo",
+                "kind": "Class",
                 "line": 1,
-                "kind": "class",
-                "members": [
+                "methods": [
                     {
-                        "kind": "method",
                         "name": "bar",
+                        "kind": "Method",
                         "signatures": [
                             {
                                 "line": 3,
@@ -32,16 +38,9 @@
                                     }
                                 }
                             }
-                        ],
-                        "modifier": "public"
+                        ]
                     }
                 ]
-            }
-        ],
-        "exports": [
-            {
-                "name": "Foo",
-                "type": "named"
             }
         ]
     }

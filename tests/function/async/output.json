@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "function",
+                "kind": "Function",
                 "name": "sleep",
                 "signatures": [
                     {
@@ -17,6 +17,7 @@
                         "parameters": [
                             {
                                 "name": "amount",
+                                "line": 2,
                                 "type": {
                                     "text": "number"
                                 },
@@ -32,7 +33,7 @@
         "exports": [
             {
                 "name": "sleep",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

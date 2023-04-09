@@ -1,0 +1,69 @@
+[
+    {
+        "path": "tests/variable/satisfies-operator/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Colors",
+                "kind": "TypeAlias",
+                "line": 1,
+                "value": "'red' | 'green' | 'blue'"
+            },
+            {
+                "name": "RGB",
+                "kind": "TypeAlias",
+                "line": 3,
+                "value": "[red: number, green: number, blue: number]"
+            },
+            {
+                "name": "palette",
+                "kind": "Variable",
+                "line": 5,
+                "type": {
+                    "text": "{ red: [number, number, number]; green: string; blue: [number, number, number]; }"
+                },
+                "default": "{\n    red: [255, 0, 0],\n    green: '#00ff00',\n    blue: [0, 0, 255],\n} satisfies Record<Colors, string | RGB>"
+            },
+            {
+                "name": "redComponent",
+                "kind": "Variable",
+                "line": 12,
+                "type": {
+                    "text": "number | undefined"
+                },
+                "default": "palette.red.at(0)"
+            },
+            {
+                "name": "greenNormalized",
+                "kind": "Variable",
+                "line": 13,
+                "type": {
+                    "text": "string"
+                },
+                "default": "palette.green.toUpperCase()"
+            }
+        ],
+        "exports": [
+            {
+                "name": "Colors",
+                "kind": "Named"
+            },
+            {
+                "name": "RGB",
+                "kind": "Named"
+            },
+            {
+                "name": "palette",
+                "kind": "Named"
+            },
+            {
+                "name": "redComponent",
+                "kind": "Named"
+            },
+            {
+                "name": "greenNormalized",
+                "kind": "Named"
+            }
+        ]
+    }
+]

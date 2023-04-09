@@ -18,14 +18,6 @@ for (const pkgPath of packages) {
         hasChanged = update(pkg.dependencies);
     }
 
-    if (pkg?.peerDependencies) {
-        hasChanged = update(pkg.peerDependencies) || hasChanged;
-    }
-
-    if (pkg?.optionalDependencies) {
-        hasChanged = update(pkg.optionalDependencies) || hasChanged;
-    }
-
     if (hasChanged) {
         console.log(chalk.red(`\tWriting new package.json`));
 

@@ -5,10 +5,10 @@ import { Type } from './type.js';
 
 export interface PropertyLike {
     name: string;
-    line?: number;
+    line: number;
     type: Type;
     default?: unknown;
     optional?: boolean;
-    decorators?: Decorator[];
+    decorators?: readonly Decorator[];
     jsDoc?: JSDoc;
 }

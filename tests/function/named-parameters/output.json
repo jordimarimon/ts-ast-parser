@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "function",
+                "kind": "Function",
                 "name": "foo",
                 "signatures": [
                     {
@@ -18,6 +18,7 @@
                             {
                                 "name": "__namedParameter",
                                 "named": true,
+                                "line": 8,
                                 "type": {
                                     "text": "NamedParameters"
                                 },
@@ -30,11 +31,11 @@
                                     },
                                     {
                                         "name": "c",
-                                        "value": 0
+                                        "default": 0
                                     },
                                     {
                                         "name": "d",
-                                        "value": 1
+                                        "default": 1
                                     }
                                 ]
                             }
@@ -46,7 +47,7 @@
         "exports": [
             {
                 "name": "foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

@@ -4,7 +4,7 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "foo",
                 "line": 1,
                 "type": {
@@ -13,7 +13,7 @@
                 "default": 3
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "bar",
                 "line": 2,
                 "type": {
@@ -22,7 +22,7 @@
                 "default": 3
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "bar2",
                 "line": 3,
                 "type": {
@@ -31,7 +31,7 @@
                 "default": 3
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "str",
                 "line": 4,
                 "type": {
@@ -40,7 +40,7 @@
                 "default": "'Hello'"
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "num",
                 "line": 5,
                 "type": {
@@ -49,7 +49,7 @@
                 "default": 4
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "bool",
                 "line": 6,
                 "type": {
@@ -58,7 +58,7 @@
                 "default": false
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "obj",
                 "line": 7,
                 "type": {
@@ -67,7 +67,7 @@
                 "default": "{x: 3}"
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "name": "arr",
                 "line": 8,
                 "type": {
@@ -79,35 +79,35 @@
         "exports": [
             {
                 "name": "foo",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "bar",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "bar2",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "str",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "num",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "bool",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "obj",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "arr",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

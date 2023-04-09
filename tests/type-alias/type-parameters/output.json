@@ -5,7 +5,7 @@
         "declarations": [
             {
                 "name": "Foo",
-                "kind": "type-alias",
+                "kind": "TypeAlias",
                 "line": 4,
                 "value": "{\n    x: T;\n    y: K;\n}",
                 "jsDoc": [
@@ -27,7 +27,7 @@
         "exports": [
             {
                 "name": "Foo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

@@ -1,16 +1,28 @@
-import { ClassField, ClassLike, ClassMethod } from './class.js';
 import { DeclarationKind } from './declaration-kind.js';
+import { TypeParameter } from './type-parameter.js';
+import { MemberKind } from './member-kind.js';
+import { PropertyLike } from './property.js';
+import { Field, Method } from './member.js';
+import { Reference } from './reference.js';
+import { JSDoc } from './js-doc.js';
 import { Type } from './type.js';
 
 
-export type InterfaceMember = InterfaceField | ClassMethod;
-
-export interface InterfaceField extends ClassField {
+export interface IndexSignature extends PropertyLike {
+    kind: MemberKind.IndexSignature;
     indexType?: Type;
-    indexSignature?: boolean;
+    readOnly?: boolean;
 }
 
-export interface InterfaceDeclaration extends ClassLike {
-    kind: DeclarationKind.interface;
-    members?: InterfaceMember[];
+export interface InterfaceDeclaration {
+    name: string;
+    line: number;
+    kind: DeclarationKind.Interface;
+    properties?: readonly Field[];
+    indexSignature?: IndexSignature;
+    methods?: readonly Method[];
+    jsDoc?: JSDoc;
+    typeParameters?: readonly TypeParameter[];
+    heritage?: readonly Reference[];
+    namespace?: string;
 }

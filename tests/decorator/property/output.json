@@ -1,10 +1,16 @@
 [
     {
         "path": "tests/decorator/property/index.ts",
-        "imports": [],
+        "imports": [
+            {
+                "kind": "SideEffect",
+                "importPath": "reflect-metadata",
+                "isBareModuleSpecifier": true
+            }
+        ],
         "declarations": [
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 4,
                 "name": "formatMetadataKey",
                 "type": {
@@ -13,7 +19,7 @@
                 "default": "Symbol('format')"
             },
             {
-                "kind": "function",
+                "kind": "Function",
                 "name": "format",
                 "signatures": [
                     {
@@ -26,6 +32,7 @@
                         "parameters": [
                             {
                                 "name": "formatString",
+                                "line": 7,
                                 "type": {
                                     "text": "string"
                                 }
@@ -35,7 +42,7 @@
                 ]
             },
             {
-                "kind": "function",
+                "kind": "Function",
                 "name": "getFormat",
                 "signatures": [
                     {
@@ -48,6 +55,7 @@
                         "parameters": [
                             {
                                 "name": "target",
+                                "line": 12,
                                 "type": {
                                     "text": "Greeter",
                                     "sources": [
@@ -61,6 +69,7 @@
                             },
                             {
                                 "name": "propertyKey",
+                                "line": 12,
                                 "type": {
                                     "text": "string"
                                 }
@@ -72,12 +81,26 @@
             {
                 "name": "Greeter",
                 "line": 16,
-                "kind": "class",
+                "kind": "Class",
                 "constructors": [
                     {
+                        "line": 21,
+                        "return": {
+                            "type": {
+                                "text": "Greeter",
+                                "sources": [
+                                    {
+                                        "line": 16,
+                                        "path": "tests/decorator/property/index.ts",
+                                        "text": "Greeter"
+                                    }
+                                ]
+                            }
+                        },
                         "parameters": [
                             {
                                 "name": "message",
+                                "line": 21,
                                 "type": {
                                     "text": "string"
                                 }
@@ -85,12 +108,11 @@
                         ]
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "greeting",
                         "line": 18,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "string"
                         },
@@ -107,9 +129,11 @@
                             }
                         ],
                         "readOnly": true
-                    },
+                    }
+                ],
+                "methods": [
                     {
-                        "kind": "method",
+                        "kind": "Method",
                         "name": "greet",
                         "signatures": [
                             {
@@ -120,8 +144,7 @@
                                     }
                                 }
                             }
-                        ],
-                        "modifier": "public"
+                        ]
                     }
                 ]
             }
@@ -129,19 +152,19 @@
         "exports": [
             {
                 "name": "formatMetadataKey",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "format",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "getFormat",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "Greeter",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

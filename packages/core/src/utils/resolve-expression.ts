@@ -3,9 +3,9 @@ import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
 
-export function resolveExpression(expression: ts.Expression | undefined): unknown {
+export function resolveExpression(expression: ts.Expression | undefined, checker: ts.TypeChecker): unknown {
     if (expression == null) {
-        return '';
+        return undefined;
     }
 
     let expr = expression;
@@ -15,7 +15,7 @@ export function resolveExpression(expression: ts.Expression | undefined): unknow
     }
 
     if (expr == null) {
-        return '';
+        return undefined;
     }
 
     const text = expr.getText() ?? '';
@@ -41,7 +41,7 @@ export function resolveExpression(expression: ts.Expression | undefined): unknow
     }
 
     if (ts.isIdentifier(expr) || ts.isPropertyAccessExpression(expr)) {
-        return resolveIdentifier(expr);
+        return resolveIdentifier(expr, checker);
     }
 
     return text;
@@ -61,8 +61,8 @@ function parseStringToFloat(text: string): number | string {
     return text;
 }
 
-function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression): unknown {
-    const reference = getAliasedSymbolIfNecessary(getSymbolAtLocation(expr));
+function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression, checker: ts.TypeChecker): unknown {
+    const reference = getAliasedSymbolIfNecessary(getSymbolAtLocation(expr, checker), checker);
     const text = expr.getText() ?? '';
     const refExpr = reference?.declarations?.[0];
     const importPath = refExpr?.getSourceFile().fileName ?? '';
@@ -77,7 +77,7 @@ function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression): u
     }
 
     if (ts.isVariableDeclaration(refExpr) || ts.isPropertyDeclaration(refExpr)) {
-        return resolveExpression(refExpr.initializer);
+        return resolveExpression(refExpr.initializer, checker);
     }
 
     return text;

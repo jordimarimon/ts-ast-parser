@@ -1,29 +1,16 @@
-import { getAllJSDoc, getLinePosition, getTypeParameters, tryAddNamespace, tryAddProperty } from '../utils/index.js';
-import { DeclarationKind, Module, TypeAliasDeclaration } from '../models/index.js';
+import { TypeAliasDeclaration } from '../models/type-alias.js';
+import { TypeAliasNode } from '../nodes/type-alias-node.js';
 import { NodeFactory } from './node-factory.js';
+import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 
-export const typeAliasFactory: NodeFactory<ts.TypeAliasDeclaration> = {
+export const typeAliasFactory: NodeFactory<TypeAliasDeclaration, TypeAliasNode, ts.TypeAliasDeclaration> = {
 
     isNode: (node: ts.Node): node is ts.TypeAliasDeclaration => ts.isTypeAliasDeclaration(node),
 
-    create: createTypeAlias,
+    create: (node: ts.TypeAliasDeclaration, context: AnalyzerContext): TypeAliasNode[] => {
+        return [new TypeAliasNode(node, context)];
+    },
 
 };
-
-function createTypeAlias(node: ts.TypeAliasDeclaration, moduleDoc: Module): void {
-    const name = node.name?.getText();
-    const tmpl: TypeAliasDeclaration = {
-        name,
-        line: getLinePosition(node),
-        kind: DeclarationKind.typeAlias,
-        value: node.type?.getText(),
-    };
-
-    tryAddProperty(tmpl, 'jsDoc', getAllJSDoc(node));
-    tryAddProperty(tmpl, 'typeParameters', getTypeParameters(node));
-    tryAddNamespace(node, tmpl);
-
-    moduleDoc.declarations.push(tmpl);
-}

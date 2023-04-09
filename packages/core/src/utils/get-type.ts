@@ -1,17 +1,17 @@
-import { Type, TypeReference } from '../models/index.js';
+import { Type, TypeReference } from '../models/type.js';
 import { tryAddProperty } from './try-add-property.js';
 import { getLocation } from './get-location.js';
-import { Context } from '../context.js';
+import { AnalyzerContext } from '../context.js';
+import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
 
-export function getTypeInfoFromTsType(type: ts.Type | undefined): Type {
+export function getTypeFromTSType(type: ts.Type | undefined, context: AnalyzerContext): Type {
     if (type) {
-        const checker = Context.checker;
-        const name = checker?.typeToString(type) ?? '';
+        const name = context.checker.typeToString(type) ?? '';
         const result: Type = {text: name};
 
-        tryAddProperty(result, 'sources', getTypeDefinitions(type));
+        tryAddProperty(result, 'sources', getTypeReferences(type, context));
 
         return result;
     }
@@ -19,13 +19,13 @@ export function getTypeInfoFromTsType(type: ts.Type | undefined): Type {
     return {text: ''};
 }
 
-export function getTypeDefinitions(type: ts.Type | undefined): TypeReference[] {
+export function getTypeReferences(type: ts.Type | undefined, context: AnalyzerContext): TypeReference[] {
     if (!type) {
         return [];
     }
 
-    const checker = Context.checker;
-    const node = checker?.typeToTypeNode(type, void 0, ts.NodeBuilderFlags.IgnoreErrors);
+    const checker = context.checker;
+    const node = checker.typeToTypeNode(type, void 0, ts.NodeBuilderFlags.IgnoreErrors);
 
     let result: TypeReference[] = [];
 
@@ -35,28 +35,28 @@ export function getTypeDefinitions(type: ts.Type | undefined): TypeReference[] {
 
     // CASE of => TypeX[]
     if (ts.isArrayTypeNode(node) && ts.isTypeReferenceNode(node.elementType)) {
-        const elementType = getTypeDefinitions(checker?.getTypeArguments(type as ts.TypeReference)?.[0]);
+        const elementType = getTypeReferences(checker.getTypeArguments(type as ts.TypeReference)?.[0], context);
         result = result.concat(elementType);
     }
 
     // CASE of an Intersection type => TypeX & TypeY
     else if (ts.isIntersectionTypeNode(node)) {
-        const elementTypes = (type as ts.IntersectionType).types.flatMap(t => getTypeDefinitions(t));
+        const elementTypes = (type as ts.IntersectionType).types.flatMap(t => getTypeReferences(t, context));
         result = result.concat(elementTypes);
     }
 
     // CASE of a Union type => TypeX | TypeY
     else if (ts.isUnionTypeNode(node)) {
-        const elementTypes = (type as ts.UnionType).types.flatMap(t => getTypeDefinitions(t));
+        const elementTypes = (type as ts.UnionType).types.flatMap(t => getTypeReferences(t, context));
         result = result.concat(elementTypes);
     }
 
     // CASE of => TypeX
     else if (ts.isTypeReferenceNode(node)) {
-        const name = checker?.typeToString(type) ?? '';
-        const {path, line} = getLocation(type);
+        const name = checker.typeToString(type) ?? '';
+        const {path, line} = getLocation(type, context);
 
-        if (line && path) {
+        if (line != null && path && !isThirdParty(path)) {
             result.push({text: name, path, line});
         }
     }
@@ -64,15 +64,14 @@ export function getTypeDefinitions(type: ts.Type | undefined): TypeReference[] {
     return result;
 }
 
-export function getTypeInfoFromNode(node: ts.Node): Type {
-    const type = getType(node);
+export function getTypeFromNode(node: ts.Node, context: AnalyzerContext): Type {
+    const type = getTSType(node, context.checker);
 
-    return getTypeInfoFromTsType(type);
+    return getTypeFromTSType(type, context);
 }
 
-export function getType(node: ts.Node): ts.Type | undefined {
-    const checker = Context.checker;
-    const type = checker?.getTypeAtLocation(node);
+export function getTSType(node: ts.Node, checker: ts.TypeChecker): ts.Type | undefined {
+    const type = checker.getTypeAtLocation(node);
 
     // Don't generalize the type of declarations like "const x = [4, 5] as const"
     if (isExplicitTypeSet(node)) {
@@ -80,7 +79,7 @@ export function getType(node: ts.Node): ts.Type | undefined {
     }
 
     // Don't use the inferred literal types like "const x = 4" gives "x: 4" instead of "x: number"
-    return type && checker?.getBaseTypeOfLiteralType(type);
+    return type && checker.getBaseTypeOfLiteralType(type);
 }
 
 export function isExplicitTypeSet(node: ts.Node): boolean {

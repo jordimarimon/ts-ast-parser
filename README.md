@@ -8,7 +8,6 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jordimarimon_ts-ast-parser&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jordimarimon_ts-ast-parser)
 [![codecov](https://codecov.io/gh/jordimarimon/ts-ast-parser/branch/main/graph/badge.svg?token=DMIFUI10V9)](https://codecov.io/gh/jordimarimon/ts-ast-parser)
 [![Build and Test Workflow](https://github.com/jordimarimon/ts-ast-parser/actions/workflows/build.yml/badge.svg)](https://github.com/jordimarimon/ts-ast-parser/blob/main/.github/workflows/build.yml)
 
@@ -28,7 +27,7 @@
 
 ## What it is
 
-Simplifies the TypeScript AST generated from the TypeScript compiler.
+Reflects a simplified version of the TypeScript AST generated from the TypeScript compiler.
 
 ## Features
 
@@ -54,10 +53,9 @@ Supported output formats:
 
 ## Projects in this monorepo
 
-| Name                                         | Version                                                                                                                                    | Description                                                      |
-|----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------|
-| [@ts-ast-parser/core](./packages/core)       | [![@ts-ast-parser/core](https://img.shields.io/npm/v/@ts-ast-parser/core.svg)](https://www.npmjs.com/package/@ts-ast-parser/core)          | Reads the TS Compiler AST and outputs a simplified version of it |
-| [@ts-ast-parser/readers](./packages/readers) | [![@ts-ast-parser/readers](https://img.shields.io/npm/v/@ts-ast-parser/readers.svg)](https://www.npmjs.com/package/@ts-ast-parser/readers) | Helps to read and search the reflected AST.                      |
+| Name                                         | Version                                                                                                                                    | Description                                                       |
+|----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| [@ts-ast-parser/core](./packages/core)       | [![@ts-ast-parser/core](https://img.shields.io/npm/v/@ts-ast-parser/core.svg)](https://www.npmjs.com/package/@ts-ast-parser/core)          | Reads the TS Compiler AST and reflects a simplified version of it |
 
 ## Documentation
 

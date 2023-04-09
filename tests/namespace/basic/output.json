@@ -6,14 +6,15 @@
             {
                 "name": "TypeFoo",
                 "line": 4,
-                "kind": "type-alias",
+                "kind": "TypeAlias",
                 "value": "{\n        bar: number;\n    }",
                 "namespace": "Foo"
             },
             {
                 "name": "EnumFoo",
                 "line": 8,
-                "kind": "enum",
+                "kind": "Enum",
+                "namespace": "Foo",
                 "members": [
                     {
                         "name": "Apple",
@@ -31,11 +32,10 @@
                         "name": "Cherry",
                         "value": 3
                     }
-                ],
-                "namespace": "Foo"
+                ]
             },
             {
-                "kind": "variable",
+                "kind": "Variable",
                 "line": 15,
                 "name": "varFoo",
                 "type": {
@@ -47,23 +47,24 @@
             {
                 "name": "IFoo",
                 "line": 17,
-                "kind": "interface",
-                "members": [
+                "kind": "Interface",
+                "namespace": "Foo",
+                "properties": [
                     {
                         "name": "field",
                         "line": 18,
-                        "kind": "field",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         }
                     }
-                ],
-                "namespace": "Foo"
+                ]
             },
             {
                 "name": "ClassFoo",
                 "line": 21,
-                "kind": "class",
+                "kind": "Class",
+                "namespace": "Foo",
                 "heritage": [
                     {
                         "name": "IFoo",
@@ -71,25 +72,23 @@
                             "line": 17,
                             "path": "tests/namespace/basic/index.ts"
                         },
-                        "kind": "interface"
+                        "kind": "Interface"
                     }
                 ],
-                "members": [
+                "properties": [
                     {
                         "name": "field",
                         "line": 22,
-                        "kind": "field",
-                        "modifier": "public",
+                        "kind": "Property",
                         "type": {
                             "text": "number"
                         },
                         "default": 3
                     }
-                ],
-                "namespace": "Foo"
+                ]
             },
             {
-                "kind": "function",
+                "kind": "Function",
                 "name": "logFoo",
                 "signatures": [
                     {
@@ -107,27 +106,27 @@
         "exports": [
             {
                 "name": "TypeFoo",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "EnumFoo",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "varFoo",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "IFoo",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "ClassFoo",
-                "type": "named"
+                "kind": "Named"
             },
             {
                 "name": "logFoo",
-                "type": "named"
+                "kind": "Named"
             }
         ]
     }

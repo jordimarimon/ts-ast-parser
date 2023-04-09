@@ -12,7 +12,8 @@ const actual = parseFromGlob(pattern);
 describe(category, () => {
 
     it('should extract the expected metadata', () => {
-        expect(actual).to.deep.equal(expected);
+        const result = actual.map(m => m.serialize());
+        expect(result).to.deep.equal(expected);
     });
 
 });

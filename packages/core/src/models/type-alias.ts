@@ -4,7 +4,7 @@ import { JSDoc } from './js-doc.js';
 
 
 export interface TypeAliasDeclaration {
-    kind: DeclarationKind.typeAlias;
+    kind: DeclarationKind.TypeAlias;
     name: string;
     line: number;
     value: string;
