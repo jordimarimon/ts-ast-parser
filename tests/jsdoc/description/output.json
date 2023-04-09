@@ -1,0 +1,29 @@
+[
+    {
+        "path": "tests/jsdoc/description/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "x",
+                "kind": "Variable",
+                "line": 12,
+                "type": {
+                    "text": "number"
+                },
+                "default": 4,
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "This is the description of the variable.\n\nThis is more content for the description\nthat is too large.\n\nThese are options that should be kept in the same format:\n- Option 1\n- Option 2\n- Option 3"
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "x",
+                "kind": "Named"
+            }
+        ]
+    }
+]

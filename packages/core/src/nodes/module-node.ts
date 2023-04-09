@@ -94,6 +94,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
             }
         }
 
+        // TODO(Jordi M.): This could be done more efficiently by not looping through child nodes
+        //  when we have found a declaration node.
         ts.forEachChild(rootNode, node => this._visitNode(node));
     }
 
@@ -116,9 +118,19 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     private _removeNonPublicDeclarations(): void {
         this._declarations = this._declarations.filter(decl => {
             // If the export has an "AS" keyword, we need to use the "originalName"
-            const hasExport = this._exports.some(exp => exp.getOriginalName() === decl.getName());
+            const index = this._exports.findIndex(exp => exp.getOriginalName() === decl.getName());
+            const isIgnored = decl.getJSDoc().isIgnored();
 
-            return hasExport && !decl.getJSDoc().isIgnored();
+            if (index === -1) {
+                return false;
+            }
+
+            // Remove also the declaration from the exports array
+            if (isIgnored) {
+                this._exports.splice(index, 1);
+            }
+
+            return !isIgnored;
         });
     }
 

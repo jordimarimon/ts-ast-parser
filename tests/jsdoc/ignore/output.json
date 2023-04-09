@@ -1,0 +1,8 @@
+[
+    {
+        "path": "tests/jsdoc/ignore/index.ts",
+        "imports": [],
+        "declarations": [],
+        "exports": []
+    }
+]
