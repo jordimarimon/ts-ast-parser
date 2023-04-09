@@ -1,0 +1,110 @@
+[
+    {
+        "path": "tests/decorator/method/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Function",
+                "name": "enumerable",
+                "signatures": [
+                    {
+                        "line": 1,
+                        "return": {
+                            "type": {
+                                "text": "(_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor) => void"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "value",
+                                "line": 1,
+                                "type": {
+                                    "text": "boolean"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Greeter",
+                "line": 7,
+                "kind": "Class",
+                "constructors": [
+                    {
+                        "line": 11,
+                        "return": {
+                            "type": {
+                                "text": "Greeter",
+                                "sources": [
+                                    {
+                                        "line": 7,
+                                        "path": "tests/decorator/method/index.ts",
+                                        "text": "Greeter"
+                                    }
+                                ]
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "message",
+                                "line": 11,
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "greeting",
+                        "line": 9,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "greet",
+                        "signatures": [
+                            {
+                                "line": 15,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                }
+                            }
+                        ],
+                        "decorators": [
+                            {
+                                "name": "enumerable",
+                                "arguments": [
+                                    false
+                                ],
+                                "source": {
+                                    "line": 1,
+                                    "path": "tests/decorator/method/index.ts"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "enumerable",
+                "kind": "Named"
+            },
+            {
+                "name": "Greeter",
+                "kind": "Named"
+            }
+        ]
+    }
+]

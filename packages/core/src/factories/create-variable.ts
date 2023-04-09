@@ -1,6 +1,6 @@
-import { VariableNode } from '../nodes/variable-node.js';
 import { isFunctionDeclaration } from '../utils/function.js';
 import { VariableDeclaration } from '../models/variable.js';
+import { VariableNode } from '../nodes/variable-node.js';
 import { NodeFactory } from './node-factory.js';
 import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';

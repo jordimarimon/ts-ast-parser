@@ -1,0 +1,100 @@
+[
+    {
+        "path": "tests/decorator/class/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Function",
+                "name": "sealed",
+                "signatures": [
+                    {
+                        "line": 1,
+                        "return": {
+                            "type": {
+                                "text": "void"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "constructor",
+                                "line": 1,
+                                "type": {
+                                    "text": "typeof BugReport"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "BugReport",
+                "line": 6,
+                "kind": "Class",
+                "constructors": [
+                    {
+                        "line": 13,
+                        "return": {
+                            "type": {
+                                "text": "BugReport",
+                                "sources": [
+                                    {
+                                        "line": 6,
+                                        "path": "tests/decorator/class/index.ts",
+                                        "text": "BugReport"
+                                    }
+                                ]
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "t",
+                                "line": 13,
+                                "type": {
+                                    "text": "string"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "decorators": [
+                    {
+                        "name": "sealed",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/decorator/class/index.ts"
+                        }
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "type",
+                        "line": 9,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "'report'"
+                    },
+                    {
+                        "name": "title",
+                        "line": 11,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "sealed",
+                "kind": "Named"
+            },
+            {
+                "name": "BugReport",
+                "kind": "Named"
+            }
+        ]
+    }
+]

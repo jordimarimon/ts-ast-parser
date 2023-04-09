@@ -1,0 +1,123 @@
+[
+    {
+        "path": "tests/decorator/accessor/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Function",
+                "name": "configurable",
+                "signatures": [
+                    {
+                        "line": 1,
+                        "return": {
+                            "type": {
+                                "text": "(_target: Point, _propertyKey: string, descriptor: PropertyDescriptor) => void"
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "value",
+                                "line": 1,
+                                "type": {
+                                    "text": "boolean"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Point",
+                "line": 7,
+                "kind": "Class",
+                "constructors": [
+                    {
+                        "line": 23,
+                        "return": {
+                            "type": {
+                                "text": "Point",
+                                "sources": [
+                                    {
+                                        "line": 7,
+                                        "path": "tests/decorator/accessor/index.ts",
+                                        "text": "Point"
+                                    }
+                                ]
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "x",
+                                "line": 23,
+                                "type": {
+                                    "text": "number"
+                                }
+                            },
+                            {
+                                "name": "y",
+                                "line": 23,
+                                "type": {
+                                    "text": "number"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "x",
+                        "line": 9,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "decorators": [
+                            {
+                                "name": "configurable",
+                                "arguments": [
+                                    false
+                                ],
+                                "source": {
+                                    "line": 1,
+                                    "path": "tests/decorator/accessor/index.ts"
+                                }
+                            }
+                        ],
+                        "readOnly": true
+                    },
+                    {
+                        "name": "y",
+                        "line": 14,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "decorators": [
+                            {
+                                "name": "configurable",
+                                "arguments": [
+                                    false
+                                ],
+                                "source": {
+                                    "line": 1,
+                                    "path": "tests/decorator/accessor/index.ts"
+                                }
+                            }
+                        ],
+                        "readOnly": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "configurable",
+                "kind": "Named"
+            },
+            {
+                "name": "Point",
+                "kind": "Named"
+            }
+        ]
+    }
+]
