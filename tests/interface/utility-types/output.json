@@ -1,0 +1,96 @@
+[
+    {
+        "path": "tests/interface/utility-types/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "RequiredProps",
+                "line": 7,
+                "kind": "Interface",
+                "heritage": [
+                    {
+                        "name": "Required<Props>",
+                        "kind": "Interface"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "c",
+                        "line": 8,
+                        "kind": "Property",
+                        "type": {
+                            "text": "boolean"
+                        }
+                    },
+                    {
+                        "name": "a",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "inherited": true
+                    },
+                    {
+                        "name": "b",
+                        "line": 3,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "inherited": true
+                    }
+                ]
+            },
+            {
+                "name": "TodoPreview",
+                "line": 17,
+                "kind": "Interface",
+                "heritage": [
+                    {
+                        "name": "Pick<Todo, 'title' | 'completed'>",
+                        "kind": "Interface"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "preview",
+                        "line": 18,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "line": 12,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "inherited": true
+                    },
+                    {
+                        "name": "completed",
+                        "line": 14,
+                        "kind": "Property",
+                        "type": {
+                            "text": "boolean"
+                        },
+                        "inherited": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "RequiredProps",
+                "kind": "Named"
+            },
+            {
+                "name": "TodoPreview",
+                "kind": "Named"
+            }
+        ]
+    }
+]

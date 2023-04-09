@@ -1,0 +1,99 @@
+[
+    {
+        "path": "tests/interface/method-overload/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "line": 1,
+                "kind": "Interface",
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "add",
+                        "signatures": [
+                            {
+                                "line": 2,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "line": 2,
+                                        "type": {
+                                            "text": "string"
+                                        }
+                                    },
+                                    {
+                                        "name": "b",
+                                        "line": 2,
+                                        "type": {
+                                            "text": "string"
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "line": 3,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "line": 3,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "b",
+                                        "line": 3,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "line": 4,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "line": 4,
+                                        "type": {
+                                            "text": "unknown"
+                                        }
+                                    },
+                                    {
+                                        "name": "b",
+                                        "line": 4,
+                                        "type": {
+                                            "text": "unknown"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

@@ -1,0 +1,69 @@
+[
+    {
+        "path": "tests/interface/index-signature/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "StringArray",
+                "line": 1,
+                "kind": "Interface",
+                "indexSignature": {
+                    "name": "index",
+                    "line": 2,
+                    "kind": "IndexSignature",
+                    "indexType": {
+                        "text": "number"
+                    },
+                    "type": {
+                        "text": "string"
+                    }
+                }
+
+            },
+            {
+                "name": "NumberOrStringDictionary",
+                "line": 5,
+                "kind": "Interface",
+                "indexSignature": {
+                    "name": "index",
+                    "line": 6,
+                    "kind": "IndexSignature",
+                    "indexType": {
+                        "text": "string"
+                    },
+                    "type": {
+                        "text": "number | string"
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "length",
+                        "line": 7,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "line": 8,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        }
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "StringArray",
+                "kind": "Named"
+            },
+            {
+                "name": "NumberOrStringDictionary",
+                "kind": "Named"
+            }
+        ]
+    }
+]

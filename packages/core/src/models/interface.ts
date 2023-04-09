@@ -19,10 +19,8 @@ export interface InterfaceDeclaration {
     line: number;
     kind: DeclarationKind.Interface;
     properties?: readonly Field[];
-    staticProperties?: readonly Field[];
     indexSignature?: IndexSignature;
     methods?: readonly Method[];
-    staticMethods?: readonly Method[];
     jsDoc?: JSDoc;
     typeParameters?: readonly TypeParameter[];
     heritage?: readonly Reference[];

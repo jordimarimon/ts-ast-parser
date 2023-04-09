@@ -1,0 +1,155 @@
+[
+    {
+        "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "line": 1,
+                "kind": "Interface",
+                "typeParameters": [
+                    {
+                        "name": "T"
+                    }
+                ],
+                "indexSignature": {
+                    "name": "index",
+                    "line": 2,
+                    "kind": "IndexSignature",
+                    "indexType": {
+                        "text": "number"
+                    },
+                    "type": {
+                        "text": "T"
+                    }
+                },
+                "properties": [
+                    {
+                        "name": "field",
+                        "line": 3,
+                        "kind": "Property",
+                        "type": {
+                            "text": "T",
+                            "sources": [
+                                {
+                                    "text": "T",
+                                    "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
+                                    "line": 1
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "methods": [
+                    {
+                        "name": "method",
+                        "kind": "Method",
+                        "signatures": [
+                            {
+                                "line": 4,
+                                "return": {
+                                    "type": {
+                                        "text": "T",
+                                        "sources": [
+                                            {
+                                                "text": "T",
+                                                "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
+                                                "line": 1
+                                            }
+                                        ]
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "line": 4,
+                                        "type": {
+                                            "text": "T",
+                                            "sources": [
+                                                {
+                                                    "text": "T",
+                                                    "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
+                                                    "line": 1
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "Bar",
+                "line": 7,
+                "kind": "Interface",
+                "heritage": [
+                    {
+                        "name": "Foo<string>",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
+                        },
+                        "kind": "Interface"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "childField",
+                        "line": 8,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "name": "field",
+                        "line": 3,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "inherited": true
+                    }
+                ],
+                "methods": [
+                    {
+                        "name": "method",
+                        "kind": "Method",
+                        "signatures": [
+                            {
+                                "line": 4,
+                                "return": {
+                                    "type": {
+                                        "text": "string"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "line": 4,
+                                        "type": {
+                                            "text": "string"
+                                        }
+                                    }
+                                ]
+                            }
+                        ],
+                        "inherited": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            },
+            {
+                "name": "Bar",
+                "kind": "Named"
+            }
+        ]
+    }
+]

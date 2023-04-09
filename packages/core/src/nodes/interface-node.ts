@@ -6,8 +6,8 @@ import { InterfaceDeclaration } from '../models/interface.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getSymbolAtLocation } from '../utils/symbol.js';
-import { DeclarationNode } from './declaration-node.js';
 import { getInstanceMembers } from '../utils/member.js';
+import { DeclarationNode } from './declaration-node.js';
 import { getNamespace } from '../utils/namespace.js';
 import { Reference } from '../models/reference.js';
 import { SymbolWithContext } from '../utils/is.js';
@@ -86,7 +86,12 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
                 continue;
             }
 
-            if (ts.isPropertySignature(decl) || ts.isGetAccessor(decl) || ts.isSetAccessor(decl)) {
+            const isPropertyMethod = ts.isPropertySignature(decl) && decl.type && ts.isFunctionTypeNode(decl.type);
+
+            if (
+                (ts.isPropertySignature(decl) || ts.isGetAccessor(decl) || ts.isSetAccessor(decl)) &&
+                !isPropertyMethod
+            ) {
                 result.push(new PropertyNode(decl, member, this._context));
             }
         }
@@ -109,7 +114,9 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
                 continue;
             }
 
-            if (ts.isMethodSignature(decl)) {
+            const isPropertyMethod = ts.isPropertySignature(decl) && decl.type && ts.isFunctionTypeNode(decl.type);
+
+            if (ts.isMethodSignature(decl) || isPropertyMethod) {
                 result.push(new FunctionNode(decl, this._context, member));
             }
         }

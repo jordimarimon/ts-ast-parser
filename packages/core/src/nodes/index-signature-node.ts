@@ -21,7 +21,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
 
     private readonly _context: AnalyzerContext;
 
-    private readonly _parameter: ParameterNode | null;
+    private readonly _parameter: ParameterNode;
 
     constructor(node: ts.IndexSignatureDeclaration, member: SymbolWithContext, context: AnalyzerContext) {
         this._node = node;
@@ -31,7 +31,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
     }
 
     getName(): string {
-        return this._parameter?.getName() ?? '';
+        return this._parameter.getName();
     }
 
     getNodeType(): NodeType {
@@ -67,11 +67,11 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
     }
 
     getIndexType(): Type {
-        return this._parameter?.getType() ?? {text: ''};
+        return this._parameter.getType();
     }
 
     isOptional(): boolean {
-        return this._parameter?.isOptional() ?? false;
+        return this._parameter.isOptional();
     }
 
     toPOJO(): IndexSignature {
@@ -89,22 +89,12 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         return tmpl;
     }
 
-    private _getParameter(): ParameterNode | null {
+    private _getParameter(): ParameterNode {
         const callSignature = this._member.type?.getCallSignatures()?.[0];
-
-        if (!callSignature) {
-            return null;
-        }
-
         const nodeParameters = this._node.parameters ?? [];
-        const symbolParameters = callSignature.parameters ?? [];
-
-        if (!nodeParameters.length || !symbolParameters.length) {
-            return null;
-        }
-
+        const symbolParameters = callSignature?.parameters ?? [];
         const nodeParam = nodeParameters[0];
-        const symbolParam = symbolParameters[0];
+        const symbolParam = symbolParameters[0] ?? null;
 
         return new ParameterNode(nodeParam, symbolParam, this._context);
     }

@@ -18,18 +18,26 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
 
     private readonly _node: ts.ParameterDeclaration;
 
-    private readonly _symbol: ts.Symbol;
+    private readonly _symbol: ts.Symbol | null;
 
     private readonly _context: AnalyzerContext;
 
-    constructor(node: ts.ParameterDeclaration, symbol: ts.Symbol, context: AnalyzerContext) {
+    constructor(node: ts.ParameterDeclaration, symbol: ts.Symbol | null, context: AnalyzerContext) {
         this._node = node;
         this._symbol = symbol;
         this._context = context;
     }
 
     getName(): string {
-        return this.isNamed() ? '__namedParameter' : (this._symbol.getName() ?? '');
+        if (this.isNamed()) {
+            return '__namedParameter';
+        }
+
+        if (this._symbol) {
+            return this._symbol.getName() ?? '';
+        }
+
+        return this._node.name?.getText() ?? '';
     }
 
     getNodeType(): NodeType {
@@ -54,6 +62,10 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
 
         if (jsDocType) {
             return {text: jsDocType};
+        }
+
+        if (!this._symbol) {
+            return getTypeFromNode(this._node, this._context);
         }
 
         if (this.isNamed()) {

@@ -1,4 +1,4 @@
-import { ClassLikeNode, InterfaceOrClassDeclaration, SymbolWithContext } from './is.js';
+import { ClassLikeNode, InterfaceOrClassDeclaration, SymbolWithContext, SymbolWithDeclaration } from './is.js';
 import { ModifierType } from '../models/member.js';
 import { getSymbolAtLocation } from './symbol.js';
 import { isThirdParty } from './import.js';
@@ -32,6 +32,28 @@ export function getStaticMembers(node: ClassLikeNode, checker: ts.TypeChecker): 
     const staticProps = (type && checker.getPropertiesOfType(type)) ?? [];
 
     return createSymbolsWithContext(node, staticProps, checker);
+}
+
+export function getIndexSignature(
+    node: ts.InterfaceDeclaration,
+    checker: ts.TypeChecker,
+): SymbolWithDeclaration<ts.IndexSignatureDeclaration> | null {
+    const indexSymbol = getSymbolAtLocation(node, checker)?.members?.get('__index' as ts.__String);
+    const decl = indexSymbol?.getDeclarations()?.[0];
+
+    if (!decl || !ts.isIndexSignatureDeclaration(decl)) {
+        const baseType = checker.getTypeAtLocation(node).getBaseTypes()?.[0];
+        const baseNode = baseType?.getSymbol()?.getDeclarations()?.[0];
+
+        return baseNode && ts.isInterfaceDeclaration(baseNode)
+            ? getIndexSignature(baseNode, checker)
+            : null;
+    }
+
+    return {
+        symbol: indexSymbol,
+        declaration: decl,
+    };
 }
 
 export function createSymbolsWithContext(

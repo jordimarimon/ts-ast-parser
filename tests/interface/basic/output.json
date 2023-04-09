@@ -1,0 +1,203 @@
+[
+    {
+        "path": "tests/interface/basic/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "line": 1,
+                "kind": "Interface",
+                "typeParameters": [
+                    {
+                        "name": "K"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "x",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "name": "y",
+                        "line": 3,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string | K",
+                            "sources": [
+                                {
+                                    "text": "K",
+                                    "path": "tests/interface/basic/index.ts",
+                                    "line": 1
+                                }
+                            ]
+                        },
+                        "optional": true
+                    },
+                    {
+                        "name": "z",
+                        "line": 9,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "readOnly": true
+                    }
+                ],
+                "methods": [
+                    {
+                        "kind": "Method",
+                        "name": "bar",
+                        "signatures": [
+                            {
+                                "line": 4,
+                                "return": {
+                                    "type": {
+                                        "text": "void"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "Method",
+                        "name": "isBar",
+                        "signatures": [
+                            {
+                                "line": 5,
+                                "return": {
+                                    "type": {
+                                        "text": "boolean"
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "a",
+                                        "line": 5,
+                                        "type": {
+                                            "text": "number"
+                                        }
+                                    },
+                                    {
+                                        "name": "b",
+                                        "line": 5,
+                                        "type": {
+                                            "text": "string"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "Method",
+                        "name": "checkBar",
+                        "signatures": [
+                            {
+                                "line": 6,
+                                "return": {
+                                    "type": {
+                                        "text": "Promise<void>"
+                                    }
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "Method",
+                        "name": "barWithTypedParameter",
+                        "signatures": [
+                            {
+                                "line": 7,
+                                "return": {
+                                    "type": {
+                                        "text": "T",
+                                        "sources": [
+                                            {
+                                                "text": "T",
+                                                "path": "tests/interface/basic/index.ts",
+                                                "line": 7
+                                            }
+                                        ]
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "c",
+                                        "line": 7,
+                                        "type": {
+                                            "text": "T",
+                                            "sources": [
+                                                {
+                                                    "text": "T",
+                                                    "path": "tests/interface/basic/index.ts",
+                                                    "line": 7
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "typeParameters": [
+                                    {
+                                        "name": "T"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "kind": "Method",
+                        "name": "arrowFuncWithTypedParameters",
+                        "signatures": [
+                            {
+                                "line": 8,
+                                "return": {
+                                    "type": {
+                                        "text": "T",
+                                        "sources": [
+                                            {
+                                                "text": "T",
+                                                "path": "tests/interface/basic/index.ts",
+                                                "line": 8
+                                            }
+                                        ]
+                                    }
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "c",
+                                        "line": 8,
+                                        "type": {
+                                            "text": "T",
+                                            "sources": [
+                                                {
+                                                    "text": "T",
+                                                    "path": "tests/interface/basic/index.ts",
+                                                    "line": 8
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ],
+                                "typeParameters": [
+                                    {
+                                        "name": "T"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]
