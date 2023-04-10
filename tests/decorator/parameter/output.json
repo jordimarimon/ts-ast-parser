@@ -5,7 +5,7 @@
             {
                 "kind": "SideEffect",
                 "importPath": "reflect-metadata",
-                "isBareModuleSpecifier": true
+                "bareModuleSpecifier": true
             }
         ],
         "declarations": [

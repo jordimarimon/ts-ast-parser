@@ -2,13 +2,6 @@
     {
         "path": "tests/export/type/index.ts",
         "imports": [],
-        "exports": [
-            {
-                "name": "TypeA",
-                "kind": "Named",
-                "isTypeOnly": true
-            }
-        ],
         "declarations": [
             {
                 "name": "TypeA",
@@ -17,13 +10,54 @@
                 "properties": [
                     {
                         "name": "foo",
-                        "kind": "Property",
                         "line": 2,
+                        "kind": "Property",
                         "type": {
                             "text": "string"
                         }
                     }
                 ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "TypeA",
+                "kind": "Named",
+                "typeOnly": true
+            },
+            {
+                "name": "foo",
+                "kind": "Namespace",
+                "module": "'./foo.js'",
+                "typeOnly": true
+            }
+        ]
+    },
+    {
+        "path": "tests/export/type/foo.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "Class",
+                "line": 1,
+                "properties": [
+                    {
+                        "name": "bar",
+                        "line": 3,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "default": 4
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
             }
         ]
     }

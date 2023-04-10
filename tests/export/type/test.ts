@@ -4,7 +4,7 @@ import { getFixture } from '../../utils.js';
 
 const category = 'export';
 const subcategory = 'type';
-const {actual, expected} = getFixture({category, subcategory});
+const {actual, expected} = getFixture({category, subcategory, importedFiles: ['foo.ts']});
 
 describe(`${category}/${subcategory}`, () => {
 

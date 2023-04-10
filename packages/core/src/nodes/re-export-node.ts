@@ -46,6 +46,10 @@ export class ReExportNode implements ReflectedNode<Export, ts.ExportDeclaration>
         return this._node;
     }
 
+    isTypeOnly(): boolean {
+        return this._node.isTypeOnly ?? false;
+    }
+
     serialize(): Export {
         const tmpl: Export = {
             name: this.getName(),
@@ -53,6 +57,7 @@ export class ReExportNode implements ReflectedNode<Export, ts.ExportDeclaration>
         };
 
         tryAddProperty(tmpl, 'module', this.getModule());
+        tryAddProperty(tmpl, 'typeOnly', this.isTypeOnly());
 
         return tmpl;
     }

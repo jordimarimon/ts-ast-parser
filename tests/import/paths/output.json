@@ -7,7 +7,7 @@
                 "kind": "Named",
                 "importPath": "custom-path/foo",
                 "originalPath": "tests/import/paths/foo.ts",
-                "isBareModuleSpecifier": true
+                "bareModuleSpecifier": true
             }
         ],
         "exports": [

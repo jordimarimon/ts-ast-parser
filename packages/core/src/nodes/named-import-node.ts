@@ -82,8 +82,8 @@ export class NamedImportNode implements ReflectedNode<Import, ts.ImportDeclarati
             tmpl.originalPath = originalPath;
         }
 
-        tryAddProperty(tmpl, 'isTypeOnly', this.isTypeOnly());
-        tryAddProperty(tmpl, 'isBareModuleSpecifier', this.isBareModuleSpecifier());
+        tryAddProperty(tmpl, 'typeOnly', this.isTypeOnly());
+        tryAddProperty(tmpl, 'bareModuleSpecifier', this.isBareModuleSpecifier());
 
         return tmpl;
     }

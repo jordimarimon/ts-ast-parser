@@ -68,7 +68,7 @@ export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclarati
             tryAddProperty(tmpl, 'originalName', this.getOriginalName());
         }
 
-        tryAddProperty(tmpl, 'isTypeOnly', this.isTypeOnly());
+        tryAddProperty(tmpl, 'typeOnly', this.isTypeOnly());
         tryAddProperty(tmpl, 'module', this.getModule());
 
         return tmpl;

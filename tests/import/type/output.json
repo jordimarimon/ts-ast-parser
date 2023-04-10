@@ -6,7 +6,7 @@
                 "name": "TypeA",
                 "kind": "Named",
                 "importPath": "./type-a.js",
-                "isTypeOnly": true
+                "typeOnly": true
             }
         ],
         "exports": [
@@ -41,7 +41,7 @@
             {
                 "name": "TypeA",
                 "kind": "Named",
-                "isTypeOnly": true
+                "typeOnly": true
             }
         ],
         "declarations": [

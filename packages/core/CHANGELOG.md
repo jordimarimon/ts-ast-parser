@@ -1,13 +1,26 @@
 # [next]
 
-**The library has been written again from scratch. Make sure to check the documentation website.**
+**The library has been written again from scratch.**
+
+If you want to still use the old behaviour, you can by calling the `serialize` method in the reflected node:
+
+```typescript
+// Same applies for `parseFromSource` or `parseFromGlob`
+const reflectedNodes = parseFromFiles(['...']);
+const serializedNodes = reflectedNodes.map(node => node.serialize());
+```
+
+### Features
+
+* The constraints defined in a type parameter will be reflected.
 
 ### Bug Fixes
 
-* Reflect imports with side effects (example: `import './foo.js'`)
-* Imports with different kinds weren't reflected correctly (example: `import Foo, { bar } from './foo'`)
-* The parameter type and name of an index signature wasn't being reflected correctly
+* Reflect imports with side effects (example: `import './foo.js'`).
+* Imports with different kinds weren't reflected correctly (example: `import Foo, { bar } from './foo'`).
+* The type and name of a parameter in an index signature wasn't being reflected correctly.
 * Getters and Setters (property accessors) were not being reflected when defined inside an interface.
+* Class expressions used as initializers in variable declarations weren't being reflected.
 
 ### 🚨 Breaking Changes
 

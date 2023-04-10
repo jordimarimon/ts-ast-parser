@@ -50,6 +50,10 @@ export class NamespaceExportNode implements ReflectedNode<Export, ts.ExportDecla
         return this._node;
     }
 
+    isTypeOnly(): boolean {
+        return this._node.isTypeOnly ?? false;
+    }
+
     serialize(): Export {
         const tmpl: Export = {
             name: this.getName(),
@@ -57,6 +61,7 @@ export class NamespaceExportNode implements ReflectedNode<Export, ts.ExportDecla
         };
 
         tryAddProperty(tmpl, 'module', this.getModule());
+        tryAddProperty(tmpl, 'typeOnly', this.isTypeOnly());
 
         return tmpl;
     }

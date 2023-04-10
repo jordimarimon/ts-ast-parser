@@ -30,7 +30,7 @@
                         "typeParameters": [
                             {
                                 "name": "K",
-                                "constraint": "{[key: string]: number}"
+                                "constraint": "{ [key: string]: number }"
                             }
                         ],
                         "parameters": [
@@ -95,7 +95,7 @@
                 "type": {
                     "text": "readonly [\"Alice\", \"Bob\", \"Eve\"]"
                 },
-                "default": "getNamesExactly({ names: [\"Alice\", \"Bob\", \"Eve\"] })"
+                "default": "getNamesExactly({names: ['Alice', 'Bob', 'Eve']})"
             }
         ],
         "exports": [

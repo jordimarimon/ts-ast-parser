@@ -48,7 +48,7 @@ export class SideEffectImportNode implements ReflectedNode<Import, ts.ImportDecl
             importPath: this.getImportPath(),
         };
 
-        tryAddProperty(tmpl, 'isBareModuleSpecifier', this.isBareModuleSpecifier());
+        tryAddProperty(tmpl, 'bareModuleSpecifier', this.isBareModuleSpecifier());
 
         return tmpl;
     }

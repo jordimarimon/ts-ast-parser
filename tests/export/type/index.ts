@@ -3,3 +3,4 @@ interface TypeA {
 }
 
 export type { TypeA };
+export type * as foo from './foo.js';
