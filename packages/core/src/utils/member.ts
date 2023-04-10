@@ -63,7 +63,6 @@ export function createSymbolsWithContext(
     checker: ts.TypeChecker,
 ): SymbolWithContext[] {
     const result: SymbolWithContext[] = [];
-    const members = node.members.map(m => getSymbolAtLocation(m, checker)?.getName() ?? '');
 
     for (const propSymbol of symbols) {
         const decl = propSymbol.getDeclarations()?.[0];
@@ -84,13 +83,17 @@ export function createSymbolsWithContext(
         }
 
         const inherited = isInherited(node, propSymbol, checker);
-        const isDeclFromThisNode = members.some(memberName => memberName === propSymbol.getName());
 
         result.push({
             inherited,
             symbol: propSymbol,
             type: propType,
-            overrides: isOverride(decl) || (inherited && isDeclFromThisNode),
+            // This only works if the developer explicitly uses the `override` keyword
+            // To detect if the member overrides a parent member without relying on the `override`
+            // keyword, we would need to check if any member in the base class/interface has the same name.
+            // This wouldn't be a good idea in terms of performance as there are nodes that can have hundreds
+            // of members (for example HTMLElement)
+            overrides: isOverride(decl),
         });
     }
 
@@ -109,11 +112,13 @@ export function isInherited(
         return false;
     }
 
-    // FIXME(Jordi M.): Here we may have a performance bottleneck as there could be
-    //  a lot of parent members to check.
-    return baseType.getProperties().some(parentMemberSymbol => {
-        return parentMemberSymbol.getName() === memberSymbolToCheck.getName();
-    });
+    const parents = baseType.getSymbol()?.getDeclarations()?.slice() || [];
+    const constructorDecls = parents.flatMap(parent =>
+        ts.isClassDeclaration(parent) ? parent.members.filter(ts.isConstructorDeclaration) : [],
+    );
+    parents.push(...constructorDecls);
+
+    return parents.some(d => memberSymbolToCheck.getDeclarations()?.some(d2 => d2.parent === d));
 }
 
 export function isMember(node: ts.Node | undefined): node is ts.Declaration {

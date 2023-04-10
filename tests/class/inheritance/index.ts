@@ -14,13 +14,9 @@ export class Class2 extends Class1 {
 
 export class Class3 extends Class2 {
 
-    // @ts-expect-error We don't wan to put the "override" keyword to make
-    // sure we are also able to detect the override without it
-    bar = 5;
+    override bar = 5;
 
-    // @ts-expect-error We don't wan to put the "override" keyword to make
-    // sure we are also able to detect the override without it
-    someMethod(x: number): number {
+    override someMethod(x: number): number {
         return x + 2;
     }
 

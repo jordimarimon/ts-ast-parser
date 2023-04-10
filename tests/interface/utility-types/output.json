@@ -28,8 +28,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number"
-                        },
-                        "inherited": true
+                        }
                     },
                     {
                         "name": "b",
@@ -37,8 +36,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string"
-                        },
-                        "inherited": true
+                        }
                     }
                 ]
             },
@@ -67,8 +65,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string"
-                        },
-                        "inherited": true
+                        }
                     },
                     {
                         "name": "completed",
@@ -76,8 +73,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "boolean"
-                        },
-                        "inherited": true
+                        }
                     }
                 ]
             }

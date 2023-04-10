@@ -39,8 +39,7 @@
                         "type": {
                             "text": "number"
                         },
-                        "default": 4,
-                        "override": true
+                        "default": 4
                     }
                 ]
             }

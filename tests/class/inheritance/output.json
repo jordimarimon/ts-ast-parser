@@ -137,7 +137,7 @@
                 "properties": [
                     {
                         "name": "bar",
-                        "line": 19,
+                        "line": 17,
                         "kind": "Property",
                         "type": {
                             "text": "number"
@@ -162,7 +162,7 @@
                         "name": "someMethod",
                         "signatures": [
                             {
-                                "line": 23,
+                                "line": 19,
                                 "return": {
                                     "type": {
                                         "text": "number"
@@ -171,7 +171,7 @@
                                 "parameters": [
                                     {
                                         "name": "x",
-                                        "line": 23,
+                                        "line": 19,
                                         "type": {
                                             "text": "number"
                                         }
