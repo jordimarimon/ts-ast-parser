@@ -23,9 +23,9 @@ import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
-export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDeclaration | ts.ClassExpression> {
+export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDeclaration | ts.VariableStatement> {
 
-    private readonly _node: ts.ClassDeclaration | ts.ClassExpression;
+    private readonly _node: ts.ClassDeclaration | ts.VariableStatement;
 
     private readonly _context: AnalyzerContext;
 
@@ -33,14 +33,23 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     private readonly _staticMembers: SymbolWithContext[] = [];
 
-    constructor(node: ts.ClassDeclaration | ts.ClassExpression, context: AnalyzerContext) {
+    constructor(node: ts.ClassDeclaration | ts.VariableStatement, context: AnalyzerContext) {
         this._node = node;
         this._context = context;
-        this._instanceMembers = getInstanceMembers(this._node, this._context.checker);
-        this._staticMembers = getStaticMembers(this._node, this._context.checker);
+
+        const classNode = this._getClassNode();
+
+        if (classNode) {
+            this._instanceMembers = getInstanceMembers(classNode, this._context.checker);
+            this._staticMembers = getStaticMembers(classNode, this._context.checker);
+        }
     }
 
     getName(): string {
+        if (ts.isVariableStatement(this._node)) {
+            return this._node.declarationList.declarations?.[0].name?.getText() ?? '';
+        }
+
         return this._node.name?.getText() ?? '';
     }
 
@@ -56,7 +65,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         return this._context;
     }
 
-    getTSNode(): ts.ClassDeclaration | ts.ClassExpression {
+    getTSNode(): ts.ClassDeclaration | ts.VariableStatement {
         return this._node;
     }
 
@@ -81,9 +90,15 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     getConstructors(): SignatureNode[] {
+        const classNode = this._getClassNode();
+
+        if (!classNode) {
+            return [];
+        }
+
         const checker = this._context.checker;
-        const symbol = checker.getTypeAtLocation(this._node).getSymbol();
-        const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, this._node);
+        const symbol = checker.getTypeAtLocation(classNode).getSymbol();
+        const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, classNode);
         const signatures = type?.getConstructSignatures() ?? [];
         const result: SignatureNode[] = [];
 
@@ -130,19 +145,43 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     getTypeParameters(): TypeParameterNode[] {
-        return this._node.typeParameters?.map(tp => new TypeParameterNode(tp, this._context)) ?? [];
+        const classNode = this._getClassNode();
+
+        if (!classNode) {
+            return [];
+        }
+
+        return classNode.typeParameters?.map(tp => new TypeParameterNode(tp, this._context)) ?? [];
     }
 
     getHeritage(): readonly Reference[] {
-        return getExtendClauseReferences(this._node, this._context);
+        const classNode = this._getClassNode();
+
+        if (!classNode) {
+            return [];
+        }
+
+        return getExtendClauseReferences(classNode, this._context);
     }
 
     isCustomElement(): boolean {
-        return isCustomElement(this._node, this._context);
+        const classNode = this._getClassNode();
+
+        if (!classNode) {
+            return false;
+        }
+
+        return isCustomElement(classNode, this._context);
     }
 
     isAbstract(): boolean {
-        return isAbstract(this._node);
+        const classNode = this._getClassNode();
+
+        if (!classNode) {
+            return false;
+        }
+
+        return isAbstract(classNode);
     }
 
     serialize(): ClassDeclaration {
@@ -224,5 +263,24 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         }
 
         return result;
+    }
+
+    private _getClassNode(): ts.ClassDeclaration | ts.ClassExpression | null {
+        if (ts.isClassDeclaration(this._node)) {
+            return this._node;
+        }
+
+        if (!ts.isVariableStatement(this._node)) {
+            return null;
+        }
+
+        const decl = this._node.declarationList.declarations[0];
+        const initializer = decl.initializer;
+
+        if (!initializer || !ts.isClassExpression(initializer)) {
+            return null;
+        }
+
+        return initializer;
     }
 }

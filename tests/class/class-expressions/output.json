@@ -1,1 +1,62 @@
-[]
+[
+    {
+        "path": "tests/class/class-expressions/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "foo",
+                "kind": "Class",
+                "line": 4,
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "This is the description of the anonymous class."
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "fooField",
+                        "line": 6,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "'foo'"
+                    }
+                ]
+            },
+            {
+                "name": "bar",
+                "kind": "Class",
+                "line": 13,
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "This is the description of the class Bar."
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "barField",
+                        "line": 15,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "default": "'bar'"
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            },
+            {
+                "name": "bar",
+                "kind": "Named"
+            }
+        ]
+    }
+]

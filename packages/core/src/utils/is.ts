@@ -10,9 +10,11 @@ import { NamedExportNode } from '../nodes/named-export-node.js';
 import { DeclarationNode } from '../nodes/declaration-node.js';
 import { TypeAliasNode } from '../nodes/type-alias-node.js';
 import { ReflectedNode } from '../nodes/reflected-node.js';
+import { InterfaceNode } from '../nodes/interface-node.js';
 import { ReExportNode } from '../nodes/re-export-node.js';
 import { FunctionNode } from '../nodes/function-node.js';
 import { VariableNode } from '../nodes/variable-node.js';
+import { ClassNode } from '../nodes/class-node.js';
 import { ImportKind } from '../models/import.js';
 import { ExportKind } from '../models/export.js';
 import { EnumNode } from '../nodes/enum-node.js';
@@ -107,6 +109,14 @@ export const is = {
 
     FunctionNode: (node: ReflectedNode): node is FunctionNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Function;
+    },
+
+    ClassNode: (node: ReflectedNode): node is ClassNode => {
+        return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Class;
+    },
+
+    InterfaceNode: (node: ReflectedNode): node is InterfaceNode => {
+        return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Interface;
     },
 
     // EXPORTS

@@ -20,7 +20,8 @@ export function getVisibilityModifier(member: ts.ClassElement): ModifierType {
 }
 
 export function getInstanceMembers(node: InterfaceOrClassDeclaration, checker: ts.TypeChecker): SymbolWithContext[] {
-    const type = checker.getTypeAtLocation(node);
+    const symbol = checker.getTypeAtLocation(node).getSymbol();
+    const type = symbol && checker.getDeclaredTypeOfSymbol(symbol);
     const props = type?.getProperties() ?? [];
 
     return createSymbolsWithContext(node, props, checker);
@@ -68,10 +69,6 @@ export function createSymbolsWithContext(
         const decl = propSymbol.getDeclarations()?.[0];
         const filePath = decl?.getSourceFile()?.fileName ?? '';
         const propType = checker.getTypeOfSymbolAtLocation(propSymbol, node);
-
-        if (!decl) {
-            continue;
-        }
 
         // Don't convert namespace members, or the prototype here
         if (

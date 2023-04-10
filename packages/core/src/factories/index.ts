@@ -10,10 +10,10 @@ import { enumFactory } from './create-enum.js';
 
 export const declarationFactory = [
     functionFactory,
+    classFactory,
     variableFactory,
     enumFactory,
     typeAliasFactory,
-    classFactory,
     interfaceFactory,
 ];
 
