@@ -84,7 +84,7 @@ export function createReference(type: ts.ExpressionWithTypeArguments, context: A
     return ref;
 }
 
-function getTypeArgumentNames(typeArguments: ts.NodeArray<ts.TypeNode> | ts.TypeNode[]): string[] {
+export function getTypeArgumentNames(typeArguments: ts.NodeArray<ts.TypeNode> | ts.TypeNode[]): string[] {
     const names: string[] = [];
 
     for (const typeArgument of typeArguments) {
@@ -106,7 +106,7 @@ function getTypeArgumentNames(typeArguments: ts.NodeArray<ts.TypeNode> | ts.Type
     return names;
 }
 
-function getInterfaceOrClassSymbolKind(symbol: ts.Symbol | undefined): DeclarationKind | null {
+export function getInterfaceOrClassSymbolKind(symbol: ts.Symbol | undefined): DeclarationKind | null {
     if (!symbol) {
         return null;
     }

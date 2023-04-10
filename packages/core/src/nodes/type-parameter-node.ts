@@ -1,5 +1,6 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameter } from '../models/type-parameter.js';
+import { getTypeArgumentNames } from '../utils/heritage.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { ReflectedNode } from './reflected-node.js';
 import { AnalyzerContext } from '../context.js';
@@ -42,6 +43,14 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
         return this._node.default?.getText() || '';
     }
 
+    getConstraint(): string {
+        if (!this._node.constraint) {
+            return '';
+        }
+
+        return getTypeArgumentNames([this._node.constraint])[0];
+    }
+
     hasDefault(): boolean {
         return !!this.getDefault();
     }
@@ -52,6 +61,7 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
         };
 
         tryAddProperty(tmpl, 'default', this.getDefault());
+        tryAddProperty(tmpl, 'constraint', this.getConstraint());
 
         return tmpl;
     }

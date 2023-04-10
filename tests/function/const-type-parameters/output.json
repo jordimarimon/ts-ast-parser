@@ -1,0 +1,120 @@
+[
+    {
+        "path": "tests/function/const-type-parameters/index.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "HasNames",
+                "kind": "TypeAlias",
+                "line": 1,
+                "value": "{ names: readonly string[] }"
+            },
+            {
+                "name": "foo",
+                "kind": "Function",
+                "signatures": [
+                    {
+                        "line": 3,
+                        "return": {
+                            "type": {
+                                "text": "K",
+                                "sources": [
+                                    {
+                                        "text": "K",
+                                        "path": "tests/function/const-type-parameters/index.ts",
+                                        "line": 3
+                                    }
+                                ]
+                            }
+                        },
+                        "typeParameters": [
+                            {
+                                "name": "K",
+                                "constraint": "{[key: string]: number}"
+                            }
+                        ],
+                        "parameters": [
+                            {
+                                "name": "bar",
+                                "type": {
+                                    "text": "K",
+                                    "sources": [
+                                        {
+                                            "text": "K",
+                                            "path": "tests/function/const-type-parameters/index.ts",
+                                            "line": 3
+                                        }
+                                    ]
+                                },
+                                "line": 3
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "getNamesExactly",
+                "kind": "Function",
+                "signatures": [
+                    {
+                        "line": 7,
+                        "return": {
+                            "type": {
+                                "text": "T[\"names\"]"
+                            }
+                        },
+                        "typeParameters": [
+                            {
+                                "name": "T",
+                                "constraint": "HasNames"
+                            }
+                        ],
+                        "parameters": [
+                            {
+                                "name": "arg",
+                                "type": {
+                                    "text": "T",
+                                    "sources": [
+                                        {
+                                            "text": "T",
+                                            "path": "tests/function/const-type-parameters/index.ts",
+                                            "line": 7
+                                        }
+                                    ]
+                                },
+                                "line": 7
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "names",
+                "kind": "Variable",
+                "line": 11,
+                "type": {
+                    "text": "readonly [\"Alice\", \"Bob\", \"Eve\"]"
+                },
+                "default": "getNamesExactly({ names: [\"Alice\", \"Bob\", \"Eve\"] })"
+            }
+        ],
+        "exports": [
+            {
+                "name": "HasNames",
+                "kind": "Named"
+            },
+            {
+                "name": "foo",
+                "kind": "Named"
+            },
+            {
+                "name": "getNamesExactly",
+                "kind": "Named"
+            },
+            {
+                "name": "names",
+                "kind": "Named"
+            }
+        ]
+    }
+]
