@@ -13,6 +13,7 @@ const serializedNodes = reflectedNodes.map(node => node.serialize());
 ### Features
 
 * The constraints defined in a type parameter will be reflected.
+* TypeScript versions 4.9 and 5.0 are officially supported
 
 ### Bug Fixes
 
@@ -24,7 +25,7 @@ const serializedNodes = reflectedNodes.map(node => node.serialize());
 
 ### 🚨 Breaking Changes
 
-* The field `type` in the Imports and Exports nodes has been changed to `kind` for consistency with the same field in 
+* The field `type` in the Imports and Exports nodes has been renamed to `kind` for consistency with the same field in 
   the declaration node.
 * Now all the fields `kind` (including the new one in the imports and exports) are capitalized.
 * The functions `parseFromFiles` and `parseFromGlob` now return an array of instances of 
@@ -33,7 +34,9 @@ const serializedNodes = reflectedNodes.map(node => node.serialize());
   `methods` and `staticMethods`. 
 * The package `@ts-ast-parser/readers` has been deleted. There is no need for this packages as know all the 
   functionalities are already included in the package `@ts-ast-parser/core`.
-* The field `value` in a `NamedParameter` has been changed to `default`.
+* The field `value` in a `NamedParameter` has been renamed to `default`.
+* The field `isTypeOnly` in imports and exports has been renamed to `typeOnly`
+* The field `isBareModuleSpecifier` in imports has been renamed to `bareModuleSpecifier`
 
 # [0.2.0](https://github.com/jordimarimon/ts-ast-parser/compare/0.1.0...0.2.0) (2022-12-25)
 
