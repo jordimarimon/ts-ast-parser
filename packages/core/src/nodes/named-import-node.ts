@@ -1,8 +1,9 @@
 import { getOriginalImportPath, isBareModuleSpecifier, matchesTsConfigPath } from '../utils/import.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { Import, ImportKind } from '../models/import.js';
-import { ReflectedNode } from './reflected-node.js';
-import { AnalyzerContext } from '../context.js';
+import type { ReflectedNode } from './reflected-node.js';
+import type { AnalyzerContext } from '../context.js';
+import type { Import } from '../models/import.js';
+import { ImportKind } from '../models/import.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 

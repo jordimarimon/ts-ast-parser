@@ -1,16 +1,16 @@
+import type { NamedParameterElement, Parameter } from '../models/parameter.js';
 import { getTypeFromNode, getTypeFromTSType } from '../utils/get-type.js';
-import { NamedParameterElement, Parameter } from '../models/parameter.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getLinePosition } from '../utils/get-location.js';
+import type { ReflectedNode } from './reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
-import { ReflectedNode } from './reflected-node.js';
+import type { AnalyzerContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { AnalyzerContext } from '../context.js';
+import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { Type } from '../models/type.js';
 import ts from 'typescript';
 
 

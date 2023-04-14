@@ -1,4 +1,4 @@
-import { ClassLikeNode, InterfaceOrClassDeclaration, SymbolWithContext } from './is.js';
+import type { ClassLikeNode, InterfaceOrClassDeclaration, SymbolWithContext } from './is.js';
 import { ModifierType } from '../models/member.js';
 import { isThirdParty } from './import.js';
 import ts from 'typescript';

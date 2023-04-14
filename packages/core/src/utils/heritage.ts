@@ -1,9 +1,9 @@
-import { Reference, SourceReference } from '../models/reference.js';
+import type { Reference, SourceReference } from '../models/reference.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
+import type { InterfaceOrClassDeclaration } from './is.js';
 import { tryAddProperty } from './try-add-property.js';
-import { InterfaceOrClassDeclaration } from './is.js';
+import type { AnalyzerContext } from '../context.js';
 import { getLocation } from './get-location.js';
-import { AnalyzerContext } from '../context.js';
 import { isThirdParty } from './import.js';
 import { hasFlag } from './member.js';
 import ts from 'typescript';

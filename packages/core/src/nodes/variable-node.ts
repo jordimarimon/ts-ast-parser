@@ -1,18 +1,18 @@
 import { resolveExpression } from '../utils/resolve-expression.js';
+import type { VariableDeclaration } from '../models/variable.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { VariableDeclaration } from '../models/variable.js';
+import type { DeclarationNode } from './declaration-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getTypeFromNode } from '../utils/get-type.js';
-import { DeclarationNode } from './declaration-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
+import type { AnalyzerContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { AnalyzerContext } from '../context.js';
+import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { Type } from '../models/type.js';
 import ts from 'typescript';
 
 

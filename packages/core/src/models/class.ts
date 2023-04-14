@@ -1,10 +1,10 @@
+import type { TypeParameter } from './type-parameter.js';
 import { DeclarationKind } from './declaration-kind.js';
-import { TypeParameter } from './type-parameter.js';
-import { FunctionSignature } from './function.js';
-import { Field, Method } from './member.js';
-import { Reference } from './reference.js';
-import { Decorator } from './decorator.js';
-import { JSDoc } from './js-doc.js';
+import type { FunctionSignature } from './function.js';
+import type { Field, Method } from './member.js';
+import type { Reference } from './reference.js';
+import type { Decorator } from './decorator.js';
+import type { JSDoc } from './js-doc.js';
 
 
 export interface ClassDeclaration {

@@ -1,6 +1,6 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
 import { isNotEmptyArray } from './not-empty-array.js';
-import { AnalyzerContext } from '../context.js';
+import type { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 

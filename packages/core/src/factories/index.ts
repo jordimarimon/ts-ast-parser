@@ -8,7 +8,7 @@ import { classFactory } from './create-class.js';
 import { enumFactory } from './create-enum.js';
 
 
-export const declarationFactory = [
+export const declarationFactories = [
     functionFactory,
     classFactory,
     variableFactory,
@@ -17,7 +17,7 @@ export const declarationFactory = [
     interfaceFactory,
 ];
 
-export const exportFactory = [
+export const exportFactories = [
     exportDeclarationFactory,
     exportAssignmentFactory,
     exportStatementFactory,

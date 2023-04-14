@@ -1,6 +1,6 @@
+import type { TypeParameter } from './type-parameter.js';
 import { DeclarationKind } from './declaration-kind.js';
-import { TypeParameter } from './type-parameter.js';
-import { JSDoc } from './js-doc.js';
+import type { JSDoc } from './js-doc.js';
 
 
 export interface TypeAliasDeclaration {

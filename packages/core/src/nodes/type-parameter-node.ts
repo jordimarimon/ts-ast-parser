@@ -1,9 +1,9 @@
+import type { TypeParameter } from '../models/type-parameter.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { TypeParameter } from '../models/type-parameter.js';
 import { getTypeArgumentNames } from '../utils/heritage.js';
 import { getLinePosition } from '../utils/get-location.js';
-import { ReflectedNode } from './reflected-node.js';
-import { AnalyzerContext } from '../context.js';
+import type { ReflectedNode } from './reflected-node.js';
+import type { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 

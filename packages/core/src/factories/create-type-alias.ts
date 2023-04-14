@@ -1,7 +1,7 @@
-import { TypeAliasDeclaration } from '../models/type-alias.js';
+import type { TypeAliasDeclaration } from '../models/type-alias.js';
 import { TypeAliasNode } from '../nodes/type-alias-node.js';
-import { NodeFactory } from './node-factory.js';
-import { AnalyzerContext } from '../context.js';
+import type { NodeFactory } from './node-factory.js';
+import type { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 

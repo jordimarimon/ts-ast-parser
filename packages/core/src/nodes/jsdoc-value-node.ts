@@ -1,4 +1,4 @@
-import { JSDocTagValue } from '../models/js-doc.js';
+import type { JSDocTagValue } from '../models/js-doc.js';
 
 
 export class JSDocValueNode {

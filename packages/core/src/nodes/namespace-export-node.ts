@@ -1,7 +1,8 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { Export, ExportKind } from '../models/export.js';
-import { ReflectedNode } from './reflected-node.js';
-import { AnalyzerContext } from '../context.js';
+import type { ReflectedNode } from './reflected-node.js';
+import type { AnalyzerContext } from '../context.js';
+import type { Export } from '../models/export.js';
+import { ExportKind } from '../models/export.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 

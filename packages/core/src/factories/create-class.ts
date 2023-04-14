@@ -1,8 +1,8 @@
+import type { ClassDeclaration } from '../models/class.js';
 import { isClassDeclaration } from '../utils/class.js';
-import { ClassDeclaration } from '../models/class.js';
+import type { AnalyzerContext } from '../context.js';
+import type { NodeFactory } from './node-factory.js';
 import { ClassNode } from '../nodes/class-node.js';
-import { AnalyzerContext } from '../context.js';
-import { NodeFactory } from './node-factory.js';
 import ts from 'typescript';
 
 

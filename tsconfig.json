@@ -23,7 +23,7 @@
         "allowSyntheticDefaultImports": true,
         "stripInternal": true,
         "skipLibCheck": true,
-        "verbatimModuleSyntax": false,
+        "verbatimModuleSyntax": true,
         "isolatedModules": true,
         "target": "es2020",
         "module": "NodeNext",

@@ -1,5 +1,5 @@
 import { DeclarationKind } from './declaration-kind.js';
-import { JSDoc } from './js-doc.js';
+import type { JSDoc } from './js-doc.js';
 
 
 export interface EnumDeclaration {

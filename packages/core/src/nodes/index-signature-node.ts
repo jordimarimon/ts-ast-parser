@@ -1,15 +1,15 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { IndexSignature } from '../models/interface.js';
 import { getLinePosition } from '../utils/get-location.js';
-import { IndexSignature } from '../models/interface.js';
+import type { ReflectedNode } from './reflected-node.js';
+import type { SymbolWithContext } from '../utils/is.js';
 import { MemberKind } from '../models/member-kind.js';
+import type { AnalyzerContext } from '../context.js';
 import { ParameterNode } from './parameter-node.js';
-import { ReflectedNode } from './reflected-node.js';
-import { SymbolWithContext } from '../utils/is.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { AnalyzerContext } from '../context.js';
+import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { Type } from '../models/type.js';
 import ts from 'typescript';
 
 

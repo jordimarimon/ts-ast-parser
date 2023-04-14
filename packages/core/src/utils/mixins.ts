@@ -1,7 +1,7 @@
 import { resolveExpression } from './resolve-expression.js';
+import type { MixinNodes } from '../models/mixin.js';
+import type { AnalyzerContext } from '../context.js';
 import { getReturnStatement } from './function.js';
-import { MixinNodes } from '../models/mixin.js';
-import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 

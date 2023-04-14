@@ -1,7 +1,7 @@
-import { EnumDeclaration } from '../models/enum.js';
+import type { EnumDeclaration } from '../models/enum.js';
+import type { NodeFactory } from './node-factory.js';
+import type { AnalyzerContext } from '../context.js';
 import { EnumNode } from '../nodes/enum-node.js';
-import { NodeFactory } from './node-factory.js';
-import { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 

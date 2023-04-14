@@ -1,5 +1,6 @@
-import { JSDoc, JSDocTagName } from '../models/js-doc.js';
 import { JSDocValueNode } from './jsdoc-value-node.js';
+import { JSDocTagName } from '../models/js-doc.js';
+import type { JSDoc } from '../models/js-doc.js';
 import { getAllJSDoc } from '../utils/js-doc.js';
 import ts from 'typescript';
 

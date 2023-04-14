@@ -20,7 +20,7 @@
         "npm": "^7.0.0 || ^8.0.0 || ^9.0.0"
     },
     "scripts": {
-        "build": "npm-run-all build:esm build:cjs",
+        "build": "npm-run-all ts:reset build:esm build:cjs",
         "build:cjs": "node ./scripts/build-pkgs.mjs",
         "build:esm": "tsc --build packages/*/tsconfig.json",
         "doc:build": "npm-run-all doc:clear doc:api -p doc:build:11ty",
@@ -30,6 +30,7 @@
         "doc:build:11ty": "NODE_ENV=production eleventy --config=.eleventy.cjs",
         "doc:start:11ty": "eleventy --serve --config=.eleventy.cjs",
         "doc:api": "node scripts/generate-api-reference.mjs",
+        "ts:reset": "rm -rf ./packages/*/.tsbuildinfo",
         "publish": "npm publish --access public --workspaces",
         "test": "vitest run --config vitest.config.ts",
         "coverage": "vitest run --coverage --config vitest.config.ts",

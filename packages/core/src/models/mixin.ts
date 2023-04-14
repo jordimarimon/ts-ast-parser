@@ -1,8 +1,8 @@
 import { DeclarationKind } from './declaration-kind.js';
-import { FunctionSignature } from './function.js';
-import { Field, Method } from './member.js';
-import { Decorator } from './decorator.js';
-import { JSDoc } from './js-doc.js';
+import type { FunctionSignature } from './function.js';
+import type { Field, Method } from './member.js';
+import type { Decorator } from './decorator.js';
+import type { JSDoc } from './js-doc.js';
 import ts from 'typescript';
 
 

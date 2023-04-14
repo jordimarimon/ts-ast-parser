@@ -1,20 +1,21 @@
 import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } from '../utils/member.js';
-import { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
+import type { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getReturnStatement } from '../utils/function.js';
-import { Field, ModifierType } from '../models/member.js';
 import { getTypeFromTSType } from '../utils/get-type.js';
+import type { ReflectedNode } from './reflected-node.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
-import { ReflectedNode } from './reflected-node.js';
+import type { AnalyzerContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { AnalyzerContext } from '../context.js';
+import { ModifierType } from '../models/member.js';
+import type { Field } from '../models/member.js';
+import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { Type } from '../models/type.js';
 import ts from 'typescript';
 
 

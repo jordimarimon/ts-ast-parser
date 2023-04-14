@@ -1,7 +1,7 @@
 import { getResolvedCompilerOptions } from './resolve-compiler-options.js';
 import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
+import type { AnalyzerContext } from './context.js';
 import { ModuleNode } from './nodes/module-node.js';
-import { AnalyzerContext } from './context.js';
 import * as path from 'path';
 import ts from 'typescript';
 

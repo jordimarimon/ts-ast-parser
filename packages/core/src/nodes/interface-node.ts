@@ -1,21 +1,21 @@
+import type { InterfaceDeclaration } from '../models/interface.js';
 import { getExtendClauseReferences } from '../utils/heritage.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { IndexSignatureNode } from './index-signature-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { InterfaceDeclaration } from '../models/interface.js';
 import { TypeParameterNode } from './type-parameter-node.js';
+import type { DeclarationNode } from './declaration-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getSymbolAtLocation } from '../utils/symbol.js';
 import { getInstanceMembers } from '../utils/member.js';
-import { DeclarationNode } from './declaration-node.js';
+import type { Reference } from '../models/reference.js';
+import type { SymbolWithContext } from '../utils/is.js';
 import { getNamespace } from '../utils/namespace.js';
-import { Reference } from '../models/reference.js';
-import { SymbolWithContext } from '../utils/is.js';
+import type { AnalyzerContext } from '../context.js';
+import type { Method } from '../models/member.js';
 import { PropertyNode } from './property-node.js';
 import { FunctionNode } from './function-node.js';
-import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
-import { Method } from '../models/member.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 

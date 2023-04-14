@@ -3,10 +3,10 @@ import { SideEffectImportNode } from '../nodes/side-effect-import-node.js';
 import { NamespaceImportNode } from '../nodes/namespace-import-node.js';
 import { DefaultImportNode } from '../nodes/default-import-node.js';
 import { NamedImportNode } from '../nodes/named-import-node.js';
-import { NodeFactory } from './node-factory.js';
-import { AnalyzerContext } from '../context.js';
-import { Import } from '../models/import.js';
-import { ImportNode } from '../utils/is.js';
+import type { NodeFactory } from './node-factory.js';
+import type { AnalyzerContext } from '../context.js';
+import type { Import } from '../models/import.js';
+import type { ImportNode } from '../utils/is.js';
 import ts from 'typescript';
 
 

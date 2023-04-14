@@ -1,9 +1,9 @@
+import type { FunctionDeclaration } from '../models/function.js';
 import { isFunctionDeclaration } from '../utils/function.js';
-import { FunctionDeclaration } from '../models/function.js';
 import { FunctionNode } from '../nodes/function-node.js';
-import { NodeFactory } from './node-factory.js';
-import { AnalyzerContext } from '../context.js';
-import { Method } from '../models/member.js';
+import type { NodeFactory } from './node-factory.js';
+import type { AnalyzerContext } from '../context.js';
+import type { Method } from '../models/member.js';
 import ts from 'typescript';
 
 

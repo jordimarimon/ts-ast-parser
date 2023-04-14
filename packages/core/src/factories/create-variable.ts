@@ -1,9 +1,9 @@
+import type { VariableDeclaration } from '../models/variable.js';
 import { isFunctionDeclaration } from '../utils/function.js';
-import { VariableDeclaration } from '../models/variable.js';
 import { VariableNode } from '../nodes/variable-node.js';
 import { isClassDeclaration } from '../utils/class.js';
-import { NodeFactory } from './node-factory.js';
-import { AnalyzerContext } from '../context.js';
+import type { NodeFactory } from './node-factory.js';
+import type { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 

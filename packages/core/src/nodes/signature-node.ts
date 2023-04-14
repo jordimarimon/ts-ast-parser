@@ -1,11 +1,11 @@
-import { FunctionReturn, FunctionSignature } from '../models/function.js';
+import type { FunctionReturn, FunctionSignature } from '../models/function.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getTypeFromTSType } from '../utils/get-type.js';
-import { ReflectedNode } from './reflected-node.js';
+import type { ReflectedNode } from './reflected-node.js';
+import type { AnalyzerContext } from '../context.js';
 import { ParameterNode } from './parameter-node.js';
-import { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';

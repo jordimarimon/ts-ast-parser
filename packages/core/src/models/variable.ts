@@ -1,5 +1,5 @@
 import { DeclarationKind } from './declaration-kind.js';
-import { PropertyLike } from './property.js';
+import type { PropertyLike } from './property.js';
 
 
 export interface VariableDeclaration extends PropertyLike {

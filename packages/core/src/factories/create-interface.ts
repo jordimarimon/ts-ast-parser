@@ -1,7 +1,7 @@
-import { InterfaceDeclaration } from '../models/interface.js';
+import type { InterfaceDeclaration } from '../models/interface.js';
 import { InterfaceNode } from '../nodes/interface-node.js';
-import { NodeFactory } from './node-factory.js';
-import { AnalyzerContext } from '../context.js';
+import type { NodeFactory } from './node-factory.js';
+import type { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 

@@ -1,9 +1,9 @@
+import type { TypeParameter } from './type-parameter.js';
 import { DeclarationKind } from './declaration-kind.js';
-import { TypeParameter } from './type-parameter.js';
-import { Parameter } from './parameter.js';
-import { Decorator } from './decorator.js';
-import { JSDoc } from './js-doc.js';
-import { Type } from './type.js';
+import type { Parameter } from './parameter.js';
+import type { Decorator } from './decorator.js';
+import type { JSDoc } from './js-doc.js';
+import type { Type } from './type.js';
 
 
 export interface FunctionReturn {

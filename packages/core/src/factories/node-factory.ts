@@ -1,5 +1,5 @@
-import { ReflectedNode } from '../nodes/reflected-node.js';
-import { AnalyzerContext } from '../context.js';
+import type { ReflectedNode } from '../nodes/reflected-node.js';
+import type { AnalyzerContext } from '../context.js';
 import ts from 'typescript';
 
 

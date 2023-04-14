@@ -1,7 +1,7 @@
-import { Type, TypeReference } from '../models/type.js';
+import type { Type, TypeReference } from '../models/type.js';
 import { tryAddProperty } from './try-add-property.js';
+import type { AnalyzerContext } from '../context.js';
 import { getLocation } from './get-location.js';
-import { AnalyzerContext } from '../context.js';
 import { isThirdParty } from './import.js';
 import ts from 'typescript';
 

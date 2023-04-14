@@ -1,6 +1,6 @@
-import { Declaration } from './declaration.js';
-import { Export } from './export.js';
-import { Import } from './import.js';
+import type { Declaration } from './declaration.js';
+import type { Export } from './export.js';
+import type { Import } from './import.js';
 
 
 export interface Module {

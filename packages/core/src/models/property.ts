@@ -1,6 +1,6 @@
-import { Decorator } from './decorator.js';
-import { JSDoc } from './js-doc.js';
-import { Type } from './type.js';
+import type { Decorator } from './decorator.js';
+import type { JSDoc } from './js-doc.js';
+import type { Type } from './type.js';
 
 
 export interface PropertyLike {

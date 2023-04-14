@@ -2,12 +2,12 @@ import { ExportDeclarationNode } from '../nodes/export-declaration-node.js';
 import { ExportAssignmentNode } from '../nodes/export-assignment-node.js';
 import { NamespaceExportNode } from '../nodes/namespace-export-node.js';
 import { NamedExportNode } from '../nodes/named-export-node.js';
+import type { ExportStatementNode } from '../utils/is.js';
 import { ReExportNode } from '../nodes/re-export-node.js';
 import { hasExportKeyword } from '../utils/export.js';
-import { ExportStatementNode } from '../utils/is.js';
-import { NodeFactory } from './node-factory.js';
-import { AnalyzerContext } from '../context.js';
-import { Export } from '../models/export.js';
+import type { NodeFactory } from './node-factory.js';
+import type { AnalyzerContext } from '../context.js';
+import type { Export } from '../models/export.js';
 import ts from 'typescript';
 
 

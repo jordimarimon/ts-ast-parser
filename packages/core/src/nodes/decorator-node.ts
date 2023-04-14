@@ -1,9 +1,9 @@
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { ReflectedNode } from './reflected-node.js';
+import type { Decorator } from '../models/decorator.js';
 import { getLocation } from '../utils/get-location.js';
-import { Decorator } from '../models/decorator.js';
-import { ReflectedNode } from './reflected-node.js';
-import { AnalyzerContext } from '../context.js';
+import type { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 

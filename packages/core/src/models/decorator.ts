@@ -1,4 +1,4 @@
-import { SourceReference } from './reference.js';
+import type { SourceReference } from './reference.js';
 
 
 export interface Decorator {

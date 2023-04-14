@@ -1,12 +1,13 @@
-import { importFactory, declarationFactory, exportFactory } from '../factories/index.js';
+import { importFactory, declarationFactories, exportFactories } from '../factories/index.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
-import { ExportNode, ImportNode, is } from '../utils/is.js';
-import { DeclarationNode } from './declaration-node.js';
-import { ReflectedNode } from './reflected-node.js';
+import type { ExportNode, ImportNode } from '../utils/is.js';
+import type { DeclarationNode } from './declaration-node.js';
+import type { ReflectedNode } from './reflected-node.js';
+import type { AnalyzerContext } from '../context.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { AnalyzerContext } from '../context.js';
-import { Module } from '../models/module.js';
+import type { Module } from '../models/module.js';
 import { NodeType } from '../models/node.js';
+import { is } from '../utils/is.js';
 import ts from 'typescript';
 
 
@@ -95,14 +96,14 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
             this._add(importFactory.create(rootNode, this._context));
         }
 
-        for (const factory of declarationFactory) {
+        for (const factory of declarationFactories) {
             if (factory.isNode(rootNode)) {
                 this._add(factory.create(rootNode, this._context));
                 declarationFound = true;
             }
         }
 
-        for (const factory of exportFactory) {
+        for (const factory of exportFactories) {
             if (factory.isNode(rootNode)) {
                 this._add(factory.create(rootNode, this._context));
             }

@@ -1,6 +1,6 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
-import { AnalyzerContext } from '../context.js';
-import { SymbolWithLocation } from './is.js';
+import type { AnalyzerContext } from '../context.js';
+import type { SymbolWithLocation } from './is.js';
 import ts from 'typescript';
 
 
