@@ -440,3 +440,51 @@
         border-inline-start-color: hsl(var(--color-warning-700));
     }
 }
+
+/*//////////////////////////////////////////////////////////////////////////////
+/////////// PREVIEW
+//////////////////////////////////////////////////////////////////////////////*/
+
+preview-component {
+    position: relative;
+    display: block;
+    width: 100%;
+    min-height: 25rem;
+    border-radius: var(--border-radius);
+
+    &[loading] {
+        overflow: hidden;
+        pointer-events: none;
+
+        &::after {
+            content: "Loading...";
+            font-family: var(--font-sans);
+            font-size: var(--font-size-lg);
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            z-index: var(--skeleton-z-index);
+            color: hsl(var(--color-text));
+            background-color: hsl(var(--color-neutral-100));
+        }
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .source-code {
+        flex: 1 1 0;
+    }
+
+    .reflected-output {
+        flex: 1 1 0;
+    }
+}

@@ -1,6 +1,6 @@
 # [next]
 
-**The library has been written again from scratch.**
+**The library has been rewritten again from scratch.**
 
 If you want to still use the old behaviour, you can by calling the `serialize` method in the reflected node:
 
@@ -13,7 +13,7 @@ const serializedNodes = reflectedNodes.map(node => node.serialize());
 ### Features
 
 * The constraints defined in a type parameter will be reflected.
-* TypeScript versions 4.9 and 5.0 are officially supported
+* TypeScript version `5.0` is supported
 
 ### Bug Fixes
 

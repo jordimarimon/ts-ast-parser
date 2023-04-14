@@ -65,83 +65,7 @@ module: overview
         The following example shows the information you can get from a TypeScript function.
     </p>
 
-    <p class="text-md my-2">
-        Given the following code:
-    </p>
-
-{% highlight "ts" %}
-/**
-* Function that sums all the numbers in a list.
-*
-* @param list - The list of numbers to sum
-*
-* @returns The sum of all the numbers.
-*/
-export function sum(...list: number[]): number {
-    return list.reduce((acc, curr) => acc + curr, 0);
-}
-{% endhighlight %}
-
-    <p class="text-md my-2">
-        The output information in JSON format will look like:
-    </p>
-
-{% highlight "json" %}
-[
-    {
-        "path": "relative-path-from-the-root-of-your-project-where-the-typescript-file-is-located",
-        "imports": [],
-        "declarations": [
-            {
-                "kind": "function",
-                "name": "sum",
-                "signatures": [
-                    {
-                        "line": 8,
-                        "return": {
-                            "type": {
-                                "text": "number"
-                            }
-                        },
-                        "jsDoc": [
-                            {
-                                "kind": "description",
-                                "value": "Function that sums all the numbers in a list."
-                            },
-                            {
-                                "kind": "param",
-                                "value": {
-                                    "name": "list",
-                                    "description": "The list of numbers to sum"
-                                }
-                            },
-                            {
-                                "kind": "returns",
-                                "value": "The sum of all the numbers."
-                            }
-                        ],
-                        "parameters": [
-                            {
-                                "name": "list",
-                                "type": {
-                                    "text": "number[]"
-                                },
-                                "rest": true
-                            }
-                        ]
-                    }
-                ]
-            }
-        ],
-        "exports": [
-            {
-                "name": "sum",
-                "type": "named"
-            }
-        ]
-    }
-]
-{% endhighlight %}
+    <preview-component src="function.ts"></preview-component>
 
     <p class="text-md my-2">
         For more examples, have a look at the
@@ -154,5 +78,4 @@ export function sum(...list: number[]): number {
             playground.
         </a>
     </p>
-
 </section>

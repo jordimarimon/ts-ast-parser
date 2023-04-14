@@ -51,7 +51,7 @@ pnpm add -D @ts-ast-parser/core
         You can provide the array of files that you would like to obtain information of:
     </p>
 
-{% highlight "js" %}
+{% highlight "ts" %}
 import { parseFromFiles } from '@ts-ast-parser/core';
 // const { parseFromFiles } = require('@ts-ast-parser/core');
 
@@ -62,7 +62,7 @@ const reflectedModules = parseFromFiles(['test1.ts', 'test2.ts']);
         Or you can provide a glob or an array of globs instead:
     </p>
 
-{% highlight "js" %}
+{% highlight "ts" %}
 import { parseFromGlob } from '@ts-ast-parser/core';
 // const { parseFromGlob } = require('@ts-ast-parser/core');
 
@@ -73,7 +73,7 @@ const reflectedModules = parseFromGlob('**/*.ts');
         Finally, there is also support for getting information from a code snippet:
     </p>
 
-{% highlight "js" %}
+{% highlight "ts" %}
 import { parseFromSource } from '@ts-ast-parser/core';
 // const { parseFromSource } = require('@ts-ast-parser/core');
 

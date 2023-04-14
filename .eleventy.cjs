@@ -45,6 +45,7 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addPassthroughCopy({
         'node_modules/jsoneditor/dist/img/jsoneditor-icons.svg': '/playground/img/jsoneditor-icons.svg',
     });
+    eleventyConfig.addPassthroughCopy('docs/assets/previews');
 
     // Compile the CSS
     eleventyConfig.addNunjucksAsyncFilter('postcss', (fileName, done) => {

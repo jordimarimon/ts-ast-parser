@@ -1,3 +1,4 @@
+import { isBrowser } from '../context.js';
 import ts from 'typescript';
 import chalk from 'chalk';
 
@@ -34,6 +35,10 @@ export function formatDiagnostics(diagnostics: readonly ts.Diagnostic[]): string
             return name;
         },
         getCurrentDirectory(): string {
+            if (isBrowser) {
+                return '';
+            }
+
             return process.cwd();
         },
         getNewLine(): string {

@@ -1,7 +1,8 @@
-import { Export, ExportKind } from '../models/export.js';
+import type { ReflectedNode } from './reflected-node.js';
 import { hasDefaultKeyword } from '../utils/export.js';
-import { ReflectedNode } from './reflected-node.js';
-import { AnalyzerContext } from '../context.js';
+import type { AnalyzerContext } from '../context.js';
+import type { Export } from '../models/export.js';
+import { ExportKind } from '../models/export.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 

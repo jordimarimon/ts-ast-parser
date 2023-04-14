@@ -2,7 +2,7 @@ import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
 import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
 import { createCompilerHost } from './compiler-host.js';
 import { ModuleNode } from './nodes/module-node.js';
-import { AnalyzerContext } from './context.js';
+import type { AnalyzerContext } from './context.js';
 import ts from 'typescript';
 
 

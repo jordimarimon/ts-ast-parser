@@ -1,0 +1,7 @@
+{
+    "title": "API Reference",
+    "layout": "base",
+    "withHeader": true,
+    "withSideBar": true,
+    "module": "api-reference"
+}

@@ -1,4 +1,4 @@
-import { AnalyzerContext } from '../context.js';
+import type { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
 

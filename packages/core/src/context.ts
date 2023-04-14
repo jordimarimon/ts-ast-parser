@@ -1,6 +1,8 @@
 import ts from 'typescript';
 
 
+export const isBrowser = typeof document === 'object' && !!document;
+
 /**
  * The context of the analyzer.
  *

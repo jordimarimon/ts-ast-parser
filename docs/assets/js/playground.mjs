@@ -37,7 +37,14 @@ const changeViewButton = document.getElementById('change-view-button');
 const dialogEl = document.getElementById('dialog');
 const dialogElCloseButton = document.getElementById('dialog-button-close');
 
-const parseCode = code => parseFromSource(code).toPOJO();
+const parseCode = code => {
+    try {
+        return parseFromSource(code).serialize();
+    } catch (error) {
+        console.error(error);
+        return {};
+    }
+};
 
 let view = CODE_EDITOR_VIEW;
 
