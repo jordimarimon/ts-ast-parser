@@ -54,6 +54,20 @@ module.exports = {
             },
         },
 
+        textColor: theme => ({
+            ...theme('colors'),
+            current: 'currentColor',
+            accent: 'hsl(var(--color-accent))',
+            title: 'hsl(var(--color-title))',
+            DEFAULT: 'hsl(var(--color-text))',
+        }),
+
+        backgroundColor: theme => ({
+            ...theme('colors'),
+            transparent: 'transparent',
+            DEFAULT: 'hsl(var(--color-background))',
+        }),
+
         borderRadius: {
             DEFAULT: 'var(--border-radius)',
             '1/2': '50%',

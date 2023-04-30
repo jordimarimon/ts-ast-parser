@@ -22,6 +22,11 @@
     border-bottom: 1px solid hsl(var(--color-prose));
     text-decoration: none;
     color: hsl(var(--color-text));
+
+    &-sm {
+        font-weight: normal;
+        font-size: theme("fontSize.sm");
+    }
 }
 
 .code {
@@ -45,6 +50,17 @@
     inset-inline-start: 50%;
     transform: translate(-50%, -50%);
 }
+
+/*//////////////////////////////////////////////////////////////////////////////
+/////////// LAYOUT
+//////////////////////////////////////////////////////////////////////////////*/
+
+.grid-responsive {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+    grid-gap: theme("spacing.4");
+}
+
 
 /*//////////////////////////////////////////////////////////////////////////////
 /////////// SIZES

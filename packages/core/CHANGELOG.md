@@ -1,6 +1,6 @@
 # [next]
 
-**The library has been rewritten again from scratch.**
+**The library has been rewritten from scratch.**
 
 If you want to still use the old behaviour, you can by calling the `serialize` method in the reflected node:
 

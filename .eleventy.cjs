@@ -1,5 +1,5 @@
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
-const esBuildPlugin = require('./scripts/build-docs.cjs');
+const esBuildPlugin = require('./scripts/docs/build-docs.cjs');
 const postcssPresetEnv = require('postcss-preset-env');
 const tailwindNesting = require('tailwindcss/nesting');
 const autoprefixer = require('autoprefixer');

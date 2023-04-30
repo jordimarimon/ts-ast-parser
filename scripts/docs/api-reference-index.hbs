@@ -1,0 +1,26 @@
+---
+order: 3
+tags: module
+---
+
+{% from "macros/heading.njk" import heading %}
+
+\{{ heading(title) }}
+
+
+{{#each categories}}
+<h2 class="heading-3 mb-4">
+    {{this.name}}
+</h2>
+
+<section class="block w-full mb-6">
+    <ul class="grid-responsive">
+        {{#each this.items}}
+        <li class="text-start">
+            <a href="{{this.href}}" class="prose prose-sm">{{this.name}}</a>
+        </li>
+        {{/each}}
+    </ul>
+</section>
+
+{{/each}}
