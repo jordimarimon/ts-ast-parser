@@ -39,6 +39,9 @@ const postcssProcessor = postcss([
 
 module.exports = (eleventyConfig) => {
 
+    // Don't ignore paths defined in .gitignore
+    eleventyConfig.setUseGitIgnore(false);
+
     // Adds the following files in the bundle
     eleventyConfig.addPassthroughCopy('docs/favicon.ico');
     eleventyConfig.addPassthroughCopy({'docs/robots.txt': '/robots.txt'});
