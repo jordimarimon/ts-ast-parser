@@ -7,13 +7,12 @@ tags: module
 
 \{{ heading(title) }}
 
-
 {{#each categories}}
-<h2 class="heading-3 mb-4">
-    {{this.name}}
-</h2>
-
 <section class="block w-full mb-6">
+    <h2 class="heading-3 mb-4">
+        {{this.name}}
+    </h2>
+
     <ul class="grid-responsive">
         {{#each this.items}}
         <li class="text-start">
