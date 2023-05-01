@@ -1,0 +1,21 @@
+{% from "macros/heading.njk" import heading %}
+
+<ul class="flex items-center gap-1 text-xs text-neutral-400">
+    <li class="hover:underline">
+        <a href="javascript:history.back()">API Reference</a>
+    </li>
+    &gt;
+    <li class="hover:underline">
+        <a href=".">{{this.name}}</a>
+    </li>
+</ul>
+
+<div class="flex items-center justify-start gap-2">
+    <h1 class="heading-2">
+        {{ this.name }}
+    </h1>
+
+    <span class="tag tag-function">
+        FUNCTION
+    </span>
+</div>

@@ -96,6 +96,12 @@ module.exports = (eleventyConfig) => {
         }).join('');
     });
 
+    // Get the module name from the url
+    eleventyConfig.addFilter("getModuleName", (url) => {
+        const normalizedUrl = eleventyConfig.getFilter("url")(url).replace('/ts-ast-parser', '');
+        return normalizedUrl.split('/').filter(v => v)[0];
+    });
+
     // Syntax highlighting: https://www.11ty.dev/docs/plugins/syntaxhighlight/
     eleventyConfig.addPlugin(syntaxHighlight);
 
