@@ -187,5 +187,16 @@ function createTypeAlias(typeAlias, category) {
 }
 
 function toDashCase(str) {
-    return str.replace(/[A-Z]/g, (match, offset) => (offset > 0 ? '-' : '') + match.toLowerCase());
+    const replaceFunc = (match, offset) => {
+        const prevChar = str[offset - 1];
+
+        // Don't add a dash between 'TS' or 'JS'
+        if (match === 'S' && (prevChar === 'J') || prevChar === 'T') {
+            return match.toLowerCase();
+        }
+
+        return (offset > 0 ? '-' : '') + match.toLowerCase();
+    };
+
+    return str.replace(/[A-Z]/g, replaceFunc);
 }
