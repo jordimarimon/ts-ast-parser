@@ -5,8 +5,8 @@
 .btn {
     display: inline-flex;
     align-items: center;
-    font-family: var(--font-sans);
-    font-size: var(--font-size-md);
+    font-family: theme("fontFamily.sans");
+    font-size: theme("fontSize.base");
     padding-block: 0;
     padding-inline: theme("spacing.4");
     width: auto;
@@ -78,7 +78,7 @@
 }
 
 .btn-lg {
-    font-size: var(--font-size-lg);
+    font-size: theme("fontSize.lg");
     height: var(--height-lg);
 }
 
@@ -109,7 +109,7 @@
         box-shadow: 0 1px 3px hsl(var(--color-neutral-900) / 10%);
         cursor: pointer;
         font-family: inherit;
-        font-size: var(--font-size-md);
+        font-size: theme("fontSize.base");
         transition: all 150ms ease;
 
         &:focus {
@@ -250,8 +250,8 @@
     li {
         display: flex;
         align-items: center;
-        font-family: var(--font-sans);
-        font-size: var(--font-size-md);
+        font-family: theme("fontFamily.sans");
+        font-size: theme("fontSize.base");
         min-height: var(--height);
         width: 100%;
         padding-inline: theme("spacing.2");
@@ -319,7 +319,7 @@
     }
 
     .pagination__label {
-        font-family: var(--font-sans);
+        font-family: theme("fontFamily.sans");
         font-weight: bold;
         font-size: theme("fontSize.lg");
         min-width: 0;
@@ -428,7 +428,7 @@
 .alert {
     display: block;
     width: 100%;
-    font-size: var(--font-size-md);
+    font-size: theme("fontSize.base");
     padding: theme("spacing.4");
     border-radius: var(--border-radius);
     border-inline-start-width: 4px;
@@ -463,5 +463,43 @@ preview-component {
 
     .reflected-output {
         flex: 1 1 0;
+    }
+}
+
+/*//////////////////////////////////////////////////////////////////////////////
+/////////// TAG
+//////////////////////////////////////////////////////////////////////////////*/
+
+.tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: theme("spacing[0.5]") theme("spacing.2");
+    font-size: theme("fontSize.sm");
+    color: hsl(var(--color-neutral-0));
+    border-radius: var(--border-radius);
+
+    &-function {
+        background-color: hsl(var(--color-function));
+    }
+
+    &-class {
+        background-color: hsl(var(--color-class));
+    }
+
+    &-interface {
+        background-color: hsl(var(--color-interface));
+    }
+
+    &-enum {
+        background-color: hsl(var(--color-enum));
+    }
+
+    &-typealias {
+        background-color: hsl(var(--color-type-alias));
+    }
+
+    &-variable {
+        background-color: hsl(var(--color-variable));
     }
 }

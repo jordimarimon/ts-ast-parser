@@ -19,7 +19,7 @@ html {
 
 body {
     display: block;
-    font-family: var(--font-sans);
+    font-family: theme("fontFamily.sans");
     font-size: theme("fontSize.base");
     width: 100%;
     margin: 0;

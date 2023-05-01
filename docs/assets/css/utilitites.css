@@ -30,7 +30,7 @@
 }
 
 .code {
-    font-size: var(--font-size-md);
+    font-size: theme("fontSize.base");
     font-weight: 400;
     border-radius: var(--border-radius);
     background-color: hsl(var(--color-neutral-700));
@@ -82,8 +82,8 @@
 
     &::after {
         content: "Loading...";
-        font-family: var(--font-sans);
-        font-size: var(--font-size-lg);
+        font-family: theme("fontFamily.sans");
+        font-size: theme("fontSize.lg");
         font-weight: bold;
         position: absolute;
         top: 0;

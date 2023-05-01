@@ -76,8 +76,8 @@ module.exports = {
 
         extend: {
             width: {
-                lg: '64rem'
-            }
+                lg: '64rem',
+            },
         },
     },
 

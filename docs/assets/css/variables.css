@@ -1,8 +1,4 @@
 :root {
-    --font-sans: theme("fontFamily.sans");
-    --font-size-md: theme("fontSize.base");
-    --font-size-lg: theme("fontSize.lg");
-
     /* On/Offs */
     --color-neutral-0: 0 0% 100%;
     --color-neutral-1000: 0 0% 0%;
@@ -59,6 +55,13 @@
     --color-primary: var(--color-neutral-700);
     --color-border: var(--color-neutral-100);
     --color-prose: 199 95% 74%;
+
+    --color-function: 142 72% 29%;
+    --color-class: 142 69% 58%;
+    --color-interface: 193 82% 31%;
+    --color-enum: 82 85% 67%;
+    --color-type-alias: 188 86% 53%;
+    --color-variable: 0 91% 71%;
 
     --height: 2.5rem;
     --height-lg: 3rem;

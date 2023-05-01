@@ -15,8 +15,14 @@ tags: module
 
     <ul class="grid-responsive">
         {{#each this.items}}
-        <li class="text-start">
-            <a href="{{this.href}}" class="prose prose-sm">{{this.name}}</a>
+        <li class="flex items-center text-start gap-2">
+            <span class="tag tag-{{this.type}}" title="{{this.type}}">
+                {{firstLetter this.type}}
+            </span>
+
+            <a href="{{this.href}}" class="prose prose-sm">
+                {{this.name}}
+            </a>
         </li>
         {{/each}}
     </ul>

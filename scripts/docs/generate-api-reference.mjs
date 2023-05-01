@@ -4,9 +4,10 @@ import path from 'path';
 import fs from 'fs';
 
 
-const reflectedModules = parseFromGlob('packages/core/src/**/*.ts');
+Handlebars.registerHelper('firstLetter', str => str[0].toUpperCase());
 
 const {pathname: cwd} = new URL('../..', import.meta.url);
+const reflectedModules = parseFromGlob('packages/core/src/**/*.ts');
 
 const templateIndexStr = fs.readFileSync(path.join(cwd, 'scripts', 'docs', 'api-reference-index.hbs'), 'utf8');
 const templateIndex = Handlebars.compile(templateIndexStr, {noEscape: true});
@@ -27,15 +28,16 @@ for (const module of reflectedModules) {
 
     for (const declaration of declarations) {
         const name = declaration.getName();
+        const type = declaration.getKind().toLowerCase();
 
         if (category === 'models') {
-            models.push({name, href});
+            models.push({name, href, type});
         } else if (category === 'utils') {
-            utils.push({name, href});
+            utils.push({name, href, type});
         } else if (category === 'nodes') {
-            nodes.push({name, href});
+            nodes.push({name, href, type});
         } else if (fileBaseName.startsWith('parse-from')) {
-            parsers.push({name, href: fileBaseName});
+            parsers.push({name, type, href: fileBaseName});
         }
     }
 }
@@ -60,6 +62,7 @@ const indexContent = templateIndex({
         },
     ],
 });
+
 fs.writeFileSync(path.join(cwd, 'docs', 'api-reference', 'index.njk'), indexContent);
 
 //////////////////////////////////////////////////////////////////////////////
