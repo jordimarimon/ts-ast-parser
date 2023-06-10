@@ -12,7 +12,7 @@ export function isBareModuleSpecifier(importPath: string): boolean {
     //      import lodash from 'lodash'; --> Correct
     //      import foo from './foo.js'; --> Incorrect
     //
-    return !!importPath.replace(/'/g, '')[0].match(/[@a-zA-Z\d]/g);
+    return !!importPath.replace(/'/g, '')[0]?.match(/[@a-zA-Z\d]/g);
 }
 
 export function isThirdParty(path: string): boolean {

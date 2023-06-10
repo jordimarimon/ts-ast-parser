@@ -16,7 +16,7 @@ export function tryAddProperty<T extends {}, K extends keyof T>(
             obj[key] = value;
         }
     } else if (Array.isArray(value)) {
-        if (value.length) {
+        if ((value as unknown[]).length) {
             obj[key] = value;
         }
     } else if (isObject(value)) {

@@ -48,7 +48,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     getName(): string {
         if (ts.isVariableStatement(this._node)) {
-            return this._node.declarationList.declarations?.[0].name?.getText() ?? '';
+            return this._node.declarationList.declarations?.[0]?.name?.getText() ?? '';
         }
 
         return this._node.name?.getText() ?? '';
@@ -276,7 +276,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         }
 
         const decl = this._node.declarationList.declarations[0];
-        const initializer = decl.initializer;
+        const initializer = decl?.initializer;
 
         if (!initializer || !ts.isClassExpression(initializer)) {
             return null;

@@ -21,7 +21,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
 
     private readonly _context: AnalyzerContext;
 
-    private readonly _parameter: ParameterNode;
+    private readonly _parameter: ParameterNode | null;
 
     constructor(node: ts.IndexSignatureDeclaration, member: SymbolWithContext, context: AnalyzerContext) {
         this._node = node;
@@ -31,7 +31,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
     }
 
     getName(): string {
-        return this._parameter.getName();
+        return this._parameter?.getName() ?? '';
     }
 
     getNodeType(): NodeType {
@@ -66,12 +66,12 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         };
     }
 
-    getIndexType(): Type {
-        return this._parameter.getType();
+    getIndexType(): Type | null {
+        return this._parameter?.getType() ?? null;
     }
 
     isOptional(): boolean {
-        return this._parameter.isOptional();
+        return !!this._parameter?.isOptional();
     }
 
     serialize(): IndexSignature {
@@ -79,22 +79,26 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
             name: this.getName(),
             line: this.getLine(),
             kind: MemberKind.IndexSignature,
-            indexType: this.getIndexType(),
             type: this.getType(),
         };
 
+        tryAddProperty(tmpl, 'indexType', this.getIndexType());
         tryAddProperty(tmpl, 'optional', this.isOptional());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
 
         return tmpl;
     }
 
-    private _getParameter(): ParameterNode {
+    private _getParameter(): ParameterNode | null {
         const callSignature = this._member.type?.getCallSignatures()?.[0];
         const nodeParameters = this._node.parameters ?? [];
         const symbolParameters = callSignature?.parameters ?? [];
         const nodeParam = nodeParameters[0];
         const symbolParam = symbolParameters[0] ?? null;
+
+        if (!nodeParam) {
+            return null;
+        }
 
         return new ParameterNode(nodeParam, symbolParam, this._context);
     }

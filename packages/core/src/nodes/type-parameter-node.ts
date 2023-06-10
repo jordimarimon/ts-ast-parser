@@ -48,7 +48,7 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
             return '';
         }
 
-        return getTypeArgumentNames([this._node.constraint])[0];
+        return getTypeArgumentNames([this._node.constraint])[0] ?? '';
     }
 
     hasDefault(): boolean {

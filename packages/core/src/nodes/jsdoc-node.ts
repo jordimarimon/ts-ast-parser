@@ -17,7 +17,7 @@ export class JSDocNode {
                 this._jsDoc[tag.kind] = [];
             }
 
-            this._jsDoc[tag.kind].push(new JSDocValueNode(tag.value));
+            this._jsDoc[tag.kind]?.push(new JSDocValueNode(tag.value));
         });
     }
 
