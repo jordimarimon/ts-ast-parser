@@ -1,5 +1,5 @@
 import type { TypeParameter } from './type-parameter.js';
-import { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration-kind.js';
 import type { FunctionSignature } from './function.js';
 import type { Field, Method } from './member.js';
 import type { Reference } from './reference.js';

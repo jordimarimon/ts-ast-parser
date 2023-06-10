@@ -1,6 +1,6 @@
 import type { AnalyzerContext } from '../context.js';
-import { NodeType } from '../models/node.js';
-import ts from 'typescript';
+import type { NodeType } from '../models/node.js';
+import type ts from 'typescript';
 
 
 export interface ReflectedNode<Model extends object = object, T extends ts.Node | ts.Signature = ts.Node> {

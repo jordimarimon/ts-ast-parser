@@ -8,7 +8,7 @@ import { getNamespace } from '../utils/namespace.js';
 import type { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.TypeAliasDeclaration> {

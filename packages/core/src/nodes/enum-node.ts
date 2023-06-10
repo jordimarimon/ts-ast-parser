@@ -7,7 +7,7 @@ import { EnumMemberNode } from './enum-member-node.js';
 import type { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclaration> {

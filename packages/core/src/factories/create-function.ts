@@ -4,7 +4,7 @@ import { FunctionNode } from '../nodes/function-node.js';
 import type { NodeFactory } from './node-factory.js';
 import type { AnalyzerContext } from '../context.js';
 import type { Method } from '../models/member.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 export const functionFactory: NodeFactory<FunctionDeclaration | Method, FunctionNode, ts.VariableStatement | ts.FunctionDeclaration> = {

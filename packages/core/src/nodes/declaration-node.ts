@@ -1,9 +1,9 @@
-import { DeclarationKind } from '../models/declaration-kind.js';
+import type { DeclarationKind } from '../models/declaration-kind.js';
 import type { Declaration } from '../models/declaration.js';
 import type { ReflectedNode } from './reflected-node.js';
-import { MemberKind } from '../models/member-kind.js';
-import { JSDocNode } from './jsdoc-node.js';
-import ts from 'typescript';
+import type { MemberKind } from '../models/member-kind.js';
+import type { JSDocNode } from './jsdoc-node.js';
+import type ts from 'typescript';
 
 
 /**

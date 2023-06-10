@@ -1,7 +1,7 @@
 import { parseFromFiles } from './parse-from-files.js';
-import { ModuleNode } from './nodes/module-node.js';
+import type { ModuleNode } from './nodes/module-node.js';
 import { globbySync } from 'globby';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 const IGNORE: string[] = [

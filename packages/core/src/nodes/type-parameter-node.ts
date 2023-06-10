@@ -5,7 +5,7 @@ import { getLinePosition } from '../utils/get-location.js';
 import type { ReflectedNode } from './reflected-node.js';
 import type { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypeParameterDeclaration> {

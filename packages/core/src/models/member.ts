@@ -1,6 +1,6 @@
 import type { FunctionLike } from './function.js';
 import type { PropertyLike } from './property.js';
-import { MemberKind } from './member-kind.js';
+import type { MemberKind } from './member-kind.js';
 
 
 export enum ModifierType {

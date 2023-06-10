@@ -3,7 +3,7 @@ import { isClassDeclaration } from '../utils/class.js';
 import type { AnalyzerContext } from '../context.js';
 import type { NodeFactory } from './node-factory.js';
 import { ClassNode } from '../nodes/class-node.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 export const classFactory: NodeFactory<ClassDeclaration, ClassNode, ts.ClassDeclaration | ts.VariableStatement> = {

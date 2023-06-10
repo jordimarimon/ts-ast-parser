@@ -10,7 +10,7 @@ import { JSDocTagName } from '../models/js-doc.js';
 import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.IndexSignatureDeclaration> {

@@ -1,5 +1,5 @@
 import type { TypeParameter } from './type-parameter.js';
-import { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration-kind.js';
 import type { Parameter } from './parameter.js';
 import type { Decorator } from './decorator.js';
 import type { JSDoc } from './js-doc.js';

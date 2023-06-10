@@ -1,4 +1,4 @@
-import { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration-kind.js';
 import type { PropertyLike } from './property.js';
 
 

@@ -1,9 +1,9 @@
-import { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration-kind.js';
 import type { FunctionSignature } from './function.js';
 import type { Field, Method } from './member.js';
 import type { Decorator } from './decorator.js';
 import type { JSDoc } from './js-doc.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 export interface MixinNodes {

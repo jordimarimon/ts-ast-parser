@@ -5,7 +5,7 @@ import type { AnalyzerContext } from '../context.js';
 import type { EnumMember } from '../models/enum.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> {

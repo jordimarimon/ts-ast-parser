@@ -1,4 +1,4 @@
-import { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration-kind.js';
 import type { JSDoc } from './js-doc.js';
 
 

@@ -1,9 +1,9 @@
 import type { TypeParameter } from './type-parameter.js';
-import { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration-kind.js';
 import type { PropertyLike } from './property.js';
 import type { Field, Method } from './member.js';
 import type { Reference } from './reference.js';
-import { MemberKind } from './member-kind.js';
+import type { MemberKind } from './member-kind.js';
 import type { JSDoc } from './js-doc.js';
 import type { Type } from './type.js';
 

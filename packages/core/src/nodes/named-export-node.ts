@@ -4,7 +4,7 @@ import type { AnalyzerContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { NodeType } from '../models/node.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
 
 // CASE of "export { x, y as z };"
