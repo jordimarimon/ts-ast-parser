@@ -34,7 +34,6 @@ Be aware of the breaking changes listed below.
 
 * The constraints defined in a type parameter will be reflected.
 * TypeScript versions `5.0` and `5.1` are supported
-* Drop support for Node `14.x`
 
 ### Bug Fixes
 
@@ -58,6 +57,8 @@ Be aware of the breaking changes listed below.
 * The field `value` in a `NamedParameter` has been renamed to `default`.
 * The field `isTypeOnly` in imports and exports has been renamed to `typeOnly`
 * The field `isBareModuleSpecifier` in imports has been renamed to `bareModuleSpecifier`
+* Drop support for Node `14.x`
+* Drop support for CommonJS
 
 # [0.2.0](https://github.com/jordimarimon/ts-ast-parser/compare/0.1.0...0.2.0) (2022-12-25)
 

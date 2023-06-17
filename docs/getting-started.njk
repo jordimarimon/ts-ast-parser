@@ -53,7 +53,6 @@ pnpm add -D @ts-ast-parser/core
 
 {% highlight "ts" %}
 import { parseFromFiles } from '@ts-ast-parser/core';
-// const { parseFromFiles } = require('@ts-ast-parser/core');
 
 const reflectedModules = parseFromFiles(['test1.ts', 'test2.ts']);
 {% endhighlight %}
@@ -64,7 +63,6 @@ const reflectedModules = parseFromFiles(['test1.ts', 'test2.ts']);
 
 {% highlight "ts" %}
 import { parseFromGlob } from '@ts-ast-parser/core';
-// const { parseFromGlob } = require('@ts-ast-parser/core');
 
 const reflectedModules = parseFromGlob('**/*.ts');
 {% endhighlight %}
@@ -75,7 +73,6 @@ const reflectedModules = parseFromGlob('**/*.ts');
 
 {% highlight "ts" %}
 import { parseFromSource } from '@ts-ast-parser/core';
-// const { parseFromSource } = require('@ts-ast-parser/core');
 
 const reflectedModules = parseFromSource('const foo = true;export { foo };');
 {% endhighlight %}

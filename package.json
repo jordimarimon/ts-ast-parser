@@ -20,9 +20,7 @@
         "npm": "^8.0.0 || ^9.0.0"
     },
     "scripts": {
-        "build": "npm-run-all ts:reset build:esm build:cjs",
-        "build:cjs": "node ./scripts/build-pkgs.mjs",
-        "build:esm": "tsc --build packages/*/tsconfig.json",
+        "build": "npm-run-all ts:reset ts:clear ts:build",
         "doc:build": "npm-run-all doc:clear doc:api doc:build:11ty",
         "doc:start": "npm-run-all doc:clear doc:api doc:start:11ty",
         "doc:deploy": "gh-pages -d _site -m \"docs: update documentation\"",
@@ -30,7 +28,9 @@
         "doc:build:11ty": "NODE_ENV=production eleventy --config=.eleventy.cjs",
         "doc:start:11ty": "eleventy --serve --config=.eleventy.cjs",
         "doc:api": "node scripts/docs/generate-api-reference.mjs",
+        "ts:build": "tsc --build packages/*/tsconfig.json",
         "ts:reset": "rm -rf ./packages/*/.tsbuildinfo",
+        "ts:clear": "rm -rf ./packages/*/dist",
         "publish": "npm publish --access public --workspaces",
         "test": "vitest run --config vitest.config.ts",
         "coverage": "vitest run --coverage --config vitest.config.ts",
