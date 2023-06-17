@@ -21,7 +21,7 @@
         CLASS
     </span>
 
-    <a class="mis-auto text material-icons" target="_blank" href="\{{ github }}/{{ this.path }}">
+    <a class="mis-auto text material-icons" target="_blank" href="\{{ github }}/{{ this.path }}#L{{ this.line }}">
         code
     </a>
 </div>
@@ -47,9 +47,19 @@
     <ul class="flex flex-col mt-4 gap-6 w-full">
         {{#each this.methods}}
         <li class="block w-full rounded border pb-4">
-            <h3 class="heading-4 border-b bg-neutral-100 w-full px-4 py-2">
-                {{this.name}}
-            </h3>
+            <div class="flex items-center border-b bg-neutral-100 w-full px-4 py-2">
+                <h3 class="heading-4">
+                    {{this.name}}
+                </h3>
+
+                <a
+                    class="mis-auto text material-icons"
+                    target="_blank"
+                    href="\{{ github }}/{{ this.path }}#L{{ this.line }}"
+                >
+                    code
+                </a>
+            </div>
 
             {{#if this.description}}
             <p class="text px-4 mt-4">

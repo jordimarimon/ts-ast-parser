@@ -66,7 +66,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
             : getTypeFromNode(this._declaration, this._context);
     }
 
-    getDefault(): unknown {
+    getValue(): unknown {
         const jsDocDefaultValue = this.getJSDoc().getTag(JSDocTagName.default)?.getValue<string>();
 
         return jsDocDefaultValue ?? resolveExpression(this._declaration.initializer, this._context.checker);
@@ -80,12 +80,8 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
         return new JSDocNode(this._node);
     }
 
-    hasDefault(): boolean {
-        return this.getDefault() !== undefined;
-    }
-
     serialize(): VariableDeclaration {
-        const defaultValue = this.getDefault();
+        const defaultValue = this.getValue();
         const tmpl: VariableDeclaration = {
             name: this.getName(),
             kind: this.getKind(),

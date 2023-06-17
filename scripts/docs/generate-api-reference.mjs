@@ -125,6 +125,7 @@ function createFunction(func, category, filePath) {
     const context = {
         name: func.getName(),
         path: filePath,
+        line: func.getLine(),
         description: jsDoc?.getTag(JSDocTagName.description)?.getValue() ?? '',
     };
 
@@ -139,6 +140,7 @@ function createInterface(inter, category, filePath) {
     const context = {
         name: inter.getName(),
         path: filePath,
+        line: inter.getLine(),
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
     };
 
@@ -153,6 +155,7 @@ function createClass(clazz, category, filePath) {
     const context = {
         name: clazz.getName(),
         path: filePath,
+        line: clazz.getLine(),
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
         methods: clazz.getMethods().map(m => {
             const signature = m.getSignatures()[0];
@@ -167,6 +170,8 @@ function createClass(clazz, category, filePath) {
 
             return {
                 name: m.getName(),
+                path: filePath,
+                line: signature.getLine(),
                 description: funcJsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
                 signature: `${m.getName()}(${parameters.map(p => `${p.name}: ${p.type.text}`).join(', ')}): ${returnType.text}`,
                 parameters,
@@ -189,6 +194,7 @@ function createEnum(enumerable, category, filePath) {
     const context = {
         name: enumerable.getName(),
         path: filePath,
+        line: enumerable.getLine(),
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
     };
 
@@ -203,8 +209,9 @@ function createVariable(variable, category, filePath) {
     const context = {
         name: variable.getName(),
         path: filePath,
+        line: variable.getLine(),
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
-        value: variable.getDefault(),
+        value: variable.getValue(),
     };
 
     const content = templateVariable(context);
@@ -218,7 +225,9 @@ function createTypeAlias(typeAlias, category, filePath) {
     const context = {
         name: typeAlias.getName(),
         path: filePath,
+        line: typeAlias.getLine(),
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        value: typeAlias.getValue(),
     };
 
     const content = templateTypeAlias(context);
