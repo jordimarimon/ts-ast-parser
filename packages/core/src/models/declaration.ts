@@ -7,6 +7,9 @@ import type { MixinDeclaration } from './mixin.js';
 import type { EnumDeclaration } from './enum.js';
 
 
+/**
+ * What type of nodes are treated as declarations
+ */
 export type Declaration =
     | ClassDeclaration
     | InterfaceDeclaration

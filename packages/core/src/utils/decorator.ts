@@ -2,6 +2,13 @@ import { isTS4_8 } from './version.js';
 import ts from 'typescript';
 
 
+/**
+ * Returns the decorators defined in the node. An empty array is returned if no decorators are found.
+ *
+ * @param node - The node to get the decorators from
+ *
+ * @returns An array of decorators
+ */
 export function getDecorators(node: ts.Node): readonly ts.Decorator[] {
     let nodeDecorators: readonly ts.Decorator[];
 

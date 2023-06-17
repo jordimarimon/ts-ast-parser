@@ -13,7 +13,7 @@ import ts from 'typescript';
 
 export const exportDeclarationFactory: NodeFactory<Export, ExportDeclarationNode, ts.Node> = {
 
-    isNode: hasExportKeyword,
+    isNode: (node: ts.Node): node is ts.Node => hasExportKeyword(node),
 
     create: (node: ts.Node, context: AnalyzerContext): ExportDeclarationNode[] => {
         const exports: ExportDeclarationNode[] = [];

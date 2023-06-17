@@ -5,8 +5,8 @@
         "declarations": [
             {
                 "name": "RequiredProps",
-                "line": 7,
                 "kind": "Interface",
+                "line": 7,
                 "heritage": [
                     {
                         "name": "Required<Props>",
@@ -42,8 +42,8 @@
             },
             {
                 "name": "TodoPreview",
-                "line": 17,
                 "kind": "Interface",
+                "line": 17,
                 "heritage": [
                     {
                         "name": "Pick<Todo, 'title' | 'completed'>",

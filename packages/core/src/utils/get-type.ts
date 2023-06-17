@@ -6,6 +6,14 @@ import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
 
+/**
+ * Converts the TypeScript type node to a simplified version of it
+ *
+ * @param type - The Typescript type node
+ * @param context - The analyzer context where the type belongs to
+ *
+ * @returns The simplified type
+ */
 export function getTypeFromTSType(type: ts.Type | undefined, context: AnalyzerContext): Type {
     if (type) {
         const name = context.checker.typeToString(type) ?? '';
@@ -19,6 +27,14 @@ export function getTypeFromTSType(type: ts.Type | undefined, context: AnalyzerCo
     return {text: ''};
 }
 
+/**
+ * Returns the location of where the type has been defined
+ *
+ * @param type - The Typescript type node
+ * @param context - The analyzer context where the type belongs to
+ *
+ * @returns The type definition location
+ */
 export function getTypeReferences(type: ts.Type | undefined, context: AnalyzerContext): TypeReference[] {
     if (!type) {
         return [];
@@ -64,25 +80,54 @@ export function getTypeReferences(type: ts.Type | undefined, context: AnalyzerCo
     return result;
 }
 
+/**
+ * Gets the simplified type from a node
+ *
+ * @param node - The node to extract the type from
+ * @param context - The analyzer context where the node belongs to
+ *
+ * @returns The simplified type of the node
+ */
 export function getTypeFromNode(node: ts.Node, context: AnalyzerContext): Type {
     const type = getTSType(node, context.checker);
 
     return getTypeFromTSType(type, context);
 }
 
+/**
+ * Given a node, it returns the TypeScript type
+ *
+ * @param node - The node to get the type from
+ * @param checker - The analyzer context where the type belongs to
+ *
+ * @returns The node type
+ */
 export function getTSType(node: ts.Node, checker: ts.TypeChecker): ts.Type | undefined {
     const type = checker.getTypeAtLocation(node);
 
     // Don't generalize the type of declarations like "const x = [4, 5] as const"
-    if (isExplicitTypeSet(node)) {
+    if (isTypeAssertion(node)) {
         return type;
     }
 
-    // Don't use the inferred literal types like "const x = 4" gives "x: 4" instead of "x: number"
+    // Don't use the inferred literal types.
+    // For example "const x = 4" gives "x: 4" instead of "x: number"
     return type && checker.getBaseTypeOfLiteralType(type);
 }
 
-export function isExplicitTypeSet(node: ts.Node): boolean {
+/**
+ * Checks whether the node has a type assertion
+ *
+ * For example:
+ *
+ *      const foo = [4, 5] as const
+ *      const bar = <[4, 5]>[4, 5]
+ *
+ * @param node - The node to check
+ *
+ * @returns True if the node has a type assertion
+ */
+export function isTypeAssertion(node: ts.Node): boolean {
     return ts.hasOnlyExpressionInitializer(node) && !!node.initializer &&
         (ts.isAsExpression(node.initializer) || ts.isTypeAssertionExpression(node));
 }

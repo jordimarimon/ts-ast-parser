@@ -1,4 +1,4 @@
-import { parseFromGlob, DeclarationKind } from '@ts-ast-parser/core';
+import { parseFromGlob, DeclarationKind, JSDocTagName } from '@ts-ast-parser/core';
 import Handlebars from 'handlebars';
 import path from 'path';
 import fs from 'fs';
@@ -58,7 +58,7 @@ for (const module of reflectedModules) {
 
         if (normalizedCategory === 'models') {
             models.push({name, href, type});
-        } else if (normalizedCategory === 'utils') {
+        } else if (normalizedCategory === 'utils' || fileBaseName === 'context') {
             utils.push({name, href, type});
         } else if (normalizedCategory === 'nodes') {
             nodes.push({name, href, type});
@@ -165,8 +165,10 @@ function createEnum(enumerable, category) {
 }
 
 function createVariable(variable, category) {
+    const jsDoc = variable.getJSDoc();
     const context = {
         name: variable.getName(),
+        description: jsDoc.getTag(JSDocTagName.description) ?? '',
     };
 
     const content = templateVariable(context);

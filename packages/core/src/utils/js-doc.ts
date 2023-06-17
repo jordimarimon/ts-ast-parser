@@ -5,6 +5,13 @@ import { logWarning } from './logs.js';
 import { parse } from 'comment-parser';
 
 
+/**
+ * Returns all the JSDoc comments in a given node
+ *
+ * @param node - The node to extract the JSDoc from
+ *
+ * @returns The JSDoc
+ */
 export function getAllJSDoc(node: JSDocTSNode): JSDoc {
     const doc: JSDoc = [];
 

@@ -2,18 +2,39 @@
 
 **The library has been rewritten from scratch.**
 
-If you want to still use the old behaviour, you can by calling the `serialize` method in the reflected node:
+If you want to still use the old behaviour, you can by calling the `serialize` method in the reflected module node:
 
 ```typescript
-// Same applies for `parseFromSource` or `parseFromGlob`
-const reflectedNodes = parseFromFiles(['...']);
-const serializedNodes = reflectedNodes.map(node => node.serialize());
+import { ModuleNode, Module } from '@ts-ast-parser/core';
+
+///////////////
+// BEFORE
+///////////////
+
+const beforeReflectedNodes: Module[] = parseFromFiles(['...']);
+
+////////////////
+// AFTER
+///////////////
+
+// Same applies for `parseFromGlob`
+const afterReflectedNodes: ModuleNode[] = parseFromFiles(['...']);
+// const afterReflectedNode: ModuleNode = parseFromSource(`....`);
+
+// Converts the array of `ModuleNode` to `Module`.
+// A `Module` is a plain old javascript object without methods, only read-only properties.
+const serializedNodes: Module[] = afterReflectedNodes.map(node => node.serialize());
 ```
+
+Make sure to check what a [`ModuleNode`](./src/nodes/module-node.ts) is before working with it.
+
+Be aware of the breaking changes listed below.
 
 ### Features
 
 * The constraints defined in a type parameter will be reflected.
-* TypeScript version `5.0` is supported
+* TypeScript versions `5.0` and `5.1` are supported
+* Drop support for Node `14.x`
 
 ### Bug Fixes
 
@@ -28,11 +49,11 @@ const serializedNodes = reflectedNodes.map(node => node.serialize());
 * The field `type` in the Imports and Exports nodes has been renamed to `kind` for consistency with the same field in 
   the declaration node.
 * Now all the fields `kind` (including the new one in the imports and exports) are capitalized.
-* The functions `parseFromFiles` and `parseFromGlob` now return an array of instances of 
-  `ModuleNode`. The function `parseFromSource` returns an instance of `ModuleNode`.
+* The functions `parseFromFiles` and `parseFromGlob` now return an array of instances of `ModuleNode`. 
+* The function `parseFromSource` returns an instance of `ModuleNode`.
 * The field `members` in the `Interface` and `Class` nodes has been split into `properties`, `staticProperties`, 
   `methods` and `staticMethods`. 
-* The package `@ts-ast-parser/readers` has been deleted. There is no need for this packages as know all the 
+* The package `@ts-ast-parser/readers` has been deleted. There is no need for this packages as now all the 
   functionalities are already included in the package `@ts-ast-parser/core`.
 * The field `value` in a `NamedParameter` has been renamed to `default`.
 * The field `isTypeOnly` in imports and exports has been renamed to `typeOnly`

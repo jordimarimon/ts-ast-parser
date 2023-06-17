@@ -4,20 +4,20 @@ import type { ExportAssignmentNode } from '../nodes/export-assignment-node.js';
 import type { NamespaceExportNode } from '../nodes/namespace-export-node.js';
 import type { NamespaceImportNode } from '../nodes/namespace-import-node.js';
 import type { DefaultImportNode } from '../nodes/default-import-node.js';
-import type { DeclarationNode } from '../nodes/declaration-node.js';
-import { DeclarationKind } from '../models/declaration-kind.js';
 import type { NamedImportNode } from '../nodes/named-import-node.js';
 import type { NamedExportNode } from '../nodes/named-export-node.js';
-import type { ReflectedNode } from '../nodes/reflected-node.js';
+import type { DeclarationNode } from '../nodes/declaration-node.js';
 import type { TypeAliasNode } from '../nodes/type-alias-node.js';
+import { DeclarationKind } from '../models/declaration-kind.js';
+import type { ReflectedNode } from '../nodes/reflected-node.js';
 import type { InterfaceNode } from '../nodes/interface-node.js';
 import type { ReExportNode } from '../nodes/re-export-node.js';
 import type { FunctionNode } from '../nodes/function-node.js';
 import type { VariableNode } from '../nodes/variable-node.js';
 import type { ClassNode } from '../nodes/class-node.js';
+import type { EnumNode } from '../nodes/enum-node.js';
 import { ImportKind } from '../models/import.js';
 import { ExportKind } from '../models/export.js';
-import type { EnumNode } from '../nodes/enum-node.js';
 import { NodeType } from '../models/node.js';
 import type ts from 'typescript';
 
@@ -67,6 +67,10 @@ export type SymbolWithContext = {
 };
 
 
+/**
+ * A utility object that has a few type predicate functions available to make life easier when
+ * traversing the reflected nodes.
+ */
 export const is = {
 
     // IMPORTS

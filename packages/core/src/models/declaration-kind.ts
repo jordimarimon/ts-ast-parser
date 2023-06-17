@@ -1,3 +1,6 @@
+/**
+ * The different kinds of declarations
+ */
 export enum DeclarationKind {
     Class = 'Class',
     Interface = 'Interface',

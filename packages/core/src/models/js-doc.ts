@@ -2,7 +2,10 @@ import type ts from 'typescript';
 
 
 /**
- * See: https://jsdoc.app/
+ * Common JSDoc tag names (we support any tag name, these are just common ones so
+ * we don't have to use strings to refer to them).
+ *
+ * @see https://jsdoc.app/
  */
 export enum JSDocTagName {
     description = 'description',
@@ -27,7 +30,7 @@ export enum JSDocTagName {
     typedef = 'typedef',
     typeParam = 'typeParam',
 
-    // Custom Elements
+    // Custom Elements specific tags
     reflect = 'reflect',
     cssprop = 'cssprop',
     cssproperty = 'cssproperty',
@@ -40,6 +43,9 @@ export enum JSDocTagName {
     tagname = 'tagname',
 }
 
+/**
+ * A JSDoc tag reflected object
+ */
 export type JSDocTagObjectValue = {
     [key: string]: unknown;
     name?: string;
@@ -50,8 +56,14 @@ export type JSDocTagObjectValue = {
     description?: string;
 };
 
+/**
+ * The value associated to a JSDoc tag
+ */
 export type JSDocTagValue = JSDocTagObjectValue | string | boolean;
 
+/**
+ * JSDoc values for the most common tags
+ */
 export type JSDocResult =
     { kind: JSDocTagName.description; value: string } |
     { kind: JSDocTagName.param; value: { name: string; default: string; optional: boolean; description: string } } |
@@ -86,6 +98,9 @@ export type JSDocResult =
     { kind: JSDocTagName.tagname; value: string } |
     { kind: string; value: JSDocTagValue };
 
+/**
+ * A JSDoc comment is an array of JSDoc tags
+ */
 export type JSDoc = JSDocResult[];
 
 //
