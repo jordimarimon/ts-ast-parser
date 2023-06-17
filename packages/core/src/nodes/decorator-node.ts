@@ -5,20 +5,30 @@ import type { Decorator } from '../models/decorator.js';
 import { getLocation } from '../utils/get-location.js';
 import type { AnalyzerContext } from '../context.js';
 import { NodeType } from '../models/node.js';
+import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
+/**
+ * The reflected node when a decorator call is found
+ */
 export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
 
     private readonly _decorator: ts.Decorator;
 
     private readonly _context: AnalyzerContext;
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(decorator: ts.Decorator, context: AnalyzerContext) {
         this._decorator = decorator;
         this._context = context;
+        this._jsDoc = new JSDocNode(decorator);
     }
 
+    /**
+     * The name of the decorator
+     */
     getName(): string {
         const expr = this._decorator.expression;
 
@@ -47,6 +57,13 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
 
     getNodeType(): NodeType {
         return NodeType.Other;
+    }
+
+    /**
+     * The JSDoc comments
+     */
+    getJSDoc(): JSDocNode {
+        return this._jsDoc;
     }
 
     getArguments(): unknown[] {
@@ -104,6 +121,7 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
             tmpl.source = {path};
         }
 
+        tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
         tryAddProperty(tmpl, 'arguments', this.getArguments());
 
         return tmpl;

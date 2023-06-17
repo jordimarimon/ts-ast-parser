@@ -10,15 +10,21 @@ import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
 
+/**
+ * The reflected node when an enumerable is found
+ */
 export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclaration> {
 
     private readonly _node: ts.EnumDeclaration;
 
     private readonly _context: AnalyzerContext;
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: ts.EnumDeclaration, context: AnalyzerContext) {
         this._node = node;
         this._context = context;
+        this._jsDoc = new JSDocNode(this._node);
     }
 
     getNodeType(): NodeType {
@@ -50,7 +56,7 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
     }
 
     getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node);
+        return this._jsDoc;
     }
 
     getMembers(): EnumMemberNode[] {

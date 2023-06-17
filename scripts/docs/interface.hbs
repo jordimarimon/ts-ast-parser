@@ -16,4 +16,20 @@
     <span class="tag tag-interface">
         INTERFACE
     </span>
+
+    <a class="mis-auto material-icons" target="_blank" href="\{{ github }}/{{ this.path }}">
+        code
+    </a>
 </div>
+
+{{#if this.description}}
+    <section class="border-t pt-6">
+        <h2 class="heading-3">
+            Description
+        </h2>
+
+        <p class="block text w-full mt-4">
+            {{ this.description }}
+        </p>
+    </section>
+{{/if}}

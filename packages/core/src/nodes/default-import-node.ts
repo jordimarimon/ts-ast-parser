@@ -83,5 +83,4 @@ export class DefaultImportNode implements ReflectedNode<Import, ts.ImportDeclara
 
         return tmpl;
     }
-
 }

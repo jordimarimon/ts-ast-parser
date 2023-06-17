@@ -69,17 +69,17 @@ for (const module of reflectedModules) {
         }
 
         if (kind === DeclarationKind.Function) {
-            createFunction(declaration, normalizedCategory);
+            createFunction(declaration, normalizedCategory, modulePath);
         } else if (kind === DeclarationKind.Interface) {
-            createInterface(declaration, normalizedCategory);
+            createInterface(declaration, normalizedCategory, modulePath);
         } else if (kind === DeclarationKind.Class) {
-            createClass(declaration, normalizedCategory);
+            createClass(declaration, normalizedCategory, modulePath);
         } else if (kind === DeclarationKind.Enum) {
-            createEnum(declaration, normalizedCategory);
+            createEnum(declaration, normalizedCategory, modulePath);
         } else if (kind === DeclarationKind.Variable) {
-            createVariable(declaration, normalizedCategory);
+            createVariable(declaration, normalizedCategory, modulePath);
         } else if (kind === DeclarationKind.TypeAlias) {
-            createTypeAlias(declaration, normalizedCategory);
+            createTypeAlias(declaration, normalizedCategory, modulePath);
         }
     }
 }
@@ -120,9 +120,12 @@ function clearDir(category) {
     fs.mkdirSync(path.join(cwd, 'docs', 'api-reference', category));
 }
 
-function createFunction(func, category) {
+function createFunction(func, category, filePath) {
+    const jsDoc = func.getSignatures()[0]?.getJSDoc();
     const context = {
         name: func.getName(),
+        path: filePath,
+        description: jsDoc?.getTag(JSDocTagName.description)?.getDescription() ?? '',
     };
 
     const content = templateFunction(context);
@@ -131,9 +134,12 @@ function createFunction(func, category) {
     fs.writeFileSync(path.join(cwd, 'docs', 'api-reference', category, `${fileName}.njk`), content);
 }
 
-function createInterface(inter, category) {
+function createInterface(inter, category, filePath) {
+    const jsDoc = inter.getJSDoc();
     const context = {
         name: inter.getName(),
+        path: filePath,
+        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
     };
 
     const content = templateInterface(context);
@@ -142,9 +148,12 @@ function createInterface(inter, category) {
     fs.writeFileSync(path.join(cwd, 'docs', 'api-reference', category, `${fileName}.njk`), content);
 }
 
-function createClass(clazz, category) {
+function createClass(clazz, category, filePath) {
+    const jsDoc = clazz.getJSDoc();
     const context = {
         name: clazz.getName(),
+        path: filePath,
+        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
     };
 
     const content = templateClass(context);
@@ -153,9 +162,12 @@ function createClass(clazz, category) {
     fs.writeFileSync(path.join(cwd, 'docs', 'api-reference', category, `${fileName}.njk`), content);
 }
 
-function createEnum(enumerable, category) {
+function createEnum(enumerable, category, filePath) {
+    const jsDoc = enumerable.getJSDoc();
     const context = {
         name: enumerable.getName(),
+        path: filePath,
+        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
     };
 
     const content = templateEnum(context);
@@ -164,11 +176,12 @@ function createEnum(enumerable, category) {
     fs.writeFileSync(path.join(cwd, 'docs', 'api-reference', category, `${fileName}.njk`), content);
 }
 
-function createVariable(variable, category) {
+function createVariable(variable, category, filePath) {
     const jsDoc = variable.getJSDoc();
     const context = {
         name: variable.getName(),
-        description: jsDoc.getTag(JSDocTagName.description) ?? '',
+        path: filePath,
+        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
     };
 
     const content = templateVariable(context);
@@ -177,9 +190,12 @@ function createVariable(variable, category) {
     fs.writeFileSync(path.join(cwd, 'docs', 'api-reference', category, `${fileName}.njk`), content);
 }
 
-function createTypeAlias(typeAlias, category) {
+function createTypeAlias(typeAlias, category, filePath) {
+    const jsDoc = typeAlias.getJSDoc();
     const context = {
         name: typeAlias.getName(),
+        path: filePath,
+        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
     };
 
     const content = templateTypeAlias(context);

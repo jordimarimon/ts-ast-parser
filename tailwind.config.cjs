@@ -14,6 +14,12 @@ module.exports = {
             xl: '80em', // 1280px
         },
 
+        fontFamily: {
+            'sans': ['-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Segoe UI', 'Roboto', 'Arial', 'Noto Sans', 'sans-serif'],
+            'serif': ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+            'mono': ['SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+        },
+
         colors: {
             neutral: {
                 0: 'hsl(var(--color-neutral-0))',

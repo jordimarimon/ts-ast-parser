@@ -3,6 +3,7 @@ import type { FunctionLikeNode, NodeWithFunctionDeclaration, SymbolWithContext }
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import type { FunctionDeclaration } from '../models/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
+import type { ModifierType, Method } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { getLinePosition } from '../utils/get-location.js';
@@ -14,7 +15,6 @@ import { getModifiers } from '../utils/modifiers.js';
 import type { AnalyzerContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { SignatureNode } from './signature-node.js';
-import type { ModifierType, Method } from '../models/member.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';

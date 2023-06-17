@@ -24,6 +24,9 @@ import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
+/**
+ * Reflected node that represents a ClassDeclaration or a ClassExpression
+ */
 export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDeclaration | ts.VariableStatement> {
 
     private readonly _node: ts.ClassDeclaration | ts.VariableStatement;
@@ -34,9 +37,12 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     private readonly _staticMembers: SymbolWithContext[] = [];
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: ts.ClassDeclaration | ts.VariableStatement, context: AnalyzerContext) {
         this._node = node;
         this._context = context;
+        this._jsDoc = new JSDocNode(node);
 
         const classNode = this._getClassNode();
 
@@ -46,6 +52,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         }
     }
 
+    /**
+     * Returns the name of the class
+     */
     getName(): string {
         if (ts.isVariableStatement(this._node)) {
             return this._node.declarationList.declarations?.[0]?.name?.getText() ?? '';
@@ -54,42 +63,74 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         return this._node.name?.getText() ?? '';
     }
 
+    /**
+     * The type of node inside the module
+     */
     getNodeType(): NodeType {
         return NodeType.Declaration;
     }
 
+    /**
+     * The type of declaration
+     */
     getKind(): DeclarationKind.Class {
         return DeclarationKind.Class;
     }
 
+    /**
+     * The analyzer context
+     */
     getContext(): AnalyzerContext {
         return this._context;
     }
 
+    /**
+     * The internal TypeScript node
+     */
     getTSNode(): ts.ClassDeclaration | ts.VariableStatement {
         return this._node;
     }
 
+    /**
+     * The start line number position
+     */
     getLine(): number {
         return getLinePosition(this._node);
     }
 
+    /**
+     * The namespace where the class has been defined
+     */
     getNamespace(): string {
         return getNamespace(this._node);
     }
 
+    /**
+     * The JSDoc comments
+     */
     getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node);
+        return this._jsDoc;
     }
 
+    /**
+     * An array of decorators applied to the class
+     */
     getDecorators(): DecoratorNode[] {
         return getDecorators(this._node).map(d => new DecoratorNode(d, this._context));
     }
 
+    /**
+     * Finds a decorator based on the name
+     *
+     * @param name - The decorator name to find
+     */
     getDecoratorWithName(name: string): DecoratorNode | null {
         return this.getDecorators().find(d => d.getName() === name) ?? null;
     }
 
+    /**
+     * An array of constructors that can be used to create an instance of the class
+     */
     getConstructors(): SignatureNode[] {
         const classNode = this._getClassNode();
 
@@ -121,30 +162,55 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         return result;
     }
 
+    /**
+     * The instance properties
+     */
     getProperties(): PropertyNode[] {
         return this._getPropertyMembers(this._instanceMembers);
     }
 
+    /**
+     * The static properties
+     */
     getStaticProperties(): PropertyNode[] {
         return this._getPropertyMembers(this._staticMembers);
     }
 
+    /**
+     * Finds an instance property based on the name
+     *
+     * @param name - The property name to find
+     */
     getPropertyWithName(name: string): PropertyNode | null {
         return this.getProperties().find(m => m.getName() === name) ?? null;
     }
 
+    /**
+     * The instance methods
+     */
     getMethods(): FunctionNode[] {
         return this._getMethodMembers(this._instanceMembers);
     }
 
+    /**
+     * The static methods
+     */
     getStaticMethods(): FunctionNode[] {
         return this._getMethodMembers(this._staticMembers);
     }
 
+    /**
+     * Finds an instance method based on the name
+     *
+     * @param name - The name of the method to find
+     */
     getMethodWithName(name: string): FunctionNode | null {
         return this.getMethods().find(m => m.getName() === name) ?? null;
     }
 
+    /**
+     * The type parameters
+     */
     getTypeParameters(): TypeParameterNode[] {
         const classNode = this._getClassNode();
 
@@ -155,6 +221,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         return classNode.typeParameters?.map(tp => new TypeParameterNode(tp, this._context)) ?? [];
     }
 
+    /**
+     * The heritage chain
+     */
     getHeritage(): readonly Reference[] {
         const classNode = this._getClassNode();
 
@@ -165,6 +234,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         return getExtendClauseReferences(classNode, this._context);
     }
 
+    /**
+     * Whether is a custom element or not
+     */
     isCustomElement(): boolean {
         const classNode = this._getClassNode();
 
@@ -175,6 +247,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         return isCustomElement(classNode, this._context);
     }
 
+    /**
+     * Whether it's abstract or not
+     */
     isAbstract(): boolean {
         const classNode = this._getClassNode();
 
@@ -185,6 +260,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         return isAbstract(classNode);
     }
 
+    /**
+     * Generates a simple JS object with read-only properties representing the node
+     */
     serialize(): ClassDeclaration {
         const tmpl: ClassDeclaration = {
             name: this.getName(),

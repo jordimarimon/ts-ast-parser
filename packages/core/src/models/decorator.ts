@@ -1,4 +1,5 @@
 import type { SourceReference } from './reference.js';
+import type { JSDoc } from './js-doc.js';
 
 
 /**
@@ -14,6 +15,11 @@ export interface Decorator {
      * An array of the argument passed when calling the decorator
      */
     arguments?: unknown[];
+
+    /**
+     * The JSDoc
+     */
+    jsDoc?: JSDoc;
 
     /**
      * Where the decorator is defined
