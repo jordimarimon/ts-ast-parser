@@ -8,7 +8,7 @@
     </li>
     &gt;
     <li class="hover:underline">
-        <a href=".">{{this.name}}</a>
+        <a href=".">{{ this.name }}</a>
     </li>
 </ul>
 
@@ -27,13 +27,23 @@
 </div>
 
 {{#if this.description}}
-    <section class="border-t pt-6">
-        <h2 class="heading-3">
-            Description
-        </h2>
+<section class="border-t pt-6 mb-10">
+    <h2 class="heading-3">
+        Description
+    </h2>
 
-        <p class="block text w-full mt-4">
-            {{ this.description }}
-        </p>
-    </section>
+    <p class="block text w-full mt-4">
+        {{ this.description }}
+    </p>
+</section>
 {{/if}}
+
+<section class="border-t pt-6 mb-10">
+    <h2 class="heading-3">
+        Value
+    </h2>
+
+    {% highlight "ts" %}
+    const {{ this.name }} = {{ this.value }}
+    {% endhighlight %}
+</section>

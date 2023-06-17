@@ -204,6 +204,7 @@ function createVariable(variable, category, filePath) {
         name: variable.getName(),
         path: filePath,
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        value: variable.getDefault(),
     };
 
     const content = templateVariable(context);
