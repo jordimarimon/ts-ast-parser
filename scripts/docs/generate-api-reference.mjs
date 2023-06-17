@@ -125,7 +125,7 @@ function createFunction(func, category, filePath) {
     const context = {
         name: func.getName(),
         path: filePath,
-        description: jsDoc?.getTag(JSDocTagName.description)?.getDescription() ?? '',
+        description: jsDoc?.getTag(JSDocTagName.description)?.getValue() ?? '',
     };
 
     const content = templateFunction(context);
@@ -139,7 +139,7 @@ function createInterface(inter, category, filePath) {
     const context = {
         name: inter.getName(),
         path: filePath,
-        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
+        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
     };
 
     const content = templateInterface(context);
@@ -153,7 +153,29 @@ function createClass(clazz, category, filePath) {
     const context = {
         name: clazz.getName(),
         path: filePath,
-        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
+        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        methods: clazz.getMethods().map(m => {
+            const signature = m.getSignatures()[0];
+            const funcJsDoc = signature.getJSDoc();
+            const returnType = signature.getReturnType().type;
+            const returnTypeDescription = funcJsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
+            const parameters = signature.getParameters().map(p => ({
+                name: p.getName(),
+                description: funcJsDoc.getAllTags(JSDocTagName.param)?.find(t => t.getName() === p.getName())?.getDescription() ?? '',
+                type: p.getType(),
+            }));
+
+            return {
+                name: m.getName(),
+                description: funcJsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+                signature: `${m.getName()}(${parameters.map(p => `${p.name}: ${p.type.text}`).join(', ')}): ${returnType.text}`,
+                parameters,
+                returnType: {
+                    text: returnType.text,
+                    description: returnTypeDescription,
+                },
+            };
+        }),
     };
 
     const content = templateClass(context);
@@ -167,7 +189,7 @@ function createEnum(enumerable, category, filePath) {
     const context = {
         name: enumerable.getName(),
         path: filePath,
-        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
+        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
     };
 
     const content = templateEnum(context);
@@ -181,7 +203,7 @@ function createVariable(variable, category, filePath) {
     const context = {
         name: variable.getName(),
         path: filePath,
-        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
+        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
     };
 
     const content = templateVariable(context);
@@ -195,7 +217,7 @@ function createTypeAlias(typeAlias, category, filePath) {
     const context = {
         name: typeAlias.getName(),
         path: filePath,
-        description: jsDoc.getTag(JSDocTagName.description)?.getDescription() ?? '',
+        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
     };
 
     const content = templateTypeAlias(context);

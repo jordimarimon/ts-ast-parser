@@ -22,10 +22,13 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
 
     private readonly _context: AnalyzerContext;
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: ts.ParameterDeclaration, symbol: ts.Symbol | null, context: AnalyzerContext) {
         this._node = node;
         this._symbol = symbol;
         this._context = context;
+        this._jsDoc = new JSDocNode(this._node);
     }
 
     getName(): string {
@@ -106,7 +109,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
     }
 
     getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node);
+        return this._jsDoc;
     }
 
     isNamed(): boolean {

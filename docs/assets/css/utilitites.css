@@ -13,7 +13,17 @@
 }
 
 .heading-3 {
-    font-size: theme("fontSize.2xl");
+    font-size: theme("fontSize.3xl");
+    font-weight: bold;
+}
+
+.heading-4 {
+    font-size: theme("fontSize.xl");
+    font-weight: bold;
+}
+
+.heading-5 {
+    font-size: theme("fontSize.lg");
     font-weight: bold;
 }
 
@@ -38,6 +48,13 @@
     padding: theme("spacing.1") theme("spacing.2");
     margin-inline: theme("spacing.1");
     white-space: pre-wrap;
+
+    &-accent {
+        color: hsl(var(--color-accent));
+        background-color: transparent;
+        margin-inline: 0;
+        padding: 0;
+    }
 }
 
 /*//////////////////////////////////////////////////////////////////////////////
@@ -45,6 +62,8 @@
 //////////////////////////////////////////////////////////////////////////////*/
 
 .border {
+    border-color: hsl(var(--color-border));
+
     &-t {
         border-top-color: hsl(var(--color-border));
     }

@@ -23,7 +23,7 @@
 </div>
 
 {{#if this.description}}
-<section class="border-t pt-6">
+<section class="border-t pt-6 mb-10">
     <h2 class="heading-3">
         Description
     </h2>
@@ -31,5 +31,57 @@
     <p class="block text w-full mt-4">
         {{ this.description }}
     </p>
+</section>
+{{/if}}
+
+{{#if this.methods.length}}
+<section class="border-t pt-6 mb-10">
+    <h2 class="heading-3">
+        Methods
+    </h2>
+
+    <ul class="flex flex-col mt-4 gap-6 w-full">
+        {{#each this.methods}}
+        <li class="block w-full rounded border pb-4">
+            <h3 class="heading-4 border-b bg-neutral-100 w-full px-4 py-2">
+                {{this.name}}
+            </h3>
+
+            {{#if this.description}}
+            <p class="text px-4 mt-4">
+                {{this.description}}
+            </p>
+            {{/if}}
+
+            {{#if this.signature}}
+            <div class="px-4 mt-4">
+                {% highlight "ts" %}
+                {{ this.signature }}
+                {% endhighlight %}
+            </div>
+            {{/if}}
+
+            {{#if this.parameters.length}}
+            <h4 class="heading-5 mt-4 mb-2 px-4">Parameters</h4>
+            <table class="mx-4">
+                <tbody>
+                    {{#each this.parameters }}
+                    <tr>
+                        <td class="px-4 py-2 font-bold">{{ this.name }}</td>
+                        <td class="px-4 py-2"><code class="code code-accent">{{ this.type.text }}</code></td>
+                        <td class="px-4 py-2">{{ this.description }}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{/if}}
+
+            <h4 class="heading-5 mt-4 mb-2 px-4">Returns</h4>
+            <div class="flex items-center gap-2 px-4">
+                <code class="code code-accent">{{this.returnType.text}}</code>: <span class="text">{{this.returnType.description}}</span>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
 </section>
 {{/if}}
