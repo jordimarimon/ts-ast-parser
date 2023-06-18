@@ -1,6 +1,7 @@
 import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } from '../utils/member.js';
 import type { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
+import type { ModifierType, Field } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getReturnStatement } from '../utils/function.js';
@@ -11,7 +12,6 @@ import { getDecorators } from '../utils/decorator.js';
 import type { AnalyzerContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import type { ModifierType, Field } from '../models/member.js';
 import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
@@ -26,10 +26,22 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
 
     private readonly _context: AnalyzerContext;
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: PropertyLikeNode, member: SymbolWithContext, context: AnalyzerContext) {
         this._node = node;
         this._member = member;
         this._context = context;
+
+        const [getter, setter] = this._getAccessors();
+
+        if (getter) {
+            this._jsDoc = new JSDocNode(getter);
+        } else if (setter) {
+            this._jsDoc = new JSDocNode(setter);
+        } else {
+            this._jsDoc = new JSDocNode(this._node);
+        }
     }
 
     getName(): string {
@@ -110,17 +122,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
     }
 
     getJSDoc(): JSDocNode {
-        const [getter, setter] = this._getAccessors();
-
-        if (getter) {
-            return new JSDocNode(getter);
-        }
-
-        if (setter) {
-            return new JSDocNode(setter);
-        }
-
-        return new JSDocNode(this._node);
+        return this._jsDoc;
     }
 
     getDecorators(): DecoratorNode[] {

@@ -24,10 +24,13 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
 
     private readonly _context: AnalyzerContext;
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: ts.VariableStatement, declaration: ts.VariableDeclaration, context: AnalyzerContext) {
         this._node = node;
         this._declaration = declaration;
         this._context = context;
+        this._jsDoc = new JSDocNode(this._node);
     }
 
     getContext(): AnalyzerContext {
@@ -77,7 +80,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
     }
 
     getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node);
+        return this._jsDoc;
     }
 
     serialize(): VariableDeclaration {

@@ -17,9 +17,12 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
 
     private readonly _context: AnalyzerContext;
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: ts.Signature, context: AnalyzerContext) {
         this._node = node;
         this._context = context;
+        this._jsDoc = new JSDocNode(this._node.getDeclaration());
     }
 
     getContext(): AnalyzerContext {
@@ -43,7 +46,7 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
     }
 
     getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node.getDeclaration());
+        return this._jsDoc;
     }
 
     getReturnType(): FunctionReturn {

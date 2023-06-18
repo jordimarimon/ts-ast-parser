@@ -23,11 +23,14 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
 
     private readonly _parameter: ParameterNode | null;
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: ts.IndexSignatureDeclaration, member: SymbolWithContext, context: AnalyzerContext) {
         this._node = node;
         this._member = member;
         this._context = context;
         this._parameter = this._getParameter();
+        this._jsDoc = new JSDocNode(this._node);
     }
 
     getName(): string {
@@ -51,7 +54,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
     }
 
     getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node);
+        return this._jsDoc;
     }
 
     getLine(): number {

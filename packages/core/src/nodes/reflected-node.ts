@@ -3,8 +3,10 @@ import type { NodeType } from '../models/node.js';
 import type ts from 'typescript';
 
 
+/**
+ * Base specification of what any reflected node should have.
+ */
 export interface ReflectedNode<Model extends object = object, T extends ts.Node | ts.Signature = ts.Node> {
-
     /**
      * The type of node. Can be an import, an export or a declaration
      */
@@ -25,5 +27,4 @@ export interface ReflectedNode<Model extends object = object, T extends ts.Node 
      * Returns a simple readonly JavaScript object without methods or internal state.
      */
     serialize(): Model;
-
 }

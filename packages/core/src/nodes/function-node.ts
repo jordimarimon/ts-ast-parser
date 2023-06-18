@@ -28,10 +28,22 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
     private readonly _context: AnalyzerContext;
 
+    private readonly _jsDoc: JSDocNode | null = null;
+
     constructor(node: NodeWithFunctionDeclaration, context: AnalyzerContext, member?: SymbolWithContext | undefined) {
         this._node = node;
         this._member = member;
         this._context = context;
+
+        // Function/Method declarations have the JSDoc in the signature also.
+        // We don't want to emit it twice in these cases.
+        if (
+            ts.isVariableStatement(node) ||
+            ts.isPropertyDeclaration(node) ||
+            ts.isPropertySignature(node)
+        ) {
+            this._jsDoc = new JSDocNode(node);
+        }
     }
 
     getName(): string {
@@ -83,17 +95,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
     }
 
     getJSDoc(): JSDocNode | null {
-        // Function/Method declarations have the JSDoc in the signature also.
-        // We don't want to emit it twice in these cases.
-        if (
-            ts.isVariableStatement(this._node) ||
-            ts.isPropertyDeclaration(this._node) ||
-            ts.isPropertySignature(this._node)
-        ) {
-            return new JSDocNode(this._node);
-        }
-
-        return null;
+        return this._jsDoc;
     }
 
     getDecorators(): DecoratorNode[] {

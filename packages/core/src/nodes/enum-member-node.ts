@@ -16,10 +16,13 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
 
     private readonly _context: AnalyzerContext;
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: ts.EnumMember, value: string | number, context: AnalyzerContext) {
         this._node = node;
         this._value = value;
         this._context = context;
+        this._jsDoc = new JSDocNode(node);
     }
 
     getNodeType(): NodeType {
@@ -47,7 +50,7 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
     }
 
     getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node);
+        return this._jsDoc;
     }
 
     serialize(): EnumMember {

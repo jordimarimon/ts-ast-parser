@@ -17,9 +17,12 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
 
     private readonly _context: AnalyzerContext;
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: ts.TypeAliasDeclaration, context: AnalyzerContext) {
         this._node = node;
         this._context = context;
+        this._jsDoc = new JSDocNode(this._node);
     }
 
     getContext(): AnalyzerContext {
@@ -51,7 +54,7 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
     }
 
     getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node);
+        return this._jsDoc;
     }
 
     getValue(): string {

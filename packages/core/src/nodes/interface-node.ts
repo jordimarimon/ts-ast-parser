@@ -28,10 +28,13 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
 
     private readonly _members: SymbolWithContext[] = [];
 
+    private readonly _jsDoc: JSDocNode;
+
     constructor(node: ts.InterfaceDeclaration, context: AnalyzerContext) {
         this._node = node;
         this._context = context;
         this._members = getInstanceMembers(this._node, this._context.checker);
+        this._jsDoc = new JSDocNode(this._node);
     }
 
     getName(): string {
@@ -137,7 +140,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
     }
 
     getJSDoc(): JSDocNode {
-        return new JSDocNode(this._node);
+        return this._jsDoc;
     }
 
     getHeritage(): readonly Reference[] {
