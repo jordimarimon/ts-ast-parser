@@ -33,7 +33,7 @@
     </h2>
 
     <p class="block text w-full mt-4">
-        {{ this.description }}
+        {{markdownToHTML this.description }}
     </p>
 </section>
 {{/if}}
@@ -79,13 +79,13 @@
             <h4 class="heading-5 mt-4 mb-2 px-4">Parameters</h4>
             <table class="mx-4">
                 <tbody>
-                {{#each this.parameters}}
+                    {{#each this.parameters}}
                     <tr>
                         <td class="px-4 py-2 font-bold">{{ this.name }}</td>
                         <td class="px-4 py-2">{{ typeWithReference this.type }}</td>
                         <td class="px-4 py-2">{{ this.description }}</td>
                     </tr>
-                {{/each}}
+                    {{/each}}
                 </tbody>
             </table>
             {{/if}}

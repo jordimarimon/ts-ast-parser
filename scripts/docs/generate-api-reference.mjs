@@ -1,11 +1,28 @@
 import { parseFromGlob, DeclarationKind, JSDocTagName } from '@ts-ast-parser/core';
+import { markedSmartypants } from 'marked-smartypants';
 import Handlebars from 'handlebars';
+import { marked } from 'marked';
 import path from 'path';
 import fs from 'fs';
 
 
+marked.use(markedSmartypants());
+marked.use({
+    breaks: false,
+    gfm: true,
+    headerIds: false,
+    mangle: false,
+});
+
 // Handlebars Helpers
 Handlebars.registerHelper('firstLetter', str => str[0].toUpperCase());
+Handlebars.registerHelper('markdownToHTML', str => {
+    let html = marked.parse(str);
+    html = html.replaceAll(/<a/g, '<a class="prose" target="_blank"');
+    html = html.replaceAll(/<code/g, '<code class="code"');
+
+    return new Handlebars.SafeString(html);
+});
 Handlebars.registerHelper('typeWithReference', type => {
     const sources = type.sources ?? [];
 
@@ -137,12 +154,29 @@ function clearDir(category) {
 }
 
 function createFunction(func, category, filePath) {
-    const jsDoc = func.getSignatures()[0]?.getJSDoc();
+    const signature = func.getSignatures()[0];
+    const jsDoc = signature.getJSDoc();
+    const returnType = signature.getReturnType().type;
+    const returnTypeDescription = jsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
+    const parameters = signature.getParameters().map(p => ({
+        name: p.getName(),
+        description: jsDoc.getAllTags(JSDocTagName.param)?.find(t => t.getName() === p.getName())?.getDescription() ?? '',
+        type: p.getType(),
+        default: p.getDefault(),
+    }));
+
     const context = {
         name: func.getName(),
         path: filePath,
         line: func.getLine(),
         description: jsDoc?.getTag(JSDocTagName.description)?.getValue() ?? '',
+        signature: `${func.getName()}(${parameters.map(p => `${p.name}: ${p.type.text}`).join(', ')}): ${returnType.text}`,
+        parameters,
+        returnType: {
+            text: returnType.text,
+            sources: returnType.sources,
+            description: returnTypeDescription,
+        },
     };
 
     const content = templateFunction(context);

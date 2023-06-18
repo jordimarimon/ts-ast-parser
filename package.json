@@ -71,6 +71,8 @@
         "jsoneditor": "^9.10.2",
         "lint-staged": "^13.2.2",
         "luxon": "^3.3.0",
+        "marked": "^5.1.0",
+        "marked-smartypants": "^1.0.2",
         "npm-check-updates": "^16.10.12",
         "npm-run-all": "^4.1.5",
         "postcss": "^8.4.24",

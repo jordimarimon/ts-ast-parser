@@ -544,8 +544,15 @@ table {
     td {
         padding: theme("spacing.4") theme("spacing.6");
         vertical-align: top;
-        border-bottom: 1px solid var(--color-border);
         text-align: left;
         font-size: theme("fontSize.base");
+    }
+
+    tr {
+        &:not(:last-of-type) {
+            td {
+                border-bottom: 1px solid var(--color-border);
+            }
+        }
     }
 }

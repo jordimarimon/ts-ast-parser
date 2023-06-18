@@ -33,7 +33,63 @@
     </h2>
 
     <p class="block text w-full mt-4">
-        {{ this.description }}
+        {{markdownToHTML this.description }}
     </p>
+</section>
+{{/if}}
+
+{{#if this.signature}}
+<section class="border-t pt-6 mb-10">
+    <h2 class="heading-3">
+        Signature
+    </h2>
+
+    <p class="block w-full mt-4">
+        {% highlight "ts" %}
+        {{ this.signature }}
+        {% endhighlight %}
+    </p>
+</section>
+{{/if}}
+
+{{#if this.parameters.length}}
+<section class="border-t pt-6 mb-10">
+    <h2 class="heading-3">
+        Parameters
+    </h2>
+
+    <table class="table-standalone mt-4">
+        <thead>
+            <tr>
+                <th class="w-[20%]">Name</th>
+                <th class="w-[30%]">Type</th>
+                <th class="w-[20%]">Default</th>
+                <th class="w-[30%]">Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each this.parameters}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{ typeWithReference this.type }}</td>
+                <td><code class="code code-accent">{{this.default}}</code></td>
+                <td>{{this.description}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
+{{/if}}
+
+{{#if this.returnType}}
+<section class="border-t pt-6 mb-10">
+    <h2 class="heading-3">
+        Returns
+    </h2>
+
+    <div class="flex items-center gap-2 mt-4">
+        {{ typeWithReference this.returnType }}: <span class="text">{{ this.returnType.description }}</span>
+    </div>
 </section>
 {{/if}}
