@@ -1,1 +1,1 @@
-function o(){let e=document.getElementById("side-bar"),t=document.getElementById("side-bar-toggle-btn"),n=document.getElementById("side-bar-close-btn");!t||!e||!n||(t.addEventListener("click",()=>{e.classList.toggle("open")}),n.addEventListener("click",()=>{e.classList.remove("open")}))}o();
+var e=document.getElementById("side-bar"),t=document.getElementById("side-bar-toggle-btn"),n=document.getElementById("side-bar-close-btn");t?.addEventListener("click",()=>{e?.classList.toggle("open")});n?.addEventListener("click",()=>{e?.classList.remove("open")});
