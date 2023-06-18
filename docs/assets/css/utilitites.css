@@ -39,6 +39,12 @@
     }
 }
 
+.anchor {
+    &:hover {
+        border-bottom: 1px solid hsl(var(--color-prose));
+    }
+}
+
 .code {
     font-size: theme("fontSize.base");
     font-weight: 400;

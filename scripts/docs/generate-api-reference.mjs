@@ -6,6 +6,22 @@ import fs from 'fs';
 
 // Handlebars Helpers
 Handlebars.registerHelper('firstLetter', str => str[0].toUpperCase());
+Handlebars.registerHelper('typeWithReference', type => {
+    const sources = type.sources ?? [];
+
+    let text = type.text ?? '';
+    for (const source of sources) {
+        if (!source.path || !source.text) {
+            continue;
+        }
+
+        text = text.replaceAll(source.text, () => {
+            return `<a href="\{{ github }}/${source.path}#L${source.line}" class="anchor" target="_blank">${source.text}</a>`;
+        });
+    }
+
+    return new Handlebars.SafeString(`<code class="code code-accent">${text}</code>`);
+});
 
 // Obtain the reflected modules
 const reflectedModules = parseFromGlob('packages/core/src/**/*.ts');
@@ -177,6 +193,7 @@ function createClass(clazz, category, filePath) {
                 parameters,
                 returnType: {
                     text: returnType.text,
+                    sources: returnType.sources,
                     description: returnTypeDescription,
                 },
             };
