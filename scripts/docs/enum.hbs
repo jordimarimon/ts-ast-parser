@@ -37,3 +37,31 @@
     </p>
 </section>
 {{/if}}
+
+{{#if this.members.length}}
+<section class="border-t pt-6 mb-10">
+    <h2 class="heading-3">
+        Members
+    </h2>
+
+    <table class="table-standalone mt-4">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Value</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each this.members}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td><code class="code code-accent">{{this.value}}</code></td>
+                <td>{{this.description}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>
+{{/if}}

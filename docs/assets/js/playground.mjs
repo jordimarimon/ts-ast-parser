@@ -51,7 +51,7 @@ let view = CODE_EDITOR_VIEW;
 dialogEl?.showModal();
 dialogElCloseButton?.addEventListener('click', () => dialogEl?.close(), {once: true});
 
-const jsonEditor = new JSONEditor(jsonEditorEl, {mode: 'view'});
+const jsonEditor = new JSONEditor(jsonEditorEl, {mode: 'text'});
 jsonEditor.set(parseCode(CLASS_CODE));
 
 const codeEditor = ace.edit(codeEditorEl);

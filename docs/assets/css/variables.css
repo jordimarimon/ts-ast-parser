@@ -1,67 +1,66 @@
 :root {
     /* On/Offs */
-    --color-neutral-0: 0 0% 100%;
-    --color-neutral-1000: 0 0% 0%;
+    --color-neutral-0: hsl(0 0% 100%);
+    --color-neutral-1000: hsl(0 0% 0%);
 
     /* Neutral */
-    --color-neutral-100: 220 14% 96%;
-    --color-neutral-200: 220 13% 91%;
-    --color-neutral-300: 216 12% 84%;
-    --color-neutral-400: 218 11% 65%;
-    --color-neutral-500: 220 9% 46%;
-    --color-neutral-600: 215 14% 34%;
-    --color-neutral-700: 217 19% 27%;
-    --color-neutral-800: 215 28% 17%;
-    --color-neutral-900: 221 39% 11%;
+    --color-neutral-100: hsl(220 14% 96%);
+    --color-neutral-200: hsl(220 13% 91%);
+    --color-neutral-300: hsl(216 12% 84%);
+    --color-neutral-400: hsl(218 11% 65%);
+    --color-neutral-500: hsl(220 9% 46%);
+    --color-neutral-600: hsl(215 14% 34%);
+    --color-neutral-700: hsl(217 19% 27%);
+    --color-neutral-800: hsl(215 28% 17%);
+    --color-neutral-900: hsl(221 39% 11%);
 
     /* Success */
-    --color-success-100: 141 84% 93%;
-    --color-success-200: 141 79% 85%;
-    --color-success-300: 142 77% 73%;
-    --color-success-400: 142 69% 58%;
-    --color-success-500: 142 71% 45%;
-    --color-success-600: 142 76% 36%;
-    --color-success-700: 142 72% 29%;
-    --color-success-800: 143 64% 24%;
-    --color-success-900: 144 61% 20%;
+    --color-success-100: hsl(141 84% 93%);
+    --color-success-200: hsl(141 79% 85%);
+    --color-success-300: hsl(142 77% 73%);
+    --color-success-400: hsl(142 69% 58%);
+    --color-success-500: hsl(142 71% 45%);
+    --color-success-600: hsl(142 76% 36%);
+    --color-success-700: hsl(142 72% 29%);
+    --color-success-800: hsl(143 64% 24%);
+    --color-success-900: hsl(144 61% 20%);
 
     /* Danger */
-    --color-danger-100: 0 93% 94%;
-    --color-danger-200: 0 96% 89%;
-    --color-danger-300: 0 94% 82%;
-    --color-danger-400: 0 91% 71%;
-    --color-danger-500: 0 84% 60%;
-    --color-danger-600: 0 72% 51%;
-    --color-danger-700: 0 74% 42%;
-    --color-danger-800: 0 70% 35%;
-    --color-danger-900: 0 63% 31%;
+    --color-danger-100: hsl(0 93% 94%);
+    --color-danger-200: hsl(0 96% 89%);
+    --color-danger-300: hsl(0 94% 82%);
+    --color-danger-400: hsl(0 91% 71%);
+    --color-danger-500: hsl(0 84% 60%);
+    --color-danger-600: hsl(0 72% 51%);
+    --color-danger-700: hsl(0 74% 42%);
+    --color-danger-800: hsl(0 70% 35%);
+    --color-danger-900: hsl(0 63% 31%);
 
     /* Warning */
-    --color-warning-100: 55 92% 95%;
-    --color-warning-200: 48 96% 89%;
-    --color-warning-300: 48 97% 77%;
-    --color-warning-400: 46 97% 65%;
-    --color-warning-500: 43 96% 56%;
-    --color-warning-600: 38 92% 50%;
-    --color-warning-700: 32 95% 44%;
-    --color-warning-800: 26 90% 37%;
-    --color-warning-900: 23 82% 31%;
+    --color-warning-100: hsl(55 92% 95%);
+    --color-warning-200: hsl(48 96% 89%);
+    --color-warning-300: hsl(48 97% 77%);
+    --color-warning-400: hsl(46 97% 65%);
+    --color-warning-500: hsl(43 96% 56%);
+    --color-warning-600: hsl(38 92% 50%);
+    --color-warning-700: hsl(32 95% 44%);
+    --color-warning-800: hsl(26 90% 37%);
+    --color-warning-900: hsl(23 82% 31%);
 
-    --color-accent: 271 81% 56%;
+    --color-accent: hsl(271 81% 56%);
+    --color-prose: hsl(199 95% 74%);
+    --color-function: hsl(142 72% 29%);
+    --color-class: hsl(142 69% 58%);
+    --color-interface: hsl(193 82% 31%);
+    --color-enum: hsl(82 85% 67%);
+    --color-type-alias: hsl(188 86% 53%);
+    --color-variable: hsl(0 91% 71%);
 
     --color-title: var(--color-neutral-900);
     --color-text: var(--color-neutral-800);
     --color-background: var(--color-neutral-0);
     --color-primary: var(--color-neutral-700);
     --color-border: var(--color-neutral-100);
-    --color-prose: 199 95% 74%;
-
-    --color-function: 142 72% 29%;
-    --color-class: 142 69% 58%;
-    --color-interface: 193 82% 31%;
-    --color-enum: 82 85% 67%;
-    --color-type-alias: 188 86% 53%;
-    --color-variable: 0 91% 71%;
 
     --height: 2.5rem;
     --height-lg: 3rem;
@@ -76,10 +75,11 @@
     --playground-select-z-index: 10;
     --sidebar-z-index: 10;
     --skeleton-z-index: 15;
+    --floating-alert-z-index: 15;
     --fab-z-index: 20;
     --dialog-z-index: 25;
 
     --shadow-lg:
-        0 20px 25px -5px hsla(var(--color-neutral-1000) / 10%),
-        0 8px 10px -6px hsla(var(--color-neutral-1000) / 10%);
+        0 20px 25px -5px color-mix(in srgb, var(--color-neutral-1000), transparent 90%),
+        0 8px 10px -6px color-mix(in srgb, var(--color-neutral-1000), transparent 90%);
 }

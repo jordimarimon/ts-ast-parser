@@ -29,9 +29,9 @@
 
 .prose {
     font-weight: bold;
-    border-bottom: 1px solid hsl(var(--color-prose));
+    border-bottom: 1px solid var(--color-prose);
     text-decoration: none;
-    color: hsl(var(--color-text));
+    color: var(--color-text);
 
     &-sm {
         font-weight: normal;
@@ -41,7 +41,7 @@
 
 .anchor {
     &:hover {
-        border-bottom: 1px solid hsl(var(--color-prose));
+        border-bottom: 1px solid var(--color-prose);
     }
 }
 
@@ -49,14 +49,14 @@
     font-size: theme("fontSize.base");
     font-weight: 400;
     border-radius: var(--border-radius);
-    background-color: hsl(var(--color-neutral-700));
-    color: hsl(var(--color-neutral-0));
+    background-color: var(--color-neutral-700);
+    color: var(--color-neutral-0);
     padding: theme("spacing.1") theme("spacing.2");
     margin-inline: theme("spacing.1");
     white-space: pre-wrap;
 
     &-accent {
-        color: hsl(var(--color-accent));
+        color: var(--color-accent);
         background-color: transparent;
         margin-inline: 0;
         padding: 0;
@@ -68,14 +68,14 @@
 //////////////////////////////////////////////////////////////////////////////*/
 
 .border {
-    border-color: hsl(var(--color-border));
+    border-color: var(--color-border);
 
     &-t {
-        border-top-color: hsl(var(--color-border));
+        border-top-color: var(--color-border);
     }
 
     &-b {
-        border-bottom-color: hsl(var(--color-border));
+        border-bottom-color: var(--color-border);
     }
 }
 
@@ -133,7 +133,7 @@
         width: 100%;
         height: 100%;
         z-index: var(--skeleton-z-index);
-        color: hsl(var(--color-text));
-        background-color: hsl(var(--color-neutral-100));
+        color: var(--color-text);
+        background-color: var(--color-neutral-100);
     }
 }

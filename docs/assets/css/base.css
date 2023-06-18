@@ -23,8 +23,8 @@ body {
     font-size: theme("fontSize.base");
     width: 100%;
     margin: 0;
-    color: hsl(var(--color-text));
-    background-color: hsl(var(--color-background));
+    color: var(--color-text);
+    background-color: var(--color-background);
     overflow-x: hidden;
     overflow-y: scroll;
     scroll-behavior: smooth;

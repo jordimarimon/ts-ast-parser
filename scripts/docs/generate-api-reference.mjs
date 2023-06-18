@@ -213,6 +213,11 @@ function createEnum(enumerable, category, filePath) {
         path: filePath,
         line: enumerable.getLine(),
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        members: enumerable.getMembers().map(member => ({
+            name: member.getName(),
+            value: member.getValue(),
+            description: member.getJSDoc().getTag(JSDocTagName.description)?.getValue() ?? '',
+        })),
     };
 
     const content = templateEnum(context);
