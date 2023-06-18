@@ -11,7 +11,7 @@ import ts from 'typescript';
  * reflects a simplified version of the TypeScript Abstract Syntax Tree.
  *
  * @param files - An array of paths where the TypeScripts files are located
- * @param compilerOptions - Options to pass to the TypeScript compiler
+ * @param compilerOptions - Options to pass to the TypeScript compiler. For more information see [Compiler Options](https://www.typescriptlang.org/tsconfig#compilerOptions).
  *
  * @returns The reflected TypeScript AST
  */

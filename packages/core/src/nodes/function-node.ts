@@ -178,6 +178,16 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         return !this._member?.overrides && !!this._member?.inherited;
     }
 
+    isArrowFunctionOrFunctionExpression(): boolean {
+        if (!ts.isVariableStatement(this._node)) {
+            return false;
+        }
+
+        return this._node.declarationList.declarations.some(decl => {
+            return isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer);
+        });
+    }
+
     overrides(): boolean {
         return !!this._member?.overrides;
     }

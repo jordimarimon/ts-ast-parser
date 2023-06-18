@@ -27,7 +27,7 @@
 </div>
 
 {{#if this.description}}
-<section class="border-t pt-6 mb-10">
+<section class="pt-6 mb-10">
     <h2 class="heading-3">
         Description
     </h2>
@@ -39,7 +39,7 @@
 {{/if}}
 
 {{#if this.signature}}
-<section class="border-t pt-6 mb-10">
+<section class="pt-6 mb-10">
     <h2 class="heading-3">
         Signature
     </h2>
@@ -53,7 +53,7 @@
 {{/if}}
 
 {{#if this.parameters.length}}
-<section class="border-t pt-6 mb-10">
+<section class="pt-6 mb-10">
     <h2 class="heading-3">
         Parameters
     </h2>
@@ -74,7 +74,7 @@
                 <td>{{this.name}}</td>
                 <td>{{ typeWithReference this.type }}</td>
                 <td><code class="code code-accent">{{this.default}}</code></td>
-                <td>{{this.description}}</td>
+                <td>{{markdownToHTML this.description }}</td>
             </tr>
             {{/each}}
         </tbody>
@@ -83,13 +83,14 @@
 {{/if}}
 
 {{#if this.returnType}}
-<section class="border-t pt-6 mb-10">
+<section class="pt-6 mb-10">
     <h2 class="heading-3">
         Returns
     </h2>
 
-    <div class="flex items-center gap-2 mt-4">
-        {{ typeWithReference this.returnType }}: <span class="text">{{ this.returnType.description }}</span>
+    <div class="flex items-start gap-2 mt-4">
+        <span class="shrink-0">{{typeWithReference this.returnType}}:</span>
+        <span class="text leading-relaxed">{{markdownToHTML this.returnType.description true}}</span>
     </div>
 </section>
 {{/if}}

@@ -21,7 +21,7 @@ const IGNORE: string[] = [
  * Any pattern that `globby` accepts can be used.
  *
  * @param patterns - A string or an array of strings that represent glob patterns
- * @param compilerOptions - Options to pass to the TypeScript compiler
+ * @param compilerOptions - Options to pass to the TypeScript compiler. For more information see [Compiler Options](https://www.typescriptlang.org/tsconfig#compilerOptions).
  *
  * @returns The reflected TypeScript AST
  */

@@ -11,7 +11,7 @@ import ts from 'typescript';
  * Syntax Tree from a TypeScript code snippet
  *
  * @param source - A string that represents the TypeScript source code
- * @param compilerOptions - Options to pass to the TypeScript compiler
+ * @param compilerOptions - Options to pass to the TypeScript compiler. For more information see [Compiler Options](https://www.typescriptlang.org/tsconfig#compilerOptions).
  *
  * @returns The reflected TypeScript AST
  */

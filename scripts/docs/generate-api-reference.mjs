@@ -16,8 +16,8 @@ marked.use({
 
 // Handlebars Helpers
 Handlebars.registerHelper('firstLetter', str => str[0].toUpperCase());
-Handlebars.registerHelper('markdownToHTML', str => {
-    let html = marked.parse(str);
+Handlebars.registerHelper('markdownToHTML', (str, inline) => {
+    let html = inline ? marked.parseInline(str ?? '') : marked.parse(str ?? '');
     html = html.replaceAll(/<a/g, '<a class="prose" target="_blank"');
     html = html.replaceAll(/<code/g, '<code class="code"');
 
@@ -155,7 +155,7 @@ function clearDir(category) {
 
 function createFunction(func, category, filePath) {
     const signature = func.getSignatures()[0];
-    const jsDoc = signature.getJSDoc();
+    const jsDoc = func.isArrowFunctionOrFunctionExpression() ? func.getJSDoc() : signature.getJSDoc();
     const returnType = signature.getReturnType().type;
     const returnTypeDescription = jsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
     const parameters = signature.getParameters().map(p => ({
@@ -209,7 +209,7 @@ function createClass(clazz, category, filePath) {
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
         methods: clazz.getMethods().map(m => {
             const signature = m.getSignatures()[0];
-            const funcJsDoc = signature.getJSDoc();
+            const funcJsDoc = m.isArrowFunctionOrFunctionExpression() ? m.getJSDoc() : signature.getJSDoc();
             const returnType = signature.getReturnType().type;
             const returnTypeDescription = funcJsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
             const parameters = signature.getParameters().map(p => ({

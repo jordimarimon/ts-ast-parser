@@ -27,7 +27,7 @@
 </div>
 
 {{#if this.description}}
-<section class="border-t pt-6 mb-10">
+<section class="pt-6 mb-10">
     <h2 class="heading-3">
         Description
     </h2>
@@ -39,7 +39,7 @@
 {{/if}}
 
 {{#if this.members.length}}
-<section class="border-t pt-6 mb-10">
+<section class="pt-6 mb-10">
     <h2 class="heading-3">
         Members
     </h2>
@@ -58,7 +58,7 @@
             <tr>
                 <td>{{this.name}}</td>
                 <td><code class="code code-accent">{{this.value}}</code></td>
-                <td>{{this.description}}</td>
+                <td>{{markdownToHTML this.description}}</td>
             </tr>
             {{/each}}
         </tbody>

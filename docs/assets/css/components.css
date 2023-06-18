@@ -520,12 +520,13 @@ preview-component {
 //////////////////////////////////////////////////////////////////////////////*/
 
 table {
-    width: 100%;
+    width: auto;
     background-color: var(--color-background);
     border-collapse: collapse;
     table-layout: fixed;
     border-spacing: 0;
     border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
 
     th, tbody, tr, th, td {
         border-radius: var(--border-radius);
