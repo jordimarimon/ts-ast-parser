@@ -16,6 +16,11 @@ import ts from 'typescript';
  * @returns The reflected TypeScript AST
  */
 export function parseFromFiles(files: readonly string[], compilerOptions?: ts.CompilerOptions): ModuleNode[] {
+    if (!Array.isArray(files)) {
+        logError('Expected an array of files.');
+        return [];
+    }
+
     const modules: ModuleNode[] = [];
     const resolvedCompilerOptions = getResolvedCompilerOptions(compilerOptions);
     const program = ts.createProgram(files, resolvedCompilerOptions);

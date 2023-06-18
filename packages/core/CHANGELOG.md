@@ -1,4 +1,10 @@
-# [0.3.0](https://github.com/jordimarimon/ts-ast-parser/compare/0.2.0...0.3.0) (2023-06-18)
+## 0.3.1 (2023-06-18)
+
+### Bug Fixes
+
+* Add `chalk` as a dependency in the `package.json`
+
+# 0.3.0 (2023-06-18)
 
 **The library has been rewritten from scratch.**
 
@@ -60,7 +66,7 @@ Be aware of the breaking changes listed below.
 * Drop support for Node `14.x`
 * Drop support for CommonJS
 
-# [0.2.0](https://github.com/jordimarimon/ts-ast-parser/compare/0.1.0...0.2.0) (2022-12-25)
+# 0.2.0 (2022-12-25)
 
 ### Bug Fixes
 
@@ -80,6 +86,6 @@ Be aware of the breaking changes listed below.
   This property represents all the type definitions that are involved in the type. A type may be composed of
   other types. Example of types that are composed of others are union types, intersection types, array type, etc...
 
-# [0.1.0](https://github.com/jordimarimon/ts-ast-parser/compare/c3366eb7...0.1.0) (2022-11-05)
+# 0.1.0 (2022-11-05)
 
 Release of the first version of the package
