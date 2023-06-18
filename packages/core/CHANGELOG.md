@@ -1,4 +1,4 @@
-# [next]
+# [0.3.0](https://github.com/jordimarimon/ts-ast-parser/compare/0.2.0...0.3.0) (2023-06-18)
 
 **The library has been rewritten from scratch.**
 
