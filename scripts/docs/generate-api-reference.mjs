@@ -154,31 +154,7 @@ function clearDir(category) {
 }
 
 function createFunction(func, category, filePath) {
-    const signature = func.getSignatures()[0];
-    const jsDoc = func.isArrowFunctionOrFunctionExpression() ? func.getJSDoc() : signature.getJSDoc();
-    const returnType = signature.getReturnType().type;
-    const returnTypeDescription = jsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
-    const parameters = signature.getParameters().map(p => ({
-        name: p.getName(),
-        description: jsDoc.getAllTags(JSDocTagName.param)?.find(t => t.getName() === p.getName())?.getDescription() ?? '',
-        type: p.getType(),
-        default: p.getDefault(),
-    }));
-
-    const context = {
-        name: func.getName(),
-        path: filePath,
-        line: func.getLine(),
-        description: jsDoc?.getTag(JSDocTagName.description)?.getValue() ?? '',
-        signature: `${func.getName()}(${parameters.map(p => `${p.name}: ${p.type.text}`).join(', ')}): ${returnType.text}`,
-        parameters,
-        returnType: {
-            text: returnType.text,
-            sources: returnType.sources,
-            description: returnTypeDescription,
-        },
-    };
-
+    const context = createFunctionContext(func, filePath);
     const content = templateFunction(context);
     const fileName = toDashCase(func.getName());
 
@@ -192,6 +168,8 @@ function createInterface(inter, category, filePath) {
         path: filePath,
         line: inter.getLine(),
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        properties: inter.getProperties().map(p => createPropertyContext(p, filePath)),
+        methods: inter.getMethods().map(m => createFunctionContext(m, filePath)),
     };
 
     const content = templateInterface(context);
@@ -207,31 +185,7 @@ function createClass(clazz, category, filePath) {
         path: filePath,
         line: clazz.getLine(),
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
-        methods: clazz.getMethods().map(m => {
-            const signature = m.getSignatures()[0];
-            const funcJsDoc = m.isArrowFunctionOrFunctionExpression() ? m.getJSDoc() : signature.getJSDoc();
-            const returnType = signature.getReturnType().type;
-            const returnTypeDescription = funcJsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
-            const parameters = signature.getParameters().map(p => ({
-                name: p.getName(),
-                description: funcJsDoc.getAllTags(JSDocTagName.param)?.find(t => t.getName() === p.getName())?.getDescription() ?? '',
-                type: p.getType(),
-            }));
-
-            return {
-                name: m.getName(),
-                path: filePath,
-                line: signature.getLine(),
-                description: funcJsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
-                signature: `${m.getName()}(${parameters.map(p => `${p.name}: ${p.type.text}`).join(', ')}): ${returnType.text}`,
-                parameters,
-                returnType: {
-                    text: returnType.text,
-                    sources: returnType.sources,
-                    description: returnTypeDescription,
-                },
-            };
-        }),
+        methods: clazz.getMethods().map(m => createFunctionContext(m, filePath)),
     };
 
     const content = templateClass(context);
@@ -290,6 +244,45 @@ function createTypeAlias(typeAlias, category, filePath) {
     const fileName = toDashCase(typeAlias.getName());
 
     fs.writeFileSync(path.join(cwd, 'docs', 'api-reference', category, `${fileName}.njk`), content);
+}
+
+function createFunctionContext(func, filePath) {
+    const signature = func.getSignatures()[0];
+    const funcJsDoc = func.isArrowFunctionOrFunctionExpression() ? func.getJSDoc() : signature.getJSDoc();
+    const returnType = signature.getReturnType().type;
+    const returnTypeDescription = funcJsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
+    const parameters = signature.getParameters().map(p => ({
+        name: p.getName(),
+        description: funcJsDoc.getAllTags(JSDocTagName.param)?.find(t => t.getName() === p.getName())?.getDescription() ?? '',
+        type: p.getType(),
+        default: p.getDefault(),
+    }));
+
+    return {
+        name: func.getName(),
+        path: filePath,
+        line: signature.getLine(),
+        description: funcJsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        signature: `${func.getName()}(${parameters.map(p => `${p.name}: ${p.type.text}`).join(', ')}): ${returnType.text}`,
+        parameters,
+        returnType: {
+            text: returnType.text,
+            sources: returnType.sources,
+            description: returnTypeDescription,
+        },
+    };
+}
+
+function createPropertyContext(property, filePath) {
+    return {
+        name: property.getName(),
+        path: filePath,
+        line: property.getLine(),
+        description: property.getJSDoc().getTag(JSDocTagName.description)?.getValue() ?? '',
+        type: property.getType(),
+        default: property.getDefault(),
+        optional: property.isOptional(),
+    };
 }
 
 function toDashCase(str) {
