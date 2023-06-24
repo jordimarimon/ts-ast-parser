@@ -1,3 +1,14 @@
+## [next]
+
+### Bug Fixes
+
+* Don't remove reexport nodes when searching for duplicate exports.
+
+### 🚨 Breaking Changes
+
+* Don't make publicly available all the utilities
+* Change how the `is` type predicate utility is available. Now the utility is available though the main entry point.
+
 ## 0.3.2 (2023-06-18)
 
 ### Bug Fixes
