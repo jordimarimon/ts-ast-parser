@@ -1,4 +1,4 @@
-import { parseFromGlob, DeclarationKind, JSDocTagName } from '@ts-ast-parser/core';
+import { parseFromGlob, DeclarationKind, JSDocTagName, is } from '@ts-ast-parser/core';
 import { markedSmartypants } from 'marked-smartypants';
 import Handlebars from 'handlebars';
 import { marked } from 'marked';
@@ -73,9 +73,29 @@ clearDir('utils');
 clearDir('nodes');
 clearDir('parsers');
 
+const indexPath = path.join('packages', 'core', 'src', 'index.ts');
+const indexModule = reflectedModules.find(mod => mod.getPath() === indexPath);
+
+if (!indexModule) {
+    console.error('Couldn\'t found the index file of the package.');
+    process.exit(1);
+}
+
+const publicFiles = indexModule.getExports()
+    .filter(exp => is.ReExportNode(exp))
+    .map(exp => {
+        const modulePath = exp.getModule().replace(/'/g, '');
+        return path.join('packages', 'core', 'src', modulePath);
+    });
+
 // Loop through each reflected module and create the data for the templates
 for (const module of reflectedModules) {
     const modulePath = module.getPath();
+
+    if (!publicFiles.includes(modulePath.replace('.ts', '.js'))) {
+        continue;
+    }
+
     const segments = modulePath.split(path.sep);
     const declarations = module.getDeclarations();
 
