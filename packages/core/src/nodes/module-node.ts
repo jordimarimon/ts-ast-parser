@@ -19,7 +19,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     private readonly _context: AnalyzerContext;
 
-    private _exports: ExportNode[] = [];
+    private readonly _exports: ExportNode[] = [];
 
     private _declarations: DeclarationNode[] = [];
 
@@ -28,9 +28,6 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         this._context = context;
 
         this._visitNode(node);
-
-        this._removeDuplicatedExports();
-        this._removeDuplicatedDeclarations();
         this._removeNonPublicDeclarations();
     }
 
@@ -120,14 +117,30 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
                 this._imports.push(reflectedNode);
             }
 
-            if (is.ExportNode(reflectedNode)) {
-                this._exports.push(reflectedNode);
-            }
-
-            if (is.DeclarationNode(reflectedNode)) {
+            // We don't want to add duplicate declarations when there are functions with overloads
+            if (is.DeclarationNode(reflectedNode) && !this._hasDeclaration(reflectedNode)) {
                 this._declarations.push(reflectedNode);
             }
+
+            // We don't want to add duplicate exports when there are functions with overloads
+            if (is.ExportNode(reflectedNode) && !this._hasExport(reflectedNode)) {
+                this._exports.push(reflectedNode);
+            }
         }
+    }
+
+    private _hasDeclaration(declaration: DeclarationNode): boolean {
+        return this._declarations.some(decl => decl.getName() === declaration.getName());
+    }
+
+    private _hasExport(exp: ExportNode): boolean {
+        return this._exports.some(e => {
+            if (is.ReExportNode(e) && is.ReExportNode(exp) && e.getModule() === exp.getModule()) {
+                return true;
+            }
+
+            return e.getName() === exp.getName() && e.getKind() === exp.getKind();
+        });
     }
 
     private _removeNonPublicDeclarations(): void {
@@ -148,21 +161,4 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
             return !isIgnored;
         });
     }
-
-    private _removeDuplicatedExports(): void {
-        this._exports = this._exports.filter((value, index, exports) => {
-            return index === exports.findIndex(e => {
-                return e.getName() === value.getName() && e.getKind() === value.getKind();
-            });
-        });
-    }
-
-    private _removeDuplicatedDeclarations(): void {
-        this._declarations = this._declarations.filter((value, index, declarations) => {
-            // If there is already a declaration that has been declared before with the same name
-            // ignore the one that has been defined last.
-            return !declarations.some((d, i) => d.getName() === value.getName() && i < index);
-        });
-    }
-
 }
