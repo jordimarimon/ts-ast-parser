@@ -134,13 +134,11 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     private _hasExport(exp: ExportNode): boolean {
-        return this._exports.some(e => {
-            if (is.ReExportNode(e) && is.ReExportNode(exp) && e.getModule() === exp.getModule()) {
-                return true;
-            }
+        if (is.ReExportNode(exp)) {
+            return this._exports.some(e => is.ReExportNode(e) && e.getModule() === exp.getModule());
+        }
 
-            return e.getName() === exp.getName() && e.getKind() === exp.getKind();
-        });
+        return this._exports.some(e => e.getName() === exp.getName() && e.getKind() === exp.getKind());
     }
 
     private _removeNonPublicDeclarations(): void {

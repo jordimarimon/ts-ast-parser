@@ -8,6 +8,11 @@
                 "name": "*",
                 "kind": "Star",
                 "module": "'./foo.js'"
+            },
+            {
+                "name": "*",
+                "kind": "Star",
+                "module": "'./bar.js'"
             }
         ]
     },
@@ -28,6 +33,27 @@
         "exports": [
             {
                 "name": "foo",
+                "kind": "Named"
+            }
+        ]
+    },
+    {
+        "path": "tests/export/star/bar.ts",
+        "imports": [],
+        "declarations": [
+            {
+                "kind": "Variable",
+                "line": 1,
+                "name": "bar",
+                "type": {
+                    "text": "number"
+                },
+                "default": 5
+            }
+        ],
+        "exports": [
+            {
+                "name": "bar",
                 "kind": "Named"
             }
         ]
