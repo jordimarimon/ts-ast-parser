@@ -4,14 +4,23 @@ import ts from 'typescript';
 
 
 export function resolveExpression(expression: ts.Expression | undefined, checker: ts.TypeChecker): unknown {
-    if (expression == null) {
+    let expr = expression;
+
+    if (expr == null) {
         return undefined;
     }
 
-    let expr = expression;
+    if (
+        ts.isAsExpression(expr) ||
+        ts.isTypeAssertionExpression(expr) ||
+        ts.isParenthesizedExpression(expr) ||
+        ts.isComputedPropertyName(expr)
+    ) {
+        expr = expr.expression;
+    }
 
-    if (ts.isAsExpression(expression) || ts.isTypeAssertionExpression(expression)) {
-        expr = expression.expression;
+    if (ts.isPrefixUnaryExpression(expr)) {
+        return applyPrefixUnaryOperatorToValue(expr, checker);
     }
 
     if (expr == null) {
@@ -20,7 +29,7 @@ export function resolveExpression(expression: ts.Expression | undefined, checker
 
     const text = expr.getText() ?? '';
 
-    if (ts.isStringLiteral(expr) || ts.isArrayLiteralExpression(expr) || ts.isObjectLiteralExpression(expr)) {
+    if (ts.isStringLiteralLike(expr) || ts.isArrayLiteralExpression(expr) || ts.isObjectLiteralExpression(expr)) {
         return text;
     }
 
@@ -81,4 +90,23 @@ function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression, ch
     }
 
     return text;
+}
+
+function applyPrefixUnaryOperatorToValue(expression: ts.PrefixUnaryExpression, checker: ts.TypeChecker): unknown {
+    const value = resolveExpression(expression.operand, checker);
+
+    if (typeof value !== 'number' && typeof value !== 'string' && typeof value !== 'boolean') {
+        return value;
+    }
+
+    switch (expression.operator) {
+        case ts.SyntaxKind.MinusToken:
+            return -value;
+        case ts.SyntaxKind.ExclamationToken:
+            return !value;
+        case ts.SyntaxKind.PlusToken:
+            return +value;
+        default:
+            return value;
+    }
 }
