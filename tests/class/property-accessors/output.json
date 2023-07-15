@@ -1,6 +1,7 @@
 [
     {
-        "sourcesourcePath": "tests/class/property-accessors/index.ts",
+        "sourcePath": "tests/class/property-accessors/index.ts",
+        "outputPath": "tests/class/property-accessors/index.js",
         "imports": [],
         "declarations": [
             {

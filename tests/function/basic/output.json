@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/function/basic/index.ts",
+        "outputPath": "tests/function/basic/index.js",
         "imports": [],
         "declarations": [
             {

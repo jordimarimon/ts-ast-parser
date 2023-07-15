@@ -248,7 +248,6 @@
                     }
                 ],
                 "@typescript-eslint/no-dupe-class-members": "error",
-                "@typescript-eslint/no-duplicate-imports": "error",
                 "@typescript-eslint/no-extra-parens": [
                     "error",
                     "functions"

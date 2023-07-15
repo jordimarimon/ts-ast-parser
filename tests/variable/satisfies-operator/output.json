@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/variable/satisfies-operator/index.ts",
+        "outputPath": "tests/variable/satisfies-operator/index.js",
         "imports": [],
         "declarations": [
             {
@@ -29,7 +30,7 @@
                 "kind": "Variable",
                 "line": 12,
                 "type": {
-                    "text": "number | undefined"
+                    "text": "number"
                 },
                 "default": "palette.red.at(0)"
             },

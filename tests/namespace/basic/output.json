@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/namespace/basic/index.ts",
+        "outputPath": "tests/namespace/basic/index.js",
         "imports": [],
         "declarations": [
             {
@@ -70,7 +71,7 @@
                         "name": "IFoo",
                         "source": {
                             "line": 17,
-                            "sourcePath": "tests/namespace/basic/index.ts"
+                            "path": "tests/namespace/basic/index.ts"
                         },
                         "kind": "Interface"
                     }

@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/jsdoc/tags/index.ts",
+        "outputPath": "tests/jsdoc/tags/index.js",
         "imports": [],
         "declarations": [
             {

@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/jsdoc/ignore/index.ts",
+        "outputPath": "tests/jsdoc/ignore/index.js",
         "imports": [],
         "declarations": [],
         "exports": []

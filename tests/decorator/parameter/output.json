@@ -1,184 +1,43 @@
 [
     {
         "sourcePath": "tests/decorator/parameter/index.ts",
-        "imports": [
-            {
-                "kind": "SideEffect",
-                "importsourcePath": "reflect-metadata",
-                "bareModuleSpecifier": true
-            }
-        ],
+        "outputPath": "tests/decorator/parameter/index.js",
+        "imports": [],
         "declarations": [
             {
-                "kind": "Function",
-                "name": "required",
-                "signatures": [
-                    {
-                        "line": 7,
-                        "return": {
-                            "type": {
-                                "text": "void"
-                            }
-                        },
-                        "parameters": [
-                            {
-                                "name": "target",
-                                "line": 7,
-                                "type": {
-                                    "text": "Object"
-                                }
-                            },
-                            {
-                                "name": "propertyKey",
-                                "line": 7,
-                                "type": {
-                                    "text": "string | symbol"
-                                }
-                            },
-                            {
-                                "name": "parameterIndex",
-                                "line": 7,
-                                "type": {
-                                    "text": "number"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "kind": "Function",
-                "name": "validate",
-                "signatures": [
-                    {
-                        "line": 13,
-                        "return": {
-                            "type": {
-                                "text": "void"
-                            }
-                        },
-                        "parameters": [
-                            {
-                                "name": "target",
-                                "line": 14,
-                                "type": {
-                                    "text": "BugReport",
-                                    "sources": [
-                                        {
-                                            "text": "BugReport",
-                                            "sourcePath": "tests/decorator/parameter/index.ts",
-                                            "line": 37
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "name": "propertyName",
-                                "line": 15,
-                                "type": {
-                                    "text": "string"
-                                }
-                            },
-                            {
-                                "name": "descriptor",
-                                "line": 17,
-                                "type": {
-                                    "text": "TypedPropertyDescriptor<(...args: any[]) => any>"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "name": "BugReport",
-                "line": 37,
+                "name": "Task",
                 "kind": "Class",
-                "constructors": [
-                    {
-                        "line": 43,
-                        "return": {
-                            "type": {
-                                "text": "BugReport",
-                                "sources": [
-                                    {
-                                        "line": 37,
-                                        "sourcePath": "tests/decorator/parameter/index.ts",
-                                        "text": "BugReport"
-                                    }
-                                ]
-                            }
-                        },
-                        "parameters": [
-                            {
-                                "name": "t",
-                                "line": 43,
-                                "type": {
-                                    "text": "string"
-                                }
-                            }
-                        ]
-                    }
-                ],
-                "properties": [
-                    {
-                        "name": "type",
-                        "line": 39,
-                        "kind": "Property",
-                        "type": {
-                            "text": "string"
-                        },
-                        "default": "'report'"
-                    },
-                    {
-                        "name": "title",
-                        "line": 41,
-                        "kind": "Property",
-                        "type": {
-                            "text": "string"
-                        },
-                        "readOnly": true
-                    }
-                ],
+                "line": 5,
                 "methods": [
                     {
+                        "name": "run",
                         "kind": "Method",
-                        "name": "print",
                         "signatures": [
                             {
-                                "line": 47,
+                                "line": 7,
                                 "return": {
                                     "type": {
-                                        "text": "string"
+                                        "text": "void"
                                     }
                                 },
                                 "parameters": [
                                     {
-                                        "name": "verbose",
-                                        "line": 48,
+                                        "name": "name",
                                         "type": {
-                                            "text": "boolean"
+                                            "text": "string"
                                         },
+                                        "line": 7,
                                         "decorators": [
                                             {
-                                                "name": "required",
+                                                "name": "log",
                                                 "source": {
-                                                    "line": 7,
-                                                    "sourcePath": "tests/decorator/parameter/index.ts"
+                                                    "path": "tests/decorator/parameter/index.ts",
+                                                    "line": 1
                                                 }
                                             }
                                         ]
                                     }
                                 ]
-                            }
-                        ],
-                        "decorators": [
-                            {
-                                "name": "validate",
-                                "source": {
-                                    "line": 13,
-                                    "sourcePath": "tests/decorator/parameter/index.ts"
-                                }
                             }
                         ]
                     }
@@ -187,15 +46,7 @@
         ],
         "exports": [
             {
-                "name": "required",
-                "kind": "Named"
-            },
-            {
-                "name": "validate",
-                "kind": "Named"
-            },
-            {
-                "name": "BugReport",
+                "name": "Task",
                 "kind": "Named"
             }
         ]

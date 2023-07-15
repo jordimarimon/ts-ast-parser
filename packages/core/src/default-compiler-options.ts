@@ -9,8 +9,6 @@ export const TS_DEFAULT_COMPILER_OPTIONS: ts.CompilerOptions = {
     experimentalDecorators: true,
     target: ts.ScriptTarget.Latest,
     module: ts.ModuleKind.ESNext,
-    skipLibCheck: true,
-    skipDefaultLibCheck: true,
     declaration: true,
 };
 

@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/function/async/index.ts",
+        "outputPath": "tests/function/async/index.js",
         "imports": [],
         "declarations": [
             {

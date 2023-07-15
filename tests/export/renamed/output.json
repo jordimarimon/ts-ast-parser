@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/export/renamed/index.ts",
+        "outputPath": "tests/export/renamed/index.js",
         "imports": [],
         "declarations": [
             {

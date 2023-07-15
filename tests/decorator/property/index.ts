@@ -1,29 +1,33 @@
-import 'reflect-metadata';
+function min(limit: number): ((target: object, propertyKey: string) => void) {
+    return (target: object, propertyKey: string) => {
+        let value: string;
 
+        const getter = () => value;
 
-export const formatMetadataKey = Symbol('format');
+        const setter = (newVal: string): void => {
+            if (newVal.length < limit) {
+                return;
+            }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function format(formatString: string) {
-    return Reflect.metadata(formatMetadataKey, formatString);
+            value = newVal;
+        };
+
+        Object.defineProperty(target, propertyKey, {
+            get: getter,
+            set: setter,
+        });
+    };
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function getFormat(target: Greeter, propertyKey: string) {
-    return Reflect.getMetadata(formatMetadataKey, target, propertyKey);
-}
+export class User {
 
-export class Greeter {
+    username: string;
 
-    @format('Hello, %s')
-    readonly greeting: string;
+    @min(8)
+        password: string;
 
-    constructor(message: string) {
-        this.greeting = message;
-    }
-
-    greet(): string {
-        const formatString = getFormat(this, 'greeting');
-        return formatString.replace('%s', this.greeting);
+    constructor(username: string, password: string) {
+        this.username = username;
+        this.password = password;
     }
 }

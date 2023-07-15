@@ -16,7 +16,12 @@ const compilerOptions: ts.CompilerOptions = {
         'custom-path/foo': ['./foo.ts'],
     },
 };
-const {actual, expected} = getFixture({category, subcategory, importedFiles: ['foo.ts'], compilerOptions});
+const {actual, expected} = getFixture({
+    category,
+    subcategory,
+    importedFiles: ['foo.ts'],
+    analyzerOptions: {compilerOptions},
+});
 
 describe(`${category}/${subcategory}`, () => {
 

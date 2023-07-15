@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/variable/identifier-as-initializer/index.ts",
+        "outputPath": "tests/variable/identifier-as-initializer/index.js",
         "imports": [],
         "declarations": [
             {

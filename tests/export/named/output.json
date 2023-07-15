@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/export/named/index.ts",
+        "outputPath": "tests/export/named/index.js",
         "imports": [],
         "declarations": [
             {
@@ -32,6 +33,7 @@
     },
     {
         "sourcePath": "tests/export/named/foo.ts",
+        "outputPath": "tests/export/named/foo.js",
         "imports": [],
         "declarations": [
             {

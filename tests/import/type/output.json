@@ -1,11 +1,12 @@
 [
     {
         "sourcePath": "tests/import/type/index.ts",
+        "outputPath": "tests/import/type/index.js",
         "imports": [
             {
                 "name": "TypeA",
                 "kind": "Named",
-                "importsourcePath": "./type-a.js",
+                "importPath": "./type-a.js",
                 "typeOnly": true
             }
         ],
@@ -25,7 +26,7 @@
                     "sources": [
                         {
                             "text": "TypeA",
-                            "sourcePath": "tests/import/type/type-a.ts",
+                            "path": "tests/import/type/type-a.ts",
                             "line": 1
                         }
                     ]
@@ -36,6 +37,7 @@
     },
     {
         "sourcePath": "tests/import/type/type-a.ts",
+        "outputPath": "tests/import/type/type-a.js",
         "imports": [],
         "exports": [
             {

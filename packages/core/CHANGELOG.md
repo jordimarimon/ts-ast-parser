@@ -2,7 +2,7 @@
 
 ### Features
 
-* Get the output JS path of a given source file. Use the `getOuputPath()` from the `ModuleNode` class.
+* Reflect the output JS path of a given source file. Use the `getOuputPath()` method from the `ModuleNode` class.
 * Analyze an entire project. Use the new function `parseFromProjec()` to analyze an entire project based only on the 
   TSConfig file options.
 
@@ -12,9 +12,9 @@
 
 ### 🚨 Breaking Changes
 
-* Don't make publicly available all the utilities
-* Change how the `is` type predicate utility is available. Now the utility is available though the main entry point.
 * The field `path` of a module has been renamed to `sourcePath`
+* All the `parser-from-*` functions, now receive as second argument an object of type `AnalyzerOptions` instead of 
+  the `ts.CompilerOptions`
 
 ## 0.3.2 (2023-06-18)
 

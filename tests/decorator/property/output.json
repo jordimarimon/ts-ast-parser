@@ -1,148 +1,72 @@
 [
     {
         "sourcePath": "tests/decorator/property/index.ts",
-        "imports": [
-            {
-                "kind": "SideEffect",
-                "importsourcePath": "reflect-metadata",
-                "bareModuleSpecifier": true
-            }
-        ],
+        "outputPath": "tests/decorator/property/index.js",
+        "imports": [],
         "declarations": [
             {
-                "kind": "Variable",
-                "line": 4,
-                "name": "formatMetadataKey",
-                "type": {
-                    "text": "unique symbol"
-                },
-                "default": "Symbol('format')"
-            },
-            {
-                "kind": "Function",
-                "name": "format",
-                "signatures": [
-                    {
-                        "line": 7,
-                        "return": {
-                            "type": {
-                                "text": "{ (target: Function): void; (target: Object, propertyKey: string | symbol): void; }"
-                            }
-                        },
-                        "parameters": [
-                            {
-                                "name": "formatString",
-                                "line": 7,
-                                "type": {
-                                    "text": "string"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "kind": "Function",
-                "name": "getFormat",
-                "signatures": [
-                    {
-                        "line": 12,
-                        "return": {
-                            "type": {
-                                "text": "any"
-                            }
-                        },
-                        "parameters": [
-                            {
-                                "name": "target",
-                                "line": 12,
-                                "type": {
-                                    "text": "Greeter",
-                                    "sources": [
-                                        {
-                                            "text": "Greeter",
-                                            "sourcePath": "tests/decorator/property/index.ts",
-                                            "line": 16
-                                        }
-                                    ]
-                                }
-                            },
-                            {
-                                "name": "propertyKey",
-                                "line": 12,
-                                "type": {
-                                    "text": "string"
-                                }
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "name": "Greeter",
-                "line": 16,
+                "name": "User",
                 "kind": "Class",
+                "line": 22,
                 "constructors": [
                     {
-                        "line": 21,
+                        "line": 29,
                         "return": {
                             "type": {
-                                "text": "Greeter",
+                                "text": "User",
                                 "sources": [
                                     {
-                                        "line": 16,
-                                        "sourcePath": "tests/decorator/property/index.ts",
-                                        "text": "Greeter"
+                                        "text": "User",
+                                        "path": "tests/decorator/property/index.ts",
+                                        "line": 22
                                     }
                                 ]
                             }
                         },
                         "parameters": [
                             {
-                                "name": "message",
-                                "line": 21,
+                                "name": "username",
                                 "type": {
                                     "text": "string"
-                                }
+                                },
+                                "line": 29
+                            },
+                            {
+                                "name": "password",
+                                "type": {
+                                    "text": "string"
+                                },
+                                "line": 29
                             }
                         ]
                     }
                 ],
                 "properties": [
                     {
-                        "name": "greeting",
-                        "line": 18,
+                        "name": "username",
+                        "line": 24,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "line": 26,
                         "kind": "Property",
                         "type": {
                             "text": "string"
                         },
                         "decorators": [
                             {
-                                "name": "format",
-                                "arguments": [
-                                    "'Hello, %s'"
-                                ],
+                                "name": "min",
                                 "source": {
-                                    "sourcePath": "tests/decorator/property/index.ts",
-                                    "line": 7
-                                }
-                            }
-                        ],
-                        "readOnly": true
-                    }
-                ],
-                "methods": [
-                    {
-                        "kind": "Method",
-                        "name": "greet",
-                        "signatures": [
-                            {
-                                "line": 25,
-                                "return": {
-                                    "type": {
-                                        "text": "string"
-                                    }
-                                }
+                                    "path": "tests/decorator/property/index.ts",
+                                    "line": 1
+                                },
+                                "arguments": [
+                                    8
+                                ]
                             }
                         ]
                     }
@@ -151,19 +75,7 @@
         ],
         "exports": [
             {
-                "name": "formatMetadataKey",
-                "kind": "Named"
-            },
-            {
-                "name": "format",
-                "kind": "Named"
-            },
-            {
-                "name": "getFormat",
-                "kind": "Named"
-            },
-            {
-                "name": "Greeter",
+                "name": "User",
                 "kind": "Named"
             }
         ]

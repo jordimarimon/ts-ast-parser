@@ -1,6 +1,7 @@
 [
     {
-        "sourcesourcePath": "tests/class/abstract/index.ts",
+        "sourcePath": "tests/class/abstract/index.ts",
+        "outputPath": "tests/class/abstract/index.js",
         "imports": [],
         "declarations": [
             {

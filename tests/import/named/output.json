@@ -1,11 +1,12 @@
 [
     {
         "sourcePath": "tests/import/named/index.ts",
+        "outputPath": "tests/import/named/index.js",
         "imports": [
             {
                 "name": "Foo",
                 "kind": "Named",
-                "importsourcePath": "./foo.js"
+                "importPath": "./foo.js"
             }
         ],
         "exports": [],
@@ -13,6 +14,7 @@
     },
     {
         "sourcePath": "tests/import/named/foo.ts",
+        "outputPath": "tests/import/named/foo.js",
         "imports": [],
         "exports": [
             {

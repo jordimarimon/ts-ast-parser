@@ -9,7 +9,7 @@ export class Foo {
 
     #privateField = 4;
 
-    readonly message: string | undefined;
+    readonly message: string;
 
     private readonly _x: number = 4;
 

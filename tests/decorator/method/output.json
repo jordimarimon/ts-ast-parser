@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/decorator/method/index.ts",
+        "outputPath": "tests/decorator/method/index.js",
         "imports": [],
         "declarations": [
             {
@@ -39,7 +40,7 @@
                                 "sources": [
                                     {
                                         "line": 7,
-                                        "sourcePath": "tests/decorator/method/index.ts",
+                                        "path": "tests/decorator/method/index.ts",
                                         "text": "Greeter"
                                     }
                                 ]
@@ -88,7 +89,7 @@
                                 ],
                                 "source": {
                                     "line": 1,
-                                    "sourcePath": "tests/decorator/method/index.ts"
+                                    "path": "tests/decorator/method/index.ts"
                                 }
                             }
                         ]

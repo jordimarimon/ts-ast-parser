@@ -1,11 +1,12 @@
 [
     {
         "sourcePath": "tests/import/namespace/index.ts",
+        "outputPath": "tests/import/namespace/index.js",
         "imports": [
             {
                 "name": "barFoo",
                 "kind": "Namespace",
-                "importsourcePath": "./foo.js"
+                "importPath": "./foo.js"
             }
         ],
         "exports": [],
@@ -13,6 +14,7 @@
     },
     {
         "sourcePath": "tests/import/namespace/foo.ts",
+        "outputPath": "tests/import/namespace/foo.js",
         "imports": [],
         "exports": [
             {

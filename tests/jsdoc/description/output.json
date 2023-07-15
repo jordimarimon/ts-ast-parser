@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/jsdoc/description/index.ts",
+        "outputPath": "tests/jsdoc/description/index.js",
         "imports": [],
         "declarations": [
             {

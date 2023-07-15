@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/function/generator/index.ts",
+        "outputPath": "tests/function/generator/index.js",
         "imports": [],
         "declarations": [
             {

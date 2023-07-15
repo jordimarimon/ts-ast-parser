@@ -1,6 +1,7 @@
 [
     {
-        "sourcesourcePath": "tests/class/initializers/index.ts",
+        "sourcePath": "tests/class/initializers/index.ts",
+        "outputPath": "tests/class/initializers/index.js",
         "imports": [],
         "declarations": [
             {
@@ -15,7 +16,7 @@
                                 "sources": [
                                     {
                                         "line": 7,
-                                        "sourcesourcePath": "tests/class/initializers/index.ts",
+                                        "path": "tests/class/initializers/index.ts",
                                         "text": "Foo"
                                     }
                                 ],
@@ -30,7 +31,7 @@
                         "name": "bar",
                         "line": 9,
                         "type": {
-                            "text": "string | undefined"
+                            "text": "string"
                         },
                         "readOnly": true
                     },

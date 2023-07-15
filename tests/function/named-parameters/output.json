@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/function/named-parameters/index.ts",
+        "outputPath": "tests/function/named-parameters/index.js",
         "imports": [],
         "declarations": [
             {

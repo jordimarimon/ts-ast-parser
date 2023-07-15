@@ -1,6 +1,7 @@
 [
     {
-        "sourcesourcePath": "tests/class/basic/index.ts",
+        "sourcePath": "tests/class/basic/index.ts",
+        "outputPath": "tests/class/basic/index.js",
         "imports": [],
         "declarations": [
             {
@@ -16,7 +17,7 @@
                                 "sources": [
                                     {
                                         "text": "Foo",
-                                        "sourcesourcePath": "tests/class/basic/index.ts",
+                                        "path": "tests/class/basic/index.ts",
                                         "line": 4
                                     }
                                 ]
@@ -81,7 +82,7 @@
                         "line": 12,
                         "kind": "Property",
                         "type": {
-                            "text": "string | undefined"
+                            "text": "string"
                         },
                         "readOnly": true
                     }

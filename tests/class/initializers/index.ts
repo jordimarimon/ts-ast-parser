@@ -6,7 +6,7 @@ function add(x: number, y: number): number {
 
 export class Foo {
 
-    readonly bar: undefined | string;
+    readonly bar: string;
 
     foo = defaultValue;
 

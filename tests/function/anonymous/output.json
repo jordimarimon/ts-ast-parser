@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/function/anonymous/index.ts",
+        "outputPath": "tests/function/anonymous/index.js",
         "imports": [],
         "declarations": [
             {

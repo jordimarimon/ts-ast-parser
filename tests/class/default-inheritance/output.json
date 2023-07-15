@@ -1,6 +1,7 @@
 [
     {
-        "sourcesourcePath": "tests/class/default-inheritance/index.ts",
+        "sourcePath": "tests/class/default-inheritance/index.ts",
+        "outputPath": "tests/class/default-inheritance/index.js",
         "imports": [],
         "declarations": [
             {
@@ -28,7 +29,7 @@
                         "name": "Class1",
                         "source": {
                             "line": 1,
-                            "sourcesourcePath": "tests/class/default-inheritance/index.ts"
+                            "path": "tests/class/default-inheritance/index.ts"
                         },
                         "kind": "Class"
                     }

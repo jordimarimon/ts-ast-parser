@@ -1,16 +1,17 @@
 [
     {
         "sourcePath": "tests/import/multiple/index.ts",
+        "outputPath": "tests/import/multiple/index.js",
         "imports": [
             {
                 "name": "Foo",
                 "kind": "Default",
-                "importsourcePath": "./foo.js"
+                "importPath": "./foo.js"
             },
             {
                 "name": "bar",
                 "kind": "Named",
-                "importsourcePath": "./foo.js"
+                "importPath": "./foo.js"
             }
         ],
         "declarations": [],
@@ -18,6 +19,7 @@
     },
     {
         "sourcePath": "tests/import/multiple/foo.ts",
+        "outputPath": "tests/import/multiple/foo.js",
         "imports": [],
         "declarations": [
             {

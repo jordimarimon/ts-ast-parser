@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/interface/typed-parameters-and-inheritance/index.ts",
+        "outputPath": "tests/interface/typed-parameters-and-inheritance/index.js",
         "imports": [],
         "declarations": [
             {
@@ -33,7 +34,7 @@
                             "sources": [
                                 {
                                     "text": "T",
-                                    "sourcePath": "tests/interface/typed-parameters-and-inheritance/index.ts",
+                                    "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
                                     "line": 1
                                 }
                             ]
@@ -53,7 +54,7 @@
                                         "sources": [
                                             {
                                                 "text": "T",
-                                                "sourcePath": "tests/interface/typed-parameters-and-inheritance/index.ts",
+                                                "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
                                                 "line": 1
                                             }
                                         ]
@@ -68,7 +69,7 @@
                                             "sources": [
                                                 {
                                                     "text": "T",
-                                                    "sourcePath": "tests/interface/typed-parameters-and-inheritance/index.ts",
+                                                    "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
                                                     "line": 1
                                                 }
                                             ]
@@ -89,7 +90,7 @@
                         "name": "Foo<string>",
                         "source": {
                             "line": 1,
-                            "sourcePath": "tests/interface/typed-parameters-and-inheritance/index.ts"
+                            "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
                         },
                         "kind": "Interface"
                     }

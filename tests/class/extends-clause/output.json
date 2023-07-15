@@ -1,6 +1,7 @@
 [
     {
-        "sourcesourcePath": "tests/class/extends-clause/index.ts",
+        "sourcePath": "tests/class/extends-clause/index.ts",
+        "outputPath": "tests/class/extends-clause/index.js",
         "imports": [],
         "declarations": [
             {
@@ -60,7 +61,7 @@
                         "name": "Bar",
                         "source": {
                             "line": 1,
-                            "sourcesourcePath": "tests/class/extends-clause/index.ts"
+                            "path": "tests/class/extends-clause/index.ts"
                         },
                         "kind": "Class"
                     }

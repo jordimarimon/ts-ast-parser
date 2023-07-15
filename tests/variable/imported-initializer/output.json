@@ -1,11 +1,12 @@
 [
     {
         "sourcePath": "tests/variable/imported-initializer/index.ts",
+        "outputPath": "tests/variable/imported-initializer/index.js",
         "imports": [
             {
                 "name": "foo",
                 "kind": "Named",
-                "importsourcePath": "./foo.js"
+                "importPath": "./foo.js"
             }
         ],
         "declarations": [
@@ -28,6 +29,7 @@
     },
     {
         "sourcePath": "tests/variable/imported-initializer/foo.ts",
+        "outputPath": "tests/variable/imported-initializer/foo.js",
         "imports": [],
         "declarations": [
             {

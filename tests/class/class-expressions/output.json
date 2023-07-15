@@ -1,6 +1,7 @@
 [
     {
-        "sourcesourcePath": "tests/class/class-expressions/index.ts",
+        "sourcePath": "tests/class/class-expressions/index.ts",
+        "outputPath": "tests/class/class-expressions/index.js",
         "imports": [],
         "declarations": [
             {

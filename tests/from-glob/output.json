@@ -1,6 +1,7 @@
 [
     {
         "sourcePath": "tests/from-glob/index.ts",
+        "outputPath": "tests/from-glob/index.js",
         "imports": [],
         "declarations": [
             {
