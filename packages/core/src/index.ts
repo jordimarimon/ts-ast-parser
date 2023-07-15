@@ -3,6 +3,10 @@ export * from './parse-from-source.js';
 export * from './parse-from-files.js';
 export * from './parse-from-glob.js';
 
+// OPTIONS
+export * from './analyzer-options.js';
+export * from './default-compiler-options.js';
+
 // MODELS
 export * from './models/class.js';
 export * from './models/declaration.js';

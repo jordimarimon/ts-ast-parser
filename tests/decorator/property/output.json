@@ -1,10 +1,10 @@
 [
     {
-        "path": "tests/decorator/property/index.ts",
+        "sourcePath": "tests/decorator/property/index.ts",
         "imports": [
             {
                 "kind": "SideEffect",
-                "importPath": "reflect-metadata",
+                "importsourcePath": "reflect-metadata",
                 "bareModuleSpecifier": true
             }
         ],
@@ -61,7 +61,7 @@
                                     "sources": [
                                         {
                                             "text": "Greeter",
-                                            "path": "tests/decorator/property/index.ts",
+                                            "sourcePath": "tests/decorator/property/index.ts",
                                             "line": 16
                                         }
                                     ]
@@ -91,7 +91,7 @@
                                 "sources": [
                                     {
                                         "line": 16,
-                                        "path": "tests/decorator/property/index.ts",
+                                        "sourcePath": "tests/decorator/property/index.ts",
                                         "text": "Greeter"
                                     }
                                 ]
@@ -123,7 +123,7 @@
                                     "'Hello, %s'"
                                 ],
                                 "source": {
-                                    "path": "tests/decorator/property/index.ts",
+                                    "sourcePath": "tests/decorator/property/index.ts",
                                     "line": 7
                                 }
                             }

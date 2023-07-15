@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/interface/index-signature/index.ts",
+        "sourcePath": "tests/interface/index-signature/index.ts",
         "imports": [],
         "declarations": [
             {

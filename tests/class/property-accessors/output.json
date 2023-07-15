@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/class/property-accessors/index.ts",
+        "sourcesourcePath": "tests/class/property-accessors/index.ts",
         "imports": [],
         "declarations": [
             {

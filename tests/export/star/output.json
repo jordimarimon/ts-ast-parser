@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/export/star/index.ts",
+        "sourcePath": "tests/export/star/index.ts",
         "imports": [],
         "declarations": [],
         "exports": [
@@ -17,7 +17,7 @@
         ]
     },
     {
-        "path": "tests/export/star/foo.ts",
+        "sourcePath": "tests/export/star/foo.ts",
         "imports": [],
         "declarations": [
             {
@@ -38,7 +38,7 @@
         ]
     },
     {
-        "path": "tests/export/star/bar.ts",
+        "sourcePath": "tests/export/star/bar.ts",
         "imports": [],
         "declarations": [
             {

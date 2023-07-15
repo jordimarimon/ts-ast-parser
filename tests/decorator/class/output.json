@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/decorator/class/index.ts",
+        "sourcePath": "tests/decorator/class/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -39,7 +39,7 @@
                                 "sources": [
                                     {
                                         "line": 6,
-                                        "path": "tests/decorator/class/index.ts",
+                                        "sourcePath": "tests/decorator/class/index.ts",
                                         "text": "BugReport"
                                     }
                                 ]
@@ -61,7 +61,7 @@
                         "name": "sealed",
                         "source": {
                             "line": 1,
-                            "path": "tests/decorator/class/index.ts"
+                            "sourcePath": "tests/decorator/class/index.ts"
                         }
                     }
                 ],

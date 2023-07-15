@@ -8,9 +8,14 @@ import type { Import } from './import.js';
  */
 export interface Module {
     /**
-     * The path of the file relative to the working directory
+     * The source path of the file relative to the working directory
      */
-    path: string;
+    sourcePath: string;
+
+    /**
+     * The output path of the file relative to the working directory
+     */
+    outputPath: string;
 
     /**
      * All the declarations exported from the file

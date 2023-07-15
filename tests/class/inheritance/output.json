@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/class/inheritance/index.ts",
+        "sourcesourcePath": "tests/class/inheritance/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -60,7 +60,7 @@
                         "name": "Class1",
                         "source": {
                             "line": 1,
-                            "path": "tests/class/inheritance/index.ts"
+                            "sourcesourcePath": "tests/class/inheritance/index.ts"
                         },
                         "kind": "Class"
                     }
@@ -129,7 +129,7 @@
                         "name": "Class2",
                         "source": {
                             "line": 9,
-                            "path": "tests/class/inheritance/index.ts"
+                            "sourcesourcePath": "tests/class/inheritance/index.ts"
                         },
                         "kind": "Class"
                     }

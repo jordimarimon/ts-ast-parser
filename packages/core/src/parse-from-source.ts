@@ -1,5 +1,6 @@
+import { JS_DEFAULT_COMPILER_OPTIONS, TS_DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
 import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
-import { DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
+import type { AnalyzerOptions } from './analyzer-options.js';
 import { createCompilerHost } from './compiler-host.js';
 import { ModuleNode } from './nodes/module-node.js';
 import type { AnalyzerContext } from './context.js';
@@ -11,14 +12,16 @@ import ts from 'typescript';
  * Syntax Tree from a TypeScript code snippet
  *
  * @param source - A string that represents the TypeScript source code
- * @param compilerOptions - Options to pass to the TypeScript compiler. For more information see [Compiler Options](https://www.typescriptlang.org/tsconfig#compilerOptions).
+ * @param options - Options to configure the analyzer
  *
  * @returns The reflected TypeScript AST
  */
-export function parseFromSource(source: string, compilerOptions?: ts.CompilerOptions): ModuleNode | null {
+export function parseFromSource(source: string, options?: Partial<AnalyzerOptions>): ModuleNode | null {
     const fileName = 'unknown.ts';
     const compilerHost = createCompilerHost(fileName, source);
-    const resolvedCompilerOptions = compilerOptions ?? DEFAULT_COMPILER_OPTIONS;
+    const resolvedCompilerOptions = options?.jsProject
+        ? JS_DEFAULT_COMPILER_OPTIONS
+        : (options?.compilerOptions ?? TS_DEFAULT_COMPILER_OPTIONS);
     const program = ts.createProgram([fileName], resolvedCompilerOptions, compilerHost);
     const sourceFile = program.getSourceFile(fileName);
     const diagnostics = program.getSemanticDiagnostics();
@@ -35,7 +38,8 @@ export function parseFromSource(source: string, compilerOptions?: ts.CompilerOpt
 
     const context: AnalyzerContext = {
         checker: program.getTypeChecker(),
-        compilerOptions: resolvedCompilerOptions,
+        options: options ?? null,
+        commandLine: null,
         normalizePath: path => path ?? '',
     };
 

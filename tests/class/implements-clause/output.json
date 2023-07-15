@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/class/implements-clause/index.ts",
+        "sourcesourcePath": "tests/class/implements-clause/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -49,7 +49,7 @@
                         "name": "Bar",
                         "source": {
                             "line": 1,
-                            "path": "tests/class/implements-clause/index.ts"
+                            "sourcesourcePath": "tests/class/implements-clause/index.ts"
                         },
                         "kind": "Interface"
                     }

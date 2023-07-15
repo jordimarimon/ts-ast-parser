@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/variable/complex-types/index.ts",
+        "sourcePath": "tests/variable/complex-types/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -18,7 +18,7 @@
                     "sources": [
                         {
                             "text": "Colors",
-                            "path": "tests/variable/complex-types/index.ts",
+                            "sourcePath": "tests/variable/complex-types/index.ts",
                             "line": 1
                         }
                     ]
@@ -34,7 +34,7 @@
                     "sources": [
                         {
                             "text": "Colors",
-                            "path": "tests/variable/complex-types/index.ts",
+                            "sourcePath": "tests/variable/complex-types/index.ts",
                             "line": 1
                         }
                     ]
@@ -50,7 +50,7 @@
                     "sources": [
                         {
                             "text": "TypeX",
-                            "path": "tests/variable/complex-types/index.ts",
+                            "sourcePath": "tests/variable/complex-types/index.ts",
                             "line": 8
                         }
                     ]
@@ -66,12 +66,12 @@
                     "sources": [
                         {
                             "text": "TypeX",
-                            "path": "tests/variable/complex-types/index.ts",
+                            "sourcePath": "tests/variable/complex-types/index.ts",
                             "line": 8
                         },
                         {
                             "text": "TypeY",
-                            "path": "tests/variable/complex-types/index.ts",
+                            "sourcePath": "tests/variable/complex-types/index.ts",
                             "line": 9
                         }
                     ]
@@ -87,7 +87,7 @@
                     "sources": [
                         {
                             "text": "TypeX",
-                            "path": "tests/variable/complex-types/index.ts",
+                            "sourcePath": "tests/variable/complex-types/index.ts",
                             "line": 8
                         }
                     ]
@@ -103,7 +103,7 @@
                     "sources": [
                         {
                             "line": 10,
-                            "path": "tests/variable/complex-types/index.ts",
+                            "sourcePath": "tests/variable/complex-types/index.ts",
                             "text": "TypeArray"
                         }
                     ]

@@ -1,17 +1,17 @@
 [
     {
-        "path": "tests/import/side-effect/index.ts",
+        "sourcePath": "tests/import/side-effect/index.ts",
         "imports": [
             {
                 "kind": "SideEffect",
-                "importPath": "./foo.js"
+                "importsourcePath": "./foo.js"
             }
         ],
         "exports": [],
         "declarations": []
     },
     {
-        "path": "tests/import/side-effect/foo.ts",
+        "sourcePath": "tests/import/side-effect/foo.ts",
         "imports": [],
         "exports": [
             {

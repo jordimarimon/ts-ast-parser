@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/interface/utility-types/index.ts",
+        "sourcePath": "tests/interface/utility-types/index.ts",
         "imports": [],
         "declarations": [
             {

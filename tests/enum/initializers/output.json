@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/enum/initializers/index.ts",
+        "sourcePath": "tests/enum/initializers/index.ts",
         "imports": [],
         "declarations": [
             {

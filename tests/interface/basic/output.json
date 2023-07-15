@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/interface/basic/index.ts",
+        "sourcePath": "tests/interface/basic/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -30,7 +30,7 @@
                             "sources": [
                                 {
                                     "text": "K",
-                                    "path": "tests/interface/basic/index.ts",
+                                    "sourcePath": "tests/interface/basic/index.ts",
                                     "line": 1
                                 }
                             ]
@@ -118,7 +118,7 @@
                                         "sources": [
                                             {
                                                 "text": "T",
-                                                "path": "tests/interface/basic/index.ts",
+                                                "sourcePath": "tests/interface/basic/index.ts",
                                                 "line": 7
                                             }
                                         ]
@@ -133,7 +133,7 @@
                                             "sources": [
                                                 {
                                                     "text": "T",
-                                                    "path": "tests/interface/basic/index.ts",
+                                                    "sourcePath": "tests/interface/basic/index.ts",
                                                     "line": 7
                                                 }
                                             ]
@@ -160,7 +160,7 @@
                                         "sources": [
                                             {
                                                 "text": "T",
-                                                "path": "tests/interface/basic/index.ts",
+                                                "sourcePath": "tests/interface/basic/index.ts",
                                                 "line": 8
                                             }
                                         ]
@@ -175,7 +175,7 @@
                                             "sources": [
                                                 {
                                                     "text": "T",
-                                                    "path": "tests/interface/basic/index.ts",
+                                                    "sourcePath": "tests/interface/basic/index.ts",
                                                     "line": 8
                                                 }
                                             ]

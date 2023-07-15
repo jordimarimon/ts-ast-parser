@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/variable/satisfies-operator/index.ts",
+        "sourcePath": "tests/variable/satisfies-operator/index.ts",
         "imports": [],
         "declarations": [
             {

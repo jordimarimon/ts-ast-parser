@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+        "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -33,7 +33,7 @@
                             "sources": [
                                 {
                                     "text": "T",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                     "line": 5
                                 }
                             ]
@@ -54,7 +54,7 @@
                                 "sources": [
                                     {
                                         "text": "ClassB<T>",
-                                        "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                        "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                         "line": 9
                                     }
                                 ]
@@ -68,7 +68,7 @@
                                     "sources": [
                                         {
                                             "text": "T",
-                                            "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                            "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                             "line": 9
                                         }
                                     ]
@@ -94,7 +94,7 @@
                             "sources": [
                                 {
                                     "text": "T",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                     "line": 9
                                 }
                             ]
@@ -110,7 +110,7 @@
                             "sources": [
                                 {
                                     "text": "T",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                     "line": 9
                                 }
                             ]
@@ -131,7 +131,7 @@
                                         "sources": [
                                             {
                                                 "text": "T",
-                                                "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                                "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                                 "line": 9
                                             }
                                         ]
@@ -145,7 +145,7 @@
                                             "sources": [
                                                 {
                                                     "text": "T",
-                                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                                    "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                                     "line": 9
                                                 }
                                             ]
@@ -171,7 +171,7 @@
                                 "sources": [
                                     {
                                         "text": "ClassA",
-                                        "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                        "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                         "line": 25
                                     }
                                 ]
@@ -193,7 +193,7 @@
                         "name": "ClassB<string>",
                         "source": {
                             "line": 9,
-                            "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                            "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts"
                         },
                         "kind": "Class"
                     }
@@ -208,7 +208,7 @@
                             "sources": [
                                 {
                                     "text": "TypeY<string>",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                     "line": 5
                                 }
                             ]
@@ -224,7 +224,7 @@
                             "sources": [
                                 {
                                     "text": "TypeX<string>",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
+                                    "sourcesourcePath": "tests/class/typed-parameters-and-inheritance/index.ts",
                                     "line": 1
                                 }
                             ]

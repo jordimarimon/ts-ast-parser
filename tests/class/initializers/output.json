@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/class/initializers/index.ts",
+        "sourcesourcePath": "tests/class/initializers/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -15,7 +15,7 @@
                                 "sources": [
                                     {
                                         "line": 7,
-                                        "path": "tests/class/initializers/index.ts",
+                                        "sourcesourcePath": "tests/class/initializers/index.ts",
                                         "text": "Foo"
                                     }
                                 ],

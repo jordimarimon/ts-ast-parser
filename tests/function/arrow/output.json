@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/function/arrow/index.ts",
+        "sourcePath": "tests/function/arrow/index.ts",
         "imports": [],
         "declarations": [
             {

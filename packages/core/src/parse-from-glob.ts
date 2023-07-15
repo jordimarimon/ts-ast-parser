@@ -1,7 +1,7 @@
-import { parseFromFiles } from './parse-from-files.js';
+import type { AnalyzerOptions } from './analyzer-options.js';
 import type { ModuleNode } from './nodes/module-node.js';
+import { parseFromFiles } from './parse-from-files.js';
 import { globbySync } from 'globby';
-import type ts from 'typescript';
 
 
 const IGNORE: string[] = [
@@ -21,13 +21,13 @@ const IGNORE: string[] = [
  * Any pattern that `globby` accepts can be used.
  *
  * @param patterns - A string or an array of strings that represent glob patterns
- * @param compilerOptions - Options to pass to the TypeScript compiler. For more information see [Compiler Options](https://www.typescriptlang.org/tsconfig#compilerOptions).
+ * @param options - Options to configure the analyzer
  *
  * @returns The reflected TypeScript AST
  */
-export function parseFromGlob(patterns: string | string[], compilerOptions?: ts.CompilerOptions): ModuleNode[] {
+export function parseFromGlob(patterns: string | string[], options?: Partial<AnalyzerOptions>): ModuleNode[] {
     const arrPatterns = Array.isArray(patterns) ? patterns : [patterns];
     const paths = globbySync([...arrPatterns, ...IGNORE]);
 
-    return parseFromFiles(paths, compilerOptions);
+    return parseFromFiles(paths, options);
 }

@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/variable/type-assertion/index.ts",
+        "sourcePath": "tests/variable/type-assertion/index.ts",
         "imports": [],
         "declarations": [
             {

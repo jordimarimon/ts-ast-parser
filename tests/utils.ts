@@ -16,13 +16,14 @@ const basedDir = path.join(process.cwd(), 'tests');
 
 export function getFixture(options: TestOptions): { actual: ModuleNode[]; expected: Module[] } {
     const {category, subcategory, importedFiles, compilerOptions} = options;
+    const analyzerOptions = compilerOptions ? {compilerOptions} : {};
     const testFilePath = getTestFilePath(category, subcategory);
     const expectedOutputFile = readExpectedOutput(category, subcategory);
     const importedFilePaths = (importedFiles ?? []).map(fileName => {
         return path.join(basedDir, category, subcategory ?? '', fileName);
     });
 
-    const modules = parseFromFiles([testFilePath, ...importedFilePaths], compilerOptions);
+    const modules = parseFromFiles([testFilePath, ...importedFilePaths], analyzerOptions);
 
     return {
         actual: modules,

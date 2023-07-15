@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/function/const-type-parameters/index.ts",
+        "sourcePath": "tests/function/const-type-parameters/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -21,7 +21,7 @@
                                 "sources": [
                                     {
                                         "text": "K",
-                                        "path": "tests/function/const-type-parameters/index.ts",
+                                        "sourcePath": "tests/function/const-type-parameters/index.ts",
                                         "line": 3
                                     }
                                 ]
@@ -41,7 +41,7 @@
                                     "sources": [
                                         {
                                             "text": "K",
-                                            "path": "tests/function/const-type-parameters/index.ts",
+                                            "sourcePath": "tests/function/const-type-parameters/index.ts",
                                             "line": 3
                                         }
                                     ]
@@ -77,7 +77,7 @@
                                     "sources": [
                                         {
                                             "text": "T",
-                                            "path": "tests/function/const-type-parameters/index.ts",
+                                            "sourcePath": "tests/function/const-type-parameters/index.ts",
                                             "line": 7
                                         }
                                     ]

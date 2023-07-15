@@ -1,5 +1,6 @@
 import { getResolvedCompilerOptions } from './resolve-compiler-options.js';
 import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
+import type { AnalyzerOptions } from './analyzer-options.js';
 import type { AnalyzerContext } from './context.js';
 import { ModuleNode } from './nodes/module-node.js';
 import * as path from 'path';
@@ -11,19 +12,20 @@ import ts from 'typescript';
  * reflects a simplified version of the TypeScript Abstract Syntax Tree.
  *
  * @param files - An array of paths where the TypeScripts files are located
- * @param compilerOptions - Options to pass to the TypeScript compiler. For more information see [Compiler Options](https://www.typescriptlang.org/tsconfig#compilerOptions).
+ * @param options - Options to configure the analyzer
  *
  * @returns The reflected TypeScript AST
  */
-export function parseFromFiles(files: readonly string[], compilerOptions?: ts.CompilerOptions): ModuleNode[] {
+export function parseFromFiles(files: readonly string[], options?: Partial<AnalyzerOptions>): ModuleNode[] {
     if (!Array.isArray(files)) {
         logError('Expected an array of files.');
         return [];
     }
 
     const modules: ModuleNode[] = [];
-    const resolvedCompilerOptions = getResolvedCompilerOptions(compilerOptions);
-    const program = ts.createProgram(files, resolvedCompilerOptions);
+    const resolvedCompilerOptions = getResolvedCompilerOptions(options);
+    const compilerHost = ts.createCompilerHost(resolvedCompilerOptions.compilerOptions, true);
+    const program = ts.createProgram(files, resolvedCompilerOptions.compilerOptions, compilerHost);
     const diagnostics = program.getSemanticDiagnostics();
 
     if (diagnostics.length) {
@@ -33,7 +35,8 @@ export function parseFromFiles(files: readonly string[], compilerOptions?: ts.Co
 
     const context: AnalyzerContext = {
         checker: program.getTypeChecker(),
-        compilerOptions: resolvedCompilerOptions,
+        options: options ?? null,
+        commandLine: resolvedCompilerOptions.commandLine,
         normalizePath: filePath => filePath ? path.normalize(path.relative(process.cwd(), filePath)) : '',
     };
 

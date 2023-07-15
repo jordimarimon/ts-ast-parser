@@ -282,7 +282,6 @@
                     }
                 ],
                 "@typescript-eslint/unified-signatures": "error",
-                "@typescript-eslint/consistent-type-exports": "error",
                 "@typescript-eslint/consistent-type-imports": "error",
                 "@typescript-eslint/no-magic-numbers": "off",
                 "@typescript-eslint/no-empty-function": [
@@ -297,6 +296,7 @@
                 "import/default": "off",
                 "import/named": "off",
                 "import/no-named-as-default-member": "off",
+                "sonarjs/no-duplicate-string": "off",
                 "@typescript-eslint/ban-types": [
                     "error",
                     {

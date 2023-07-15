@@ -1,12 +1,12 @@
 [
     {
-        "path": "tests/import/paths/index.ts",
+        "sourcePath": "tests/import/sourcePaths/index.ts",
         "imports": [
             {
                 "name": "Foo",
                 "kind": "Named",
-                "importPath": "custom-path/foo",
-                "originalPath": "tests/import/paths/foo.ts",
+                "importsourcePath": "custom-sourcePath/foo",
+                "originalsourcePath": "tests/import/sourcePaths/foo.ts",
                 "bareModuleSpecifier": true
             }
         ],
@@ -26,7 +26,7 @@
                         "name": "Foo",
                         "source": {
                             "line": 1,
-                            "path": "tests/import/paths/foo.ts"
+                            "sourcePath": "tests/import/sourcePaths/foo.ts"
                         },
                         "kind": "Class"
                     }
@@ -46,7 +46,7 @@
         ]
     },
     {
-        "path": "tests/import/paths/foo.ts",
+        "sourcePath": "tests/import/sourcePaths/foo.ts",
         "imports": [],
         "exports": [
             {

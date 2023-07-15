@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/class/third-party-inheritance/index.ts",
+        "sourcesourcePath": "tests/class/third-party-inheritance/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -36,7 +36,7 @@
                         "name": "FooElement",
                         "source": {
                             "line": 1,
-                            "path": "tests/class/third-party-inheritance/index.ts"
+                            "sourcesourcePath": "tests/class/third-party-inheritance/index.ts"
                         },
                         "kind": "Class"
                     }

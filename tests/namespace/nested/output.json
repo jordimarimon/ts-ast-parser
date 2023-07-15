@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/namespace/nested/index.ts",
+        "sourcePath": "tests/namespace/nested/index.ts",
         "imports": [],
         "declarations": [
             {

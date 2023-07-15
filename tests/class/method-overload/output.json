@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/class/method-overload/index.ts",
+        "sourcesourcePath": "tests/class/method-overload/index.ts",
         "imports": [],
         "declarations": [
             {

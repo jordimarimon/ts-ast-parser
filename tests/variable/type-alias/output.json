@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/variable/type-alias/index.ts",
+        "sourcePath": "tests/variable/type-alias/index.ts",
         "imports": [],
         "declarations": [
             {

@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/export/type/index.ts",
+        "sourcePath": "tests/export/type/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -34,7 +34,7 @@
         ]
     },
     {
-        "path": "tests/export/type/foo.ts",
+        "sourcePath": "tests/export/type/foo.ts",
         "imports": [],
         "declarations": [
             {

@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/interface/accessors/index.ts",
+        "sourcePath": "tests/interface/accessors/index.ts",
         "imports": [],
         "declarations": [
             {

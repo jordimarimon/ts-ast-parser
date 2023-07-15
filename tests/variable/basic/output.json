@@ -1,6 +1,7 @@
 [
     {
-        "path": "tests/variable/basic/index.ts",
+        "sourcePath": "tests/variable/basic/index.ts",
+        "outputPath": "tests/variable/basic/index.js",
         "imports": [],
         "declarations": [
             {

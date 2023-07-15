@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/class/basic/index.ts",
+        "sourcesourcePath": "tests/class/basic/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -16,7 +16,7 @@
                                 "sources": [
                                     {
                                         "text": "Foo",
-                                        "path": "tests/class/basic/index.ts",
+                                        "sourcesourcePath": "tests/class/basic/index.ts",
                                         "line": 4
                                     }
                                 ]

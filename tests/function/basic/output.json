@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/function/basic/index.ts",
+        "sourcePath": "tests/function/basic/index.ts",
         "imports": [],
         "declarations": [
             {

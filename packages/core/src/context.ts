@@ -1,3 +1,4 @@
+import type { AnalyzerOptions } from './analyzer-options.js';
 import type ts from 'typescript';
 
 
@@ -18,17 +19,25 @@ export const isBrowser = typeof document === 'object' && !!document;
 export interface AnalyzerContext {
     /**
      * The TypeScript type checker.
+     *
      * Useful to resolve the types of the symbols and declarations.
      */
     checker: ts.TypeChecker;
 
     /**
-     * The TypeScript compiler options.
+     * TSConfig file content.
+     *
+     * It won't be defined when we don't have a TSConfig file available.
      */
-    compilerOptions: ts.CompilerOptions;
+    commandLine: ts.ParsedCommandLine | null;
 
     /**
-     * Normalizing the path depends on the environment (browser or NodeJS)
+     * The analyzer options.
+     */
+    options: Partial<AnalyzerOptions> | null;
+
+    /**
+     * Normalizing the path depends on the environment (browser or NodeJS) and the OS
      */
     normalizePath: (path: string | undefined) => string;
 }

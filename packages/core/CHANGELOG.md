@@ -1,5 +1,11 @@
 ## [next]
 
+### Features
+
+* Get the output JS path of a given source file. Use the `getOuputPath()` from the `ModuleNode` class.
+* Analyze an entire project. Use the new function `parseFromProjec()` to analyze an entire project based only on the 
+  TSConfig file options.
+
 ### Bug Fixes
 
 * Don't remove reexport nodes when searching for duplicate exports.
@@ -8,6 +14,7 @@
 
 * Don't make publicly available all the utilities
 * Change how the `is` type predicate utility is available. Now the utility is available though the main entry point.
+* The field `path` of a module has been renamed to `sourcePath`
 
 ## 0.3.2 (2023-06-18)
 

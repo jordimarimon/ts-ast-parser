@@ -1,18 +1,18 @@
 [
     {
-        "path": "tests/import/named/index.ts",
+        "sourcePath": "tests/import/named/index.ts",
         "imports": [
             {
                 "name": "Foo",
                 "kind": "Named",
-                "importPath": "./foo.js"
+                "importsourcePath": "./foo.js"
             }
         ],
         "exports": [],
         "declarations": []
     },
     {
-        "path": "tests/import/named/foo.ts",
+        "sourcePath": "tests/import/named/foo.ts",
         "imports": [],
         "exports": [
             {

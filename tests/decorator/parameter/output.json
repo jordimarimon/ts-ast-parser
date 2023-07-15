@@ -1,10 +1,10 @@
 [
     {
-        "path": "tests/decorator/parameter/index.ts",
+        "sourcePath": "tests/decorator/parameter/index.ts",
         "imports": [
             {
                 "kind": "SideEffect",
-                "importPath": "reflect-metadata",
+                "importsourcePath": "reflect-metadata",
                 "bareModuleSpecifier": true
             }
         ],
@@ -66,7 +66,7 @@
                                     "sources": [
                                         {
                                             "text": "BugReport",
-                                            "path": "tests/decorator/parameter/index.ts",
+                                            "sourcePath": "tests/decorator/parameter/index.ts",
                                             "line": 37
                                         }
                                     ]
@@ -103,7 +103,7 @@
                                 "sources": [
                                     {
                                         "line": 37,
-                                        "path": "tests/decorator/parameter/index.ts",
+                                        "sourcePath": "tests/decorator/parameter/index.ts",
                                         "text": "BugReport"
                                     }
                                 ]
@@ -164,7 +164,7 @@
                                                 "name": "required",
                                                 "source": {
                                                     "line": 7,
-                                                    "path": "tests/decorator/parameter/index.ts"
+                                                    "sourcePath": "tests/decorator/parameter/index.ts"
                                                 }
                                             }
                                         ]
@@ -177,7 +177,7 @@
                                 "name": "validate",
                                 "source": {
                                     "line": 13,
-                                    "path": "tests/decorator/parameter/index.ts"
+                                    "sourcePath": "tests/decorator/parameter/index.ts"
                                 }
                             }
                         ]

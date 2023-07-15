@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/export/namespace/index.ts",
+        "sourcePath": "tests/export/namespace/index.ts",
         "imports": [],
         "declarations": [],
         "exports": [
@@ -12,7 +12,7 @@
         ]
     },
     {
-        "path": "tests/export/namespace/foo.ts",
+        "sourcePath": "tests/export/namespace/foo.ts",
         "imports": [],
         "declarations": [
             {

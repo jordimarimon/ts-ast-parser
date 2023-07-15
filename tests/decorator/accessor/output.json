@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/decorator/accessor/index.ts",
+        "sourcePath": "tests/decorator/accessor/index.ts",
         "imports": [],
         "declarations": [
             {
@@ -39,7 +39,7 @@
                                 "sources": [
                                     {
                                         "line": 7,
-                                        "path": "tests/decorator/accessor/index.ts",
+                                        "sourcePath": "tests/decorator/accessor/index.ts",
                                         "text": "Point"
                                     }
                                 ]
@@ -79,7 +79,7 @@
                                 ],
                                 "source": {
                                     "line": 1,
-                                    "path": "tests/decorator/accessor/index.ts"
+                                    "sourcePath": "tests/decorator/accessor/index.ts"
                                 }
                             }
                         ],
@@ -100,7 +100,7 @@
                                 ],
                                 "source": {
                                     "line": 1,
-                                    "path": "tests/decorator/accessor/index.ts"
+                                    "sourcePath": "tests/decorator/accessor/index.ts"
                                 }
                             }
                         ],

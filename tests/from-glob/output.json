@@ -1,6 +1,6 @@
 [
     {
-        "path": "tests/from-glob/index.ts",
+        "sourcePath": "tests/from-glob/index.ts",
         "imports": [],
         "declarations": [
             {

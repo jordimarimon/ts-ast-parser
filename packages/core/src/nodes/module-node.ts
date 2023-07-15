@@ -8,6 +8,7 @@ import { JSDocTagName } from '../models/js-doc.js';
 import type { Module } from '../models/module.js';
 import { NodeType } from '../models/node.js';
 import { is } from '../utils/is.js';
+import * as path from 'path';
 import ts from 'typescript';
 
 
@@ -31,12 +32,42 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         this._removeNonPublicDeclarations();
     }
 
+    /**
+     * The TS AST node for the file
+     */
     getTSNode(): ts.SourceFile {
         return this._node;
     }
 
-    getPath(): string {
+    /**
+     * The path to the source file for this module.
+     */
+    getSourcePath(): string {
         return this._context.normalizePath(this._node.fileName);
+    }
+
+    /**
+     * The path where the JS file will be output by the TS Compiler
+     */
+    getOutputPath(): string {
+        const sourcePath = this.getSourcePath();
+
+        // If the source file was already JS, just return that
+        if (sourcePath.endsWith('js')) {
+            return sourcePath;
+        }
+
+        if (sourcePath.endsWith('.d.ts') || !this._context.commandLine) {
+            return '';
+        }
+
+        // Use the TS API to determine where the associated JS will be output based
+        // on tsconfig settings.
+        const outputPath = ts
+            .getOutputFileNames(this._context.commandLine, path.join(process.cwd(), sourcePath), false)
+            .filter(f => f.endsWith('.js'))[0];
+
+        return this._context.normalizePath(outputPath);
     }
 
     getNodeType(): NodeType {
@@ -79,7 +110,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     serialize(): Module {
         return {
-            path: this.getPath(),
+            sourcePath: this.getSourcePath(),
+            outputPath: this.getOutputPath(),
             imports: this.getImports().map(imp => imp.serialize()),
             declarations: this.getDeclarations().map(dec => dec.serialize()),
             exports: this.getExports().map(exp => exp.serialize()),
