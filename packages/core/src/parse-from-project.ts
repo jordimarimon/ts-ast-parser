@@ -1,13 +1,13 @@
 import { getResolvedCompilerOptions } from './resolve-compiler-options.js';
 import { formatDiagnostics, logError } from './utils/logs.js';
-import type { AnalyzerOptions } from './analyzer-options.js';
+import type { AnalyserOptions } from './analyser-options.js';
 import { ProjectNode } from './nodes/project-node.js';
-import type { AnalyzerContext } from './context.js';
+import type { AnalyserContext } from './context.js';
 import ts from 'typescript';
 import path from 'path';
 
 
-export function parseFromProject(options?: Partial<AnalyzerOptions>): ProjectNode | null {
+export function parseFromProject(options: Partial<AnalyserOptions> = {}): ProjectNode | null {
     const {compilerOptions, commandLine} = getResolvedCompilerOptions(options);
     const compilerHost = ts.createCompilerHost(compilerOptions, true);
     const program = ts.createProgram(commandLine?.fileNames ?? [], compilerOptions, compilerHost);
@@ -18,7 +18,7 @@ export function parseFromProject(options?: Partial<AnalyzerOptions>): ProjectNod
         return null;
     }
 
-    const context: AnalyzerContext = {
+    const context: AnalyserContext = {
         checker: program.getTypeChecker(),
         options: options ?? null,
         commandLine,

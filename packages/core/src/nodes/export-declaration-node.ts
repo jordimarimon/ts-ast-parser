@@ -1,6 +1,6 @@
 import type { ReflectedNode } from './reflected-node.js';
 import { hasDefaultKeyword } from '../utils/export.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { NodeType } from '../models/node.js';
@@ -25,9 +25,9 @@ export class ExportDeclarationNode implements ReflectedNode<Export, ExportDeclar
 
     private readonly _declaration: ts.VariableDeclaration | null = null;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
-    constructor(node: ExportDeclarationNodeType, context: AnalyzerContext, declaration?: ts.VariableDeclaration) {
+    constructor(node: ExportDeclarationNodeType, context: AnalyserContext, declaration?: ts.VariableDeclaration) {
         this._node = node;
         this._declaration = declaration ?? null;
         this._context = context;
@@ -49,7 +49,7 @@ export class ExportDeclarationNode implements ReflectedNode<Export, ExportDeclar
         return NodeType.Export;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

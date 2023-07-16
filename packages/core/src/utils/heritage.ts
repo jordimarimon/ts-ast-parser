@@ -2,7 +2,7 @@ import type { Reference, SourceReference } from '../models/reference.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import type { InterfaceOrClassDeclaration } from './is.js';
 import { tryAddProperty } from './try-add-property.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { getLocation } from './get-location.js';
 import { isThirdParty } from './import.js';
 import { hasFlag } from './member.js';
@@ -18,7 +18,7 @@ import ts from 'typescript';
  *
  * @returns True if the node extends HTMLElement
  */
-export function isCustomElement(node: InterfaceOrClassDeclaration, context: AnalyzerContext): boolean {
+export function isCustomElement(node: InterfaceOrClassDeclaration, context: AnalyserContext): boolean {
     const type = context.checker.getTypeAtLocation(node);
     const baseTypes = context.checker.getBaseTypes(type as ts.InterfaceType);
 
@@ -58,7 +58,7 @@ export function hasHTMLElementAsBase(type: ts.Type, checker: ts.TypeChecker): bo
  *
  * @returns The heritage chain
  */
-export function getExtendClauseReferences(node: InterfaceOrClassDeclaration, context: AnalyzerContext): Reference[] {
+export function getExtendClauseReferences(node: InterfaceOrClassDeclaration, context: AnalyserContext): Reference[] {
     const heritageClauses = node.heritageClauses ?? [];
     const references: Reference[] = [];
 
@@ -87,7 +87,7 @@ export function getExtendClauseReferences(node: InterfaceOrClassDeclaration, con
  *
  * @returns The reference object
  */
-export function createReference(type: ts.ExpressionWithTypeArguments, context: AnalyzerContext): Reference | null {
+export function createReference(type: ts.ExpressionWithTypeArguments, context: AnalyserContext): Reference | null {
     const expr = type.expression;
     const typeArguments = type.typeArguments;
 

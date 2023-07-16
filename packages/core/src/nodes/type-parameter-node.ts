@@ -3,7 +3,7 @@ import { tryAddProperty } from '../utils/try-add-property.js';
 import { getTypeArgumentNames } from '../utils/heritage.js';
 import { getLinePosition } from '../utils/get-location.js';
 import type { ReflectedNode } from './reflected-node.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import type ts from 'typescript';
 
@@ -12,14 +12,14 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
 
     private readonly _node: ts.TypeParameterDeclaration;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
-    constructor(node: ts.TypeParameterDeclaration, context: AnalyzerContext) {
+    constructor(node: ts.TypeParameterDeclaration, context: AnalyserContext) {
         this._node = node;
         this._context = context;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

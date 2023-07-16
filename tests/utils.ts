@@ -1,4 +1,4 @@
-import type { AnalyzerOptions, Module, ModuleNode } from '@ts-ast-parser/core';
+import type { AnalyserOptions, Module, ModuleNode } from '@ts-ast-parser/core';
 import { parseFromFiles } from '@ts-ast-parser/core';
 import path from 'path';
 import fs from 'fs';
@@ -8,7 +8,7 @@ type TestOptions = {
     category: string;
     subcategory?: string;
     importedFiles?: string[];
-    analyzerOptions?: Partial<AnalyzerOptions>;
+    analyzerOptions?: Partial<AnalyserOptions>;
 }
 
 const basedDir = path.join(process.cwd(), 'tests');

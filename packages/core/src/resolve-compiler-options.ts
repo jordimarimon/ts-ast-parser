@@ -1,5 +1,5 @@
 import { JS_DEFAULT_COMPILER_OPTIONS, TS_DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
-import type { AnalyzerOptions } from './analyzer-options.js';
+import type { AnalyserOptions } from './analyser-options.js';
 import ts from 'typescript';
 import path from 'path';
 
@@ -9,8 +9,8 @@ export interface ResolvedCompilerOptions {
     commandLine: ts.ParsedCommandLine | null;
 }
 
-export function getResolvedCompilerOptions(options?: Partial<AnalyzerOptions>): ResolvedCompilerOptions {
-    const {compilerOptions, jsProject, tsConfigFilePath} = options ?? {};
+export function getResolvedCompilerOptions(options: Partial<AnalyserOptions> = {}): ResolvedCompilerOptions {
+    const {compilerOptions, jsProject, tsConfigFilePath, include} = options;
 
     // If it's a JS project, we currently don't allow the user to customize the compiler options
     if (jsProject) {
@@ -19,7 +19,7 @@ export function getResolvedCompilerOptions(options?: Partial<AnalyzerOptions>): 
             commandLine: ts.parseJsonConfigFileContent(
                 {
                     compilerOptions: JS_DEFAULT_COMPILER_OPTIONS,
-                    include: ['**/*.js'],
+                    include: include ?? ['**/*.js'],
                     exclude: ['**node_modules**'],
                 },
                 ts.sys,
@@ -35,7 +35,7 @@ export function getResolvedCompilerOptions(options?: Partial<AnalyzerOptions>): 
             commandLine: ts.parseJsonConfigFileContent(
                 {
                     compilerOptions: {...compilerOptions, declaration: true},
-                    include: ['**/*.ts'],
+                    include: include ?? ['**/*.ts'],
                     exclude: ['**node_modules**'],
                 },
                 ts.sys,
@@ -57,7 +57,7 @@ export function getResolvedCompilerOptions(options?: Partial<AnalyzerOptions>): 
         commandLine: ts.parseJsonConfigFileContent(
             {
                 compilerOptions: TS_DEFAULT_COMPILER_OPTIONS,
-                include: ['**/*.ts'],
+                include: include ?? ['**/*.ts'],
                 exclude: ['**node_modules**'],
             },
             ts.sys,
@@ -70,24 +70,24 @@ function parseTSConfigFile(tsConfigFilePath?: string): ResolvedCompilerOptions |
     const fileExists = (filePath: string) => ts.sys.fileExists(filePath);
     const readFile = (filePath: string) => ts.sys.readFile(filePath);
     const basePath = tsConfigFilePath ? path.dirname(path.join(process.cwd(), tsConfigFilePath)) : process.cwd();
-    const fileName = tsConfigFilePath ? path.basename(tsConfigFilePath) : 'tsconfig.js';
+    const fileName = tsConfigFilePath ? path.basename(tsConfigFilePath) : 'tsconfig.json';
     const configFileName = ts.findConfigFile(basePath, fileExists, fileName);
     const configFile = configFileName && ts.readConfigFile(configFileName, readFile);
 
-    if (configFile && typeof configFile === 'object') {
-        const commandLine = ts.parseJsonConfigFileContent(
-            configFile.config,
-            ts.sys,
-            process.cwd(),
-            undefined,
-            path.relative(process.cwd(), configFileName),
-        );
-
-        return {
-            commandLine,
-            compilerOptions: {...commandLine.options, declaration: true},
-        };
+    if (!configFile || typeof configFile !== 'object') {
+        return null;
     }
 
-    return null;
+    const commandLine = ts.parseJsonConfigFileContent(
+        configFile.config,
+        ts.sys,
+        process.cwd(),
+        undefined,
+        path.relative(process.cwd(), configFileName),
+    );
+
+    return {
+        commandLine,
+        compilerOptions: {...commandLine.options, declaration: true},
+    };
 }

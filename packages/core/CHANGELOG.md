@@ -15,6 +15,7 @@
 * The field `path` of a module has been renamed to `sourcePath`
 * All the `parser-from-*` functions, now receive as second argument an object of type `AnalyzerOptions` instead of 
   the `ts.CompilerOptions`
+* Function `parse-from-source` is now asynchronous, it will return a `Promise<ModuleNode | null>`
 
 ## 0.3.2 (2023-06-18)
 

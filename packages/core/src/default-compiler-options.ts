@@ -9,7 +9,10 @@ export const TS_DEFAULT_COMPILER_OPTIONS: ts.CompilerOptions = {
     experimentalDecorators: true,
     target: ts.ScriptTarget.Latest,
     module: ts.ModuleKind.ESNext,
+    lib: ['es2020', 'DOM'],
     declaration: true,
+    skipLibCheck: true,
+    skipDefaultLibCheck: true,
 };
 
 /**
@@ -17,12 +20,12 @@ export const TS_DEFAULT_COMPILER_OPTIONS: ts.CompilerOptions = {
  * a JavaScript project.
  */
 export const JS_DEFAULT_COMPILER_OPTIONS: ts.CompilerOptions = {
+    target: ts.ScriptTarget.Latest,
     module: ts.ModuleKind.ESNext,
     lib: ['es2020', 'DOM'],
     allowJs: true,
     skipLibCheck: true,
     skipDefaultLibCheck: true,
-    target: ts.ScriptTarget.Latest,
     moduleResolution: ts.ModuleResolutionKind.NodeNext,
     typeRoots: [],
 };

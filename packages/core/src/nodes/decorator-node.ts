@@ -3,7 +3,7 @@ import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedNode } from './reflected-node.js';
 import type { Decorator } from '../models/decorator.js';
 import { getLocation } from '../utils/get-location.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
@@ -16,11 +16,11 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
 
     private readonly _decorator: ts.Decorator;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(decorator: ts.Decorator, context: AnalyzerContext) {
+    constructor(decorator: ts.Decorator, context: AnalyserContext) {
         this._decorator = decorator;
         this._context = context;
         this._jsDoc = new JSDocNode(decorator);
@@ -51,7 +51,7 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
         return this._decorator;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

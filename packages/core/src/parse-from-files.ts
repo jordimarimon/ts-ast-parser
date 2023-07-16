@@ -1,7 +1,7 @@
 import { getResolvedCompilerOptions } from './resolve-compiler-options.js';
 import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
-import type { AnalyzerOptions } from './analyzer-options.js';
-import type { AnalyzerContext } from './context.js';
+import type { AnalyserOptions } from './analyser-options.js';
+import type { AnalyserContext } from './context.js';
 import { ModuleNode } from './nodes/module-node.js';
 import * as path from 'path';
 import ts from 'typescript';
@@ -16,14 +16,14 @@ import ts from 'typescript';
  *
  * @returns The reflected TypeScript AST
  */
-export function parseFromFiles(files: readonly string[], options?: Partial<AnalyzerOptions>): ModuleNode[] {
+export function parseFromFiles(files: readonly string[], options: Partial<AnalyserOptions> = {}): ModuleNode[] {
     if (!Array.isArray(files)) {
         logError('Expected an array of files.');
         return [];
     }
 
     const modules: ModuleNode[] = [];
-    const resolvedCompilerOptions = getResolvedCompilerOptions(options);
+    const resolvedCompilerOptions = getResolvedCompilerOptions({...options, include: files});
     const compilerHost = ts.createCompilerHost(resolvedCompilerOptions.compilerOptions, true);
     const program = ts.createProgram(files, resolvedCompilerOptions.compilerOptions, compilerHost);
     const diagnostics = program.getSemanticDiagnostics();
@@ -33,7 +33,7 @@ export function parseFromFiles(files: readonly string[], options?: Partial<Analy
         return [];
     }
 
-    const context: AnalyzerContext = {
+    const context: AnalyserContext = {
         checker: program.getTypeChecker(),
         options: options ?? null,
         commandLine: resolvedCompilerOptions.commandLine,

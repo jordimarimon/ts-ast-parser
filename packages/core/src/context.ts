@@ -1,4 +1,4 @@
-import type { AnalyzerOptions } from './analyzer-options.js';
+import type { AnalyserOptions } from './analyser-options.js';
 import type ts from 'typescript';
 
 
@@ -8,7 +8,7 @@ import type ts from 'typescript';
 export const isBrowser = typeof document === 'object' && !!document;
 
 /**
- * The context of the analyzer.
+ * The context of the analyser.
  *
  * Contains useful utilities to help analyze the code.
  *
@@ -16,7 +16,7 @@ export const isBrowser = typeof document === 'object' && !!document;
  *
  * In a monorepo there will be one context per child project.
  */
-export interface AnalyzerContext {
+export interface AnalyserContext {
     /**
      * The TypeScript type checker.
      *
@@ -34,7 +34,7 @@ export interface AnalyzerContext {
     /**
      * The analyzer options.
      */
-    options: Partial<AnalyzerOptions> | null;
+    options: Partial<AnalyserOptions> | null;
 
     /**
      * Normalizing the path depends on the environment (browser or NodeJS) and the OS

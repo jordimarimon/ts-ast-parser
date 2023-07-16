@@ -4,7 +4,7 @@ import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getTypeFromTSType } from '../utils/get-type.js';
 import type { ReflectedNode } from './reflected-node.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { ParameterNode } from './parameter-node.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
@@ -15,17 +15,17 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
 
     private readonly _node: ts.Signature;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.Signature, context: AnalyzerContext) {
+    constructor(node: ts.Signature, context: AnalyserContext) {
         this._node = node;
         this._context = context;
         this._jsDoc = new JSDocNode(this._node.getDeclaration());
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

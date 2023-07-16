@@ -1,5 +1,5 @@
 import type { ReflectedNode } from './reflected-node.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { NodeType } from '../models/node.js';
@@ -13,9 +13,9 @@ export class ExportAssignmentNode implements ReflectedNode<Export, ts.ExportAssi
 
     private readonly _node: ts.ExportAssignment;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
-    constructor(node: ts.ExportAssignment, context: AnalyzerContext) {
+    constructor(node: ts.ExportAssignment, context: AnalyserContext) {
         this._node = node;
         this._context = context;
     }
@@ -32,7 +32,7 @@ export class ExportAssignmentNode implements ReflectedNode<Export, ts.ExportAssi
         return NodeType.Export;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

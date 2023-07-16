@@ -66,19 +66,19 @@ class Preview extends HTMLElement {
 
         fetch(`${origin}${pathName}/assets/previews/${src}`)
             .then(response => response.text())
-            .then(code => {
-                try {
-                    const result = JSON.stringify(parseFromSource(code).serialize(), null, 4);
-                    const sourceCode = Prism.highlight(code, Prism.languages.typescript, 'typescript');
-                    const reflectedNodes = Prism.highlight(result, Prism.languages.json, 'json');
+            .then(async (code) => {
+                const reflectedNodes = await parseFromSource(code);
+                return [code, reflectedNodes];
+            })
+            .then(([code, reflectedNodes]) => {
+                const serializedNodes = JSON.stringify(reflectedNodes.serialize(), null, 4);
+                const sourceCode = Prism.highlight(code, Prism.languages.typescript, 'typescript');
+                const json = Prism.highlight(serializedNodes, Prism.languages.json, 'json');
 
-                    this.#sourceEl.innerHTML = `<pre class="language-ts"><code class="language-ts">${sourceCode}</code></pre>`;
-                    this.#outputEl.innerHTML = `<pre class="language-json"><code class="language-json">${reflectedNodes}</code></pre>`;
+                this.#sourceEl.innerHTML = `<pre class="language-ts"><code class="language-ts">${sourceCode}</code></pre>`;
+                this.#outputEl.innerHTML = `<pre class="language-json"><code class="language-json">${json}</code></pre>`;
 
-                    this.removeAttribute('loading');
-                } catch (error) {
-                    console.error(error);
-                }
+                this.removeAttribute('loading');
             })
             .catch(error => {
                 console.error(error);

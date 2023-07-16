@@ -3,7 +3,7 @@ import { isFunctionDeclaration } from '../utils/function.js';
 import { VariableNode } from '../nodes/variable-node.js';
 import { isClassDeclaration } from '../utils/class.js';
 import type { NodeFactory } from './node-factory.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import ts from 'typescript';
 
 
@@ -13,7 +13,7 @@ export const variableFactory: NodeFactory<VariableDeclaration, VariableNode, ts.
         return ts.isVariableStatement(node) && !isFunctionDeclaration(node) && !isClassDeclaration(node);
     },
 
-    create: (node: ts.VariableStatement, context: AnalyzerContext): VariableNode[] => {
+    create: (node: ts.VariableStatement, context: AnalyserContext): VariableNode[] => {
         const result: VariableNode[] = [];
 
         for (const declaration of node.declarationList.declarations) {

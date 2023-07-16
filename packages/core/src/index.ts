@@ -2,9 +2,10 @@
 export * from './parse-from-source.js';
 export * from './parse-from-files.js';
 export * from './parse-from-glob.js';
+export * from './parse-from-project.js';
 
 // OPTIONS
-export * from './analyzer-options.js';
+export * from './analyser-options.js';
 export * from './default-compiler-options.js';
 
 // MODELS

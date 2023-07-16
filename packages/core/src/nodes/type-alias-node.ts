@@ -5,7 +5,7 @@ import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import type { ReflectedNode } from './reflected-node.js';
 import { getNamespace } from '../utils/namespace.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
@@ -15,17 +15,17 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
 
     private readonly _node: ts.TypeAliasDeclaration;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.TypeAliasDeclaration, context: AnalyzerContext) {
+    constructor(node: ts.TypeAliasDeclaration, context: AnalyserContext) {
         this._node = node;
         this._context = context;
         this._jsDoc = new JSDocNode(this._node);
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

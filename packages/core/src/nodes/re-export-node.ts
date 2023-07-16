@@ -1,6 +1,6 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedNode } from './reflected-node.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { NodeType } from '../models/node.js';
@@ -12,9 +12,9 @@ export class ReExportNode implements ReflectedNode<Export, ts.ExportDeclaration>
 
     private readonly _node: ts.ExportDeclaration;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
-    constructor(node: ts.ExportDeclaration, context: AnalyzerContext) {
+    constructor(node: ts.ExportDeclaration, context: AnalyserContext) {
         this._node = node;
         this._context = context;
     }
@@ -35,7 +35,7 @@ export class ReExportNode implements ReflectedNode<Export, ts.ExportDeclaration>
         return NodeType.Export;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

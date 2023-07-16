@@ -10,7 +10,7 @@ import type { ClassDeclaration } from '../models/class.js';
 import type { Reference } from '../models/reference.js';
 import type { SymbolWithContext } from '../utils/is.js';
 import { getDecorators } from '../utils/decorator.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { getNamespace } from '../utils/namespace.js';
 import { SignatureNode } from './signature-node.js';
 import { DecoratorNode } from './decorator-node.js';
@@ -31,7 +31,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     private readonly _node: ts.ClassDeclaration | ts.VariableStatement;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _instanceMembers: SymbolWithContext[] = [];
 
@@ -39,7 +39,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.ClassDeclaration | ts.VariableStatement, context: AnalyzerContext) {
+    constructor(node: ts.ClassDeclaration | ts.VariableStatement, context: AnalyserContext) {
         this._node = node;
         this._context = context;
         this._jsDoc = new JSDocNode(node);
@@ -80,7 +80,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     /**
      * The analyzer context
      */
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

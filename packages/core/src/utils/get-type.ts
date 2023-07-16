@@ -1,6 +1,6 @@
 import type { Type, TypeReference } from '../models/type.js';
 import { tryAddProperty } from './try-add-property.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { getLocation } from './get-location.js';
 import { isThirdParty } from './import.js';
 import ts from 'typescript';
@@ -14,7 +14,7 @@ import ts from 'typescript';
  *
  * @returns The simplified type
  */
-export function getTypeFromTSType(type: ts.Type | undefined, context: AnalyzerContext): Type {
+export function getTypeFromTSType(type: ts.Type | undefined, context: AnalyserContext): Type {
     if (type) {
         const name = context.checker.typeToString(type) ?? '';
         const result: Type = {text: name};
@@ -35,7 +35,7 @@ export function getTypeFromTSType(type: ts.Type | undefined, context: AnalyzerCo
  *
  * @returns The type definition location
  */
-export function getTypeReferences(type: ts.Type | undefined, context: AnalyzerContext): TypeReference[] {
+export function getTypeReferences(type: ts.Type | undefined, context: AnalyserContext): TypeReference[] {
     if (!type) {
         return [];
     }
@@ -88,7 +88,7 @@ export function getTypeReferences(type: ts.Type | undefined, context: AnalyzerCo
  *
  * @returns The simplified type of the node
  */
-export function getTypeFromNode(node: ts.Node, context: AnalyzerContext): Type {
+export function getTypeFromNode(node: ts.Node, context: AnalyserContext): Type {
     const type = getTSType(node, context.checker);
 
     return getTypeFromTSType(type, context);

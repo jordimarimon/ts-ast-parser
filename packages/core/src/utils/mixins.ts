@@ -1,6 +1,6 @@
 import { resolveExpression } from './resolve-expression.js';
 import type { MixinNodes } from '../models/mixin.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { getReturnStatement } from './function.js';
 import ts from 'typescript';
 
@@ -9,7 +9,7 @@ import ts from 'typescript';
 // Extracts the function and class nodes that are used to define a Mixin
 //
 
-export function extractMixinNodes(node: ts.Node, context: AnalyzerContext): MixinNodes | null {
+export function extractMixinNodes(node: ts.Node, context: AnalyserContext): MixinNodes | null {
     if (ts.isVariableStatement(node)) {
         extractMixinNodesFromVariableStatement(node, context.checker);
     }

@@ -1,9 +1,10 @@
 import { JS_DEFAULT_COMPILER_OPTIONS, TS_DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
 import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
-import type { AnalyzerOptions } from './analyzer-options.js';
-import { createCompilerHost } from './compiler-host.js';
+import { createBrowserCompilerHost } from './browser-compiler-host.js';
+import type { AnalyserOptions } from './analyser-options.js';
 import { ModuleNode } from './nodes/module-node.js';
-import type { AnalyzerContext } from './context.js';
+import type { AnalyserContext } from './context.js';
+import { isBrowser } from './context.js';
 import ts from 'typescript';
 
 
@@ -16,13 +17,28 @@ import ts from 'typescript';
  *
  * @returns The reflected TypeScript AST
  */
-export function parseFromSource(source: string, options?: Partial<AnalyzerOptions>): ModuleNode | null {
+export async function parseFromSource(source: string, options: Partial<AnalyserOptions> = {}): Promise<ModuleNode | null> {
     const fileName = 'unknown.ts';
-    const compilerHost = createCompilerHost(fileName, source);
-    const resolvedCompilerOptions = options?.jsProject
+
+    const compilerOptions = options?.jsProject
         ? JS_DEFAULT_COMPILER_OPTIONS
         : (options?.compilerOptions ?? TS_DEFAULT_COMPILER_OPTIONS);
-    const program = ts.createProgram([fileName], resolvedCompilerOptions, compilerHost);
+
+    let virtualFileSystem: {compilerHost: ts.CompilerHost; fsMap: Map<string, string>};
+    if (isBrowser) {
+        virtualFileSystem = await createBrowserCompilerHost(fileName, source, compilerOptions);
+    } else {
+        // We use a dynamic import because the virtual compiler host depends on NodeJS modules
+        virtualFileSystem = await import('./virtual-compiler-host.js').then(m => {
+            return m.createVirtualCompilerHost(fileName, source, compilerOptions, ts);
+        });
+    }
+
+    const program = ts.createProgram({
+        rootNames: [...virtualFileSystem.fsMap.keys()],
+        options: compilerOptions,
+        host: virtualFileSystem.compilerHost,
+    });
     const sourceFile = program.getSourceFile(fileName);
     const diagnostics = program.getSemanticDiagnostics();
 
@@ -36,7 +52,7 @@ export function parseFromSource(source: string, options?: Partial<AnalyzerOption
         return null;
     }
 
-    const context: AnalyzerContext = {
+    const context: AnalyserContext = {
         checker: program.getTypeChecker(),
         options: options ?? null,
         commandLine: null,

@@ -7,7 +7,7 @@ import { getLinePosition } from '../utils/get-location.js';
 import { getTypeFromNode } from '../utils/get-type.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import type { Type } from '../models/type.js';
@@ -22,18 +22,18 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
 
     private readonly _declaration: ts.VariableDeclaration;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.VariableStatement, declaration: ts.VariableDeclaration, context: AnalyzerContext) {
+    constructor(node: ts.VariableStatement, declaration: ts.VariableDeclaration, context: AnalyserContext) {
         this._node = node;
         this._declaration = declaration;
         this._context = context;
         this._jsDoc = new JSDocNode(this._node);
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

@@ -11,10 +11,12 @@ function build(entryPoints) {
         minify: process.env.NODE_ENV === 'production',
         sourcemap: false,
         bundle: true,
+        splitting: true,
         format: 'esm',
-        target: 'es2020',
+        target: 'es2022',
         outdir: '_site/assets/js',
         entryNames: '[name]',
+        external: ['path', 'fs'],
     });
 }
 

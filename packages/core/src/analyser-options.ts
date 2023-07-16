@@ -2,9 +2,9 @@ import type ts from 'typescript';
 
 
 /**
- * The analyzer options
+ * The analyser options
  */
-export interface AnalyzerOptions {
+export interface AnalyserOptions {
     /**
      * Allows you to manually specify the path to a TSConfig file.
      *
@@ -18,6 +18,12 @@ export interface AnalyzerOptions {
      * @see https://www.typescriptlang.org/tsconfig#compilerOptions
      */
     compilerOptions: ts.CompilerOptions;
+
+    /**
+     * Allows you to define which files get included in the analysis
+     * in cases where there is not TSConfig file available
+     */
+    include: string[];
 
     /**
      * Whether the project represents a JS project

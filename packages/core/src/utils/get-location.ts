@@ -1,5 +1,5 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import type { SymbolWithLocation } from './is.js';
 import type ts from 'typescript';
 
@@ -13,7 +13,7 @@ import type ts from 'typescript';
  *
  * @returns The symbol, line position and path where the node/type is located
  */
-export function getLocation(nodeOrType: ts.Node | ts.Type, context: AnalyzerContext): SymbolWithLocation {
+export function getLocation(nodeOrType: ts.Node | ts.Type, context: AnalyserContext): SymbolWithLocation {
     let symbol: ts.Symbol | undefined;
 
     if ('kind' in nodeOrType) {

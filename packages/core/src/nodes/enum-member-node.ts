@@ -1,7 +1,7 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getLinePosition } from '../utils/get-location.js';
 import type { ReflectedNode } from './reflected-node.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import type { EnumMember } from '../models/enum.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
@@ -14,11 +14,11 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
 
     private readonly _value: string | number;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.EnumMember, value: string | number, context: AnalyzerContext) {
+    constructor(node: ts.EnumMember, value: string | number, context: AnalyserContext) {
         this._node = node;
         this._value = value;
         this._context = context;
@@ -37,7 +37,7 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
         return this._value;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

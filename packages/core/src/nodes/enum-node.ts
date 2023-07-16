@@ -4,7 +4,7 @@ import type { DeclarationNode } from './declaration-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import type { EnumDeclaration } from '../models/enum.js';
 import { EnumMemberNode } from './enum-member-node.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
@@ -17,11 +17,11 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     private readonly _node: ts.EnumDeclaration;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.EnumDeclaration, context: AnalyzerContext) {
+    constructor(node: ts.EnumDeclaration, context: AnalyserContext) {
         this._node = node;
         this._context = context;
         this._jsDoc = new JSDocNode(this._node);
@@ -39,7 +39,7 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
         return this._node;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

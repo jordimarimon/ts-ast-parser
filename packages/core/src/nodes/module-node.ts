@@ -3,12 +3,12 @@ import type { DeclarationKind } from '../models/declaration-kind.js';
 import type { ExportNode, ImportNode } from '../utils/is.js';
 import type { DeclarationNode } from './declaration-node.js';
 import type { ReflectedNode } from './reflected-node.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import type { Module } from '../models/module.js';
 import { NodeType } from '../models/node.js';
+import { isBrowser } from '../context.js';
 import { is } from '../utils/is.js';
-import * as path from 'path';
 import ts from 'typescript';
 
 
@@ -18,13 +18,13 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     private readonly _imports: ImportNode[] = [];
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _exports: ExportNode[] = [];
 
     private _declarations: DeclarationNode[] = [];
 
-    constructor(node: ts.SourceFile, context: AnalyzerContext) {
+    constructor(node: ts.SourceFile, context: AnalyserContext) {
         this._node = node;
         this._context = context;
 
@@ -63,8 +63,9 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
         // Use the TS API to determine where the associated JS will be output based
         // on tsconfig settings.
+        const absolutePath = isBrowser ? sourcePath : ([process.cwd(), sourcePath].join('/'));
         const outputPath = ts
-            .getOutputFileNames(this._context.commandLine, path.join(process.cwd(), sourcePath), false)
+            .getOutputFileNames(this._context.commandLine, absolutePath, false)
             .filter(f => f.endsWith('.js'))[0];
 
         return this._context.normalizePath(outputPath);
@@ -74,7 +75,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         return NodeType.Module;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

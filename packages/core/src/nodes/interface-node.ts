@@ -11,7 +11,7 @@ import { getInstanceMembers } from '../utils/member.js';
 import type { Reference } from '../models/reference.js';
 import type { SymbolWithContext } from '../utils/is.js';
 import { getNamespace } from '../utils/namespace.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import type { Method } from '../models/member.js';
 import { PropertyNode } from './property-node.js';
 import { FunctionNode } from './function-node.js';
@@ -24,13 +24,13 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
 
     private readonly _node: ts.InterfaceDeclaration;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _members: SymbolWithContext[] = [];
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.InterfaceDeclaration, context: AnalyzerContext) {
+    constructor(node: ts.InterfaceDeclaration, context: AnalyserContext) {
         this._node = node;
         this._context = context;
         this._members = getInstanceMembers(this._node, this._context.checker);
@@ -49,7 +49,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         return DeclarationKind.Interface;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

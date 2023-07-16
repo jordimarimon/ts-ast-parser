@@ -1,4 +1,4 @@
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import type { NodeType } from '../models/node.js';
 import type ts from 'typescript';
 
@@ -21,7 +21,7 @@ export interface ReflectedNode<Model extends object = object, T extends ts.Node 
      * Returns the context in which the AST node was created.
      * The context contains useful utilities like the TS type checker.
      */
-    getContext(): AnalyzerContext;
+    getContext(): AnalyserContext;
 
     /**
      * Returns a simple readonly JavaScript object without methods or internal state.

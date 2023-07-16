@@ -2,7 +2,7 @@ import type { FunctionDeclaration } from '../models/function.js';
 import { isFunctionDeclaration } from '../utils/function.js';
 import { FunctionNode } from '../nodes/function-node.js';
 import type { NodeFactory } from './node-factory.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import type { Method } from '../models/member.js';
 import type ts from 'typescript';
 
@@ -11,7 +11,7 @@ export const functionFactory: NodeFactory<FunctionDeclaration | Method, Function
 
     isNode: isFunctionDeclaration,
 
-    create: (node: ts.VariableStatement | ts.FunctionDeclaration, context: AnalyzerContext): FunctionNode[] => {
+    create: (node: ts.VariableStatement | ts.FunctionDeclaration, context: AnalyserContext): FunctionNode[] => {
         return [new FunctionNode(node, context)];
     },
 

@@ -1,26 +1,26 @@
 import type { IPackageJson } from 'package-json-type';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { ModuleNode } from './module-node.js';
-import * as path from 'path';
 import type ts from 'typescript';
+import * as path from 'path';
 import * as fs from 'fs';
 
 
 export class ProjectNode {
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _modules: ModuleNode[] = [];
 
     private readonly _packageJson: IPackageJson | null = null;
 
-    constructor(sourceFiles: readonly ts.SourceFile[], context: AnalyzerContext) {
+    constructor(sourceFiles: readonly ts.SourceFile[], context: AnalyserContext) {
         this._modules = sourceFiles.map(sourceFile => new ModuleNode(sourceFile, context));
         this._context = context;
         this._packageJson = this._getPackageJSON();
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

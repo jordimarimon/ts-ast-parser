@@ -9,7 +9,7 @@ import { getTypeFromTSType } from '../utils/get-type.js';
 import type { ReflectedNode } from './reflected-node.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import type { Type } from '../models/type.js';
@@ -24,11 +24,11 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
 
     private readonly _member: SymbolWithContext;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: PropertyLikeNode, member: SymbolWithContext, context: AnalyzerContext) {
+    constructor(node: PropertyLikeNode, member: SymbolWithContext, context: AnalyserContext) {
         this._node = node;
         this._member = member;
         this._context = context;
@@ -70,7 +70,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         return NodeType.Other;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

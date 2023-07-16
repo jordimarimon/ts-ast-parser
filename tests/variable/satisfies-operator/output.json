@@ -30,7 +30,7 @@
                 "kind": "Variable",
                 "line": 12,
                 "type": {
-                    "text": "number"
+                    "text": "number | undefined"
                 },
                 "default": "palette.red.at(0)"
             },

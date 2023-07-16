@@ -37,9 +37,9 @@ const changeViewButton = document.getElementById('change-view-button');
 const dialogEl = document.getElementById('dialog');
 const dialogElCloseButton = document.getElementById('dialog-button-close');
 
-const parseCode = code => {
+const parseCode = async (code) => {
     try {
-        return parseFromSource(code).serialize();
+        return (await parseFromSource(code)).serialize();
     } catch (error) {
         console.error(error);
         return {};
@@ -52,7 +52,7 @@ dialogEl?.showModal();
 dialogElCloseButton?.addEventListener('click', () => dialogEl?.close(), {once: true});
 
 const jsonEditor = new JSONEditor(jsonEditorEl, {mode: 'text'});
-jsonEditor.set(parseCode(CLASS_CODE));
+jsonEditor.set(await parseCode(CLASS_CODE));
 
 const codeEditor = ace.edit(codeEditorEl);
 const TypeScriptMode = aceTypeScript.Mode;
@@ -62,32 +62,32 @@ codeEditor.setOptions({fontSize: '14pt'});
 codeEditor.setValue(CLASS_CODE);
 codeEditor.session.selection.clearSelection();
 
-const parse = () => {
+const parse = async () => {
     const code = codeEditor.getValue();
-    const metadata = parseCode(code);
+    const metadata = await parseCode(code);
 
     jsonEditor?.set(metadata);
 };
 
-const change = (code) => {
-    const metadata = parseCode(code);
+const change = async (code) => {
+    const metadata = await parseCode(code);
 
     codeEditor.setValue(code);
     codeEditor.session.selection.clearSelection();
     jsonEditor.set(metadata);
 };
 
-selectCodeExampleEl?.addEventListener('change', () => {
+selectCodeExampleEl?.addEventListener('change', async () => {
     const value = selectCodeExampleEl?.value;
-    change(exampleCodes[value]);
+    await change(exampleCodes[value]);
 });
 
-parseButton?.addEventListener('click', parse);
+parseButton?.addEventListener('click', async () => await parse());
 
-changeViewButton?.addEventListener('click', () => {
+changeViewButton?.addEventListener('click', async () => {
     if (view === CODE_EDITOR_VIEW) {
         view = JSON_EDITOR_VIEW;
-        parse();
+        await parse();
     } else {
         view = CODE_EDITOR_VIEW;
     }

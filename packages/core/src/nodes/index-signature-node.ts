@@ -4,7 +4,7 @@ import { getLinePosition } from '../utils/get-location.js';
 import type { ReflectedNode } from './reflected-node.js';
 import type { SymbolWithContext } from '../utils/is.js';
 import { MemberKind } from '../models/member-kind.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import { ParameterNode } from './parameter-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import type { Type } from '../models/type.js';
@@ -19,13 +19,13 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
 
     private readonly _member: SymbolWithContext;
 
-    private readonly _context: AnalyzerContext;
+    private readonly _context: AnalyserContext;
 
     private readonly _parameter: ParameterNode | null;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.IndexSignatureDeclaration, member: SymbolWithContext, context: AnalyzerContext) {
+    constructor(node: ts.IndexSignatureDeclaration, member: SymbolWithContext, context: AnalyserContext) {
         this._node = node;
         this._member = member;
         this._context = context;
@@ -41,7 +41,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         return NodeType.Other;
     }
 
-    getContext(): AnalyzerContext {
+    getContext(): AnalyserContext {
         return this._context;
     }
 

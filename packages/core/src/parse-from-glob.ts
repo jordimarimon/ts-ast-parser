@@ -1,4 +1,4 @@
-import type { AnalyzerOptions } from './analyzer-options.js';
+import type { AnalyserOptions } from './analyser-options.js';
 import type { ModuleNode } from './nodes/module-node.js';
 import { parseFromFiles } from './parse-from-files.js';
 import { globbySync } from 'globby';
@@ -25,7 +25,7 @@ const IGNORE: string[] = [
  *
  * @returns The reflected TypeScript AST
  */
-export function parseFromGlob(patterns: string | string[], options?: Partial<AnalyzerOptions>): ModuleNode[] {
+export function parseFromGlob(patterns: string | string[], options: Partial<AnalyserOptions> = {}): ModuleNode[] {
     const arrPatterns = Array.isArray(patterns) ? patterns : [patterns];
     const paths = globbySync([...arrPatterns, ...IGNORE]);
 

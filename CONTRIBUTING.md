@@ -7,6 +7,7 @@ Recommended resources to look at:
 - [Using the Compiler API](https://github.com/microsoft/TypeScript/wiki/Using-the-Compiler-API)
 - [TypeScript Compiler Internals](https://basarat.gitbook.io/typescript/overview)
 - [TypeScript Compiler Notes](https://github.com/microsoft/TypeScript-Compiler-Notes)
+- [TypeScript Virtual File System](https://github.com/microsoft/TypeScript-Website/tree/v2/packages/typescript-vfs)
 
 ## Filing Issues
 

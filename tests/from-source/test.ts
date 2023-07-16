@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 const category = 'from-source';
 const expected = readExpectedOutput(category);
 const source = 'const foo = true;export { foo };';
-const actual = parseFromSource(source);
+const actual = await parseFromSource(source);
 
 describe(category, () => {
 

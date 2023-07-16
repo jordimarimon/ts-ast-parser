@@ -1,6 +1,6 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
 import { isNotEmptyArray } from './not-empty-array.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import ts from 'typescript';
 
 
@@ -38,7 +38,7 @@ export function isThirdParty(path: string): boolean {
  *
  * @returns The path where the node is defined
  */
-export function getOriginalImportPath(node: ts.Identifier | undefined, context: AnalyzerContext): string {
+export function getOriginalImportPath(node: ts.Identifier | undefined, context: AnalyserContext): string {
     if (!node) {
         return '';
     }

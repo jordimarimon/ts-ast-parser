@@ -6,7 +6,7 @@ import type { ExportStatementNode } from '../utils/is.js';
 import { ReExportNode } from '../nodes/re-export-node.js';
 import { hasExportKeyword } from '../utils/export.js';
 import type { NodeFactory } from './node-factory.js';
-import type { AnalyzerContext } from '../context.js';
+import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import ts from 'typescript';
 
@@ -15,7 +15,7 @@ export const exportDeclarationFactory: NodeFactory<Export, ExportDeclarationNode
 
     isNode: (node: ts.Node): node is ts.Node => hasExportKeyword(node),
 
-    create: (node: ts.Node, context: AnalyzerContext): ExportDeclarationNode[] => {
+    create: (node: ts.Node, context: AnalyserContext): ExportDeclarationNode[] => {
         const exports: ExportDeclarationNode[] = [];
 
         if (ts.isVariableStatement(node)) {
@@ -43,7 +43,7 @@ export const exportAssignmentFactory: NodeFactory<Export, ExportAssignmentNode, 
 
     isNode: (node: ts.Node): node is ts.ExportAssignment => ts.isExportAssignment(node),
 
-    create: (node: ts.ExportAssignment, context: AnalyzerContext): ExportAssignmentNode[] => {
+    create: (node: ts.ExportAssignment, context: AnalyserContext): ExportAssignmentNode[] => {
         return [new ExportAssignmentNode(node, context)];
     },
 
@@ -53,7 +53,7 @@ export const exportStatementFactory: NodeFactory<Export, ExportStatementNode, ts
 
     isNode: (node: ts.Node): node is ts.ExportDeclaration => ts.isExportDeclaration(node),
 
-    create: (node: ts.ExportDeclaration, context: AnalyzerContext): ExportStatementNode[] => {
+    create: (node: ts.ExportDeclaration, context: AnalyserContext): ExportStatementNode[] => {
         const isNamed = node.exportClause && ts.isNamedExports(node.exportClause);
         const isNamespaced = node.exportClause && ts.isNamespaceExport(node.exportClause);
         const isReexport = node?.moduleSpecifier !== undefined;
