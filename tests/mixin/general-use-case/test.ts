@@ -8,7 +8,7 @@ const {actual, expected} = getFixture({category, subcategory});
 
 describe(`${category}/${subcategory}`, () => {
 
-    it.skip('should extract the expected metadata', () => {
+    it.skip('should reflect the expected modules', () => {
         const result = actual.map(m => m.serialize());
         expect(result).to.deep.equal(expected);
     });

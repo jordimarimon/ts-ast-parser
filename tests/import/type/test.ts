@@ -8,7 +8,7 @@ const {actual, expected} = getFixture({category, subcategory, importedFiles: ['t
 
 describe(`${category}/${subcategory}`, () => {
 
-    it('should reflect the expected AST', () => {
+    it('should reflect the expected modules', () => {
         const result = actual.map(m => m.serialize());
         expect(result).to.deep.equal(expected);
     });

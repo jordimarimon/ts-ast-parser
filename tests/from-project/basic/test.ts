@@ -13,7 +13,7 @@ const actual = parseFromProject({
 
 describe(category, () => {
 
-    it('should extract the expected metadata', () => {
+    it('should reflect the expected modules', () => {
         const result = actual?.getModules().map(m => m.serialize());
         expect(result).to.deep.equal(expected);
         expect(actual?.getName()).to.equal('test-project');

@@ -10,7 +10,7 @@ const actual = await parseFromSource(source);
 
 describe(category, () => {
 
-    it('should extract the expected metadata', () => {
+    it('should reflect the expected modules', () => {
         expect(actual?.serialize()).to.deep.equal(expected);
     });
 
