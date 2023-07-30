@@ -2,6 +2,10 @@ import { isBrowser } from '../context.js';
 import ts from 'typescript';
 import chalk from 'chalk';
 
+
+// FIXME(Jordi M.): Create an `ErrorDiagnostic` class where we can add all the errors we find
+//  during the analysis and at the end, when we're done analysing the project, we output them all together.
+
 //
 // The following functions are used to log messages to console
 //

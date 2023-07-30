@@ -10,11 +10,10 @@ import path from 'path';
 export function parseFromProject(options: Partial<AnalyserOptions> = {}): ProjectNode | null {
     const {compilerOptions, commandLine} = getResolvedCompilerOptions(options);
     const compilerHost = ts.createCompilerHost(compilerOptions, true);
-    const fileNames = (commandLine?.fileNames ?? []).map(p => path.relative(process.cwd(), p));
-    const program = ts.createProgram(fileNames, compilerOptions, compilerHost);
+    const program = ts.createProgram(commandLine?.fileNames ?? [], compilerOptions, compilerHost);
     const diagnostics = program.getSemanticDiagnostics();
 
-    if (diagnostics.length) {
+    if (!options.skipDiagnostics && diagnostics.length) {
         logError('Error while analysing source files:', formatDiagnostics(diagnostics));
         return null;
     }

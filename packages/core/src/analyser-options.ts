@@ -13,6 +13,12 @@ export interface AnalyserOptions {
     tsConfigFilePath: string;
 
     /**
+     * If true, it won't stop the analysis when there are semantics errors in the code.
+     * @default false
+     */
+    skipDiagnostics: boolean;
+
+    /**
      * Allows you to override the default compiler options to use when analyzing the source files
      *
      * @see https://www.typescriptlang.org/tsconfig#compilerOptions
@@ -27,6 +33,7 @@ export interface AnalyserOptions {
 
     /**
      * Whether the project represents a JS project
+     * @default false
      */
     jsProject: boolean;
 }

@@ -20,7 +20,7 @@ export const isBrowser = typeof document === 'object' && !!document;
  */
 export interface AnalyserContext {
     /**
-     * A Program is an immutable collection of 'SourceFile's and a 'CompilerOptions' that
+     * A Program is an immutable collection of source files and the compiler options. Together
      * represent a compilation unit.
      */
     program: ts.Program;
@@ -33,14 +33,12 @@ export interface AnalyserContext {
     checker: ts.TypeChecker;
 
     /**
-     * TSConfig file content.
-     *
-     * It won't be defined when we don't have a TSConfig file available.
+     * The parsed TSConfig options and the source file names.
      */
     commandLine: ts.ParsedCommandLine | null;
 
     /**
-     * The analyzer options.
+     * The user provided analyzer options.
      */
     options: Partial<AnalyserOptions> | null;
 

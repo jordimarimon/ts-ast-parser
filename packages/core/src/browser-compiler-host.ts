@@ -112,7 +112,7 @@ function createDefaultMapFromCDN(version: string): Promise<Map<string, string>> 
 
     for (const key of keys) {
         // Remove anything which isn't from this version
-        if (key.startsWith('ts-lib-') && !key.startsWith(`ts-lib-${ version}`)) {
+        if (key.startsWith('ts-lib-') && !key.startsWith(`ts-lib-${version}`)) {
             localStorage.removeItem(key);
         }
     }
@@ -136,7 +136,7 @@ function createDefaultMapFromCDN(version: string): Promise<Map<string, string>> 
 
     return Promise.all(promises)
         .then(contents => {
-            contents.forEach((text, index) => fsMap.set(`/${ knownLibFiles[index]}`, text));
+            contents.forEach((text, index) => fsMap.set(`/${knownLibFiles[index]}`, text));
         })
         .then(() => fsMap);
 }

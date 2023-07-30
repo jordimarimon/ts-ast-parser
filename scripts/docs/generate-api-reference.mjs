@@ -27,6 +27,9 @@ Handlebars.registerHelper('typeWithReference', type => {
     const sources = type.sources ?? [];
 
     let text = type.text ?? '';
+    text = text.replaceAll('<', '&lt;');
+    text = text.replaceAll('>', '&gt;');
+
     for (const source of sources) {
         if (!source.path || !source.text) {
             continue;
@@ -111,7 +114,10 @@ for (const module of reflectedModules) {
 
         if (normalizedCategory === 'models') {
             models.push({name, href, type});
-        } else if (normalizedCategory === 'utils' || fileBaseName === 'context') {
+        } else if (
+            normalizedCategory === 'utils' ||
+            (normalizedCategory === 'parsers' && !fileBaseName.startsWith('parse-from'))
+        ) {
             utils.push({name, href, type});
         } else if (normalizedCategory === 'nodes') {
             nodes.push({name, href, type});

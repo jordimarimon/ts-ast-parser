@@ -4,10 +4,6 @@ export * from './parse-from-files.js';
 export * from './parse-from-glob.js';
 export * from './parse-from-project.js';
 
-// OPTIONS
-export * from './analyser-options.js';
-export * from './default-compiler-options.js';
-
 // MODELS
 export * from './models/class.js';
 export * from './models/declaration.js';
@@ -61,4 +57,6 @@ export * from './nodes/type-parameter-node.js';
 export * from './nodes/variable-node.js';
 
 // UTILS
+export * from './analyser-options.js';
+export * from './context.js';
 export * from './utils/is.js';

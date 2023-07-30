@@ -28,7 +28,7 @@ export function parseFromFiles(files: readonly string[], options: Partial<Analys
     const program = ts.createProgram(files, resolvedCompilerOptions.compilerOptions, compilerHost);
     const diagnostics = program.getSemanticDiagnostics();
 
-    if (diagnostics.length) {
+    if (!options.skipDiagnostics && diagnostics.length) {
         logError('Error while analysing source files:', formatDiagnostics(diagnostics));
         return [];
     }

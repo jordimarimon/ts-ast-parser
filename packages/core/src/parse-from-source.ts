@@ -43,8 +43,8 @@ export async function parseFromSource(source: string, options: Partial<AnalyserO
     const sourceFile = program.getSourceFile(fileName);
     const diagnostics = program.getSemanticDiagnostics();
 
-    if (diagnostics.length) {
-        logError('Error analysing source code:', formatDiagnostics(diagnostics));
+    if (!options.skipDiagnostics && diagnostics.length) {
+        logError('Error while analysing source code:', formatDiagnostics(diagnostics));
         return null;
     }
 

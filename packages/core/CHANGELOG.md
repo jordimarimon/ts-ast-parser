@@ -3,8 +3,8 @@
 ### Features
 
 * Reflect the output JS path of a given source file. Use the `getOuputPath()` method from the `ModuleNode` class.
-* Analyze an entire project. Use the new function `parseFromProjec()` to analyze an entire project based only on the 
-  TSConfig file options.
+* Analyse an entire project with the new function `parseFromProjec()`.
+* Skip the semantic diagnostic check with the `boolean` option `skipDiagnostics`.
 
 ### Bug Fixes
 
@@ -12,10 +12,11 @@
 
 ### 🚨 Breaking Changes
 
-* The field `path` of a module has been renamed to `sourcePath`
-* All the `parser-from-*` functions, now receive as second argument an object of type `AnalyzerOptions` instead of 
-  the `ts.CompilerOptions`
-* Function `parse-from-source` is now asynchronous, it will return a `Promise<ModuleNode | null>`
+* The field `path` of a module has been renamed to `sourcePath`. This renaming is needed because now there is also 
+  available the `outputPath` field (the path where the JS file gets compiled).
+* All the `parser-from-*` functions, now receive as second argument an object of type `AnalyserOptions` instead of 
+  the `ts.CompilerOptions`.
+* Function `parse-from-source` is now asynchronous, it will return a `Promise<ModuleNode | null>`.
 
 ## 0.3.2 (2023-06-18)
 
