@@ -27,6 +27,7 @@ export function isBareModuleSpecifier(importPath: string): boolean {
  * @returns True if the path is from a third party library
  */
 export function isThirdParty(path: string): boolean {
+    // FIXME(Jordi M.): Use `Program.isSourceFileFromExternalLibrary` instead
     return path.length < 1000 && (/.*node_modules\/.+/.test(path) || /^https?:\/\/.+/.test(path));
 }
 

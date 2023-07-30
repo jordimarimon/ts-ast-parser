@@ -1,0 +1,105 @@
+[
+    {
+        "sourcePath": "tests/from-project/monorepo/test-project/packages/b/src/index.ts",
+        "outputPath": "tests/from-project/monorepo/test-project/packages/b/dist/index.js",
+        "imports": [
+            {
+                "name": "Person",
+                "kind": "Named",
+                "importPath": "@test-project/a",
+                "bareModuleSpecifier": true
+            }
+        ],
+        "declarations": [
+            {
+                "name": "Employee",
+                "kind": "Class",
+                "line": 4,
+                "constructors": [
+                    {
+                        "line": 7,
+                        "return": {
+                            "type": {
+                                "text": "Employee",
+                                "sources": [
+                                    {
+                                        "text": "Employee",
+                                        "path": "tests/from-project/monorepo/test-project/packages/b/src/index.ts",
+                                        "line": 4
+                                    }
+                                ]
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "name",
+                                "type": {
+                                    "text": "string"
+                                },
+                                "line": 7
+                            },
+                            {
+                                "name": "age",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "line": 7
+                            },
+                            {
+                                "name": "salary",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "line": 7
+                            }
+                        ]
+                    }
+                ],
+                "heritage": [
+                    {
+                        "name": "Person",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/from-project/monorepo/test-project/packages/a/dist/index.d.ts"
+                        },
+                        "kind": "Class"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "salary",
+                        "line": 5,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "inherited": true
+                    },
+                    {
+                        "name": "age",
+                        "line": 4,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "inherited": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Employee",
+                "kind": "Named"
+            }
+        ]
+    }
+]

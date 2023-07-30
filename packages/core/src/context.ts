@@ -2,6 +2,8 @@ import type { AnalyserOptions } from './analyser-options.js';
 import type ts from 'typescript';
 
 
+// TODO(Jordi M.): Add an abstraction of the file system in the analyser context
+
 /**
  * Returns true if we're executing inside a browser
  */
@@ -17,6 +19,12 @@ export const isBrowser = typeof document === 'object' && !!document;
  * In a monorepo there will be one context per child project.
  */
 export interface AnalyserContext {
+    /**
+     * A Program is an immutable collection of 'SourceFile's and a 'CompilerOptions' that
+     * represent a compilation unit.
+     */
+    program: ts.Program;
+
     /**
      * The TypeScript type checker.
      *

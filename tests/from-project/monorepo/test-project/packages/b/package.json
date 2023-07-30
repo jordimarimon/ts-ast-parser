@@ -1,0 +1,16 @@
+{
+    "private": true,
+    "name": "@test-project/b",
+    "version": "0.0.0",
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "dependencies": {
+        "@test-project/a": "0.0.0"
+    }
+}

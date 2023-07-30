@@ -10,7 +10,8 @@ import path from 'path';
 export function parseFromProject(options: Partial<AnalyserOptions> = {}): ProjectNode | null {
     const {compilerOptions, commandLine} = getResolvedCompilerOptions(options);
     const compilerHost = ts.createCompilerHost(compilerOptions, true);
-    const program = ts.createProgram(commandLine?.fileNames ?? [], compilerOptions, compilerHost);
+    const fileNames = (commandLine?.fileNames ?? []).map(p => path.relative(process.cwd(), p));
+    const program = ts.createProgram(fileNames, compilerOptions, compilerHost);
     const diagnostics = program.getSemanticDiagnostics();
 
     if (diagnostics.length) {
@@ -18,12 +19,19 @@ export function parseFromProject(options: Partial<AnalyserOptions> = {}): Projec
         return null;
     }
 
+    // FIXME(Jordi M.): Why we're receiving as source files, files located inside `node_modules`?
+    const sourceFiles = program.getSourceFiles().filter(f => {
+        return !program.isSourceFileDefaultLibrary(f) && !program.isSourceFileFromExternalLibrary(f) &&
+            !f.fileName.match(/node_modules/)?.length;
+    });
+
     const context: AnalyserContext = {
+        program,
         checker: program.getTypeChecker(),
         options: options ?? null,
         commandLine,
         normalizePath: filePath => filePath ? path.normalize(path.relative(process.cwd(), filePath)) : '',
     };
 
-    return new ProjectNode(program.getSourceFiles(), context);
+    return new ProjectNode(sourceFiles, context);
 }

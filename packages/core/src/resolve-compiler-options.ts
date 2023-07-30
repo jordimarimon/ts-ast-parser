@@ -69,7 +69,11 @@ export function getResolvedCompilerOptions(options: Partial<AnalyserOptions> = {
 function parseTSConfigFile(tsConfigFilePath?: string): ResolvedCompilerOptions | null {
     const fileExists = (filePath: string) => ts.sys.fileExists(filePath);
     const readFile = (filePath: string) => ts.sys.readFile(filePath);
-    const basePath = tsConfigFilePath ? path.dirname(path.join(process.cwd(), tsConfigFilePath)) : process.cwd();
+    const basePath = tsConfigFilePath
+        ? path.isAbsolute(tsConfigFilePath)
+            ? path.dirname(tsConfigFilePath)
+            : path.dirname(path.join(process.cwd(), tsConfigFilePath))
+        : process.cwd();
     const fileName = tsConfigFilePath ? path.basename(tsConfigFilePath) : 'tsconfig.json';
     const configFileName = ts.findConfigFile(basePath, fileExists, fileName);
     const configFile = configFileName && ts.readConfigFile(configFileName, readFile);
@@ -81,9 +85,9 @@ function parseTSConfigFile(tsConfigFilePath?: string): ResolvedCompilerOptions |
     const commandLine = ts.parseJsonConfigFileContent(
         configFile.config,
         ts.sys,
-        process.cwd(),
+        path.dirname(configFileName),
         undefined,
-        path.relative(process.cwd(), configFileName),
+        configFileName,
     );
 
     return {

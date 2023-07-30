@@ -34,6 +34,7 @@ export function parseFromFiles(files: readonly string[], options: Partial<Analys
     }
 
     const context: AnalyserContext = {
+        program,
         checker: program.getTypeChecker(),
         options: options ?? null,
         commandLine: resolvedCompilerOptions.commandLine,

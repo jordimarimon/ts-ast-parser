@@ -7,7 +7,7 @@ import * as fs from 'fs';
 //
 // We use it to fake the file system
 //
-export function createVirtualCompilerHost(
+export function createNodeCompilerHost(
     fileName: string,
     source: string,
     compilerOptions: TS.CompilerOptions,

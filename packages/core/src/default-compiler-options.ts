@@ -13,6 +13,7 @@ export const TS_DEFAULT_COMPILER_OPTIONS: ts.CompilerOptions = {
     declaration: true,
     skipLibCheck: true,
     skipDefaultLibCheck: true,
+    suppressOutputPathCheck: true,
 };
 
 /**

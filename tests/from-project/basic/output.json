@@ -1,0 +1,158 @@
+[
+    {
+        "sourcePath": "tests/from-project/basic/test-project/src/index.ts",
+        "outputPath": "tests/from-project/basic/test-project/dist/index.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Person",
+                "kind": "Class",
+                "line": 1,
+                "constructors": [
+                    {
+                        "line": 6,
+                        "return": {
+                            "type": {
+                                "text": "Person",
+                                "sources": [
+                                    {
+                                        "text": "Person",
+                                        "path": "tests/from-project/basic/test-project/src/index.ts",
+                                        "line": 1
+                                    }
+                                ]
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "name",
+                                "type": {
+                                    "text": "string"
+                                },
+                                "line": 6
+                            },
+                            {
+                                "name": "age",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "line": 6
+                            }
+                        ]
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "name",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        }
+                    },
+                    {
+                        "name": "age",
+                        "line": 4,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "Employee",
+                "kind": "Class",
+                "line": 12,
+                "constructors": [
+                    {
+                        "line": 15,
+                        "return": {
+                            "type": {
+                                "text": "Employee",
+                                "sources": [
+                                    {
+                                        "text": "Employee",
+                                        "path": "tests/from-project/basic/test-project/src/index.ts",
+                                        "line": 12
+                                    }
+                                ]
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "name",
+                                "type": {
+                                    "text": "string"
+                                },
+                                "line": 15
+                            },
+                            {
+                                "name": "age",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "line": 15
+                            },
+                            {
+                                "name": "salary",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "line": 15
+                            }
+                        ]
+                    }
+                ],
+                "heritage": [
+                    {
+                        "name": "Person",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/from-project/basic/test-project/src/index.ts"
+                        },
+                        "kind": "Class"
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "salary",
+                        "line": 13,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        },
+                        "inherited": true
+                    },
+                    {
+                        "name": "age",
+                        "line": 4,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        },
+                        "inherited": true
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Person",
+                "kind": "Named"
+            },
+            {
+                "name": "Employee",
+                "kind": "Named"
+            }
+        ]
+    }
+]

@@ -28,9 +28,10 @@ export async function parseFromSource(source: string, options: Partial<AnalyserO
     if (isBrowser) {
         virtualFileSystem = await createBrowserCompilerHost(fileName, source, compilerOptions);
     } else {
-        // We use a dynamic import because the virtual compiler host depends on NodeJS modules
-        virtualFileSystem = await import('./virtual-compiler-host.js').then(m => {
-            return m.createVirtualCompilerHost(fileName, source, compilerOptions, ts);
+        // We use a dynamic import because the compiler host depends on NodeJS modules
+        // that don't exist in a browser environment
+        virtualFileSystem = await import('./node-compiler-host.js').then(m => {
+            return m.createNodeCompilerHost(fileName, source, compilerOptions, ts);
         });
     }
 
@@ -53,6 +54,7 @@ export async function parseFromSource(source: string, options: Partial<AnalyserO
     }
 
     const context: AnalyserContext = {
+        program,
         checker: program.getTypeChecker(),
         options: options ?? null,
         commandLine: null,

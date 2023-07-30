@@ -1,0 +1,47 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "rootDir": "./src",
+        "outDir": "./dist",
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "noImplicitOverride": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noPropertyAccessFromIndexSignature": true,
+        "noUncheckedIndexedAccess": true,
+        "noFallthroughCasesInSwitch": true,
+        "useUnknownInCatchVariables": true,
+        "exactOptionalPropertyTypes": true,
+        "sourceMap": true,
+        "declaration": true,
+        "composite": false,
+        "incremental": true,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "importHelpers": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "stripInternal": true,
+        "skipLibCheck": true,
+        "skipDefaultLibCheck": true,
+        "verbatimModuleSyntax": true,
+        "isolatedModules": true,
+        "useDefineForClassFields": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "lib": [
+            "ES2022",
+            "DOM"
+        ]
+    },
+    "include": [
+        "./src/**/*.ts"
+    ],
+    "exclude": [
+        "**node_modules**"
+    ]
+}

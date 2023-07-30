@@ -1,0 +1,71 @@
+[
+    {
+        "sourcePath": "tests/from-project/monorepo/test-project/packages/a/src/index.ts",
+        "outputPath": "tests/from-project/monorepo/test-project/packages/a/dist/index.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Person",
+                "kind": "Class",
+                "line": 1,
+                "constructors": [
+                    {
+                        "line": 6,
+                        "return": {
+                            "type": {
+                                "text": "Person",
+                                "sources": [
+                                    {
+                                        "text": "Person",
+                                        "path": "tests/from-project/monorepo/test-project/packages/a/src/index.ts",
+                                        "line": 1
+                                    }
+                                ]
+                            }
+                        },
+                        "parameters": [
+                            {
+                                "name": "name",
+                                "type": {
+                                    "text": "string"
+                                },
+                                "line": 6
+                            },
+                            {
+                                "name": "age",
+                                "type": {
+                                    "text": "number"
+                                },
+                                "line": 6
+                            }
+                        ]
+                    }
+                ],
+                "properties": [
+                    {
+                        "name": "name",
+                        "line": 2,
+                        "kind": "Property",
+                        "type": {
+                            "text": "string"
+                        }
+                    },
+                    {
+                        "name": "age",
+                        "line": 4,
+                        "kind": "Property",
+                        "type": {
+                            "text": "number"
+                        }
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Person",
+                "kind": "Named"
+            }
+        ]
+    }
+]

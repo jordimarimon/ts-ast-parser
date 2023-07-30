@@ -130,8 +130,8 @@ function createDefaultMapFromCDN(version: string): Promise<Map<string, string>> 
                     return t;
                 });
         }
-        return Promise.resolve(unzip(content));
 
+        return Promise.resolve(unzip(content));
     });
 
     return Promise.all(promises)
