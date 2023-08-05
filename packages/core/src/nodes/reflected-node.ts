@@ -15,7 +15,7 @@ export interface ReflectedNode<Model extends object = object, T extends ts.Node 
     /**
      * Returns the original TS node
      */
-    getTSNode(): T;
+    getTSNode(): T | null;
 
     /**
      * Returns the context in which the AST node was created.

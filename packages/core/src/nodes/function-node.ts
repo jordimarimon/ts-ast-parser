@@ -24,13 +24,13 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
     private readonly _node: NodeWithFunctionDeclaration;
 
-    private readonly _member: SymbolWithContext | undefined;
+    private readonly _member: SymbolWithContext | null;
 
     private readonly _context: AnalyserContext;
 
     private readonly _jsDoc: JSDocNode | null = null;
 
-    constructor(node: NodeWithFunctionDeclaration, context: AnalyserContext, member?: SymbolWithContext | undefined) {
+    constructor(node: NodeWithFunctionDeclaration, member: SymbolWithContext | null, context: AnalyserContext) {
         this._node = node;
         this._member = member;
         this._context = context;

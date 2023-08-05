@@ -1,10 +1,15 @@
-import type { SourceReference } from './reference.js';
+import type { Field, Method } from './member.js';
 
 
-/**
- * Represents where a type has been defined
- */
-export type TypeReference = {text: string} & SourceReference;
+export enum TypeKind {
+    Array = 'Array',
+    Union = 'Union',
+    Intersection = 'Intersection',
+    Literal = 'Literal',
+    Conditional = 'Conditional',
+    Reference = 'Reference',
+    Primitive = 'Primitive',
+}
 
 /**
  * A type after being serialized
@@ -16,8 +21,27 @@ export interface Type {
     text: string;
 
     /**
-     * Types can be the composition of multiple types (UnionTypes, IntersectionTypes, etc...).
-     * Here we save where each individual type that is made of.
+     * The kind of the type
      */
-    sources?: TypeReference[];
+    kind?: TypeKind;
+
+    /**
+     * The object literal type properties
+     */
+    properties?: readonly Field[];
+
+    /**
+     * The object literal type methods
+     */
+    methods?: readonly Method[];
+
+    /**
+     * The union or intersection types.
+     */
+    elements?: readonly Type[];
+
+    /**
+     * The element type of array type
+     */
+    elementType?: Type | null;
 }

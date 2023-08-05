@@ -1,20 +1,20 @@
 import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } from '../utils/member.js';
+import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from '../utils/symbol.js';
 import type { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
-import type { ModifierType, Field } from '../models/member.js';
+import type { Field, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { getReturnStatement } from '../utils/function.js';
-import { getTypeFromTSType } from '../utils/get-type.js';
 import type { ReflectedNode } from './reflected-node.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
 import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
+import { TypeNode } from './type-node.js';
 import ts from 'typescript';
 
 
@@ -22,13 +22,13 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
 
     private readonly _node: PropertyLikeNode;
 
-    private readonly _member: SymbolWithContext;
+    private readonly _member: SymbolWithContext | null;
 
     private readonly _context: AnalyserContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: PropertyLikeNode, member: SymbolWithContext, context: AnalyserContext) {
+    constructor(node: PropertyLikeNode, member: SymbolWithContext | null, context: AnalyserContext) {
         this._node = node;
         this._member = member;
         this._context = context;
@@ -55,7 +55,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
             return setter.name?.getText() ?? '';
         }
 
-        return this._node.name.getText() ?? '';
+        return this._node.name?.getText() ?? '';
     }
 
     getKind(): MemberKind.Property {
@@ -88,10 +88,18 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         return getLinePosition(this._node);
     }
 
-    getType(): Type {
-        const jsDocType = this.getJSDoc().getTag(JSDocTagName.type)?.getValue<string>() ?? '';
+    getType(): TypeNode {
+        const jsDocType = ts.getJSDocType(this._node);
 
-        return jsDocType ? {text: jsDocType} : getTypeFromTSType(this._member.type, this._context);
+        if (jsDocType) {
+            return new TypeNode(jsDocType, null, this._context);
+        }
+
+        if (this._member?.type) {
+            return TypeNode.fromType(this._member.type, this._context);
+        }
+
+        return TypeNode.fromNode(this._node, this._context);
     }
 
     getDefault(): unknown {
@@ -140,7 +148,14 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
     }
 
     isOptional(): boolean {
-        return isOptional(this._member.symbol);
+        if (this._member) {
+            return isOptional(this._member.symbol);
+        }
+
+        const checker = this._context.checker;
+        const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(this._node, checker), checker);
+
+        return isOptional(symbol);
     }
 
     isStatic(): boolean {
@@ -175,11 +190,11 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
     }
 
     isInherited(): boolean {
-        return !this._member.overrides && !!this._member.inherited;
+        return !this._member?.overrides && !!this._member?.inherited;
     }
 
     overrides(): boolean {
-        return !!this._member.overrides;
+        return !!this._member?.overrides;
     }
 
     serialize(): Field {
@@ -187,7 +202,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
             name: this.getName(),
             line: this.getLine(),
             kind: this.getKind(),
-            type: this.getType(),
+            type: this.getType().serialize(),
         };
 
         tryAddProperty(tmpl, 'optional', this.isOptional());
@@ -205,7 +220,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
     }
 
     private _getAccessors(): [ts.GetAccessorDeclaration | undefined, ts.SetAccessorDeclaration | undefined] {
-        const decls = this._member.symbol?.getDeclarations() ?? [];
+        const decls = this._member?.symbol?.getDeclarations() ?? [];
         const getter = decls.find(ts.isGetAccessor);
         const setter = decls.find(ts.isSetAccessor);
 

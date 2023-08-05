@@ -42,7 +42,10 @@ export type FunctionLikeNode = ts.FunctionDeclaration |
     ts.FunctionTypeNode |
     ts.MethodDeclaration;
 
-export type PropertyLikeNode = ts.PropertyDeclaration | ts.PropertySignature | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration;
+export type PropertyLikeNode = ts.PropertyDeclaration
+    | ts.PropertySignature
+    | ts.GetAccessorDeclaration
+    | ts.SetAccessorDeclaration;
 
 export type ClassLikeNode = ts.ClassDeclaration | ts.ClassExpression;
 

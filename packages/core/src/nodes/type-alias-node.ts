@@ -8,6 +8,7 @@ import { getNamespace } from '../utils/namespace.js';
 import type { AnalyserContext } from '../context.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
+import { TypeNode } from './type-node.js';
 import type ts from 'typescript';
 
 
@@ -57,8 +58,8 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
         return this._jsDoc;
     }
 
-    getValue(): string {
-        return this._node.type?.getText() ?? '';
+    getType(): TypeNode {
+        return new TypeNode(this._node.type, null, this._context);
     }
 
     getTypeParameters(): TypeParameterNode[] {
@@ -70,7 +71,7 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
             name: this.getName(),
             kind: this.getKind(),
             line: this.getLine(),
-            value: this.getValue(),
+            value: this.getType().serialize(),
         };
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());

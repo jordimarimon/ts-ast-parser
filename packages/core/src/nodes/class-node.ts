@@ -333,7 +333,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
                 (isProperty && (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer)));
 
             if (isPropertyMethod) {
-                const node = new FunctionNode(decl, this._context, member);
+                const node = new FunctionNode(decl, member, this._context);
 
                 if (node.getModifier() === ModifierType.public) {
                     result.push(node);

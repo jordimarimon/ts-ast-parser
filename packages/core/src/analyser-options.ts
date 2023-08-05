@@ -27,9 +27,15 @@ export interface AnalyserOptions {
 
     /**
      * Allows you to define which files get included in the analysis
-     * in cases where there is not TSConfig file available
+     * in cases where there is no TSConfig file available
      */
     include: string[];
+
+    /**
+     * Allows you to define which files get excluded in the analysis
+     * in cases where there is no TSConfig file available
+     */
+    exclude: string[];
 
     /**
      * Whether the project represents a JS project
