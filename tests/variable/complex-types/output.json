@@ -5,114 +5,185 @@
         "imports": [],
         "declarations": [
             {
-                "name": "TypeArray",
-                "line": 10,
+                "name": "TypeX",
                 "kind": "TypeAlias",
-                "value": "TypeX[]"
-            },
-            {
-                "kind": "Variable",
-                "line": 12,
-                "name": "foo",
-                "type": {
-                    "text": "Colors",
-                    "sources": [
+                "line": 8,
+                "value": {
+                    "text": "{x: number; y?: number}",
+                    "kind": "Literal",
+                    "properties": [
                         {
-                            "text": "Colors",
-                            "path": "tests/variable/complex-types/index.ts",
-                            "line": 1
+                            "name": "x",
+                            "line": 8,
+                            "kind": "Property",
+                            "type": {
+                                "text": "number",
+                                "kind": "Primitive"
+                            }
+                        },
+                        {
+                            "name": "y",
+                            "line": 8,
+                            "kind": "Property",
+                            "type": {
+                                "text": "number",
+                                "kind": "Primitive"
+                            },
+                            "optional": true
                         }
                     ]
+                }
+            },
+            {
+                "name": "TypeY",
+                "kind": "TypeAlias",
+                "line": 9,
+                "value": {
+                    "text": "{z?: boolean}",
+                    "kind": "Literal",
+                    "properties": [
+                        {
+                            "name": "z",
+                            "line": 9,
+                            "kind": "Property",
+                            "type": {
+                                "text": "boolean",
+                                "kind": "Primitive"
+                            },
+                            "optional": true
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "TypeArray",
+                "kind": "TypeAlias",
+                "line": 10,
+                "value": {
+                    "text": "TypeX[]",
+                    "kind": "Array",
+                    "elementType": {
+                        "text": "TypeX",
+                        "kind": "Reference",
+                        "source": {
+                            "line": 8,
+                            "path": "tests/variable/complex-types/index.ts"
+                        }
+                    }
+                }
+            },
+            {
+                "name": "foo",
+                "kind": "Variable",
+                "line": 12,
+                "type": {
+                    "text": "Colors",
+                    "kind": "Reference",
+                    "source": {
+                        "line": 1,
+                        "path": "tests/variable/complex-types/index.ts"
+                    }
                 },
                 "default": "Colors.Red"
             },
             {
+                "name": "blue",
                 "kind": "Variable",
                 "line": 13,
-                "name": "blue",
                 "type": {
                     "text": "Colors",
-                    "sources": [
-                        {
-                            "text": "Colors",
-                            "path": "tests/variable/complex-types/index.ts",
-                            "line": 1
-                        }
-                    ]
+                    "kind": "Reference",
+                    "source": {
+                        "line": 1,
+                        "path": "tests/variable/complex-types/index.ts"
+                    }
                 },
                 "default": "Colors.Blue"
             },
             {
+                "name": "bar",
                 "kind": "Variable",
                 "line": 14,
-                "name": "bar",
                 "type": {
                     "text": "TypeX",
-                    "sources": [
-                        {
-                            "text": "TypeX",
-                            "path": "tests/variable/complex-types/index.ts",
-                            "line": 8
-                        }
-                    ]
+                    "kind": "Reference",
+                    "source": {
+                        "line": 8,
+                        "path": "tests/variable/complex-types/index.ts"
+                    }
                 },
                 "default": "{x: 4, y: 4}"
             },
             {
+                "name": "bar2",
                 "kind": "Variable",
                 "line": 15,
-                "name": "bar2",
                 "type": {
                     "text": "TypeX & TypeY",
-                    "sources": [
+                    "kind": "Intersection",
+                    "elements": [
                         {
                             "text": "TypeX",
-                            "path": "tests/variable/complex-types/index.ts",
-                            "line": 8
+                            "kind": "Reference",
+                            "source": {
+                                "line": 8,
+                                "path": "tests/variable/complex-types/index.ts"
+                            }
                         },
                         {
                             "text": "TypeY",
-                            "path": "tests/variable/complex-types/index.ts",
-                            "line": 9
+                            "kind": "Reference",
+                            "source": {
+                                "line": 9,
+                                "path": "tests/variable/complex-types/index.ts"
+                            }
                         }
                     ]
                 },
                 "default": "{x: 3}"
             },
             {
+                "name": "foo2",
                 "kind": "Variable",
                 "line": 16,
-                "name": "foo2",
                 "type": {
                     "text": "TypeX[]",
-                    "sources": [
-                        {
-                            "text": "TypeX",
-                            "path": "tests/variable/complex-types/index.ts",
-                            "line": 8
+                    "kind": "Array",
+                    "elementType": {
+                        "text": "TypeX",
+                        "kind": "Reference",
+                        "source": {
+                            "line": 8,
+                            "path": "tests/variable/complex-types/index.ts"
                         }
-                    ]
+                    }
                 },
                 "default": "[]"
             },
             {
+                "name": "foo3",
                 "kind": "Variable",
                 "line": 17,
-                "name": "foo3",
                 "type": {
                     "text": "TypeArray",
-                    "sources": [
-                        {
-                            "line": 10,
-                            "path": "tests/variable/complex-types/index.ts",
-                            "text": "TypeArray"
-                        }
-                    ]
+                    "kind": "Reference",
+                    "source": {
+                        "line": 10,
+                        "path": "tests/variable/complex-types/index.ts"
+                    }
                 },
                 "default": "[]"
             }
         ],
         "exports": [
+            {
+                "name": "TypeX",
+                "kind": "Named"
+            },
+            {
+                "name": "TypeY",
+                "kind": "Named"
+            },
             {
                 "name": "TypeArray",
                 "kind": "Named"

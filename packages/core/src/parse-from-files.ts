@@ -1,6 +1,7 @@
+import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
-import { AnalyserDiagnostic } from './utils/errors.js';
+import type { AnalyserResult } from './analyser-result.js';
 import type { AnalyserContext } from './context.js';
 import { ModuleNode } from './nodes/module-node.js';
 import ts from 'typescript';
@@ -18,9 +19,12 @@ import ts from 'typescript';
 export async function parseFromFiles(
     files: readonly string[],
     options: Partial<AnalyserOptions> = {},
-): Promise<ModuleNode[]> {
+): Promise<AnalyserResult<ModuleNode[]>> {
     if (!Array.isArray(files)) {
-        return [];
+        return {
+            result: [],
+            errors: [{kind: DiagnosticErrorType.ARGUMENT, messageText: 'Expected an array of files.'}],
+        };
     }
 
     let system: AnalyserSystem;
@@ -38,10 +42,17 @@ export async function parseFromFiles(
     });
 
     const analyserDiagnostic = new AnalyserDiagnostic();
-    analyserDiagnostic.set(program.getSemanticDiagnostics());
+    analyserDiagnostic.addMany(program.getSemanticDiagnostics());
 
     if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
-        return [];
+        return {result: null, errors: analyserDiagnostic.getAll()};
+    }
+
+    commandLine.errors.forEach(err => {
+        analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, err.messageText);
+    });
+    if (commandLine.errors.length > 0) {
+        return {result: null, errors: analyserDiagnostic.getAll()};
     }
 
     const context: AnalyserContext = {
@@ -49,7 +60,7 @@ export async function parseFromFiles(
         system,
         checker: program.getTypeChecker(),
         options: options ?? null,
-        diagnostic: analyserDiagnostic,
+        diagnostics: analyserDiagnostic,
     };
 
     const modules: ModuleNode[] = [];
@@ -57,11 +68,12 @@ export async function parseFromFiles(
         const sourceFile = program.getSourceFile(file);
 
         if (!sourceFile) {
+            analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, `Unable to analyse file ${file}`);
             continue;
         }
 
         modules.push(new ModuleNode(sourceFile, context));
     }
 
-    return modules;
+    return {result: modules, errors: analyserDiagnostic.getAll()};
 }

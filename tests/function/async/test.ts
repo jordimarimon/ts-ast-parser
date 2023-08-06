@@ -1,10 +1,10 @@
+import { getTestResult } from '../../utils.js';
 import { describe, expect, it } from 'vitest';
-import { getFixture } from '../../utils.js';
 
 
 const category = 'function';
 const subcategory = 'async';
-const {actual, expected} = getFixture({category, subcategory});
+const {actual, expected} = await getTestResult({category, subcategory});
 
 describe(`${category}/${subcategory}`, () => {
 

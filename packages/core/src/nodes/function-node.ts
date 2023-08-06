@@ -3,11 +3,11 @@ import type { FunctionLikeNode, NodeWithFunctionDeclaration, SymbolWithContext }
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import type { FunctionDeclaration } from '../models/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
-import type { ModifierType, Method } from '../models/member.js';
+import type { Method, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { DeclarationNode } from './declaration-node.js';
-import { getLinePosition } from '../utils/get-location.js';
 import { getSymbolAtLocation } from '../utils/symbol.js';
+import { getLocation } from '../utils/get-location.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
@@ -52,7 +52,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
             ts.isMethodDeclaration(this._node) ||
             ts.isMethodSignature(this._node)
         ) {
-            return this._node?.name?.getText() || '';
+            return this._node.name?.getText() || '';
         }
 
         if (ts.isPropertyDeclaration(this._node) || ts.isPropertySignature(this._node)) {
@@ -87,7 +87,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
     }
 
     getLine(): number {
-        return getLinePosition(this._node);
+        return getLocation(this._node, this._context).line as number;
     }
 
     getNamespace(): string {

@@ -1,15 +1,21 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from '../utils/symbol.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { getLinePosition } from '../utils/get-location.js';
+import type { SourceReference } from '../models/reference.js';
 import type { ReflectedNode } from './reflected-node.js';
+import { getLocation } from '../utils/get-location.js';
 import type { AnalyserContext } from '../context.js';
 import { PropertyNode } from './property-node.js';
 import { FunctionNode } from './function-node.js';
 import type { Method } from '../models/member.js';
+import { isThirdParty } from '../utils/import.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import ts from 'typescript';
+
+
+// TODO(Jordi M.): Create a type node class for each kind
+// TODO(Jordi M.): Handle the case where the TypeNode is a TypeOperator node (test/variable/type-assertion)
 
 
 export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
@@ -20,7 +26,7 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
 
     private readonly _context: AnalyserContext;
 
-    constructor(node: ts.TypeNode | null, type: ts.Type | null, context: AnalyserContext) {
+    constructor(node: ts.TypeNode | ts.NamedTupleMember | null, type: ts.Type | null, context: AnalyserContext) {
         this._node = node;
         this._type = type ?? (node ? context.checker.getTypeFromTypeNode(node) : null);
         this._context = context;
@@ -36,7 +42,7 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
         const typeTag = ts.getJSDocType(node);
 
         if (typeTag) {
-            return new TypeNode(typeTag, checker.getTypeFromTypeNode(typeTag), context);
+            return new TypeNode(typeTag, null, context);
         }
 
         let type = checker.getTypeAtLocation(node);
@@ -63,16 +69,84 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
         return NodeType.Other;
     }
 
-    getText(): string {
-        if (this._type) {
-            return this._context.checker.typeToString(this._type) ?? '';
+    getTupleMemberName(): string {
+        if (!this._node || !ts.isNamedTupleMember(this._node)) {
+            return '';
         }
 
-        return this._node?.getText() ?? '';
+        return this._node.name.escapedText ?? '';
+    }
+
+    // eslint-disable-next-line sonarjs/cognitive-complexity
+    getText(): string {
+        if (this.isReference()) {
+            const ref = this._node as ts.TypeReferenceNode;
+
+            if (ts.isIdentifier(ref.typeName)) {
+                const name = ref.typeName.escapedText ?? '';
+                const args: string[] = (ref.typeArguments ?? []).map(t => {
+                    return new TypeNode(t, null, this._context).getText();
+                });
+
+                return args.length > 0 ? `${name}<${args.join(', ')}>` : name;
+            }
+        }
+
+        if (this.isTuple()) {
+            const elements = this.getElements().map(type => {
+                const node = type.getTSNode();
+
+                if (node && ts.isNamedTupleMember(node)) {
+                    return `${type.getTupleMemberName()}: ${type.getText()}`;
+                }
+
+                return type.getText();
+            });
+
+            return `[${elements.join(', ')}]`;
+        }
+
+        if (this.isPrimitive()) {
+            return this._getPrimitiveTypeText();
+        }
+
+        // There are type like primitive types where the node doesn't
+        // have a real position defined and the operation "getText()" won't work
+        try {
+            return this._node?.getText() ?? '';
+        } catch (_) {
+            return (this._type && this._context.checker.typeToString(this._type)) ?? '';
+        }
+    }
+
+    getPath(): string {
+        let path = '';
+
+        if (this.isReference() && ts.isIdentifier((this._node as ts.TypeReferenceNode).typeName)) {
+            const ref = (this._node as ts.TypeReferenceNode).typeName as ts.Identifier;
+            path = getLocation(ref, this._context).path;
+        }
+
+        if (!path && this._type) {
+            path = getLocation(this._type, this._context).path;
+        }
+
+        return !path && this._node ? getLocation(this._node, this._context).path : path;
     }
 
     getLine(): number | null {
-        return this._node ? getLinePosition(this._node) : null;
+        let line: number | null = null;
+
+        if (this.isReference() && ts.isIdentifier((this._node as ts.TypeReferenceNode).typeName)) {
+            const ref = (this._node as ts.TypeReferenceNode).typeName as ts.Identifier;
+            line = getLocation(ref, this._context).line;
+        }
+
+        if (line == null && this._type) {
+            line = getLocation(this._type, this._context).line;
+        }
+
+        return line == null && this._node ? getLocation(this._node, this._context).line : line;
     }
 
     /**
@@ -81,23 +155,33 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
      * @see https://developer.mozilla.org/en-US/docs/Glossary/Primitive
      */
     isPrimitive(): boolean {
-        if (this._type) {
-            const primitiveTypes = ts.TypeFlags.String
-                | ts.TypeFlags.StringLiteral
-                | ts.TypeFlags.Number
-                | ts.TypeFlags.NumberLiteral
-                | ts.TypeFlags.Boolean
-                | ts.TypeFlags.BooleanLiteral
-                | ts.TypeFlags.BigInt
-                | ts.TypeFlags.BigIntLiteral
-                | ts.TypeFlags.Null
-                | ts.TypeFlags.Undefined
-                | ts.TypeFlags.ESSymbol;
+        const primitiveTypes = ts.TypeFlags.String
+            | ts.TypeFlags.StringLiteral
+            | ts.TypeFlags.Number
+            | ts.TypeFlags.NumberLiteral
+            | ts.TypeFlags.Boolean
+            | ts.TypeFlags.BooleanLiteral
+            | ts.TypeFlags.BigInt
+            | ts.TypeFlags.BigIntLiteral
+            | ts.TypeFlags.Null
+            | ts.TypeFlags.Undefined
+            | ts.TypeFlags.ESSymbol;
 
-            return (this._type.flags & primitiveTypes) !== 0;
-        }
+        const isTypePrimitive = this._type && (this._type.flags & primitiveTypes) !== 0;
+        const isPrimitiveKeyword = !!this._node && (
+            this._node.kind === ts.SyntaxKind.NumberKeyword ||
+            this._node.kind === ts.SyntaxKind.NumericLiteral ||
+            this._node.kind === ts.SyntaxKind.BooleanKeyword ||
+            this._node.kind === ts.SyntaxKind.StringKeyword ||
+            this._node.kind === ts.SyntaxKind.StringLiteral ||
+            this._node.kind === ts.SyntaxKind.UndefinedKeyword ||
+            this._node.kind === ts.SyntaxKind.NullKeyword ||
+            this._node.kind === ts.SyntaxKind.SymbolKeyword ||
+            this._node.kind === ts.SyntaxKind.BigIntKeyword ||
+            this._node.kind === ts.SyntaxKind.VoidKeyword
+        );
 
-        return false;
+        return isTypePrimitive || isPrimitiveKeyword;
     }
 
     /**
@@ -155,6 +239,15 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
     }
 
     /**
+     * If it's a tuple type:
+     *
+     *      export type RGB = [red: number, green: number, blue: number];
+     */
+    isTuple(): boolean {
+        return !!this._node && ts.isTupleTypeNode(this._node);
+    }
+
+    /**
      * If the type is a TypeLiteral, it will return the properties defined.
      *
      * If the type is not a TypeLiteral, it will return an empty array.
@@ -164,7 +257,9 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
             return [];
         }
 
-        const members = (this._node as ts.TypeLiteralNode).members ?? [];
+        const checker = this._context.checker;
+        const node = this._node as ts.TypeLiteralNode;
+        const members = node.members ?? [];
         const result: PropertyNode[] = [];
 
         for (const member of members) {
@@ -172,7 +267,10 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
                 continue;
             }
 
-            result.push(new PropertyNode(member, null, this._context));
+            const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(member, checker), checker);
+            const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, node);
+
+            result.push(new PropertyNode(member, {symbol, type}, this._context));
         }
 
         return result;
@@ -188,26 +286,37 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
             return [];
         }
 
-        const members = (this._node as ts.TypeLiteralNode).members ?? [];
+        const checker = this._context.checker;
+        const node = this._node as ts.TypeLiteralNode;
+        const members = node.members ?? [];
         const result: FunctionNode[] = [];
 
         for (const member of members) {
-            if (ts.isMethodSignature(member)) {
-                result.push(new FunctionNode(member, null, this._context));
+            if (!ts.isMethodSignature(member)) {
+                continue;
             }
+
+            const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(member, checker), checker);
+            const type = symbol && this._context.checker.getTypeOfSymbolAtLocation(symbol, node);
+
+            result.push(new FunctionNode(member, {symbol, type}, this._context));
         }
 
         return result;
     }
 
     getElements(): TypeNode[] {
-        if (!this.isUnion() && !this.isIntersection()) {
-            return [];
+        if (this.isUnion() || this.isIntersection()) {
+            const types = (this._node as ts.UnionTypeNode | ts.IntersectionTypeNode).types;
+            return types.map(typeNode => new TypeNode(typeNode, null, this._context));
         }
 
-        return (this._node as ts.UnionTypeNode | ts.IntersectionTypeNode).types.map(t => {
-            return new TypeNode(t, null, this._context);
-        });
+        if (this.isTuple()) {
+            const types = (this._node as ts.TupleTypeNode).elements;
+            return types.map(typeNode => new TypeNode(typeNode, null, this._context));
+        }
+
+        return [];
     }
 
     getElementType(): TypeNode | null {
@@ -262,6 +371,14 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
             text: this.getText(),
         };
 
+        const sourceRef: SourceReference = {};
+        const path = this.getPath();
+        const line = this.getLine();
+        if (!isThirdParty(path) && line != null) {
+            sourceRef.line = line;
+            sourceRef.path = path;
+        }
+
         if (this.isConditional()) {
             tmpl.kind = TypeKind.Conditional;
         } else if (this.isIntersection()) {
@@ -274,12 +391,21 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
             tmpl.kind = TypeKind.Literal;
         } else if (this.isPrimitive()) {
             tmpl.kind = TypeKind.Primitive;
+        } else if (this.isReference()) {
+            tmpl.kind = TypeKind.Reference;
+        } else if (this.isTuple()) {
+            tmpl.kind = TypeKind.Tuple;
         }
 
+        tryAddProperty(tmpl, 'name', this.getTupleMemberName());
         tryAddProperty(tmpl, 'elements', this.getElements().map(e => e.serialize()));
         tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
         tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize() as Method));
         tryAddProperty(tmpl, 'elementType', this.getElementType()?.serialize());
+
+        if (this.isReference()) {
+            tryAddProperty(tmpl, 'source', sourceRef);
+        }
 
         return tmpl;
     }
@@ -295,5 +421,34 @@ export class TypeNode implements ReflectedNode<Type, ts.TypeNode> {
     private static _isTypeAssertion(node: ts.Node): boolean {
         return ts.hasOnlyExpressionInitializer(node) && !!node.initializer &&
             (ts.isAsExpression(node.initializer) || ts.isTypeAssertionExpression(node));
+    }
+
+    private _getPrimitiveTypeText(): string {
+        const text = (this._type && this._context.checker.typeToString(this._type)) ?? '';
+
+        if (!this._node || (text !== '' && text !== 'any')) {
+            return text;
+        }
+
+        switch (this._node.kind) {
+            case ts.SyntaxKind.NumberKeyword:
+                return 'number';
+            case ts.SyntaxKind.BooleanKeyword:
+                return 'boolean';
+            case ts.SyntaxKind.StringKeyword:
+                return 'string';
+            case ts.SyntaxKind.UndefinedKeyword:
+                return 'undefined';
+            case ts.SyntaxKind.NullKeyword:
+                return 'null';
+            case ts.SyntaxKind.SymbolKeyword:
+                return 'symbol';
+            case ts.SyntaxKind.BigIntKeyword:
+                return 'bigint';
+            case ts.SyntaxKind.VoidKeyword:
+                return 'void';
+            default:
+                return '';
+        }
     }
 }

@@ -7,7 +7,6 @@ import type { AnalyserContext } from '../context.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import type { Module } from '../models/module.js';
 import { NodeType } from '../models/node.js';
-import { isBrowser } from '../context.js';
 import { is } from '../utils/is.js';
 import ts from 'typescript';
 
@@ -50,7 +49,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * The path where the JS file will be output by the TS Compiler
      */
     getOutputPath(): string {
-        const sourcePath = this.getSourcePath();
+        const sourcePath = this._node.fileName;
 
         // If the source file was already JS, just return that
         if (sourcePath.endsWith('js')) {
@@ -63,7 +62,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
         // Use the TS API to determine where the associated JS will be output based
         // on tsconfig settings.
-        const absolutePath = isBrowser ? sourcePath : ([process.cwd(), sourcePath].join('/'));
+        const absolutePath = this._context.system.getAbsolutePath(sourcePath);
         const outputPath = ts
             .getOutputFileNames(this._context.system.getCommandLine(), absolutePath, false)
             .filter(f => f.endsWith('.js'))[0];

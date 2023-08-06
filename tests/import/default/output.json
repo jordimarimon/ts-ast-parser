@@ -1,5 +1,47 @@
 [
     {
+        "sourcePath": "tests/import/default/foo.ts",
+        "outputPath": "tests/import/default/foo.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "Class",
+                "line": 1,
+                "heritage": [
+                    {
+                        "name": "HTMLDialogElement",
+                        "kind": "Interface"
+                    }
+                ],
+                "customElement": true,
+                "methods": [
+                    {
+                        "name": "bar",
+                        "kind": "Method",
+                        "signatures": [
+                            {
+                                "return": {
+                                    "type": {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    }
+                                },
+                                "line": 3
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Default"
+            }
+        ]
+    },
+    {
         "sourcePath": "tests/import/default/index.ts",
         "outputPath": "tests/import/default/index.js",
         "imports": [
@@ -9,48 +51,7 @@
                 "importPath": "./foo.js"
             }
         ],
-        "exports": [],
-        "declarations": []
-    },
-    {
-        "sourcePath": "tests/import/default/foo.ts",
-        "outputPath": "tests/import/default/foo.js",
-        "imports": [],
-        "exports": [
-            {
-                "name": "Foo",
-                "kind": "Default"
-            }
-        ],
-        "declarations": [
-            {
-                "name": "Foo",
-                "kind": "Class",
-                "line": 1,
-                "customElement": true,
-                "heritage": [
-                    {
-                        "name": "HTMLDialogElement",
-                        "kind": "Interface"
-                    }
-                ],
-                "methods": [
-                    {
-                        "name": "bar",
-                        "kind": "Method",
-                        "signatures": [
-                            {
-                                "line": 3,
-                                "return": {
-                                    "type": {
-                                        "text": "number"
-                                    }
-                                }
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+        "declarations": [],
+        "exports": []
     }
 ]

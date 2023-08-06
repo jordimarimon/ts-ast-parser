@@ -50,4 +50,9 @@ export interface AnalyserSystem {
      */
     normalizePath(path: string | undefined): string;
 
+    /**
+     * Returns the absolute path
+     */
+    getAbsolutePath(path: string | undefined): string;
+
 }

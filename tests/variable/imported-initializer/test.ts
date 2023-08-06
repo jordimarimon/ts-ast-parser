@@ -1,10 +1,10 @@
+import { getTestResult } from '../../utils.js';
 import { describe, expect, it } from 'vitest';
-import { getFixture } from '../../utils.js';
 
 
 const category = 'variable';
 const subcategory = 'imported-initializer';
-const {actual, expected} = getFixture({category, subcategory, importedFiles: ['foo.ts']});
+const {actual, expected} = await getTestResult({category, subcategory});
 
 describe(`${category}/${subcategory}`, () => {
 

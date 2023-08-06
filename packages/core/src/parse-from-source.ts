@@ -1,8 +1,10 @@
+import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
-import { AnalyserDiagnostic } from './utils/errors.js';
+import type { AnalyserResult } from './analyser-result.js';
 import { ModuleNode } from './nodes/module-node.js';
 import type { AnalyserContext } from './context.js';
+import { isBrowser } from './context.js';
 import ts from 'typescript';
 
 
@@ -18,46 +20,72 @@ import ts from 'typescript';
 export async function parseFromSource(
     source: string,
     options: Partial<AnalyserOptions> = {},
-): Promise<ModuleNode | null> {
-    const fileName = 'unknown.ts';
+): Promise<AnalyserResult<ModuleNode>> {
+    if (!source) {
+        return {
+            result: null,
+            errors: [{kind: DiagnosticErrorType.ARGUMENT, messageText: 'Source code is empty.'}],
+        };
+    }
+
+    const fileName = '/unknown.ts';
 
     let system: AnalyserSystem;
-    if (options.system) {
-        system = options.system;
+    if (isBrowser) {
+        system = await import('./browser-system.js').then(m => {
+            return m.BrowserSystem.create({
+                fsMap: new Map<string, string>([[fileName, source]]),
+                analyserOptions: options,
+            });
+        });
     } else {
         system = await import('./node-system.js').then(m => {
-            return new m.NodeSystem({vfs: true, analyserOptions: {...options, include: [fileName]}});
+            return new m.NodeSystem({
+                vfs: true,
+                fsMap: new Map<string, string>([[fileName, source]]),
+                analyserOptions: options,
+            });
         });
     }
-    system.writeFile(fileName, source);
 
     const commandLine = system.getCommandLine();
     const compilerHost = system.getCompilerHost();
     const program = ts.createProgram({
-        rootNames: [fileName],
+        rootNames: commandLine.fileNames,
         options: commandLine.options,
         host: compilerHost,
     });
     const sourceFile = program.getSourceFile(fileName);
 
     const analyserDiagnostic = new AnalyserDiagnostic();
-    analyserDiagnostic.set(program.getSemanticDiagnostics());
+    analyserDiagnostic.addMany(program.getSemanticDiagnostics());
 
     if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
-        return null;
+        return {result: null, errors: analyserDiagnostic.getAll()};
+    }
+
+    commandLine.errors.forEach(err => {
+        analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, err.messageText);
+    });
+    if (commandLine.errors.length > 0) {
+        return {result: null, errors: analyserDiagnostic.getAll()};
     }
 
     if (!sourceFile) {
-        return null;
+        analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, 'Unable to analyse source code.');
+        return {result: null, errors: analyserDiagnostic.getAll()};
     }
 
     const context: AnalyserContext = {
         program,
         system,
         options: options ?? null,
-        diagnostic: analyserDiagnostic,
+        diagnostics: analyserDiagnostic,
         checker: program.getTypeChecker(),
     };
 
-    return new ModuleNode(sourceFile, context);
+    return {
+        result: new ModuleNode(sourceFile, context),
+        errors: analyserDiagnostic.getAll(),
+    };
 }

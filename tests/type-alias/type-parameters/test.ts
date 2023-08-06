@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest';
-import { getFixture } from '../../utils.js';
+import { getTestResult } from '../../utils.js';
 
 
 const category = 'type-alias';
 const subcategory = 'type-parameters';
-const {actual, expected} = getFixture({category, subcategory});
+const {actual, expected} = await getTestResult({category, subcategory});
 
 describe(`${category}/${subcategory}`, () => {
 

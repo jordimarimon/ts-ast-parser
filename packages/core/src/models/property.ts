@@ -16,7 +16,7 @@ export interface PropertyLike {
     /**
      * The start line number where the property is defined
      */
-    line: number;
+    line?: number;
 
     /**
      * The type of the property.

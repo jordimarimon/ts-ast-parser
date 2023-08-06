@@ -20,7 +20,7 @@ export interface FunctionSignature {
     /**
      * The start line number where it's defined
      */
-    line: number;
+    line?: number;
 
     /**
      * The array of parameters

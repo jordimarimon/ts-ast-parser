@@ -5,11 +5,12 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Variable",
                 "name": "name",
+                "kind": "Variable",
                 "line": 5,
                 "type": {
-                    "text": "string"
+                    "text": "string",
+                    "kind": "Primitive"
                 },
                 "default": "'John Doe'"
             }

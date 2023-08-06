@@ -1,3 +1,4 @@
+import type { SourceReference } from './reference.js';
 import type { Field, Method } from './member.js';
 
 
@@ -9,6 +10,7 @@ export enum TypeKind {
     Conditional = 'Conditional',
     Reference = 'Reference',
     Primitive = 'Primitive',
+    Tuple = 'Tuple',
 }
 
 /**
@@ -44,4 +46,14 @@ export interface Type {
      * The element type of array type
      */
     elementType?: Type | null;
+
+    /**
+     * The name of the tuple named element
+     */
+    name?: string;
+
+    /**
+     * The location of the symbol
+     */
+    source?: SourceReference;
 }

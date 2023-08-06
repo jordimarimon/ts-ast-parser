@@ -1,27 +1,8 @@
 [
     {
-        "sourcePath": "tests/import/named/index.ts",
-        "outputPath": "tests/import/named/index.js",
-        "imports": [
-            {
-                "name": "Foo",
-                "kind": "Named",
-                "importPath": "./foo.js"
-            }
-        ],
-        "exports": [],
-        "declarations": []
-    },
-    {
         "sourcePath": "tests/import/named/foo.ts",
         "outputPath": "tests/import/named/foo.js",
         "imports": [],
-        "exports": [
-            {
-                "name": "Foo",
-                "kind": "Named"
-            }
-        ],
         "declarations": [
             {
                 "name": "Foo",
@@ -33,17 +14,36 @@
                         "kind": "Method",
                         "signatures": [
                             {
-                                "line": 3,
                                 "return": {
                                     "type": {
                                         "text": "void"
                                     }
-                                }
+                                },
+                                "line": 3
                             }
                         ]
                     }
                 ]
             }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
         ]
+    },
+    {
+        "sourcePath": "tests/import/named/index.ts",
+        "outputPath": "tests/import/named/index.js",
+        "imports": [
+            {
+                "name": "Foo",
+                "kind": "Named",
+                "importPath": "./foo.js"
+            }
+        ],
+        "declarations": [],
+        "exports": []
     }
 ]

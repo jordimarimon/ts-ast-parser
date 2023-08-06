@@ -5,8 +5,8 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Variable",
                 "name": "code",
+                "kind": "Variable",
                 "line": 1,
                 "type": {
                     "text": "unknown"
@@ -14,26 +14,28 @@
                 "default": 123
             },
             {
-                "kind": "Variable",
                 "name": "code2",
+                "kind": "Variable",
                 "line": 2,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 123
             },
             {
-                "kind": "Variable",
                 "name": "code3",
+                "kind": "Variable",
                 "line": 3,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 123
             },
             {
-                "kind": "Variable",
                 "name": "x",
+                "kind": "Variable",
                 "line": 4,
                 "type": {
                     "text": "readonly [4, 5]"

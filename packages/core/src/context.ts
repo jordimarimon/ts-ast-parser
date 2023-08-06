@@ -1,5 +1,5 @@
+import type { AnalyserDiagnostic } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
-import type { AnalyserDiagnostic } from './utils/errors.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type ts from 'typescript';
 
@@ -40,7 +40,7 @@ export interface AnalyserContext {
     /**
      * Here we save all the errors we find while analysing the source files
      */
-    diagnostic: AnalyserDiagnostic;
+    diagnostics: AnalyserDiagnostic;
 
     /**
      * An abstraction layer around how we interact with the environment (browser or Node.js)

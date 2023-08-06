@@ -1,5 +1,4 @@
 import type { AnalyserSystem } from './analyser-system.js';
-import type ts from 'typescript';
 
 
 /**
@@ -24,7 +23,7 @@ export interface AnalyserOptions {
      *
      * @see https://www.typescriptlang.org/tsconfig#compilerOptions
      */
-    compilerOptions: ts.CompilerOptions;
+    compilerOptions: {[key: string]: unknown};
 
     /**
      * Allows you to define which files get included in the analysis

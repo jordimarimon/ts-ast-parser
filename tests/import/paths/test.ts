@@ -1,27 +1,21 @@
 import { describe, expect, it } from 'vitest';
-import { getFixture } from '../../utils.js';
-import ts from 'typescript';
-import path from 'path';
+import { getTestResult } from '../../utils.js';
+import * as path from 'path';
 
 
 const category = 'import';
 const subcategory = 'paths';
-const compilerOptions: ts.CompilerOptions = {
+const compilerOptions = {
     baseUrl: path.join(process.cwd(), 'tests', category, subcategory),
     experimentalDecorators: true,
-    target: ts.ScriptTarget.Latest,
-    module: ts.ModuleKind.ESNext,
+    target: 'es2020',
+    module: 'ES2020',
     lib: ['es2020'],
     paths: {
         'custom-path/foo': ['./foo.ts'],
     },
 };
-const {actual, expected} = getFixture({
-    category,
-    subcategory,
-    importedFiles: ['foo.ts'],
-    analyzerOptions: {compilerOptions},
-});
+const {actual, expected} = await getTestResult({category, subcategory, analyzerOptions: {compilerOptions}});
 
 describe(`${category}/${subcategory}`, () => {
 

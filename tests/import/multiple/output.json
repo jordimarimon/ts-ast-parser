@@ -1,5 +1,63 @@
 [
     {
+        "sourcePath": "tests/import/multiple/foo.ts",
+        "outputPath": "tests/import/multiple/foo.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "Class",
+                "line": 1,
+                "methods": [
+                    {
+                        "name": "log",
+                        "kind": "Method",
+                        "signatures": [
+                            {
+                                "return": {
+                                    "type": {
+                                        "text": "void"
+                                    }
+                                },
+                                "line": 3,
+                                "parameters": [
+                                    {
+                                        "name": "x",
+                                        "type": {
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 3
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "bar",
+                "kind": "Variable",
+                "line": 11,
+                "type": {
+                    "text": "number",
+                    "kind": "Primitive"
+                },
+                "default": 5
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Default"
+            },
+            {
+                "name": "bar",
+                "kind": "Named"
+            }
+        ]
+    },
+    {
         "sourcePath": "tests/import/multiple/index.ts",
         "outputPath": "tests/import/multiple/index.js",
         "imports": [
@@ -16,61 +74,5 @@
         ],
         "declarations": [],
         "exports": []
-    },
-    {
-        "sourcePath": "tests/import/multiple/foo.ts",
-        "outputPath": "tests/import/multiple/foo.js",
-        "imports": [],
-        "declarations": [
-            {
-                "name": "Foo",
-                "kind": "Class",
-                "line": 1,
-                "methods": [
-                    {
-                        "name": "log",
-                        "kind": "Method",
-                        "signatures": [
-                            {
-                                "line": 3,
-                                "return": {
-                                    "type": {
-                                        "text": "void"
-                                    }
-                                },
-                                "parameters": [
-                                    {
-                                        "name": "x",
-                                        "type": {
-                                            "text": "number"
-                                        },
-                                        "line": 3
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "name": "bar",
-                "kind": "Variable",
-                "line": 11,
-                "type": {
-                    "text": "number"
-                },
-                "default": 5
-            }
-        ],
-        "exports": [
-            {
-                "name": "Foo",
-                "kind": "Default"
-            },
-            {
-                "name": "bar",
-                "kind": "Named"
-            }
-        ]
     }
 ]

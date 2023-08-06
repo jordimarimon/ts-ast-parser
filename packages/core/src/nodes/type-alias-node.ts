@@ -58,7 +58,7 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
         return this._jsDoc;
     }
 
-    getType(): TypeNode {
+    getValue(): TypeNode {
         return new TypeNode(this._node.type, null, this._context);
     }
 
@@ -71,7 +71,7 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
             name: this.getName(),
             kind: this.getKind(),
             line: this.getLine(),
-            value: this.getType().serialize(),
+            value: this.getValue().serialize(),
         };
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());

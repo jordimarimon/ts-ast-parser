@@ -8,20 +8,112 @@
                 "name": "Colors",
                 "kind": "TypeAlias",
                 "line": 1,
-                "value": "'red' | 'green' | 'blue'"
+                "value": {
+                    "text": "'red' | 'green' | 'blue'",
+                    "kind": "Union",
+                    "elements": [
+                        {
+                            "text": "\"red\"",
+                            "kind": "Primitive"
+                        },
+                        {
+                            "text": "\"green\"",
+                            "kind": "Primitive"
+                        },
+                        {
+                            "text": "\"blue\"",
+                            "kind": "Primitive"
+                        }
+                    ]
+                }
             },
             {
                 "name": "RGB",
                 "kind": "TypeAlias",
                 "line": 3,
-                "value": "[red: number, green: number, blue: number]"
+                "value": {
+                    "text": "[red: number, green: number, blue: number]",
+                    "kind": "Tuple",
+                    "elements": [
+                        {
+                            "text": "number",
+                            "kind": "Primitive",
+                            "name": "red"
+                        },
+                        {
+                            "text": "number",
+                            "kind": "Primitive",
+                            "name": "green"
+                        },
+                        {
+                            "text": "number",
+                            "kind": "Primitive",
+                            "name": "blue"
+                        }
+                    ]
+                }
             },
             {
                 "name": "palette",
                 "kind": "Variable",
                 "line": 5,
                 "type": {
-                    "text": "{ red: [number, number, number]; green: string; blue: [number, number, number]; }"
+                    "text": "{ red: [number, number, number]; green: string; blue: [number, number, number]; }",
+                    "kind": "Literal",
+                    "properties": [
+                        {
+                            "name": "red",
+                            "kind": "Property",
+                            "type": {
+                                "text": "[number, number, number]",
+                                "kind": "Tuple",
+                                "elements": [
+                                    {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    },
+                                    {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    },
+                                    {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "name": "green",
+                            "kind": "Property",
+                            "type": {
+                                "text": "string",
+                                "kind": "Primitive"
+                            }
+                        },
+                        {
+                            "name": "blue",
+                            "kind": "Property",
+                            "type": {
+                                "text": "[number, number, number]",
+                                "kind": "Tuple",
+                                "elements": [
+                                    {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    },
+                                    {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    },
+                                    {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
                 },
                 "default": "{\n    red: [255, 0, 0],\n    green: '#00ff00',\n    blue: [0, 0, 255],\n} satisfies Record<Colors, string | RGB>"
             },
@@ -30,7 +122,18 @@
                 "kind": "Variable",
                 "line": 12,
                 "type": {
-                    "text": "number | undefined"
+                    "text": "number | undefined",
+                    "kind": "Union",
+                    "elements": [
+                        {
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
+                        {
+                            "text": "undefined",
+                            "kind": "Primitive"
+                        }
+                    ]
                 },
                 "default": "palette.red.at(0)"
             },
@@ -39,7 +142,8 @@
                 "kind": "Variable",
                 "line": 13,
                 "type": {
-                    "text": "string"
+                    "text": "string",
+                    "kind": "Primitive"
                 },
                 "default": "palette.green.toUpperCase()"
             }

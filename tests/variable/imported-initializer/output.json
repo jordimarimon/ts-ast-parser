@@ -1,5 +1,28 @@
 [
     {
+        "sourcePath": "tests/variable/imported-initializer/foo.ts",
+        "outputPath": "tests/variable/imported-initializer/foo.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "foo",
+                "kind": "Variable",
+                "line": 1,
+                "type": {
+                    "text": "number",
+                    "kind": "Primitive"
+                },
+                "default": 4
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            }
+        ]
+    },
+    {
         "sourcePath": "tests/variable/imported-initializer/index.ts",
         "outputPath": "tests/variable/imported-initializer/index.js",
         "imports": [
@@ -11,11 +34,12 @@
         ],
         "declarations": [
             {
-                "kind": "Variable",
                 "name": "bar",
+                "kind": "Variable",
                 "line": 4,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 4
             }
@@ -23,28 +47,6 @@
         "exports": [
             {
                 "name": "bar",
-                "kind": "Named"
-            }
-        ]
-    },
-    {
-        "sourcePath": "tests/variable/imported-initializer/foo.ts",
-        "outputPath": "tests/variable/imported-initializer/foo.js",
-        "imports": [],
-        "declarations": [
-            {
-                "kind": "Variable",
-                "name": "foo",
-                "line": 1,
-                "type": {
-                    "text": "number"
-                },
-                "default": 4
-            }
-        ],
-        "exports": [
-            {
-                "name": "foo",
                 "kind": "Named"
             }
         ]

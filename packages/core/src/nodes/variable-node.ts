@@ -61,7 +61,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
     }
 
     getType(): TypeNode {
-        return TypeNode.fromNode(this._node, this._context);
+        return TypeNode.fromNode(this._declaration, this._context);
     }
 
     getValue(): unknown {

@@ -22,6 +22,10 @@ export function getLocation(nodeOrType: ts.Node | ts.Type, context: AnalyserCont
         symbol = nodeOrType.aliasSymbol ?? nodeOrType.getSymbol();
     }
 
+    if (!symbol) {
+        symbol = (nodeOrType as unknown as {symbol: ts.Symbol | undefined})['symbol'];
+    }
+
     const decl = symbol?.getDeclarations()?.[0];
     const sourceFile = decl?.getSourceFile();
     const path = context.system.normalizePath(sourceFile?.fileName) ?? '';

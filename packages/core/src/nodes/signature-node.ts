@@ -90,12 +90,12 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
 
     serialize(): FunctionSignature {
         const tmpl: FunctionSignature = {
-            line: this.getLine(),
             return: {
                 type: this.getReturnType().serialize(),
             },
         };
 
+        tryAddProperty(tmpl, 'line', this.getLine());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
         tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
         tryAddProperty(tmpl, 'parameters', this.getParameters().map(param => param.serialize()));

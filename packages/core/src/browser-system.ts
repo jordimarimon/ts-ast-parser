@@ -89,6 +89,7 @@ const knownLibFiles = [
 
 export interface BrowserSystemOptions {
     analyserOptions: Partial<AnalyserOptions>;
+    fsMap?: Map<string, string>;
 }
 
 export class BrowserSystem implements AnalyserSystem {
@@ -103,7 +104,7 @@ export class BrowserSystem implements AnalyserSystem {
 
     private constructor(options: BrowserSystemOptions) {
         this._fileNames = new Set<string>();
-        this._sys = tsvfs.createSystem(new Map<string, string>());
+        this._sys = tsvfs.createSystem(options.fsMap ?? new Map<string, string>());
         this._commandLine = this._createCommandLine(options.analyserOptions);
         this._host = tsvfs.createVirtualCompilerHost(this._sys, this._commandLine.options, ts).compilerHost;
     }
@@ -144,6 +145,10 @@ export class BrowserSystem implements AnalyserSystem {
     }
 
     normalizePath(path: string | undefined): string {
+        return path ?? '';
+    }
+
+    getAbsolutePath(path: string | undefined): string {
         return path ?? '';
     }
 

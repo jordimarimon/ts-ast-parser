@@ -27,12 +27,12 @@
         "verbatimModuleSyntax": true,
         "isolatedModules": true,
         "useDefineForClassFields": false,
-        "target": "es2020",
+        "target": "ES2020",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
         "lib": [
-            "es2020",
-            "dom"
+            "ES2020",
+            "DOM"
         ],
         "paths": {
             "@ts-ast-parser/*": [

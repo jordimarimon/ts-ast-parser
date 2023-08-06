@@ -9,6 +9,7 @@
                 "line": 2,
                 "name": "foo",
                 "type": {
+                    "kind": "Primitive",
                     "text": "number"
                 },
                 "default": "bar + 3"
