@@ -1,3 +1,4 @@
+import type { AnalyserSystem } from './analyser-system.js';
 import type ts from 'typescript';
 
 
@@ -42,4 +43,9 @@ export interface AnalyserOptions {
      * @default false
      */
     jsProject: boolean;
+
+    /**
+     * An abstraction layer around how we interact with the environment (browser or Node.js)
+     */
+    system: AnalyserSystem;
 }

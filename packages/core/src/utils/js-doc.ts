@@ -1,7 +1,6 @@
 import type { JSDoc, JSDocTSComment, JSDocTSNode, JSDocTagValue } from '../models/js-doc.js';
 import type { Spec } from 'comment-parser/primitives';
 import { JSDocTagName } from '../models/js-doc.js';
-import { logWarning } from './logs.js';
 import { parse } from 'comment-parser';
 
 
@@ -27,7 +26,7 @@ function collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
 
     for (const block of parsedJsDocComment) {
         if (block.problems.length) {
-            logWarning('There have been problems while parsing the JSDoc: ', block.problems);
+            continue;
         }
 
         const descriptionValue = trimNewLines(block.description ?? '');
@@ -55,18 +54,6 @@ function collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
 }
 
 function getJSTagValue(name: string, tag: Spec): JSDocTagValue {
-    if (isBooleanJSDoc(name)) {
-        return true;
-    }
-
-    if (isStringJSDoc(name)) {
-        return trimNewLines(normalizeDescription(tag.description ? `${tag.name} ${tag.description}` : tag.name));
-    }
-
-    return getComplexJSTagValue(name, tag);
-}
-
-function getComplexJSTagValue(name: string, tag: Spec): JSDocTagValue {
     const result: JSDocTagValue = {};
     const defaultValue = tag.default ?? '';
     const descriptionValue = trimNewLines(normalizeDescription(tag.description ?? ''));
@@ -97,37 +84,6 @@ function getComplexJSTagValue(name: string, tag: Spec): JSDocTagValue {
     }
 
     return result;
-}
-
-function isBooleanJSDoc(name: string): boolean {
-    const booleanJSDocTags: string[] = [
-        JSDocTagName.readonly,
-        JSDocTagName.deprecated,
-        JSDocTagName.override,
-        JSDocTagName.public,
-        JSDocTagName.protected,
-        JSDocTagName.private,
-        JSDocTagName.internal,
-        JSDocTagName.ignore,
-    ];
-
-    return booleanJSDocTags.indexOf(name) !== -1;
-}
-
-function isStringJSDoc(name: string): boolean {
-    const stringJSDocTags: string[] = [
-        JSDocTagName.returns,
-        JSDocTagName.type,
-        JSDocTagName.summary,
-        JSDocTagName.example,
-        JSDocTagName.default,
-        JSDocTagName.since,
-        JSDocTagName.throws,
-        JSDocTagName.category,
-        JSDocTagName.see,
-    ];
-
-    return stringJSDocTags.indexOf(name) !== -1;
 }
 
 function trimNewLines(str = ''): string {

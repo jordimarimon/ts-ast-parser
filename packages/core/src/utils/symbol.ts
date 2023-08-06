@@ -18,10 +18,10 @@ export function getAliasedSymbolIfNecessary(
 }
 
 export function getSymbolAtLocation(node: ts.Node, checker: ts.TypeChecker): ts.Symbol | undefined {
-    let symbol = checker?.getSymbolAtLocation(node);
+    let symbol = checker.getSymbolAtLocation(node);
 
     if (!symbol && isNamedNode(node)) {
-        symbol = checker?.getSymbolAtLocation(node.name);
+        symbol = checker.getSymbolAtLocation(node.name);
     }
 
     return symbol;

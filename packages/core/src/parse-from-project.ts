@@ -1,35 +1,40 @@
-import { getResolvedCompilerOptions } from './resolve-compiler-options.js';
-import { formatDiagnostics, logError } from './utils/logs.js';
 import type { AnalyserOptions } from './analyser-options.js';
+import type { AnalyserSystem } from './analyser-system.js';
+import { AnalyserDiagnostic } from './utils/errors.js';
 import { ProjectNode } from './nodes/project-node.js';
 import type { AnalyserContext } from './context.js';
 import ts from 'typescript';
-import path from 'path';
 
 
-export function parseFromProject(options: Partial<AnalyserOptions> = {}): ProjectNode | null {
-    const {compilerOptions, commandLine} = getResolvedCompilerOptions(options);
-    const compilerHost = ts.createCompilerHost(compilerOptions, true);
-    const program = ts.createProgram(commandLine?.fileNames ?? [], compilerOptions, compilerHost);
-    const diagnostics = program.getSemanticDiagnostics();
+export async function parseFromProject(options: Partial<AnalyserOptions> = {}): Promise<ProjectNode | null> {
+    let system: AnalyserSystem;
+    if (options.system) {
+        system = options.system;
+    } else {
+        system = await import('./node-system.js').then(m => new m.NodeSystem({analyserOptions: options}));
+    }
 
-    if (!options.skipDiagnostics && diagnostics.length) {
-        logError('Error while analysing source files:', formatDiagnostics(diagnostics));
+    const commandLine = system.getCommandLine();
+    const program = ts.createProgram({
+        rootNames: commandLine.fileNames,
+        options: commandLine.options,
+        host: system.getCompilerHost(),
+    });
+
+    const analyserDiagnostic = new AnalyserDiagnostic();
+    analyserDiagnostic.set(program.getSemanticDiagnostics());
+
+    if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
         return null;
     }
 
-    // FIXME(Jordi M.): Why we're receiving as source files, files located inside `node_modules`?
-    const sourceFiles = program.getSourceFiles().filter(f => {
-        return !program.isSourceFileDefaultLibrary(f) && !program.isSourceFileFromExternalLibrary(f) &&
-            !f.fileName.match(/node_modules/)?.length;
-    });
-
+    const sourceFiles = program.getSourceFiles();
     const context: AnalyserContext = {
         program,
+        system,
         checker: program.getTypeChecker(),
         options: options ?? null,
-        commandLine,
-        normalizePath: filePath => filePath ? path.normalize(path.relative(process.cwd(), filePath)) : '',
+        diagnostic: analyserDiagnostic,
     };
 
     return new ProjectNode(sourceFiles, context);

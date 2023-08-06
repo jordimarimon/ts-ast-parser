@@ -43,7 +43,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * The path to the source file for this module.
      */
     getSourcePath(): string {
-        return this._context.normalizePath(this._node.fileName);
+        return this._context.system.normalizePath(this._node.fileName);
     }
 
     /**
@@ -57,7 +57,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
             return sourcePath;
         }
 
-        if (sourcePath.endsWith('.d.ts') || !this._context.commandLine) {
+        if (sourcePath.endsWith('.d.ts')) {
             return '';
         }
 
@@ -65,10 +65,10 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         // on tsconfig settings.
         const absolutePath = isBrowser ? sourcePath : ([process.cwd(), sourcePath].join('/'));
         const outputPath = ts
-            .getOutputFileNames(this._context.commandLine, absolutePath, false)
+            .getOutputFileNames(this._context.system.getCommandLine(), absolutePath, false)
             .filter(f => f.endsWith('.js'))[0];
 
-        return this._context.normalizePath(outputPath);
+        return this._context.system.normalizePath(outputPath);
     }
 
     getNodeType(): NodeType {

@@ -1,9 +1,8 @@
-import { getResolvedCompilerOptions } from './resolve-compiler-options.js';
-import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
 import type { AnalyserOptions } from './analyser-options.js';
+import type { AnalyserSystem } from './analyser-system.js';
+import { AnalyserDiagnostic } from './utils/errors.js';
 import type { AnalyserContext } from './context.js';
 import { ModuleNode } from './nodes/module-node.js';
-import * as path from 'path';
 import ts from 'typescript';
 
 
@@ -16,36 +15,48 @@ import ts from 'typescript';
  *
  * @returns The reflected TypeScript AST
  */
-export function parseFromFiles(files: readonly string[], options: Partial<AnalyserOptions> = {}): ModuleNode[] {
+export async function parseFromFiles(
+    files: readonly string[],
+    options: Partial<AnalyserOptions> = {},
+): Promise<ModuleNode[]> {
     if (!Array.isArray(files)) {
-        logError('Expected an array of files.');
         return [];
     }
 
-    const modules: ModuleNode[] = [];
-    const resolvedCompilerOptions = getResolvedCompilerOptions({...options, include: files});
-    const compilerHost = ts.createCompilerHost(resolvedCompilerOptions.compilerOptions, true);
-    const program = ts.createProgram(files, resolvedCompilerOptions.compilerOptions, compilerHost);
-    const diagnostics = program.getSemanticDiagnostics();
+    let system: AnalyserSystem;
+    if (options.system) {
+        system = options.system;
+    } else {
+        system = await import('./node-system.js').then(m => new m.NodeSystem({analyserOptions: options}));
+    }
 
-    if (!options.skipDiagnostics && diagnostics.length) {
-        logError('Error while analysing source files:', formatDiagnostics(diagnostics));
+    const commandLine = system.getCommandLine();
+    const program = ts.createProgram({
+        rootNames: files,
+        options: commandLine.options,
+        host: system.getCompilerHost(),
+    });
+
+    const analyserDiagnostic = new AnalyserDiagnostic();
+    analyserDiagnostic.set(program.getSemanticDiagnostics());
+
+    if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
         return [];
     }
 
     const context: AnalyserContext = {
         program,
+        system,
         checker: program.getTypeChecker(),
         options: options ?? null,
-        commandLine: resolvedCompilerOptions.commandLine,
-        normalizePath: filePath => filePath ? path.normalize(path.relative(process.cwd(), filePath)) : '',
+        diagnostic: analyserDiagnostic,
     };
 
+    const modules: ModuleNode[] = [];
     for (const file of files) {
         const sourceFile = program.getSourceFile(file);
 
         if (!sourceFile) {
-            logWarning(`Unable to analyze file "${file}".`);
             continue;
         }
 

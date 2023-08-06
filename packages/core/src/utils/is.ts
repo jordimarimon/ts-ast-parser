@@ -57,11 +57,6 @@ export type SymbolWithLocation = {
     symbol: ts.Symbol | undefined;
 };
 
-export type SymbolWithDeclaration<T extends ts.Declaration = ts.Declaration> = {
-    symbol: ts.Symbol;
-    declaration: T;
-};
-
 export type SymbolWithContext = {
     symbol: ts.Symbol | undefined;
     type: ts.Type | undefined;
