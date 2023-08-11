@@ -1,8 +1,8 @@
+import type { AnalyserDiagnostic } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
+import type { AnalyserSystem } from './analyser-system.js';
 import type ts from 'typescript';
 
-
-// TODO(Jordi M.): Add an abstraction of the file system in the analyser context
 
 /**
  * Returns true if we're executing inside a browser
@@ -33,17 +33,17 @@ export interface AnalyserContext {
     checker: ts.TypeChecker;
 
     /**
-     * The parsed TSConfig options and the source file names.
-     */
-    commandLine: ts.ParsedCommandLine | null;
-
-    /**
      * The user provided analyzer options.
      */
     options: Partial<AnalyserOptions> | null;
 
     /**
-     * Normalizing the path depends on the environment (browser or NodeJS) and the OS
+     * Here we save all the errors we find while analysing the source files
      */
-    normalizePath: (path: string | undefined) => string;
+    diagnostics: AnalyserDiagnostic;
+
+    /**
+     * An abstraction layer around how we interact with the environment (browser or Node.js)
+     */
+    system: AnalyserSystem;
 }

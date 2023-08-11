@@ -49,7 +49,7 @@ export class NamespaceImportNode implements ReflectedNode<Import, ts.ImportDecla
         const identifier = (this._node.importClause?.namedBindings as ts.NamespaceImport)?.name;
         const importPath = this.getImportPath();
 
-        return matchesTsConfigPath(importPath, this._context.commandLine?.options ?? {})
+        return matchesTsConfigPath(importPath, this._context.system.getCommandLine().options)
             ? getOriginalImportPath(identifier, this._context)
             : importPath;
     }

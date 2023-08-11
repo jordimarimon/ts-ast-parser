@@ -1,6 +1,9 @@
 import type { DeclarationKind } from './declaration-kind.js';
 import type { TypeParameter } from './type-parameter.js';
 import type { JSDoc } from './js-doc.js';
+import type { Type } from './type.js';
+
+
 
 
 /**
@@ -23,9 +26,9 @@ export interface TypeAliasDeclaration {
     line: number;
 
     /**
-     * The raw text value of the type alias
+     * The type that it's assigned
      */
-    value: string;
+    value: Type;
 
     /**
      * The type parameters defined in the type-alias

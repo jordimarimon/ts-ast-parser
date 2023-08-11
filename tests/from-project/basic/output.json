@@ -10,31 +10,31 @@
                 "line": 1,
                 "constructors": [
                     {
-                        "line": 6,
                         "return": {
                             "type": {
                                 "text": "Person",
-                                "sources": [
-                                    {
-                                        "text": "Person",
-                                        "path": "tests/from-project/basic/test-project/src/index.ts",
-                                        "line": 1
-                                    }
-                                ]
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 1,
+                                    "path": "tests/from-project/basic/test-project/src/index.ts"
+                                }
                             }
                         },
+                        "line": 6,
                         "parameters": [
                             {
                                 "name": "name",
                                 "type": {
-                                    "text": "string"
+                                    "text": "string",
+                                    "kind": "Primitive"
                                 },
                                 "line": 6
                             },
                             {
                                 "name": "age",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number",
+                                    "kind": "Primitive"
                                 },
                                 "line": 6
                             }
@@ -44,19 +44,21 @@
                 "properties": [
                     {
                         "name": "name",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
-                        }
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 2
                     },
                     {
                         "name": "age",
-                        "line": 4,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
-                        }
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
+                        "line": 4
                     }
                 ]
             },
@@ -66,38 +68,39 @@
                 "line": 12,
                 "constructors": [
                     {
-                        "line": 15,
                         "return": {
                             "type": {
                                 "text": "Employee",
-                                "sources": [
-                                    {
-                                        "text": "Employee",
-                                        "path": "tests/from-project/basic/test-project/src/index.ts",
-                                        "line": 12
-                                    }
-                                ]
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 12,
+                                    "path": "tests/from-project/basic/test-project/src/index.ts"
+                                }
                             }
                         },
+                        "line": 15,
                         "parameters": [
                             {
                                 "name": "name",
                                 "type": {
-                                    "text": "string"
+                                    "text": "string",
+                                    "kind": "Primitive"
                                 },
                                 "line": 15
                             },
                             {
                                 "name": "age",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number",
+                                    "kind": "Primitive"
                                 },
                                 "line": 15
                             },
                             {
                                 "name": "salary",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number",
+                                    "kind": "Primitive"
                                 },
                                 "line": 15
                             }
@@ -117,28 +120,31 @@
                 "properties": [
                     {
                         "name": "salary",
-                        "line": 13,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
-                        }
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
+                        "line": 13
                     },
                     {
                         "name": "name",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 2,
                         "inherited": true
                     },
                     {
                         "name": "age",
-                        "line": 4,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 4,
                         "inherited": true
                     }
                 ]

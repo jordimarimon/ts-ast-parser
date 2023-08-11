@@ -1,7 +1,6 @@
 import type { JSDoc, JSDocTSComment, JSDocTSNode, JSDocTagValue } from '../models/js-doc.js';
 import type { Spec } from 'comment-parser/primitives';
 import { JSDocTagName } from '../models/js-doc.js';
-import { logWarning } from './logs.js';
 import { parse } from 'comment-parser';
 
 
@@ -27,7 +26,7 @@ function collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
 
     for (const block of parsedJsDocComment) {
         if (block.problems.length) {
-            logWarning('There have been problems while parsing the JSDoc: ', block.problems);
+            continue;
         }
 
         const descriptionValue = trimNewLines(block.description ?? '');
@@ -42,10 +41,6 @@ function collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
         for (const tag of block.tags) {
             const name = tag.tag ?? '';
 
-            if (name === JSDocTagName.typedef) {
-                continue;
-            }
-
             doc.push({
                 kind: name,
                 value: getJSTagValue(name, tag),
@@ -54,80 +49,53 @@ function collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
     }
 }
 
-function getJSTagValue(name: string, tag: Spec): JSDocTagValue {
-    if (isBooleanJSDoc(name)) {
-        return true;
-    }
-
-    if (isStringJSDoc(name)) {
-        return trimNewLines(normalizeDescription(tag.description ? `${tag.name} ${tag.description}` : tag.name));
-    }
-
-    return getComplexJSTagValue(name, tag);
-}
-
-function getComplexJSTagValue(name: string, tag: Spec): JSDocTagValue {
+// eslint-disable-next-line sonarjs/cognitive-complexity
+function getJSTagValue(tagName: string, tag: Spec): JSDocTagValue {
     const result: JSDocTagValue = {};
-    const defaultValue = tag.default ?? '';
     const descriptionValue = trimNewLines(normalizeDescription(tag.description ?? ''));
+    const defaultValue = tag.default ?? '';
     const nameValue = tag.name ?? '';
     const typeValue = tag.type ?? '';
-    const hasDefault = defaultValue !== '';
-    const hasOptional = tag.optional;
-    const hasType = typeValue !== '';
 
-    if (hasDefault) {
+    if (defaultValue !== '') {
         result.default = defaultValue;
     }
 
-    if (hasOptional) {
+    if (tag.optional) {
         result.optional = true;
     }
 
-    if (hasType) {
+    if (typeValue !== '') {
         result.type = typeValue;
     }
 
-    if (name) {
+    if (nameValue !== '') {
         result.name = nameValue;
     }
 
-    if (descriptionValue) {
+    if (descriptionValue !== '') {
         result.description = descriptionValue;
     }
 
+    const metadataCount = Object.keys(result).length;
+
+    // If there is only one key and is a string key, we simplify the tag
+    // value to a string instead of an object
+    if (metadataCount === 1 && (result.description || result.name)) {
+        return nameValue || descriptionValue;
+    }
+
+    // Case when there is no delimiter between the name and the description
+    if (metadataCount === 2 && result.description && result.name) {
+        const line = tag.source.find(s => s.source.includes(tagName));
+        const text = (line?.tokens.name ?? '') + (line?.tokens.description ?? '');
+
+        if (!text.includes('-')) {
+            return [nameValue, descriptionValue].join(' ');
+        }
+    }
+
     return result;
-}
-
-function isBooleanJSDoc(name: string): boolean {
-    const booleanJSDocTags: string[] = [
-        JSDocTagName.readonly,
-        JSDocTagName.deprecated,
-        JSDocTagName.override,
-        JSDocTagName.public,
-        JSDocTagName.protected,
-        JSDocTagName.private,
-        JSDocTagName.internal,
-        JSDocTagName.ignore,
-    ];
-
-    return booleanJSDocTags.indexOf(name) !== -1;
-}
-
-function isStringJSDoc(name: string): boolean {
-    const stringJSDocTags: string[] = [
-        JSDocTagName.returns,
-        JSDocTagName.type,
-        JSDocTagName.summary,
-        JSDocTagName.example,
-        JSDocTagName.default,
-        JSDocTagName.since,
-        JSDocTagName.throws,
-        JSDocTagName.category,
-        JSDocTagName.see,
-    ];
-
-    return stringJSDocTags.indexOf(name) !== -1;
 }
 
 function trimNewLines(str = ''): string {

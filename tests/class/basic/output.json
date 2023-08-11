@@ -6,44 +6,45 @@
         "declarations": [
             {
                 "name": "Foo",
-                "line": 4,
                 "kind": "Class",
+                "line": 4,
                 "constructors": [
                     {
-                        "line": 18,
                         "return": {
                             "type": {
                                 "text": "Foo",
-                                "sources": [
-                                    {
-                                        "text": "Foo",
-                                        "path": "tests/class/basic/index.ts",
-                                        "line": 4
-                                    }
-                                ]
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 4,
+                                    "path": "tests/class/basic/index.ts"
+                                }
                             }
                         },
+                        "line": 18,
                         "parameters": [
                             {
                                 "name": "x",
-                                "line": 18,
                                 "type": {
-                                    "text": "number"
-                                }
+                                    "text": "number",
+                                    "kind": "Primitive"
+                                },
+                                "line": 18
                             },
                             {
                                 "name": "y",
-                                "line": 18,
                                 "type": {
-                                    "text": "number"
-                                }
+                                    "text": "number",
+                                    "kind": "Primitive"
+                                },
+                                "line": 18
                             },
                             {
                                 "name": "message",
-                                "line": 18,
                                 "type": {
-                                    "text": "string"
-                                }
+                                    "text": "string",
+                                    "kind": "Primitive"
+                                },
+                                "line": 18
                             }
                         ]
                     }
@@ -54,58 +55,63 @@
                         "value": "Example `Foo` class"
                     }
                 ],
-                "staticProperties": [
-                    {
-                        "name": "staticBar",
-                        "line": 6,
-                        "kind": "Property",
-                        "type": {
-                            "text": "\"Hello World\""
-                        },
-                        "static": true,
-                        "default": "'Hello World'",
-                        "readOnly": true
-                    }
-                ],
                 "properties": [
                     {
                         "name": "bar",
-                        "line": 8,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 8,
                         "optional": true
                     },
                     {
                         "name": "message",
-                        "line": 12,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 12,
+                        "readOnly": true
+                    }
+                ],
+                "staticProperties": [
+                    {
+                        "name": "staticBar",
+                        "kind": "Property",
+                        "type": {
+                            "text": "\"Hello World\"",
+                            "kind": "Primitive"
+                        },
+                        "line": 6,
+                        "default": "'Hello World'",
+                        "static": true,
                         "readOnly": true
                     }
                 ],
                 "methods": [
                     {
-                        "kind": "Method",
                         "name": "log",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 24,
                                 "return": {
                                     "type": {
-                                        "text": "void"
+                                        "text": "void",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 24,
                                 "parameters": [
                                     {
                                         "name": "message",
-                                        "line": 24,
                                         "type": {
-                                            "text": "string"
-                                        }
+                                            "text": "string",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 24
                                     }
                                 ]
                             }
@@ -113,16 +119,17 @@
                         "readOnly": true
                     },
                     {
-                        "kind": "Method",
                         "name": "add",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 28,
                                 "return": {
                                     "type": {
-                                        "text": "number"
+                                        "text": "number",
+                                        "kind": "Primitive"
                                     }
-                                }
+                                },
+                                "line": 28
                             }
                         ]
                     }

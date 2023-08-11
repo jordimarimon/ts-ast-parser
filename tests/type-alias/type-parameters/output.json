@@ -8,7 +8,38 @@
                 "name": "Foo",
                 "kind": "TypeAlias",
                 "line": 4,
-                "value": "{\n    x: T;\n    y: K;\n}",
+                "value": {
+                    "text": "{\n    x: T;\n    y: K;\n}",
+                    "kind": "Literal",
+                    "properties": [
+                        {
+                            "name": "x",
+                            "kind": "Property",
+                            "type": {
+                                "text": "T",
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 4,
+                                    "path": "tests/type-alias/type-parameters/index.ts"
+                                }
+                            },
+                            "line": 5
+                        },
+                        {
+                            "name": "y",
+                            "kind": "Property",
+                            "type": {
+                                "text": "K",
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 4,
+                                    "path": "tests/type-alias/type-parameters/index.ts"
+                                }
+                            },
+                            "line": 6
+                        }
+                    ]
+                },
                 "jsDoc": [
                     {
                         "kind": "description",

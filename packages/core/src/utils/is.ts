@@ -42,7 +42,10 @@ export type FunctionLikeNode = ts.FunctionDeclaration |
     ts.FunctionTypeNode |
     ts.MethodDeclaration;
 
-export type PropertyLikeNode = ts.PropertyDeclaration | ts.PropertySignature | ts.GetAccessorDeclaration | ts.SetAccessorDeclaration;
+export type PropertyLikeNode = ts.PropertyDeclaration
+    | ts.PropertySignature
+    | ts.GetAccessorDeclaration
+    | ts.SetAccessorDeclaration;
 
 export type ClassLikeNode = ts.ClassDeclaration | ts.ClassExpression;
 
@@ -52,11 +55,6 @@ export type SymbolWithLocation = {
     path: string;
     line: number | null;
     symbol: ts.Symbol | undefined;
-};
-
-export type SymbolWithDeclaration<T extends ts.Declaration = ts.Declaration> = {
-    symbol: ts.Symbol;
-    declaration: T;
 };
 
 export type SymbolWithContext = {

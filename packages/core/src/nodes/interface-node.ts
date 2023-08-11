@@ -120,7 +120,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
             const isPropertyMethod = ts.isPropertySignature(decl) && decl.type && ts.isFunctionTypeNode(decl.type);
 
             if (ts.isMethodSignature(decl) || isPropertyMethod) {
-                result.push(new FunctionNode(decl, this._context, member));
+                result.push(new FunctionNode(decl, member, this._context));
             }
         }
 

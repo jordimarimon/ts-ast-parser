@@ -23,6 +23,7 @@
 
 <br/>
 
+> **Note**
 > This project is still in beta until it reaches version 1.0.0. There could be breaking changes between minor versions.
 
 ## What it is

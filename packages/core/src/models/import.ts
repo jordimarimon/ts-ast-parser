@@ -6,6 +6,7 @@ export enum ImportKind {
     Named = 'Named',
     Namespace = 'Namespace',
     SideEffect = 'SideEffect',
+    Dynamic = 'Dynamic',
 }
 
 /**

@@ -1,26 +1,8 @@
 [
     {
-        "sourcePath": "tests/import/side-effect/index.ts",
-        "outputPath": "tests/import/side-effect/index.js",
-        "imports": [
-            {
-                "kind": "SideEffect",
-                "importPath": "./foo.js"
-            }
-        ],
-        "exports": [],
-        "declarations": []
-    },
-    {
         "sourcePath": "tests/import/side-effect/foo.ts",
         "outputPath": "tests/import/side-effect/foo.js",
         "imports": [],
-        "exports": [
-            {
-                "name": "Foo",
-                "kind": "Named"
-            }
-        ],
         "declarations": [
             {
                 "name": "Foo",
@@ -29,15 +11,34 @@
                 "properties": [
                     {
                         "name": "bar",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 2,
                         "default": 3
                     }
                 ]
             }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
         ]
+    },
+    {
+        "sourcePath": "tests/import/side-effect/index.ts",
+        "outputPath": "tests/import/side-effect/index.js",
+        "imports": [
+            {
+                "kind": "SideEffect",
+                "importPath": "./foo.js"
+            }
+        ],
+        "declarations": [],
+        "exports": []
     }
 ]

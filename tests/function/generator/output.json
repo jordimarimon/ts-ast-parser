@@ -5,16 +5,17 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Function",
                 "name": "foo",
+                "kind": "Function",
                 "signatures": [
                     {
-                        "line": 2,
                         "return": {
                             "type": {
-                                "text": "Generator<number, string, unknown>"
+                                "text": "Generator<number, string, any>",
+                                "kind": "Reference"
                             }
-                        }
+                        },
+                        "line": 2
                     }
                 ],
                 "generator": true

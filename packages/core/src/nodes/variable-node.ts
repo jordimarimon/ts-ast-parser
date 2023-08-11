@@ -4,15 +4,14 @@ import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { getLinePosition } from '../utils/get-location.js';
-import { getTypeFromNode } from '../utils/get-type.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
 import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
+import { TypeNode } from './type-node.js';
 import type ts from 'typescript';
 
 
@@ -61,12 +60,8 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
         return getLinePosition(this._node);
     }
 
-    getType(): Type {
-        const jsDocType = this.getJSDoc().getTag(JSDocTagName.type)?.getValue<string>() ?? '';
-
-        return jsDocType
-            ? {text: jsDocType}
-            : getTypeFromNode(this._declaration, this._context);
+    getType(): TypeNode {
+        return TypeNode.fromNode(this._declaration, this._context);
     }
 
     getValue(): unknown {
@@ -89,7 +84,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
             name: this.getName(),
             kind: this.getKind(),
             line: this.getLine(),
-            type: this.getType(),
+            type: this.getType().serialize(),
         };
 
         if (defaultValue !== '') {

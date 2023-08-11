@@ -1,16 +1,10 @@
+import { DEFAULT_GLOBBY_EXCLUDE } from './default-compiler-options.js';
 import type { AnalyserOptions } from './analyser-options.js';
+import type { AnalyserResult } from './analyser-result.js';
 import type { ModuleNode } from './nodes/module-node.js';
 import { parseFromFiles } from './parse-from-files.js';
 import { globbySync } from 'globby';
 
-
-const IGNORE: string[] = [
-    '!node_modules/**/*.*',
-    '!**/*.test.{ts,js}',
-    '!**/*.suite.{ts,js}',
-    '!**/*.config.{ts,js}',
-    '!**/*.d.ts',
-];
 
 /**
  * Given some [glob](https://en.wikipedia.org/wiki/Glob_(programming))
@@ -25,9 +19,12 @@ const IGNORE: string[] = [
  *
  * @returns The reflected TypeScript AST
  */
-export function parseFromGlob(patterns: string | string[], options: Partial<AnalyserOptions> = {}): ModuleNode[] {
+export function parseFromGlob(
+    patterns: string | string[],
+    options: Partial<AnalyserOptions> = {},
+): Promise<AnalyserResult<ModuleNode[]>> {
     const arrPatterns = Array.isArray(patterns) ? patterns : [patterns];
-    const paths = globbySync([...arrPatterns, ...IGNORE]);
+    const paths = globbySync([...arrPatterns, ...DEFAULT_GLOBBY_EXCLUDE]);
 
     return parseFromFiles(paths, options);
 }

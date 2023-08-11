@@ -6,15 +6,29 @@
         "declarations": [
             {
                 "name": "TypeFoo",
-                "line": 4,
                 "kind": "TypeAlias",
-                "value": "{\n        bar: number;\n    }",
+                "line": 4,
+                "value": {
+                    "text": "{\n        bar: number;\n    }",
+                    "kind": "Literal",
+                    "properties": [
+                        {
+                            "name": "bar",
+                            "kind": "Property",
+                            "type": {
+                                "text": "number",
+                                "kind": "Primitive"
+                            },
+                            "line": 5
+                        }
+                    ]
+                },
                 "namespace": "Foo"
             },
             {
+                "kind": "Enum",
                 "name": "EnumFoo",
                 "line": 8,
-                "kind": "Enum",
                 "namespace": "Foo",
                 "members": [
                     {
@@ -36,36 +50,37 @@
                 ]
             },
             {
+                "name": "varFoo",
                 "kind": "Variable",
                 "line": 15,
-                "name": "varFoo",
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 5,
                 "namespace": "Foo"
             },
             {
                 "name": "IFoo",
-                "line": 17,
                 "kind": "Interface",
+                "line": 17,
                 "namespace": "Foo",
                 "properties": [
                     {
                         "name": "field",
-                        "line": 18,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
-                        }
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
+                        "line": 18
                     }
                 ]
             },
             {
                 "name": "ClassFoo",
-                "line": 21,
                 "kind": "Class",
-                "namespace": "Foo",
+                "line": 21,
                 "heritage": [
                     {
                         "name": "IFoo",
@@ -76,29 +91,32 @@
                         "kind": "Interface"
                     }
                 ],
+                "namespace": "Foo",
                 "properties": [
                     {
                         "name": "field",
-                        "line": 22,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 22,
                         "default": 3
                     }
                 ]
             },
             {
-                "kind": "Function",
                 "name": "logFoo",
+                "kind": "Function",
                 "signatures": [
                     {
-                        "line": 25,
                         "return": {
                             "type": {
-                                "text": "string"
+                                "text": "string",
+                                "kind": "Primitive"
                             }
-                        }
+                        },
+                        "line": 25
                     }
                 ],
                 "namespace": "Foo"

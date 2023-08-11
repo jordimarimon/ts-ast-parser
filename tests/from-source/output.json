@@ -1,14 +1,15 @@
 {
     "sourcePath": "unknown.ts",
-    "outputPath": "",
+    "outputPath": "unknown.js",
     "imports": [],
     "declarations": [
         {
-            "kind": "Variable",
             "name": "foo",
+            "kind": "Variable",
             "line": 1,
             "type": {
-                "text": "boolean"
+                "text": "boolean",
+                "kind": "Primitive"
             },
             "default": true
         }

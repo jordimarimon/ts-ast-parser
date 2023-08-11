@@ -6,52 +6,55 @@
         "declarations": [
             {
                 "name": "StringArray",
-                "line": 1,
                 "kind": "Interface",
+                "line": 1,
                 "indexSignature": {
                     "name": "index",
                     "line": 2,
                     "kind": "IndexSignature",
-                    "indexType": {
-                        "text": "number"
-                    },
                     "type": {
                         "text": "string"
+                    },
+                    "indexType": {
+                        "text": "number",
+                        "kind": "Primitive"
                     }
                 }
-
             },
             {
                 "name": "NumberOrStringDictionary",
-                "line": 5,
                 "kind": "Interface",
+                "line": 5,
                 "indexSignature": {
                     "name": "index",
                     "line": 6,
                     "kind": "IndexSignature",
-                    "indexType": {
-                        "text": "string"
-                    },
                     "type": {
                         "text": "number | string"
+                    },
+                    "indexType": {
+                        "text": "string",
+                        "kind": "Primitive"
                     }
                 },
                 "properties": [
                     {
                         "name": "length",
-                        "line": 7,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
-                        }
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
+                        "line": 7
                     },
                     {
                         "name": "name",
-                        "line": 8,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
-                        }
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 8
                     }
                 ]
             }

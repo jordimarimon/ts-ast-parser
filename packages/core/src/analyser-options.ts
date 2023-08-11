@@ -1,4 +1,4 @@
-import type ts from 'typescript';
+import type { AnalyserSystem } from './analyser-system.js';
 
 
 /**
@@ -23,17 +23,28 @@ export interface AnalyserOptions {
      *
      * @see https://www.typescriptlang.org/tsconfig#compilerOptions
      */
-    compilerOptions: ts.CompilerOptions;
+    compilerOptions: {[key: string]: unknown};
 
     /**
      * Allows you to define which files get included in the analysis
-     * in cases where there is not TSConfig file available
+     * in cases where there is no TSConfig file available
      */
     include: string[];
+
+    /**
+     * Allows you to define which files get excluded in the analysis
+     * in cases where there is no TSConfig file available
+     */
+    exclude: string[];
 
     /**
      * Whether the project represents a JS project
      * @default false
      */
     jsProject: boolean;
+
+    /**
+     * An abstraction layer around how we interact with the environment (browser or Node.js)
+     */
+    system: AnalyserSystem;
 }

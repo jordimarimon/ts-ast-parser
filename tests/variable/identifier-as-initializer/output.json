@@ -5,74 +5,96 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Variable",
                 "name": "foo",
+                "kind": "Variable",
                 "line": 1,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 3
             },
             {
-                "kind": "Variable",
                 "name": "bar",
+                "kind": "Variable",
                 "line": 2,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 3
             },
             {
-                "kind": "Variable",
                 "name": "bar2",
+                "kind": "Variable",
                 "line": 3,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 3
             },
             {
-                "kind": "Variable",
                 "name": "str",
+                "kind": "Variable",
                 "line": 4,
                 "type": {
-                    "text": "string"
+                    "text": "string",
+                    "kind": "Primitive"
                 },
                 "default": "'Hello'"
             },
             {
-                "kind": "Variable",
                 "name": "num",
+                "kind": "Variable",
                 "line": 5,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 4
             },
             {
-                "kind": "Variable",
                 "name": "bool",
+                "kind": "Variable",
                 "line": 6,
                 "type": {
-                    "text": "boolean"
+                    "text": "boolean",
+                    "kind": "Primitive"
                 },
                 "default": false
             },
             {
-                "kind": "Variable",
                 "name": "obj",
+                "kind": "Variable",
                 "line": 7,
                 "type": {
-                    "text": "{ x: number; }"
+                    "text": "{ x: number; }",
+                    "kind": "Literal",
+                    "properties": [
+                        {
+                            "name": "x",
+                            "kind": "Property",
+                            "type": {
+                                "kind": "Primitive",
+                                "text": "number"
+                            }
+                        }
+                    ]
                 },
                 "default": "{x: 3}"
             },
             {
-                "kind": "Variable",
                 "name": "arr",
+                "kind": "Variable",
                 "line": 8,
                 "type": {
-                    "text": "number[]"
+                    "text": "number[]",
+                    "kind": "Array",
+                    "elementType": {
+                        "text": "number",
+                        "kind": "Primitive"
+                    }
                 },
                 "default": "[3]"
             }

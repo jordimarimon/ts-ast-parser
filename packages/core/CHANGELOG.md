@@ -5,6 +5,8 @@
 * Reflect the output JS path of a given source file. Use the `getOuputPath()` method from the `ModuleNode` class.
 * Analyse an entire project with the new function `parseFromProject()`.
 * Skip the semantic diagnostic check with the `boolean` option `skipDiagnostics`.
+* Be able to use any `parseFrom*` function inside the browser.
+* Reflect more information about types.
 
 ### Bug Fixes
 
@@ -14,9 +16,11 @@
 
 * The field `path` of a module has been renamed to `sourcePath`. This renaming is needed because now there is also 
   available the `outputPath` field (the path where the JS file gets compiled).
-* All the `parserFrom*` functions, now receive as second argument an object of type `AnalyserOptions` instead of 
+* All `parserFrom*` functions, now receive as second argument an object of type `AnalyserOptions` instead of 
   the `ts.CompilerOptions`.
-* Function `parseFromSource` is now asynchronous, it will return a `Promise<ModuleNode | null>`.
+* All `parserFrom*` functions are now asynchronous and will return a promise.
+* The reflection object of a type has changed
+* All `parserFrom*` functions now return an `AnalyserResult<T>` object
 
 ## 0.3.2 (2023-06-18)
 
@@ -96,7 +100,7 @@ Be aware of the breaking changes listed below.
 ### Features
 
 * Add references to type definitions
-* Support older versions of NodeJS. Now it is supported: `14.20`, `16.x` and `18.x`
+* Support older versions of Node.js. Now it is supported: `14.20`, `16.x` and `18.x`
 * Support older version of TypeScript. Now it is supported: `4.7`, `4.8` and `4.9`. Older versions could be supported 
   in the future.
 

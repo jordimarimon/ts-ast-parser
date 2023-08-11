@@ -11,28 +11,31 @@
                 "properties": [
                     {
                         "name": "bar",
-                        "line": 3,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
-                        }
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 3
                     },
                     {
                         "name": "baz",
-                        "line": 6,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 6,
                         "readOnly": true
                     },
                     {
                         "name": "value",
-                        "line": 8,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 8,
                         "writeOnly": true
                     }
                 ]

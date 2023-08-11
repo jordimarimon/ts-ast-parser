@@ -27,7 +27,6 @@ export function isBareModuleSpecifier(importPath: string): boolean {
  * @returns True if the path is from a third party library
  */
 export function isThirdParty(path: string): boolean {
-    // FIXME(Jordi M.): Use `Program.isSourceFileFromExternalLibrary` instead
     return path.length < 1000 && (/.*node_modules\/.+/.test(path) || /^https?:\/\/.+/.test(path));
 }
 
@@ -48,7 +47,7 @@ export function getOriginalImportPath(node: ts.Identifier | undefined, context: 
     const decl = symbol?.declarations?.[0];
     const originalFilePath = decl?.getSourceFile().fileName ?? '';
 
-    return context.normalizePath(originalFilePath);
+    return context.system.normalizePath(originalFilePath);
 }
 
 /**

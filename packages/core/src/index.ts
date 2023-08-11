@@ -53,10 +53,13 @@ export * from './nodes/reflected-node.js';
 export * from './nodes/side-effect-import-node.js';
 export * from './nodes/signature-node.js';
 export * from './nodes/type-alias-node.js';
+export * from './nodes/type-node.js';
 export * from './nodes/type-parameter-node.js';
 export * from './nodes/variable-node.js';
 
 // UTILS
 export * from './analyser-options.js';
+export * from './browser-system.js';
 export * from './context.js';
+export * from './node-system.js';
 export * from './utils/is.js';

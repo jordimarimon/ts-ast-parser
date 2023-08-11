@@ -9,7 +9,8 @@
                 "kind": "Variable",
                 "line": 14,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 4,
                 "jsDoc": [

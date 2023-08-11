@@ -6,24 +6,25 @@
         "declarations": [
             {
                 "name": "Class1",
-                "line": 1,
                 "kind": "Class",
+                "line": 1,
                 "properties": [
                     {
                         "name": "foo",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 2,
                         "default": 4
                     }
                 ]
             },
             {
                 "name": "Class2",
-                "line": 5,
                 "kind": "Class",
+                "line": 5,
                 "heritage": [
                     {
                         "name": "Class1",
@@ -37,20 +38,22 @@
                 "properties": [
                     {
                         "name": "bar",
-                        "line": 6,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 6,
                         "default": 3
                     },
                     {
                         "name": "foo",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 2,
                         "default": 4,
                         "inherited": true
                     }

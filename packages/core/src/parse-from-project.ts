@@ -1,36 +1,61 @@
-import { getResolvedCompilerOptions } from './resolve-compiler-options.js';
-import { formatDiagnostics, logError } from './utils/logs.js';
+import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
+import type { AnalyserSystem } from './analyser-system.js';
+import type { AnalyserResult } from './analyser-result.js';
 import { ProjectNode } from './nodes/project-node.js';
 import type { AnalyserContext } from './context.js';
 import ts from 'typescript';
-import path from 'path';
 
 
-export function parseFromProject(options: Partial<AnalyserOptions> = {}): ProjectNode | null {
-    const {compilerOptions, commandLine} = getResolvedCompilerOptions(options);
-    const compilerHost = ts.createCompilerHost(compilerOptions, true);
-    const program = ts.createProgram(commandLine?.fileNames ?? [], compilerOptions, compilerHost);
-    const diagnostics = program.getSemanticDiagnostics();
-
-    if (!options.skipDiagnostics && diagnostics.length) {
-        logError('Error while analysing source files:', formatDiagnostics(diagnostics));
-        return null;
+export async function parseFromProject(options: Partial<AnalyserOptions> = {}): Promise<AnalyserResult<ProjectNode>> {
+    let system: AnalyserSystem;
+    if (options.system) {
+        system = options.system;
+    } else {
+        system = await import('./node-system.js').then(m => new m.NodeSystem({analyserOptions: options}));
     }
 
-    // FIXME(Jordi M.): Why we're receiving as source files, files located inside `node_modules`?
-    const sourceFiles = program.getSourceFiles().filter(f => {
-        return !program.isSourceFileDefaultLibrary(f) && !program.isSourceFileFromExternalLibrary(f) &&
-            !f.fileName.match(/node_modules/)?.length;
+    const commandLine = system.getCommandLine();
+    const program = ts.createProgram({
+        rootNames: commandLine.fileNames,
+        options: commandLine.options,
+        host: system.getCompilerHost(),
     });
+
+    const analyserDiagnostic = new AnalyserDiagnostic();
+    analyserDiagnostic.addMany(program.getSemanticDiagnostics());
+
+    if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
+        return {result: null, errors: analyserDiagnostic.getAll()};
+    }
+
+    commandLine.errors.forEach(err => {
+        analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, err.messageText);
+    });
+    if (commandLine.errors.length > 0) {
+        return {result: null, errors: analyserDiagnostic.getAll()};
+    }
+
+    const sourceFiles: ts.SourceFile[] = [];
+    for (const f of program.getRootFileNames()) {
+        const sourceFile = program.getSourceFile(f);
+        if (!sourceFile) {
+            analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, `Unable to analyse file ${f}`);
+            continue;
+        }
+        sourceFiles.push(sourceFile);
+    }
 
     const context: AnalyserContext = {
         program,
+        system,
         checker: program.getTypeChecker(),
         options: options ?? null,
-        commandLine,
-        normalizePath: filePath => filePath ? path.normalize(path.relative(process.cwd(), filePath)) : '',
+        diagnostics: analyserDiagnostic,
     };
 
-    return new ProjectNode(sourceFiles, context);
+    return {
+        result: new ProjectNode(sourceFiles, context),
+        errors: analyserDiagnostic.getAll(),
+    };
 }

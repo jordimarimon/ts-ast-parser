@@ -14,17 +14,19 @@
                         "kind": "Method",
                         "signatures": [
                             {
-                                "line": 7,
                                 "return": {
                                     "type": {
-                                        "text": "void"
+                                        "text": "void",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 7,
                                 "parameters": [
                                     {
                                         "name": "name",
                                         "type": {
-                                            "text": "string"
+                                            "text": "string",
+                                            "kind": "Primitive"
                                         },
                                         "line": 7,
                                         "decorators": [

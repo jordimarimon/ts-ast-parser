@@ -12,7 +12,7 @@ export const functionFactory: NodeFactory<FunctionDeclaration | Method, Function
     isNode: isFunctionDeclaration,
 
     create: (node: ts.VariableStatement | ts.FunctionDeclaration, context: AnalyserContext): FunctionNode[] => {
-        return [new FunctionNode(node, context)];
+        return [new FunctionNode(node, null, context)];
     },
 
 };

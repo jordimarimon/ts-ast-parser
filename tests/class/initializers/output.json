@@ -5,70 +5,72 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Class",
                 "name": "Foo",
+                "kind": "Class",
                 "line": 7,
                 "constructors": [
                     {
-                        "line": 19,
                         "return": {
                             "type": {
-                                "sources": [
-                                    {
-                                        "line": 7,
-                                        "path": "tests/class/initializers/index.ts",
-                                        "text": "Foo"
-                                    }
-                                ],
-                                "text": "Foo"
+                                "text": "Foo",
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 7,
+                                    "path": "tests/class/initializers/index.ts"
+                                }
                             }
-                        }
+                        },
+                        "line": 19
                     }
                 ],
                 "properties": [
                     {
-                        "kind": "Property",
                         "name": "bar",
-                        "line": 9,
+                        "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 9,
                         "readOnly": true
                     },
                     {
-                        "kind": "Property",
                         "name": "foo",
-                        "line": 11,
+                        "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 11,
                         "default": "'foo'"
                     },
                     {
-                        "kind": "Property",
                         "name": "x",
+                        "kind": "Property",
+                        "type": {
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
                         "line": 13,
-                        "type": {
-                            "text": "number"
-                        },
                         "default": 3
                     },
                     {
-                        "kind": "Property",
                         "name": "y",
-                        "line": 15,
+                        "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 15,
                         "default": 3
                     },
                     {
-                        "kind": "Property",
                         "name": "myAdd",
-                        "line": 17,
+                        "kind": "Property",
                         "type": {
                             "text": "(x: number, y: number) => number"
                         },
+                        "line": 17,
                         "default": "add"
                     }
                 ]

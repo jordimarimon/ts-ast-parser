@@ -14,13 +14,13 @@ const pkgs = fs.readdirSync(pkgsDir);
 describe(category, () => {
 
     for (const pkg of pkgs) {
-        it(`should reflect the expected modules of package @test-project/${pkg}`, () => {
+        it(`should reflect the expected modules of package @test-project/${pkg}`, async () => {
             const expected = JSON.parse(fs.readFileSync(path.join(pkgsDir, pkg, 'output.json'), 'utf-8'));
-            const actual = parseFromProject({tsConfigFilePath: path.join(pkgsDir, pkg, 'tsconfig.json')});
-            const result = actual?.getModules().map(m => m.serialize());
+            const actual = await parseFromProject({tsConfigFilePath: path.join(pkgsDir, pkg, 'tsconfig.json')});
+            const result = actual?.result?.getModules().map(m => m.serialize());
 
             expect(result).to.deep.equal(expected);
-            expect(actual?.getName()).to.equal(`@test-project/${pkg}`);
+            expect(actual?.result?.getName()).to.equal(`@test-project/${pkg}`);
         });
     }
 

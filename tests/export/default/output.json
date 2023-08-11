@@ -5,11 +5,12 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Variable",
                 "name": "foo",
+                "kind": "Variable",
                 "line": 1,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 4
             }

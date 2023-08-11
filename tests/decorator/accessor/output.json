@@ -5,23 +5,24 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Function",
                 "name": "configurable",
+                "kind": "Function",
                 "signatures": [
                     {
-                        "line": 1,
                         "return": {
                             "type": {
                                 "text": "(_target: Point, _propertyKey: string, descriptor: PropertyDescriptor) => void"
                             }
                         },
+                        "line": 1,
                         "parameters": [
                             {
                                 "name": "value",
-                                "line": 1,
                                 "type": {
-                                    "text": "boolean"
-                                }
+                                    "text": "boolean",
+                                    "kind": "Primitive"
+                                },
+                                "line": 1
                             }
                         ]
                     }
@@ -29,37 +30,37 @@
             },
             {
                 "name": "Point",
-                "line": 7,
                 "kind": "Class",
+                "line": 7,
                 "constructors": [
                     {
-                        "line": 23,
                         "return": {
                             "type": {
                                 "text": "Point",
-                                "sources": [
-                                    {
-                                        "line": 7,
-                                        "path": "tests/decorator/accessor/index.ts",
-                                        "text": "Point"
-                                    }
-                                ]
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 7,
+                                    "path": "tests/decorator/accessor/index.ts"
+                                }
                             }
                         },
+                        "line": 23,
                         "parameters": [
                             {
                                 "name": "x",
-                                "line": 23,
                                 "type": {
-                                    "text": "number"
-                                }
+                                    "text": "number",
+                                    "kind": "Primitive"
+                                },
+                                "line": 23
                             },
                             {
                                 "name": "y",
-                                "line": 23,
                                 "type": {
-                                    "text": "number"
-                                }
+                                    "text": "number",
+                                    "kind": "Primitive"
+                                },
+                                "line": 23
                             }
                         ]
                     }
@@ -67,42 +68,44 @@
                 "properties": [
                     {
                         "name": "x",
-                        "line": 9,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 9,
                         "decorators": [
                             {
                                 "name": "configurable",
+                                "source": {
+                                    "path": "tests/decorator/accessor/index.ts",
+                                    "line": 1
+                                },
                                 "arguments": [
                                     false
-                                ],
-                                "source": {
-                                    "line": 1,
-                                    "path": "tests/decorator/accessor/index.ts"
-                                }
+                                ]
                             }
                         ],
                         "readOnly": true
                     },
                     {
                         "name": "y",
-                        "line": 14,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 14,
                         "decorators": [
                             {
                                 "name": "configurable",
+                                "source": {
+                                    "path": "tests/decorator/accessor/index.ts",
+                                    "line": 1
+                                },
                                 "arguments": [
                                     false
-                                ],
-                                "source": {
-                                    "line": 1,
-                                    "path": "tests/decorator/accessor/index.ts"
-                                }
+                                ]
                             }
                         ],
                         "readOnly": true

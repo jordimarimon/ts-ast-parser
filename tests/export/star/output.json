@@ -1,5 +1,51 @@
 [
     {
+        "sourcePath": "tests/export/star/bar.ts",
+        "outputPath": "tests/export/star/bar.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "bar",
+                "kind": "Variable",
+                "line": 1,
+                "type": {
+                    "text": "number",
+                    "kind": "Primitive"
+                },
+                "default": 5
+            }
+        ],
+        "exports": [
+            {
+                "name": "bar",
+                "kind": "Named"
+            }
+        ]
+    },
+    {
+        "sourcePath": "tests/export/star/foo.ts",
+        "outputPath": "tests/export/star/foo.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "foo",
+                "kind": "Variable",
+                "line": 1,
+                "type": {
+                    "text": "number",
+                    "kind": "Primitive"
+                },
+                "default": 4
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            }
+        ]
+    },
+    {
         "sourcePath": "tests/export/star/index.ts",
         "outputPath": "tests/export/star/index.js",
         "imports": [],
@@ -14,50 +60,6 @@
                 "name": "*",
                 "kind": "Star",
                 "module": "'./bar.js'"
-            }
-        ]
-    },
-    {
-        "sourcePath": "tests/export/star/foo.ts",
-        "outputPath": "tests/export/star/foo.js",
-        "imports": [],
-        "declarations": [
-            {
-                "kind": "Variable",
-                "line": 1,
-                "name": "foo",
-                "type": {
-                    "text": "number"
-                },
-                "default": 4
-            }
-        ],
-        "exports": [
-            {
-                "name": "foo",
-                "kind": "Named"
-            }
-        ]
-    },
-    {
-        "sourcePath": "tests/export/star/bar.ts",
-        "outputPath": "tests/export/star/bar.js",
-        "imports": [],
-        "declarations": [
-            {
-                "kind": "Variable",
-                "line": 1,
-                "name": "bar",
-                "type": {
-                    "text": "number"
-                },
-                "default": 5
-            }
-        ],
-        "exports": [
-            {
-                "name": "bar",
-                "kind": "Named"
             }
         ]
     }

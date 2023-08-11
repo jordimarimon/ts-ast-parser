@@ -53,7 +53,7 @@ export class DefaultImportNode implements ReflectedNode<Import, ts.ImportDeclara
         const identifier = this._node.importClause?.name;
         const importPath = this.getImportPath();
 
-        return matchesTsConfigPath(importPath, this._context.commandLine?.options ?? {})
+        return matchesTsConfigPath(importPath, this._context.system.getCommandLine().options)
             ? getOriginalImportPath(identifier, this._context)
             : importPath;
     }

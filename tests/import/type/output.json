@@ -10,12 +10,6 @@
                 "typeOnly": true
             }
         ],
-        "exports": [
-            {
-                "name": "x",
-                "kind": "Default"
-            }
-        ],
         "declarations": [
             {
                 "name": "x",
@@ -23,15 +17,19 @@
                 "line": 4,
                 "type": {
                     "text": "TypeA",
-                    "sources": [
-                        {
-                            "text": "TypeA",
-                            "path": "tests/import/type/type-a.ts",
-                            "line": 1
-                        }
-                    ]
+                    "kind": "Reference",
+                    "source": {
+                        "line": 1,
+                        "path": "tests/import/type/type-a.ts"
+                    }
                 },
                 "default": "{foo: 'bar'}"
+            }
+        ],
+        "exports": [
+            {
+                "name": "x",
+                "kind": "Default"
             }
         ]
     },
@@ -39,13 +37,6 @@
         "sourcePath": "tests/import/type/type-a.ts",
         "outputPath": "tests/import/type/type-a.js",
         "imports": [],
-        "exports": [
-            {
-                "name": "TypeA",
-                "kind": "Named",
-                "typeOnly": true
-            }
-        ],
         "declarations": [
             {
                 "name": "TypeA",
@@ -54,13 +45,21 @@
                 "properties": [
                     {
                         "name": "foo",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
-                        }
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 2
                     }
                 ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "TypeA",
+                "kind": "Named",
+                "typeOnly": true
             }
         ]
     }

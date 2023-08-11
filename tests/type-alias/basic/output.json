@@ -6,9 +6,23 @@
         "declarations": [
             {
                 "name": "Foo",
-                "line": 1,
                 "kind": "TypeAlias",
-                "value": "{\n    bar: number;\n}"
+                "line": 1,
+                "value": {
+                    "text": "{\n    bar: number;\n}",
+                    "kind": "Literal",
+                    "properties": [
+                        {
+                            "name": "bar",
+                            "kind": "Property",
+                            "type": {
+                                "text": "number",
+                                "kind": "Primitive"
+                            },
+                            "line": 2
+                        }
+                    ]
+                }
             }
         ],
         "exports": [

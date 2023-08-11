@@ -6,62 +6,67 @@
         "declarations": [
             {
                 "name": "Foo",
-                "line": 1,
                 "kind": "Class",
-                "staticProperties": [
-                    {
-                        "name": "staticBar",
-                        "line": 5,
-                        "kind": "Property",
-                        "type": {
-                            "text": "string"
-                        },
-                        "static": true,
-                        "readOnly": true,
-                        "default": "'Hello World'"
-                    }
-                ],
+                "line": 1,
                 "properties": [
                     {
                         "name": "name",
-                        "line": 3,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 3,
                         "default": "'Foo'"
                     },
                     {
                         "name": "bar",
-                        "line": 13,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 13,
                         "default": "''"
                     },
                     {
                         "name": "fooBar",
-                        "line": 21,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 21,
                         "writeOnly": true
+                    }
+                ],
+                "staticProperties": [
+                    {
+                        "name": "staticBar",
+                        "kind": "Property",
+                        "type": {
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 5,
+                        "default": "'Hello World'",
+                        "static": true,
+                        "readOnly": true
                     }
                 ],
                 "methods": [
                     {
-                        "kind": "Method",
                         "name": "log",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 25,
                                 "return": {
                                     "type": {
-                                        "text": "void"
+                                        "text": "void",
+                                        "kind": "Primitive"
                                     }
-                                }
+                                },
+                                "line": 25
                             }
                         ]
                     }

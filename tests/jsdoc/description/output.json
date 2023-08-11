@@ -9,6 +9,7 @@
                 "kind": "Variable",
                 "line": 12,
                 "type": {
+                    "kind": "Primitive",
                     "text": "number"
                 },
                 "default": 4,

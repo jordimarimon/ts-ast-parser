@@ -9,24 +9,27 @@
                 "kind": "Function",
                 "signatures": [
                     {
-                        "line": 8,
                         "return": {
                             "type": {
-                                "text": "number"
+                                "text": "number",
+                                "kind": "Primitive"
                             }
                         },
+                        "line": 8,
                         "parameters": [
                             {
                                 "name": "x",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number",
+                                    "kind": "Primitive"
                                 },
                                 "line": 8
                             },
                             {
                                 "name": "y",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number",
+                                    "kind": "Primitive"
                                 },
                                 "line": 8
                             }
@@ -40,15 +43,11 @@
                     },
                     {
                         "kind": "param",
-                        "value": {
-                            "name": "x"
-                        }
+                        "value": "x"
                     },
                     {
                         "kind": "param",
-                        "value": {
-                            "name": "y"
-                        }
+                        "value": "y"
                     }
                 ]
             },
@@ -57,24 +56,27 @@
                 "kind": "Function",
                 "signatures": [
                     {
-                        "line": 18,
                         "return": {
                             "type": {
-                                "text": "number"
+                                "text": "number",
+                                "kind": "Primitive"
                             }
                         },
+                        "line": 18,
                         "parameters": [
                             {
                                 "name": "x",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number",
+                                    "kind": "Primitive"
                                 },
                                 "line": 18
                             },
                             {
                                 "name": "y",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number",
+                                    "kind": "Primitive"
                                 },
                                 "line": 18
                             }
@@ -88,15 +90,11 @@
                     },
                     {
                         "kind": "param",
-                        "value": {
-                            "name": "x"
-                        }
+                        "value": "x"
                     },
                     {
                         "kind": "param",
-                        "value": {
-                            "name": "y"
-                        }
+                        "value": "y"
                     }
                 ]
             },
@@ -105,12 +103,13 @@
                 "kind": "Function",
                 "signatures": [
                     {
-                        "line": 28,
                         "return": {
                             "type": {
-                                "text": "number"
+                                "text": "number",
+                                "kind": "Primitive"
                             }
                         },
+                        "line": 28,
                         "jsDoc": [
                             {
                                 "kind": "description",
@@ -118,29 +117,27 @@
                             },
                             {
                                 "kind": "param",
-                                "value": {
-                                    "name": "x"
-                                }
+                                "value": "x"
                             },
                             {
                                 "kind": "param",
-                                "value": {
-                                    "name": "y"
-                                }
+                                "value": "y"
                             }
                         ],
                         "parameters": [
                             {
                                 "name": "x",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number",
+                                    "kind": "Primitive"
                                 },
                                 "line": 28
                             },
                             {
                                 "name": "y",
                                 "type": {
-                                    "text": "number"
+                                    "text": "number",
+                                    "kind": "Primitive"
                                 },
                                 "line": 28
                             }

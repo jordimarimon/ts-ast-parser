@@ -1,7 +1,7 @@
-import { JS_DEFAULT_COMPILER_OPTIONS, TS_DEFAULT_COMPILER_OPTIONS } from './default-compiler-options.js';
-import { formatDiagnostics, logError, logWarning } from './utils/logs.js';
-import { createBrowserCompilerHost } from './browser-compiler-host.js';
+import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
+import type { AnalyserSystem } from './analyser-system.js';
+import type { AnalyserResult } from './analyser-result.js';
 import { ModuleNode } from './nodes/module-node.js';
 import type { AnalyserContext } from './context.js';
 import { isBrowser } from './context.js';
@@ -17,49 +17,75 @@ import ts from 'typescript';
  *
  * @returns The reflected TypeScript AST
  */
-export async function parseFromSource(source: string, options: Partial<AnalyserOptions> = {}): Promise<ModuleNode | null> {
-    const fileName = 'unknown.ts';
+export async function parseFromSource(
+    source: string,
+    options: Partial<AnalyserOptions> = {},
+): Promise<AnalyserResult<ModuleNode>> {
+    if (!source) {
+        return {
+            result: null,
+            errors: [{kind: DiagnosticErrorType.ARGUMENT, messageText: 'Source code is empty.'}],
+        };
+    }
 
-    const compilerOptions = options?.jsProject
-        ? JS_DEFAULT_COMPILER_OPTIONS
-        : (options?.compilerOptions ?? TS_DEFAULT_COMPILER_OPTIONS);
+    const fileName = '/unknown.ts';
 
-    let virtualFileSystem: {compilerHost: ts.CompilerHost; fsMap: Map<string, string>};
+    let system: AnalyserSystem;
     if (isBrowser) {
-        virtualFileSystem = await createBrowserCompilerHost(fileName, source, compilerOptions);
+        system = await import('./browser-system.js').then(m => {
+            return m.BrowserSystem.create({
+                fsMap: new Map<string, string>([[fileName, source]]),
+                analyserOptions: options,
+            });
+        });
     } else {
-        // We use a dynamic import because the compiler host depends on NodeJS modules
-        // that don't exist in a browser environment
-        virtualFileSystem = await import('./node-compiler-host.js').then(m => {
-            return m.createNodeCompilerHost(fileName, source, compilerOptions, ts);
+        system = await import('./node-system.js').then(m => {
+            return new m.NodeSystem({
+                vfs: true,
+                fsMap: new Map<string, string>([[fileName, source]]),
+                analyserOptions: options,
+            });
         });
     }
 
+    const commandLine = system.getCommandLine();
+    const compilerHost = system.getCompilerHost();
     const program = ts.createProgram({
-        rootNames: [...virtualFileSystem.fsMap.keys()],
-        options: compilerOptions,
-        host: virtualFileSystem.compilerHost,
+        rootNames: commandLine.fileNames,
+        options: commandLine.options,
+        host: compilerHost,
     });
     const sourceFile = program.getSourceFile(fileName);
-    const diagnostics = program.getSemanticDiagnostics();
 
-    if (!options.skipDiagnostics && diagnostics.length) {
-        logError('Error while analysing source code:', formatDiagnostics(diagnostics));
-        return null;
+    const analyserDiagnostic = new AnalyserDiagnostic();
+    analyserDiagnostic.addMany(program.getSemanticDiagnostics());
+
+    if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
+        return {result: null, errors: analyserDiagnostic.getAll()};
+    }
+
+    commandLine.errors.forEach(err => {
+        analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, err.messageText);
+    });
+    if (commandLine.errors.length > 0) {
+        return {result: null, errors: analyserDiagnostic.getAll()};
     }
 
     if (!sourceFile) {
-        logWarning('Unable to analyze source code.');
-        return null;
+        analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, 'Unable to analyse source code.');
+        return {result: null, errors: analyserDiagnostic.getAll()};
     }
 
     const context: AnalyserContext = {
         program,
-        checker: program.getTypeChecker(),
+        system,
         options: options ?? null,
-        commandLine: null,
-        normalizePath: path => path ?? '',
+        diagnostics: analyserDiagnostic,
+        checker: program.getTypeChecker(),
     };
 
-    return new ModuleNode(sourceFile, context);
+    return {
+        result: new ModuleNode(sourceFile, context),
+        errors: analyserDiagnostic.getAll(),
+    };
 }

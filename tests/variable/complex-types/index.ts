@@ -5,8 +5,8 @@ enum Colors {
     Green,
 }
 
-type TypeX = {x: number; y?: number};
-type TypeY = {z?: boolean};
+export type TypeX = {x: number; y?: number};
+export type TypeY = {z?: boolean};
 export type TypeArray = TypeX[];
 
 export const foo: Colors = Colors.Red;

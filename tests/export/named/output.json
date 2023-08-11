@@ -1,56 +1,26 @@
 [
     {
-        "sourcePath": "tests/export/named/index.ts",
-        "outputPath": "tests/export/named/index.js",
-        "imports": [],
-        "declarations": [
-            {
-                "kind": "Variable",
-                "line": 1,
-                "name": "foo",
-                "type": {
-                    "text": "number"
-                },
-                "default": 4
-            }
-        ],
-        "exports": [
-            {
-                "name": "foo",
-                "kind": "Named"
-            },
-            {
-                "name": "a",
-                "kind": "Named",
-                "module": "'./foo.js'"
-            },
-            {
-                "name": "b",
-                "kind": "Named",
-                "module": "'./foo.js'"
-            }
-        ]
-    },
-    {
         "sourcePath": "tests/export/named/foo.ts",
         "outputPath": "tests/export/named/foo.js",
         "imports": [],
         "declarations": [
             {
+                "name": "a",
                 "kind": "Variable",
                 "line": 1,
-                "name": "a",
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 4
             },
             {
+                "name": "b",
                 "kind": "Variable",
                 "line": 2,
-                "name": "b",
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 5
             }
@@ -63,6 +33,39 @@
             {
                 "name": "b",
                 "kind": "Named"
+            }
+        ]
+    },
+    {
+        "sourcePath": "tests/export/named/index.ts",
+        "outputPath": "tests/export/named/index.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "foo",
+                "kind": "Variable",
+                "line": 1,
+                "type": {
+                    "text": "number",
+                    "kind": "Primitive"
+                },
+                "default": 4
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            },
+            {
+                "name": "a",
+                "kind": "Named",
+                "module": "'./foo.js'"
+            },
+            {
+                "name": "b",
+                "kind": "Named",
+                "module": "'./foo.js'"
             }
         ]
     }

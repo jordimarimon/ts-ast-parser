@@ -24,21 +24,9 @@ Handlebars.registerHelper('markdownToHTML', (str, inline) => {
     return new Handlebars.SafeString(html);
 });
 Handlebars.registerHelper('typeWithReference', type => {
-    const sources = type.sources ?? [];
-
     let text = type.text ?? '';
     text = text.replaceAll('<', '&lt;');
     text = text.replaceAll('>', '&gt;');
-
-    for (const source of sources) {
-        if (!source.path || !source.text) {
-            continue;
-        }
-
-        text = text.replaceAll(source.text, () => {
-            return `<a href="\{{ github }}/${source.path}#L${source.line}" class="anchor" target="_blank">${source.text}</a>`;
-        });
-    }
 
     return new Handlebars.SafeString(`<code class="code code-accent">${text}</code>`);
 });

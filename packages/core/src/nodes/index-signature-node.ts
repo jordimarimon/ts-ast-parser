@@ -10,6 +10,7 @@ import { JSDocTagName } from '../models/js-doc.js';
 import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
+import type { TypeNode } from './type-node.js';
 import type ts from 'typescript';
 
 
@@ -69,7 +70,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         };
     }
 
-    getIndexType(): Type | null {
+    getIndexType(): TypeNode | null {
         return this._parameter?.getType() ?? null;
     }
 
@@ -85,7 +86,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
             type: this.getType(),
         };
 
-        tryAddProperty(tmpl, 'indexType', this.getIndexType());
+        tryAddProperty(tmpl, 'indexType', this.getIndexType()?.serialize());
         tryAddProperty(tmpl, 'optional', this.isOptional());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
 

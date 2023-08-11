@@ -1,5 +1,4 @@
 import type { NamedParameterElement, Parameter } from '../models/parameter.js';
-import { getTypeFromNode, getTypeFromTSType } from '../utils/get-type.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getLinePosition } from '../utils/get-location.js';
@@ -7,10 +6,9 @@ import type { ReflectedNode } from './reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
-import { JSDocTagName } from '../models/js-doc.js';
-import type { Type } from '../models/type.js';
 import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
+import { TypeNode } from './type-node.js';
 import ts from 'typescript';
 
 
@@ -59,30 +57,21 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         return getLinePosition(this._node);
     }
 
-    getType(): Type {
-        const jsDocType = this.getJSDoc().getTag(JSDocTagName.type)?.getValue<string>() ?? '';
+    getType(): TypeNode {
+        const jsDocType = ts.getJSDocType(this._node);
         const checker = this._context.checker;
 
         if (jsDocType) {
-            return {text: jsDocType};
+            return new TypeNode(jsDocType, null, this._context);
         }
 
         if (!this._symbol) {
-            return getTypeFromNode(this._node, this._context);
-        }
-
-        if (this.isNamed()) {
-            const contextType = checker.typeToString(checker.getTypeOfSymbolAtLocation(this._symbol, this._node));
-            const computedType = checker.typeToString(checker.getTypeAtLocation(this._node), this._node) || '';
-
-            return {text: contextType ?? computedType};
+            return TypeNode.fromNode(this._node, this._context);
         }
 
         const type = checker.getTypeOfSymbolAtLocation(this._symbol, this._node);
 
-        return type
-            ? getTypeFromTSType(type, this._context)
-            : getTypeFromNode(this._node, this._context);
+        return type ? TypeNode.fromType(type, this._context) : TypeNode.fromNode(this._node, this._context);
     }
 
     getDefault(): unknown {
@@ -127,7 +116,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
     serialize(): Parameter {
         const tmpl: Parameter = {
             name: this.getName(),
-            type: this.getType(),
+            type: this.getType().serialize(),
             line: this.getLine(),
         };
 

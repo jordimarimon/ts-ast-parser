@@ -7,16 +7,16 @@ import * as path from 'path';
 const category = 'from-project';
 const subcategory = 'basic';
 const expected = readExpectedOutput(category, subcategory);
-const actual = parseFromProject({
+const actual = await parseFromProject({
     tsConfigFilePath: path.join(process.cwd(), 'tests', category, subcategory, 'test-project', 'tsconfig.json'),
 });
 
 describe(category, () => {
 
     it('should reflect the expected modules', () => {
-        const result = actual?.getModules().map(m => m.serialize());
+        const result = actual?.result?.getModules().map(m => m.serialize());
         expect(result).to.deep.equal(expected);
-        expect(actual?.getName()).to.equal('test-project');
+        expect(actual?.result?.getName()).to.equal('test-project');
     });
 
 });

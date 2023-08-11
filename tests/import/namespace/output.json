@@ -1,38 +1,16 @@
 [
     {
-        "sourcePath": "tests/import/namespace/index.ts",
-        "outputPath": "tests/import/namespace/index.js",
-        "imports": [
-            {
-                "name": "barFoo",
-                "kind": "Namespace",
-                "importPath": "./foo.js"
-            }
-        ],
-        "exports": [],
-        "declarations": []
-    },
-    {
         "sourcePath": "tests/import/namespace/foo.ts",
         "outputPath": "tests/import/namespace/foo.js",
         "imports": [],
-        "exports": [
-            {
-                "name": "x",
-                "kind": "Named"
-            },
-            {
-                "name": "Foo",
-                "kind": "Named"
-            }
-        ],
         "declarations": [
             {
                 "name": "x",
                 "kind": "Variable",
                 "line": 1,
                 "type": {
-                    "text": "number"
+                    "text": "number",
+                    "kind": "Primitive"
                 },
                 "default": 4
             },
@@ -46,17 +24,41 @@
                         "kind": "Method",
                         "signatures": [
                             {
-                                "line": 5,
                                 "return": {
                                     "type": {
-                                        "text": "void"
+                                        "text": "void",
+                                        "kind": "Primitive"
                                     }
-                                }
+                                },
+                                "line": 5
                             }
                         ]
                     }
                 ]
             }
+        ],
+        "exports": [
+            {
+                "name": "x",
+                "kind": "Named"
+            },
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
         ]
+    },
+    {
+        "sourcePath": "tests/import/namespace/index.ts",
+        "outputPath": "tests/import/namespace/index.js",
+        "imports": [
+            {
+                "name": "barFoo",
+                "kind": "Namespace",
+                "importPath": "./foo.js"
+            }
+        ],
+        "declarations": [],
+        "exports": []
     }
 ]

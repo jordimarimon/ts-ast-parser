@@ -6,9 +6,22 @@
         "declarations": [
             {
                 "name": "BarType",
-                "line": 7,
                 "kind": "TypeAlias",
-                "value": "string | number",
+                "line": 7,
+                "value": {
+                    "text": "string | number",
+                    "kind": "Union",
+                    "elements": [
+                        {
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        {
+                            "text": "number",
+                            "kind": "Primitive"
+                        }
+                    ]
+                },
                 "namespace": "Foo.Bar"
             }
         ],

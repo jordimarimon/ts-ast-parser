@@ -1,5 +1,35 @@
 [
     {
+        "sourcePath": "tests/export/type/foo.ts",
+        "outputPath": "tests/export/type/foo.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Foo",
+                "kind": "Class",
+                "line": 1,
+                "properties": [
+                    {
+                        "name": "bar",
+                        "kind": "Property",
+                        "type": {
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
+                        "line": 3,
+                        "default": 4
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Foo",
+                "kind": "Named"
+            }
+        ]
+    },
+    {
         "sourcePath": "tests/export/type/index.ts",
         "outputPath": "tests/export/type/index.js",
         "imports": [],
@@ -11,11 +41,12 @@
                 "properties": [
                     {
                         "name": "foo",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
-                        }
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 2
                     }
                 ]
             }
@@ -31,35 +62,6 @@
                 "kind": "Namespace",
                 "module": "'./foo.js'",
                 "typeOnly": true
-            }
-        ]
-    },
-    {
-        "sourcePath": "tests/export/type/foo.ts",
-        "outputPath": "tests/export/type/foo.js",
-        "imports": [],
-        "declarations": [
-            {
-                "name": "Foo",
-                "kind": "Class",
-                "line": 1,
-                "properties": [
-                    {
-                        "name": "bar",
-                        "line": 3,
-                        "kind": "Property",
-                        "type": {
-                            "text": "number"
-                        },
-                        "default": 4
-                    }
-                ]
-            }
-        ],
-        "exports": [
-            {
-                "name": "Foo",
-                "kind": "Named"
             }
         ]
     }

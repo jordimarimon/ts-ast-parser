@@ -1,36 +1,31 @@
 import type { AnalyserOptions, Module, ModuleNode } from '@ts-ast-parser/core';
 import { parseFromFiles } from '@ts-ast-parser/core';
-import path from 'path';
-import fs from 'fs';
+import * as path from 'path';
+import * as fs from 'fs';
 
 
 type TestOptions = {
     category: string;
     subcategory?: string;
-    importedFiles?: string[];
     analyzerOptions?: Partial<AnalyserOptions>;
-}
+};
 
 const basedDir = path.join(process.cwd(), 'tests');
 
-export function getFixture(options: TestOptions): { actual: ModuleNode[]; expected: Module[] } {
-    const {category, subcategory, importedFiles, analyzerOptions} = options;
-    const testFilePath = getTestFilePath(category, subcategory);
+export async function getTestResult(options: TestOptions): Promise<{ actual: ModuleNode[]; expected: Module[] }> {
+    const {category, subcategory, analyzerOptions} = options;
     const expectedOutputFile = readExpectedOutput(category, subcategory);
-    const importedFilePaths = (importedFiles ?? []).map(fileName => {
-        return path.join(basedDir, category, subcategory ?? '', fileName);
-    });
+    const testFiles = fs
+        .readdirSync(path.join(basedDir, category, subcategory ?? ''), {withFileTypes: true})
+        .filter(d => d.isFile() && path.extname(d.name) === '.ts' && d.name !== 'test.ts')
+        .map(f => path.join(basedDir, category, subcategory ?? '', f.name));
 
-    const modules = parseFromFiles([testFilePath, ...importedFilePaths], analyzerOptions);
+    const modules = await parseFromFiles(testFiles, analyzerOptions);
 
     return {
-        actual: modules,
+        actual: modules.result ?? [],
         expected: expectedOutputFile,
     };
-}
-
-export function getTestFilePath(category: string, subcategory = ''): string {
-    return path.join(basedDir, category, subcategory, 'index.ts');
 }
 
 export function readExpectedOutput(category: string, subcategory = '', fileName = 'output.json'): Module[] {
@@ -40,9 +35,9 @@ export function readExpectedOutput(category: string, subcategory = '', fileName 
         return [];
     }
 
-    return JSON.parse(fs.readFileSync(expectedOutputPath, 'utf-8'));
-}
-
-export function logObject(obj: unknown): void {
-    console.log(JSON.stringify(obj, null, 4));
+    try {
+        return JSON.parse(fs.readFileSync(expectedOutputPath, 'utf-8'));
+    } catch (_) {
+        return [];
+    }
 }

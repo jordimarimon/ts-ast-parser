@@ -5,23 +5,29 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Function",
                 "name": "sum",
+                "kind": "Function",
                 "signatures": [
                     {
-                        "line": 8,
                         "return": {
                             "type": {
-                                "text": "number"
+                                "text": "number",
+                                "kind": "Primitive"
                             }
                         },
+                        "line": 8,
                         "parameters": [
                             {
                                 "name": "list",
-                                "line": 8,
                                 "type": {
-                                    "text": "number[]"
+                                    "text": "number[]",
+                                    "kind": "Array",
+                                    "elementType": {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    }
                                 },
+                                "line": 8,
                                 "rest": true
                             }
                         ]

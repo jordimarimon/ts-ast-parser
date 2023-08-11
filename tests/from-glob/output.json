@@ -9,6 +9,7 @@
                 "name": "foo",
                 "line": 1,
                 "type": {
+                    "kind": "Primitive",
                     "text": "boolean"
                 },
                 "default": true
