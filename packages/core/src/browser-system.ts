@@ -181,7 +181,7 @@ export class BrowserSystem implements AnalyserSystem {
                 exclude: exclude ?? ['**node_modules**'],
             },
             this._sys,
-            this.getCurrentDirectory(),
+            '/',
         );
     }
 }
