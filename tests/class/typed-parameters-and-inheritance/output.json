@@ -8,7 +8,25 @@
                 "name": "TypeX",
                 "kind": "TypeAlias",
                 "line": 1,
-                "value": "{\n    fieldInType: T;\n}",
+                "value": {
+                    "text": "{\n    fieldInType: T;\n}",
+                    "kind": "Literal",
+                    "properties": [
+                        {
+                            "name": "fieldInType",
+                            "kind": "Property",
+                            "type": {
+                                "text": "T",
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 1,
+                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                                }
+                            },
+                            "line": 2
+                        }
+                    ]
+                },
                 "typeParameters": [
                     {
                         "name": "T"
@@ -27,18 +45,16 @@
                 "properties": [
                     {
                         "name": "fieldInInterface",
-                        "line": 6,
                         "kind": "Property",
                         "type": {
                             "text": "T",
-                            "sources": [
-                                {
-                                    "text": "T",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                    "line": 5
-                                }
-                            ]
-                        }
+                            "kind": "Reference",
+                            "source": {
+                                "line": 5,
+                                "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                            }
+                        },
+                        "line": 6
                     }
                 ]
             },
@@ -48,31 +64,27 @@
                 "line": 9,
                 "constructors": [
                     {
-                        "line": 16,
                         "return": {
                             "type": {
                                 "text": "ClassB<T>",
-                                "sources": [
-                                    {
-                                        "text": "ClassB<T>",
-                                        "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                        "line": 9
-                                    }
-                                ]
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 9,
+                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                                }
                             }
                         },
+                        "line": 16,
                         "parameters": [
                             {
                                 "name": "value",
                                 "type": {
                                     "text": "T",
-                                    "sources": [
-                                        {
-                                            "text": "T",
-                                            "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                            "line": 9
-                                        }
-                                    ]
+                                    "kind": "Reference",
+                                    "source": {
+                                        "line": 9,
+                                        "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                                    }
                                 },
                                 "line": 16
                             }
@@ -88,34 +100,30 @@
                 "properties": [
                     {
                         "name": "fieldInB",
-                        "line": 10,
                         "kind": "Property",
                         "type": {
                             "text": "T",
-                            "sources": [
-                                {
-                                    "text": "T",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                    "line": 9
-                                }
-                            ]
+                            "kind": "Reference",
+                            "source": {
+                                "line": 9,
+                                "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                            }
                         },
+                        "line": 10,
                         "optional": true
                     },
                     {
                         "name": "setterInB",
-                        "line": 12,
                         "kind": "Property",
                         "type": {
                             "text": "T",
-                            "sources": [
-                                {
-                                    "text": "T",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                    "line": 9
-                                }
-                            ]
+                            "kind": "Reference",
+                            "source": {
+                                "line": 9,
+                                "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                            }
                         },
+                        "line": 12,
                         "writeOnly": true
                     }
                 ],
@@ -125,31 +133,27 @@
                         "kind": "Method",
                         "signatures": [
                             {
-                                "line": 20,
                                 "return": {
                                     "type": {
                                         "text": "T",
-                                        "sources": [
-                                            {
-                                                "text": "T",
-                                                "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                                "line": 9
-                                            }
-                                        ]
+                                        "kind": "Reference",
+                                        "source": {
+                                            "line": 9,
+                                            "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                                        }
                                     }
                                 },
+                                "line": 20,
                                 "parameters": [
                                     {
                                         "name": "a",
                                         "type": {
                                             "text": "T",
-                                            "sources": [
-                                                {
-                                                    "text": "T",
-                                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                                    "line": 9
-                                                }
-                                            ]
+                                            "kind": "Reference",
+                                            "source": {
+                                                "line": 9,
+                                                "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                                            }
                                         },
                                         "line": 20
                                     }
@@ -165,24 +169,23 @@
                 "line": 25,
                 "constructors": [
                     {
-                        "line": 16,
                         "return": {
                             "type": {
                                 "text": "ClassA",
-                                "sources": [
-                                    {
-                                        "text": "ClassA",
-                                        "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                        "line": 25
-                                    }
-                                ]
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 25,
+                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                                }
                             }
                         },
+                        "line": 16,
                         "parameters": [
                             {
                                 "name": "value",
                                 "type": {
-                                    "text": "string"
+                                    "text": "string",
+                                    "kind": "Primitive"
                                 },
                                 "line": 16
                             }
@@ -202,53 +205,51 @@
                 "properties": [
                     {
                         "name": "interfaceField",
-                        "line": 26,
                         "kind": "Property",
                         "type": {
                             "text": "TypeY<string>",
-                            "sources": [
-                                {
-                                    "text": "TypeY<string>",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                    "line": 5
-                                }
-                            ]
+                            "kind": "Reference",
+                            "source": {
+                                "line": 5,
+                                "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                            }
                         },
+                        "line": 26,
                         "optional": true
                     },
                     {
                         "name": "typeField",
-                        "line": 28,
                         "kind": "Property",
                         "type": {
                             "text": "TypeX<string>",
-                            "sources": [
-                                {
-                                    "text": "TypeX<string>",
-                                    "path": "tests/class/typed-parameters-and-inheritance/index.ts",
-                                    "line": 1
-                                }
-                            ]
+                            "kind": "Reference",
+                            "source": {
+                                "line": 1,
+                                "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                            }
                         },
+                        "line": 28,
                         "optional": true
                     },
                     {
                         "name": "fieldInB",
-                        "line": 10,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 10,
                         "optional": true,
                         "inherited": true
                     },
                     {
                         "name": "setterInB",
-                        "line": 12,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 12,
                         "inherited": true,
                         "writeOnly": true
                     }
@@ -259,17 +260,19 @@
                         "kind": "Method",
                         "signatures": [
                             {
-                                "line": 20,
                                 "return": {
                                     "type": {
-                                        "text": "string"
+                                        "text": "string",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 20,
                                 "parameters": [
                                     {
                                         "name": "a",
                                         "type": {
-                                            "text": "string"
+                                            "text": "string",
+                                            "kind": "Primitive"
                                         },
                                         "line": 20
                                     }

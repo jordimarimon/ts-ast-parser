@@ -6,8 +6,8 @@
         "declarations": [
             {
                 "name": "Foo",
-                "line": 1,
                 "kind": "Interface",
+                "line": 1,
                 "typeParameters": [
                     {
                         "name": "T"
@@ -17,28 +17,27 @@
                     "name": "index",
                     "line": 2,
                     "kind": "IndexSignature",
-                    "indexType": {
-                        "text": "number"
-                    },
                     "type": {
                         "text": "T"
+                    },
+                    "indexType": {
+                        "text": "number",
+                        "kind": "Primitive"
                     }
                 },
                 "properties": [
                     {
                         "name": "field",
-                        "line": 3,
                         "kind": "Property",
                         "type": {
                             "text": "T",
-                            "sources": [
-                                {
-                                    "text": "T",
-                                    "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
-                                    "line": 1
-                                }
-                            ]
-                        }
+                            "kind": "Reference",
+                            "source": {
+                                "line": 1,
+                                "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
+                            }
+                        },
+                        "line": 3
                     }
                 ],
                 "methods": [
@@ -47,33 +46,29 @@
                         "kind": "Method",
                         "signatures": [
                             {
-                                "line": 4,
                                 "return": {
                                     "type": {
                                         "text": "T",
-                                        "sources": [
-                                            {
-                                                "text": "T",
-                                                "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
-                                                "line": 1
-                                            }
-                                        ]
+                                        "kind": "Reference",
+                                        "source": {
+                                            "line": 1,
+                                            "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
+                                        }
                                     }
                                 },
+                                "line": 4,
                                 "parameters": [
                                     {
                                         "name": "a",
-                                        "line": 4,
                                         "type": {
                                             "text": "T",
-                                            "sources": [
-                                                {
-                                                    "text": "T",
-                                                    "path": "tests/interface/typed-parameters-and-inheritance/index.ts",
-                                                    "line": 1
-                                                }
-                                            ]
-                                        }
+                                            "kind": "Reference",
+                                            "source": {
+                                                "line": 1,
+                                                "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
+                                            }
+                                        },
+                                        "line": 4
                                     }
                                 ]
                             }
@@ -83,8 +78,8 @@
             },
             {
                 "name": "Bar",
-                "line": 7,
                 "kind": "Interface",
+                "line": 7,
                 "heritage": [
                     {
                         "name": "Foo<string>",
@@ -98,19 +93,21 @@
                 "properties": [
                     {
                         "name": "childField",
-                        "line": 8,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
-                        }
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
+                        "line": 8
                     },
                     {
                         "name": "field",
-                        "line": 3,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 3,
                         "inherited": true
                     }
                 ],
@@ -120,19 +117,21 @@
                         "kind": "Method",
                         "signatures": [
                             {
-                                "line": 4,
                                 "return": {
                                     "type": {
-                                        "text": "string"
+                                        "text": "string",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 4,
                                 "parameters": [
                                     {
                                         "name": "a",
-                                        "line": 4,
                                         "type": {
-                                            "text": "string"
-                                        }
+                                            "text": "string",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 4
                                     }
                                 ]
                             }

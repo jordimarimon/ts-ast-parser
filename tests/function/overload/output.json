@@ -5,54 +5,60 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Function",
                 "name": "add",
+                "kind": "Function",
                 "signatures": [
                     {
-                        "line": 1,
                         "return": {
                             "type": {
-                                "text": "string"
+                                "text": "string",
+                                "kind": "Primitive"
                             }
                         },
+                        "line": 1,
                         "parameters": [
                             {
                                 "name": "a",
-                                "line": 1,
                                 "type": {
-                                    "text": "string"
-                                }
+                                    "text": "string",
+                                    "kind": "Primitive"
+                                },
+                                "line": 1
                             },
                             {
                                 "name": "b",
-                                "line": 1,
                                 "type": {
-                                    "text": "string"
-                                }
+                                    "text": "string",
+                                    "kind": "Primitive"
+                                },
+                                "line": 1
                             }
                         ]
                     },
                     {
-                        "line": 2,
                         "return": {
                             "type": {
-                                "text": "string"
+                                "text": "string",
+                                "kind": "Primitive"
                             }
                         },
+                        "line": 2,
                         "parameters": [
                             {
                                 "name": "a",
-                                "line": 2,
                                 "type": {
-                                    "text": "number"
-                                }
+                                    "text": "number",
+                                    "kind": "Primitive"
+                                },
+                                "line": 2
                             },
                             {
                                 "name": "b",
-                                "line": 2,
                                 "type": {
-                                    "text": "number"
-                                }
+                                    "text": "number",
+                                    "kind": "Primitive"
+                                },
+                                "line": 2
                             }
                         ]
                     }

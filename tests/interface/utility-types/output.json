@@ -17,27 +17,30 @@
                 "properties": [
                     {
                         "name": "c",
-                        "line": 8,
                         "kind": "Property",
                         "type": {
-                            "text": "boolean"
-                        }
+                            "text": "boolean",
+                            "kind": "Primitive"
+                        },
+                        "line": 8
                     },
                     {
                         "name": "a",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
-                        }
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
+                        "line": 2
                     },
                     {
                         "name": "b",
-                        "line": 3,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
-                        }
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 3
                     }
                 ]
             },
@@ -54,27 +57,30 @@
                 "properties": [
                     {
                         "name": "preview",
-                        "line": 18,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
-                        }
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 18
                     },
                     {
                         "name": "title",
-                        "line": 12,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
-                        }
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 12
                     },
                     {
                         "name": "completed",
-                        "line": 14,
                         "kind": "Property",
                         "type": {
-                            "text": "boolean"
-                        }
+                            "text": "boolean",
+                            "kind": "Primitive"
+                        },
+                        "line": 14
                     }
                 ]
             }

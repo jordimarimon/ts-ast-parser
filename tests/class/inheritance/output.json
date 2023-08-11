@@ -6,45 +6,49 @@
         "declarations": [
             {
                 "name": "Class1",
-                "line": 1,
                 "kind": "Class",
+                "line": 1,
                 "properties": [
                     {
                         "name": "foo",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 2,
                         "default": 3
                     }
                 ],
                 "methods": [
                     {
-                        "kind": "Method",
                         "name": "someMethod",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 4,
                                 "return": {
                                     "type": {
-                                        "text": "number"
+                                        "text": "number",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 4,
                                 "parameters": [
                                     {
                                         "name": "x",
-                                        "line": 4,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 4
                                     },
                                     {
                                         "name": "y",
-                                        "line": 4,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 4
                                     }
                                 ]
                             }
@@ -54,8 +58,8 @@
             },
             {
                 "name": "Class2",
-                "line": 9,
                 "kind": "Class",
+                "line": 9,
                 "heritage": [
                     {
                         "name": "Class1",
@@ -69,50 +73,55 @@
                 "properties": [
                     {
                         "name": "bar",
-                        "line": 10,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 10,
                         "default": 4
                     },
                     {
                         "name": "foo",
-                        "line": 12,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 12,
                         "default": 5,
                         "override": true
                     }
                 ],
                 "methods": [
                     {
-                        "kind": "Method",
                         "name": "someMethod",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 4,
                                 "return": {
                                     "type": {
-                                        "text": "number"
+                                        "text": "number",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 4,
                                 "parameters": [
                                     {
                                         "name": "x",
-                                        "line": 4,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 4
                                     },
                                     {
                                         "name": "y",
-                                        "line": 4,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 4
                                     }
                                 ]
                             }
@@ -123,8 +132,8 @@
             },
             {
                 "name": "Class3",
-                "line": 15,
                 "kind": "Class",
+                "line": 15,
                 "heritage": [
                     {
                         "name": "Class2",
@@ -138,44 +147,48 @@
                 "properties": [
                     {
                         "name": "bar",
-                        "line": 17,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 17,
                         "default": 5,
                         "override": true
                     },
                     {
                         "name": "foo",
-                        "line": 12,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 12,
                         "default": 5,
                         "override": true
                     }
                 ],
                 "methods": [
                     {
-                        "kind": "Method",
                         "name": "someMethod",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 19,
                                 "return": {
                                     "type": {
-                                        "text": "number"
+                                        "text": "number",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 19,
                                 "parameters": [
                                     {
                                         "name": "x",
-                                        "line": 19,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 19
                                     }
                                 ]
                             }

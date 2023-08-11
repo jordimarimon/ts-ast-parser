@@ -17,11 +17,12 @@
                 "properties": [
                     {
                         "name": "fooField",
-                        "line": 6,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 6,
                         "default": "'foo'"
                     }
                 ]
@@ -39,11 +40,12 @@
                 "properties": [
                     {
                         "name": "barField",
-                        "line": 15,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 15,
                         "default": "'bar'"
                     }
                 ]

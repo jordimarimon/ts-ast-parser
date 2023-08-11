@@ -5,24 +5,30 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Function",
                 "name": "foo",
+                "kind": "Function",
                 "signatures": [
                     {
-                        "line": 8,
                         "return": {
                             "type": {
-                                "text": "number"
+                                "text": "number",
+                                "kind": "Primitive"
                             }
                         },
+                        "line": 8,
                         "parameters": [
                             {
                                 "name": "__namedParameter",
-                                "named": true,
-                                "line": 8,
                                 "type": {
-                                    "text": "NamedParameters"
+                                    "text": "NamedParameters",
+                                    "kind": "Reference",
+                                    "source": {
+                                        "line": 1,
+                                        "path": "tests/function/named-parameters/index.ts"
+                                    }
                                 },
+                                "line": 8,
+                                "named": true,
                                 "elements": [
                                     {
                                         "name": "a"

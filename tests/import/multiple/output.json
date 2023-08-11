@@ -16,7 +16,8 @@
                             {
                                 "return": {
                                     "type": {
-                                        "text": "void"
+                                        "text": "void",
+                                        "kind": "Primitive"
                                     }
                                 },
                                 "line": 3,

@@ -10,31 +10,31 @@
                 "line": 22,
                 "constructors": [
                     {
-                        "line": 29,
                         "return": {
                             "type": {
                                 "text": "User",
-                                "sources": [
-                                    {
-                                        "text": "User",
-                                        "path": "tests/decorator/property/index.ts",
-                                        "line": 22
-                                    }
-                                ]
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 22,
+                                    "path": "tests/decorator/property/index.ts"
+                                }
                             }
                         },
+                        "line": 29,
                         "parameters": [
                             {
                                 "name": "username",
                                 "type": {
-                                    "text": "string"
+                                    "text": "string",
+                                    "kind": "Primitive"
                                 },
                                 "line": 29
                             },
                             {
                                 "name": "password",
                                 "type": {
-                                    "text": "string"
+                                    "text": "string",
+                                    "kind": "Primitive"
                                 },
                                 "line": 29
                             }
@@ -44,19 +44,21 @@
                 "properties": [
                     {
                         "name": "username",
-                        "line": 24,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
-                        }
+                            "text": "string",
+                            "kind": "Primitive"
+                        },
+                        "line": 24
                     },
                     {
                         "name": "password",
-                        "line": 26,
                         "kind": "Property",
                         "type": {
-                            "text": "string"
+                            "text": "string",
+                            "kind": "Primitive"
                         },
+                        "line": 26,
                         "decorators": [
                             {
                                 "name": "min",

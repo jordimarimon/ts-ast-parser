@@ -6,55 +6,60 @@
         "declarations": [
             {
                 "name": "Foo",
-                "line": 1,
                 "kind": "Class",
+                "line": 1,
                 "abstract": true,
                 "properties": [
                     {
                         "name": "y",
-                        "line": 3,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 3,
                         "default": 4
                     },
                     {
                         "name": "x",
-                        "line": 5,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 5,
                         "abstract": true
                     }
                 ],
                 "methods": [
                     {
-                        "kind": "Method",
                         "name": "add",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 7,
                                 "return": {
                                     "type": {
-                                        "text": "number"
+                                        "text": "number",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 7,
                                 "parameters": [
                                     {
                                         "name": "x",
-                                        "line": 7,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 7
                                     },
                                     {
                                         "name": "y",
-                                        "line": 7,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 7
                                     }
                                 ]
                             }

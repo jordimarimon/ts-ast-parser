@@ -5,9 +5,8 @@
         "imports": [],
         "declarations": [
             {
-                "kind": "Class",
                 "name": "FooElement",
-                "customElement": true,
+                "kind": "Class",
                 "line": 1,
                 "heritage": [
                     {
@@ -15,22 +14,23 @@
                         "kind": "Interface"
                     }
                 ],
+                "customElement": true,
                 "properties": [
                     {
-                        "kind": "Property",
                         "name": "foo",
-                        "line": 3,
+                        "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 3,
                         "default": 3
                     }
                 ]
             },
             {
-                "kind": "Class",
                 "name": "BarElement",
-                "customElement": true,
+                "kind": "Class",
                 "line": 7,
                 "heritage": [
                     {
@@ -42,23 +42,26 @@
                         "kind": "Class"
                     }
                 ],
+                "customElement": true,
                 "properties": [
                     {
-                        "kind": "Property",
                         "name": "bar",
-                        "line": 9,
+                        "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 9,
                         "default": 4
                     },
                     {
-                        "kind": "Property",
                         "name": "foo",
-                        "line": 3,
+                        "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 3,
                         "default": 3,
                         "inherited": true
                     }

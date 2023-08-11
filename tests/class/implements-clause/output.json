@@ -6,34 +6,37 @@
         "declarations": [
             {
                 "name": "Bar",
-                "line": 1,
                 "kind": "Interface",
+                "line": 1,
                 "methods": [
                     {
-                        "kind": "Method",
                         "name": "add",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 2,
                                 "return": {
                                     "type": {
-                                        "text": "number"
+                                        "text": "number",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 2,
                                 "parameters": [
                                     {
                                         "name": "x",
-                                        "line": 2,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 2
                                     },
                                     {
                                         "name": "y",
-                                        "line": 2,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 2
                                     }
                                 ]
                             }
@@ -43,8 +46,8 @@
             },
             {
                 "name": "Foo",
-                "line": 5,
                 "kind": "Class",
+                "line": 5,
                 "heritage": [
                     {
                         "name": "Bar",
@@ -57,30 +60,33 @@
                 ],
                 "methods": [
                     {
-                        "kind": "Method",
                         "name": "add",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 7,
                                 "return": {
                                     "type": {
-                                        "text": "number"
+                                        "text": "number",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 7,
                                 "parameters": [
                                     {
                                         "name": "x",
-                                        "line": 7,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 7
                                     },
                                     {
                                         "name": "y",
-                                        "line": 7,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 7
                                     }
                                 ]
                             }

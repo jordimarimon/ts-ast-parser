@@ -6,8 +6,8 @@
         "declarations": [
             {
                 "name": "Foo",
-                "line": 1,
                 "kind": "Interface",
+                "line": 1,
                 "typeParameters": [
                     {
                         "name": "K"
@@ -16,176 +16,183 @@
                 "properties": [
                     {
                         "name": "x",
-                        "line": 2,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
-                        }
+                            "text": "number",
+                            "kind": "Primitive"
+                        },
+                        "line": 2
                     },
                     {
                         "name": "y",
-                        "line": 3,
                         "kind": "Property",
                         "type": {
                             "text": "string | K",
-                            "sources": [
+                            "kind": "Union",
+                            "elements": [
+                                {
+                                    "text": "string",
+                                    "kind": "Primitive"
+                                },
                                 {
                                     "text": "K",
-                                    "path": "tests/interface/basic/index.ts",
-                                    "line": 1
+                                    "kind": "Reference",
+                                    "source": {
+                                        "line": 1,
+                                        "path": "tests/interface/basic/index.ts"
+                                    }
                                 }
                             ]
                         },
+                        "line": 3,
                         "optional": true
                     },
                     {
                         "name": "z",
-                        "line": 9,
                         "kind": "Property",
                         "type": {
-                            "text": "number"
+                            "text": "number",
+                            "kind": "Primitive"
                         },
+                        "line": 9,
                         "readOnly": true
                     }
                 ],
                 "methods": [
                     {
-                        "kind": "Method",
                         "name": "bar",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 4,
                                 "return": {
                                     "type": {
-                                        "text": "void"
+                                        "text": "void",
+                                        "kind": "Primitive"
                                     }
-                                }
+                                },
+                                "line": 4
                             }
                         ]
                     },
                     {
-                        "kind": "Method",
                         "name": "isBar",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 5,
                                 "return": {
                                     "type": {
-                                        "text": "boolean"
+                                        "text": "boolean",
+                                        "kind": "Primitive"
                                     }
                                 },
+                                "line": 5,
                                 "parameters": [
                                     {
                                         "name": "a",
-                                        "line": 5,
                                         "type": {
-                                            "text": "number"
-                                        }
+                                            "text": "number",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 5
                                     },
                                     {
                                         "name": "b",
-                                        "line": 5,
                                         "type": {
-                                            "text": "string"
-                                        }
+                                            "text": "string",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 5
                                     }
                                 ]
                             }
                         ]
                     },
                     {
-                        "kind": "Method",
                         "name": "checkBar",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 6,
                                 "return": {
                                     "type": {
-                                        "text": "Promise<void>"
+                                        "text": "Promise<void>",
+                                        "kind": "Reference"
                                     }
-                                }
+                                },
+                                "line": 6
                             }
                         ]
                     },
                     {
-                        "kind": "Method",
                         "name": "barWithTypedParameter",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 7,
                                 "return": {
                                     "type": {
                                         "text": "T",
-                                        "sources": [
-                                            {
-                                                "text": "T",
-                                                "path": "tests/interface/basic/index.ts",
-                                                "line": 7
-                                            }
-                                        ]
-                                    }
-                                },
-                                "parameters": [
-                                    {
-                                        "name": "c",
-                                        "line": 7,
-                                        "type": {
-                                            "text": "T",
-                                            "sources": [
-                                                {
-                                                    "text": "T",
-                                                    "path": "tests/interface/basic/index.ts",
-                                                    "line": 7
-                                                }
-                                            ]
+                                        "kind": "Reference",
+                                        "source": {
+                                            "line": 7,
+                                            "path": "tests/interface/basic/index.ts"
                                         }
                                     }
-                                ],
+                                },
+                                "line": 7,
                                 "typeParameters": [
                                     {
                                         "name": "T"
+                                    }
+                                ],
+                                "parameters": [
+                                    {
+                                        "name": "c",
+                                        "type": {
+                                            "text": "T",
+                                            "kind": "Reference",
+                                            "source": {
+                                                "line": 7,
+                                                "path": "tests/interface/basic/index.ts"
+                                            }
+                                        },
+                                        "line": 7
                                     }
                                 ]
                             }
                         ]
                     },
                     {
-                        "kind": "Method",
                         "name": "arrowFuncWithTypedParameters",
+                        "kind": "Method",
                         "signatures": [
                             {
-                                "line": 8,
                                 "return": {
                                     "type": {
                                         "text": "T",
-                                        "sources": [
-                                            {
-                                                "text": "T",
-                                                "path": "tests/interface/basic/index.ts",
-                                                "line": 8
-                                            }
-                                        ]
-                                    }
-                                },
-                                "parameters": [
-                                    {
-                                        "name": "c",
-                                        "line": 8,
-                                        "type": {
-                                            "text": "T",
-                                            "sources": [
-                                                {
-                                                    "text": "T",
-                                                    "path": "tests/interface/basic/index.ts",
-                                                    "line": 8
-                                                }
-                                            ]
+                                        "kind": "Reference",
+                                        "source": {
+                                            "line": 8,
+                                            "path": "tests/interface/basic/index.ts"
                                         }
                                     }
-                                ],
+                                },
+                                "line": 8,
                                 "typeParameters": [
                                     {
                                         "name": "T"
+                                    }
+                                ],
+                                "parameters": [
+                                    {
+                                        "name": "c",
+                                        "type": {
+                                            "text": "T",
+                                            "kind": "Reference",
+                                            "source": {
+                                                "line": 8,
+                                                "path": "tests/interface/basic/index.ts"
+                                            }
+                                        },
+                                        "line": 8
                                     }
                                 ]
                             }
