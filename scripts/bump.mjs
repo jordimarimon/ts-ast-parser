@@ -19,7 +19,7 @@ for (const pkgPath of packages) {
     }
 
     if (hasChanged) {
-        console.log(chalk.red(`\tWriting new package.json`));
+        console.log(`\tWriting new package.json`);
 
         fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 4) + '\n', 'utf8');
     }
