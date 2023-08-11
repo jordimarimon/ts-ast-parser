@@ -16,7 +16,7 @@
         "url": "https://github.com/jordimarimon/ts-ast-parser/issues"
     },
     "engines": {
-        "node": "^16.0.0 || ^18.0.0",
+        "node": "^16.0.0 || ^18.0.0 || ^20.0.0",
         "npm": "^8.0.0 || ^9.0.0"
     },
     "scripts": {

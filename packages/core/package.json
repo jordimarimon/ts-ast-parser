@@ -1,6 +1,6 @@
 {
     "name": "@ts-ast-parser/core",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "author": "Jordi Marimon Palarea",
     "description": "Reflects a simplified version of the TypeScript AST for generating documentation",
     "homepage": "https://jordimarimon.github.io/ts-ast-parser",
@@ -35,7 +35,7 @@
         "README.md"
     ],
     "engines": {
-        "node": "^16.0.0 || ^18.0.0"
+        "node": "^16.0.0 || ^18.0.0 || ^20.0.0"
     },
     "dependencies": {
         "@typescript/vfs": "^1.5.0",
