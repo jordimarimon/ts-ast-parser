@@ -1,4 +1,3 @@
-import { getLinePosition } from './utils/get-location.js';
 import ts from 'typescript';
 
 
@@ -53,7 +52,7 @@ export class AnalyserDiagnostic {
             error = {
                 kind: DiagnosticErrorType.SEMANTIC,
                 file: node.getSourceFile(),
-                start: getLinePosition(node),
+                start: node.getStart(),
                 length: node.getWidth(),
                 category: ts.DiagnosticCategory.Error,
                 messageText: message,

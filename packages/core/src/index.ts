@@ -60,6 +60,7 @@ export * from './nodes/type-parameter-node.js';
 export * from './nodes/variable-node.js';
 
 // UTILS
+export * from './analyser-diagnostic.js';
 export * from './analyser-options.js';
 export * from './analyser-result.js';
 export * from './analyser-system.js';
