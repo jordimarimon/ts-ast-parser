@@ -177,10 +177,7 @@
 
 <pre class="language-ts"><code class="language-ts"><span class="token keyword">import</span> <span class="token punctuation">{</span> parseFromProject <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@ts-ast-parser/core'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">const</span> reflectedModules <span class="token operator">=</span> <span class="token function">parseFromProject</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
-    <span class="token comment">/* You can optionally specify the TSConfig file path */</span>
-    tsConfigFilePath<span class="token operator">:</span> <span class="token string">'&lt;path>'</span><span class="token punctuation">,</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token keyword">const</span> <span class="token punctuation">{</span>result<span class="token punctuation">,</span> errors<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">parseFromProject</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>options<span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
     <p class="text-md mb-4">
         You can also provide the array of files:
@@ -188,7 +185,7 @@
 
 <pre class="language-ts"><code class="language-ts"><span class="token keyword">import</span> <span class="token punctuation">{</span> parseFromFiles <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@ts-ast-parser/core'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">const</span> reflectedModules <span class="token operator">=</span> <span class="token function">parseFromFiles</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'test1.ts'</span><span class="token punctuation">,</span> <span class="token string">'test2.ts'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token keyword">const</span> <span class="token punctuation">{</span>result<span class="token punctuation">,</span> errors<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">parseFromFiles</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'test1.ts'</span><span class="token punctuation">,</span> <span class="token string">'test2.ts'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>options<span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
     <p class="text-md mb-4">
         Or you can provide a glob or an array of globs instead:
@@ -196,7 +193,7 @@
 
 <pre class="language-ts"><code class="language-ts"><span class="token keyword">import</span> <span class="token punctuation">{</span> parseFromGlob <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@ts-ast-parser/core'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">const</span> reflectedModules <span class="token operator">=</span> <span class="token function">parseFromGlob</span><span class="token punctuation">(</span><span class="token string">'**/*.ts'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token keyword">const</span> <span class="token punctuation">{</span>result<span class="token punctuation">,</span> errors<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">parseFromGlob</span><span class="token punctuation">(</span><span class="token string">'**/*.ts'</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>options<span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
     <p class="text-md mb-4">
         Finally, there is also support for code snippets:
@@ -204,7 +201,7 @@
 
 <pre class="language-ts"><code class="language-ts"><span class="token keyword">import</span> <span class="token punctuation">{</span> parseFromSource <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@ts-ast-parser/core'</span><span class="token punctuation">;</span>
 
-<span class="token keyword">const</span> reflectedModules <span class="token operator">=</span> <span class="token function">parseFromSource</span><span class="token punctuation">(</span><span class="token string">'const foo = true;export { foo };'</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<span class="token keyword">const</span> <span class="token punctuation">{</span>result<span class="token punctuation">,</span> errors<span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">parseFromSource</span><span class="token punctuation">(</span><span class="token string">'const foo = true;export { foo };'</span><span class="token punctuation">,</span> <span class="token operator">&lt;</span>options<span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 
     <p class="text mt-4">
         See the <a class="prose" href="/ts-ast-parser/api-reference/">API Reference</a> for more information around the parser functions.
