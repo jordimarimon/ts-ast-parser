@@ -7,8 +7,6 @@ import type { AnalyserSystem } from './analyser-system.js';
 export interface AnalyserOptions {
     /**
      * Allows you to manually specify the path to a TSConfig file.
-     *
-     * Expects a relative path to the current working directory.
      */
     tsConfigFilePath: string;
 
@@ -44,7 +42,7 @@ export interface AnalyserOptions {
     jsProject: boolean;
 
     /**
-     * An abstraction layer around how we interact with the environment (browser or Node.js)
+     * An abstraction layer around how the analyser interacts with the environment (browser or Node.js)
      */
     system: AnalyserSystem;
 }

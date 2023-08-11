@@ -39,7 +39,7 @@ const dialogElCloseButton = document.getElementById('dialog-button-close');
 
 const parseCode = async (code) => {
     try {
-        return (await parseFromSource(code)).serialize();
+        return (await parseFromSource(code)).result.serialize();
     } catch (error) {
         console.error(error);
         return {};

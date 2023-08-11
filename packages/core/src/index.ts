@@ -15,6 +15,7 @@ export * from './models/function.js';
 export * from './models/import.js';
 export * from './models/interface.js';
 export * from './models/js-doc.js';
+export * from './models/member.js';
 export * from './models/member-kind.js';
 export * from './models/mixin.js';
 export * from './models/module.js';
@@ -47,6 +48,7 @@ export * from './nodes/named-import-node.js';
 export * from './nodes/namespace-export-node.js';
 export * from './nodes/namespace-import-node.js';
 export * from './nodes/parameter-node.js';
+export * from './nodes/project-node.js';
 export * from './nodes/property-node.js';
 export * from './nodes/re-export-node.js';
 export * from './nodes/reflected-node.js';
@@ -59,6 +61,8 @@ export * from './nodes/variable-node.js';
 
 // UTILS
 export * from './analyser-options.js';
+export * from './analyser-result.js';
+export * from './analyser-system.js';
 export * from './browser-system.js';
 export * from './context.js';
 export * from './node-system.js';

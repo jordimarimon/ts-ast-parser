@@ -54,10 +54,7 @@ pnpm add -D @ts-ast-parser/core
 {% highlight "ts" %}
 import { parseFromProject } from '@ts-ast-parser/core';
 
-const reflectedModules = parseFromProject({
-    /* You can optionally specify the TSConfig file path */
-    tsConfigFilePath: '<path>',
-});
+const {result, errors} = await parseFromProject(<options>);
 {% endhighlight %}
 
     <p class="text-md mb-4">
@@ -67,7 +64,7 @@ const reflectedModules = parseFromProject({
 {% highlight "ts" %}
 import { parseFromFiles } from '@ts-ast-parser/core';
 
-const reflectedModules = parseFromFiles(['test1.ts', 'test2.ts']);
+const {result, errors} = await parseFromFiles(['test1.ts', 'test2.ts'], <options>);
 {% endhighlight %}
 
     <p class="text-md mb-4">
@@ -77,7 +74,7 @@ const reflectedModules = parseFromFiles(['test1.ts', 'test2.ts']);
 {% highlight "ts" %}
 import { parseFromGlob } from '@ts-ast-parser/core';
 
-const reflectedModules = parseFromGlob('**/*.ts');
+const {result, errors} = await parseFromGlob('**/*.ts', <options>);
 {% endhighlight %}
 
     <p class="text-md mb-4">
@@ -87,7 +84,7 @@ const reflectedModules = parseFromGlob('**/*.ts');
 {% highlight "ts" %}
 import { parseFromSource } from '@ts-ast-parser/core';
 
-const reflectedModules = parseFromSource('const foo = true;export { foo };');
+const {result, errors} = await parseFromSource('const foo = true;export { foo };', <options>);
 {% endhighlight %}
 
     <p class="text mt-4">

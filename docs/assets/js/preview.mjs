@@ -67,8 +67,8 @@ class Preview extends HTMLElement {
         fetch(`${origin}${pathName}/assets/previews/${src}`)
             .then(response => response.text())
             .then(async (code) => {
-                const reflectedNodes = await parseFromSource(code);
-                return [code, reflectedNodes];
+                const {result} = await parseFromSource(code);
+                return [code, result];
             })
             .then(([code, reflectedNodes]) => {
                 const serializedNodes = JSON.stringify(reflectedNodes.serialize(), null, 4);

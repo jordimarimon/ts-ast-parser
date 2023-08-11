@@ -32,7 +32,7 @@ Handlebars.registerHelper('typeWithReference', type => {
 });
 
 // Obtain the reflected modules
-const reflectedModules = parseFromGlob('packages/core/src/**/*.ts');
+const {result: reflectedModules} = await parseFromGlob('packages/core/src/**/*.ts');
 
 // Handlebars templates
 const {pathname: cwd} = new URL('../..', import.meta.url);
@@ -263,12 +263,14 @@ function createTypeAlias(typeAlias, category, filePath) {
 function createFunctionContext(func, filePath) {
     const signature = func.getSignatures()[0];
     const funcJsDoc = func.isArrowFunctionOrFunctionExpression() ? func.getJSDoc() : signature.getJSDoc();
-    const returnType = signature.getReturnType().type;
+    const returnType = signature.getReturnType();
     const returnTypeDescription = funcJsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
     const parameters = signature.getParameters().map(p => ({
         name: p.getName(),
         description: funcJsDoc.getAllTags(JSDocTagName.param)?.find(t => t.getName() === p.getName())?.getDescription() ?? '',
-        type: p.getType(),
+        type: {
+            text: p.getType().getText(),
+        },
         default: p.getDefault(),
     }));
 
@@ -277,11 +279,10 @@ function createFunctionContext(func, filePath) {
         path: filePath,
         line: signature.getLine(),
         description: funcJsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
-        signature: `${func.getName()}(${parameters.map(p => `${p.name}: ${p.type.text}`).join(', ')}): ${returnType.text}`,
+        signature: `${func.getName()}(${parameters.map(p => `${p.name}: ${p.type.text}`).join(', ')}): ${returnType.getText()}`,
         parameters,
         returnType: {
-            text: returnType.text,
-            sources: returnType.sources,
+            text: returnType.getText(),
             description: returnTypeDescription,
         },
     };
@@ -293,7 +294,9 @@ function createPropertyContext(property, filePath) {
         path: filePath,
         line: property.getLine(),
         description: property.getJSDoc().getTag(JSDocTagName.description)?.getValue() ?? '',
-        type: property.getType(),
+        type: {
+            text: property.getType().getText(),
+        },
         default: property.getDefault(),
         optional: property.isOptional(),
     };
