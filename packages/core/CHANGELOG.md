@@ -1,3 +1,9 @@
+## [next]
+
+### Bug Fixes
+
+* Use `/` as the base path when parsing the command line options in a browser environment
+
 # 0.4.0 (2023-08-11)
 
 ### Features
