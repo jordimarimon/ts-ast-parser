@@ -1,6 +1,6 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getLinePosition } from '../utils/get-location.js';
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedNode } from '../reflected-node.js';
 import type { AnalyserContext } from '../context.js';
 import type { EnumMember } from '../models/enum.js';
 import { JSDocNode } from './jsdoc-node.js';

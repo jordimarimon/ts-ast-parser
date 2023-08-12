@@ -3,8 +3,8 @@ import { getExtendClauseReferences, isCustomElement } from '../utils/heritage.js
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { TypeParameterNode } from './type-parameter-node.js';
 import type { DeclarationNode } from './declaration-node.js';
+import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import type { ClassDeclaration } from '../models/class.js';
 import type { Reference } from '../models/reference.js';

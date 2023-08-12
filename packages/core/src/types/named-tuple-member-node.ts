@@ -1,9 +1,9 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedTypeNode } from './reflected-node.js';
+import type { ReflectedTypeNode } from '../reflected-node.js';
 import type { NamedTupleMember } from '../models/type.js';
-import { TypeKind } from '../models/type.js';
 import { createType } from '../factories/create-type.js';
 import type { AnalyserContext } from '../context.js';
+import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 

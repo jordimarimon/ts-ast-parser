@@ -5,7 +5,7 @@ import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { getLinePosition } from '../utils/get-location.js';
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedNode } from '../reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
 import type { AnalyserContext } from '../context.js';

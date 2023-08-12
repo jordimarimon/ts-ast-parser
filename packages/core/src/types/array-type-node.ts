@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from './reflected-node.js';
+import type { ReflectedTypeNode } from '../reflected-node.js';
 import { createType } from '../factories/create-type.js';
 import type { AnalyserContext } from '../context.js';
 import type { Type } from '../models/type.js';
@@ -6,15 +6,15 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
-export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
+export class ArrayTypeNode implements ReflectedTypeNode<ts.ArrayTypeNode> {
 
-    private readonly _node: ts.UnionTypeNode;
+    private readonly _node: ts.ArrayTypeNode;
 
     private readonly _type: ts.Type;
 
     private readonly _context: AnalyserContext;
 
-    constructor(node: ts.UnionTypeNode, type: ts.Type, context: AnalyserContext) {
+    constructor(node: ts.ArrayTypeNode, type: ts.Type, context: AnalyserContext) {
         this._node = node;
         this._type = type;
         this._context = context;
@@ -24,7 +24,7 @@ export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
         return this._context;
     }
 
-    getTSNode(): ts.UnionTypeNode {
+    getTSNode(): ts.ArrayTypeNode {
         return this._node;
     }
 
@@ -33,26 +33,22 @@ export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
     }
 
     getKind(): TypeKind {
-        return TypeKind.Union;
+        return TypeKind.Array;
     }
 
     getText(): string {
-        try {
-            return this._node.getText() ?? '';
-        } catch (_) {
-            return this._context.checker.typeToString(this._type) ?? '';
-        }
+        return `${this.getElementType().getText()}[]`;
     }
 
-    getElements(): ReflectedTypeNode[] {
-        return this._node.types.map(typeNode => createType(typeNode, this._context));
+    getElementType(): ReflectedTypeNode {
+        return createType(this._node.elementType, this._context);
     }
 
     serialize(): Type {
         return {
             text: this.getText(),
             kind: this.getKind(),
-            elements: this.getElements().map(e => e.serialize()),
+            elementType: this.getElementType().serialize(),
         };
     }
 

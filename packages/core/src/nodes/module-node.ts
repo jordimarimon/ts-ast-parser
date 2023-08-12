@@ -1,5 +1,5 @@
 import { importFactory, declarationFactories, exportFactories } from '../factories/index.js';
-import type { ReflectedNode, ReflectedRootNode } from './reflected-node.js';
+import type { ReflectedNode, ReflectedRootNode } from '../reflected-node.js';
 import type { DeclarationKind } from '../models/declaration-kind.js';
 import type { ExportNode, ImportNode } from '../utils/is.js';
 import type { DeclarationNode } from './declaration-node.js';

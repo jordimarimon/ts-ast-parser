@@ -1,4 +1,4 @@
-import type { ReflectedRootNode } from './reflected-node.js';
+import type { ReflectedRootNode } from '../reflected-node.js';
 import { hasDefaultKeyword } from '../utils/export.js';
 import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';

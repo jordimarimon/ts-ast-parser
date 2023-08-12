@@ -1,4 +1,4 @@
-import type { ReflectedNode, ReflectedTypeNode } from './reflected-node.js';
+import type { ReflectedNode, ReflectedTypeNode } from '../reflected-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { IndexSignature } from '../models/interface.js';
 import { getLinePosition } from '../utils/get-location.js';

@@ -1,6 +1,6 @@
 import type { SourceReference } from '../models/reference.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedTypeNode } from './reflected-node.js';
+import type { ReflectedTypeNode } from '../reflected-node.js';
 import { createType } from '../factories/create-type.js';
 import { getLocation } from '../utils/get-location.js';
 import type { AnalyserContext } from '../context.js';

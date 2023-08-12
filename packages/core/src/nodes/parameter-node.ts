@@ -3,7 +3,7 @@ import type { NamedParameterElement, Parameter } from '../models/parameter.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getLinePosition } from '../utils/get-location.js';
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedNode } from '../reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';

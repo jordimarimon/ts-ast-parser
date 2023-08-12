@@ -1,6 +1,6 @@
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedNode } from '../reflected-node.js';
 import type { Decorator } from '../models/decorator.js';
 import { getLocation } from '../utils/get-location.js';
 import type { AnalyserContext } from '../context.js';

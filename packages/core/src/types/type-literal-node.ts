@@ -1,9 +1,9 @@
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from '../utils/symbol.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedTypeNode } from './reflected-node.js';
+import type { ReflectedTypeNode } from '../reflected-node.js';
 import type { AnalyserContext } from '../context.js';
-import { PropertyNode } from './property-node.js';
-import { FunctionNode } from './function-node.js';
+import { PropertyNode } from '../nodes/property-node.js';
+import { FunctionNode } from '../nodes/function-node.js';
 import type { Method } from '../models/member.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';

@@ -1,6 +1,6 @@
 import type { DeclarationKind } from '../models/declaration-kind.js';
 import type { Declaration } from '../models/declaration.js';
-import type { ReflectedRootNode } from './reflected-node.js';
+import type { ReflectedRootNode } from '../reflected-node.js';
 import type { MemberKind } from '../models/member-kind.js';
 import type { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';

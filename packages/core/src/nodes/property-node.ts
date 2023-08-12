@@ -7,7 +7,7 @@ import { resolveExpression } from '../utils/resolve-expression.js';
 import type { Field, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { getReturnStatement } from '../utils/function.js';
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedNode } from '../reflected-node.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
 import type { AnalyserContext } from '../context.js';

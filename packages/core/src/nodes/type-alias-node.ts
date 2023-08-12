@@ -5,7 +5,7 @@ import { TypeParameterNode } from './type-parameter-node.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import { createType } from '../factories/create-type.js';
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedNode } from '../reflected-node.js';
 import { getNamespace } from '../utils/namespace.js';
 import type { AnalyserContext } from '../context.js';
 import { RootNodeType } from '../models/node.js';

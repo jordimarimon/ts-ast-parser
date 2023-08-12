@@ -1,6 +1,6 @@
-import type { AnalyserContext } from '../context.js';
-import type { RootNodeType } from '../models/node.js';
-import type { Type, TypeKind } from '../models/type.js';
+import type { Type, TypeKind } from './models/type.js';
+import type { RootNodeType } from './models/node.js';
+import type { AnalyserContext } from './context.js';
 import type ts from 'typescript';
 
 

@@ -1,4 +1,4 @@
-import type { ReflectedNode } from '../nodes/reflected-node.js';
+import type { ReflectedNode } from '../reflected-node.js';
 import type { AnalyserContext } from '../context.js';
 import type ts from 'typescript';
 

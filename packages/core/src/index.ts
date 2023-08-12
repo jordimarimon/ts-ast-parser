@@ -51,7 +51,7 @@ export * from './nodes/parameter-node.js';
 export * from './nodes/project-node.js';
 export * from './nodes/property-node.js';
 export * from './nodes/re-export-node.js';
-export * from './nodes/reflected-node.js';
+export * from './reflected-node.js';
 export * from './nodes/side-effect-import-node.js';
 export * from './nodes/signature-node.js';
 export * from './nodes/type-alias-node.js';
@@ -59,17 +59,17 @@ export * from './nodes/type-parameter-node.js';
 export * from './nodes/variable-node.js';
 
 // TYPES
-export * from './nodes/array-type-node.js';
-export * from './nodes/conditional-type-node.js';
-export * from './nodes/intersection-type-node.js';
-export * from './nodes/type-literal-node.js';
-export * from './nodes/named-tuple-member-node.js';
-export * from './nodes/primitive-type-node.js';
-export * from './nodes/tuple-type-node.js';
-export * from './nodes/type-operator-node.js';
-export * from './nodes/type-reference-node.js';
-export * from './nodes/union-type-node.js';
-export * from './nodes/unknown-type-node.js';
+export * from './types/array-type-node.js';
+export * from './types/conditional-type-node.js';
+export * from './types/intersection-type-node.js';
+export * from './types/type-literal-node.js';
+export * from './types/named-tuple-member-node.js';
+export * from './types/primitive-type-node.js';
+export * from './types/tuple-type-node.js';
+export * from './types/type-operator-node.js';
+export * from './types/type-reference-node.js';
+export * from './types/union-type-node.js';
+export * from './types/unknown-type-node.js';
 
 // UTILS
 export * from './analyser-diagnostic.js';

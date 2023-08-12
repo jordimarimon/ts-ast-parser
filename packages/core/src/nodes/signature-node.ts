@@ -2,7 +2,7 @@ import type { FunctionSignature } from '../models/function.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedNode } from '../reflected-node.js';
 import { createType } from '../factories/create-type.js';
 import type { AnalyserContext } from '../context.js';
 import { ParameterNode } from './parameter-node.js';
