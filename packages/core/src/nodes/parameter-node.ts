@@ -1,3 +1,4 @@
+import { createType, createTypeFromDeclaration } from '../factories/create-type.js';
 import type { NamedParameterElement, Parameter } from '../models/parameter.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
@@ -6,9 +7,8 @@ import type { ReflectedNode } from './reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
-import { NodeType } from '../models/node.js';
+import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { TypeNode } from './type-node.js';
 import ts from 'typescript';
 
 
@@ -41,10 +41,6 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         return this._node.name?.getText() ?? '';
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Other;
-    }
-
     getTSNode(): ts.ParameterDeclaration {
         return this._node;
     }
@@ -57,21 +53,13 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         return getLinePosition(this._node);
     }
 
-    getType(): TypeNode {
-        const jsDocType = ts.getJSDocType(this._node);
+    getType(): ReflectedNode<Type> {
         const checker = this._context.checker;
+        const type = this._symbol ? checker.getTypeOfSymbolAtLocation(this._symbol, this._node) : null;
 
-        if (jsDocType) {
-            return new TypeNode(jsDocType, null, this._context);
-        }
-
-        if (!this._symbol) {
-            return TypeNode.fromNode(this._node, this._context);
-        }
-
-        const type = checker.getTypeOfSymbolAtLocation(this._symbol, this._node);
-
-        return type ? TypeNode.fromType(type, this._context) : TypeNode.fromNode(this._node, this._context);
+        return type
+            ? createType(type, this._context)
+            : createTypeFromDeclaration(this._node, this._context);
     }
 
     getDefault(): unknown {

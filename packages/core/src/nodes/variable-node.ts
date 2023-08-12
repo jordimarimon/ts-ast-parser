@@ -1,17 +1,19 @@
+import { createTypeFromDeclaration } from '../factories/create-type.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import type { VariableDeclaration } from '../models/variable.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { getLinePosition } from '../utils/get-location.js';
+import type { ReflectedNode } from './reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
 import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { NodeType } from '../models/node.js';
+import type { Type } from '../models/type.js';
+import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { TypeNode } from './type-node.js';
 import type ts from 'typescript';
 
 
@@ -44,8 +46,8 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
         return this._declaration;
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Declaration;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Declaration;
     }
 
     getKind(): DeclarationKind.Variable {
@@ -60,8 +62,8 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
         return getLinePosition(this._node);
     }
 
-    getType(): TypeNode {
-        return TypeNode.fromNode(this._declaration, this._context);
+    getType(): ReflectedNode<Type> {
+        return createTypeFromDeclaration(this._declaration, this._context);
     }
 
     getValue(): unknown {

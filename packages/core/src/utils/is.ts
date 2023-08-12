@@ -1,15 +1,24 @@
+import type { ReflectedRootNode, ReflectedTypeNode } from '../nodes/reflected-node.js';
 import type { ExportDeclarationNode } from '../nodes/export-declaration-node.js';
 import type { SideEffectImportNode } from '../nodes/side-effect-import-node.js';
 import type { ExportAssignmentNode } from '../nodes/export-assignment-node.js';
+import type { IntersectionTypeNode } from '../nodes/intersection-type-node.js';
 import type { NamespaceExportNode } from '../nodes/namespace-export-node.js';
 import type { NamespaceImportNode } from '../nodes/namespace-import-node.js';
+import type { ConditionalTypeNode } from '../nodes/conditional-type-node.js';
+import type { TypeReferenceNode } from '../nodes/type-reference-node.js';
+import type { PrimitiveTypeNode } from '../nodes/primitive-type-node.js';
 import type { DefaultImportNode } from '../nodes/default-import-node.js';
+import type { TypeOperatorNode } from '../nodes/type-operator-node.js';
 import type { NamedImportNode } from '../nodes/named-import-node.js';
 import type { NamedExportNode } from '../nodes/named-export-node.js';
-import type { DeclarationNode } from '../nodes/declaration-node.js';
+import type { TypeLiteralNode } from '../nodes/type-literal-node.js';
+import type { UnknownTypeNode } from '../nodes/unknown-type-node.js';
+import type { UnionTypeNode } from '../nodes/union-type-node.js';
+import type { TupleTypeNode } from '../nodes/tuple-type-node.js';
 import type { TypeAliasNode } from '../nodes/type-alias-node.js';
+import type { ArrayTypeNode } from '../nodes/array-type-node.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
-import type { ReflectedNode } from '../nodes/reflected-node.js';
 import type { InterfaceNode } from '../nodes/interface-node.js';
 import type { ReExportNode } from '../nodes/re-export-node.js';
 import type { FunctionNode } from '../nodes/function-node.js';
@@ -18,8 +27,10 @@ import type { ClassNode } from '../nodes/class-node.js';
 import type { EnumNode } from '../nodes/enum-node.js';
 import { ImportKind } from '../models/import.js';
 import { ExportKind } from '../models/export.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
+import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
+import type { DeclarationNode } from '../nodes/declaration-node.js';
 
 
 export type ImportNode = DefaultImportNode | NamedImportNode | NamespaceImportNode | SideEffectImportNode;
@@ -72,77 +83,118 @@ export type SymbolWithContext = {
 export const is = {
 
     // IMPORTS
-    ImportNode: (node: ReflectedNode): node is ImportNode => {
-        return node.getNodeType() === NodeType.Import;
+    ImportNode: (node: ReflectedRootNode): node is ImportNode => {
+        return node.getNodeType() === RootNodeType.Import;
     },
 
-    DefaultImportNode: (node: ReflectedNode): node is DefaultImportNode => {
+    DefaultImportNode: (node: ReflectedRootNode): node is DefaultImportNode => {
         return is.ImportNode(node) && node.getKind() === ImportKind.Default;
     },
 
-    NamedImportNode: (node: ReflectedNode): node is NamedImportNode => {
+    NamedImportNode: (node: ReflectedRootNode): node is NamedImportNode => {
         return is.ImportNode(node) && node.getKind() === ImportKind.Named;
     },
 
-    NamespaceImportNode: (node: ReflectedNode): node is NamespaceImportNode => {
+    NamespaceImportNode: (node: ReflectedRootNode): node is NamespaceImportNode => {
         return is.ImportNode(node) && node.getKind() === ImportKind.Namespace;
     },
 
-    SideEffectImportNode: (node: ReflectedNode): node is SideEffectImportNode => {
+    SideEffectImportNode: (node: ReflectedRootNode): node is SideEffectImportNode => {
         return is.ImportNode(node) && node.getKind() === ImportKind.SideEffect;
     },
 
     // DECLARATIONS
-    DeclarationNode: (node: ReflectedNode): node is DeclarationNode => {
-        return node.getNodeType() === NodeType.Declaration;
+    DeclarationNode: (node: ReflectedRootNode): node is DeclarationNode => {
+        return node.getNodeType() === RootNodeType.Declaration;
     },
 
-    EnumNode: (node: ReflectedNode): node is EnumNode => {
+    EnumNode: (node: ReflectedRootNode): node is EnumNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Enum;
     },
 
-    VariableNode: (node: ReflectedNode): node is VariableNode => {
+    VariableNode: (node: ReflectedRootNode): node is VariableNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Variable;
     },
 
-    TypeAliasNode: (node: ReflectedNode): node is TypeAliasNode => {
+    TypeAliasNode: (node: ReflectedRootNode): node is TypeAliasNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.TypeAlias;
     },
 
-    FunctionNode: (node: ReflectedNode): node is FunctionNode => {
+    FunctionNode: (node: ReflectedRootNode): node is FunctionNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Function;
     },
 
-    ClassNode: (node: ReflectedNode): node is ClassNode => {
+    ClassNode: (node: ReflectedRootNode): node is ClassNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Class;
     },
 
-    InterfaceNode: (node: ReflectedNode): node is InterfaceNode => {
+    InterfaceNode: (node: ReflectedRootNode): node is InterfaceNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Interface;
     },
 
-    // EXPORTS
-    ExportNode: (node: ReflectedNode): node is ExportNode => {
-        return node.getNodeType() === NodeType.Export;
+    // TYPES
+    ArrayTypeNode: (node: ReflectedTypeNode): node is ArrayTypeNode => {
+        return node.getKind() === TypeKind.Array;
     },
 
-    DefaultExportNode: (node: ReflectedNode): node is ExportAssignmentNode | ExportDeclarationNode => {
+    ConditionalTypeNode: (node: ReflectedTypeNode): node is ConditionalTypeNode => {
+        return node.getKind() === TypeKind.Conditional;
+    },
+
+    IntersectionTypeNode: (node: ReflectedTypeNode): node is IntersectionTypeNode => {
+        return node.getKind() === TypeKind.Intersection;
+    },
+
+    LiteralTypeNode: (node: ReflectedTypeNode): node is TypeLiteralNode => {
+        return node.getKind() === TypeKind.ObjectLiteral;
+    },
+
+    PrimitiveTypeNode: (node: ReflectedTypeNode): node is PrimitiveTypeNode => {
+        return node.getKind() === TypeKind.Primitive;
+    },
+
+    TupleTypeNode: (node: ReflectedTypeNode): node is TupleTypeNode => {
+        return node.getKind() === TypeKind.Tuple;
+    },
+
+    TypeOperatorNode: (node: ReflectedTypeNode): node is TypeOperatorNode => {
+        return node.getKind() === TypeKind.Operator;
+    },
+
+    TypeReferenceNode: (node: ReflectedTypeNode): node is TypeReferenceNode => {
+        return node.getKind() === TypeKind.Reference;
+    },
+
+    UnionTypeNode: (node: ReflectedTypeNode): node is UnionTypeNode => {
+        return node.getKind() === TypeKind.Union;
+    },
+
+    UnknownTypeNode: (node: ReflectedTypeNode): node is UnknownTypeNode => {
+        return node.getKind() === TypeKind.Unknown;
+    },
+
+    // EXPORTS
+    ExportNode: (node: ReflectedRootNode): node is ExportNode => {
+        return node.getNodeType() === RootNodeType.Export;
+    },
+
+    DefaultExportNode: (node: ReflectedRootNode): node is ExportAssignmentNode | ExportDeclarationNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Default;
     },
 
-    NamedExportNode: (node: ReflectedNode): node is NamedExportNode | ExportDeclarationNode => {
+    NamedExportNode: (node: ReflectedRootNode): node is NamedExportNode | ExportDeclarationNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Named;
     },
 
-    EqualExportNode: (node: ReflectedNode): node is ExportAssignmentNode => {
+    EqualExportNode: (node: ReflectedRootNode): node is ExportAssignmentNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Equals;
     },
 
-    NamespaceExportNode: (node: ReflectedNode): node is NamespaceExportNode => {
+    NamespaceExportNode: (node: ReflectedRootNode): node is NamespaceExportNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Namespace;
     },
 
-    ReExportNode: (node: ReflectedNode): node is ReExportNode => {
+    ReExportNode: (node: ReflectedRootNode): node is ReExportNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Star;
     },
 

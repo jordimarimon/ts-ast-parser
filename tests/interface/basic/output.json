@@ -115,7 +115,13 @@
                                 "return": {
                                     "type": {
                                         "text": "Promise<void>",
-                                        "kind": "Reference"
+                                        "kind": "Reference",
+                                        "typeArguments": [
+                                            {
+                                                "text": "void",
+                                                "kind": "Primitive"
+                                            }
+                                        ]
                                     }
                                 },
                                 "line": 6

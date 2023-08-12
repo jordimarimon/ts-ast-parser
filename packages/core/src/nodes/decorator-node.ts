@@ -4,7 +4,6 @@ import type { ReflectedNode } from './reflected-node.js';
 import type { Decorator } from '../models/decorator.js';
 import { getLocation } from '../utils/get-location.js';
 import type { AnalyserContext } from '../context.js';
-import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
@@ -53,10 +52,6 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
 
     getContext(): AnalyserContext {
         return this._context;
-    }
-
-    getNodeType(): NodeType {
-        return NodeType.Other;
     }
 
     /**

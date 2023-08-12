@@ -7,12 +7,29 @@ import ts from 'typescript';
 import * as fs from 'fs';
 
 
+/**
+ * Options to configure the system behaviour
+ */
 export interface NodeSystemOptions {
+    /**
+     * The original analyser options
+     */
     analyserOptions: Partial<AnalyserOptions>;
+
+    /**
+     * If, true, an in-memory file system will be used
+     */
     vfs?: boolean;
+
+    /**
+     * The initial files to add in the in-memory file system
+     */
     fsMap?: Map<string, string>;
 }
 
+/**
+ * Abstraction layer to use the analyser with Node.js
+ */
 export class NodeSystem implements AnalyserSystem {
 
     private readonly _host: ts.CompilerHost;

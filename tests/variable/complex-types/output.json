@@ -10,7 +10,7 @@
                 "line": 8,
                 "value": {
                     "text": "{x: number; y?: number}",
-                    "kind": "Literal",
+                    "kind": "ObjectLiteral",
                     "properties": [
                         {
                             "name": "x",
@@ -40,7 +40,7 @@
                 "line": 9,
                 "value": {
                     "text": "{z?: boolean}",
-                    "kind": "Literal",
+                    "kind": "ObjectLiteral",
                     "properties": [
                         {
                             "name": "z",

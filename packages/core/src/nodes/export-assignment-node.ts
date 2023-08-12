@@ -1,15 +1,15 @@
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedRootNode } from './reflected-node.js';
 import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
 
 // Case of:
 //      export default 4;
 //      export = class Foo {};
-export class ExportAssignmentNode implements ReflectedNode<Export, ts.ExportAssignment> {
+export class ExportAssignmentNode implements ReflectedRootNode<Export, ts.ExportAssignment> {
 
     private readonly _node: ts.ExportAssignment;
 
@@ -28,8 +28,8 @@ export class ExportAssignmentNode implements ReflectedNode<Export, ts.ExportAssi
         return this.getName();
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Export;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Export;
     }
 
     getContext(): AnalyserContext {

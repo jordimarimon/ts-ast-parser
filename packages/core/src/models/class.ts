@@ -52,7 +52,7 @@ export interface ClassDeclaration {
     jsDoc?: JSDoc;
 
     /**
-     * The type parameters or generics defined
+     * The type parameters
      */
     typeParameters?: readonly TypeParameter[];
 

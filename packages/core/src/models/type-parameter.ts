@@ -1,3 +1,6 @@
+import type { Type } from './type.js';
+
+
 /**
  * A type parameter after being serialized
  */
@@ -10,7 +13,7 @@ export interface TypeParameter {
     /**
      * The default value
      */
-    default?: string;
+    default?: Type;
 
     /**
      * Any constraint defined in the type parameter.
@@ -19,5 +22,5 @@ export interface TypeParameter {
      *
      *      T extends number | boolean
      */
-    constraint?: string;
+    constraint?: Type;
 }

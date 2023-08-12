@@ -1,12 +1,11 @@
 import { importFactory, declarationFactories, exportFactories } from '../factories/index.js';
+import type { ReflectedNode, ReflectedRootNode } from './reflected-node.js';
 import type { DeclarationKind } from '../models/declaration-kind.js';
 import type { ExportNode, ImportNode } from '../utils/is.js';
 import type { DeclarationNode } from './declaration-node.js';
-import type { ReflectedNode } from './reflected-node.js';
 import type { AnalyserContext } from '../context.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import type { Module } from '../models/module.js';
-import { NodeType } from '../models/node.js';
 import { is } from '../utils/is.js';
 import ts from 'typescript';
 
@@ -68,10 +67,6 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
             .filter(f => f.endsWith('.js'))[0];
 
         return this._context.system.normalizePath(outputPath);
-    }
-
-    getNodeType(): NodeType {
-        return NodeType.Module;
     }
 
     getContext(): AnalyserContext {
@@ -143,7 +138,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         }
     }
 
-    private _add(reflectedNodes: ReflectedNode[]): void {
+    private _add(reflectedNodes: ReflectedRootNode[]): void {
         for (const reflectedNode of reflectedNodes) {
             if (is.ImportNode(reflectedNode)) {
                 this._imports.push(reflectedNode);

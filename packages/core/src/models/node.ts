@@ -1,10 +1,8 @@
 /**
- * The type of a node inside a Module
+ * The type of a root node inside a Module
  */
-export enum NodeType {
-    Module = 'Module',
+export enum RootNodeType {
     Import = 'Import',
     Declaration = 'Declaration',
     Export = 'Export',
-    Other = 'Other',
 }

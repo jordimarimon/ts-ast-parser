@@ -18,7 +18,12 @@
                     "line": 2,
                     "kind": "IndexSignature",
                     "type": {
-                        "text": "T"
+                        "text": "T",
+                        "kind": "Reference",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
+                        }
                     },
                     "indexType": {
                         "text": "number",

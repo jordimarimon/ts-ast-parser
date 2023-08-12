@@ -20,6 +20,7 @@
                             {
                                 "name": "constructor",
                                 "type": {
+                                    "kind": "Unknown",
                                     "text": "typeof BugReport"
                                 },
                                 "line": 1

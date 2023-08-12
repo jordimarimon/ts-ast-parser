@@ -15,7 +15,7 @@ import { getModifiers } from '../utils/modifiers.js';
 import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { SignatureNode } from './signature-node.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
@@ -70,8 +70,8 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         return '';
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Declaration;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Declaration;
     }
 
     getContext(): AnalyserContext {

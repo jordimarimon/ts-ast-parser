@@ -11,6 +11,7 @@
                     {
                         "return": {
                             "type": {
+                                "kind": "Unknown",
                                 "text": "(_target: Point, _propertyKey: string, descriptor: PropertyDescriptor) => void"
                             }
                         },

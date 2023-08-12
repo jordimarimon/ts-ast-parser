@@ -6,11 +6,15 @@ export enum TypeKind {
     Array = 'Array',
     Union = 'Union',
     Intersection = 'Intersection',
-    Literal = 'Literal',
+    ObjectLiteral = 'ObjectLiteral',
     Conditional = 'Conditional',
     Reference = 'Reference',
     Primitive = 'Primitive',
     Tuple = 'Tuple',
+    NamedTupleMember = 'NamedTupleMember',
+    Operator = 'Operator',
+    Unknown = 'Unknown',
+    Literal = 'Literal',
 }
 
 /**
@@ -25,7 +29,7 @@ export interface Type {
     /**
      * The kind of the type
      */
-    kind?: TypeKind;
+    kind: TypeKind;
 
     /**
      * The object literal type properties
@@ -38,22 +42,37 @@ export interface Type {
     methods?: readonly Method[];
 
     /**
-     * The union or intersection types.
+     * The union, intersection or tuple members.
      */
-    elements?: readonly Type[];
+    elements?: readonly (Type | NamedTupleMember)[];
 
     /**
-     * The element type of array type
+     * The base element type of array or an operator
      */
-    elementType?: Type | null;
+    elementType?: Type;
 
     /**
-     * The name of the tuple named element
-     */
-    name?: string;
-
-    /**
-     * The location of the symbol
+     * The location of the symbol if it's a type reference
      */
     source?: SourceReference;
+
+    /**
+     * The type arguments in a type reference
+     */
+    typeArguments?: readonly Type[];
+}
+
+/**
+ * The member of a tuple type
+ */
+export interface NamedTupleMember extends Type {
+    /**
+     * The name of the member
+     */
+    name: string;
+
+    /**
+     * If the tuple member is optional
+     */
+    optional?: boolean;
 }

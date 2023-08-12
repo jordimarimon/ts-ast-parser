@@ -79,14 +79,16 @@
                                     {
                                         "name": "a",
                                         "type": {
-                                            "text": "unknown"
+                                            "text": "unknown",
+                                            "kind": "Unknown"
                                         },
                                         "line": 4
                                     },
                                     {
                                         "name": "b",
                                         "type": {
-                                            "text": "unknown"
+                                            "text": "unknown",
+                                            "kind": "Unknown"
                                         },
                                         "line": 4
                                     }

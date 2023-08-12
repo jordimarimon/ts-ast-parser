@@ -1,10 +1,9 @@
+import type { ReflectedNode, ReflectedTypeNode } from './reflected-node.js';
 import type { TypeParameter } from '../models/type-parameter.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { getTypeArgumentNames } from '../utils/heritage.js';
 import { getLinePosition } from '../utils/get-location.js';
-import type { ReflectedNode } from './reflected-node.js';
+import { createType } from '../factories/create-type.js';
 import type { AnalyserContext } from '../context.js';
-import { NodeType } from '../models/node.js';
 import type ts from 'typescript';
 
 
@@ -23,10 +22,6 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
         return this._context;
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Declaration;
-    }
-
     getName(): string {
         return this._node.name.getText() ?? '';
     }
@@ -39,20 +34,20 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
         return getLinePosition(this._node);
     }
 
-    getDefault(): string {
-        return this._node.default?.getText() || '';
+    getDefault(): ReflectedTypeNode | null {
+        return this._node.default ? createType(this._node.default, this._context) : null;
     }
 
-    getConstraint(): string {
+    getConstraint(): ReflectedTypeNode | null {
         if (!this._node.constraint) {
-            return '';
+            return null;
         }
 
-        return getTypeArgumentNames([this._node.constraint])[0] ?? '';
+        return createType(this._node.constraint, this._context);
     }
 
     hasDefault(): boolean {
-        return !!this.getDefault();
+        return !!this._node.default;
     }
 
     serialize(): TypeParameter {
@@ -60,8 +55,8 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
             name: this.getName(),
         };
 
-        tryAddProperty(tmpl, 'default', this.getDefault());
-        tryAddProperty(tmpl, 'constraint', this.getConstraint());
+        tryAddProperty(tmpl, 'default', this.getDefault()?.serialize());
+        tryAddProperty(tmpl, 'constraint', this.getConstraint()?.serialize());
 
         return tmpl;
     }

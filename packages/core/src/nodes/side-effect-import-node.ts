@@ -1,14 +1,14 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { ReflectedRootNode } from './reflected-node.js';
 import { isBareModuleSpecifier } from '../utils/import.js';
-import type { ReflectedNode } from './reflected-node.js';
 import type { AnalyserContext } from '../context.js';
 import type { Import } from '../models/import.js';
 import { ImportKind } from '../models/import.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
 
-export class SideEffectImportNode implements ReflectedNode<Import, ts.ImportDeclaration> {
+export class SideEffectImportNode implements ReflectedRootNode<Import, ts.ImportDeclaration> {
 
     private readonly _node: ts.ImportDeclaration;
 
@@ -23,8 +23,8 @@ export class SideEffectImportNode implements ReflectedNode<Import, ts.ImportDecl
         return this._node;
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Import;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Import;
     }
 
     getKind(): ImportKind.SideEffect {

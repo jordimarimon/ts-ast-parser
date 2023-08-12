@@ -1,9 +1,9 @@
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedRootNode } from './reflected-node.js';
 import { hasDefaultKeyword } from '../utils/export.js';
 import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
 
@@ -19,7 +19,7 @@ export type ExportDeclarationNodeType = ts.FunctionDeclaration |
 //      export class Foo {}
 //      export default function foo() {}
 //      ...
-export class ExportDeclarationNode implements ReflectedNode<Export, ExportDeclarationNodeType> {
+export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDeclarationNodeType> {
 
     private readonly _node: ExportDeclarationNodeType;
 
@@ -45,8 +45,8 @@ export class ExportDeclarationNode implements ReflectedNode<Export, ExportDeclar
         return this.getName();
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Export;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Export;
     }
 
     getContext(): AnalyserContext {

@@ -1,10 +1,11 @@
 import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } from '../utils/member.js';
 import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from '../utils/symbol.js';
+import { createType, createTypeFromDeclaration } from '../factories/create-type.js';
 import type { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
+import { getLinePosition, getLocation } from '../utils/get-location.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import type { Field, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { getLinePosition, getLocation } from '../utils/get-location.js';
 import { getReturnStatement } from '../utils/function.js';
 import type { ReflectedNode } from './reflected-node.js';
 import { MemberKind } from '../models/member-kind.js';
@@ -12,9 +13,8 @@ import { getDecorators } from '../utils/decorator.js';
 import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import { NodeType } from '../models/node.js';
+import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { TypeNode } from './type-node.js';
 import ts from 'typescript';
 
 
@@ -70,10 +70,6 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         return this._node;
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Other;
-    }
-
     getContext(): AnalyserContext {
         return this._context;
     }
@@ -92,22 +88,22 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         return getLocation(this._node, this._context).line as number;
     }
 
-    getType(): TypeNode {
+    getType(): ReflectedNode<Type> {
         const jsDocType = ts.getJSDocType(this._node);
 
         if (jsDocType) {
-            return new TypeNode(jsDocType, null, this._context);
+            return createType(jsDocType, this._context);
         }
 
         if (this._nodeContext?.type) {
-            return TypeNode.fromType(this._nodeContext.type, this._context);
+            return createType(this._nodeContext.type, this._context);
         }
 
         if (this._node.type) {
-            return new TypeNode(this._node.type, null, this._context);
+            return createType(this._node.type, this._context);
         }
 
-        return TypeNode.fromNode(this._node, this._context);
+        return createTypeFromDeclaration(this._node, this._context);
     }
 
     getDefault(): unknown {

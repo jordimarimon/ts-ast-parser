@@ -3,6 +3,11 @@
 ### Bug Fixes
 
 * Use `/` as the base path when parsing the command line options in a browser environment
+* Add missing exports
+
+### Features
+
+* The reflected information about the constraint in a type parameter has been improved
 
 # 0.4.0 (2023-08-11)
 

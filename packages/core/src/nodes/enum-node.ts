@@ -5,7 +5,7 @@ import { getLinePosition } from '../utils/get-location.js';
 import type { EnumDeclaration } from '../models/enum.js';
 import { EnumMemberNode } from './enum-member-node.js';
 import type { AnalyserContext } from '../context.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
@@ -27,8 +27,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
         this._jsDoc = new JSDocNode(this._node);
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Declaration;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Declaration;
     }
 
     getKind(): DeclarationKind.Enum {

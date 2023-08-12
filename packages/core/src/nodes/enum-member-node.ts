@@ -3,7 +3,6 @@ import { getLinePosition } from '../utils/get-location.js';
 import type { ReflectedNode } from './reflected-node.js';
 import type { AnalyserContext } from '../context.js';
 import type { EnumMember } from '../models/enum.js';
-import { NodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
@@ -23,10 +22,6 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
         this._value = value;
         this._context = context;
         this._jsDoc = new JSDocNode(node);
-    }
-
-    getNodeType(): NodeType {
-        return NodeType.Other;
     }
 
     getName(): string {

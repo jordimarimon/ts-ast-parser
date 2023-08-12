@@ -14,15 +14,15 @@
                     "elements": [
                         {
                             "text": "\"red\"",
-                            "kind": "Primitive"
+                            "kind": "Literal"
                         },
                         {
                             "text": "\"green\"",
-                            "kind": "Primitive"
+                            "kind": "Literal"
                         },
                         {
                             "text": "\"blue\"",
-                            "kind": "Primitive"
+                            "kind": "Literal"
                         }
                     ]
                 }
@@ -59,7 +59,7 @@
                 "line": 5,
                 "type": {
                     "text": "{ red: [number, number, number]; green: string; blue: [number, number, number]; }",
-                    "kind": "Literal",
+                    "kind": "ObjectLiteral",
                     "properties": [
                         {
                             "name": "red",

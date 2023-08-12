@@ -10,7 +10,7 @@
                 "line": 4,
                 "value": {
                     "text": "{\n    x: T;\n    y: K;\n}",
-                    "kind": "Literal",
+                    "kind": "ObjectLiteral",
                     "properties": [
                         {
                             "name": "x",

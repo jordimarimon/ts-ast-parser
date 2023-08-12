@@ -3,11 +3,11 @@ import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import { getLinePosition } from '../utils/get-location.js';
 import type { ReflectedNode } from './reflected-node.js';
+import { createType } from '../factories/create-type.js';
 import type { AnalyserContext } from '../context.js';
 import { ParameterNode } from './parameter-node.js';
-import { NodeType } from '../models/node.js';
+import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { TypeNode } from './type-node.js';
 import ts from 'typescript';
 
 
@@ -29,10 +29,6 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
         return this._context;
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Other;
-    }
-
     getTSNode(): ts.Signature {
         return this._node;
     }
@@ -49,16 +45,16 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
         return this._jsDoc;
     }
 
-    getReturnType(): TypeNode {
+    getReturnType(): ReflectedNode<Type> {
         const jsDocType = ts.getJSDocReturnType(this._node.getDeclaration());
 
         if (jsDocType) {
-            return new TypeNode(jsDocType, null, this._context);
+            return createType(jsDocType, this._context);
         }
 
         const returnTypeOfSignature = this._context.checker.getReturnTypeOfSignature(this._node);
 
-        return TypeNode.fromType(returnTypeOfSignature, this._context);
+        return createType(returnTypeOfSignature, this._context);
     }
 
     getTypeParameters(): TypeParameterNode[] {

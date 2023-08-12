@@ -55,9 +55,21 @@ export * from './nodes/reflected-node.js';
 export * from './nodes/side-effect-import-node.js';
 export * from './nodes/signature-node.js';
 export * from './nodes/type-alias-node.js';
-export * from './nodes/type-node.js';
 export * from './nodes/type-parameter-node.js';
 export * from './nodes/variable-node.js';
+
+// TYPES
+export * from './nodes/array-type-node.js';
+export * from './nodes/conditional-type-node.js';
+export * from './nodes/intersection-type-node.js';
+export * from './nodes/type-literal-node.js';
+export * from './nodes/named-tuple-member-node.js';
+export * from './nodes/primitive-type-node.js';
+export * from './nodes/tuple-type-node.js';
+export * from './nodes/type-operator-node.js';
+export * from './nodes/type-reference-node.js';
+export * from './nodes/union-type-node.js';
+export * from './nodes/unknown-type-node.js';
 
 // UTILS
 export * from './analyser-diagnostic.js';

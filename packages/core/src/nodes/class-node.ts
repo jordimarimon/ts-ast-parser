@@ -19,7 +19,7 @@ import type { Method } from '../models/member.js';
 import { FunctionNode } from './function-node.js';
 import { PropertyNode } from './property-node.js';
 import { isThirdParty } from '../utils/import.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
@@ -66,8 +66,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     /**
      * The type of node inside the module
      */
-    getNodeType(): NodeType {
-        return NodeType.Declaration;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Declaration;
     }
 
     /**

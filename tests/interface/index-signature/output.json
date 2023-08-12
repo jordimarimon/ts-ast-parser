@@ -13,7 +13,8 @@
                     "line": 2,
                     "kind": "IndexSignature",
                     "type": {
-                        "text": "string"
+                        "text": "string",
+                        "kind": "Primitive"
                     },
                     "indexType": {
                         "text": "number",
@@ -30,7 +31,18 @@
                     "line": 6,
                     "kind": "IndexSignature",
                     "type": {
-                        "text": "number | string"
+                        "text": "number | string",
+                        "kind": "Union",
+                        "elements": [
+                            {
+                                "text": "number",
+                                "kind": "Primitive"
+                            },
+                            {
+                                "text": "string",
+                                "kind": "Primitive"
+                            }
+                        ]
                     },
                     "indexType": {
                         "text": "string",

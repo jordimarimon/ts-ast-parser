@@ -10,13 +10,22 @@
                 "line": 1,
                 "value": {
                     "text": "{ names: readonly string[] }",
-                    "kind": "Literal",
+                    "kind": "ObjectLiteral",
                     "properties": [
                         {
                             "name": "names",
                             "kind": "Property",
                             "type": {
-                                "text": "readonly string[]"
+                                "text": "readonly string[]",
+                                "kind": "Operator",
+                                "elementType": {
+                                    "text": "string[]",
+                                    "kind": "Array",
+                                    "elementType": {
+                                        "text": "string",
+                                        "kind": "Primitive"
+                                    }
+                                }
                             },
                             "line": 1
                         }
@@ -42,7 +51,10 @@
                         "typeParameters": [
                             {
                                 "name": "K",
-                                "constraint": "{ [key: string]: number }"
+                                "constraint": {
+                                    "text": "{ [key: string]: number }",
+                                    "kind": "ObjectLiteral"
+                                }
                             }
                         ],
                         "parameters": [
@@ -69,14 +81,22 @@
                     {
                         "return": {
                             "type": {
-                                "text": "T[\"names\"]"
+                                "text": "T[\"names\"]",
+                                "kind": "Unknown"
                             }
                         },
                         "line": 7,
                         "typeParameters": [
                             {
                                 "name": "T",
-                                "constraint": "HasNames"
+                                "constraint": {
+                                    "text": "HasNames",
+                                    "kind": "Reference",
+                                    "source": {
+                                        "line": 1,
+                                        "path": "tests/function/const-type-parameters/index.ts"
+                                    }
+                                }
                             }
                         ],
                         "parameters": [
@@ -101,7 +121,26 @@
                 "kind": "Variable",
                 "line": 11,
                 "type": {
-                    "text": "readonly [\"Alice\", \"Bob\", \"Eve\"]"
+                    "text": "readonly [\"Alice\", \"Bob\", \"Eve\"]",
+                    "kind": "Operator",
+                    "elementType": {
+                        "text": "[\"Alice\", \"Bob\", \"Eve\"]",
+                        "kind": "Tuple",
+                        "elements": [
+                            {
+                                "text": "\"Alice\"",
+                                "kind": "Literal"
+                            },
+                            {
+                                "text": "\"Bob\"",
+                                "kind": "Literal"
+                            },
+                            {
+                                "text": "\"Eve\"",
+                                "kind": "Literal"
+                            }
+                        ]
+                    }
                 },
                 "default": "getNamesExactly({names: ['Alice', 'Bob', 'Eve']})"
             }

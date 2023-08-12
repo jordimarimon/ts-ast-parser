@@ -83,7 +83,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "\"Hello World\"",
-                            "kind": "Primitive"
+                            "kind": "Literal"
                         },
                         "line": 6,
                         "default": "'Hello World'",

@@ -1,14 +1,14 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedNode } from './reflected-node.js';
+import type { ReflectedRootNode } from './reflected-node.js';
 import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
 
 // CASE of "export { x, y as z };"
-export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclaration> {
+export class NamedExportNode implements ReflectedRootNode<Export, ts.ExportDeclaration> {
 
     private readonly _node: ts.ExportDeclaration;
 
@@ -34,8 +34,8 @@ export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclarati
         return ExportKind.Named;
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Export;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Export;
     }
 
     getContext(): AnalyserContext {
@@ -43,7 +43,7 @@ export class NamedExportNode implements ReflectedNode<Export, ts.ExportDeclarati
     }
 
     isTypeOnly(): boolean {
-        return this._node.isTypeOnly ?? false;
+        return !!this._node.isTypeOnly;
     }
 
     getModule(): string {

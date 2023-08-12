@@ -10,7 +10,7 @@
                 "line": 1,
                 "value": {
                     "text": "{\n    fieldInType: T;\n}",
-                    "kind": "Literal",
+                    "kind": "ObjectLiteral",
                     "properties": [
                         {
                             "name": "fieldInType",
@@ -71,7 +71,17 @@
                                 "source": {
                                     "line": 9,
                                     "path": "tests/class/typed-parameters-and-inheritance/index.ts"
-                                }
+                                },
+                                "typeArguments": [
+                                    {
+                                        "text": "T",
+                                        "kind": "Reference",
+                                        "source": {
+                                            "line": 9,
+                                            "path": "tests/class/typed-parameters-and-inheritance/index.ts"
+                                        }
+                                    }
+                                ]
                             }
                         },
                         "line": 16,
@@ -94,7 +104,10 @@
                 "typeParameters": [
                     {
                         "name": "T",
-                        "default": "unknown"
+                        "default": {
+                            "text": "unknown",
+                            "kind": "Unknown"
+                        }
                     }
                 ],
                 "properties": [
@@ -212,7 +225,13 @@
                             "source": {
                                 "line": 5,
                                 "path": "tests/class/typed-parameters-and-inheritance/index.ts"
-                            }
+                            },
+                            "typeArguments": [
+                                {
+                                    "text": "string",
+                                    "kind": "Primitive"
+                                }
+                            ]
                         },
                         "line": 26,
                         "optional": true
@@ -226,7 +245,13 @@
                             "source": {
                                 "line": 1,
                                 "path": "tests/class/typed-parameters-and-inheritance/index.ts"
-                            }
+                            },
+                            "typeArguments": [
+                                {
+                                    "text": "string",
+                                    "kind": "Primitive"
+                                }
+                            ]
                         },
                         "line": 28,
                         "optional": true

@@ -11,8 +11,22 @@
                     {
                         "return": {
                             "type": {
-                                "text": "Generator<number, string, any>",
-                                "kind": "Reference"
+                                "text": "Generator<number, string, unknown>",
+                                "kind": "Reference",
+                                "typeArguments": [
+                                    {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    },
+                                    {
+                                        "text": "string",
+                                        "kind": "Primitive"
+                                    },
+                                    {
+                                        "text": "unknown",
+                                        "kind": "Unknown"
+                                    }
+                                ]
                             }
                         },
                         "line": 2

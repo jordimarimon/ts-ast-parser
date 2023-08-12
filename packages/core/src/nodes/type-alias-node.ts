@@ -2,17 +2,19 @@ import type { TypeAliasDeclaration } from '../models/type-alias.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
+import type { DeclarationNode } from './declaration-node.js';
 import { getLinePosition } from '../utils/get-location.js';
+import { createType } from '../factories/create-type.js';
 import type { ReflectedNode } from './reflected-node.js';
 import { getNamespace } from '../utils/namespace.js';
 import type { AnalyserContext } from '../context.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
+import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
-import { TypeNode } from './type-node.js';
 import type ts from 'typescript';
 
 
-export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.TypeAliasDeclaration> {
+export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.TypeAliasDeclaration> {
 
     private readonly _node: ts.TypeAliasDeclaration;
 
@@ -34,8 +36,8 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
         return this._node;
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Declaration;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Declaration;
     }
 
     getKind(): DeclarationKind.TypeAlias {
@@ -58,8 +60,8 @@ export class TypeAliasNode implements ReflectedNode<TypeAliasDeclaration, ts.Typ
         return this._jsDoc;
     }
 
-    getValue(): TypeNode {
-        return new TypeNode(this._node.type, null, this._context);
+    getValue(): ReflectedNode<Type> {
+        return createType(this._node.type, this._context);
     }
 
     getTypeParameters(): TypeParameterNode[] {

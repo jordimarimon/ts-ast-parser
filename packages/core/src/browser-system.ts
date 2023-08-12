@@ -87,14 +87,25 @@ const knownLibFiles = [
     'lib.webworker.iterable.d.ts',
 ];
 
+/**
+ * Options to configure the system behaviour
+ */
 export interface BrowserSystemOptions {
+    /**
+     * The original analyser options
+     */
     analyserOptions: Partial<AnalyserOptions>;
+
+    /**
+     * The initial files to add in the in-memory file system
+     */
     fsMap?: Map<string, string>;
 }
 
+/**
+ * Abstraction layer to use the analyser inside a browser
+ */
 export class BrowserSystem implements AnalyserSystem {
-
-    private readonly _fileNames: Set<string>;
 
     private readonly _sys: ts.System;
 
@@ -103,7 +114,6 @@ export class BrowserSystem implements AnalyserSystem {
     private readonly _host: ts.CompilerHost;
 
     private constructor(options: BrowserSystemOptions) {
-        this._fileNames = new Set<string>();
         this._sys = tsvfs.createSystem(options.fsMap ?? new Map<string, string>());
         this._commandLine = this._createCommandLine(options.analyserOptions);
         this._host = tsvfs.createVirtualCompilerHost(this._sys, this._commandLine.options, ts).compilerHost;
@@ -141,7 +151,6 @@ export class BrowserSystem implements AnalyserSystem {
 
     writeFile(path: string, data: string): void {
         this._host.writeFile(path, data, false);
-        this._fileNames.add(path);
     }
 
     normalizePath(path: string | undefined): string {

@@ -68,7 +68,8 @@
                         "name": "myAdd",
                         "kind": "Property",
                         "type": {
-                            "text": "(x: number, y: number) => number"
+                            "text": "(x: number, y: number) => number",
+                            "kind": "Unknown"
                         },
                         "line": 17,
                         "default": "add"

@@ -9,7 +9,8 @@
                 "kind": "Variable",
                 "line": 1,
                 "type": {
-                    "text": "unknown"
+                    "text": "unknown",
+                    "kind": "Unknown"
                 },
                 "default": 123
             },
@@ -38,7 +39,22 @@
                 "kind": "Variable",
                 "line": 4,
                 "type": {
-                    "text": "readonly [4, 5]"
+                    "text": "readonly [4, 5]",
+                    "kind": "Operator",
+                    "elementType": {
+                        "text": "[4, 5]",
+                        "kind": "Tuple",
+                        "elements": [
+                            {
+                                "text": "4",
+                                "kind": "Literal"
+                            },
+                            {
+                                "text": "5",
+                                "kind": "Literal"
+                            }
+                        ]
+                    }
                 },
                 "default": "[4, 5]"
             }

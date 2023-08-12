@@ -15,7 +15,7 @@ import type { AnalyserContext } from '../context.js';
 import type { Method } from '../models/member.js';
 import { PropertyNode } from './property-node.js';
 import { FunctionNode } from './function-node.js';
-import { NodeType } from '../models/node.js';
+import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
@@ -41,8 +41,8 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         return this._node.name.getText() ?? '';
     }
 
-    getNodeType(): NodeType {
-        return NodeType.Declaration;
+    getNodeType(): RootNodeType {
+        return RootNodeType.Declaration;
     }
 
     getKind(): DeclarationKind.Interface {
