@@ -216,6 +216,7 @@
                         "fixMixedExportsWithInlineTypeSpecifier": false
                     }
                 ],
+                "@typescript-eslint/consistent-type-imports": "error",
                 "@typescript-eslint/default-param-last": "error",
                 "@typescript-eslint/explicit-function-return-type": "off",
                 "@typescript-eslint/explicit-member-accessibility": [
@@ -281,7 +282,6 @@
                     }
                 ],
                 "@typescript-eslint/unified-signatures": "error",
-                "@typescript-eslint/consistent-type-imports": "error",
                 "@typescript-eslint/no-magic-numbers": "off",
                 "@typescript-eslint/no-empty-function": [
                     "error",
@@ -306,15 +306,6 @@
                         "extendDefaults": true
                     }
                 ]
-            }
-        },
-
-        {
-            "files": "tests/**/*.ts",
-            "rules": {
-                "no-unused-expressions": "off",
-                "@typescript-eslint/no-unused-expressions": "off",
-                "sonarjs/no-duplicate-string": "off"
             }
         }
     ]
