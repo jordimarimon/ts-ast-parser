@@ -14,6 +14,7 @@ import type { NamedImportNode } from '../nodes/named-import-node.js';
 import type { NamedExportNode } from '../nodes/named-export-node.js';
 import type { TypeLiteralNode } from '../types/type-literal-node.js';
 import type { UnknownTypeNode } from '../types/unknown-type-node.js';
+import type { DeclarationNode } from '../nodes/declaration-node.js';
 import type { UnionTypeNode } from '../types/union-type-node.js';
 import type { TupleTypeNode } from '../types/tuple-type-node.js';
 import type { TypeAliasNode } from '../nodes/type-alias-node.js';
@@ -30,7 +31,6 @@ import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
-import type { DeclarationNode } from '../nodes/declaration-node.js';
 
 
 export type ImportNode = DefaultImportNode | NamedImportNode | NamespaceImportNode | SideEffectImportNode;

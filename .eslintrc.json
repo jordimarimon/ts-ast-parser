@@ -69,7 +69,7 @@
                 "grouped-accessor-pairs": "error",
                 "max-depth": [
                     "error",
-                    4
+                    3
                 ],
                 "max-lines": [
                     "error",
