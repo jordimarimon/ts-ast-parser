@@ -8,6 +8,7 @@
 ### Features
 
 -   The reflected information about the constraint in a type parameter has been improved
+-   The information that gets reflected about types has been improved
 
 # 0.4.0 (2023-08-11)
 
