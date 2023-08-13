@@ -1,5 +1,5 @@
 import type { ReflectedRootNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../context.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
@@ -9,6 +9,7 @@ import type ts from 'typescript';
 //      export default 4;
 //      export = class Foo {};
 export class ExportAssignmentNode implements ReflectedRootNode<Export, ts.ExportAssignment> {
+
     private readonly _node: ts.ExportAssignment;
 
     private readonly _context: AnalyserContext;

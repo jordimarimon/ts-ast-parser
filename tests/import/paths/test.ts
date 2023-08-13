@@ -2,6 +2,7 @@ import { getTestResult, test, updateExpectedOutput } from '../../utils.js';
 import { describe, expect } from 'vitest';
 import * as path from 'path';
 
+
 const category = 'import';
 const subcategory = 'paths';
 const compilerOptions = {

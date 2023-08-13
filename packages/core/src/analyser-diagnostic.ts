@@ -1,13 +1,10 @@
 import ts from 'typescript';
 
-export enum DiagnosticCode {
-    UNKNOWN = 1000000,
-}
 
 export enum DiagnosticErrorType {
-    SEMANTIC,
-    COMMAND_LINE,
-    ARGUMENT,
+    SEMANTIC = 1000000,
+    COMMAND_LINE = 2000000,
+    ARGUMENT = 3000000,
 }
 
 export interface SemanticError {
@@ -33,6 +30,7 @@ export interface ArgumentError {
 export type DiagnosticError = SemanticError | CommandLineError | ArgumentError;
 
 export class AnalyserDiagnostic {
+
     private readonly _diagnostics: DiagnosticError[] = [];
 
     getAll(): DiagnosticError[] {
@@ -48,13 +46,13 @@ export class AnalyserDiagnostic {
 
         if (kind === DiagnosticErrorType.SEMANTIC && node) {
             error = {
-                kind: DiagnosticErrorType.SEMANTIC,
                 file: node.getSourceFile(),
                 start: node.getStart(),
                 length: node.getWidth(),
                 category: ts.DiagnosticCategory.Error,
                 messageText: message,
-                code: DiagnosticCode.UNKNOWN,
+                kind: DiagnosticErrorType.SEMANTIC,
+                code: DiagnosticErrorType.SEMANTIC,
             };
         } else {
             error = { kind, messageText: message };

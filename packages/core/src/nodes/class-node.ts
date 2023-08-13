@@ -1,21 +1,20 @@
+import { ExpressionWithTypeArgumentsNode } from './expression-with-type-arguments-node.js';
 import { getInstanceMembers, getStaticMembers, isAbstract } from '../utils/member.js';
-import { getExtendClauseReferences, isCustomElement } from '../utils/heritage.js';
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { TypeParameterNode } from './type-parameter-node.js';
-import { getLinePosition } from '../utils/get-location.js';
 import type { ClassDeclaration } from '../models/class.js';
-import type { Reference } from '../models/reference.js';
 import type { SymbolWithContext } from '../utils/is.js';
+import { isCustomElement } from '../utils/heritage.js';
 import { getDecorators } from '../utils/decorator.js';
-import type { AnalyserContext } from '../context.js';
 import { getNamespace } from '../utils/namespace.js';
 import { SignatureNode } from './signature-node.js';
 import { DecoratorNode } from './decorator-node.js';
-import { ModifierType } from '../models/member.js';
 import type { Method } from '../models/member.js';
+import { ModifierType } from '../models/member.js';
 import { FunctionNode } from './function-node.js';
 import { PropertyNode } from './property-node.js';
 import { isThirdParty } from '../utils/import.js';
@@ -23,10 +22,12 @@ import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
+
 /**
  * Reflected node that represents a ClassDeclaration or a ClassExpression
  */
 export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDeclaration | ts.VariableStatement> {
+
     private readonly _node: ts.ClassDeclaration | ts.VariableStatement;
 
     private readonly _context: AnalyserContext;
@@ -34,6 +35,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     private readonly _instanceMembers: SymbolWithContext[] = [];
 
     private readonly _staticMembers: SymbolWithContext[] = [];
+
+    private readonly _heritage: ExpressionWithTypeArgumentsNode[] = [];
 
     private readonly _jsDoc: JSDocNode;
 
@@ -45,8 +48,11 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         const classNode = this._getClassNode();
 
         if (classNode) {
-            this._instanceMembers = getInstanceMembers(classNode, this._context.checker);
-            this._staticMembers = getStaticMembers(classNode, this._context.checker);
+            this._instanceMembers = getInstanceMembers(classNode, this._context);
+            this._staticMembers = getStaticMembers(classNode, this._context);
+            this._heritage = (classNode.heritageClauses ?? []).flatMap(h => {
+                return h.types.map(t => new ExpressionWithTypeArgumentsNode(t, this._context));
+            });
         }
     }
 
@@ -93,7 +99,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
      * The start line number position
      */
     getLine(): number {
-        return getLinePosition(this._node);
+        return this._context.getLinePosition(this._node);
     }
 
     /**
@@ -136,7 +142,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             return [];
         }
 
-        const checker = this._context.checker;
+        const checker = this._context.getTypeChecker();
         const symbol = checker.getTypeAtLocation(classNode).getSymbol();
         const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, classNode);
         const signatures = type?.getConstructSignatures() ?? [];
@@ -222,14 +228,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     /**
      * The heritage chain
      */
-    getHeritage(): readonly Reference[] {
-        const classNode = this._getClassNode();
-
-        if (!classNode) {
-            return [];
-        }
-
-        return getExtendClauseReferences(classNode, this._context);
+    getHeritage(): ExpressionWithTypeArgumentsNode[] {
+        return this._heritage;
     }
 
     /**
@@ -268,36 +268,16 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             line: this.getLine(),
         };
 
-        tryAddProperty(
-            tmpl,
-            'constructors',
-            this.getConstructors().map(c => c.serialize()),
-        );
-        tryAddProperty(
-            tmpl,
-            'decorators',
-            this.getDecorators().map(d => d.serialize()),
-        );
+        tryAddProperty(tmpl, 'constructors', this.getConstructors().map(c => c.serialize()));
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(
-            tmpl,
-            'typeParameters',
-            this.getTypeParameters().map(tp => tp.serialize()),
-        );
-        tryAddProperty(tmpl, 'heritage', this.getHeritage());
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
+        tryAddProperty(tmpl, 'heritage', this.getHeritage().map(h => h.serialize()));
         tryAddProperty(tmpl, 'abstract', this.isAbstract());
         tryAddProperty(tmpl, 'customElement', this.isCustomElement());
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
-        tryAddProperty(
-            tmpl,
-            'properties',
-            this.getProperties().map(p => p.serialize()),
-        );
-        tryAddProperty(
-            tmpl,
-            'staticProperties',
-            this.getStaticProperties().map(p => p.serialize()),
-        );
+        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
+        tryAddProperty(tmpl, 'staticProperties', this.getStaticProperties().map(p => p.serialize()));
         tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize()) as Method[]);
         tryAddProperty(tmpl, 'staticMethods', this.getStaticMethods().map(m => m.serialize()) as Method[]);
 
@@ -316,8 +296,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             }
 
             const isProperty = ts.isPropertyDeclaration(decl);
-            const isPropertyMethod =
-                ts.isMethodDeclaration(decl) ||
+            const isPropertyMethod = ts.isMethodDeclaration(decl) ||
                 (isProperty && (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer)));
 
             if (isPropertyMethod) {
@@ -325,10 +304,11 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             }
 
             if (isProperty || ts.isGetAccessor(decl) || ts.isSetAccessor(decl)) {
-                const node = new PropertyNode(decl, member, this._context);
+                const callback = () => new PropertyNode(decl, member, this._context);
+                const reflectedNode = this._context.registerReflectedNode(decl, callback);
 
-                if (node.getModifier() === ModifierType.public) {
-                    result.push(node);
+                if (reflectedNode.getModifier() === ModifierType.public) {
+                    result.push(reflectedNode);
                 }
             }
         }
@@ -348,15 +328,15 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             }
 
             const isProperty = ts.isPropertyDeclaration(decl);
-            const isPropertyMethod =
-                ts.isMethodDeclaration(decl) ||
+            const isPropertyMethod = ts.isMethodDeclaration(decl) ||
                 (isProperty && (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer)));
 
             if (isPropertyMethod) {
-                const node = new FunctionNode(decl, member, this._context);
+                const callback = () => new FunctionNode(decl, member, this._context);
+                const reflectedNode = this._context.registerReflectedNode(decl, callback);
 
-                if (node.getModifier() === ModifierType.public) {
-                    result.push(node);
+                if (reflectedNode.getModifier() === ModifierType.public) {
+                    result.push(reflectedNode);
                 }
             }
         }

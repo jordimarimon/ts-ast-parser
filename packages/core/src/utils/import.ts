@@ -1,6 +1,5 @@
-import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { isNotEmptyArray } from './not-empty-array.js';
-import type { AnalyserContext } from '../context.js';
 import ts from 'typescript';
 
 /**
@@ -42,11 +41,11 @@ export function getOriginalImportPath(node: ts.Identifier | undefined, context: 
         return '';
     }
 
-    const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(node, context.checker), context.checker);
+    const symbol = context.getSymbol(node);
     const decl = symbol?.declarations?.[0];
     const originalFilePath = decl?.getSourceFile().fileName ?? '';
 
-    return context.system.normalizePath(originalFilePath);
+    return context.getSystem().normalizePath(originalFilePath);
 }
 
 /**

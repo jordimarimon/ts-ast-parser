@@ -1,6 +1,7 @@
 import { getTestResult, updateExpectedOutput, test } from '../../utils.js';
 import { describe, expect } from 'vitest';
 
+
 const category = 'decorator';
 const subcategory = 'accessor';
 const { actual, expected } = await getTestResult({ category, subcategory });

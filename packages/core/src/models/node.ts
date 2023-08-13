@@ -1,5 +1,5 @@
 /**
- * The type of a root node inside a Module
+ * The type of root node inside a Module
  */
 export enum RootNodeType {
     Import = 'Import',

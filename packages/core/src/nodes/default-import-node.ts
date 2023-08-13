@@ -1,13 +1,15 @@
 import { getOriginalImportPath, isBareModuleSpecifier, matchesTsConfigPath } from '../utils/import.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedRootNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../context.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { Import } from '../models/import.js';
 import { ImportKind } from '../models/import.js';
 import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
+
 export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDeclaration> {
+
     private readonly _node: ts.ImportDeclaration;
 
     private readonly _context: AnalyserContext;
@@ -18,9 +20,7 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
     }
 
     getName(): string {
-        const identifier = this._node.importClause?.name;
-
-        return identifier?.escapedText ?? '';
+        return this._node.importClause?.name?.escapedText ?? '';
     }
 
     getTSNode(): ts.ImportDeclaration {
@@ -50,8 +50,9 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
     getOriginalPath(): string {
         const identifier = this._node.importClause?.name;
         const importPath = this.getImportPath();
+        const compilerOptions = this._context.getSystem().getCommandLine().options;
 
-        return matchesTsConfigPath(importPath, this._context.system.getCommandLine().options)
+        return matchesTsConfigPath(importPath, compilerOptions)
             ? getOriginalImportPath(identifier, this._context)
             : importPath;
     }

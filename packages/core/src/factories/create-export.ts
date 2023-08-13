@@ -2,15 +2,17 @@ import { ExportDeclarationNode } from '../nodes/export-declaration-node.js';
 import { ExportAssignmentNode } from '../nodes/export-assignment-node.js';
 import { NamespaceExportNode } from '../nodes/namespace-export-node.js';
 import { NamedExportNode } from '../nodes/named-export-node.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { ExportStatementNode } from '../utils/is.js';
 import { ReExportNode } from '../nodes/re-export-node.js';
 import { hasExportKeyword } from '../utils/export.js';
 import type { NodeFactory } from './node-factory.js';
-import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import ts from 'typescript';
 
+
 export const exportDeclarationFactory: NodeFactory<Export, ExportDeclarationNode, ts.Node> = {
+
     isNode: (node: ts.Node): node is ts.Node => hasExportKeyword(node),
 
     create: (node: ts.Node, context: AnalyserContext): ExportDeclarationNode[] => {
@@ -34,17 +36,21 @@ export const exportDeclarationFactory: NodeFactory<Export, ExportDeclarationNode
 
         return exports;
     },
+
 };
 
 export const exportAssignmentFactory: NodeFactory<Export, ExportAssignmentNode, ts.ExportAssignment> = {
+
     isNode: (node: ts.Node): node is ts.ExportAssignment => ts.isExportAssignment(node),
 
     create: (node: ts.ExportAssignment, context: AnalyserContext): ExportAssignmentNode[] => {
         return [new ExportAssignmentNode(node, context)];
     },
+
 };
 
 export const exportStatementFactory: NodeFactory<Export, ExportStatementNode, ts.ExportDeclaration> = {
+
     isNode: (node: ts.Node): node is ts.ExportDeclaration => ts.isExportDeclaration(node),
 
     create: (node: ts.ExportDeclaration, context: AnalyserContext): ExportStatementNode[] => {
@@ -65,4 +71,5 @@ export const exportStatementFactory: NodeFactory<Export, ExportStatementNode, ts
 
         return result;
     },
+
 };

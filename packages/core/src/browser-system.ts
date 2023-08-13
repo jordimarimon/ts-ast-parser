@@ -4,6 +4,7 @@ import type { AnalyserSystem } from './analyser-system.js';
 import * as tsvfs from '@typescript/vfs';
 import ts from 'typescript';
 
+
 // @see https://github.com/microsoft/TypeScript-Website/issues/2801
 // @see https://github.com/microsoft/TypeScript-Website/pull/2802
 // @see https://github.com/microsoft/TypeScript/pull/54011
@@ -105,6 +106,7 @@ export interface BrowserSystemOptions {
  * Abstraction layer to use the analyser inside a browser
  */
 export class BrowserSystem implements AnalyserSystem {
+
     private readonly _sys: ts.System;
 
     private readonly _commandLine: ts.ParsedCommandLine;

@@ -1,6 +1,6 @@
+import type { AnalyserContext } from '../analyser-context.js';
 import { resolveExpression } from './resolve-expression.js';
 import type { MixinNodes } from '../models/mixin.js';
-import type { AnalyserContext } from '../context.js';
 import { getReturnStatement } from './function.js';
 import ts from 'typescript';
 
@@ -10,11 +10,11 @@ import ts from 'typescript';
 
 export function extractMixinNodes(node: ts.Node, context: AnalyserContext): MixinNodes | null {
     if (ts.isVariableStatement(node)) {
-        extractMixinNodesFromVariableStatement(node, context.checker);
+        extractMixinNodesFromVariableStatement(node, context);
     }
 
     if (ts.isFunctionDeclaration(node)) {
-        extractMixinNodesFromFunctionDeclaration(node, context.checker);
+        extractMixinNodesFromFunctionDeclaration(node, context);
     }
 
     return null;
@@ -22,7 +22,7 @@ export function extractMixinNodes(node: ts.Node, context: AnalyserContext): Mixi
 
 function extractMixinNodesFromVariableStatement(
     node: ts.VariableStatement,
-    checker: ts.TypeChecker,
+    context: AnalyserContext,
 ): MixinNodes | null {
     //
     // CASE 1: We have a mixin declared in the form of:
@@ -79,7 +79,7 @@ function extractMixinNodesFromVariableStatement(
         }
 
         const classDeclarationName = classDeclaration.name?.getText?.();
-        const returnValue = resolveExpression(returnStatement?.expression, checker);
+        const returnValue = resolveExpression(returnStatement?.expression, context);
 
         if (classDeclarationName === returnValue) {
             return {
@@ -94,7 +94,7 @@ function extractMixinNodesFromVariableStatement(
 
 function extractMixinNodesFromFunctionDeclaration(
     node: ts.FunctionDeclaration,
-    checker: ts.TypeChecker,
+    context: AnalyserContext,
 ): MixinNodes | null {
     if (node.body == null || !ts.isBlock(node.body)) {
         return null;
@@ -126,7 +126,7 @@ function extractMixinNodesFromFunctionDeclaration(
     }
 
     const classDeclarationName = classDeclaration.name?.getText?.();
-    const returnValue = resolveExpression(returnStatement?.expression, checker);
+    const returnValue = resolveExpression(returnStatement?.expression, context);
 
     if (classDeclarationName === returnValue) {
         return {

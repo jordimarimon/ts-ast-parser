@@ -2,7 +2,7 @@ import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.j
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type { AnalyserResult } from './analyser-result.js';
-import type { AnalyserContext } from './context.js';
+import { AnalyserContext } from './analyser-context.js';
 import { ModuleNode } from './nodes/module-node.js';
 import ts from 'typescript';
 
@@ -27,7 +27,6 @@ export async function parseFromFiles(
     }
 
     let system: AnalyserSystem;
-
     if (options.system) {
         system = options.system;
     } else {
@@ -41,40 +40,31 @@ export async function parseFromFiles(
         host: system.getCompilerHost(),
     });
 
-    const analyserDiagnostic = new AnalyserDiagnostic();
-    analyserDiagnostic.addMany(program.getSemanticDiagnostics());
+    const diagnostics = new AnalyserDiagnostic();
+    diagnostics.addMany(program.getSemanticDiagnostics());
 
-    if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
-        return { result: null, errors: analyserDiagnostic.getAll() };
+    if (!options.skipDiagnostics && !diagnostics.isEmpty()) {
+        return { result: null, errors: diagnostics.getAll() };
     }
 
-    commandLine.errors.forEach(err => {
-        analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, err.messageText);
-    });
-
+    commandLine.errors.forEach(err => diagnostics.add(DiagnosticErrorType.COMMAND_LINE, err.messageText));
     if (commandLine.errors.length > 0) {
-        return { result: null, errors: analyserDiagnostic.getAll() };
+        return { result: null, errors: diagnostics.getAll() };
     }
 
-    const context: AnalyserContext = {
-        program,
-        system,
-        checker: program.getTypeChecker(),
-        options: options ?? null,
-        diagnostics: analyserDiagnostic,
-    };
-
+    const context = new AnalyserContext(system, program, diagnostics, options);
     const modules: ModuleNode[] = [];
+
     for (const file of files) {
         const sourceFile = program.getSourceFile(file);
 
         if (!sourceFile) {
-            analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, `Unable to analyse file ${file}`);
+            diagnostics.add(DiagnosticErrorType.COMMAND_LINE, `Unable to analyse file ${file}`);
             continue;
         }
 
         modules.push(new ModuleNode(sourceFile, context));
     }
 
-    return { result: modules, errors: analyserDiagnostic.getAll() };
+    return { result: modules, errors: diagnostics.getAll() };
 }

@@ -1,11 +1,13 @@
 import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { createType } from '../factories/create-type.js';
-import type { AnalyserContext } from '../context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
+
 export class IntersectionTypeNode implements ReflectedTypeNode<ts.IntersectionTypeNode> {
+
     private readonly _node: ts.IntersectionTypeNode;
 
     private readonly _type: ts.Type;
@@ -38,7 +40,7 @@ export class IntersectionTypeNode implements ReflectedTypeNode<ts.IntersectionTy
         try {
             return this._node.getText() ?? '';
         } catch (_) {
-            return this._context.checker.typeToString(this._type) ?? '';
+            return this._context.getTypeChecker().typeToString(this._type) ?? '';
         }
     }
 

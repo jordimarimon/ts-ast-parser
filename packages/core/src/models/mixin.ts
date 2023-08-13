@@ -5,6 +5,7 @@ import type { Decorator } from './decorator.js';
 import type { JSDoc } from './js-doc.js';
 import type ts from 'typescript';
 
+
 export interface MixinNodes {
     function: ts.FunctionDeclaration | ts.VariableStatement;
     class: ts.ClassExpression | ts.ClassDeclaration;

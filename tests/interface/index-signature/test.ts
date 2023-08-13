@@ -1,6 +1,7 @@
 import { getTestResult, test, updateExpectedOutput } from '../../utils.js';
 import { describe, expect } from 'vitest';
 
+
 const category = 'interface';
 const subcategory = 'index-signature';
 const { actual, expected } = await getTestResult({ category, subcategory });

@@ -1,7 +1,6 @@
-import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from '../utils/symbol.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedTypeNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../context.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { PropertyNode } from '../nodes/property-node.js';
 import { FunctionNode } from '../nodes/function-node.js';
 import type { Method } from '../models/member.js';
@@ -9,7 +8,9 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
+
 export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
+
     private readonly _node: ts.TypeLiteralNode;
 
     private readonly _type: ts.Type;
@@ -38,7 +39,7 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
         try {
             return this._node.getText() ?? '';
         } catch (_) {
-            return this._context.checker.typeToString(this._type) ?? '';
+            return this._context.getTypeChecker().typeToString(this._type) ?? '';
         }
     }
 
@@ -47,7 +48,7 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
     }
 
     getProperties(): PropertyNode[] {
-        const checker = this._context.checker;
+        const checker = this._context.getTypeChecker();
         const members = this._node.members ?? [];
         const result: PropertyNode[] = [];
 
@@ -56,7 +57,7 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
                 continue;
             }
 
-            const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(member, checker), checker);
+            const symbol = this._context.getSymbol(member);
             const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, this._node);
 
             result.push(new PropertyNode(member, { symbol, type }, this._context));
@@ -66,7 +67,7 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
     }
 
     getMethods(): FunctionNode[] {
-        const checker = this._context.checker;
+        const checker = this._context.getTypeChecker();
         const members = this._node.members ?? [];
         const result: FunctionNode[] = [];
 
@@ -75,8 +76,8 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
                 continue;
             }
 
-            const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(member, checker), checker);
-            const type = symbol && this._context.checker.getTypeOfSymbolAtLocation(symbol, this._node);
+            const symbol = this._context.getSymbol(member);
+            const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, this._node);
 
             result.push(new FunctionNode(member, { symbol, type }, this._context));
         }
@@ -90,16 +91,8 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
             kind: this.getKind(),
         };
 
-        tryAddProperty(
-            tmpl,
-            'properties',
-            this.getProperties().map(p => p.serialize()),
-        );
-        tryAddProperty(
-            tmpl,
-            'methods',
-            this.getMethods().map(m => m.serialize() as Method),
-        );
+        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
+        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize() as Method));
 
         return tmpl;
     }

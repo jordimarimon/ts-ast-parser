@@ -5,21 +5,21 @@ import type { FunctionDeclaration } from '../models/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import type { Method, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { DeclarationNode } from './declaration-node.js';
-import { getSymbolAtLocation } from '../utils/symbol.js';
-import { getLocation } from '../utils/get-location.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
 import { getModifiers } from '../utils/modifiers.js';
-import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { SignatureNode } from './signature-node.js';
 import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
+
 export class FunctionNode implements DeclarationNode<FunctionDeclaration | Method, NodeWithFunctionDeclaration> {
+
     private readonly _node: NodeWithFunctionDeclaration;
 
     private readonly _member: SymbolWithContext | null;
@@ -80,8 +80,8 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         return this._node;
     }
 
-    getLine(): number {
-        return getLocation(this._node, this._context).line as number;
+    getLine(): number | null {
+        return this._context.getLocation(this._node).line;
     }
 
     getNamespace(): string {
@@ -102,7 +102,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
     getSignatures(): SignatureNode[] {
         const func = this._getFunctionNode();
-        const checker = this._context.checker;
+        const checker = this._context.getTypeChecker();
 
         // For methods in classes or interfaces as we need the context
         // of the implementation (type parameters resolved). That's why we use
@@ -111,13 +111,13 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
         // When it's not a method or a property in a class or interface
         if (!funcType) {
-            const symbol = func && getSymbolAtLocation(func, this._context.checker);
-            funcType = func && symbol && checker?.getTypeOfSymbolAtLocation(symbol, func.getSourceFile());
+            const symbol = func && this._context.getSymbol(func);
+            funcType = func && symbol && checker.getTypeOfSymbolAtLocation(symbol, func.getSourceFile());
         }
 
         // Anonymous functions
         if (!funcType) {
-            const signature = func && checker?.getSignatureFromDeclaration(func);
+            const signature = func && checker.getSignatureFromDeclaration(func);
             return signature ? [new SignatureNode(signature, this._context)] : [];
         }
 
@@ -198,11 +198,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc()?.serialize());
-        tryAddProperty(
-            tmpl,
-            'decorators',
-            this.getDecorators().map(d => d.serialize()),
-        );
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
         tryAddProperty(tmpl, 'async', this.isAsync());
         tryAddProperty(tmpl, 'generator', this.isGenerator());
 
@@ -228,8 +224,9 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         }
 
         if (ts.isPropertySignature(this._node)) {
-            func =
-                this._node.type?.kind === ts.SyntaxKind.FunctionType ? (this._node.type as ts.FunctionTypeNode) : null;
+            func = this._node.type && ts.isFunctionTypeNode(this._node.type)
+                ? this._node.type
+                : null;
         }
 
         if (ts.isPropertyDeclaration(this._node)) {

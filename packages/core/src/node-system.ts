@@ -6,6 +6,7 @@ import * as path from 'path';
 import ts from 'typescript';
 import * as fs from 'fs';
 
+
 /**
  * Options to configure the system behaviour
  */
@@ -30,6 +31,7 @@ export interface NodeSystemOptions {
  * Abstraction layer to use the analyser with Node.js
  */
 export class NodeSystem implements AnalyserSystem {
+
     private readonly _host: ts.CompilerHost;
 
     private readonly _commandLine: ts.ParsedCommandLine;

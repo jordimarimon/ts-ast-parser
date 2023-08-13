@@ -1,23 +1,23 @@
 import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } from '../utils/member.js';
-import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from '../utils/symbol.js';
 import { createType, createTypeFromDeclaration } from '../factories/create-type.js';
 import type { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
-import { getLinePosition, getLocation } from '../utils/get-location.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import type { Field, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { getReturnStatement } from '../utils/function.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
-import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
+
 export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
+
     private readonly _node: PropertyLikeNode;
 
     private readonly _nodeContext: SymbolWithContext | null;
@@ -76,14 +76,14 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         const [getter, setter] = this._getAccessors();
 
         if (getter) {
-            return getLinePosition(getter);
+            return this._context.getLinePosition(getter);
         }
 
         if (setter) {
-            return getLinePosition(setter);
+            return this._context.getLinePosition(setter);
         }
 
-        return getLocation(this._node, this._context).line as number;
+        return this._context.getLocation(this._node).line as number;
     }
 
     getType(): ReflectedNode<Type> {
@@ -113,14 +113,14 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         }
 
         if (getter) {
-            return resolveExpression(getReturnStatement(getter.body)?.expression, this._context.checker);
+            return resolveExpression(getReturnStatement(getter.body)?.expression, this._context);
         }
 
         if (setter) {
             return undefined;
         }
 
-        return resolveExpression((this._node as ts.PropertyDeclaration).initializer, this._context.checker);
+        return resolveExpression((this._node as ts.PropertyDeclaration).initializer, this._context);
     }
 
     getModifier(): ModifierType | null {
@@ -154,8 +154,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
             return isOptional(this._nodeContext.symbol);
         }
 
-        const checker = this._context.checker;
-        const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(this._node, checker), checker);
+        const symbol = this._context.getSymbol(this._node);
 
         return isOptional(symbol);
     }
@@ -209,11 +208,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         tryAddProperty(tmpl, 'line', this.getLine());
         tryAddProperty(tmpl, 'optional', this.isOptional());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(
-            tmpl,
-            'decorators',
-            this.getDecorators().map(d => d.serialize()),
-        );
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
         tryAddProperty(tmpl, 'default', this.getDefault());
         tryAddProperty(tmpl, 'static', this.isStatic());
         tryAddProperty(tmpl, 'readOnly', this.isReadOnly());

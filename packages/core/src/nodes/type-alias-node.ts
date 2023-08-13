@@ -1,19 +1,20 @@
 import type { TypeAliasDeclaration } from '../models/type-alias.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import type { DeclarationNode } from './declaration-node.js';
-import { getLinePosition } from '../utils/get-location.js';
 import { createType } from '../factories/create-type.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import { getNamespace } from '../utils/namespace.js';
-import type { AnalyserContext } from '../context.js';
 import { RootNodeType } from '../models/node.js';
 import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
+
 export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.TypeAliasDeclaration> {
+
     private readonly _node: ts.TypeAliasDeclaration;
 
     private readonly _context: AnalyserContext;
@@ -47,7 +48,7 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
     }
 
     getLine(): number {
-        return getLinePosition(this._node);
+        return this._context.getLinePosition(this._node);
     }
 
     getNamespace(): string {
@@ -76,11 +77,7 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(
-            tmpl,
-            'typeParameters',
-            this.getTypeParameters().map(tp => tp.serialize()),
-        );
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
 
         return tmpl;
     }

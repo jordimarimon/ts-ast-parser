@@ -1,10 +1,11 @@
+import type { AnalyserContext } from '../analyser-context.js';
 import type { ReflectedRootNode } from '../reflected-node.js';
 import { hasDefaultKeyword } from '../utils/export.js';
-import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
+
 
 export type ExportDeclarationNodeType =
     | ts.FunctionDeclaration
@@ -20,6 +21,7 @@ export type ExportDeclarationNodeType =
 //      export default function foo() {}
 //      ...
 export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDeclarationNodeType> {
+
     private readonly _node: ExportDeclarationNodeType;
 
     private readonly _declaration: ts.VariableDeclaration | null = null;

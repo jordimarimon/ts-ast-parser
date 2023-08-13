@@ -1,10 +1,12 @@
 import type { ReflectedTypeNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../context.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
+
 export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
+
     private readonly _node: ts.LiteralTypeNode;
 
     private readonly _type: ts.Type;
@@ -35,7 +37,8 @@ export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
 
     getText(): string {
         // The types of the TS Compiler API doesn't seem to be quite right here I think
-        const kind = this._node.literal.kind;
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+        const kind = this._node.literal.kind as ts.SyntaxKind;
 
         switch (kind) {
             case ts.SyntaxKind.TrueKeyword:
@@ -46,16 +49,7 @@ export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
                 return 'null';
             case ts.SyntaxKind.PrefixUnaryExpression: {
                 const operand = (this._node.literal as ts.PrefixUnaryExpression).operand;
-
-                // eslint-disable-next-line sonarjs/no-nested-switch
-                switch (operand.kind) {
-                    case ts.SyntaxKind.NumericLiteral:
-                        return this._node.literal.getText();
-                    case ts.SyntaxKind.BigIntLiteral:
-                        return this._node.literal.getText().replace('n', '');
-                    default:
-                        return '';
-                }
+                return this._getUnaryExpressionText(operand);
             }
 
             case ts.SyntaxKind.NumericLiteral:
@@ -76,5 +70,16 @@ export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
             text: this.getText(),
             kind: this.getKind(),
         };
+    }
+
+    private _getUnaryExpressionText(unaryExpression: ts.UnaryExpression): string {
+        switch (unaryExpression.kind) {
+            case ts.SyntaxKind.NumericLiteral:
+                return this._node.literal.getText();
+            case ts.SyntaxKind.BigIntLiteral:
+                return this._node.literal.getText().replace('n', '');
+            default:
+                return '';
+        }
     }
 }

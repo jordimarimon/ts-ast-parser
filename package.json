@@ -40,14 +40,10 @@
         "bump": "npx ncu -u -x typescript",
         "bump:pkg": "node scripts/bump.js",
         "lint": "eslint \"**/*.ts\" --max-warnings 0",
-        "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0",
-        "prettier": "prettier --write --ignore-unknown"
+        "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0"
     },
     "lint-staged": {
-        "**/*.ts": [
-            "npm run prettier",
-            "npm run lint:fix"
-        ]
+        "**/*.ts": "npm run lint:fix"
     },
     "devDependencies": {
         "@11ty/eleventy": "^2.0.1",
@@ -68,7 +64,8 @@
         "cssnano": "^6.0.1",
         "esbuild": "^0.19.0",
         "eslint": "^8.46.0",
-        "eslint-config-prettier": "^9.0.0",
+        "eslint-import-resolver-typescript": "^3.6.0",
+        "eslint-plugin-import": "^2.28.0",
         "eslint-plugin-sonarjs": "^0.20.0",
         "gh-pages": "^6.0.0",
         "globby": "^13.2.2",
@@ -84,7 +81,6 @@
         "postcss": "^8.4.27",
         "postcss-import": "^15.1.0",
         "postcss-preset-env": "^9.1.1",
-        "prettier": "^3.0.1",
         "prismjs": "^1.29.0",
         "source-map-explorer": "^2.5.3",
         "tailwindcss": "^3.3.3",

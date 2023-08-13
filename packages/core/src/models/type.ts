@@ -3,6 +3,7 @@ import type { SourceReference } from './reference.js';
 import type { Field, Method } from './member.js';
 import type { Parameter } from './parameter.js';
 
+
 export enum TypeKind {
     Array = 'Array',
     Union = 'Union',
@@ -10,11 +11,12 @@ export enum TypeKind {
     ObjectLiteral = 'ObjectLiteral',
     Conditional = 'Conditional',
     Reference = 'Reference',
-    Primitive = 'Primitive',
+    Intrinsic = 'Intrinsic',
     Tuple = 'Tuple',
     NamedTupleMember = 'NamedTupleMember',
     Operator = 'Operator',
     Unknown = 'Unknown',
+    IndexAccess = 'IndexAccess',
     Literal = 'Literal',
     Function = 'Function',
     Query = 'Query',

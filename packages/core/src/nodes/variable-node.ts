@@ -3,20 +3,21 @@ import { resolveExpression } from '../utils/resolve-expression.js';
 import type { VariableDeclaration } from '../models/variable.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { DeclarationNode } from './declaration-node.js';
-import { getLinePosition } from '../utils/get-location.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
-import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import { JSDocTagName } from '../models/js-doc.js';
-import type { Type } from '../models/type.js';
 import { RootNodeType } from '../models/node.js';
+import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
+
 export class VariableNode implements DeclarationNode<VariableDeclaration, ts.VariableDeclaration> {
+
     private readonly _node: ts.VariableStatement;
 
     private readonly _declaration: ts.VariableDeclaration;
@@ -57,7 +58,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
     }
 
     getLine(): number {
-        return getLinePosition(this._node);
+        return this._context.getLinePosition(this._node);
     }
 
     getType(): ReflectedNode<Type> {
@@ -66,8 +67,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
 
     getValue(): unknown {
         const jsDocDefaultValue = this.getJSDoc().getTag(JSDocTagName.default)?.getValue<string>();
-
-        return jsDocDefaultValue ?? resolveExpression(this._declaration.initializer, this._context.checker);
+        return jsDocDefaultValue ?? resolveExpression(this._declaration.initializer, this._context);
     }
 
     getNamespace(): string {
@@ -92,11 +92,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
         }
 
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(
-            tmpl,
-            'decorators',
-            this.getDecorators().map(d => d.serialize()),
-        );
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
 
         return tmpl;

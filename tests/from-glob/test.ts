@@ -3,6 +3,7 @@ import { parseFromGlob } from '@ts-ast-parser/core';
 import { describe, expect } from 'vitest';
 import path from 'path';
 
+
 const category = 'from-glob';
 const expected = readExpectedOutput(category);
 const actual = await parseFromGlob(path.join(process.cwd(), 'tests', category, 'index.ts'));

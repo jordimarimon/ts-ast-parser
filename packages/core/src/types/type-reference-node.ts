@@ -1,25 +1,30 @@
 import type { SourceReference } from '../models/reference.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { createType } from '../factories/create-type.js';
-import { getLocation } from '../utils/get-location.js';
-import type { AnalyserContext } from '../context.js';
+import type { SymbolWithLocation } from '../utils/is.js';
 import { isThirdParty } from '../utils/import.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
+
 export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode> {
+
     private readonly _node: ts.TypeReferenceNode;
 
     private readonly _type: ts.Type;
 
     private readonly _context: AnalyserContext;
 
+    private readonly _loc: SymbolWithLocation;
+
     constructor(node: ts.TypeReferenceNode, type: ts.Type, context: AnalyserContext) {
         this._node = node;
         this._type = type;
         this._context = context;
+        this._loc = context.getLocation(node.typeName);
     }
 
     getContext(): AnalyserContext {
@@ -40,7 +45,7 @@ export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode
 
     getText(): string {
         if ((this._type.flags & ts.TypeFlags.Any) === 0) {
-            return this._context.checker.typeToString(this._type);
+            return this._context.getTypeChecker().typeToString(this._type);
         }
 
         const refName = ts.isIdentifier(this._node.typeName)
@@ -53,19 +58,11 @@ export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode
     }
 
     getPath(): string {
-        return getLocation(this._node.typeName, this._context).path;
+        return this._loc.path;
     }
 
     getLine(): number | null {
-        return getLocation(this._node.typeName, this._context).line;
-    }
-
-    getReferenceType(): ReflectedTypeNode {
-        const checker = this._context.checker;
-        const referenceName = this._node.typeName;
-        const tsType = checker.getTypeAtLocation(referenceName);
-
-        return createType(tsType, this._context);
+        return this._loc.line;
     }
 
     getTypeArguments(): ReflectedTypeNode[] {
@@ -88,11 +85,7 @@ export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode
         }
 
         tryAddProperty(tmpl, 'source', sourceRef);
-        tryAddProperty(
-            tmpl,
-            'typeArguments',
-            this.getTypeArguments().map(t => t.serialize()),
-        );
+        tryAddProperty(tmpl, 'typeArguments', this.getTypeArguments().map(t => t.serialize()));
 
         return tmpl;
     }

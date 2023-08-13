@@ -1,8 +1,9 @@
-import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
-export function resolveExpression(expression: ts.Expression | undefined, checker: ts.TypeChecker): unknown {
+
+export function resolveExpression(expression: ts.Expression | undefined, context: AnalyserContext): unknown {
     let expr = expression;
 
     if (expr == null) {
@@ -19,7 +20,7 @@ export function resolveExpression(expression: ts.Expression | undefined, checker
     }
 
     if (ts.isPrefixUnaryExpression(expr)) {
-        return applyPrefixUnaryOperatorToValue(expr, checker);
+        return applyPrefixUnaryOperatorToValue(expr, context);
     }
 
     if (expr == null) {
@@ -49,7 +50,7 @@ export function resolveExpression(expression: ts.Expression | undefined, checker
     }
 
     if (ts.isIdentifier(expr) || ts.isPropertyAccessExpression(expr)) {
-        return resolveIdentifier(expr, checker);
+        return resolveIdentifier(expr, context);
     }
 
     return text;
@@ -69,8 +70,8 @@ function parseStringToFloat(text: string): number | string {
     return text;
 }
 
-function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression, checker: ts.TypeChecker): unknown {
-    const reference = getAliasedSymbolIfNecessary(getSymbolAtLocation(expr, checker), checker);
+function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression, context: AnalyserContext): unknown {
+    const reference = context.getSymbol(expr);
     const text = expr.getText() ?? '';
     const refExpr = reference?.declarations?.[0];
     const importPath = refExpr?.getSourceFile().fileName ?? '';
@@ -85,14 +86,14 @@ function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression, ch
     }
 
     if (ts.isVariableDeclaration(refExpr) || ts.isPropertyDeclaration(refExpr)) {
-        return resolveExpression(refExpr.initializer, checker);
+        return resolveExpression(refExpr.initializer, context);
     }
 
     return text;
 }
 
-function applyPrefixUnaryOperatorToValue(expression: ts.PrefixUnaryExpression, checker: ts.TypeChecker): unknown {
-    const value = resolveExpression(expression.operand, checker);
+function applyPrefixUnaryOperatorToValue(expression: ts.PrefixUnaryExpression, context: AnalyserContext): unknown {
+    const value = resolveExpression(expression.operand, context);
 
     if (typeof value !== 'number' && typeof value !== 'string' && typeof value !== 'boolean') {
         return value;
