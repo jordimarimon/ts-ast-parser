@@ -16,7 +16,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 3,
+                        "line": 2,
                         "default": "'Foo'"
                     },
                     {
@@ -26,7 +26,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 13,
+                        "line": 12,
                         "default": "''"
                     },
                     {
@@ -36,7 +36,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 21,
+                        "line": 20,
                         "writeOnly": true
                     }
                 ],
@@ -48,7 +48,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 5,
+                        "line": 4,
                         "default": "'Hello World'",
                         "static": true,
                         "readOnly": true
@@ -66,7 +66,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 25
+                                "line": 24
                             }
                         ]
                     }

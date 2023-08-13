@@ -1,5 +1,6 @@
 import type { AnalyserOptions, Module, ModuleNode } from '@ts-ast-parser/core';
 import { parseFromFiles } from '@ts-ast-parser/core';
+import { test as base } from 'vitest';
 import * as path from 'path';
 import * as fs from 'fs';
 
@@ -10,6 +11,10 @@ type TestOptions = {
 };
 
 const basedDir = path.join(process.cwd(), 'tests');
+
+export const test = base.extend<{ update: boolean }>({
+    update: !!process.env['UPDATE_SNAPSHOTS'],
+});
 
 export async function getTestResult(options: TestOptions): Promise<{ actual: ModuleNode[]; expected: Module[] }> {
     const { category, subcategory, analyzerOptions } = options;
@@ -27,8 +32,8 @@ export async function getTestResult(options: TestOptions): Promise<{ actual: Mod
     };
 }
 
-export function readExpectedOutput(category: string, subcategory = '', fileName = 'output.json'): Module[] {
-    const expectedOutputPath = path.join(basedDir, category, subcategory, fileName);
+export function readExpectedOutput(category: string, subcategory = ''): Module[] {
+    const expectedOutputPath = path.join(basedDir, category, subcategory, 'output.json');
 
     if (!fs.existsSync(expectedOutputPath)) {
         return [];
@@ -39,4 +44,8 @@ export function readExpectedOutput(category: string, subcategory = '', fileName 
     } catch (_) {
         return [];
     }
+}
+
+export function updateExpectedOutput(content: Module | Module[], category: string, subcategory = ''): void {
+    fs.writeFileSync(path.join(basedDir, category, subcategory, 'output.json'), JSON.stringify(content, null, 4));
 }

@@ -36,19 +36,19 @@
                     "kind": "Tuple",
                     "elements": [
                         {
+                            "name": "red",
                             "text": "number",
-                            "kind": "Primitive",
-                            "name": "red"
+                            "kind": "Primitive"
                         },
                         {
+                            "name": "green",
                             "text": "number",
-                            "kind": "Primitive",
-                            "name": "green"
+                            "kind": "Primitive"
                         },
                         {
+                            "name": "blue",
                             "text": "number",
-                            "kind": "Primitive",
-                            "name": "blue"
+                            "kind": "Primitive"
                         }
                     ]
                 }
@@ -120,7 +120,7 @@
             {
                 "name": "redComponent",
                 "kind": "Variable",
-                "line": 12,
+                "line": 11,
                 "type": {
                     "text": "number | undefined",
                     "kind": "Union",
@@ -140,7 +140,7 @@
             {
                 "name": "greenNormalized",
                 "kind": "Variable",
-                "line": 13,
+                "line": 12,
                 "type": {
                     "text": "string",
                     "kind": "Primitive"

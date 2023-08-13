@@ -7,7 +7,7 @@
             {
                 "name": "TypeFoo",
                 "kind": "TypeAlias",
-                "line": 4,
+                "line": 3,
                 "value": {
                     "text": "{\n        bar: number;\n    }",
                     "kind": "ObjectLiteral",
@@ -19,7 +19,7 @@
                                 "text": "number",
                                 "kind": "Primitive"
                             },
-                            "line": 5
+                            "line": 4
                         }
                     ]
                 },
@@ -28,7 +28,7 @@
             {
                 "kind": "Enum",
                 "name": "EnumFoo",
-                "line": 8,
+                "line": 7,
                 "namespace": "Foo",
                 "members": [
                     {
@@ -52,7 +52,7 @@
             {
                 "name": "varFoo",
                 "kind": "Variable",
-                "line": 15,
+                "line": 14,
                 "type": {
                     "text": "number",
                     "kind": "Primitive"
@@ -63,7 +63,7 @@
             {
                 "name": "IFoo",
                 "kind": "Interface",
-                "line": 17,
+                "line": 16,
                 "namespace": "Foo",
                 "properties": [
                     {
@@ -73,19 +73,19 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 18
+                        "line": 17
                     }
                 ]
             },
             {
                 "name": "ClassFoo",
                 "kind": "Class",
-                "line": 21,
+                "line": 20,
                 "heritage": [
                     {
                         "name": "IFoo",
                         "source": {
-                            "line": 17,
+                            "line": 16,
                             "path": "tests/namespace/basic/index.ts"
                         },
                         "kind": "Interface"
@@ -100,7 +100,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 22,
+                        "line": 21,
                         "default": 3
                     }
                 ]
@@ -116,7 +116,7 @@
                                 "kind": "Primitive"
                             }
                         },
-                        "line": 25
+                        "line": 24
                     }
                 ],
                 "namespace": "Foo"

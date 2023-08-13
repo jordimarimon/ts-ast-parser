@@ -20,7 +20,7 @@
                                 }
                             }
                         },
-                        "line": 29,
+                        "line": 28,
                         "parameters": [
                             {
                                 "name": "username",
@@ -28,7 +28,7 @@
                                     "text": "string",
                                     "kind": "Primitive"
                                 },
-                                "line": 29
+                                "line": 28
                             },
                             {
                                 "name": "password",
@@ -36,7 +36,7 @@
                                     "text": "string",
                                     "kind": "Primitive"
                                 },
-                                "line": 29
+                                "line": 28
                             }
                         ]
                     }
@@ -49,7 +49,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 24
+                        "line": 23
                     },
                     {
                         "name": "password",
@@ -58,7 +58,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 26,
+                        "line": 25,
                         "decorators": [
                             {
                                 "name": "min",
@@ -66,7 +66,9 @@
                                     "path": "tests/decorator/property/index.ts",
                                     "line": 1
                                 },
-                                "arguments": [8]
+                                "arguments": [
+                                    8
+                                ]
                             }
                         ]
                     }

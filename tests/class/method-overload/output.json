@@ -20,7 +20,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 3,
+                                "line": 2,
                                 "parameters": [
                                     {
                                         "name": "a",
@@ -28,7 +28,7 @@
                                             "text": "string",
                                             "kind": "Primitive"
                                         },
-                                        "line": 3
+                                        "line": 2
                                     },
                                     {
                                         "name": "b",
@@ -36,7 +36,7 @@
                                             "text": "string",
                                             "kind": "Primitive"
                                         },
-                                        "line": 3
+                                        "line": 2
                                     }
                                 ]
                             },
@@ -47,7 +47,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 4,
+                                "line": 3,
                                 "parameters": [
                                     {
                                         "name": "a",
@@ -55,7 +55,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 4
+                                        "line": 3
                                     },
                                     {
                                         "name": "b",
@@ -63,7 +63,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 4
+                                        "line": 3
                                     }
                                 ]
                             }

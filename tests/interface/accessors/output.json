@@ -16,7 +16,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 3
+                        "line": 2
                     },
                     {
                         "name": "baz",
@@ -25,7 +25,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 6,
+                        "line": 5,
                         "readOnly": true
                     },
                     {
@@ -35,7 +35,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 8,
+                        "line": 7,
                         "writeOnly": true
                     }
                 ]

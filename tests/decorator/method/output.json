@@ -11,8 +11,8 @@
                     {
                         "return": {
                             "type": {
-                                "kind": "Unknown",
-                                "text": "(_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor) => void"
+                                "text": "(_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor) => void",
+                                "kind": "Unknown"
                             }
                         },
                         "line": 1,
@@ -45,7 +45,7 @@
                                 }
                             }
                         },
-                        "line": 11,
+                        "line": 10,
                         "parameters": [
                             {
                                 "name": "message",
@@ -53,7 +53,7 @@
                                     "text": "string",
                                     "kind": "Primitive"
                                 },
-                                "line": 11
+                                "line": 10
                             }
                         ]
                     }
@@ -66,7 +66,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 9
+                        "line": 8
                     }
                 ],
                 "methods": [
@@ -81,7 +81,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 15
+                                "line": 14
                             }
                         ],
                         "decorators": [
@@ -91,7 +91,9 @@
                                     "path": "tests/decorator/method/index.ts",
                                     "line": 1
                                 },
-                                "arguments": [false]
+                                "arguments": [
+                                    false
+                                ]
                             }
                         ]
                     }

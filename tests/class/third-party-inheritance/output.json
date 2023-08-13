@@ -23,7 +23,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 3,
+                        "line": 2,
                         "default": 3
                     }
                 ]
@@ -31,7 +31,7 @@
             {
                 "name": "BarElement",
                 "kind": "Class",
-                "line": 7,
+                "line": 5,
                 "heritage": [
                     {
                         "name": "FooElement",
@@ -51,7 +51,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 9,
+                        "line": 6,
                         "default": 4
                     },
                     {
@@ -61,7 +61,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 3,
+                        "line": 2,
                         "default": 3,
                         "inherited": true
                     }

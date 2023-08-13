@@ -70,7 +70,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 7,
+                                "line": 6,
                                 "parameters": [
                                     {
                                         "name": "x",
@@ -78,7 +78,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 7
+                                        "line": 6
                                     },
                                     {
                                         "name": "y",
@@ -86,7 +86,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 7
+                                        "line": 6
                                     }
                                 ]
                             }

@@ -1,6 +1,6 @@
+import { readExpectedOutput, test, updateExpectedOutput } from '../../utils.js';
 import { parseFromProject } from '@ts-ast-parser/core';
-import { readExpectedOutput } from '../../utils.js';
-import { describe, expect, it } from 'vitest';
+import { describe, expect } from 'vitest';
 import * as path from 'path';
 
 const category = 'from-project';
@@ -11,8 +11,14 @@ const actual = await parseFromProject({
 });
 
 describe(category, () => {
-    it('should reflect the expected modules', () => {
-        const result = actual?.result?.getModules().map(m => m.serialize());
+    test('should reflect the expected modules', ({ update }) => {
+        const result = actual?.result?.getModules().map(m => m.serialize()) ?? [];
+
+        if (update) {
+            updateExpectedOutput(result, category, subcategory);
+            return;
+        }
+
         expect(result).to.deep.equal(expected);
         expect(actual?.result?.getName()).to.equal('test-project');
     });

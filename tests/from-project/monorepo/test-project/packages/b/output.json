@@ -14,7 +14,7 @@
             {
                 "name": "Employee",
                 "kind": "Class",
-                "line": 4,
+                "line": 3,
                 "constructors": [
                     {
                         "return": {
@@ -22,12 +22,12 @@
                                 "text": "Employee",
                                 "kind": "Reference",
                                 "source": {
-                                    "line": 4,
+                                    "line": 3,
                                     "path": "tests/from-project/monorepo/test-project/packages/b/src/index.ts"
                                 }
                             }
                         },
-                        "line": 7,
+                        "line": 6,
                         "parameters": [
                             {
                                 "name": "name",
@@ -35,7 +35,7 @@
                                     "text": "string",
                                     "kind": "Primitive"
                                 },
-                                "line": 7
+                                "line": 6
                             },
                             {
                                 "name": "age",
@@ -43,7 +43,7 @@
                                     "text": "number",
                                     "kind": "Primitive"
                                 },
-                                "line": 7
+                                "line": 6
                             },
                             {
                                 "name": "salary",
@@ -51,7 +51,7 @@
                                     "text": "number",
                                     "kind": "Primitive"
                                 },
-                                "line": 7
+                                "line": 6
                             }
                         ]
                     }
@@ -74,7 +74,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 5
+                        "line": 4
                     },
                     {
                         "name": "name",

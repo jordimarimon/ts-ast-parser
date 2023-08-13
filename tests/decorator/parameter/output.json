@@ -20,7 +20,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 7,
+                                "line": 6,
                                 "parameters": [
                                     {
                                         "name": "name",
@@ -28,7 +28,7 @@
                                             "text": "string",
                                             "kind": "Primitive"
                                         },
-                                        "line": 7,
+                                        "line": 6,
                                         "decorators": [
                                             {
                                                 "name": "log",

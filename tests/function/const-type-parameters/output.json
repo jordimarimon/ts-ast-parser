@@ -142,7 +142,7 @@
                         ]
                     }
                 },
-                "default": "getNamesExactly({names: ['Alice', 'Bob', 'Eve']})"
+                "default": "getNamesExactly({ names: ['Alice', 'Bob', 'Eve'] })"
             }
         ],
         "exports": [

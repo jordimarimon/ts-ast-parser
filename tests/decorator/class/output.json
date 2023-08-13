@@ -20,8 +20,8 @@
                             {
                                 "name": "constructor",
                                 "type": {
-                                    "kind": "Unknown",
-                                    "text": "typeof BugReport"
+                                    "text": "typeof BugReport",
+                                    "kind": "Unknown"
                                 },
                                 "line": 1
                             }
@@ -45,7 +45,7 @@
                                 }
                             }
                         },
-                        "line": 13,
+                        "line": 12,
                         "parameters": [
                             {
                                 "name": "t",
@@ -53,7 +53,7 @@
                                     "text": "string",
                                     "kind": "Primitive"
                                 },
-                                "line": 13
+                                "line": 12
                             }
                         ]
                     }
@@ -75,7 +75,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 9,
+                        "line": 8,
                         "default": "'report'"
                     },
                     {
@@ -85,7 +85,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 11
+                        "line": 10
                     }
                 ]
             }

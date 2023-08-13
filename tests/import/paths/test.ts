@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest';
-import { getTestResult } from '../../utils.js';
+import { getTestResult, test, updateExpectedOutput } from '../../utils.js';
+import { describe, expect } from 'vitest';
 import * as path from 'path';
 
 const category = 'import';
@@ -17,8 +17,14 @@ const compilerOptions = {
 const { actual, expected } = await getTestResult({ category, subcategory, analyzerOptions: { compilerOptions } });
 
 describe(`${category}/${subcategory}`, () => {
-    it('should reflect the expected modules', () => {
+    test('should reflect the expected modules', ({ update }) => {
         const result = actual.map(m => m.serialize());
+
+        if (update) {
+            updateExpectedOutput(result, category, subcategory);
+            return;
+        }
+
         expect(result).to.deep.equal(expected);
     });
 });

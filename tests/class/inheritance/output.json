@@ -152,7 +152,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 17,
+                        "line": 16,
                         "default": 5,
                         "override": true
                     },
@@ -180,7 +180,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 19,
+                                "line": 18,
                                 "parameters": [
                                     {
                                         "name": "x",
@@ -188,7 +188,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 19
+                                        "line": 18
                                     }
                                 ]
                             }

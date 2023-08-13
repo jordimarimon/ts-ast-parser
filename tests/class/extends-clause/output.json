@@ -16,7 +16,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 3,
+                        "line": 2,
                         "default": 4
                     }
                 ],
@@ -32,7 +32,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 5,
+                                "line": 4,
                                 "parameters": [
                                     {
                                         "name": "x",
@@ -40,7 +40,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 5
+                                        "line": 4
                                     },
                                     {
                                         "name": "y",
@@ -48,7 +48,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 5
+                                        "line": 4
                                     }
                                 ]
                             }
@@ -59,7 +59,7 @@
             {
                 "name": "Foo",
                 "kind": "Class",
-                "line": 10,
+                "line": 9,
                 "heritage": [
                     {
                         "name": "Bar",
@@ -78,7 +78,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 12,
+                        "line": 10,
                         "default": 3,
                         "override": true
                     }
@@ -95,7 +95,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 14,
+                                "line": 12,
                                 "parameters": [
                                     {
                                         "name": "x",
@@ -103,7 +103,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 14
+                                        "line": 12
                                     },
                                     {
                                         "name": "y",
@@ -111,7 +111,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 14
+                                        "line": 12
                                     }
                                 ]
                             }
@@ -129,7 +129,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 18,
+                                "line": 16,
                                 "parameters": [
                                     {
                                         "name": "x",
@@ -137,7 +137,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 18
+                                        "line": 16
                                     },
                                     {
                                         "name": "y",
@@ -145,7 +145,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 18
+                                        "line": 16
                                     }
                                 ]
                             }

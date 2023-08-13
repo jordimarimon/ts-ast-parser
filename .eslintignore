@@ -7,7 +7,6 @@
 /bazel-out
 /e2e/out
 packages/*/dist/
-packages/*/.tsbuildinfo
 packages/*/package-lock.json
 
 # Node

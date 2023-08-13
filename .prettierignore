@@ -7,7 +7,6 @@
 /bazel-out
 /e2e/out
 packages/*/dist/
-packages/*/.tsbuildinfo
 packages/*/package-lock.json
 
 # Node
@@ -51,8 +50,8 @@ trace.zip
 
 .env
 _site/
+tests/**/*.json
 docs/**/*.css
 docs/**/*.njk
 scripts/**/*.hbs
 
-docs/api-reference/**/*.njk

@@ -76,13 +76,13 @@
                             "name": "x",
                             "kind": "Property",
                             "type": {
-                                "kind": "Primitive",
-                                "text": "number"
+                                "text": "number",
+                                "kind": "Primitive"
                             }
                         }
                     ]
                 },
-                "default": "{x: 3}"
+                "default": "{ x: 3 }"
             },
             {
                 "name": "arr",

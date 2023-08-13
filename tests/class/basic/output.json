@@ -20,7 +20,7 @@
                                 }
                             }
                         },
-                        "line": 18,
+                        "line": 17,
                         "parameters": [
                             {
                                 "name": "x",
@@ -28,7 +28,7 @@
                                     "text": "number",
                                     "kind": "Primitive"
                                 },
-                                "line": 18
+                                "line": 17
                             },
                             {
                                 "name": "y",
@@ -36,7 +36,7 @@
                                     "text": "number",
                                     "kind": "Primitive"
                                 },
-                                "line": 18
+                                "line": 17
                             },
                             {
                                 "name": "message",
@@ -44,7 +44,7 @@
                                     "text": "string",
                                     "kind": "Primitive"
                                 },
-                                "line": 18
+                                "line": 17
                             }
                         ]
                     }
@@ -63,7 +63,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 8,
+                        "line": 7,
                         "optional": true
                     },
                     {
@@ -73,7 +73,7 @@
                             "text": "string",
                             "kind": "Primitive"
                         },
-                        "line": 12,
+                        "line": 11,
                         "readOnly": true
                     }
                 ],
@@ -85,7 +85,7 @@
                             "text": "\"Hello World\"",
                             "kind": "Literal"
                         },
-                        "line": 6,
+                        "line": 5,
                         "default": "'Hello World'",
                         "static": true,
                         "readOnly": true
@@ -103,7 +103,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 24,
+                                "line": 23,
                                 "parameters": [
                                     {
                                         "name": "message",
@@ -111,7 +111,7 @@
                                             "text": "string",
                                             "kind": "Primitive"
                                         },
-                                        "line": 24
+                                        "line": 23
                                     }
                                 ]
                             }
@@ -129,7 +129,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 28
+                                "line": 27
                             }
                         ]
                     }

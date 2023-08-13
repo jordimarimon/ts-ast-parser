@@ -9,26 +9,26 @@
                 "kind": "TypeAlias",
                 "line": 8,
                 "value": {
-                    "text": "{x: number; y?: number}",
+                    "text": "{ x: number; y?: number }",
                     "kind": "ObjectLiteral",
                     "properties": [
                         {
                             "name": "x",
-                            "line": 8,
-                            "kind": "Property",
-                            "type": {
-                                "text": "number",
-                                "kind": "Primitive"
-                            }
-                        },
-                        {
-                            "name": "y",
-                            "line": 8,
                             "kind": "Property",
                             "type": {
                                 "text": "number",
                                 "kind": "Primitive"
                             },
+                            "line": 8
+                        },
+                        {
+                            "name": "y",
+                            "kind": "Property",
+                            "type": {
+                                "text": "number",
+                                "kind": "Primitive"
+                            },
+                            "line": 8,
                             "optional": true
                         }
                     ]
@@ -39,17 +39,17 @@
                 "kind": "TypeAlias",
                 "line": 9,
                 "value": {
-                    "text": "{z?: boolean}",
+                    "text": "{ z?: boolean }",
                     "kind": "ObjectLiteral",
                     "properties": [
                         {
                             "name": "z",
-                            "line": 9,
                             "kind": "Property",
                             "type": {
                                 "text": "boolean",
                                 "kind": "Primitive"
                             },
+                            "line": 9,
                             "optional": true
                         }
                     ]
@@ -112,7 +112,7 @@
                         "path": "tests/variable/complex-types/index.ts"
                     }
                 },
-                "default": "{x: 4, y: 4}"
+                "default": "{ x: 4, y: 4 }"
             },
             {
                 "name": "bar2",
@@ -140,7 +140,7 @@
                         }
                     ]
                 },
-                "default": "{x: 3}"
+                "default": "{ x: 3 }"
             },
             {
                 "name": "foo2",

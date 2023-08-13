@@ -14,7 +14,7 @@
             {
                 "name": "x",
                 "kind": "Variable",
-                "line": 4,
+                "line": 3,
                 "type": {
                     "text": "TypeA",
                     "kind": "Reference",
@@ -23,7 +23,7 @@
                         "path": "tests/import/type/type-a.ts"
                     }
                 },
-                "default": "{foo: 'bar'}"
+                "default": "{ foo: 'bar' }"
             }
         ],
         "exports": [

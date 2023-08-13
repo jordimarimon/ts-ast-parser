@@ -17,7 +17,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 3,
+                        "line": 2,
                         "default": 4
                     },
                     {
@@ -27,7 +27,7 @@
                             "text": "number",
                             "kind": "Primitive"
                         },
-                        "line": 5,
+                        "line": 4,
                         "abstract": true
                     }
                 ],
@@ -43,7 +43,7 @@
                                         "kind": "Primitive"
                                     }
                                 },
-                                "line": 7,
+                                "line": 6,
                                 "parameters": [
                                     {
                                         "name": "x",
@@ -51,7 +51,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 7
+                                        "line": 6
                                     },
                                     {
                                         "name": "y",
@@ -59,7 +59,7 @@
                                             "text": "number",
                                             "kind": "Primitive"
                                         },
-                                        "line": 7
+                                        "line": 6
                                     }
                                 ]
                             }
