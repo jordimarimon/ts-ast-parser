@@ -15,27 +15,19 @@
             },
             "plugins": [
                 "@typescript-eslint",
-                "import",
                 "sonarjs"
             ],
             "settings": {
                 "import/parsers": {
                     "@typescript-eslint/parser": [".ts"]
-                },
-                "import/resolver": {
-                    "typescript": {
-                        "alwaysTryTypes": true,
-                        "project": "./tsconfig.json"
-                    }
                 }
             },
             "extends": [
                 "eslint:recommended",
-                "plugin:import/recommended",
-                "plugin:import/typescript",
                 "plugin:@typescript-eslint/eslint-recommended",
                 "plugin:@typescript-eslint/recommended",
-                "plugin:sonarjs/recommended"
+                "plugin:sonarjs/recommended",
+                "prettier"
             ],
             "rules": {
                 "indent": ["error", 4, {"SwitchCase": 1}],
@@ -89,7 +81,7 @@
                 ],
                 "max-nested-callbacks": [
                     "error",
-                    4
+                    3
                 ],
                 "max-params": "off",
                 "max-statements": [
@@ -291,10 +283,6 @@
                         ]
                     }
                 ],
-                "import/newline-after-import": ["error", { "count": 2 }],
-                "import/default": "off",
-                "import/named": "off",
-                "import/no-named-as-default-member": "off",
                 "sonarjs/no-duplicate-string": "off",
                 "@typescript-eslint/ban-types": [
                     "error",
