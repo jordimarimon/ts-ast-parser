@@ -1,8 +1,4 @@
-export function tryAddProperty<T extends {}, K extends keyof T>(
-    obj: T,
-    key: K,
-    value: T[K] | undefined | null,
-): void {
+export function tryAddProperty<T extends {}, K extends keyof T>(obj: T, key: K, value: T[K] | undefined | null): void {
     if (obj == null || value == null) {
         return;
     }
@@ -23,7 +19,8 @@ export function tryAddProperty<T extends {}, K extends keyof T>(
         if (Object.keys(value).length) {
             obj[key] = value;
         }
-    } else { // number
+    } else {
+        // number
         obj[key] = value;
     }
 }

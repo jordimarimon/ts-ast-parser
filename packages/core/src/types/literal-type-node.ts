@@ -4,9 +4,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
-
 export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
-
     private readonly _node: ts.LiteralTypeNode;
 
     private readonly _type: ts.Type;
@@ -37,7 +35,7 @@ export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
 
     getText(): string {
         // The types of the TS Compiler API doesn't seem to be quite right here I think
-        const kind = this._node.literal.kind ;
+        const kind = this._node.literal.kind;
 
         switch (kind) {
             case ts.SyntaxKind.TrueKeyword:
@@ -48,6 +46,7 @@ export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
                 return 'null';
             case ts.SyntaxKind.PrefixUnaryExpression: {
                 const operand = (this._node.literal as ts.PrefixUnaryExpression).operand;
+
                 // eslint-disable-next-line sonarjs/no-nested-switch
                 switch (operand.kind) {
                     case ts.SyntaxKind.NumericLiteral:
@@ -58,6 +57,7 @@ export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
                         return '';
                 }
             }
+
             case ts.SyntaxKind.NumericLiteral:
                 return (this._node.literal as ts.NumericLiteral).text;
             case ts.SyntaxKind.StringLiteral:
@@ -77,5 +77,4 @@ export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
             kind: this.getKind(),
         };
     }
-
 }

@@ -19,9 +19,7 @@ import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
-
 export class FunctionNode implements DeclarationNode<FunctionDeclaration | Method, NodeWithFunctionDeclaration> {
-
     private readonly _node: NodeWithFunctionDeclaration;
 
     private readonly _member: SymbolWithContext | null;
@@ -37,11 +35,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
         // Function/Method declarations have the JSDoc in the signature also.
         // We don't want to emit it twice in these cases.
-        if (
-            ts.isVariableStatement(node) ||
-            ts.isPropertyDeclaration(node) ||
-            ts.isPropertySignature(node)
-        ) {
+        if (ts.isVariableStatement(node) || ts.isPropertyDeclaration(node) || ts.isPropertySignature(node)) {
             this._jsDoc = new JSDocNode(node);
         }
     }
@@ -129,9 +123,12 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
         // It doesn't return the signature that has the implementation
         // of the method/function body when there is overloading.
-        return funcType.getNonNullableType().getCallSignatures().map(signature => {
-            return new SignatureNode(signature, this._context);
-        });
+        return funcType
+            .getNonNullableType()
+            .getCallSignatures()
+            .map(signature => {
+                return new SignatureNode(signature, this._context);
+            });
     }
 
     getModifier(): ModifierType | null {
@@ -201,7 +198,11 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc()?.serialize());
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
+        tryAddProperty(
+            tmpl,
+            'decorators',
+            this.getDecorators().map(d => d.serialize()),
+        );
         tryAddProperty(tmpl, 'async', this.isAsync());
         tryAddProperty(tmpl, 'generator', this.isGenerator());
 
@@ -227,9 +228,8 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         }
 
         if (ts.isPropertySignature(this._node)) {
-            func = this._node.type?.kind === ts.SyntaxKind.FunctionType
-                ? this._node.type as ts.FunctionTypeNode
-                : null;
+            func =
+                this._node.type?.kind === ts.SyntaxKind.FunctionType ? (this._node.type as ts.FunctionTypeNode) : null;
         }
 
         if (ts.isPropertyDeclaration(this._node)) {
@@ -238,19 +238,16 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
         if (
             func == null ||
-            (
-                !ts.isFunctionDeclaration(func) &&
+            (!ts.isFunctionDeclaration(func) &&
                 !ts.isArrowFunction(func) &&
                 !ts.isFunctionExpression(func) &&
                 !ts.isMethodSignature(func) &&
                 !ts.isMethodDeclaration(func) &&
-                !ts.isFunctionTypeNode(func)
-            )
+                !ts.isFunctionTypeNode(func))
         ) {
             return null;
         }
 
         return func;
     }
-
 }

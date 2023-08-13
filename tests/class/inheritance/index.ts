@@ -13,11 +13,9 @@ export class Class2 extends Class1 {
 }
 
 export class Class3 extends Class2 {
-
     override bar = 5;
 
     override someMethod(x: number): number {
         return x + 2;
     }
-
 }

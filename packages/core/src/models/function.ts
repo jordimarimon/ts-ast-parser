@@ -5,7 +5,6 @@ import type { Decorator } from './decorator.js';
 import type { JSDoc } from './js-doc.js';
 import type { Type } from './type.js';
 
-
 /**
  * A function return serialized
  */

@@ -6,9 +6,7 @@ import type { EnumMember } from '../models/enum.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
-
 export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> {
-
     private readonly _node: ts.EnumMember;
 
     private readonly _value: string | number;
@@ -58,5 +56,4 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
 
         return tmpl;
     }
-
 }

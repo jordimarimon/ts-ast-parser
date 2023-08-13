@@ -2,7 +2,6 @@ import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from './symbol.js';
 import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
-
 export function resolveExpression(expression: ts.Expression | undefined, checker: ts.TypeChecker): unknown {
     let expr = expression;
 

@@ -9,9 +9,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
-
 export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
-
     private readonly _node: ts.TypeLiteralNode;
 
     private readonly _type: ts.Type;
@@ -61,7 +59,7 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
             const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(member, checker), checker);
             const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, this._node);
 
-            result.push(new PropertyNode(member, {symbol, type}, this._context));
+            result.push(new PropertyNode(member, { symbol, type }, this._context));
         }
 
         return result;
@@ -80,7 +78,7 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
             const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(member, checker), checker);
             const type = symbol && this._context.checker.getTypeOfSymbolAtLocation(symbol, this._node);
 
-            result.push(new FunctionNode(member, {symbol, type}, this._context));
+            result.push(new FunctionNode(member, { symbol, type }, this._context));
         }
 
         return result;
@@ -92,11 +90,17 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
             kind: this.getKind(),
         };
 
-        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
-        tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize() as Method));
+        tryAddProperty(
+            tmpl,
+            'properties',
+            this.getProperties().map(p => p.serialize()),
+        );
+        tryAddProperty(
+            tmpl,
+            'methods',
+            this.getMethods().map(m => m.serialize() as Method),
+        );
 
         return tmpl;
     }
-
 }
-

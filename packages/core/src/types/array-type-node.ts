@@ -5,9 +5,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
-
 export class ArrayTypeNode implements ReflectedTypeNode<ts.ArrayTypeNode> {
-
     private readonly _node: ts.ArrayTypeNode;
 
     private readonly _type: ts.Type;
@@ -51,5 +49,4 @@ export class ArrayTypeNode implements ReflectedTypeNode<ts.ArrayTypeNode> {
             elementType: this.getElementType().serialize(),
         };
     }
-
 }

@@ -66,9 +66,7 @@
                                     "path": "tests/decorator/property/index.ts",
                                     "line": 1
                                 },
-                                "arguments": [
-                                    8
-                                ]
+                                "arguments": [8]
                             }
                         ]
                     }

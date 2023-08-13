@@ -2,7 +2,6 @@
  * Example `Foo` class
  */
 export class Foo {
-
     static readonly staticBar = 'Hello World';
 
     bar?: number;
@@ -32,5 +31,4 @@ export class Foo {
     #privateMethod(): number {
         return this._x;
     }
-
 }

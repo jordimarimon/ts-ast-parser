@@ -1,6 +1,5 @@
 import type { PropertyLike } from './property.js';
 
-
 /**
  * A parameter after being serialized
  */

@@ -1,9 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-
-    content: [
-        './docs/**/*.{njk,md,html}',
-    ],
+    content: ['./docs/**/*.{njk,md,html}'],
 
     theme: {
         screens: {
@@ -15,9 +12,18 @@ module.exports = {
         },
 
         fontFamily: {
-            'sans': ['-apple-system', 'BlinkMacSystemFont', 'Helvetica Neue', 'Segoe UI', 'Roboto', 'Arial', 'Noto Sans', 'sans-serif'],
-            'serif': ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
-            'mono': ['SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+            sans: [
+                '-apple-system',
+                'BlinkMacSystemFont',
+                'Helvetica Neue',
+                'Segoe UI',
+                'Roboto',
+                'Arial',
+                'Noto Sans',
+                'sans-serif',
+            ],
+            serif: ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+            mono: ['SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
         },
 
         colors: {
@@ -75,7 +81,7 @@ module.exports = {
         }),
 
         borderRadius: {
-            DEFAULT: 'var(--border-radius)',
+            'DEFAULT': 'var(--border-radius)',
             '1/2': '50%',
             'pill': '100vmax',
         },
@@ -87,8 +93,5 @@ module.exports = {
         },
     },
 
-    plugins: [
-        require('tailwindcss-logical'),
-    ],
-
+    plugins: [require('tailwindcss-logical')],
 };

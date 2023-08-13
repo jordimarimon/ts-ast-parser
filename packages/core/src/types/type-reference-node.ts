@@ -9,9 +9,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
-
 export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode> {
-
     private readonly _node: ts.TypeReferenceNode;
 
     private readonly _type: ts.Type;
@@ -83,15 +81,19 @@ export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode
         const sourceRef: SourceReference = {};
         const path = this.getPath();
         const line = this.getLine();
+
         if (!isThirdParty(path) && line != null) {
             sourceRef.line = line;
             sourceRef.path = path;
         }
 
         tryAddProperty(tmpl, 'source', sourceRef);
-        tryAddProperty(tmpl, 'typeArguments', this.getTypeArguments().map(t => t.serialize()));
+        tryAddProperty(
+            tmpl,
+            'typeArguments',
+            this.getTypeArguments().map(t => t.serialize()),
+        );
 
         return tmpl;
     }
-
 }

@@ -1,6 +1,5 @@
 import ts from 'typescript';
 
-
 export type NamedNodeName = ts.Identifier | ts.PrivateIdentifier | ts.ComputedPropertyName;
 
 export function isNamedNode(node: ts.Node): node is ts.Node & { name: NamedNodeName } {

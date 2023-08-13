@@ -27,13 +27,12 @@ export type MixinReturnTypesUnion<Mixins extends Mixin[]> = MixinReturnType<Mixi
 // into an INTERSECTION of "the mixins returning types"
 // See https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-inference-in-conditional-types
 // eslint-disable-next-line @typescript-eslint/no-explicit-any, max-len
-export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends ((k: infer I) => void) ? I : never;
+export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
 
 // The following type creates the intersections of all the mixins and the base class.
 export type ConcatTypes<Base, Mixins extends Mixin[]> = Base & UnionToIntersection<MixinReturnTypesUnion<Mixins>>;
 
 class MixinBuilder<Base extends Constructor> {
-
     private readonly _superclass: Base;
 
     constructor(superclass: Base) {
@@ -44,7 +43,6 @@ class MixinBuilder<Base extends Constructor> {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return mixins.reduce((c: any, mixin: Mixin) => mixin(c), this._superclass);
     }
-
 }
 
 ////////////////////
@@ -83,13 +81,11 @@ class User {
 }
 
 export class TimestampedActivableUser extends mix(User).with(Timestamped, Activable) {
-
     log(): void {
         console.log('Name: ', this.name);
         console.log('Is Activated: ', this.isActivated);
         console.log('Timestamp: ', this.timestamp);
     }
-
 }
 
 ////////////////////

@@ -5,9 +5,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
-
 export class IntersectionTypeNode implements ReflectedTypeNode<ts.IntersectionTypeNode> {
-
     private readonly _node: ts.IntersectionTypeNode;
 
     private readonly _type: ts.Type;
@@ -55,5 +53,4 @@ export class IntersectionTypeNode implements ReflectedTypeNode<ts.IntersectionTy
             elements: this.getElements().map(e => e.serialize()),
         };
     }
-
 }

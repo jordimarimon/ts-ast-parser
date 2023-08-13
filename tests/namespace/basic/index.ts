@@ -1,6 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace Foo {
-
     export type TypeFoo = {
         bar: number;
     };
@@ -25,5 +24,4 @@ export namespace Foo {
     export function logFoo(): string {
         return 'hello world';
     }
-
 }

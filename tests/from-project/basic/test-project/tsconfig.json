@@ -33,15 +33,8 @@
         "target": "ES2022",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
-        "lib": [
-            "ES2022",
-            "DOM"
-        ]
+        "lib": ["ES2022", "DOM"]
     },
-    "include": [
-        "./src/**/*.ts"
-    ],
-    "exclude": [
-        "**node_modules**"
-    ]
+    "include": ["./src/**/*.ts"],
+    "exclude": ["**node_modules**"]
 }

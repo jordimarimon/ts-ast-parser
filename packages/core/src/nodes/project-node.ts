@@ -5,9 +5,7 @@ import type ts from 'typescript';
 import * as path from 'path';
 import * as fs from 'fs';
 
-
 export class ProjectNode {
-
     private readonly _context: AnalyserContext;
 
     private readonly _modules: ModuleNode[] = [];

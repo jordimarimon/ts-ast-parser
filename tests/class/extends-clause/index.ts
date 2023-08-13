@@ -1,5 +1,4 @@
 export class Bar {
-
     bar = 4;
 
     add(x: number, y: number): number {
@@ -8,7 +7,6 @@ export class Bar {
 }
 
 export class Foo extends Bar {
-
     override bar = 3;
 
     override add(x: number, y: number): number {
@@ -18,5 +16,4 @@ export class Foo extends Bar {
     mult(x: number, y: number): number {
         return x * y;
     }
-
 }

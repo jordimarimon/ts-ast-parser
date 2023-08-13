@@ -7,9 +7,7 @@ import { ImportKind } from '../models/import.js';
 import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
-
 export class SideEffectImportNode implements ReflectedRootNode<Import, ts.ImportDeclaration> {
-
     private readonly _node: ts.ImportDeclaration;
 
     private readonly _context: AnalyserContext;

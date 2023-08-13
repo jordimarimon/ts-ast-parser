@@ -1,5 +1,4 @@
 export class Foo {
-
     add(a: string, b: string): string;
     add(a: number, b: number): string;
     add(a: unknown, b: unknown): string {
@@ -13,5 +12,4 @@ export class Foo {
 
         throw new Error('Unexpected argument types.');
     }
-
 }

@@ -11,9 +11,7 @@ import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
-
 export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDeclaration> {
-
     private readonly _node: ts.ParameterDeclaration;
 
     private readonly _symbol: ts.Symbol | null;
@@ -57,9 +55,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         const checker = this._context.checker;
         const type = this._symbol ? checker.getTypeOfSymbolAtLocation(this._symbol, this._node) : null;
 
-        return type
-            ? createType(type, this._context)
-            : createTypeFromDeclaration(this._node, this._context);
+        return type ? createType(type, this._context) : createTypeFromDeclaration(this._node, this._context);
     }
 
     getDefault(): unknown {
@@ -108,7 +104,11 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
             line: this.getLine(),
         };
 
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
+        tryAddProperty(
+            tmpl,
+            'decorators',
+            this.getDecorators().map(d => d.serialize()),
+        );
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
         tryAddProperty(tmpl, 'optional', this.isOptional());
         tryAddProperty(tmpl, 'rest', this.isRest());
@@ -128,5 +128,4 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
 
         return tmpl;
     }
-
 }

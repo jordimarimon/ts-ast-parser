@@ -3,7 +3,6 @@ import type { AnalyserContext } from '../context.js';
 import type { SymbolWithLocation } from './is.js';
 import type ts from 'typescript';
 
-
 /**
  * Given a node or a type it returns it's associated symbol, line position and the file path where
  * it was defined.
@@ -23,7 +22,7 @@ export function getLocation(nodeOrType: ts.Node | ts.Type, context: AnalyserCont
     }
 
     if (!symbol) {
-        symbol = (nodeOrType as unknown as {symbol: ts.Symbol | undefined})['symbol'];
+        symbol = (nodeOrType as unknown as { symbol: ts.Symbol | undefined })['symbol'];
     }
 
     const decl = symbol?.getDeclarations()?.[0];

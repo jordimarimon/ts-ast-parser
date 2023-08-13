@@ -1,6 +1,5 @@
 import ts from 'typescript';
 
-
 export enum DiagnosticCode {
     UNKNOWN = 1000000,
 }
@@ -34,7 +33,6 @@ export interface ArgumentError {
 export type DiagnosticError = SemanticError | CommandLineError | ArgumentError;
 
 export class AnalyserDiagnostic {
-
     private readonly _diagnostics: DiagnosticError[] = [];
 
     getAll(): DiagnosticError[] {
@@ -59,13 +57,13 @@ export class AnalyserDiagnostic {
                 code: DiagnosticCode.UNKNOWN,
             };
         } else {
-            error = {kind, messageText: message};
+            error = { kind, messageText: message };
         }
 
         this._diagnostics.push(error);
     }
 
     addMany(diagnostics: readonly ts.Diagnostic[]): void {
-        this._diagnostics.push(...diagnostics.map(d => ({...d, kind: DiagnosticErrorType.SEMANTIC})));
+        this._diagnostics.push(...diagnostics.map(d => ({ ...d, kind: DiagnosticErrorType.SEMANTIC })));
     }
 }

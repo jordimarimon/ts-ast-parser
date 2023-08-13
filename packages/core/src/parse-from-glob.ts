@@ -5,7 +5,6 @@ import type { ModuleNode } from './nodes/module-node.js';
 import { parseFromFiles } from './parse-from-files.js';
 import { globbySync } from 'globby';
 
-
 /**
  * Given some [glob](https://en.wikipedia.org/wiki/Glob_(programming))
  * patterns and some configurable options, reflects a simplified version

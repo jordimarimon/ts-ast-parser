@@ -7,9 +7,7 @@ import { ImportKind } from '../models/import.js';
 import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
-
 export class NamedImportNode implements ReflectedRootNode<Import, ts.ImportDeclaration> {
-
     private readonly _node: ts.ImportDeclaration;
 
     private readonly _element: ts.ImportSpecifier;
@@ -88,5 +86,4 @@ export class NamedImportNode implements ReflectedRootNode<Import, ts.ImportDecla
 
         return tmpl;
     }
-
 }

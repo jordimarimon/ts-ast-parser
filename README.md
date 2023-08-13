@@ -34,29 +34,29 @@ Reflects a simplified version of the TypeScript AST generated from the TypeScrip
 
 Reflects the following declarations:
 
-- Import declarations
-- Export declarations
-- Function declarations
-- Variable declarations
-- Interface declarations
-- Type Alias declarations
-- Enum declarations
-- JSDoc
-- Class declarations
-- Decorators
-- Inheritance
-- Mixins **(coming soon)**
-- Custom elements **(coming soon)**
+-   Import declarations
+-   Export declarations
+-   Function declarations
+-   Variable declarations
+-   Interface declarations
+-   Type Alias declarations
+-   Enum declarations
+-   JSDoc
+-   Class declarations
+-   Decorators
+-   Inheritance
+-   Mixins **(coming soon)**
+-   Custom elements **(coming soon)**
 
 Supported output formats:
 
-- JSON
+-   JSON
 
 ## Projects in this monorepo
 
-| Name                                         | Version                                                                                                                                    | Description                                                       |
-|----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
-| [@ts-ast-parser/core](./packages/core)       | [![@ts-ast-parser/core](https://img.shields.io/npm/v/@ts-ast-parser/core.svg)](https://www.npmjs.com/package/@ts-ast-parser/core)          | Reads the TS Compiler AST and reflects a simplified version of it |
+| Name                                   | Version                                                                                                                           | Description                                                       |
+| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| [@ts-ast-parser/core](./packages/core) | [![@ts-ast-parser/core](https://img.shields.io/npm/v/@ts-ast-parser/core.svg)](https://www.npmjs.com/package/@ts-ast-parser/core) | Reads the TS Compiler AST and reflects a simplified version of it |
 
 ## Documentation
 

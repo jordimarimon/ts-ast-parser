@@ -13,9 +13,7 @@ import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
-
 export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.TypeAliasDeclaration> {
-
     private readonly _node: ts.TypeAliasDeclaration;
 
     private readonly _context: AnalyserContext;
@@ -78,9 +76,12 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
+        tryAddProperty(
+            tmpl,
+            'typeParameters',
+            this.getTypeParameters().map(tp => tp.serialize()),
+        );
 
         return tmpl;
     }
-
 }

@@ -17,9 +17,7 @@ import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
-
 export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
-
     private readonly _node: PropertyLikeNode;
 
     private readonly _nodeContext: SymbolWithContext | null;
@@ -211,7 +209,11 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         tryAddProperty(tmpl, 'line', this.getLine());
         tryAddProperty(tmpl, 'optional', this.isOptional());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
+        tryAddProperty(
+            tmpl,
+            'decorators',
+            this.getDecorators().map(d => d.serialize()),
+        );
         tryAddProperty(tmpl, 'default', this.getDefault());
         tryAddProperty(tmpl, 'static', this.isStatic());
         tryAddProperty(tmpl, 'readOnly', this.isReadOnly());
@@ -230,5 +232,4 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
 
         return [getter, setter];
     }
-
 }

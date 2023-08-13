@@ -6,7 +6,6 @@ import * as path from 'path';
 import ts from 'typescript';
 import * as fs from 'fs';
 
-
 /**
  * Options to configure the system behaviour
  */
@@ -31,7 +30,6 @@ export interface NodeSystemOptions {
  * Abstraction layer to use the analyser with Node.js
  */
 export class NodeSystem implements AnalyserSystem {
-
     private readonly _host: ts.CompilerHost;
 
     private readonly _commandLine: ts.ParsedCommandLine;
@@ -39,7 +37,7 @@ export class NodeSystem implements AnalyserSystem {
     private readonly _sys: ts.System;
 
     constructor(options: NodeSystemOptions) {
-        const {analyserOptions, vfs, fsMap} = options;
+        const { analyserOptions, vfs, fsMap } = options;
 
         if (vfs) {
             this._sys = tsvfs.createSystem(fsMap ?? new Map<string, string>());
@@ -101,31 +99,35 @@ export class NodeSystem implements AnalyserSystem {
 
     // eslint-disable-next-line sonarjs/cognitive-complexity
     private _createCommandLine(options: Partial<AnalyserOptions>, systemOpts: NodeSystemOptions): ts.ParsedCommandLine {
-        const {compilerOptions, jsProject, include, exclude} = options;
+        const { compilerOptions, jsProject, include, exclude } = options;
+        const defaultExclude = ['**node_modules**'];
+        const basePath = systemOpts.vfs ? '/' : process.cwd();
 
-        // If it's a JS project, we currently don't allow the user to customize the compiler options
+        // If it's a JS project, we currently don't allow the user to
+        // customize the compiler options
         if (jsProject) {
             return ts.parseJsonConfigFileContent(
                 {
                     compilerOptions: JS_DEFAULT_COMPILER_OPTIONS,
                     include: include ?? ['**/*.js'],
-                    exclude: exclude ?? ['**node_modules**'],
+                    exclude: exclude ?? defaultExclude,
                 },
                 this._sys,
-                systemOpts.vfs ? '/' : process.cwd(),
+                basePath,
             );
         }
 
-        // If it's a TS project and the user provides us it's custom compiler options, we will use them
+        // If it's a TS project and the user provides us it's custom
+        // compiler options, we will use them
         if (compilerOptions) {
             return ts.parseJsonConfigFileContent(
                 {
-                    compilerOptions: {...compilerOptions, declaration: true},
+                    compilerOptions: { ...compilerOptions, declaration: true },
                     include: include ?? ['**/*.ts'],
-                    exclude: exclude ?? ['**node_modules**'],
+                    exclude: exclude ?? defaultExclude,
                 },
                 this._sys,
-                systemOpts.vfs ? '/' : process.cwd(),
+                basePath,
             );
         }
 
@@ -141,10 +143,10 @@ export class NodeSystem implements AnalyserSystem {
             {
                 compilerOptions: TS_DEFAULT_COMPILER_OPTIONS,
                 include: include ?? ['**/*.ts'],
-                exclude: exclude ?? ['**node_modules**'],
+                exclude: exclude ?? defaultExclude,
             },
             this._sys,
-            systemOpts.vfs ? '/' : process.cwd(),
+            basePath,
         );
     }
 
@@ -152,7 +154,7 @@ export class NodeSystem implements AnalyserSystem {
         options: Partial<AnalyserOptions>,
         systemOpts: NodeSystemOptions,
     ): ts.ParsedCommandLine | null {
-        const {tsConfigFilePath, include, exclude} = options;
+        const { tsConfigFilePath, include, exclude } = options;
         const fileExists = (filePath: string) => ts.sys.fileExists(filePath);
         const readFile = (filePath: string) => ts.sys.readFile(filePath);
         const basePath = tsConfigFilePath
@@ -186,5 +188,4 @@ export class NodeSystem implements AnalyserSystem {
             systemOpts.vfs ? undefined : configFileName,
         );
     }
-
 }

@@ -1,4 +1,4 @@
-function min(limit: number): ((target: object, propertyKey: string) => void) {
+function min(limit: number): (target: object, propertyKey: string) => void {
     return (target: object, propertyKey: string) => {
         let value: string;
 
@@ -20,7 +20,6 @@ function min(limit: number): ((target: object, propertyKey: string) => void) {
 }
 
 export class User {
-
     username: string;
 
     @min(8)

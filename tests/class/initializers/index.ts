@@ -5,7 +5,6 @@ function add(x: number, y: number): number {
 }
 
 export class Foo {
-
     readonly bar: string;
 
     foo = defaultValue;
@@ -19,5 +18,4 @@ export class Foo {
     constructor() {
         this.bar = 'bar';
     }
-
 }

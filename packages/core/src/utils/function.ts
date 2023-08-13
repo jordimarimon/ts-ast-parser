@@ -1,6 +1,5 @@
 import ts from 'typescript';
 
-
 /**
  * Finds the return statement in the body of a function
  *

@@ -6,9 +6,7 @@ import type { AnalyserContext } from '../context.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
-
 export class NamedTupleMemberNode implements ReflectedTypeNode<ts.NamedTupleMember> {
-
     private readonly _node: ts.NamedTupleMember;
 
     private readonly _type: ts.Type;
@@ -63,5 +61,4 @@ export class NamedTupleMemberNode implements ReflectedTypeNode<ts.NamedTupleMemb
 
         return tmpl;
     }
-
 }

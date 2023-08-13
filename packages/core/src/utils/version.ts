@@ -1,6 +1,5 @@
 import ts from 'typescript';
 
-
 /**
  * Checks if the version of TypeScript being used is >= 4.8
  *

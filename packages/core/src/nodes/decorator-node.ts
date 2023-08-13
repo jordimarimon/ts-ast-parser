@@ -7,12 +7,10 @@ import type { AnalyserContext } from '../context.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
-
 /**
  * The reflected node when a decorator call is found
  */
 export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
-
     private readonly _decorator: ts.Decorator;
 
     private readonly _context: AnalyserContext;
@@ -111,9 +109,9 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
         };
 
         if (line != null) {
-            tmpl.source = {path, line};
+            tmpl.source = { path, line };
         } else {
-            tmpl.source = {path};
+            tmpl.source = { path };
         }
 
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
@@ -121,5 +119,4 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
 
         return tmpl;
     }
-
 }

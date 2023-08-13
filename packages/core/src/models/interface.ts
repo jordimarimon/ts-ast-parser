@@ -7,7 +7,6 @@ import type { Reference } from './reference.js';
 import type { JSDoc } from './js-doc.js';
 import type { Type } from './type.js';
 
-
 /**
  * An index signature after being serialized
  */

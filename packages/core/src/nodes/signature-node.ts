@@ -10,9 +10,7 @@ import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
-
 export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signature> {
-
     private readonly _node: ts.Signature;
 
     private readonly _context: AnalyserContext;
@@ -93,10 +91,17 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
 
         tryAddProperty(tmpl, 'line', this.getLine());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
-        tryAddProperty(tmpl, 'parameters', this.getParameters().map(param => param.serialize()));
+        tryAddProperty(
+            tmpl,
+            'typeParameters',
+            this.getTypeParameters().map(tp => tp.serialize()),
+        );
+        tryAddProperty(
+            tmpl,
+            'parameters',
+            this.getParameters().map(param => param.serialize()),
+        );
 
         return tmpl;
     }
-
 }

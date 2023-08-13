@@ -3,7 +3,6 @@ import { parseFromFiles } from '@ts-ast-parser/core';
 import * as path from 'path';
 import * as fs from 'fs';
 
-
 type TestOptions = {
     category: string;
     subcategory?: string;
@@ -13,10 +12,10 @@ type TestOptions = {
 const basedDir = path.join(process.cwd(), 'tests');
 
 export async function getTestResult(options: TestOptions): Promise<{ actual: ModuleNode[]; expected: Module[] }> {
-    const {category, subcategory, analyzerOptions} = options;
+    const { category, subcategory, analyzerOptions } = options;
     const expectedOutputFile = readExpectedOutput(category, subcategory);
     const testFiles = fs
-        .readdirSync(path.join(basedDir, category, subcategory ?? ''), {withFileTypes: true})
+        .readdirSync(path.join(basedDir, category, subcategory ?? ''), { withFileTypes: true })
         .filter(d => d.isFile() && path.extname(d.name) === '.ts' && d.name !== 'test.ts')
         .map(f => path.join(basedDir, category, subcategory ?? '', f.name));
 

@@ -5,12 +5,11 @@ const tailwindNesting = require('tailwindcss/nesting');
 const autoprefixer = require('autoprefixer');
 const atImport = require('postcss-import');
 const tailwind = require('tailwindcss');
-const {DateTime} = require('luxon');
+const { DateTime } = require('luxon');
 const postcss = require('postcss');
 const cssnano = require('cssnano');
 const path = require('path');
 const fs = require('fs');
-
 
 let pendingPostCss = undefined;
 
@@ -26,25 +25,27 @@ const postcssProcessor = postcss([
     cssnano({
         // See: https://cssnano.co/docs/what-are-optimisations#what-optimisations-do-you-support
         // See: https://github.com/cssnano/cssnano/tree/master/packages/cssnano-preset-default
-        preset: ['default', {
-            discardComments: {
-                removeAll: true,
+        preset: [
+            'default',
+            {
+                discardComments: {
+                    removeAll: true,
+                },
+                discardDuplicates: true,
+                discardOverridden: true,
+                discardEmpty: true,
             },
-            discardDuplicates: true,
-            discardOverridden: true,
-            discardEmpty: true,
-        }],
+        ],
     }),
 ]);
 
-module.exports = (eleventyConfig) => {
-
+module.exports = eleventyConfig => {
     // Don't ignore paths defined in .gitignore
     eleventyConfig.setUseGitIgnore(false);
 
     // Adds the following files in the bundle
     eleventyConfig.addPassthroughCopy('docs/favicon.ico');
-    eleventyConfig.addPassthroughCopy({'docs/robots.txt': '/robots.txt'});
+    eleventyConfig.addPassthroughCopy({ 'docs/robots.txt': '/robots.txt' });
     eleventyConfig.addPassthroughCopy({
         'node_modules/jsoneditor/dist/img/jsoneditor-icons.svg': '/playground/img/jsoneditor-icons.svg',
     });
@@ -58,7 +59,7 @@ module.exports = (eleventyConfig) => {
                 const cssCode = fs.readFileSync(stylesheet, 'utf-8');
 
                 pendingPostCss = postcssProcessor
-                    .process(cssCode, {from: undefined})
+                    .process(cssCode, { from: undefined })
                     .then(result => resolve(result.css))
                     .catch(error => reject(error));
             });
@@ -78,27 +79,30 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addWatchTarget(path.join(cssPath, '*.css'));
 
     // Make sure the sidebar items are ordered correctly
-    eleventyConfig.addCollection('page', (collections) => {
+    eleventyConfig.addCollection('page', collections => {
         return collections.getFilteredByTag('page').sort((a, b) => {
             return a.data.order - b.data.order;
         });
     });
-    eleventyConfig.addCollection('module', (collections) => {
+    eleventyConfig.addCollection('module', collections => {
         return collections.getFilteredByTag('module').sort((a, b) => {
             return a.data.order - b.data.order;
         });
     });
 
     // Transform the name of a module into the name of a collection
-    eleventyConfig.addFilter("makeCollectionName", (value) => {
-        return String(value).split(/\s|-/).map((v, i) => {
-            return (i === 0 ? v[0].toLowerCase() : v[0].toUpperCase()) + v.slice(1);
-        }).join('');
+    eleventyConfig.addFilter('makeCollectionName', value => {
+        return String(value)
+            .split(/\s|-/)
+            .map((v, i) => {
+                return (i === 0 ? v[0].toLowerCase() : v[0].toUpperCase()) + v.slice(1);
+            })
+            .join('');
     });
 
     // Get the module name from the url
-    eleventyConfig.addFilter("getModuleName", (url) => {
-        const normalizedUrl = eleventyConfig.getFilter("url")(url).replace('/ts-ast-parser', '');
+    eleventyConfig.addFilter('getModuleName', url => {
+        const normalizedUrl = eleventyConfig.getFilter('url')(url).replace('/ts-ast-parser', '');
         return normalizedUrl.split('/').filter(v => v)[0];
     });
 
@@ -112,7 +116,6 @@ module.exports = (eleventyConfig) => {
     eleventyConfig.addPlugin(esBuildPlugin);
 
     return {
-
         dir: {
             input: 'docs',
             output: '_site',
@@ -125,7 +128,5 @@ module.exports = (eleventyConfig) => {
 
         // The public documentation URL is: https://<user>.github.io/<repository-name>/
         pathPrefix: process.env.NODE_ENV === 'production' ? '/ts-ast-parser/' : '/',
-
     };
-
 };

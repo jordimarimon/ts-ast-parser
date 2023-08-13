@@ -5,9 +5,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
-
 export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
-
     private readonly _node: ts.UnionTypeNode;
 
     private readonly _type: ts.Type;
@@ -55,5 +53,4 @@ export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
             elements: this.getElements().map(e => e.serialize()),
         };
     }
-
 }

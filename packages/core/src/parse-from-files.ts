@@ -6,7 +6,6 @@ import type { AnalyserContext } from './context.js';
 import { ModuleNode } from './nodes/module-node.js';
 import ts from 'typescript';
 
-
 /**
  * Given an array of TypeScript file paths and some configurable options,
  * reflects a simplified version of the TypeScript Abstract Syntax Tree.
@@ -23,15 +22,16 @@ export async function parseFromFiles(
     if (!Array.isArray(files)) {
         return {
             result: [],
-            errors: [{kind: DiagnosticErrorType.ARGUMENT, messageText: 'Expected an array of files.'}],
+            errors: [{ kind: DiagnosticErrorType.ARGUMENT, messageText: 'Expected an array of files.' }],
         };
     }
 
     let system: AnalyserSystem;
+
     if (options.system) {
         system = options.system;
     } else {
-        system = await import('./node-system.js').then(m => new m.NodeSystem({analyserOptions: options}));
+        system = await import('./node-system.js').then(m => new m.NodeSystem({ analyserOptions: options }));
     }
 
     const commandLine = system.getCommandLine();
@@ -45,14 +45,15 @@ export async function parseFromFiles(
     analyserDiagnostic.addMany(program.getSemanticDiagnostics());
 
     if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
-        return {result: null, errors: analyserDiagnostic.getAll()};
+        return { result: null, errors: analyserDiagnostic.getAll() };
     }
 
     commandLine.errors.forEach(err => {
         analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, err.messageText);
     });
+
     if (commandLine.errors.length > 0) {
-        return {result: null, errors: analyserDiagnostic.getAll()};
+        return { result: null, errors: analyserDiagnostic.getAll() };
     }
 
     const context: AnalyserContext = {
@@ -75,5 +76,5 @@ export async function parseFromFiles(
         modules.push(new ModuleNode(sourceFile, context));
     }
 
-    return {result: modules, errors: analyserDiagnostic.getAll()};
+    return { result: modules, errors: analyserDiagnostic.getAll() };
 }

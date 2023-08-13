@@ -19,9 +19,7 @@ import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
-
 export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.InterfaceDeclaration> {
-
     private readonly _node: ts.InterfaceDeclaration;
 
     private readonly _context: AnalyserContext;
@@ -82,7 +80,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         const result: PropertyNode[] = [];
 
         for (const member of this._members) {
-            const {symbol} = member;
+            const { symbol } = member;
             const decl = symbol?.getDeclarations()?.[0];
 
             if (!decl) {
@@ -110,7 +108,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         const result: FunctionNode[] = [];
 
         for (const member of this._members) {
-            const {symbol} = member;
+            const { symbol } = member;
             const decl = symbol?.getDeclarations()?.[0];
 
             if (!decl) {
@@ -155,14 +153,21 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         };
 
         tryAddProperty(tmpl, 'heritage', this.getHeritage());
-        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
+        tryAddProperty(
+            tmpl,
+            'typeParameters',
+            this.getTypeParameters().map(tp => tp.serialize()),
+        );
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
         tryAddProperty(tmpl, 'indexSignature', this.getIndexSignature()?.serialize());
-        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
+        tryAddProperty(
+            tmpl,
+            'properties',
+            this.getProperties().map(p => p.serialize()),
+        );
         tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize()) as Method[]);
 
         return tmpl;
     }
-
 }

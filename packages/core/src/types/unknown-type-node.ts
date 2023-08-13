@@ -4,9 +4,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
-
 export class UnknownTypeNode implements ReflectedTypeNode {
-
     private readonly _node: ts.TypeNode | null;
 
     private readonly _type: ts.Type;
@@ -49,5 +47,4 @@ export class UnknownTypeNode implements ReflectedTypeNode {
             kind: this.getKind(),
         };
     }
-
 }

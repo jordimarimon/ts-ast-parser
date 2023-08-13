@@ -7,7 +7,6 @@ import type { AnalyserContext } from './context.js';
 import { isBrowser } from './context.js';
 import ts from 'typescript';
 
-
 /**
  * Reflects a simplified version of the TypeScript Abstract
  * Syntax Tree from a TypeScript code snippet
@@ -24,13 +23,14 @@ export async function parseFromSource(
     if (!source) {
         return {
             result: null,
-            errors: [{kind: DiagnosticErrorType.ARGUMENT, messageText: 'Source code is empty.'}],
+            errors: [{ kind: DiagnosticErrorType.ARGUMENT, messageText: 'Source code is empty.' }],
         };
     }
 
     const fileName = '/unknown.ts';
 
     let system: AnalyserSystem;
+
     if (isBrowser) {
         system = await import('./browser-system.js').then(m => {
             return m.BrowserSystem.create({
@@ -61,19 +61,20 @@ export async function parseFromSource(
     analyserDiagnostic.addMany(program.getSemanticDiagnostics());
 
     if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
-        return {result: null, errors: analyserDiagnostic.getAll()};
+        return { result: null, errors: analyserDiagnostic.getAll() };
     }
 
     commandLine.errors.forEach(err => {
         analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, err.messageText);
     });
+
     if (commandLine.errors.length > 0) {
-        return {result: null, errors: analyserDiagnostic.getAll()};
+        return { result: null, errors: analyserDiagnostic.getAll() };
     }
 
     if (!sourceFile) {
         analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, 'Unable to analyse source code.');
-        return {result: null, errors: analyserDiagnostic.getAll()};
+        return { result: null, errors: analyserDiagnostic.getAll() };
     }
 
     const context: AnalyserContext = {

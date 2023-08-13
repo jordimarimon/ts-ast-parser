@@ -2,7 +2,6 @@ import type { Decorator } from './decorator.js';
 import type { JSDoc } from './js-doc.js';
 import type { Type } from './type.js';
 
-
 /**
  * A property-like definition.
  * Used by class/interface properties as well as for parameters.

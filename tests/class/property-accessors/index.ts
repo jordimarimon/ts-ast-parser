@@ -1,5 +1,4 @@
 export default class Foo {
-
     accessor name = 'Foo';
 
     static get staticBar(): string {
@@ -25,5 +24,4 @@ export default class Foo {
     log(): void {
         console.log(this._fooBar);
     }
-
 }

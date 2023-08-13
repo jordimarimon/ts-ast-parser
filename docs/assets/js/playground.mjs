@@ -13,7 +13,6 @@ import * as aceTheme from 'ace-builds/src-noconflict/theme-monokai';
 
 import JSONEditor from 'jsoneditor';
 
-
 const exampleCodes = {
     class: CLASS_CODE,
     decorator: DECORATOR_CODE,
@@ -37,7 +36,7 @@ const changeViewButton = document.getElementById('change-view-button');
 const dialogEl = document.getElementById('dialog');
 const dialogElCloseButton = document.getElementById('dialog-button-close');
 
-const parseCode = async (code) => {
+const parseCode = async code => {
     try {
         return (await parseFromSource(code)).result.serialize();
     } catch (error) {
@@ -49,16 +48,16 @@ const parseCode = async (code) => {
 let view = CODE_EDITOR_VIEW;
 
 dialogEl?.showModal();
-dialogElCloseButton?.addEventListener('click', () => dialogEl?.close(), {once: true});
+dialogElCloseButton?.addEventListener('click', () => dialogEl?.close(), { once: true });
 
-const jsonEditor = new JSONEditor(jsonEditorEl, {mode: 'text'});
+const jsonEditor = new JSONEditor(jsonEditorEl, { mode: 'text' });
 jsonEditor.set(await parseCode(CLASS_CODE));
 
 const codeEditor = ace.edit(codeEditorEl);
 const TypeScriptMode = aceTypeScript.Mode;
 codeEditor.session.setMode(new TypeScriptMode());
 codeEditor.setTheme(aceTheme);
-codeEditor.setOptions({fontSize: '14pt'});
+codeEditor.setOptions({ fontSize: '14pt' });
 codeEditor.setValue(CLASS_CODE);
 codeEditor.session.selection.clearSelection();
 
@@ -69,7 +68,7 @@ const parse = async () => {
     jsonEditor?.set(metadata);
 };
 
-const change = async (code) => {
+const change = async code => {
     const metadata = await parseCode(code);
 
     codeEditor.setValue(code);

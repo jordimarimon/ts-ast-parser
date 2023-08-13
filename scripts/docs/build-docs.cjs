@@ -1,7 +1,6 @@
-const {buildSync} = require('esbuild');
+const { buildSync } = require('esbuild');
 const path = require('path');
 const fs = require('fs');
-
 
 const PATH = path.join(process.cwd(), 'docs', 'assets', 'js');
 
@@ -22,7 +21,7 @@ function build(entryPoints) {
 
 module.exports = function esBuildPlugin(eleventyConfig) {
     const files = fs
-        .readdirSync(PATH, {withFileTypes: true})
+        .readdirSync(PATH, { withFileTypes: true })
         .filter(dir => dir.isFile())
         .map(f => path.join(PATH, f.name));
 
@@ -36,7 +35,7 @@ module.exports = function esBuildPlugin(eleventyConfig) {
         eleventyConfig.addWatchTarget(file);
     }
 
-    eleventyConfig.on('eleventy.beforeWatch', (changedFiles) => {
+    eleventyConfig.on('eleventy.beforeWatch', changedFiles => {
         if (files.some(file => changedFiles.includes(file))) {
             build(files);
         }

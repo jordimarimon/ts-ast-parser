@@ -5,7 +5,6 @@ export function sealed(constructor: typeof BugReport): void {
 
 @sealed
 export class BugReport {
-
     type = 'report';
 
     title: string;

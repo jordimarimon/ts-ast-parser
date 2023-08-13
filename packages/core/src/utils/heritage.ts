@@ -8,7 +8,6 @@ import { isThirdParty } from './import.js';
 import { hasFlag } from './member.js';
 import ts from 'typescript';
 
-
 /**
  * Checks it the node is a custom element. As of right now we treat a node to be a custom element
  * if HTMLElement is in the heritage chain.
@@ -95,7 +94,7 @@ export function createReference(type: ts.ExpressionWithTypeArguments, context: A
         return null;
     }
 
-    const {path, symbol, line} = getLocation(expr, context);
+    const { path, symbol, line } = getLocation(expr, context);
 
     let name = expr.escapedText ?? '';
 
@@ -104,7 +103,7 @@ export function createReference(type: ts.ExpressionWithTypeArguments, context: A
     }
 
     const sourceRef: SourceReference = {};
-    const ref: Reference = {name};
+    const ref: Reference = { name };
     const isFromThirdParty = path && isThirdParty(path);
 
     if (path && !isFromThirdParty && line != null) {

@@ -5,9 +5,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
-
 export class TupleTypeNode implements ReflectedTypeNode<ts.TupleTypeNode> {
-
     private readonly _node: ts.TupleTypeNode;
 
     private readonly _type: ts.Type;
@@ -37,7 +35,9 @@ export class TupleTypeNode implements ReflectedTypeNode<ts.TupleTypeNode> {
     }
 
     getText(): string {
-        return `[${this.getElements().map(e => e.getText()).join(', ')}]`;
+        return `[${this.getElements()
+            .map(e => e.getText())
+            .join(', ')}]`;
     }
 
     getElements(): ReflectedTypeNode[] {
@@ -51,5 +51,4 @@ export class TupleTypeNode implements ReflectedTypeNode<ts.TupleTypeNode> {
             elements: this.getElements().map(e => e.serialize()),
         };
     }
-
 }

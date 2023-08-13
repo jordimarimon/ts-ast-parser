@@ -2,7 +2,6 @@ import type { FunctionLike } from './function.js';
 import type { PropertyLike } from './property.js';
 import type { MemberKind } from './member-kind.js';
 
-
 /**
  * Type of visibility modifiers
  */

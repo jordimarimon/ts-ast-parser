@@ -32,28 +32,30 @@ import { RootNodeType } from '../models/node.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
-
 export type ImportNode = DefaultImportNode | NamedImportNode | NamespaceImportNode | SideEffectImportNode;
 
 export type ExportStatementNode = NamedExportNode | NamespaceExportNode | ReExportNode;
 
 export type ExportNode = ExportDeclarationNode | ExportAssignmentNode | ExportStatementNode;
 
-export type NodeWithFunctionDeclaration = ts.VariableStatement
+export type NodeWithFunctionDeclaration =
+    | ts.VariableStatement
     | ts.FunctionDeclaration
     | ts.MethodDeclaration
     | ts.MethodSignature
     | ts.PropertyDeclaration
     | ts.PropertySignature;
 
-export type FunctionLikeNode = ts.FunctionDeclaration |
-    ts.ArrowFunction |
-    ts.MethodSignature |
-    ts.FunctionExpression |
-    ts.FunctionTypeNode |
-    ts.MethodDeclaration;
+export type FunctionLikeNode =
+    | ts.FunctionDeclaration
+    | ts.ArrowFunction
+    | ts.MethodSignature
+    | ts.FunctionExpression
+    | ts.FunctionTypeNode
+    | ts.MethodDeclaration;
 
-export type PropertyLikeNode = ts.PropertyDeclaration
+export type PropertyLikeNode =
+    | ts.PropertyDeclaration
     | ts.PropertySignature
     | ts.GetAccessorDeclaration
     | ts.SetAccessorDeclaration;
@@ -75,13 +77,11 @@ export type SymbolWithContext = {
     inherited?: boolean;
 };
 
-
 /**
  * A utility object that has a few type predicate functions available to make life easier when
  * traversing the reflected nodes.
  */
 export const is = {
-
     // IMPORTS
     ImportNode: (node: ReflectedRootNode): node is ImportNode => {
         return node.getNodeType() === RootNodeType.Import;
@@ -197,5 +197,4 @@ export const is = {
     ReExportNode: (node: ReflectedRootNode): node is ReExportNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Star;
     },
-
 };

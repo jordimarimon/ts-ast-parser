@@ -6,13 +6,13 @@ import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
-
-export type ExportDeclarationNodeType = ts.FunctionDeclaration |
-    ts.ClassDeclaration |
-    ts.InterfaceDeclaration |
-    ts.EnumDeclaration |
-    ts.TypeAliasDeclaration |
-    ts.VariableStatement;
+export type ExportDeclarationNodeType =
+    | ts.FunctionDeclaration
+    | ts.ClassDeclaration
+    | ts.InterfaceDeclaration
+    | ts.EnumDeclaration
+    | ts.TypeAliasDeclaration
+    | ts.VariableStatement;
 
 // CASE of:
 //      export const x = 4;
@@ -20,7 +20,6 @@ export type ExportDeclarationNodeType = ts.FunctionDeclaration |
 //      export default function foo() {}
 //      ...
 export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDeclarationNodeType> {
-
     private readonly _node: ExportDeclarationNodeType;
 
     private readonly _declaration: ts.VariableDeclaration | null = null;
@@ -67,5 +66,4 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
             kind: this.getKind(),
         };
     }
-
 }

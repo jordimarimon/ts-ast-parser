@@ -6,9 +6,7 @@ import type { NodeFactory } from './node-factory.js';
 import type { AnalyserContext } from '../context.js';
 import ts from 'typescript';
 
-
 export const variableFactory: NodeFactory<VariableDeclaration, VariableNode, ts.VariableStatement> = {
-
     isNode: (node: ts.Node): node is ts.VariableStatement => {
         return ts.isVariableStatement(node) && !isFunctionDeclaration(node) && !isClassDeclaration(node);
     },
@@ -22,5 +20,4 @@ export const variableFactory: NodeFactory<VariableDeclaration, VariableNode, ts.
 
         return result;
     },
-
 };

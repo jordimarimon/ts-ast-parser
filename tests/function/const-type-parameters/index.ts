@@ -8,4 +8,4 @@ export function getNamesExactly<const T extends HasNames>(arg: T): T['names'] {
     return arg.names;
 }
 
-export const names = getNamesExactly({names: ['Alice', 'Bob', 'Eve']});
+export const names = getNamesExactly({ names: ['Alice', 'Bob', 'Eve'] });

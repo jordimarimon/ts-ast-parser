@@ -1,11 +1,9 @@
 import type ts from 'typescript';
 
-
 /**
  * An abstraction layer around how we interact with the environment (browser or Node.js)
  */
 export interface AnalyserSystem {
-
     /**
      * All interaction of the TypeScript compiler with the operating system goes
      * through a System interface.
@@ -54,5 +52,4 @@ export interface AnalyserSystem {
      * Returns the absolute path
      */
     getAbsolutePath(path: string | undefined): string;
-
 }

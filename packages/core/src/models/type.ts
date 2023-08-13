@@ -1,7 +1,6 @@
 import type { SourceReference } from './reference.js';
 import type { Field, Method } from './member.js';
 
-
 export enum TypeKind {
     Array = 'Array',
     Union = 'Union',

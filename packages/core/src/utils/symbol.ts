@@ -1,7 +1,6 @@
 import { isNamedNode } from './named-node.js';
 import ts from 'typescript';
 
-
 export function getAliasedSymbolIfNecessary(
     symbol: ts.Symbol | undefined,
     checker: ts.TypeChecker,

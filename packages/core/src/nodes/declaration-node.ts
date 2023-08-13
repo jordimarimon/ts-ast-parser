@@ -5,11 +5,11 @@ import type { MemberKind } from '../models/member-kind.js';
 import type { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
-
 /**
  * A reflected node that represents a declaration.
  */
-export interface DeclarationNode<Model extends object = Declaration, TSNode extends ts.Node | ts.Signature = ts.Node> extends ReflectedRootNode<Model, TSNode> {
+export interface DeclarationNode<Model extends object = Declaration, TSNode extends ts.Node | ts.Signature = ts.Node>
+    extends ReflectedRootNode<Model, TSNode> {
     /**
      * Returns the name of the declaration.
      */

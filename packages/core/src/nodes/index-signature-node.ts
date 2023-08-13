@@ -11,9 +11,7 @@ import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
-
 export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.IndexSignatureDeclaration> {
-
     private readonly _node: ts.IndexSignatureDeclaration;
 
     private readonly _member: SymbolWithContext;
@@ -96,5 +94,4 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
 
         return new ParameterNode(nodeParam, symbolParam, this._context);
     }
-
 }

@@ -1,6 +1,5 @@
 import { Person } from '@test-project/a';
 
-
 export class Employee extends Person {
     salary: number;
 

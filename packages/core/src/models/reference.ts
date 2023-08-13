@@ -1,6 +1,5 @@
 import type { DeclarationKind } from './declaration-kind.js';
 
-
 /**
  * Represents the location of a symbol
  */

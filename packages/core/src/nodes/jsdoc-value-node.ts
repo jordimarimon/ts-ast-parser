@@ -1,8 +1,6 @@
 import type { JSDocTagValue } from '../models/js-doc.js';
 
-
 export class JSDocValueNode {
-
     private readonly _jsDocTagValue: JSDocTagValue;
 
     constructor(jsDocTagValue: JSDocTagValue) {
@@ -64,5 +62,4 @@ export class JSDocValueNode {
     serialize(): JSDocTagValue {
         return this._jsDocTagValue;
     }
-
 }

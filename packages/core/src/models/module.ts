@@ -2,7 +2,6 @@ import type { Declaration } from './declaration.js';
 import type { Export } from './export.js';
 import type { Import } from './import.js';
 
-
 /**
  * A JS Module represents all the declarations/imports/exports defined inside a file
  */

@@ -1,7 +1,6 @@
 import type { DeclarationKind } from './declaration-kind.js';
 import type { JSDoc } from './js-doc.js';
 
-
 /**
  * Result of an enumerable after getting serialized
  */

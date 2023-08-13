@@ -16,9 +16,7 @@ import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
-
 export class VariableNode implements DeclarationNode<VariableDeclaration, ts.VariableDeclaration> {
-
     private readonly _node: ts.VariableStatement;
 
     private readonly _declaration: ts.VariableDeclaration;
@@ -94,10 +92,13 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
         }
 
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
+        tryAddProperty(
+            tmpl,
+            'decorators',
+            this.getDecorators().map(d => d.serialize()),
+        );
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
 
         return tmpl;
     }
-
 }

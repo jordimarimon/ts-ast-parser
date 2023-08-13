@@ -23,12 +23,10 @@ import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
-
 /**
  * Reflected node that represents a ClassDeclaration or a ClassExpression
  */
 export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDeclaration | ts.VariableStatement> {
-
     private readonly _node: ts.ClassDeclaration | ts.VariableStatement;
 
     private readonly _context: AnalyserContext;
@@ -270,16 +268,36 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             line: this.getLine(),
         };
 
-        tryAddProperty(tmpl, 'constructors', this.getConstructors().map(c => c.serialize()));
-        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
+        tryAddProperty(
+            tmpl,
+            'constructors',
+            this.getConstructors().map(c => c.serialize()),
+        );
+        tryAddProperty(
+            tmpl,
+            'decorators',
+            this.getDecorators().map(d => d.serialize()),
+        );
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
+        tryAddProperty(
+            tmpl,
+            'typeParameters',
+            this.getTypeParameters().map(tp => tp.serialize()),
+        );
         tryAddProperty(tmpl, 'heritage', this.getHeritage());
         tryAddProperty(tmpl, 'abstract', this.isAbstract());
         tryAddProperty(tmpl, 'customElement', this.isCustomElement());
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
-        tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
-        tryAddProperty(tmpl, 'staticProperties', this.getStaticProperties().map(p => p.serialize()));
+        tryAddProperty(
+            tmpl,
+            'properties',
+            this.getProperties().map(p => p.serialize()),
+        );
+        tryAddProperty(
+            tmpl,
+            'staticProperties',
+            this.getStaticProperties().map(p => p.serialize()),
+        );
         tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize()) as Method[]);
         tryAddProperty(tmpl, 'staticMethods', this.getStaticMethods().map(m => m.serialize()) as Method[]);
 
@@ -290,7 +308,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         const result: PropertyNode[] = [];
 
         for (const member of members) {
-            const {symbol} = member;
+            const { symbol } = member;
             const decl = symbol?.getDeclarations()?.[0];
 
             if (!decl) {
@@ -298,7 +316,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             }
 
             const isProperty = ts.isPropertyDeclaration(decl);
-            const isPropertyMethod = ts.isMethodDeclaration(decl) ||
+            const isPropertyMethod =
+                ts.isMethodDeclaration(decl) ||
                 (isProperty && (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer)));
 
             if (isPropertyMethod) {
@@ -321,7 +340,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         const result: FunctionNode[] = [];
 
         for (const member of members) {
-            const {symbol} = member;
+            const { symbol } = member;
             const decl = symbol?.getDeclarations()?.[0];
 
             if (!decl) {
@@ -329,7 +348,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             }
 
             const isProperty = ts.isPropertyDeclaration(decl);
-            const isPropertyMethod = ts.isMethodDeclaration(decl) ||
+            const isPropertyMethod =
+                ts.isMethodDeclaration(decl) ||
                 (isProperty && (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer)));
 
             if (isPropertyMethod) {

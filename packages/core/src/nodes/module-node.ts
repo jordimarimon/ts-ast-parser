@@ -9,9 +9,7 @@ import type { Module } from '../models/module.js';
 import { is } from '../utils/is.js';
 import ts from 'typescript';
 
-
 export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
-
     private readonly _node: ts.SourceFile;
 
     private readonly _imports: ImportNode[] = [];

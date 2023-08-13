@@ -1,7 +1,6 @@
 import type { DeclarationKind } from './declaration-kind.js';
 import type { PropertyLike } from './property.js';
 
-
 /**
  * A variable declaration after being serialized
  */

@@ -5,6 +5,6 @@ interface NamedParameters {
     d?: number;
 }
 
-export function foo({a, b, c = 0, d = 1}: NamedParameters): number {
+export function foo({ a, b, c = 0, d = 1 }: NamedParameters): number {
     return a + b + c + d;
 }

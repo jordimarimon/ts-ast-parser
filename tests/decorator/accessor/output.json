@@ -82,9 +82,7 @@
                                     "path": "tests/decorator/accessor/index.ts",
                                     "line": 1
                                 },
-                                "arguments": [
-                                    false
-                                ]
+                                "arguments": [false]
                             }
                         ],
                         "readOnly": true
@@ -104,9 +102,7 @@
                                     "path": "tests/decorator/accessor/index.ts",
                                     "line": 1
                                 },
-                                "arguments": [
-                                    false
-                                ]
+                                "arguments": [false]
                             }
                         ],
                         "readOnly": true

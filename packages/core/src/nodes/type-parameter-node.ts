@@ -6,9 +6,7 @@ import { createType } from '../factories/create-type.js';
 import type { AnalyserContext } from '../context.js';
 import type ts from 'typescript';
 
-
 export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypeParameterDeclaration> {
-
     private readonly _node: ts.TypeParameterDeclaration;
 
     private readonly _context: AnalyserContext;
@@ -60,5 +58,4 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
 
         return tmpl;
     }
-
 }

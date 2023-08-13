@@ -1,9 +1,7 @@
 class Foo {
-
     log(x: number): void {
         console.log(x);
     }
-
 }
 
 export default Foo;

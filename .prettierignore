@@ -51,5 +51,8 @@ trace.zip
 
 .env
 _site/
+docs/**/*.css
+docs/**/*.njk
+scripts/**/*.hbs
 
 docs/api-reference/**/*.njk

@@ -5,9 +5,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
-
 export class ConditionalTypeNode implements ReflectedTypeNode<ts.ConditionalTypeNode> {
-
     private readonly _node: ts.ConditionalTypeNode;
 
     private readonly _type: ts.Type;
@@ -66,5 +64,4 @@ export class ConditionalTypeNode implements ReflectedTypeNode<ts.ConditionalType
             kind: this.getKind(),
         };
     }
-
 }

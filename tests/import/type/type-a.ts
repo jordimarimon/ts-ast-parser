@@ -2,4 +2,4 @@ interface TypeA {
     foo: string;
 }
 
-export type {TypeA};
+export type { TypeA };

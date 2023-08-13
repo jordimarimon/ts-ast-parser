@@ -3,7 +3,6 @@ import { isNotEmptyArray } from './not-empty-array.js';
 import type { AnalyserContext } from '../context.js';
 import ts from 'typescript';
 
-
 /**
  * Checks whether the imported module only specifies its module in the import path,
  * rather than the full or relative path to where it's located:

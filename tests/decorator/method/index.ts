@@ -5,7 +5,6 @@ export function enumerable(value: boolean) {
 }
 
 export class Greeter {
-
     greeting: string;
 
     constructor(message: string) {

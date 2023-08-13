@@ -4,5 +4,5 @@ export const bar2 = bar;
 export const str = 'Hello';
 export const num = 4;
 export const bool = false;
-export const obj = {x: 3};
+export const obj = { x: 3 };
 export const arr = [3];

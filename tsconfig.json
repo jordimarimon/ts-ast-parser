@@ -30,17 +30,10 @@
         "target": "ES2020",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
-        "lib": [
-            "ES2020",
-            "DOM"
-        ],
+        "lib": ["ES2020", "DOM"],
         "paths": {
-            "@ts-ast-parser/*": [
-                "./packages/*/src"
-            ]
+            "@ts-ast-parser/*": ["./packages/*/src"]
         }
     },
-    "exclude": [
-        "**node_modules**"
-    ]
+    "exclude": ["**node_modules**"]
 }

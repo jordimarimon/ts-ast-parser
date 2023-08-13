@@ -9,9 +9,7 @@ import type { Import } from '../models/import.js';
 import type { ImportNode } from '../utils/is.js';
 import ts from 'typescript';
 
-
 export const importFactory: NodeFactory<Import, ImportNode, ts.ImportDeclaration> = {
-
     isNode: (node: ts.Node): node is ts.ImportDeclaration => ts.isImportDeclaration(node),
 
     create: (node: ts.ImportDeclaration, context: AnalyserContext): ImportNode[] => {
@@ -35,7 +33,5 @@ export const importFactory: NodeFactory<Import, ImportNode, ts.ImportDeclaration
         }
 
         return result;
-
     },
-
 };

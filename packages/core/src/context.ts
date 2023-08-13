@@ -3,7 +3,6 @@ import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type ts from 'typescript';
 
-
 /**
  * Returns true if we're executing inside a browser
  */

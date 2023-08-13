@@ -4,9 +4,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
-
 export class PrimitiveTypeNode implements ReflectedTypeNode {
-
     private readonly _node: ts.TypeNode;
 
     private readonly _type: ts.Type;
@@ -64,5 +62,4 @@ export class PrimitiveTypeNode implements ReflectedTypeNode {
             kind: this.getKind(),
         };
     }
-
 }

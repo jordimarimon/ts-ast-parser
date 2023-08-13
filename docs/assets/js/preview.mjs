@@ -10,7 +10,6 @@ const origin = window.location.origin;
 const pathName = window.location.pathname.startsWith('/ts-ast-parser/') ? '/ts-ast-parser' : '';
 
 class Preview extends HTMLElement {
-
     #isRendered = false;
 
     #outputEl = null;
@@ -66,8 +65,8 @@ class Preview extends HTMLElement {
 
         fetch(`${origin}${pathName}/assets/previews/${src}`)
             .then(response => response.text())
-            .then(async (code) => {
-                const {result} = await parseFromSource(code);
+            .then(async code => {
+                const { result } = await parseFromSource(code);
                 return [code, result];
             })
             .then(([code, reflectedNodes]) => {
@@ -84,7 +83,6 @@ class Preview extends HTMLElement {
                 console.error(error);
             });
     }
-
 }
 
 window.customElements.define('preview-component', Preview);

@@ -6,10 +6,8 @@ import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
 import ts from 'typescript';
 
-
 // CASE export * as bar from './foo.js';
 export class NamespaceExportNode implements ReflectedRootNode<Export, ts.ExportDeclaration> {
-
     private readonly _node: ts.ExportDeclaration;
 
     private readonly _context: AnalyserContext;
@@ -66,5 +64,4 @@ export class NamespaceExportNode implements ReflectedRootNode<Export, ts.ExportD
 
         return tmpl;
     }
-
 }

@@ -5,7 +5,6 @@ export function configurable(value: boolean) {
 }
 
 export class Point {
-
     @configurable(false)
     get x(): number {
         return this._x;

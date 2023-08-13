@@ -5,12 +5,10 @@ import { JSDocTagName } from '../models/js-doc.js';
 import { parse } from 'comment-parser';
 import type ts from 'typescript';
 
-
 export class JSDocNode {
-
     // There could be more than one JSDoc tag with the same name.
     // For example the `@param` tag can be used multiple times.
-    private readonly _jsDoc: {[key: string]: JSDocValueNode[]} = {};
+    private readonly _jsDoc: { [key: string]: JSDocValueNode[] } = {};
 
     constructor(node: ts.Node) {
         this._getAllJSDoc(node).forEach(tag => {
@@ -42,9 +40,9 @@ export class JSDocNode {
     }
 
     isIgnored(): boolean {
-        return this.hasTag(JSDocTagName.ignore) ||
-            this.hasTag(JSDocTagName.internal) ||
-            this.hasTag(JSDocTagName.private);
+        return (
+            this.hasTag(JSDocTagName.ignore) || this.hasTag(JSDocTagName.internal) || this.hasTag(JSDocTagName.private)
+        );
     }
 
     serialize(): JSDoc {
@@ -63,7 +61,7 @@ export class JSDocNode {
     private _getAllJSDoc(node: JSDocTSNode): JSDoc {
         const doc: JSDoc = [];
 
-        for (const jsDocComment of (node.jsDoc ?? [])) {
+        for (const jsDocComment of node.jsDoc ?? []) {
             this._collectJsDoc(jsDocComment, doc);
         }
 
@@ -71,7 +69,7 @@ export class JSDocNode {
     }
 
     private _collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
-        const parsedJsDocComment = parse(jsDocComment.getFullText(), {spacing: 'preserve'}) ?? [];
+        const parsedJsDocComment = parse(jsDocComment.getFullText(), { spacing: 'preserve' }) ?? [];
 
         for (const block of parsedJsDocComment) {
             if (block.problems.length) {
@@ -148,7 +146,10 @@ export class JSDocNode {
     }
 
     private _trimNewLines(str = ''): string {
-        return str.trim().replace(/^\s+|\s+$/g, '').trim();
+        return str
+            .trim()
+            .replace(/^\s+|\s+$/g, '')
+            .trim();
     }
 
     private _normalizeDescription(desc = ''): string {
@@ -158,5 +159,4 @@ export class JSDocNode {
 
         return desc;
     }
-
 }

@@ -3,7 +3,6 @@ import chalk from 'chalk';
 import path from 'path';
 import fs from 'fs';
 
-
 const mainPkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8'));
 const packages = globbySync(path.join('packages/*', 'package.json'));
 
@@ -28,12 +27,12 @@ for (const pkgPath of packages) {
 function update(dependencies) {
     let hasChanged = false;
 
-    const isWorkspacePkg = (name) => name.startsWith('@ts-ast-parser');
+    const isWorkspacePkg = name => name.startsWith('@ts-ast-parser');
 
     for (const [pkg, oldVersion] of Object.entries(dependencies)) {
         const newVersion = isWorkspacePkg(pkg)
             ? oldVersion
-            : (mainPkg.dependencies?.[pkg] || mainPkg.optionalDependencies?.[pkg] || mainPkg.devDependencies?.[pkg]);
+            : mainPkg.dependencies?.[pkg] || mainPkg.optionalDependencies?.[pkg] || mainPkg.devDependencies?.[pkg];
 
         if (oldVersion !== newVersion) {
             dependencies[pkg] = newVersion;

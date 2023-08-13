@@ -5,9 +5,7 @@ import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
-
 export class TypeOperatorNode implements ReflectedTypeNode<ts.TypeOperatorNode> {
-
     private readonly _node: ts.TypeOperatorNode;
 
     private readonly _type: ts.Type;
@@ -55,5 +53,4 @@ export class TypeOperatorNode implements ReflectedTypeNode<ts.TypeOperatorNode> 
             elementType: this.getElementType().serialize(),
         };
     }
-
 }

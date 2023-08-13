@@ -6,13 +6,14 @@ import type { AnalyserContext } from '../context.js';
 import type { Method } from '../models/member.js';
 import type ts from 'typescript';
 
-
-export const functionFactory: NodeFactory<FunctionDeclaration | Method, FunctionNode, ts.VariableStatement | ts.FunctionDeclaration> = {
-
+export const functionFactory: NodeFactory<
+    FunctionDeclaration | Method,
+    FunctionNode,
+    ts.VariableStatement | ts.FunctionDeclaration
+> = {
     isNode: isFunctionDeclaration,
 
     create: (node: ts.VariableStatement | ts.FunctionDeclaration, context: AnalyserContext): FunctionNode[] => {
         return [new FunctionNode(node, null, context)];
     },
-
 };

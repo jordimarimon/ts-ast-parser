@@ -4,7 +4,6 @@ import type { AnalyserContext } from '../context.js';
 import { getReturnStatement } from './function.js';
 import ts from 'typescript';
 
-
 //
 // Extracts the function and class nodes that are used to define a Mixin
 //
@@ -21,7 +20,10 @@ export function extractMixinNodes(node: ts.Node, context: AnalyserContext): Mixi
     return null;
 }
 
-function extractMixinNodesFromVariableStatement(node: ts.VariableStatement, checker: ts.TypeChecker): MixinNodes | null {
+function extractMixinNodesFromVariableStatement(
+    node: ts.VariableStatement,
+    checker: ts.TypeChecker,
+): MixinNodes | null {
     //
     // CASE 1: We have a mixin declared in the form of:
     //
@@ -90,7 +92,10 @@ function extractMixinNodesFromVariableStatement(node: ts.VariableStatement, chec
     return null;
 }
 
-function extractMixinNodesFromFunctionDeclaration(node: ts.FunctionDeclaration, checker: ts.TypeChecker): MixinNodes | null {
+function extractMixinNodesFromFunctionDeclaration(
+    node: ts.FunctionDeclaration,
+    checker: ts.TypeChecker,
+): MixinNodes | null {
     if (node.body == null || !ts.isBlock(node.body)) {
         return null;
     }

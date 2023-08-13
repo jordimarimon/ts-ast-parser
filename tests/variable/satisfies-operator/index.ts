@@ -8,6 +8,5 @@ export const palette = {
     blue: [0, 0, 255],
 } satisfies Record<Colors, string | RGB>;
 
-
 export const redComponent = palette.red.at(0);
 export const greenNormalized = palette.green.toUpperCase();

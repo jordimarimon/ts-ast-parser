@@ -6,7 +6,6 @@ import type { Reference } from './reference.js';
 import type { Decorator } from './decorator.js';
 import type { JSDoc } from './js-doc.js';
 
-
 /**
  * The result of a class node after being serialized
  */

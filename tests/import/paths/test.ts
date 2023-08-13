@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import { getTestResult } from '../../utils.js';
 import * as path from 'path';
 
-
 const category = 'import';
 const subcategory = 'paths';
 const compilerOptions = {
@@ -15,13 +14,11 @@ const compilerOptions = {
         'custom-path/foo': ['./foo.ts'],
     },
 };
-const {actual, expected} = await getTestResult({category, subcategory, analyzerOptions: {compilerOptions}});
+const { actual, expected } = await getTestResult({ category, subcategory, analyzerOptions: { compilerOptions } });
 
 describe(`${category}/${subcategory}`, () => {
-
     it('should reflect the expected modules', () => {
         const result = actual.map(m => m.serialize());
         expect(result).to.deep.equal(expected);
     });
-
 });

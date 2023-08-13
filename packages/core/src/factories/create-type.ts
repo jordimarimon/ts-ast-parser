@@ -15,7 +15,6 @@ import { TupleTypeNode } from '../types/tuple-type-node.js';
 import type { AnalyserContext } from '../context.js';
 import ts from 'typescript';
 
-
 // eslint-disable-next-line sonarjs/cognitive-complexity
 export function createType(nodeOrType: ts.TypeNode | ts.Type, context: AnalyserContext): ReflectedTypeNode {
     let node: ts.TypeNode | null;
@@ -163,24 +162,27 @@ export function createTypeFromDeclaration(node: ts.Node, context: AnalyserContex
 }
 
 function isPrimitiveNode(node: ts.TypeNode): boolean {
-    return node.kind === ts.SyntaxKind.NumberKeyword ||
+    return (
+        node.kind === ts.SyntaxKind.NumberKeyword ||
         node.kind === ts.SyntaxKind.BooleanKeyword ||
         node.kind === ts.SyntaxKind.StringKeyword ||
         node.kind === ts.SyntaxKind.UndefinedKeyword ||
         node.kind === ts.SyntaxKind.NullKeyword ||
         node.kind === ts.SyntaxKind.SymbolKeyword ||
         node.kind === ts.SyntaxKind.BigIntKeyword ||
-        node.kind === ts.SyntaxKind.VoidKeyword;
+        node.kind === ts.SyntaxKind.VoidKeyword
+    );
 }
 
 function isPrimitiveType(type: ts.Type): boolean {
-    const primitiveTypes = ts.TypeFlags.String
-        | ts.TypeFlags.Number
-        | ts.TypeFlags.Boolean
-        | ts.TypeFlags.BigInt
-        | ts.TypeFlags.Null
-        | ts.TypeFlags.Undefined
-        | ts.TypeFlags.ESSymbol;
+    const primitiveTypes =
+        ts.TypeFlags.String |
+        ts.TypeFlags.Number |
+        ts.TypeFlags.Boolean |
+        ts.TypeFlags.BigInt |
+        ts.TypeFlags.Null |
+        ts.TypeFlags.Undefined |
+        ts.TypeFlags.ESSymbol;
 
     return (type.flags & primitiveTypes) !== 0;
 }
@@ -194,6 +196,9 @@ function isPrimitiveType(type: ts.Type): boolean {
  *      const bar = <[4, 5]>[4, 5];
  */
 function isTypeAssertion(node: ts.Node): boolean {
-    return ts.hasOnlyExpressionInitializer(node) && !!node.initializer &&
-        (ts.isAsExpression(node.initializer) || ts.isTypeAssertionExpression(node));
+    return (
+        ts.hasOnlyExpressionInitializer(node) &&
+        !!node.initializer &&
+        (ts.isAsExpression(node.initializer) || ts.isTypeAssertionExpression(node))
+    );
 }

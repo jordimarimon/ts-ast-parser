@@ -3,7 +3,6 @@ import { ModifierType } from '../models/member.js';
 import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
-
 export function getVisibilityModifier(member: ts.ClassElement): ModifierType {
     const modifierFlags = ts.getCombinedModifierFlags(member);
 
@@ -103,8 +102,12 @@ export function isMember(node: ts.Node | undefined): node is ts.Declaration {
         return false;
     }
 
-    return ts.isMethodSignature(node) || ts.isPropertySignature(node) ||
-        ts.isPropertyDeclaration(node) || ts.isMethodDeclaration(node);
+    return (
+        ts.isMethodSignature(node) ||
+        ts.isPropertySignature(node) ||
+        ts.isPropertyDeclaration(node) ||
+        ts.isMethodDeclaration(node)
+    );
 }
 
 export function isReadOnly(node: ts.Node | undefined): boolean {

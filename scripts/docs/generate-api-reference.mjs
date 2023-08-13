@@ -5,7 +5,6 @@ import { marked } from 'marked';
 import path from 'path';
 import fs from 'fs';
 
-
 marked.use(markedSmartypants());
 marked.use({
     breaks: false,
@@ -32,25 +31,25 @@ Handlebars.registerHelper('typeWithReference', type => {
 });
 
 // Obtain the reflected modules
-const {result: reflectedModules} = await parseFromGlob('packages/core/src/**/*.ts');
+const { result: reflectedModules } = await parseFromGlob('packages/core/src/**/*.ts');
 
 // Handlebars templates
-const {pathname: cwd} = new URL('../..', import.meta.url);
+const { pathname: cwd } = new URL('../..', import.meta.url);
 const templatesDir = path.join(cwd, 'scripts', 'docs');
 const templateIndexFile = fs.readFileSync(path.join(templatesDir, 'api-reference-index.hbs'), 'utf8');
-const templateIndex = Handlebars.compile(templateIndexFile, {noEscape: true});
+const templateIndex = Handlebars.compile(templateIndexFile, { noEscape: true });
 const templateFunctionFile = fs.readFileSync(path.join(templatesDir, 'function.hbs'), 'utf8');
-const templateFunction = Handlebars.compile(templateFunctionFile, {noEscape: true});
+const templateFunction = Handlebars.compile(templateFunctionFile, { noEscape: true });
 const templateClassFile = fs.readFileSync(path.join(templatesDir, 'class.hbs'), 'utf8');
-const templateClass = Handlebars.compile(templateClassFile, {noEscape: true});
+const templateClass = Handlebars.compile(templateClassFile, { noEscape: true });
 const templateInterfaceFile = fs.readFileSync(path.join(templatesDir, 'interface.hbs'), 'utf8');
-const templateInterface = Handlebars.compile(templateInterfaceFile, {noEscape: true});
+const templateInterface = Handlebars.compile(templateInterfaceFile, { noEscape: true });
 const templateEnumFile = fs.readFileSync(path.join(templatesDir, 'enum.hbs'), 'utf8');
-const templateEnum = Handlebars.compile(templateEnumFile, {noEscape: true});
+const templateEnum = Handlebars.compile(templateEnumFile, { noEscape: true });
 const templateVariableFile = fs.readFileSync(path.join(templatesDir, 'variable.hbs'), 'utf8');
-const templateVariable = Handlebars.compile(templateVariableFile, {noEscape: true});
+const templateVariable = Handlebars.compile(templateVariableFile, { noEscape: true });
 const templateTypeAliasFile = fs.readFileSync(path.join(templatesDir, 'type-alias.hbs'), 'utf8');
-const templateTypeAlias = Handlebars.compile(templateTypeAliasFile, {noEscape: true});
+const templateTypeAlias = Handlebars.compile(templateTypeAliasFile, { noEscape: true });
 
 // Here we will store the data for the templates
 const models = [];
@@ -68,11 +67,12 @@ const indexPath = path.join('packages', 'core', 'src', 'index.ts');
 const indexModule = reflectedModules.find(mod => mod.getSourcePath() === indexPath);
 
 if (!indexModule) {
-    console.error('Couldn\'t found the index file of the package.');
+    console.error("Couldn't found the index file of the package.");
     process.exit(1);
 }
 
-const publicFiles = indexModule.getExports()
+const publicFiles = indexModule
+    .getExports()
     .filter(exp => is.ReExportNode(exp))
     .map(exp => {
         const modulePath = exp.getModule().replace(/'/g, '');
@@ -101,16 +101,16 @@ for (const module of reflectedModules) {
         const href = `${normalizedCategory}/${toDashCase(name)}`;
 
         if (normalizedCategory === 'models') {
-            models.push({name, href, type});
+            models.push({ name, href, type });
         } else if (
             normalizedCategory === 'utils' ||
             (normalizedCategory === 'parsers' && !fileBaseName.startsWith('parse-from'))
         ) {
-            utils.push({name, href, type});
+            utils.push({ name, href, type });
         } else if (normalizedCategory === 'nodes') {
-            nodes.push({name, href, type});
+            nodes.push({ name, href, type });
         } else if (fileBaseName.startsWith('parse-from')) {
-            parsers.push({name, href, type});
+            parsers.push({ name, href, type });
         } else {
             continue;
         }
@@ -161,7 +161,7 @@ fs.writeFileSync(path.join(cwd, 'docs', 'api-reference', 'index.njk'), indexCont
 
 function clearDir(category) {
     if (fs.existsSync(path.join(cwd, 'docs', 'api-reference', category))) {
-        fs.rmSync(path.join(cwd, 'docs', 'api-reference', category), {recursive: true});
+        fs.rmSync(path.join(cwd, 'docs', 'api-reference', category), { recursive: true });
     }
 
     fs.mkdirSync(path.join(cwd, 'docs', 'api-reference', category));
@@ -267,7 +267,11 @@ function createFunctionContext(func, filePath) {
     const returnTypeDescription = funcJsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
     const parameters = signature.getParameters().map(p => ({
         name: p.getName(),
-        description: funcJsDoc.getAllTags(JSDocTagName.param)?.find(t => t.getName() === p.getName())?.getDescription() ?? '',
+        description:
+            funcJsDoc
+                .getAllTags(JSDocTagName.param)
+                ?.find(t => t.getName() === p.getName())
+                ?.getDescription() ?? '',
         type: {
             text: p.getType().getText(),
         },
@@ -279,7 +283,9 @@ function createFunctionContext(func, filePath) {
         path: filePath,
         line: signature.getLine(),
         description: funcJsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
-        signature: `${func.getName()}(${parameters.map(p => `${p.name}: ${p.type.text}`).join(', ')}): ${returnType.getText()}`,
+        signature: `${func.getName()}(${parameters
+            .map(p => `${p.name}: ${p.type.text}`)
+            .join(', ')}): ${returnType.getText()}`,
         parameters,
         returnType: {
             text: returnType.getText(),
@@ -307,7 +313,7 @@ function toDashCase(str) {
         const prevChar = str[offset - 1];
 
         // Don't add a dash between 'TS' or 'JS'
-        if (match === 'S' && (prevChar === 'J') || prevChar === 'T') {
+        if ((match === 'S' && prevChar === 'J') || prevChar === 'T') {
             return match.toLowerCase();
         }
 
