@@ -1,5 +1,7 @@
+import type { TypeParameter } from './type-parameter.js';
 import type { SourceReference } from './reference.js';
 import type { Field, Method } from './member.js';
+import type { Parameter } from './parameter.js';
 
 export enum TypeKind {
     Array = 'Array',
@@ -14,6 +16,14 @@ export enum TypeKind {
     Operator = 'Operator',
     Unknown = 'Unknown',
     Literal = 'Literal',
+    Function = 'Function',
+    Query = 'Query',
+    Infer = 'Infer',
+    Mapped = 'Mapped',
+    Optional = 'Optional',
+    Predicate = 'Predicate',
+    Rest = 'Rest',
+    TemplateLiteral = 'TemplateLiteral',
 }
 
 /**
@@ -46,7 +56,11 @@ export interface Type {
     elements?: readonly (Type | NamedTupleMember)[];
 
     /**
-     * The base element type of array or an operator
+     * The base element type of:
+     *      - Array type
+     *      - Operator type
+     *      - Optional type
+     *      - Rest type
      */
     elementType?: Type;
 
@@ -59,6 +73,26 @@ export interface Type {
      * The type arguments in a type reference
      */
     typeArguments?: readonly Type[];
+
+    /**
+     * The type parameters in a function type node
+     */
+    typeParameters?: readonly TypeParameter[];
+
+    /**
+     * The parameters in a function type node
+     */
+    parameters?: readonly Parameter[];
+
+    /**
+     * The return type in a function type node
+     */
+    return?: Type;
+
+    /**
+     * The constraint in an infer type node
+     */
+    constraint?: Type;
 }
 
 /**

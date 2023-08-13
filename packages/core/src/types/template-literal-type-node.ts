@@ -2,16 +2,16 @@ import type { ReflectedTypeNode } from '../reflected-node.js';
 import type { AnalyserContext } from '../context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
-import ts from 'typescript';
+import type ts from 'typescript';
 
-export class UnknownTypeNode implements ReflectedTypeNode {
-    private readonly _node: ts.TypeNode | null;
+export class TemplateLiteralTypeNode implements ReflectedTypeNode<ts.TemplateLiteralTypeNode> {
+    private readonly _node: ts.TemplateLiteralTypeNode;
 
     private readonly _type: ts.Type;
 
     private readonly _context: AnalyserContext;
 
-    constructor(node: ts.TypeNode | null, type: ts.Type, context: AnalyserContext) {
+    constructor(node: ts.TemplateLiteralTypeNode, type: ts.Type, context: AnalyserContext) {
         this._node = node;
         this._type = type;
         this._context = context;
@@ -21,7 +21,7 @@ export class UnknownTypeNode implements ReflectedTypeNode {
         return this._context;
     }
 
-    getTSNode(): ts.TypeNode | null {
+    getTSNode(): ts.TemplateLiteralTypeNode {
         return this._node;
     }
 
@@ -30,22 +30,10 @@ export class UnknownTypeNode implements ReflectedTypeNode {
     }
 
     getKind(): TypeKind {
-        return TypeKind.Unknown;
+        return TypeKind.TemplateLiteral;
     }
 
     getText(): string {
-        const keywordNames: { [key in ts.SyntaxKind]?: string } = {
-            [ts.SyntaxKind.AnyKeyword]: 'any',
-            [ts.SyntaxKind.NeverKeyword]: 'never',
-            [ts.SyntaxKind.ObjectKeyword]: 'object',
-            [ts.SyntaxKind.UnknownKeyword]: 'unknown',
-            [ts.SyntaxKind.IntrinsicKeyword]: 'intrinsic',
-        };
-
-        if (this._node && keywordNames[this._node.kind]) {
-            return keywordNames[this._node.kind] as string;
-        }
-
         return this._context.checker.typeToString(this._type);
     }
 

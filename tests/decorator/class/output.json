@@ -21,7 +21,11 @@
                                 "name": "constructor",
                                 "type": {
                                     "text": "typeof BugReport",
-                                    "kind": "Unknown"
+                                    "kind": "Query",
+                                    "source": {
+                                        "line": 6,
+                                        "path": "tests/decorator/class/index.ts"
+                                    }
                                 },
                                 "line": 1
                             }

@@ -69,7 +69,29 @@
                         "kind": "Property",
                         "type": {
                             "text": "(x: number, y: number) => number",
-                            "kind": "Unknown"
+                            "kind": "Function",
+                            "return": {
+                                "text": "number",
+                                "kind": "Primitive"
+                            },
+                            "parameters": [
+                                {
+                                    "name": "x",
+                                    "type": {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    },
+                                    "line": 3
+                                },
+                                {
+                                    "name": "y",
+                                    "type": {
+                                        "text": "number",
+                                        "kind": "Primitive"
+                                    },
+                                    "line": 3
+                                }
+                            ]
                         },
                         "line": 16,
                         "default": "add"

@@ -12,7 +12,41 @@
                         "return": {
                             "type": {
                                 "text": "(_target: Greeter, _propertyKey: string, descriptor: PropertyDescriptor) => void",
-                                "kind": "Unknown"
+                                "kind": "Function",
+                                "return": {
+                                    "text": "void",
+                                    "kind": "Primitive"
+                                },
+                                "parameters": [
+                                    {
+                                        "name": "_target",
+                                        "type": {
+                                            "text": "Greeter",
+                                            "kind": "Reference",
+                                            "source": {
+                                                "line": 7,
+                                                "path": "tests/decorator/method/index.ts"
+                                            }
+                                        },
+                                        "line": 2
+                                    },
+                                    {
+                                        "name": "_propertyKey",
+                                        "type": {
+                                            "text": "string",
+                                            "kind": "Primitive"
+                                        },
+                                        "line": 2
+                                    },
+                                    {
+                                        "name": "descriptor",
+                                        "type": {
+                                            "text": "PropertyDescriptor",
+                                            "kind": "Reference"
+                                        },
+                                        "line": 2
+                                    }
+                                ]
                             }
                         },
                         "line": 1,

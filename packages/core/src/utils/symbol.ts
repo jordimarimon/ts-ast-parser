@@ -2,9 +2,9 @@ import { isNamedNode } from './named-node.js';
 import ts from 'typescript';
 
 export function getAliasedSymbolIfNecessary(
-    symbol: ts.Symbol | undefined,
+    symbol: ts.Symbol | undefined | null,
     checker: ts.TypeChecker,
-): ts.Symbol | undefined {
+): ts.Symbol | null {
     let currSymbol = symbol;
 
     // We have to check first, because the TS TypeChecker will throw an
@@ -13,15 +13,15 @@ export function getAliasedSymbolIfNecessary(
         currSymbol = checker.getAliasedSymbol(currSymbol);
     }
 
-    return currSymbol;
+    return currSymbol ?? null;
 }
 
-export function getSymbolAtLocation(node: ts.Node, checker: ts.TypeChecker): ts.Symbol | undefined {
+export function getSymbolAtLocation(node: ts.Node, checker: ts.TypeChecker): ts.Symbol | null {
     let symbol = checker.getSymbolAtLocation(node);
 
     if (!symbol && isNamedNode(node)) {
         symbol = checker.getSymbolAtLocation(node.name);
     }
 
-    return symbol;
+    return symbol ?? null;
 }

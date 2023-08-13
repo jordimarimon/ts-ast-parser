@@ -13,7 +13,7 @@ import type ts from 'typescript';
  * @returns The symbol, line position and path where the node/type is located
  */
 export function getLocation(nodeOrType: ts.Node | ts.Type, context: AnalyserContext): SymbolWithLocation {
-    let symbol: ts.Symbol | undefined;
+    let symbol: ts.Symbol | null | undefined;
 
     if ('kind' in nodeOrType) {
         symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(nodeOrType, context.checker), context.checker);

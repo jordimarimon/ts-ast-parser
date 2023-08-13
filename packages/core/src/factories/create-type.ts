@@ -1,17 +1,25 @@
+import { TemplateLiteralTypeNode } from '../types/template-literal-type-node.js';
 import { IndexedAccessTypeNode } from '../types/indexed-access-type-node.js';
 import { NamedTupleMemberNode } from '../types/named-tuple-member-node.js';
 import { IntersectionTypeNode } from '../types/intersection-type-node.js';
 import { ConditionalTypeNode } from '../types/conditional-type-node.js';
-import type { ReflectedTypeNode } from '../reflected-node.js';
 import { PrimitiveTypeNode } from '../types/primitive-type-node.js';
 import { TypeReferenceNode } from '../types/type-reference-node.js';
+import { TypePredicateNode } from '../types/type-predicate-node.js';
 import { TypeOperatorNode } from '../types/type-operator-node.js';
+import { FunctionTypeNode } from '../types/function-type-node.js';
+import { OptionalTypeNode } from '../types/optional-type-node.js';
 import { TypeLiteralNode } from '../types/type-literal-node.js';
 import { UnknownTypeNode } from '../types/unknown-type-node.js';
 import { LiteralTypeNode } from '../types/literal-type-node.js';
+import { MappedTypeNode } from '../types/mapped-type-node.js';
+import type { ReflectedTypeNode } from '../reflected-node.js';
+import { TypeQueryNode } from '../types/type-query-node.js';
+import { InferTypeNode } from '../types/infer-type-node.js';
 import { UnionTypeNode } from '../types/union-type-node.js';
 import { ArrayTypeNode } from '../types/array-type-node.js';
 import { TupleTypeNode } from '../types/tuple-type-node.js';
+import { RestTypeNode } from '../types/rest-type-node.js';
 import type { AnalyserContext } from '../context.js';
 import ts from 'typescript';
 
@@ -90,47 +98,47 @@ export function createType(nodeOrType: ts.TypeNode | ts.Type, context: AnalyserC
 
     // case of: () => void
     if (ts.isFunctionTypeNode(node)) {
-        // TODO
+        return new FunctionTypeNode(node, type, context);
     }
 
     // Represents a type that is constructed by querying the type of reflection.
     // case of: typeof FooClass
     if (ts.isTypeQueryNode(node)) {
-        // TODO
+        return new TypeQueryNode(node, type, context);
     }
 
     // case of: infer T extends FooBar
     if (ts.isInferTypeNode(node)) {
-        // TODO
+        return new InferTypeNode(node, type, context);
     }
 
     // case of: { [K in Parameter]?: Template }
     if (ts.isMappedTypeNode(node)) {
-        // TODO
+        return new MappedTypeNode(node, type, context);
     }
 
     // case of: type Z = [1, 2?]
     //                       ^^
     if (ts.isOptionalTypeNode(node)) {
-        // TODO
+        return new OptionalTypeNode(node, type, context);
     }
 
     // case of:
     //          function isString(x: unknown): x is string {}
     //          function assert(condition: boolean): asserts condition {}
     if (ts.isTypePredicateNode(node)) {
-        // TODO
+        return new TypePredicateNode(node, type, context);
     }
 
     // case of: type Z = [1, ...2[]]
     //                       ^^^^^^
     if (ts.isRestTypeNode(node)) {
-        // TODO
+        return new RestTypeNode(node, type, context);
     }
 
     // case of: type Z = `${'a' | 'b'}${'a' | 'b'}`
     if (ts.isTemplateLiteralTypeNode(node)) {
-        // TODO
+        return new TemplateLiteralTypeNode(node, type, context);
     }
 
     // Represents an intrinsic/primitive type like `string` or `boolean`.

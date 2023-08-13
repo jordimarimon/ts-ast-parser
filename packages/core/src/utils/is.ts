@@ -71,8 +71,8 @@ export type SymbolWithLocation = {
 };
 
 export type SymbolWithContext = {
-    symbol: ts.Symbol | undefined;
-    type: ts.Type | undefined;
+    symbol: ts.Symbol | undefined | null;
+    type: ts.Type | undefined | null;
     overrides?: boolean;
     inherited?: boolean;
 };

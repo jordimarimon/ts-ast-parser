@@ -126,7 +126,7 @@ export function isOverride(node: ts.Node | undefined): boolean {
     return hasFlag(ts.getCombinedModifierFlags(node), ts.ModifierFlags.Override);
 }
 
-export function isOptional(symbol: ts.Symbol | undefined): boolean {
+export function isOptional(symbol: ts.Symbol | undefined | null): boolean {
     return !!symbol && hasFlag(symbol.flags, ts.SymbolFlags.Optional);
 }
 
