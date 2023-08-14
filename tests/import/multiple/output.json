@@ -17,7 +17,7 @@
                                 "return": {
                                     "type": {
                                         "text": "void",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 },
                                 "line": 2,
@@ -26,7 +26,7 @@
                                         "name": "x",
                                         "type": {
                                             "text": "number",
-                                            "kind": "Primitive"
+                                            "kind": "Intrinsic"
                                         },
                                         "line": 2
                                     }
@@ -42,7 +42,7 @@
                 "line": 9,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 5
             }

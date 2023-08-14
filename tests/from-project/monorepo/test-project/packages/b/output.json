@@ -14,7 +14,7 @@
             {
                 "name": "Employee",
                 "kind": "Class",
-                "line": 3,
+                "line": 4,
                 "constructors": [
                     {
                         "return": {
@@ -22,36 +22,36 @@
                                 "text": "Employee",
                                 "kind": "Reference",
                                 "source": {
-                                    "line": 3,
+                                    "line": 4,
                                     "path": "tests/from-project/monorepo/test-project/packages/b/src/index.ts"
                                 }
                             }
                         },
-                        "line": 6,
+                        "line": 7,
                         "parameters": [
                             {
                                 "name": "name",
                                 "type": {
                                     "text": "string",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
-                                "line": 6
+                                "line": 7
                             },
                             {
                                 "name": "age",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
-                                "line": 6
+                                "line": 7
                             },
                             {
                                 "name": "salary",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
-                                "line": 6
+                                "line": 7
                             }
                         ]
                     }
@@ -59,11 +59,11 @@
                 "heritage": [
                     {
                         "name": "Person",
+                        "kind": "Class",
                         "source": {
                             "line": 1,
                             "path": "tests/from-project/monorepo/test-project/packages/a/dist/index.d.ts"
-                        },
-                        "kind": "Class"
+                        }
                     }
                 ],
                 "properties": [
@@ -72,16 +72,16 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
-                        "line": 4
+                        "line": 5
                     },
                     {
                         "name": "name",
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 2,
                         "inherited": true
@@ -91,7 +91,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 4,
                         "inherited": true

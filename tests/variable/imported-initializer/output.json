@@ -10,7 +10,7 @@
                 "line": 1,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 4
             }
@@ -36,10 +36,10 @@
             {
                 "name": "bar",
                 "kind": "Variable",
-                "line": 3,
+                "line": 4,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 4
             }

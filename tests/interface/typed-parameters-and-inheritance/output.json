@@ -27,7 +27,7 @@
                     },
                     "indexType": {
                         "text": "number",
-                        "kind": "Primitive"
+                        "kind": "Intrinsic"
                     }
                 },
                 "properties": [
@@ -87,12 +87,18 @@
                 "line": 7,
                 "heritage": [
                     {
-                        "name": "Foo<string>",
+                        "name": "Foo",
+                        "kind": "Interface",
                         "source": {
                             "line": 1,
                             "path": "tests/interface/typed-parameters-and-inheritance/index.ts"
                         },
-                        "kind": "Interface"
+                        "typeArguments": [
+                            {
+                                "text": "string",
+                                "kind": "Intrinsic"
+                            }
+                        ]
                     }
                 ],
                 "properties": [
@@ -101,7 +107,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 8
                     },
@@ -110,7 +116,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 3,
                         "inherited": true
@@ -125,7 +131,7 @@
                                 "return": {
                                     "type": {
                                         "text": "string",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 },
                                 "line": 4,
@@ -134,7 +140,7 @@
                                         "name": "a",
                                         "type": {
                                             "text": "string",
-                                            "kind": "Primitive"
+                                            "kind": "Intrinsic"
                                         },
                                         "line": 4
                                     }

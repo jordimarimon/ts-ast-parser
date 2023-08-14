@@ -17,7 +17,7 @@
                                 "return": {
                                     "type": {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 },
                                 "line": 2,
@@ -26,7 +26,7 @@
                                         "name": "x",
                                         "type": {
                                             "text": "number",
-                                            "kind": "Primitive"
+                                            "kind": "Intrinsic"
                                         },
                                         "line": 2
                                     },
@@ -34,7 +34,7 @@
                                         "name": "y",
                                         "type": {
                                             "text": "number",
-                                            "kind": "Primitive"
+                                            "kind": "Intrinsic"
                                         },
                                         "line": 2
                                     }
@@ -51,11 +51,11 @@
                 "heritage": [
                     {
                         "name": "Bar",
+                        "kind": "Interface",
                         "source": {
                             "line": 1,
                             "path": "tests/class/implements-clause/index.ts"
-                        },
-                        "kind": "Interface"
+                        }
                     }
                 ],
                 "methods": [
@@ -67,7 +67,7 @@
                                 "return": {
                                     "type": {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 },
                                 "line": 6,
@@ -76,7 +76,7 @@
                                         "name": "x",
                                         "type": {
                                             "text": "number",
-                                            "kind": "Primitive"
+                                            "kind": "Intrinsic"
                                         },
                                         "line": 6
                                     },
@@ -84,7 +84,7 @@
                                         "name": "y",
                                         "type": {
                                             "text": "number",
-                                            "kind": "Primitive"
+                                            "kind": "Intrinsic"
                                         },
                                         "line": 6
                                     }

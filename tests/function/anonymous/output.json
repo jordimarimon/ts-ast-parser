@@ -12,7 +12,7 @@
                         "return": {
                             "type": {
                                 "text": "number",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             }
                         },
                         "line": 8,
@@ -21,7 +21,7 @@
                                 "name": "x",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 8
                             },
@@ -29,7 +29,7 @@
                                 "name": "y",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 8
                             }
@@ -59,7 +59,7 @@
                         "return": {
                             "type": {
                                 "text": "number",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             }
                         },
                         "line": 18,
@@ -68,7 +68,7 @@
                                 "name": "x",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 18
                             },
@@ -76,7 +76,7 @@
                                 "name": "y",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 18
                             }
@@ -106,7 +106,7 @@
                         "return": {
                             "type": {
                                 "text": "number",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             }
                         },
                         "line": 28,
@@ -129,7 +129,7 @@
                                 "name": "x",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 28
                             },
@@ -137,7 +137,7 @@
                                 "name": "y",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 28
                             }
@@ -156,7 +156,7 @@
                 "kind": "Named"
             },
             {
-                "name": "",
+                "name": "default",
                 "kind": "Default"
             }
         ]

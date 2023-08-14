@@ -44,12 +44,10 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         if (
             ts.isFunctionDeclaration(this._node) ||
             ts.isMethodDeclaration(this._node) ||
-            ts.isMethodSignature(this._node)
+            ts.isMethodSignature(this._node) ||
+            ts.isPropertyDeclaration(this._node) ||
+            ts.isPropertySignature(this._node)
         ) {
-            return this._node.name?.getText() || '';
-        }
-
-        if (ts.isPropertyDeclaration(this._node) || ts.isPropertySignature(this._node)) {
             return this._node.name?.getText() || '';
         }
 

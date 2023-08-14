@@ -17,7 +17,7 @@
                             "kind": "Property",
                             "type": {
                                 "text": "number",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             },
                             "line": 4
                         }
@@ -55,7 +55,7 @@
                 "line": 14,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 5,
                 "namespace": "Foo"
@@ -71,7 +71,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 17
                     }
@@ -98,7 +98,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 21,
                         "default": 3
@@ -113,7 +113,7 @@
                         "return": {
                             "type": {
                                 "text": "string",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             }
                         },
                         "line": 24
@@ -124,27 +124,27 @@
         ],
         "exports": [
             {
-                "name": "TypeFoo",
+                "name": "Foo.TypeFoo",
                 "kind": "Named"
             },
             {
-                "name": "EnumFoo",
+                "name": "Foo.EnumFoo",
                 "kind": "Named"
             },
             {
-                "name": "varFoo",
+                "name": "Foo.varFoo",
                 "kind": "Named"
             },
             {
-                "name": "IFoo",
+                "name": "Foo.IFoo",
                 "kind": "Named"
             },
             {
-                "name": "ClassFoo",
+                "name": "Foo.ClassFoo",
                 "kind": "Named"
             },
             {
-                "name": "logFoo",
+                "name": "Foo.logFoo",
                 "kind": "Named"
             }
         ]

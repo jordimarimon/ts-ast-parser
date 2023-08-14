@@ -38,17 +38,17 @@
                         {
                             "name": "red",
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         {
                             "name": "green",
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         {
                             "name": "blue",
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         }
                     ]
                 }
@@ -70,15 +70,15 @@
                                 "elements": [
                                     {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     },
                                     {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     },
                                     {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 ]
                             }
@@ -88,7 +88,7 @@
                             "kind": "Property",
                             "type": {
                                 "text": "string",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             }
                         },
                         {
@@ -100,15 +100,15 @@
                                 "elements": [
                                     {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     },
                                     {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     },
                                     {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 ]
                             }
@@ -127,11 +127,11 @@
                     "elements": [
                         {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         {
                             "text": "undefined",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         }
                     ]
                 },
@@ -143,7 +143,7 @@
                 "line": 12,
                 "type": {
                     "text": "string",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": "palette.green.toUpperCase()"
             }

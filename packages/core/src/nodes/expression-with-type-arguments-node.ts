@@ -22,7 +22,7 @@ export class ExpressionWithTypeArgumentsNode implements ReflectedNode<Expression
     constructor(node: ts.ExpressionWithTypeArguments, context: AnalyserContext) {
         this._node = node;
         this._context = context;
-        this._loc = context.getLocation(node);
+        this._loc = context.getLocation(node.expression);
     }
 
     /**

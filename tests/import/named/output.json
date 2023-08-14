@@ -17,7 +17,7 @@
                                 "return": {
                                     "type": {
                                         "text": "void",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 },
                                 "line": 2

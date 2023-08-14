@@ -10,7 +10,7 @@
                 "line": 5,
                 "type": {
                     "text": "string",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": "'John Doe'"
             }

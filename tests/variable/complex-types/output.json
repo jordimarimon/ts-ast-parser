@@ -17,7 +17,7 @@
                             "kind": "Property",
                             "type": {
                                 "text": "number",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             },
                             "line": 8
                         },
@@ -26,7 +26,7 @@
                             "kind": "Property",
                             "type": {
                                 "text": "number",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             },
                             "line": 8,
                             "optional": true
@@ -47,7 +47,7 @@
                             "kind": "Property",
                             "type": {
                                 "text": "boolean",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             },
                             "line": 9,
                             "optional": true

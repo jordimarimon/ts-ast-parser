@@ -16,11 +16,11 @@
                                 "typeArguments": [
                                     {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     },
                                     {
                                         "text": "string",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     },
                                     {
                                         "text": "unknown",

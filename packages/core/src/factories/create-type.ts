@@ -184,7 +184,7 @@ export function createType(nodeOrType: ts.TypeNode | ts.Type, context: AnalyserC
 
     const factory = typeReflectors[node.kind];
     if (factory) {
-        return context.registerReflectedType(type, () => factory(node as ts.TypeNode, type, context));
+        return factory(node, type, context);
     }
 
     return new UnknownTypeNode(node, type, context);

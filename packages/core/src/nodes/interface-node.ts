@@ -98,9 +98,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
                 (ts.isPropertySignature(decl) || ts.isGetAccessor(decl) || ts.isSetAccessor(decl)) &&
                 !isPropertyMethod
             ) {
-                const callback = () => new PropertyNode(decl, member, this._context);
-                const reflectedNode = this._context.registerReflectedNode(decl, callback);
-
+                const reflectedNode = new PropertyNode(decl, member, this._context);
                 result.push(reflectedNode);
             }
         }
@@ -126,9 +124,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
             const isPropertyMethod = ts.isPropertySignature(decl) && decl.type && ts.isFunctionTypeNode(decl.type);
 
             if (ts.isMethodSignature(decl) || isPropertyMethod) {
-                const callback = () => new FunctionNode(decl, member, this._context);
-                const reflectedNode = this._context.registerReflectedNode(decl, callback);
-
+                const reflectedNode = new FunctionNode(decl, member, this._context);
                 result.push(reflectedNode);
             }
         }

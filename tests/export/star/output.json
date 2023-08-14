@@ -10,7 +10,7 @@
                 "line": 1,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 5
             }
@@ -33,7 +33,7 @@
                 "line": 1,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 4
             }

@@ -24,7 +24,7 @@
                                 "return": {
                                     "type": {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 },
                                 "line": 2

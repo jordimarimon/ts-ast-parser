@@ -42,6 +42,23 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
         return (this._node as Exclude<ExportDeclarationNodeType, ts.VariableStatement>).name?.getText() ?? '';
     }
 
+    /**
+     * Returns the name of the symbol prefixed by any parent namespace is inside:
+     *
+     *      <NamespaceName1>.<Namespace2>.<SymbolName>
+     */
+    getFullyQualifiedName(): string {
+        const node = this._declaration ?? this._node;
+        const symbol = this._context.getSymbol(node);
+
+        if (symbol) {
+            const fullyQualifiedName = this._context.getTypeChecker().getFullyQualifiedName(symbol);
+            return fullyQualifiedName.split('.').slice(1).join('.');
+        }
+
+        return this.getName();
+    }
+
     getOriginalName(): string {
         return this.getName();
     }
@@ -64,7 +81,7 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
 
     serialize(): Export {
         return {
-            name: this.getName(),
+            name: this.getFullyQualifiedName(),
             kind: this.getKind(),
         };
     }

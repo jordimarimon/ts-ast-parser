@@ -1,8 +1,8 @@
-import type { ReflectedNode, ReflectedTypeNode } from './reflected-node.js';
 import type { NamedNodeName, SymbolWithLocation } from './utils/is.js';
 import type { AnalyserDiagnostic } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
+import type { ReflectedNode } from './reflected-node.js';
 import ts from 'typescript';
 
 
@@ -22,8 +22,6 @@ export class AnalyserContext {
     private readonly _system: AnalyserSystem;
 
     private readonly _reflectedNodesBySymbol = new Map<ts.Symbol, ReflectedNode>();
-
-    private readonly _reflectedNodesByType = new Map<ts.Type, ReflectedTypeNode>();
 
     constructor(
         system: AnalyserSystem,
@@ -91,23 +89,6 @@ export class AnalyserContext {
         if (!reflection) {
             reflection = reflectedNodeFactory();
             this._reflectedNodesBySymbol.set(symbol, reflection);
-        }
-
-        return reflection as T;
-    }
-
-    /**
-     * Creates a new reflected type only if it doesn't exist already in the internal cache.
-     *
-     * @param type - The `ts.Type` associated with the reflected type
-     * @param reflectedTypeFactory - The function to use to build the new reflection if it doesn't exist
-     */
-    registerReflectedType<T extends ReflectedTypeNode>(type: ts.Type, reflectedTypeFactory: () => T): T {
-        let reflection = this._reflectedNodesByType.get(type);
-
-        if (!reflection) {
-            reflection = reflectedTypeFactory();
-            this._reflectedNodesByType.set(type, reflection);
         }
 
         return reflection as T;

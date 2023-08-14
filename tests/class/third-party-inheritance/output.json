@@ -21,7 +21,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 2,
                         "default": 3
@@ -35,11 +35,11 @@
                 "heritage": [
                     {
                         "name": "FooElement",
+                        "kind": "Class",
                         "source": {
                             "line": 1,
                             "path": "tests/class/third-party-inheritance/index.ts"
-                        },
-                        "kind": "Class"
+                        }
                     }
                 ],
                 "customElement": true,
@@ -49,7 +49,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 6,
                         "default": 4
@@ -59,7 +59,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 2,
                         "default": 3,

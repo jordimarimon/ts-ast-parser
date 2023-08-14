@@ -15,7 +15,7 @@
                                 "kind": "Function",
                                 "return": {
                                     "text": "void",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "parameters": [
                                     {
@@ -34,7 +34,7 @@
                                         "name": "_propertyKey",
                                         "type": {
                                             "text": "string",
-                                            "kind": "Primitive"
+                                            "kind": "Intrinsic"
                                         },
                                         "line": 2
                                     },
@@ -55,7 +55,7 @@
                                 "name": "value",
                                 "type": {
                                     "text": "boolean",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 1
                             }
@@ -85,7 +85,7 @@
                                 "name": "x",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 22
                             },
@@ -93,7 +93,7 @@
                                 "name": "y",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 22
                             }
@@ -106,7 +106,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 8,
                         "decorators": [
@@ -128,7 +128,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 13,
                         "decorators": [

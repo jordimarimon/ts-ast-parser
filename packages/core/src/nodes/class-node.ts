@@ -304,8 +304,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             }
 
             if (isProperty || ts.isGetAccessor(decl) || ts.isSetAccessor(decl)) {
-                const callback = () => new PropertyNode(decl, member, this._context);
-                const reflectedNode = this._context.registerReflectedNode(decl, callback);
+                const reflectedNode = new PropertyNode(decl, member, this._context);
 
                 if (reflectedNode.getModifier() === ModifierType.public) {
                     result.push(reflectedNode);
@@ -332,8 +331,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
                 (isProperty && (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer)));
 
             if (isPropertyMethod) {
-                const callback = () => new FunctionNode(decl, member, this._context);
-                const reflectedNode = this._context.registerReflectedNode(decl, callback);
+                const reflectedNode = new FunctionNode(decl, member, this._context);
 
                 if (reflectedNode.getModifier() === ModifierType.public) {
                     result.push(reflectedNode);
