@@ -1,11 +1,13 @@
 import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { createType } from '../factories/create-type.js';
-import type { AnalyserContext } from '../context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
+
 export class ArrayTypeNode implements ReflectedTypeNode<ts.ArrayTypeNode> {
+
     private readonly _node: ts.ArrayTypeNode;
 
     private readonly _type: ts.Type;

@@ -1,8 +1,8 @@
+import type { ExpressionWithTypeArguments } from './expression-with-type-arguments.js';
 import type { DeclarationKind } from './declaration-kind.js';
 import type { TypeParameter } from './type-parameter.js';
 import type { FunctionSignature } from './function.js';
 import type { Field, Method } from './member.js';
-import type { Reference } from './reference.js';
 import type { Decorator } from './decorator.js';
 import type { JSDoc } from './js-doc.js';
 
@@ -58,7 +58,7 @@ export interface ClassDeclaration {
     /**
      * The heritage chain
      */
-    heritage?: readonly Reference[];
+    heritage?: readonly ExpressionWithTypeArguments[];
 
     /**
      * The class decorators

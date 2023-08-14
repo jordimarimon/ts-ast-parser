@@ -14,7 +14,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 2,
                         "default": 4
@@ -28,11 +28,11 @@
                 "heritage": [
                     {
                         "name": "Class1",
+                        "kind": "Class",
                         "source": {
                             "line": 1,
                             "path": "tests/class/default-inheritance/index.ts"
-                        },
-                        "kind": "Class"
+                        }
                     }
                 ],
                 "properties": [
@@ -41,7 +41,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 6,
                         "default": 3
@@ -51,7 +51,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 2,
                         "default": 4,

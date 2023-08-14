@@ -1,10 +1,9 @@
 import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.js';
+import { AnalyserContext, isBrowser } from './analyser-context.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type { AnalyserResult } from './analyser-result.js';
 import { ModuleNode } from './nodes/module-node.js';
-import type { AnalyserContext } from './context.js';
-import { isBrowser } from './context.js';
 import ts from 'typescript';
 
 /**
@@ -20,6 +19,8 @@ export async function parseFromSource(
     source: string,
     options: Partial<AnalyserOptions> = {},
 ): Promise<AnalyserResult<ModuleNode>> {
+    const fileName = '/unknown.ts';
+
     if (!source) {
         return {
             result: null,
@@ -27,10 +28,7 @@ export async function parseFromSource(
         };
     }
 
-    const fileName = '/unknown.ts';
-
     let system: AnalyserSystem;
-
     if (isBrowser) {
         system = await import('./browser-system.js').then(m => {
             return m.BrowserSystem.create({
@@ -57,36 +55,25 @@ export async function parseFromSource(
     });
     const sourceFile = program.getSourceFile(fileName);
 
-    const analyserDiagnostic = new AnalyserDiagnostic();
-    analyserDiagnostic.addMany(program.getSemanticDiagnostics());
+    const diagnostics = new AnalyserDiagnostic();
+    diagnostics.addMany(program.getSemanticDiagnostics());
 
-    if (!options.skipDiagnostics && !analyserDiagnostic.isEmpty()) {
-        return { result: null, errors: analyserDiagnostic.getAll() };
+    if (!options.skipDiagnostics && !diagnostics.isEmpty()) {
+        return { result: null, errors: diagnostics.getAll() };
     }
 
-    commandLine.errors.forEach(err => {
-        analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, err.messageText);
-    });
-
+    commandLine.errors.forEach(err => diagnostics.add(DiagnosticErrorType.COMMAND_LINE, err.messageText));
     if (commandLine.errors.length > 0) {
-        return { result: null, errors: analyserDiagnostic.getAll() };
+        return { result: null, errors: diagnostics.getAll() };
     }
 
     if (!sourceFile) {
-        analyserDiagnostic.add(DiagnosticErrorType.COMMAND_LINE, 'Unable to analyse source code.');
-        return { result: null, errors: analyserDiagnostic.getAll() };
+        diagnostics.add(DiagnosticErrorType.COMMAND_LINE, 'Unable to analyse source code.');
+        return { result: null, errors: diagnostics.getAll() };
     }
 
-    const context: AnalyserContext = {
-        program,
-        system,
-        options: options ?? null,
-        diagnostics: analyserDiagnostic,
-        checker: program.getTypeChecker(),
-    };
+    const context = new AnalyserContext(system, program, diagnostics, options);
+    const module = new ModuleNode(sourceFile, context);
 
-    return {
-        result: new ModuleNode(sourceFile, context),
-        errors: analyserDiagnostic.getAll(),
-    };
+    return { result: module, errors: diagnostics.getAll() };
 }

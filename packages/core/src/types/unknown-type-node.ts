@@ -1,10 +1,12 @@
 import type { ReflectedTypeNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../context.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
+
 export class UnknownTypeNode implements ReflectedTypeNode {
+
     private readonly _node: ts.TypeNode | null;
 
     private readonly _type: ts.Type;
@@ -46,7 +48,7 @@ export class UnknownTypeNode implements ReflectedTypeNode {
             return keywordNames[this._node.kind] as string;
         }
 
-        return this._context.checker.typeToString(this._type);
+        return this._context.getTypeChecker().typeToString(this._type);
     }
 
     serialize(): Type {

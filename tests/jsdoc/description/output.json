@@ -10,7 +10,7 @@
                 "line": 12,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 4,
                 "jsDoc": [

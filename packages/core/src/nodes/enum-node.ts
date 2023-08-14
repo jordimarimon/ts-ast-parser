@@ -1,10 +1,9 @@
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { DeclarationNode } from './declaration-node.js';
-import { getLinePosition } from '../utils/get-location.js';
 import type { EnumDeclaration } from '../models/enum.js';
 import { EnumMemberNode } from './enum-member-node.js';
-import type { AnalyserContext } from '../context.js';
 import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
@@ -13,6 +12,7 @@ import type ts from 'typescript';
  * The reflected node when an enumerable is found
  */
 export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclaration> {
+
     private readonly _node: ts.EnumDeclaration;
 
     private readonly _context: AnalyserContext;
@@ -46,7 +46,7 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
     }
 
     getLine(): number {
-        return getLinePosition(this._node);
+        return this._context.getLinePosition(this._node);
     }
 
     getNamespace(): string {
@@ -74,7 +74,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
                 value = defaultInitializer++;
             }
 
-            return new EnumMemberNode(member, value, this._context);
+            const callback = () => new EnumMemberNode(member, value, this._context);
+            return this._context.registerReflectedNode(member, callback);
         });
     }
 
@@ -86,11 +87,7 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
         };
 
         tryAddProperty(tmpl, 'namespace', this.getNamespace());
-        tryAddProperty(
-            tmpl,
-            'members',
-            this.getMembers().map(member => member.serialize()),
-        );
+        tryAddProperty(tmpl, 'members', this.getMembers().map(member => member.serialize()));
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
 
         return tmpl;

@@ -1,10 +1,12 @@
 import type { ReflectedTypeNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../context.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
-export class PrimitiveTypeNode implements ReflectedTypeNode {
+
+export class IntrinsicTypeNode implements ReflectedTypeNode {
+
     private readonly _node: ts.TypeNode;
 
     private readonly _type: ts.Type;
@@ -30,7 +32,7 @@ export class PrimitiveTypeNode implements ReflectedTypeNode {
     }
 
     getKind(): TypeKind {
-        return TypeKind.Primitive;
+        return TypeKind.Intrinsic;
     }
 
     getText(): string {
@@ -45,6 +47,8 @@ export class PrimitiveTypeNode implements ReflectedTypeNode {
                 return 'undefined';
             case ts.SyntaxKind.NullKeyword:
                 return 'null';
+            case ts.SyntaxKind.ObjectKeyword:
+                return 'object';
             case ts.SyntaxKind.SymbolKeyword:
                 return 'symbol';
             case ts.SyntaxKind.BigIntKeyword:
@@ -52,7 +56,7 @@ export class PrimitiveTypeNode implements ReflectedTypeNode {
             case ts.SyntaxKind.VoidKeyword:
                 return 'void';
             default:
-                return this._context.checker.typeToString(this._type) ?? '';
+                return this._context.getTypeChecker().typeToString(this._type) ?? '';
         }
     }
 

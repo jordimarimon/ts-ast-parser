@@ -16,7 +16,7 @@
                                 "typeArguments": [
                                     {
                                         "text": "void",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 ]
                             }
@@ -27,7 +27,7 @@
                                 "name": "amount",
                                 "type": {
                                     "text": "number",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 2,
                                 "optional": true,

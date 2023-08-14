@@ -10,7 +10,7 @@
                 "line": 1,
                 "type": {
                     "text": "boolean",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": true
             }

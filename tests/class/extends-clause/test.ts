@@ -1,6 +1,7 @@
 import { describe, expect } from 'vitest';
 import { getTestResult, test, updateExpectedOutput } from '../../utils.js';
 
+
 const category = 'class';
 const subcategory = 'extends-clause';
 const { actual, expected } = await getTestResult({ category, subcategory });

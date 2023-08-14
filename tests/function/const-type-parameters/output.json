@@ -23,7 +23,7 @@
                                     "kind": "Array",
                                     "elementType": {
                                         "text": "string",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 }
                             },
@@ -82,7 +82,7 @@
                         "return": {
                             "type": {
                                 "text": "T[\"names\"]",
-                                "kind": "Unknown"
+                                "kind": "IndexAccess"
                             }
                         },
                         "line": 7,

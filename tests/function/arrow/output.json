@@ -12,7 +12,7 @@
                         "return": {
                             "type": {
                                 "text": "number",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             }
                         },
                         "line": 8,
@@ -24,7 +24,7 @@
                                     "kind": "Array",
                                     "elementType": {
                                         "text": "number",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 },
                                 "line": 8,

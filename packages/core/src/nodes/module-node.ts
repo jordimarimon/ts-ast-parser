@@ -1,15 +1,17 @@
 import { importFactory, declarationFactories, exportFactories } from '../factories/index.js';
 import type { ReflectedNode, ReflectedRootNode } from '../reflected-node.js';
 import type { DeclarationKind } from '../models/declaration-kind.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { ExportNode, ImportNode } from '../utils/is.js';
 import type { DeclarationNode } from './declaration-node.js';
-import type { AnalyserContext } from '../context.js';
 import { JSDocTagName } from '../models/js-doc.js';
 import type { Module } from '../models/module.js';
 import { is } from '../utils/is.js';
 import ts from 'typescript';
 
+
 export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
+
     private readonly _node: ts.SourceFile;
 
     private readonly _imports: ImportNode[] = [];
@@ -39,7 +41,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * The path to the source file for this module.
      */
     getSourcePath(): string {
-        return this._context.system.normalizePath(this._node.fileName);
+        return this._context.getSystem().normalizePath(this._node.fileName);
     }
 
     /**
@@ -59,12 +61,13 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
         // Use the TS API to determine where the associated JS will be output based
         // on tsconfig settings.
-        const absolutePath = this._context.system.getAbsolutePath(sourcePath);
+        const sys = this._context.getSystem();
+        const absolutePath = sys.getAbsolutePath(sourcePath);
         const outputPath = ts
-            .getOutputFileNames(this._context.system.getCommandLine(), absolutePath, false)
+            .getOutputFileNames(sys.getCommandLine(), absolutePath, false)
             .filter(f => f.endsWith('.js'))[0];
 
-        return this._context.system.normalizePath(outputPath);
+        return sys.normalizePath(outputPath);
     }
 
     getContext(): AnalyserContext {

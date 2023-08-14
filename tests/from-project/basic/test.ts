@@ -3,6 +3,7 @@ import { parseFromProject } from '@ts-ast-parser/core';
 import { describe, expect } from 'vitest';
 import * as path from 'path';
 
+
 const category = 'from-project';
 const subcategory = 'basic';
 const expected = readExpectedOutput(category, subcategory);

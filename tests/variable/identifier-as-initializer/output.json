@@ -10,7 +10,7 @@
                 "line": 1,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 3
             },
@@ -20,7 +20,7 @@
                 "line": 2,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 3
             },
@@ -30,7 +30,7 @@
                 "line": 3,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 3
             },
@@ -40,7 +40,7 @@
                 "line": 4,
                 "type": {
                     "text": "string",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": "'Hello'"
             },
@@ -50,7 +50,7 @@
                 "line": 5,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 4
             },
@@ -60,7 +60,7 @@
                 "line": 6,
                 "type": {
                     "text": "boolean",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": false
             },
@@ -77,7 +77,7 @@
                             "kind": "Property",
                             "type": {
                                 "text": "number",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             }
                         }
                     ]
@@ -93,7 +93,7 @@
                     "kind": "Array",
                     "elementType": {
                         "text": "number",
-                        "kind": "Primitive"
+                        "kind": "Intrinsic"
                     }
                 },
                 "default": "[3]"

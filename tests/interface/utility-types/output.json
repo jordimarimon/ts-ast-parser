@@ -10,8 +10,18 @@
                 "line": 7,
                 "heritage": [
                     {
-                        "name": "Required<Props>",
-                        "kind": "Interface"
+                        "name": "Required",
+                        "kind": "Interface",
+                        "typeArguments": [
+                            {
+                                "text": "Props",
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 1,
+                                    "path": "tests/interface/utility-types/index.ts"
+                                }
+                            }
+                        ]
                     }
                 ],
                 "properties": [
@@ -20,7 +30,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "boolean",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 8
                     },
@@ -29,7 +39,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 2
                     },
@@ -38,7 +48,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 3
                     }
@@ -50,8 +60,32 @@
                 "line": 17,
                 "heritage": [
                     {
-                        "name": "Pick<Todo, 'title' | 'completed'>",
-                        "kind": "Interface"
+                        "name": "Pick",
+                        "kind": "Interface",
+                        "typeArguments": [
+                            {
+                                "text": "Todo",
+                                "kind": "Reference",
+                                "source": {
+                                    "line": 11,
+                                    "path": "tests/interface/utility-types/index.ts"
+                                }
+                            },
+                            {
+                                "text": "'title' | 'completed'",
+                                "kind": "Union",
+                                "elements": [
+                                    {
+                                        "text": "\"title\"",
+                                        "kind": "Literal"
+                                    },
+                                    {
+                                        "text": "\"completed\"",
+                                        "kind": "Literal"
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ],
                 "properties": [
@@ -60,7 +94,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 18
                     },
@@ -69,7 +103,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 12
                     },
@@ -78,7 +112,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "boolean",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 14
                     }

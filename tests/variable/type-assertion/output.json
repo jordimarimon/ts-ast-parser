@@ -20,7 +20,7 @@
                 "line": 2,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 123
             },
@@ -30,7 +30,7 @@
                 "line": 3,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": 123
             },

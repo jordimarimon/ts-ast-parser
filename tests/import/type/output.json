@@ -14,7 +14,7 @@
             {
                 "name": "x",
                 "kind": "Variable",
-                "line": 3,
+                "line": 4,
                 "type": {
                     "text": "TypeA",
                     "kind": "Reference",
@@ -48,7 +48,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 2
                     }

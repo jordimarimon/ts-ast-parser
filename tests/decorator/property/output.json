@@ -26,7 +26,7 @@
                                 "name": "username",
                                 "type": {
                                     "text": "string",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 28
                             },
@@ -34,7 +34,7 @@
                                 "name": "password",
                                 "type": {
                                     "text": "string",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 28
                             }
@@ -47,7 +47,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 23
                     },
@@ -56,7 +56,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 25,
                         "decorators": [

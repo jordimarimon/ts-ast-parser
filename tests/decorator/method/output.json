@@ -15,7 +15,7 @@
                                 "kind": "Function",
                                 "return": {
                                     "text": "void",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "parameters": [
                                     {
@@ -34,7 +34,7 @@
                                         "name": "_propertyKey",
                                         "type": {
                                             "text": "string",
-                                            "kind": "Primitive"
+                                            "kind": "Intrinsic"
                                         },
                                         "line": 2
                                     },
@@ -55,7 +55,7 @@
                                 "name": "value",
                                 "type": {
                                     "text": "boolean",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 1
                             }
@@ -85,7 +85,7 @@
                                 "name": "message",
                                 "type": {
                                     "text": "string",
-                                    "kind": "Primitive"
+                                    "kind": "Intrinsic"
                                 },
                                 "line": 10
                             }
@@ -98,7 +98,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 8
                     }
@@ -112,7 +112,7 @@
                                 "return": {
                                     "type": {
                                         "text": "string",
-                                        "kind": "Primitive"
+                                        "kind": "Intrinsic"
                                     }
                                 },
                                 "line": 14

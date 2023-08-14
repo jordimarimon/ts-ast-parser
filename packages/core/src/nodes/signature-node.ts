@@ -1,16 +1,17 @@
 import type { FunctionSignature } from '../models/function.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
-import { getLinePosition } from '../utils/get-location.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import { createType } from '../factories/create-type.js';
-import type { AnalyserContext } from '../context.js';
 import { ParameterNode } from './parameter-node.js';
 import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
+
 export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signature> {
+
     private readonly _node: ts.Signature;
 
     private readonly _context: AnalyserContext;
@@ -32,7 +33,7 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
     }
 
     getLine(): number {
-        return getLinePosition(this._node.getDeclaration());
+        return this._context.getLinePosition(this._node.getDeclaration());
     }
 
     getPath(): string {
@@ -50,7 +51,7 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
             return createType(jsDocType, this._context);
         }
 
-        const returnTypeOfSignature = this._context.checker.getReturnTypeOfSignature(this._node);
+        const returnTypeOfSignature = this._context.getTypeChecker().getReturnTypeOfSignature(this._node);
 
         return createType(returnTypeOfSignature, this._context);
     }
@@ -91,16 +92,8 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
 
         tryAddProperty(tmpl, 'line', this.getLine());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(
-            tmpl,
-            'typeParameters',
-            this.getTypeParameters().map(tp => tp.serialize()),
-        );
-        tryAddProperty(
-            tmpl,
-            'parameters',
-            this.getParameters().map(param => param.serialize()),
-        );
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
+        tryAddProperty(tmpl, 'parameters', this.getParameters().map(param => param.serialize()));
 
         return tmpl;
     }

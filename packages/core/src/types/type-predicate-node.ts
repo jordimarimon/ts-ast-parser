@@ -1,11 +1,13 @@
 import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { createType } from '../factories/create-type.js';
-import type { AnalyserContext } from '../context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
+
 export class TypePredicateNode implements ReflectedTypeNode<ts.TypePredicateNode> {
+
     private readonly _node: ts.TypePredicateNode;
 
     private readonly _type: ts.Type;
@@ -36,7 +38,6 @@ export class TypePredicateNode implements ReflectedTypeNode<ts.TypePredicateNode
 
     getText(): string {
         const name = ts.isThisTypeNode(this._node.parameterName) ? 'this' : this._node.parameterName.getText();
-
         const out = this.asserts() ? ['asserts', name] : [name];
         const targetType = this.getTargetType();
 

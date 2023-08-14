@@ -12,18 +12,29 @@
                 "sourceType": "module",
                 "project": "./tsconfig.json"
             },
-            "plugins": ["@typescript-eslint", "sonarjs"],
+            "plugins": [
+                "@typescript-eslint",
+                "import",
+                "sonarjs"
+            ],
             "settings": {
                 "import/parsers": {
                     "@typescript-eslint/parser": [".ts"]
+                },
+                "import/resolver": {
+                    "typescript": {
+                        "alwaysTryTypes": true,
+                        "project": "./tsconfig.json"
+                    }
                 }
             },
             "extends": [
                 "eslint:recommended",
+                "plugin:import/recommended",
+                "plugin:import/typescript",
                 "plugin:@typescript-eslint/eslint-recommended",
                 "plugin:@typescript-eslint/recommended",
-                "plugin:sonarjs/recommended",
-                "prettier"
+                "plugin:sonarjs/recommended"
             ],
             "rules": {
                 "indent": ["error", 4, { "SwitchCase": 1 }],
@@ -254,12 +265,14 @@
                 ],
                 "@typescript-eslint/padding-line-between-statements": [
                     "error",
-                    { "blankLine": "always", "prev": "import", "next": "*" },
-                    { "blankLine": "any", "prev": "import", "next": "import" },
-                    { "blankLine": "always", "prev": "*", "next": ["class", "if", "while", "switch", "try"] },
-                    { "blankLine": "always", "prev": ["class", "if", "while", "switch", "try"], "next": "*" },
+                    { "blankLine": "always", "prev": "*", "next": ["class"] },
+                    { "blankLine": "always", "prev": ["class"], "next": "*" },
                     { "blankLine": "always", "next": "*", "prev": "block-like" }
-                ]
+                ],
+                "import/newline-after-import": ["error", { "count": 2 }],
+                "import/default": "off",
+                "import/named": "off",
+                "import/no-named-as-default-member": "off"
             }
         }
     ]

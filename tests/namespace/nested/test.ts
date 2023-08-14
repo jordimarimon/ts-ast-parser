@@ -1,6 +1,7 @@
 import { getTestResult, test, updateExpectedOutput } from '../../utils.js';
 import { describe, expect } from 'vitest';
 
+
 const category = 'namespace';
 const subcategory = 'nested';
 const { actual, expected } = await getTestResult({ category, subcategory });

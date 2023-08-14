@@ -5,7 +5,9 @@ import { JSDocTagName } from '../models/js-doc.js';
 import { parse } from 'comment-parser';
 import type ts from 'typescript';
 
+
 export class JSDocNode {
+
     // There could be more than one JSDoc tag with the same name.
     // For example the `@param` tag can be used multiple times.
     private readonly _jsDoc: { [key: string]: JSDocValueNode[] } = {};
@@ -146,10 +148,7 @@ export class JSDocNode {
     }
 
     private _trimNewLines(str = ''): string {
-        return str
-            .trim()
-            .replace(/^\s+|\s+$/g, '')
-            .trim();
+        return str.replace(/^\s+|\s+$/g, '');
     }
 
     private _normalizeDescription(desc = ''): string {

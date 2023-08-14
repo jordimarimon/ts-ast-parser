@@ -1,15 +1,16 @@
-import { getAliasedSymbolIfNecessary, getSymbolAtLocation } from '../utils/symbol.js';
 import { TypeParameterNode } from '../nodes/type-parameter-node.js';
 import type { ReflectedTypeNode } from '../reflected-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { ParameterNode } from '../nodes/parameter-node.js';
 import { createType } from '../factories/create-type.js';
-import type { AnalyserContext } from '../context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
+
 export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> {
+
     private readonly _node: ts.FunctionTypeNode;
 
     private readonly _type: ts.Type;
@@ -39,7 +40,7 @@ export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> 
     }
 
     getText(): string {
-        return this._context.checker.typeToString(this._type);
+        return this._context.getTypeChecker().typeToString(this._type);
     }
 
     getTypeParameters(): TypeParameterNode[] {
@@ -47,10 +48,8 @@ export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> 
     }
 
     getParameters(): ParameterNode[] {
-        const checker = this._context.checker;
-
         return (this._node.parameters ?? []).map(p => {
-            const symbol = getAliasedSymbolIfNecessary(getSymbolAtLocation(p, checker), checker);
+            const symbol = this._context.getSymbol(p);
             const decl = symbol?.getDeclarations()?.find(d => ts.isParameter(d)) as ts.ParameterDeclaration | undefined;
             return new ParameterNode(decl ?? p, symbol, this._context);
         });
@@ -67,16 +66,8 @@ export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> 
             return: this.getReturnType().serialize(),
         };
 
-        tryAddProperty(
-            tmpl,
-            'typeParameters',
-            this.getTypeParameters().map(t => t.serialize()),
-        );
-        tryAddProperty(
-            tmpl,
-            'parameters',
-            this.getParameters().map(p => p.serialize()),
-        );
+        tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(t => t.serialize()));
+        tryAddProperty(tmpl, 'parameters', this.getParameters().map(p => p.serialize()));
 
         return tmpl;
     }

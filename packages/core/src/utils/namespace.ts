@@ -1,5 +1,6 @@
 import ts from 'typescript';
 
+
 export function isNamespace(node: ts.Node | undefined): node is ts.ModuleDeclaration {
     return !!(node && ts.isModuleDeclaration(node) && node.body && ts.isModuleBlock(node.body));
 }

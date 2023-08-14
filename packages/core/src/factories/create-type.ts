@@ -3,7 +3,7 @@ import { IndexedAccessTypeNode } from '../types/indexed-access-type-node.js';
 import { NamedTupleMemberNode } from '../types/named-tuple-member-node.js';
 import { IntersectionTypeNode } from '../types/intersection-type-node.js';
 import { ConditionalTypeNode } from '../types/conditional-type-node.js';
-import { PrimitiveTypeNode } from '../types/primitive-type-node.js';
+import { IntrinsicTypeNode } from '../types/intrinsic-type-node.js';
 import { TypeReferenceNode } from '../types/type-reference-node.js';
 import { TypePredicateNode } from '../types/type-predicate-node.js';
 import { TypeOperatorNode } from '../types/type-operator-node.js';
@@ -14,25 +14,167 @@ import { UnknownTypeNode } from '../types/unknown-type-node.js';
 import { LiteralTypeNode } from '../types/literal-type-node.js';
 import { MappedTypeNode } from '../types/mapped-type-node.js';
 import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import { TypeQueryNode } from '../types/type-query-node.js';
 import { InferTypeNode } from '../types/infer-type-node.js';
 import { UnionTypeNode } from '../types/union-type-node.js';
 import { ArrayTypeNode } from '../types/array-type-node.js';
 import { TupleTypeNode } from '../types/tuple-type-node.js';
 import { RestTypeNode } from '../types/rest-type-node.js';
-import type { AnalyserContext } from '../context.js';
 import ts from 'typescript';
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
+
+type ReflectorTypeFactory = (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => ReflectedTypeNode;
+
+const typeReflectors: { [key in ts.SyntaxKind]?: ReflectorTypeFactory } = {
+    // case of: {a: number}
+    [ts.SyntaxKind.TypeLiteral]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new TypeLiteralNode(node as ts.TypeLiteralNode, type, context);
+    },
+
+    // Represents a conditional type like `Foo extends SomeType ? true : false;`
+    [ts.SyntaxKind.ConditionalType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new ConditionalTypeNode(node as ts.ConditionalTypeNode, type, context);
+    },
+
+    // case of: number | string
+    [ts.SyntaxKind.UnionType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new UnionTypeNode(node as ts.UnionTypeNode, type, context);
+    },
+
+    // case of: number & string
+    [ts.SyntaxKind.IntersectionType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntersectionTypeNode(node as ts.IntersectionTypeNode, type, context);
+    },
+
+    // Represents an array type like `number[]`
+    [ts.SyntaxKind.ArrayType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new ArrayTypeNode(node as ts.ArrayTypeNode, type, context);
+    },
+
+    // Represents a type that refers to another reflection like a class, interface or enum.
+    // case of referencing another type: MyClass<T>
+    [ts.SyntaxKind.TypeReference]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new TypeReferenceNode(node as ts.TypeReferenceNode, type, context);
+    },
+
+    // case of: [number, number]
+    [ts.SyntaxKind.TupleType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new TupleTypeNode(node as ts.TupleTypeNode, type, context);
+    },
+
+    // Represents a named member of a tuple type like `[name: string]`
+    [ts.SyntaxKind.NamedTupleMember]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new NamedTupleMemberNode(node as ts.NamedTupleMember, type, context);
+    },
+
+    // case of: readonly number[]
+    [ts.SyntaxKind.TypeOperator]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new TypeOperatorNode(node as ts.TypeOperatorNode, type, context);
+    },
+
+    // case of: "Alice", "Bob", 3, 4, etc...
+    [ts.SyntaxKind.LiteralType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new LiteralTypeNode(node as ts.LiteralTypeNode, type, context);
+    },
+
+    // Represents an indexed access type like `T['name']`
+    [ts.SyntaxKind.IndexedAccessType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IndexedAccessTypeNode(node as ts.IndexedAccessTypeNode, type, context);
+    },
+
+    // case of: () => void
+    [ts.SyntaxKind.FunctionType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new FunctionTypeNode(node as ts.FunctionTypeNode, type, context);
+    },
+
+    // Represents a type that is constructed by querying the type of reflection.
+    // case of: typeof FooClass
+    [ts.SyntaxKind.TypeQuery]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new TypeQueryNode(node as ts.TypeQueryNode, type, context);
+    },
+
+    // case of: infer T extends FooBar
+    [ts.SyntaxKind.InferType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new InferTypeNode(node as ts.InferTypeNode, type, context);
+    },
+
+    // case of: { [K in Parameter]?: Template }
+    [ts.SyntaxKind.MappedType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new MappedTypeNode(node as ts.MappedTypeNode, type, context);
+    },
+
+    // case of: type Z = [1, 2?]
+    //                       ^^
+    [ts.SyntaxKind.OptionalType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new OptionalTypeNode(node as ts.OptionalTypeNode, type, context);
+    },
+
+    // case of:
+    //          function isString(x: unknown): x is string {}
+    //          function assert(condition: boolean): asserts condition {}
+    [ts.SyntaxKind.TypePredicate]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new TypePredicateNode(node as ts.TypePredicateNode, type, context);
+    },
+
+    // case of: type Z = [1, ...2[]]
+    //                       ^^^^^^
+    [ts.SyntaxKind.RestType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new RestTypeNode(node as ts.RestTypeNode, type, context);
+    },
+
+    // case of: type Z = `${'a' | 'b'}${'a' | 'b'}`
+    [ts.SyntaxKind.TemplateLiteralType]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new TemplateLiteralTypeNode(node as ts.TemplateLiteralTypeNode, type, context);
+    },
+
+    // Represents an intrinsic type like `string` or `boolean`.
+    [ts.SyntaxKind.AnyKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+    [ts.SyntaxKind.BigIntKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+    [ts.SyntaxKind.BooleanKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+    [ts.SyntaxKind.NeverKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+    [ts.SyntaxKind.NumberKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+    [ts.SyntaxKind.ObjectKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+    [ts.SyntaxKind.StringKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+    [ts.SyntaxKind.SymbolKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+    [ts.SyntaxKind.UndefinedKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+    [ts.SyntaxKind.VoidKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new IntrinsicTypeNode(node, type, context);
+    },
+
+    [ts.SyntaxKind.UnknownKeyword]: (node: ts.TypeNode, type: ts.Type, context: AnalyserContext) => {
+        return new UnknownTypeNode(node, type, context);
+    },
+};
+
 export function createType(nodeOrType: ts.TypeNode | ts.Type, context: AnalyserContext): ReflectedTypeNode {
+    const checker = context.getTypeChecker();
+
     let node: ts.TypeNode | null;
     let type: ts.Type;
-
     if ('kind' in nodeOrType) {
         node = nodeOrType;
-        type = context.checker.getTypeFromTypeNode(nodeOrType);
+        type = checker.getTypeFromTypeNode(nodeOrType);
     } else {
-        node = context.checker.typeToTypeNode(nodeOrType, void 0, ts.NodeBuilderFlags.IgnoreErrors) ?? null;
+        node = checker.typeToTypeNode(nodeOrType, void 0, ts.NodeBuilderFlags.IgnoreErrors) ?? null;
         type = nodeOrType;
 
         if (!node) {
@@ -40,117 +182,16 @@ export function createType(nodeOrType: ts.TypeNode | ts.Type, context: AnalyserC
         }
     }
 
-    // case of: {a: number}
-    if (ts.isTypeLiteralNode(node)) {
-        return new TypeLiteralNode(node, type, context);
-    }
-
-    // Represents a conditional type like `Foo extends SomeType ? true : false;`
-    if (ts.isConditionalTypeNode(node)) {
-        return new ConditionalTypeNode(node, type, context);
-    }
-
-    // case of: number | string
-    if (ts.isUnionTypeNode(node)) {
-        return new UnionTypeNode(node, type, context);
-    }
-
-    // case of: number & string
-    if (ts.isIntersectionTypeNode(node)) {
-        return new IntersectionTypeNode(node, type, context);
-    }
-
-    // Represents an array type like `number[]`
-    if (ts.isArrayTypeNode(node)) {
-        return new ArrayTypeNode(node, type, context);
-    }
-
-    // Represents a type that refers to another reflection like a class, interface or enum.
-    // case of referencing another type: MyClass<T>
-    if (ts.isTypeReferenceNode(node)) {
-        return new TypeReferenceNode(node, type, context);
-    }
-
-    // case of: [number, number]
-    if (ts.isTupleTypeNode(node)) {
-        return new TupleTypeNode(node, type, context);
-    }
-
-    // Represents a named member of a tuple type like `[name: string]`
-    if (ts.isNamedTupleMember(node)) {
-        return new NamedTupleMemberNode(node, type, context);
-    }
-
-    // case of: readonly number[]
-    if (ts.isTypeOperatorNode(node)) {
-        return new TypeOperatorNode(node, type, context);
-    }
-
-    // case of: "Alice", "Bob", 3, 4, etc...
-    if (ts.isLiteralTypeNode(node)) {
-        return new LiteralTypeNode(node, type, context);
-    }
-
-    // Represents an indexed access type like `T['name']`
-    if (ts.isIndexedAccessTypeNode(node)) {
-        return new IndexedAccessTypeNode(node, type, context);
-    }
-
-    // case of: () => void
-    if (ts.isFunctionTypeNode(node)) {
-        return new FunctionTypeNode(node, type, context);
-    }
-
-    // Represents a type that is constructed by querying the type of reflection.
-    // case of: typeof FooClass
-    if (ts.isTypeQueryNode(node)) {
-        return new TypeQueryNode(node, type, context);
-    }
-
-    // case of: infer T extends FooBar
-    if (ts.isInferTypeNode(node)) {
-        return new InferTypeNode(node, type, context);
-    }
-
-    // case of: { [K in Parameter]?: Template }
-    if (ts.isMappedTypeNode(node)) {
-        return new MappedTypeNode(node, type, context);
-    }
-
-    // case of: type Z = [1, 2?]
-    //                       ^^
-    if (ts.isOptionalTypeNode(node)) {
-        return new OptionalTypeNode(node, type, context);
-    }
-
-    // case of:
-    //          function isString(x: unknown): x is string {}
-    //          function assert(condition: boolean): asserts condition {}
-    if (ts.isTypePredicateNode(node)) {
-        return new TypePredicateNode(node, type, context);
-    }
-
-    // case of: type Z = [1, ...2[]]
-    //                       ^^^^^^
-    if (ts.isRestTypeNode(node)) {
-        return new RestTypeNode(node, type, context);
-    }
-
-    // case of: type Z = `${'a' | 'b'}${'a' | 'b'}`
-    if (ts.isTemplateLiteralTypeNode(node)) {
-        return new TemplateLiteralTypeNode(node, type, context);
-    }
-
-    // Represents an intrinsic/primitive type like `string` or `boolean`.
-    if (isPrimitiveType(type) || isPrimitiveNode(node)) {
-        return new PrimitiveTypeNode(node, type, context);
+    const factory = typeReflectors[node.kind];
+    if (factory) {
+        return factory(node, type, context);
     }
 
     return new UnknownTypeNode(node, type, context);
 }
 
 export function createTypeFromDeclaration(node: ts.Node, context: AnalyserContext): ReflectedTypeNode {
-    const checker = context.checker;
+    const checker = context.getTypeChecker();
     const jsDocType = ts.getJSDocType(node);
 
     if (jsDocType) {
@@ -167,32 +208,6 @@ export function createTypeFromDeclaration(node: ts.Node, context: AnalyserContex
     }
 
     return createType(type, context);
-}
-
-function isPrimitiveNode(node: ts.TypeNode): boolean {
-    return (
-        node.kind === ts.SyntaxKind.NumberKeyword ||
-        node.kind === ts.SyntaxKind.BooleanKeyword ||
-        node.kind === ts.SyntaxKind.StringKeyword ||
-        node.kind === ts.SyntaxKind.UndefinedKeyword ||
-        node.kind === ts.SyntaxKind.NullKeyword ||
-        node.kind === ts.SyntaxKind.SymbolKeyword ||
-        node.kind === ts.SyntaxKind.BigIntKeyword ||
-        node.kind === ts.SyntaxKind.VoidKeyword
-    );
-}
-
-function isPrimitiveType(type: ts.Type): boolean {
-    const primitiveTypes =
-        ts.TypeFlags.String |
-        ts.TypeFlags.Number |
-        ts.TypeFlags.Boolean |
-        ts.TypeFlags.BigInt |
-        ts.TypeFlags.Null |
-        ts.TypeFlags.Undefined |
-        ts.TypeFlags.ESSymbol;
-
-    return (type.flags & primitiveTypes) !== 0;
 }
 
 /**

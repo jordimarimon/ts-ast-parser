@@ -1,6 +1,7 @@
 import { getTestResult, test, updateExpectedOutput } from '../../utils.js';
 import { describe, expect } from 'vitest';
 
+
 const category = 'class';
 const subcategory = 'third-party-inheritance';
 const { actual, expected } = await getTestResult({ category, subcategory });

@@ -14,7 +14,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 2,
                         "default": 3
@@ -45,15 +45,15 @@
             {
                 "name": "Bar",
                 "kind": "Class",
-                "line": 5,
+                "line": 7,
                 "heritage": [
                     {
                         "name": "Foo",
+                        "kind": "Class",
                         "source": {
                             "line": 1,
                             "path": "tests/import/paths/foo.ts"
-                        },
-                        "kind": "Class"
+                        }
                     }
                 ],
                 "properties": [
@@ -62,9 +62,9 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
-                        "line": 6,
+                        "line": 8,
                         "default": 4
                     }
                 ]

@@ -1,12 +1,14 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { NamedTupleMember } from '../models/type.js';
 import { createType } from '../factories/create-type.js';
-import type { AnalyserContext } from '../context.js';
 import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
+
 export class NamedTupleMemberNode implements ReflectedTypeNode<ts.NamedTupleMember> {
+
     private readonly _node: ts.NamedTupleMember;
 
     private readonly _type: ts.Type;

@@ -14,11 +14,11 @@
                     "elements": [
                         {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         }
                     ]
                 },
@@ -27,7 +27,7 @@
         ],
         "exports": [
             {
-                "name": "BarType",
+                "name": "Foo.Bar.BarType",
                 "kind": "Named"
             }
         ]

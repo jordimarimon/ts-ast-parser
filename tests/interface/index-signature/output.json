@@ -14,11 +14,11 @@
                     "kind": "IndexSignature",
                     "type": {
                         "text": "string",
-                        "kind": "Primitive"
+                        "kind": "Intrinsic"
                     },
                     "indexType": {
                         "text": "number",
-                        "kind": "Primitive"
+                        "kind": "Intrinsic"
                     }
                 }
             },
@@ -36,17 +36,17 @@
                         "elements": [
                             {
                                 "text": "number",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             },
                             {
                                 "text": "string",
-                                "kind": "Primitive"
+                                "kind": "Intrinsic"
                             }
                         ]
                     },
                     "indexType": {
                         "text": "string",
-                        "kind": "Primitive"
+                        "kind": "Intrinsic"
                     }
                 },
                 "properties": [
@@ -55,7 +55,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "number",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 7
                     },
@@ -64,7 +64,7 @@
                         "kind": "Property",
                         "type": {
                             "text": "string",
-                            "kind": "Primitive"
+                            "kind": "Intrinsic"
                         },
                         "line": 8
                     }

@@ -1,10 +1,11 @@
+import type { AnalyserContext } from '../analyser-context.js';
 import type { ReflectedRootNode } from '../reflected-node.js';
 import { hasDefaultKeyword } from '../utils/export.js';
-import type { AnalyserContext } from '../context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
+
 
 export type ExportDeclarationNodeType =
     | ts.FunctionDeclaration
@@ -20,6 +21,7 @@ export type ExportDeclarationNodeType =
 //      export default function foo() {}
 //      ...
 export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDeclarationNodeType> {
+
     private readonly _node: ExportDeclarationNodeType;
 
     private readonly _declaration: ts.VariableDeclaration | null = null;
@@ -38,6 +40,23 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
         }
 
         return (this._node as Exclude<ExportDeclarationNodeType, ts.VariableStatement>).name?.getText() ?? '';
+    }
+
+    /**
+     * Returns the name of the symbol prefixed by any parent namespace is inside:
+     *
+     *      <NamespaceName1>.<Namespace2>.<SymbolName>
+     */
+    getFullyQualifiedName(): string {
+        const node = this._declaration ?? this._node;
+        const symbol = this._context.getSymbol(node);
+
+        if (symbol) {
+            const fullyQualifiedName = this._context.getTypeChecker().getFullyQualifiedName(symbol);
+            return fullyQualifiedName.split('.').slice(1).join('.');
+        }
+
+        return this.getName();
     }
 
     getOriginalName(): string {
@@ -62,7 +81,7 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
 
     serialize(): Export {
         return {
-            name: this.getName(),
+            name: this.getFullyQualifiedName(),
             kind: this.getKind(),
         };
     }

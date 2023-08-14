@@ -1,11 +1,13 @@
+import type { AnalyserContext } from '../analyser-context.js';
 import type { IPackageJson } from 'package-json-type';
-import type { AnalyserContext } from '../context.js';
 import { ModuleNode } from './module-node.js';
 import type ts from 'typescript';
 import * as path from 'path';
 import * as fs from 'fs';
 
+
 export class ProjectNode {
+
     private readonly _context: AnalyserContext;
 
     private readonly _modules: ModuleNode[] = [];
@@ -31,17 +33,16 @@ export class ProjectNode {
     }
 
     private _getPackageJSON(): IPackageJson | null {
-        const projectDir = this._context.options?.tsConfigFilePath
-            ? path.dirname(this._context.options.tsConfigFilePath)
-            : process.cwd();
+        const options = this._context.getOptions();
+        const projectDir = options.tsConfigFilePath ? path.dirname(options.tsConfigFilePath) : process.cwd();
 
         const packageDir = path.join(projectDir, 'package.json');
         const pkgJSON = fs.existsSync(packageDir) ? fs.readFileSync(packageDir, 'utf-8') : null;
 
-        if (pkgJSON != null) {
-            return JSON.parse(pkgJSON) as IPackageJson;
+        try {
+            return pkgJSON != null ? (JSON.parse(pkgJSON) as IPackageJson) : null;
+        } catch (_) {
+            return null;
         }
-
-        return null;
     }
 }

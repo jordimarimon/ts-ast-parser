@@ -1,13 +1,15 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedRootNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../context.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
+
 // CASE of "export { x, y as z };"
 export class NamedExportNode implements ReflectedRootNode<Export, ts.ExportDeclaration> {
+
     private readonly _node: ts.ExportDeclaration;
 
     private readonly _element: ts.ExportSpecifier;

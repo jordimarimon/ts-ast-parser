@@ -10,7 +10,7 @@
                 "line": 2,
                 "type": {
                     "text": "number",
-                    "kind": "Primitive"
+                    "kind": "Intrinsic"
                 },
                 "default": "bar + 3"
             }

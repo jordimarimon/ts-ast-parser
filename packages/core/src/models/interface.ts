@@ -1,9 +1,9 @@
+import type { ExpressionWithTypeArguments } from './expression-with-type-arguments.js';
 import type { DeclarationKind } from './declaration-kind.js';
 import type { TypeParameter } from './type-parameter.js';
 import type { MemberKind } from './member-kind.js';
 import type { PropertyLike } from './property.js';
 import type { Field, Method } from './member.js';
-import type { Reference } from './reference.js';
 import type { JSDoc } from './js-doc.js';
 import type { Type } from './type.js';
 
@@ -67,14 +67,14 @@ export interface InterfaceDeclaration {
     jsDoc?: JSDoc;
 
     /**
-     * The interface type paramters
+     * The interface type parameters
      */
     typeParameters?: readonly TypeParameter[];
 
     /**
      * The heritage chain
      */
-    heritage?: readonly Reference[];
+    heritage?: readonly ExpressionWithTypeArguments[];
 
     /**
      * The namespace name where the interface is defined

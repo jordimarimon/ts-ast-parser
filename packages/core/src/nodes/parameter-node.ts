@@ -2,16 +2,17 @@ import { createType, createTypeFromDeclaration } from '../factories/create-type.
 import type { NamedParameterElement, Parameter } from '../models/parameter.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import { getLinePosition } from '../utils/get-location.js';
+import type { AnalyserContext } from '../analyser-context.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
-import type { AnalyserContext } from '../context.js';
 import { DecoratorNode } from './decorator-node.js';
 import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
+
 export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDeclaration> {
+
     private readonly _node: ts.ParameterDeclaration;
 
     private readonly _symbol: ts.Symbol | null;
@@ -48,18 +49,18 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
     }
 
     getLine(): number {
-        return getLinePosition(this._node);
+        return this._context.getLinePosition(this._node);
     }
 
     getType(): ReflectedNode<Type> {
-        const checker = this._context.checker;
+        const checker = this._context.getTypeChecker();
         const type = this._symbol ? checker.getTypeOfSymbolAtLocation(this._symbol, this._node) : null;
 
         return type ? createType(type, this._context) : createTypeFromDeclaration(this._node, this._context);
     }
 
     getDefault(): unknown {
-        return resolveExpression(this._node.initializer, this._context.checker);
+        return resolveExpression(this._node.initializer, this._context);
     }
 
     getDecorators(): DecoratorNode[] {
@@ -94,7 +95,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
     }
 
     isOptional(): boolean {
-        return !!this._context.checker.isOptionalParameter(this._node);
+        return !!this._context.getTypeChecker().isOptionalParameter(this._node);
     }
 
     serialize(): Parameter {
@@ -104,11 +105,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
             line: this.getLine(),
         };
 
-        tryAddProperty(
-            tmpl,
-            'decorators',
-            this.getDecorators().map(d => d.serialize()),
-        );
+        tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
         tryAddProperty(tmpl, 'optional', this.isOptional());
         tryAddProperty(tmpl, 'rest', this.isRest());
@@ -124,7 +121,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
             name: binding.name?.getText() || '',
         };
 
-        tryAddProperty(tmpl, 'default', resolveExpression(binding?.initializer, this._context.checker));
+        tryAddProperty(tmpl, 'default', resolveExpression(binding?.initializer, this._context));
 
         return tmpl;
     }
