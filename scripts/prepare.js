@@ -1,6 +1,7 @@
 import * as cp from 'child_process';
 import * as fs from 'fs';
 
+
 // Execute Git command
 const git = args => cp.spawnSync('git', args, { stdio: 'inherit' });
 
