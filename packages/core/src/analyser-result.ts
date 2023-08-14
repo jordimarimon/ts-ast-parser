@@ -1,7 +1,8 @@
-import type { DiagnosticError } from './analyser-diagnostic.js';
+import type { AnalyserError } from './analyser-diagnostic.js';
 
 
 export interface AnalyserResult<T> {
     result: T | null;
-    errors: DiagnosticError[];
+    errors: AnalyserError[];
+    formattedDiagnostics?: string;
 }

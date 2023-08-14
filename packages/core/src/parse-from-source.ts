@@ -1,5 +1,5 @@
-import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.js';
 import { AnalyserContext, isBrowser } from './analyser-context.js';
+import { AnalyserDiagnostic } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type { AnalyserResult } from './analyser-result.js';
@@ -25,7 +25,7 @@ export async function parseFromSource(
     if (!source) {
         return {
             result: null,
-            errors: [{ kind: DiagnosticErrorType.ARGUMENT, messageText: 'Source code is empty.' }],
+            errors: [{messageText: 'Source code is empty.'}],
         };
     }
 
@@ -50,6 +50,7 @@ export async function parseFromSource(
         });
     }
 
+    const diagnostics = new AnalyserDiagnostic(system.getCurrentDirectory());
     const commandLine = system.getCommandLine();
     const compilerHost = system.getCompilerHost();
     const program = ts.createProgram({
@@ -57,27 +58,40 @@ export async function parseFromSource(
         options: commandLine.options,
         host: compilerHost,
     });
+
     const sourceFile = program.getSourceFile(fileName);
 
-    const diagnostics = new AnalyserDiagnostic();
-    diagnostics.addMany(program.getSemanticDiagnostics());
-
-    if (!options.skipDiagnostics && !diagnostics.isEmpty()) {
-        return { result: null, errors: diagnostics.getAll() };
+    const commandLineErrors = ts.getConfigFileParsingDiagnostics(commandLine);
+    diagnostics.addManyDiagnostics(commandLineErrors);
+    if (commandLine.errors.length > 0) {
+        return {
+            result: null,
+            errors: diagnostics.getAll(),
+            formattedDiagnostics: diagnostics.formatDiagnostics(),
+        };
     }
 
-    commandLine.errors.forEach(err => diagnostics.add(DiagnosticErrorType.COMMAND_LINE, err.messageText));
-    if (commandLine.errors.length > 0) {
-        return { result: null, errors: diagnostics.getAll() };
+    diagnostics.addManyDiagnostics(program.getSemanticDiagnostics());
+    diagnostics.addManyDiagnostics(program.getSyntacticDiagnostics());
+    if (!options.skipDiagnostics && !diagnostics.isEmpty()) {
+        return {
+            result: null,
+            errors: diagnostics.getAll(),
+            formattedDiagnostics: diagnostics.formatDiagnostics(),
+        };
     }
 
     if (!sourceFile) {
-        diagnostics.add(DiagnosticErrorType.COMMAND_LINE, 'Unable to analyse source code.');
+        diagnostics.addArgumentError('Unable to analyse source code.');
         return { result: null, errors: diagnostics.getAll() };
     }
 
     const context = new AnalyserContext(system, program, diagnostics, options);
     const module = new ModuleNode(sourceFile, context);
 
-    return { result: module, errors: diagnostics.getAll() };
+    return {
+        result: module,
+        errors: diagnostics.getAll(),
+        formattedDiagnostics: diagnostics.formatDiagnostics(),
+    };
 }

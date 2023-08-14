@@ -89,6 +89,7 @@ export * from './analyser-options.js';
 export * from './analyser-result.js';
 export * from './analyser-system.js';
 export * from './browser-system.js';
+export * from './default-compiler-options.js';
 export * from './node-system.js';
 export * from './reflected-node.js';
 export * from './utils/is.js';

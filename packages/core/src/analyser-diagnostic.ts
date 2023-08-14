@@ -1,67 +1,67 @@
 import ts from 'typescript';
 
 
-export enum DiagnosticErrorType {
-    SEMANTIC = 1000000,
-    COMMAND_LINE = 2000000,
-    ARGUMENT = 3000000,
-}
-
-export interface SemanticError {
-    kind: DiagnosticErrorType;
-    category: ts.DiagnosticCategory;
-    code: number;
-    file: ts.SourceFile | undefined;
-    start: number | undefined;
-    length: number | undefined;
-    messageText: string | ts.DiagnosticMessageChain;
-}
-
-export interface CommandLineError {
-    kind: DiagnosticErrorType;
-    messageText: string | ts.DiagnosticMessageChain;
-}
-
 export interface ArgumentError {
-    kind: DiagnosticErrorType;
-    messageText: string | ts.DiagnosticMessageChain;
+    messageText: string;
 }
 
-export type DiagnosticError = SemanticError | CommandLineError | ArgumentError;
+export type AnalyserError = ArgumentError | ts.Diagnostic;
 
 export class AnalyserDiagnostic {
 
-    private readonly _diagnostics: DiagnosticError[] = [];
+    private readonly _diagnostics: ts.Diagnostic[] = [];
 
-    getAll(): DiagnosticError[] {
-        return this._diagnostics;
+    private readonly _argumentErrors: ArgumentError[] = [];
+
+    private readonly _cwd: string;
+
+    constructor(cwd: string) {
+        this._cwd = cwd;
+    }
+
+    formatDiagnostics(): string {
+        const diagnosticsHost: ts.FormatDiagnosticsHost = {
+            getCanonicalFileName: (name: string) => name,
+            getCurrentDirectory: () => this._cwd,
+            getNewLine: () => '\n',
+        };
+
+        return ts.formatDiagnosticsWithColorAndContext(this._diagnostics, diagnosticsHost);
+    }
+
+    getAll(): (ArgumentError | ts.Diagnostic)[] {
+        return [
+            ...this._argumentErrors,
+            ...ts.sortAndDeduplicateDiagnostics(this._diagnostics),
+        ];
     }
 
     isEmpty(): boolean {
         return !this._diagnostics.length;
     }
 
-    add(kind: DiagnosticErrorType, message: string | ts.DiagnosticMessageChain, node?: ts.Node): void {
-        let error: DiagnosticError;
+    flattenMessage(diagnostic: ts.Diagnostic): string {
+        return ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
+    }
 
-        if (kind === DiagnosticErrorType.SEMANTIC && node) {
-            error = {
-                file: node.getSourceFile(),
-                start: node.getStart(),
-                length: node.getWidth(),
-                category: ts.DiagnosticCategory.Error,
-                messageText: message,
-                kind: DiagnosticErrorType.SEMANTIC,
-                code: DiagnosticErrorType.SEMANTIC,
-            };
-        } else {
-            error = { kind, messageText: message };
-        }
+    addDiagnostic(node: ts.Node, message: string | ts.DiagnosticMessageChain): void {
+        const error: ts.Diagnostic = {
+            file: node.getSourceFile(),
+            start: node.getStart(),
+            length: node.getWidth(),
+            category: ts.DiagnosticCategory.Error,
+            messageText: message,
+            code: 1000000,
+        };
 
         this._diagnostics.push(error);
     }
 
-    addMany(diagnostics: readonly ts.Diagnostic[]): void {
-        this._diagnostics.push(...diagnostics.map(d => ({ ...d, kind: DiagnosticErrorType.SEMANTIC })));
+    addArgumentError(messageText: string): void {
+        this._argumentErrors.push({messageText});
+    }
+
+    addManyDiagnostics(diagnostics: readonly ts.Diagnostic[]): void {
+        this._diagnostics.push(...diagnostics);
     }
 }
