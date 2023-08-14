@@ -55,12 +55,14 @@ const templateTypeAlias = Handlebars.compile(templateTypeAliasFile, { noEscape: 
 const models = [];
 const utils = [];
 const nodes = [];
+const types = [];
 const parsers = [];
 
 // Clear the directories
 clearDir('models');
 clearDir('utils');
 clearDir('nodes');
+clearDir('types');
 clearDir('parsers');
 
 const indexPath = path.join('packages', 'core', 'src', 'index.ts');
@@ -92,7 +94,9 @@ for (const module of reflectedModules) {
 
     const fileBaseName = segments[segments.length - 1].replace('.ts', '');
     const category = segments[segments.length - 2];
-    const normalizedCategory = category === 'src' ? 'parsers' : category;
+    const normalizedCategory = category === 'src'
+        ? fileBaseName.startsWith('parse-from') ? 'parsers' : 'utils'
+        : category;
 
     for (const declaration of declarations) {
         const name = declaration.getName();
@@ -102,14 +106,13 @@ for (const module of reflectedModules) {
 
         if (normalizedCategory === 'models') {
             models.push({ name, href, type });
-        } else if (
-            normalizedCategory === 'utils' ||
-            (normalizedCategory === 'parsers' && !fileBaseName.startsWith('parse-from'))
-        ) {
+        } else if (normalizedCategory === 'utils') {
             utils.push({ name, href, type });
         } else if (normalizedCategory === 'nodes') {
             nodes.push({ name, href, type });
-        } else if (fileBaseName.startsWith('parse-from')) {
+        } else if (normalizedCategory === 'types') {
+            types.push({ name, href, type });
+        } else if (normalizedCategory === 'parsers') {
             parsers.push({ name, href, type });
         } else {
             continue;
@@ -145,6 +148,10 @@ const indexContent = templateIndex({
         {
             name: 'Nodes',
             items: nodes,
+        },
+        {
+            name: 'Types',
+            items: types,
         },
         {
             name: 'Utils',
