@@ -182,6 +182,13 @@ export function createType(nodeOrType: ts.TypeNode | ts.Type, context: AnalyserC
         }
     }
 
+    // We remove the parenthesis from the type as they don't have any value for the user
+    // case of: (number|number[])
+    if (ts.isParenthesizedTypeNode(node)) {
+        node = node.type;
+        type = checker.getTypeFromTypeNode(node);
+    }
+
     const factory = typeReflectors[node.kind];
     if (factory) {
         return factory(node, type, context);

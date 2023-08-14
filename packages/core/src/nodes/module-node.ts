@@ -52,7 +52,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
         // If the source file was already JS, just return that
         if (sourcePath.endsWith('js')) {
-            return sourcePath;
+            return this._context.getSystem().normalizePath(sourcePath);
         }
 
         if (sourcePath.endsWith('.d.ts')) {

@@ -1,0 +1,184 @@
+[
+    {
+        "sourcePath": "tests/js-module/index.js",
+        "outputPath": "tests/js-module/index.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "employees",
+                "kind": "Variable",
+                "line": 10,
+                "type": {
+                    "text": "PropertiesHash[]",
+                    "kind": "Array",
+                    "elementType": {
+                        "text": "PropertiesHash",
+                        "kind": "Reference",
+                        "source": {
+                            "line": 2,
+                            "path": "tests/js-module/index.js"
+                        }
+                    }
+                },
+                "default": "[]",
+                "jsDoc": [
+                    {
+                        "kind": "typedef",
+                        "value": "PropertiesHash"
+                    },
+                    {
+                        "kind": "type",
+                        "value": {
+                            "type": "object"
+                        }
+                    },
+                    {
+                        "kind": "type",
+                        "value": {
+                            "type": "PropertiesHash[]"
+                        }
+                    },
+                    {
+                        "kind": "property",
+                        "value": {
+                            "type": "string",
+                            "name": "id",
+                            "description": "an ID."
+                        }
+                    },
+                    {
+                        "kind": "property",
+                        "value": {
+                            "type": "string",
+                            "name": "name",
+                            "description": "your name."
+                        }
+                    },
+                    {
+                        "kind": "property",
+                        "value": {
+                            "type": "number",
+                            "name": "age",
+                            "description": "your age."
+                        }
+                    }
+                ]
+            },
+            {
+                "name": "foo",
+                "kind": "Variable",
+                "line": 12,
+                "type": {
+                    "text": "number",
+                    "kind": "Intrinsic"
+                },
+                "default": 4
+            },
+            {
+                "name": "sum",
+                "kind": "Function",
+                "signatures": [
+                    {
+                        "return": {
+                            "type": {
+                                "text": "number|number[]",
+                                "kind": "Union",
+                                "elements": [
+                                    {
+                                        "text": "number",
+                                        "kind": "Intrinsic"
+                                    },
+                                    {
+                                        "text": "number[]",
+                                        "kind": "Array",
+                                        "elementType": {
+                                            "text": "number",
+                                            "kind": "Intrinsic"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "line": 23,
+                        "jsDoc": [
+                            {
+                                "kind": "description",
+                                "value": "Returns the sum of a and b"
+                            },
+                            {
+                                "kind": "param",
+                                "value": {
+                                    "type": "number",
+                                    "name": "a"
+                                }
+                            },
+                            {
+                                "kind": "param",
+                                "value": {
+                                    "type": "number",
+                                    "name": "b"
+                                }
+                            },
+                            {
+                                "kind": "param",
+                                "value": {
+                                    "type": "boolean",
+                                    "name": "retArr",
+                                    "description": "If set to true, the function will return an array"
+                                }
+                            },
+                            {
+                                "kind": "returns",
+                                "value": {
+                                    "type": "(number|number[])",
+                                    "name": "Sum",
+                                    "description": "of a and b or an array that contains a, b and the sum of a and b."
+                                }
+                            }
+                        ],
+                        "parameters": [
+                            {
+                                "name": "a",
+                                "type": {
+                                    "text": "number",
+                                    "kind": "Intrinsic"
+                                },
+                                "line": 23
+                            },
+                            {
+                                "name": "b",
+                                "type": {
+                                    "text": "number",
+                                    "kind": "Intrinsic"
+                                },
+                                "line": 23
+                            },
+                            {
+                                "name": "retArr",
+                                "type": {
+                                    "text": "boolean",
+                                    "kind": "Intrinsic"
+                                },
+                                "line": 23
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "employees",
+                "kind": "Named"
+            },
+            {
+                "name": "foo",
+                "kind": "Named"
+            },
+            {
+                "name": "sum",
+                "kind": "Named"
+            }
+        ]
+    }
+]
