@@ -6,6 +6,7 @@ import type { AnalyserResult } from './analyser-result.js';
 import { ModuleNode } from './nodes/module-node.js';
 import ts from 'typescript';
 
+
 /**
  * Reflects a simplified version of the TypeScript Abstract
  * Syntax Tree from a TypeScript code snippet
@@ -29,7 +30,10 @@ export async function parseFromSource(
     }
 
     let system: AnalyserSystem;
-    if (isBrowser) {
+    if (options.system) {
+        system = options.system;
+        system.writeFile(fileName, source);
+    } else if (isBrowser) {
         system = await import('./browser-system.js').then(m => {
             return m.BrowserSystem.create({
                 fsMap: new Map<string, string>([[fileName, source]]),

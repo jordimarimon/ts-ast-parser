@@ -1,10 +1,11 @@
 import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.js';
+import { AnalyserContext, isBrowser } from './analyser-context.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type { AnalyserResult } from './analyser-result.js';
-import { AnalyserContext } from './analyser-context.js';
 import { ModuleNode } from './nodes/module-node.js';
 import ts from 'typescript';
+
 
 /**
  * Given an array of TypeScript file paths and some configurable options,
@@ -23,6 +24,16 @@ export async function parseFromFiles(
         return {
             result: [],
             errors: [{ kind: DiagnosticErrorType.ARGUMENT, messageText: 'Expected an array of files.' }],
+        };
+    }
+
+    if (!options.system && isBrowser) {
+        return {
+            result: [],
+            errors: [{
+                kind: DiagnosticErrorType.ARGUMENT,
+                messageText: 'You need to supply the AnalyserSystem when working inside the browser.',
+            }],
         };
     }
 

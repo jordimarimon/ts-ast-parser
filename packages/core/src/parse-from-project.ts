@@ -1,13 +1,23 @@
 import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.js';
+import { AnalyserContext, isBrowser } from './analyser-context.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type { AnalyserResult } from './analyser-result.js';
-import { AnalyserContext } from './analyser-context.js';
 import { ProjectNode } from './nodes/project-node.js';
 import ts from 'typescript';
 
 
 export async function parseFromProject(options: Partial<AnalyserOptions> = {}): Promise<AnalyserResult<ProjectNode>> {
+    if (!options.system && isBrowser) {
+        return {
+            result: null,
+            errors: [{
+                kind: DiagnosticErrorType.ARGUMENT,
+                messageText: 'You need to supply the AnalyserSystem when working inside the browser.',
+            }],
+        };
+    }
+
     let system: AnalyserSystem;
     if (options.system) {
         system = options.system;
