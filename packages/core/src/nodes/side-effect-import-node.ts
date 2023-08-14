@@ -36,7 +36,7 @@ export class SideEffectImportNode implements ReflectedRootNode<Import, ts.Import
     }
 
     getImportPath(): string {
-        return (this._node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
+        return (this._node.moduleSpecifier as ts.StringLiteral).text ?? '';
     }
 
     isBareModuleSpecifier(): boolean {

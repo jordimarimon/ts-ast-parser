@@ -21,7 +21,7 @@
                                 ]
                             }
                         },
-                        "line": 2,
+                        "line": 1,
                         "parameters": [
                             {
                                 "name": "amount",
@@ -29,7 +29,7 @@
                                     "text": "number",
                                     "kind": "Intrinsic"
                                 },
-                                "line": 2,
+                                "line": 1,
                                 "optional": true,
                                 "default": 500
                             }

@@ -26,7 +26,7 @@ export const importFactory: NodeFactory<Import, ImportNode, ts.ImportDeclaration
         }
 
         if (isNamedImport(node)) {
-            const elements = (node.importClause?.namedBindings as ts.NamedImports)?.elements ?? [];
+            const elements = (node.importClause?.namedBindings as ts.NamedImports).elements ?? [];
             elements.forEach(el => result.push(new NamedImportNode(node, el, context)));
         }
 

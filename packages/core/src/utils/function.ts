@@ -76,7 +76,7 @@ export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclara
         return false;
     }
 
-    const declaration = node.declarationList?.declarations?.[0];
+    const declaration = node.declarationList.declarations[0];
 
     if (!declaration) {
         return false;

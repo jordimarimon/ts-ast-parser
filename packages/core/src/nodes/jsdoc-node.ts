@@ -10,7 +10,7 @@ export class JSDocNode {
 
     // There could be more than one JSDoc tag with the same name.
     // For example the `@param` tag can be used multiple times.
-    private readonly _jsDoc: { [key: string]: JSDocValueNode[] } = {};
+    private readonly _jsDoc: Record<string, JSDocValueNode[]> = {};
 
     constructor(node: ts.Node) {
         this._getAllJSDoc(node).forEach(tag => {
@@ -130,7 +130,7 @@ export class JSDocNode {
 
         // If there is only one key and is a string key, we simplify the tag
         // value to a string instead of an object
-        if (metadataCount === 1 && (result.description || result.name)) {
+        if (metadataCount === 1 && (result.description ?? result.name)) {
             return nameValue || descriptionValue;
         }
 

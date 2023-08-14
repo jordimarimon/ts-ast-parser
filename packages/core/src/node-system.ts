@@ -157,8 +157,8 @@ export class NodeSystem implements AnalyserSystem {
         systemOpts: NodeSystemOptions,
     ): ts.ParsedCommandLine | null {
         const { tsConfigFilePath, include, exclude } = options;
-        const fileExists = (filePath: string) => ts.sys.fileExists(filePath);
-        const readFile = (filePath: string) => ts.sys.readFile(filePath);
+        const fileExists = (filePath: string): boolean => ts.sys.fileExists(filePath);
+        const readFile = (filePath: string): string | undefined => ts.sys.readFile(filePath);
         const basePath = tsConfigFilePath
             ? path.isAbsolute(tsConfigFilePath)
                 ? path.dirname(tsConfigFilePath)

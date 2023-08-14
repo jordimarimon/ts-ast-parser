@@ -1,6 +1,7 @@
 import { AnalyserDiagnostic, DiagnosticErrorType } from './analyser-diagnostic.js';
 import { AnalyserContext, isBrowser } from './analyser-context.js';
 import type { AnalyserOptions } from './analyser-options.js';
+import { isNotEmptyArray } from './utils/not-empty-array.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type { AnalyserResult } from './analyser-result.js';
 import { ModuleNode } from './nodes/module-node.js';
@@ -20,7 +21,7 @@ export async function parseFromFiles(
     files: readonly string[],
     options: Partial<AnalyserOptions> = {},
 ): Promise<AnalyserResult<ModuleNode[]>> {
-    if (!Array.isArray(files)) {
+    if (!isNotEmptyArray<string[]>(files)) {
         return {
             result: [],
             errors: [{ kind: DiagnosticErrorType.ARGUMENT, messageText: 'Expected an array of files.' }],

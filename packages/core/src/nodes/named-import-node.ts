@@ -47,7 +47,7 @@ export class NamedImportNode implements ReflectedRootNode<Import, ts.ImportDecla
     }
 
     getImportPath(): string {
-        return (this._node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
+        return (this._node.moduleSpecifier as ts.StringLiteral).text ?? '';
     }
 
     getOriginalPath(): string {

@@ -44,7 +44,7 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
     }
 
     getImportPath(): string {
-        return (this._node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
+        return (this._node.moduleSpecifier as ts.StringLiteral).text ?? '';
     }
 
     getOriginalPath(): string {

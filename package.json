@@ -43,7 +43,7 @@
         "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0"
     },
     "lint-staged": {
-        "**/*.ts": "npm run lint:fix"
+        "packages/**/*.ts": "npm run lint:fix"
     },
     "devDependencies": {
         "@11ty/eleventy": "^2.0.1",

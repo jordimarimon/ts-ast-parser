@@ -36,7 +36,7 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
 
     getName(): string {
         if (this._declaration) {
-            return this._declaration.name?.getText() ?? '';
+            return this._declaration.name.getText() ?? '';
         }
 
         return (this._node as Exclude<ExportDeclarationNodeType, ts.VariableStatement>).name?.getText() ?? '';

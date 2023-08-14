@@ -6,12 +6,12 @@ export function isNamespace(node: ts.Node | undefined): node is ts.ModuleDeclara
 }
 
 export function getNamespaceName(node: ts.ModuleDeclaration): string {
-    const path: string[] = [node.name?.getText() ?? ''];
+    const path: string[] = [node.name.getText() ?? ''];
 
     let currNode = node;
 
-    while (isNamespace(currNode.parent?.parent)) {
-        path.push(currNode.parent.parent.name?.getText() ?? '');
+    while (isNamespace(currNode.parent.parent)) {
+        path.push(currNode.parent.parent.name.getText() ?? '');
         currNode = currNode.parent.parent;
     }
 
@@ -20,7 +20,7 @@ export function getNamespaceName(node: ts.ModuleDeclaration): string {
 
 export function getNamespace(node: ts.Node): string {
     // The parent is a "ModuleBlock" and the grandfather is the ModuleDeclaration (the namespace)
-    let currNode = node.parent?.parent;
+    let currNode = node.parent.parent;
 
     while (currNode && !isNamespace(currNode)) {
         currNode = currNode.parent;

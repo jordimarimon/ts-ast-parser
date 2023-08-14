@@ -15,7 +15,7 @@
                                 "kind": "Intrinsic"
                             }
                         },
-                        "line": 8,
+                        "line": 7,
                         "parameters": [
                             {
                                 "name": "x",
@@ -23,7 +23,7 @@
                                     "text": "number",
                                     "kind": "Intrinsic"
                                 },
-                                "line": 8
+                                "line": 7
                             },
                             {
                                 "name": "y",
@@ -31,7 +31,7 @@
                                     "text": "number",
                                     "kind": "Intrinsic"
                                 },
-                                "line": 8
+                                "line": 7
                             }
                         ]
                     }
@@ -62,7 +62,7 @@
                                 "kind": "Intrinsic"
                             }
                         },
-                        "line": 18,
+                        "line": 17,
                         "parameters": [
                             {
                                 "name": "x",
@@ -70,7 +70,7 @@
                                     "text": "number",
                                     "kind": "Intrinsic"
                                 },
-                                "line": 18
+                                "line": 17
                             },
                             {
                                 "name": "y",
@@ -78,7 +78,7 @@
                                     "text": "number",
                                     "kind": "Intrinsic"
                                 },
-                                "line": 18
+                                "line": 17
                             }
                         ]
                     }
@@ -109,7 +109,7 @@
                                 "kind": "Intrinsic"
                             }
                         },
-                        "line": 28,
+                        "line": 27,
                         "jsDoc": [
                             {
                                 "kind": "description",
@@ -131,7 +131,7 @@
                                     "text": "number",
                                     "kind": "Intrinsic"
                                 },
-                                "line": 28
+                                "line": 27
                             },
                             {
                                 "name": "y",
@@ -139,7 +139,7 @@
                                     "text": "number",
                                     "kind": "Intrinsic"
                                 },
-                                "line": 28
+                                "line": 27
                             }
                         ]
                     }

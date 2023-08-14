@@ -23,11 +23,11 @@ export class NamedExportNode implements ReflectedRootNode<Export, ts.ExportDecla
     }
 
     getName(): string {
-        return this._element.name?.escapedText ?? '';
+        return this._element.name.escapedText ?? '';
     }
 
     getOriginalName(): string {
-        return this._element.propertyName?.escapedText || this.getName();
+        return this._element.propertyName?.escapedText ?? this.getName();
     }
 
     getKind(): ExportKind {

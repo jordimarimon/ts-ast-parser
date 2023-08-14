@@ -7,7 +7,7 @@
             {
                 "name": "BarType",
                 "kind": "TypeAlias",
-                "line": 5,
+                "line": 3,
                 "value": {
                     "text": "string | number",
                     "kind": "Union",

@@ -4,7 +4,6 @@
  * @param x
  * @param y
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export const myAdd = function (x: number, y: number) {
     return x + y;
 };

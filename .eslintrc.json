@@ -33,7 +33,8 @@
                 "plugin:import/recommended",
                 "plugin:import/typescript",
                 "plugin:@typescript-eslint/eslint-recommended",
-                "plugin:@typescript-eslint/recommended",
+                "plugin:@typescript-eslint/strict-type-checked",
+                "plugin:@typescript-eslint/stylistic-type-checked",
                 "plugin:sonarjs/recommended"
             ],
             "rules": {
@@ -272,7 +273,14 @@
                 "import/newline-after-import": ["error", { "count": 2 }],
                 "import/default": "off",
                 "import/named": "off",
-                "import/no-named-as-default-member": "off"
+                "import/no-named-as-default-member": "off",
+                "@typescript-eslint/no-invalid-void-type": "off",
+                "@typescript-eslint/no-unsafe-member-access": "off",
+                "@typescript-eslint/no-unsafe-call": "off",
+                "@typescript-eslint/no-unsafe-return": "off",
+                "@typescript-eslint/no-unsafe-assignment": "off",
+                "@typescript-eslint/no-unnecessary-condition": "off",
+                "@typescript-eslint/non-nullable-type-assertion-style": "off"
             }
         }
     ]

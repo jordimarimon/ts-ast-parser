@@ -78,7 +78,7 @@ function extractMixinNodesFromVariableStatement(
             return null;
         }
 
-        const classDeclarationName = classDeclaration.name?.getText?.();
+        const classDeclarationName = classDeclaration.name?.getText();
         const returnValue = resolveExpression(returnStatement?.expression, context);
 
         if (classDeclarationName === returnValue) {
@@ -125,7 +125,7 @@ function extractMixinNodesFromFunctionDeclaration(
         return null;
     }
 
-    const classDeclarationName = classDeclaration.name?.getText?.();
+    const classDeclarationName = classDeclaration.name?.getText();
     const returnValue = resolveExpression(returnStatement?.expression, context);
 
     if (classDeclarationName === returnValue) {

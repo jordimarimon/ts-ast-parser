@@ -61,7 +61,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
      */
     getName(): string {
         if (ts.isVariableStatement(this._node)) {
-            return this._node.declarationList.declarations?.[0]?.name?.getText() ?? '';
+            return this._node.declarationList.declarations[0]?.name.getText() ?? '';
         }
 
         return this._node.name?.getText() ?? '';

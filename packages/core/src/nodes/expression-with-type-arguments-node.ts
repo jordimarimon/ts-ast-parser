@@ -59,7 +59,7 @@ export class ExpressionWithTypeArgumentsNode implements ReflectedNode<Expression
         const tmpl: ExpressionWithTypeArguments = {
             name: this.getName(),
             // Treat anything that is not a class, as an interface (for example utility types)
-            kind: this._loc.symbol && hasFlag(this._loc.symbol?.flags, ts.SymbolFlags.Class)
+            kind: this._loc.symbol && hasFlag(this._loc.symbol.flags, ts.SymbolFlags.Class)
                 ? DeclarationKind.Class
                 : DeclarationKind.Interface,
         };

@@ -21,7 +21,7 @@ export interface AnalyserOptions {
      *
      * @see https://www.typescriptlang.org/tsconfig#compilerOptions
      */
-    compilerOptions: { [key: string]: unknown };
+    compilerOptions: Record<string, unknown>;
 
     /**
      * Allows you to define which files get included in the analysis

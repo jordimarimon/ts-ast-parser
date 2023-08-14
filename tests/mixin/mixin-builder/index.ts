@@ -1,5 +1,4 @@
 // Needed for all mixins
-// eslint-disable-next-line @typescript-eslint/ban-types, @typescript-eslint/no-explicit-any
 type Constructor<T = {}> = new (...args: any[]) => T;
 
 // Mixin builder to be able to concatenate multiple mixins in a nice readable way
@@ -9,13 +8,11 @@ export const mix = <TBase extends Constructor>(superclass: TBase): MixinBuilder<
 
 // Definition of what a Mixin really is (a function that receives a base class
 // that will be extended with some added functionality/behaviour).
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Mixin = <TBase extends Constructor>(base: TBase) => any;
 
 // The following type defines the "returning type" of a mixin.
 // A mixin is defined as a function that expects a base class
 // and returns a new class that implements the mixin functionality and extends the base class provided.
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type MixinReturnType<T> = T extends (base: any) => infer R ? R : unknown;
 
 // The following type, receives a collection of N mixins and returns the UNION
@@ -26,7 +23,6 @@ export type MixinReturnTypesUnion<Mixins extends Mixin[]> = MixinReturnType<Mixi
 // The following type converts the UNION of "the mixins returning types"
 // into an INTERSECTION of "the mixins returning types"
 // See https://www.typescriptlang.org/docs/handbook/advanced-types.html#type-inference-in-conditional-types
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, max-len
 export type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (k: infer I) => void ? I : never;
 
 // The following type creates the intersections of all the mixins and the base class.
@@ -40,7 +36,6 @@ class MixinBuilder<Base extends Constructor> {
     }
 
     with<Mixins extends Mixin[]>(...mixins: [...Mixins]): ConcatTypes<Base, Mixins> {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         return mixins.reduce((c: any, mixin: Mixin) => mixin(c), this._superclass);
     }
 }

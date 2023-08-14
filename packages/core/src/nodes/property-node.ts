@@ -46,18 +46,18 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         const [getter, setter] = this._getAccessors();
 
         if (getter) {
-            return getter.name?.getText() ?? '';
+            return getter.name.getText() ?? '';
         }
 
         if (setter) {
-            return setter.name?.getText() ?? '';
+            return setter.name.getText() ?? '';
         }
 
         if (ts.isIdentifier(this._node.name)) {
             return this._node.name.escapedText ?? '';
         }
 
-        return this._node.name?.getText() ?? '';
+        return this._node.name.getText() ?? '';
     }
 
     getKind(): MemberKind.Property {

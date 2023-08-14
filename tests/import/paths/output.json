@@ -45,7 +45,7 @@
             {
                 "name": "Bar",
                 "kind": "Class",
-                "line": 7,
+                "line": 5,
                 "heritage": [
                     {
                         "name": "Foo",
@@ -64,7 +64,7 @@
                             "text": "number",
                             "kind": "Intrinsic"
                         },
-                        "line": 8,
+                        "line": 6,
                         "default": 4
                     }
                 ]

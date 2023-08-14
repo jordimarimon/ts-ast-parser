@@ -37,7 +37,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
             return this._symbol.getName() ?? '';
         }
 
-        return this._node.name?.getText() ?? '';
+        return this._node.name.getText() ?? '';
     }
 
     getTSNode(): ts.ParameterDeclaration {
@@ -72,7 +72,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
             return [];
         }
 
-        const bindings = (this._node.name as ts.ObjectBindingPattern)?.elements ?? [];
+        const bindings = (this._node.name as ts.ObjectBindingPattern).elements ?? [];
         const result: NamedParameterElement[] = [];
 
         for (const binding of bindings) {
@@ -118,10 +118,10 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
 
     private _createNamedParameterBinding(binding: ts.BindingElement): NamedParameterElement {
         const tmpl: NamedParameterElement = {
-            name: binding.name?.getText() || '',
+            name: binding.name.getText() || '',
         };
 
-        tryAddProperty(tmpl, 'default', resolveExpression(binding?.initializer, this._context));
+        tryAddProperty(tmpl, 'default', resolveExpression(binding.initializer, this._context));
 
         return tmpl;
     }

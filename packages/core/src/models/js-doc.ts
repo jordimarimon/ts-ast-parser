@@ -45,7 +45,7 @@ export enum JSDocTagName {
 /**
  * A JSDoc tag reflected object
  */
-export type JSDocTagObjectValue = {
+export interface JSDocTagObjectValue {
     [key: string]: unknown;
     name?: string;
     type?: string;
@@ -53,7 +53,7 @@ export type JSDocTagObjectValue = {
     default?: string;
     optional?: boolean;
     description?: string;
-};
+}
 
 /**
  * The value associated to a JSDoc tag

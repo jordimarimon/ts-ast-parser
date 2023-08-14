@@ -28,9 +28,9 @@ export class NamespaceImportNode implements ReflectedRootNode<Import, ts.ImportD
     }
 
     getName(): string {
-        const identifier = (this._node.importClause?.namedBindings as ts.NamespaceImport)?.name;
+        const identifier = (this._node.importClause?.namedBindings as ts.NamespaceImport).name;
 
-        return identifier?.escapedText ?? '';
+        return identifier.escapedText ?? '';
     }
 
     getNodeType(): RootNodeType {
@@ -42,11 +42,11 @@ export class NamespaceImportNode implements ReflectedRootNode<Import, ts.ImportD
     }
 
     getImportPath(): string {
-        return (this._node.moduleSpecifier as ts.StringLiteral)?.text ?? '';
+        return (this._node.moduleSpecifier as ts.StringLiteral).text ?? '';
     }
 
     getOriginalPath(): string {
-        const identifier = (this._node.importClause?.namedBindings as ts.NamespaceImport)?.name;
+        const identifier = (this._node.importClause?.namedBindings as ts.NamespaceImport).name;
         const importPath = this.getImportPath();
         const compilerOptions = this._context.getSystem().getCommandLine().options;
 

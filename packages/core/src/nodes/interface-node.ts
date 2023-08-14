@@ -92,11 +92,17 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
                 continue;
             }
 
-            const isPropertyMethod = ts.isPropertySignature(decl) && decl.type && ts.isFunctionTypeNode(decl.type);
+            const isPropertyMethod =
+                ts.isPropertySignature(decl) &&
+                decl.type &&
+                ts.isFunctionTypeNode(decl.type);
 
             if (
-                (ts.isPropertySignature(decl) || ts.isGetAccessor(decl) || ts.isSetAccessor(decl)) &&
-                !isPropertyMethod
+                (
+                    ts.isPropertySignature(decl) ||
+                    ts.isGetAccessor(decl) ||
+                    ts.isSetAccessor(decl)
+                ) && !isPropertyMethod
             ) {
                 const reflectedNode = new PropertyNode(decl, member, this._context);
                 result.push(reflectedNode);
@@ -121,7 +127,10 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
                 continue;
             }
 
-            const isPropertyMethod = ts.isPropertySignature(decl) && decl.type && ts.isFunctionTypeNode(decl.type);
+            const isPropertyMethod =
+                ts.isPropertySignature(decl) &&
+                decl.type &&
+                ts.isFunctionTypeNode(decl.type);
 
             if (ts.isMethodSignature(decl) || isPropertyMethod) {
                 const reflectedNode = new FunctionNode(decl, member, this._context);
@@ -137,7 +146,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
     }
 
     getTypeParameters(): TypeParameterNode[] {
-        return this._node.typeParameters?.map(tp => new TypeParameterNode(tp, this._context)) ?? [];
+        return (this._node.typeParameters ?? []).map(tp => new TypeParameterNode(tp, this._context));
     }
 
     getNamespace(): string {

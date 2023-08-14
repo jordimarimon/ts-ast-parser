@@ -7,7 +7,7 @@
             {
                 "name": "TypeFoo",
                 "kind": "TypeAlias",
-                "line": 3,
+                "line": 2,
                 "value": {
                     "text": "{\n        bar: number;\n    }",
                     "kind": "ObjectLiteral",
@@ -19,7 +19,7 @@
                                 "text": "number",
                                 "kind": "Intrinsic"
                             },
-                            "line": 4
+                            "line": 3
                         }
                     ]
                 },
@@ -28,7 +28,7 @@
             {
                 "kind": "Enum",
                 "name": "EnumFoo",
-                "line": 7,
+                "line": 6,
                 "namespace": "Foo",
                 "members": [
                     {
@@ -52,7 +52,7 @@
             {
                 "name": "varFoo",
                 "kind": "Variable",
-                "line": 14,
+                "line": 13,
                 "type": {
                     "text": "number",
                     "kind": "Intrinsic"
@@ -63,7 +63,7 @@
             {
                 "name": "IFoo",
                 "kind": "Interface",
-                "line": 16,
+                "line": 15,
                 "namespace": "Foo",
                 "properties": [
                     {
@@ -73,22 +73,22 @@
                             "text": "number",
                             "kind": "Intrinsic"
                         },
-                        "line": 17
+                        "line": 16
                     }
                 ]
             },
             {
                 "name": "ClassFoo",
                 "kind": "Class",
-                "line": 20,
+                "line": 19,
                 "heritage": [
                     {
                         "name": "IFoo",
+                        "kind": "Interface",
                         "source": {
-                            "line": 16,
+                            "line": 15,
                             "path": "tests/namespace/basic/index.ts"
-                        },
-                        "kind": "Interface"
+                        }
                     }
                 ],
                 "namespace": "Foo",
@@ -100,7 +100,7 @@
                             "text": "number",
                             "kind": "Intrinsic"
                         },
-                        "line": 21,
+                        "line": 20,
                         "default": 3
                     }
                 ]
@@ -116,7 +116,7 @@
                                 "kind": "Intrinsic"
                             }
                         },
-                        "line": 24
+                        "line": 23
                     }
                 ],
                 "namespace": "Foo"

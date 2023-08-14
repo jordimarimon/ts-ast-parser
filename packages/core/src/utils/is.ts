@@ -77,18 +77,18 @@ export type InterfaceOrClassDeclaration = ClassLikeNode | ts.InterfaceDeclaratio
 
 export type NamedNodeName = ts.Identifier | ts.PrivateIdentifier | ts.ComputedPropertyName;
 
-export type SymbolWithLocation = {
+export interface SymbolWithLocation {
     path: string;
     line: number | null;
     symbol: ts.Symbol | undefined | null;
-};
+}
 
-export type SymbolWithContext = {
+export interface SymbolWithContext {
     symbol: ts.Symbol | undefined | null;
     type: ts.Type | undefined | null;
     overrides?: boolean;
     inherited?: boolean;
-};
+}
 
 /**
  * A utility object that has a few type predicate functions available to make life easier when

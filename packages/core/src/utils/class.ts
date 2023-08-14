@@ -17,7 +17,7 @@ export function isClassDeclaration(node: ts.Node): node is ts.ClassDeclaration |
         return false;
     }
 
-    const declaration = node.declarationList?.declarations?.[0];
+    const declaration = node.declarationList.declarations[0];
 
     if (!declaration) {
         return false;

@@ -42,7 +42,7 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
     }
 
     getName(): string {
-        return this._node.name?.getText() ?? '';
+        return this._node.name.getText() ?? '';
     }
 
     getLine(): number {
@@ -50,7 +50,11 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
     }
 
     getNamespace(): string {
-        return (this._node.parent?.parent as ts.ModuleDeclaration)?.name?.getText() ?? '';
+        if (!this._node.parent) {
+            return '';
+        }
+
+        return (this._node.parent.parent as ts.ModuleDeclaration | undefined)?.name.getText() ?? '';
     }
 
     getJSDoc(): JSDocNode {

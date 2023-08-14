@@ -18,7 +18,7 @@ export class JSDocValueNode {
             return '';
         }
 
-        return this._jsDocTagValue?.description ?? '';
+        return this._jsDocTagValue.description ?? '';
     }
 
     getName(): string {
@@ -26,7 +26,7 @@ export class JSDocValueNode {
             return '';
         }
 
-        return this._jsDocTagValue?.name ?? '';
+        return this._jsDocTagValue.name ?? '';
     }
 
     getValue<T>(): T | undefined {
@@ -34,7 +34,7 @@ export class JSDocValueNode {
             return this._jsDocTagValue as T;
         }
 
-        return this._jsDocTagValue?.['value'] as T;
+        return this._jsDocTagValue.value as T;
     }
 
     getType(): string {
@@ -50,7 +50,7 @@ export class JSDocValueNode {
             return '';
         }
 
-        return this._jsDocTagValue?.default ?? '';
+        return this._jsDocTagValue.default ?? '';
     }
 
     isOptional(): boolean {
@@ -58,7 +58,7 @@ export class JSDocValueNode {
             return false;
         }
 
-        return !!this._jsDocTagValue?.optional;
+        return !!this._jsDocTagValue.optional;
     }
 
     serialize(): JSDocTagValue {

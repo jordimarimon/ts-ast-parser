@@ -116,7 +116,7 @@ export class AnalyserContext {
         }
 
         if (!symbol) {
-            symbol = (node as unknown as { symbol: ts.Symbol | undefined })['symbol'];
+            symbol = (node as unknown as { symbol: ts.Symbol | undefined }).symbol;
         }
 
         return symbol ?? null;
@@ -141,7 +141,7 @@ export class AnalyserContext {
 
         const decl = symbol?.getDeclarations()?.[0];
         const sourceFile = decl?.getSourceFile();
-        const path = this._system.normalizePath(sourceFile?.fileName) ?? '';
+        const path = this._system.normalizePath(sourceFile?.fileName);
         const line = decl ? this.getLinePosition(decl) : null;
 
         return { symbol, path, line };

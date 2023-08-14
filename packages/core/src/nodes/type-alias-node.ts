@@ -44,7 +44,7 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
     }
 
     getName(): string {
-        return this._node.name?.getText() ?? '';
+        return this._node.name.getText() ?? '';
     }
 
     getLine(): number {

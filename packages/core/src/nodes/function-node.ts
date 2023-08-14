@@ -48,7 +48,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
             ts.isPropertyDeclaration(this._node) ||
             ts.isPropertySignature(this._node)
         ) {
-            return this._node.name?.getText() || '';
+            return this._node.name?.getText() ?? '';
         }
 
         if (ts.isVariableStatement(this._node)) {
@@ -56,7 +56,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
                 return isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer);
             });
 
-            return declaration?.name?.getText() || '';
+            return declaration?.name.getText() ?? '';
         }
 
         return '';

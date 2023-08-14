@@ -85,7 +85,7 @@ export function matchesTsConfigPath(importPath: string, compilerOptions: ts.Comp
  * @returns True if the declaration is a default import
  */
 export function isDefaultImport(node: ts.ImportDeclaration): boolean {
-    return !!node?.importClause?.name;
+    return !!node.importClause?.name;
 }
 
 /**
@@ -100,13 +100,13 @@ export function isDefaultImport(node: ts.ImportDeclaration): boolean {
  * @returns True if the declaration is a named import
  */
 export function isNamedImport(node: ts.ImportDeclaration): boolean {
-    const namedImports = node?.importClause?.namedBindings;
+    const namedImports = node.importClause?.namedBindings;
 
     if (!namedImports || !ts.isNamedImports(namedImports)) {
         return false;
     }
 
-    return isNotEmptyArray(namedImports?.elements);
+    return isNotEmptyArray(namedImports.elements);
 }
 
 /**
@@ -121,13 +121,13 @@ export function isNamedImport(node: ts.ImportDeclaration): boolean {
  * @returns True if the declaration is a namespace import
  */
 export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
-    const namespaceImports = node?.importClause?.namedBindings;
+    const namespaceImports = node.importClause?.namedBindings;
 
     if (!namespaceImports || !ts.isNamespaceImport(namespaceImports)) {
         return false;
     }
 
-    return !!namespaceImports?.name && !isNamedImport(node);
+    return !!namespaceImports.name && !isNamedImport(node);
 }
 
 /**

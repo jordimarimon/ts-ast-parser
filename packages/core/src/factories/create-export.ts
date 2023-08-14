@@ -56,7 +56,7 @@ export const exportStatementFactory: NodeFactory<Export, ExportStatementNode, ts
     create: (node: ts.ExportDeclaration, context: AnalyserContext): ExportStatementNode[] => {
         const isNamed = node.exportClause && ts.isNamedExports(node.exportClause);
         const isNamespaced = node.exportClause && ts.isNamespaceExport(node.exportClause);
-        const isReexport = node?.moduleSpecifier !== undefined;
+        const isReexport = node.moduleSpecifier !== undefined;
         const result: (NamedExportNode | NamespaceExportNode | ReExportNode)[] = [];
 
         if (isNamed) {

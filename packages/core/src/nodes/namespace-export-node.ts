@@ -24,7 +24,7 @@ export class NamespaceExportNode implements ReflectedRootNode<Export, ts.ExportD
             return '';
         }
 
-        return this._node.exportClause.name?.escapedText ?? '';
+        return this._node.exportClause.name.escapedText ?? '';
     }
 
     getOriginalName(): string {

@@ -5,11 +5,11 @@ import * as path from 'path';
 import * as fs from 'fs';
 
 
-type TestOptions = {
+interface TestOptions {
     category: string;
     subcategory?: string;
     analyzerOptions?: Partial<AnalyserOptions>;
-};
+}
 
 const basedDir = path.join(process.cwd(), 'tests');
 

@@ -44,8 +44,9 @@ export class UnknownTypeNode implements ReflectedTypeNode {
             [ts.SyntaxKind.IntrinsicKeyword]: 'intrinsic',
         };
 
-        if (this._node && keywordNames[this._node.kind]) {
-            return keywordNames[this._node.kind] as string;
+        const text = this._node && keywordNames[this._node.kind];
+        if (text) {
+            return text;
         }
 
         return this._context.getTypeChecker().typeToString(this._type);

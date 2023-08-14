@@ -86,13 +86,13 @@ export function isInherited(
     checker: ts.TypeChecker,
 ): boolean {
     const type = checker.getTypeAtLocation(interfaceOrClassNode);
-    const baseType = type?.getBaseTypes()?.[0];
+    const baseType = type.getBaseTypes()?.[0];
 
     if (!baseType) {
         return false;
     }
 
-    const parents = baseType.getSymbol()?.getDeclarations()?.slice() || [];
+    const parents = baseType.getSymbol()?.getDeclarations()?.slice() ?? [];
     const constructorDecls = parents.flatMap(parent =>
         ts.isClassDeclaration(parent) ? parent.members.filter(ts.isConstructorDeclaration) : [],
     );

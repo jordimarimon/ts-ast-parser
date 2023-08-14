@@ -9,7 +9,7 @@ const actual = await parseFromSource('const foo = true;export { foo };');
 
 describe(category, () => {
     test('should reflect the expected modules', ({ update }) => {
-        const result = actual?.result?.serialize() ?? ({} as Module);
+        const result = actual.result?.serialize() ?? ({} as Module);
 
         if (update) {
             updateExpectedOutput(result, category);
