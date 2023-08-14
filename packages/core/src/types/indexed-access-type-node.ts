@@ -1,9 +1,13 @@
 import type { ReflectedTypeNode } from '../reflected-node.js';
 import type { AnalyserContext } from '../analyser-context.js';
+import type { SourceReference } from '../models/reference.js';
+import { tryAddProperty } from '../utils/try-add-property.js';
 import { createType } from '../factories/create-type.js';
+import type { SymbolWithLocation } from '../utils/is.js';
+import { isThirdParty } from '../utils/import.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
-import type ts from 'typescript';
+import ts from 'typescript';
 
 
 export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccessTypeNode> {
@@ -14,10 +18,16 @@ export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccess
 
     private readonly _context: AnalyserContext;
 
+    private readonly _loc: SymbolWithLocation | null = null;
+
     constructor(node: ts.IndexedAccessTypeNode, type: ts.Type, context: AnalyserContext) {
         this._node = node;
         this._type = type;
         this._context = context;
+
+        if (ts.isTypeReferenceNode(node.objectType)) {
+            this._loc = context.getLocation(node.objectType.typeName);
+        }
     }
 
     getContext(): AnalyserContext {
@@ -40,6 +50,14 @@ export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccess
         return `${this.getObjectType().getText()}[${this.getIndexType().getText()}]`;
     }
 
+    getPath(): string {
+        return this._loc?.path ?? '';
+    }
+
+    getLine(): number | null {
+        return this._loc?.line ?? null;
+    }
+
     getObjectType(): ReflectedTypeNode {
         return createType(this._node.objectType, this._context);
     }
@@ -49,9 +67,22 @@ export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccess
     }
 
     serialize(): Type {
-        return {
+        const tmpl: Type = {
             text: this.getText(),
             kind: this.getKind(),
         };
+
+        const sourceRef: SourceReference = {};
+        const path = this.getPath();
+        const line = this.getLine();
+
+        if (line != null && !isThirdParty(path)) {
+            sourceRef.line = line;
+            sourceRef.path = path;
+        }
+
+        tryAddProperty(tmpl, 'source', sourceRef);
+
+        return tmpl;
     }
 }

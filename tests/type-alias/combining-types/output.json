@@ -1,0 +1,451 @@
+[
+    {
+        "sourcePath": "tests/type-alias/combining-types/index.ts",
+        "outputPath": "tests/type-alias/combining-types/index.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "ArrayType",
+                "kind": "TypeAlias",
+                "line": 1,
+                "value": {
+                    "text": "string[]",
+                    "kind": "Array",
+                    "elementType": {
+                        "text": "string",
+                        "kind": "Intrinsic"
+                    }
+                }
+            },
+            {
+                "name": "ConditionalType",
+                "kind": "TypeAlias",
+                "line": 2,
+                "value": {
+                    "text": "T extends boolean ? 1 : 0",
+                    "kind": "Conditional"
+                },
+                "typeParameters": [
+                    {
+                        "name": "T"
+                    }
+                ]
+            },
+            {
+                "name": "IndexedAccessType",
+                "kind": "TypeAlias",
+                "line": 3,
+                "value": {
+                    "text": "ArrayType[number]",
+                    "kind": "IndexAccess",
+                    "source": {
+                        "line": 1,
+                        "path": "tests/type-alias/combining-types/index.ts"
+                    }
+                }
+            },
+            {
+                "name": "ObjectLiteralType",
+                "kind": "TypeAlias",
+                "line": 4,
+                "value": {
+                    "text": "{ age: number; name: string; alive: boolean }",
+                    "kind": "ObjectLiteral",
+                    "properties": [
+                        {
+                            "name": "age",
+                            "kind": "Property",
+                            "type": {
+                                "text": "number",
+                                "kind": "Intrinsic"
+                            },
+                            "line": 4
+                        },
+                        {
+                            "name": "name",
+                            "kind": "Property",
+                            "type": {
+                                "text": "string",
+                                "kind": "Intrinsic"
+                            },
+                            "line": 4
+                        },
+                        {
+                            "name": "alive",
+                            "kind": "Property",
+                            "type": {
+                                "text": "boolean",
+                                "kind": "Intrinsic"
+                            },
+                            "line": 4
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "IndexedAccessType2",
+                "kind": "TypeAlias",
+                "line": 5,
+                "value": {
+                    "text": "ObjectLiteralType[\"age\"]",
+                    "kind": "IndexAccess",
+                    "source": {
+                        "line": 4,
+                        "path": "tests/type-alias/combining-types/index.ts"
+                    }
+                }
+            },
+            {
+                "name": "InferredType",
+                "kind": "TypeAlias",
+                "line": 6,
+                "value": {
+                    "text": "Promise<string> extends Promise<infer U> ? U : never",
+                    "kind": "Conditional"
+                }
+            },
+            {
+                "name": "IntrinsicType",
+                "kind": "TypeAlias",
+                "line": 7,
+                "value": {
+                    "text": "string",
+                    "kind": "Intrinsic"
+                }
+            },
+            {
+                "name": "IntersectionType",
+                "kind": "TypeAlias",
+                "line": 8,
+                "value": {
+                    "text": "IntrinsicType & number",
+                    "kind": "Intersection",
+                    "elements": [
+                        {
+                            "text": "string",
+                            "kind": "Reference",
+                            "source": {
+                                "line": 7,
+                                "path": "tests/type-alias/combining-types/index.ts"
+                            }
+                        },
+                        {
+                            "text": "number",
+                            "kind": "Intrinsic"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "UnionType",
+                "kind": "TypeAlias",
+                "line": 9,
+                "value": {
+                    "text": "string | string[]",
+                    "kind": "Union",
+                    "elements": [
+                        {
+                            "text": "string",
+                            "kind": "Intrinsic"
+                        },
+                        {
+                            "text": "string[]",
+                            "kind": "Array",
+                            "elementType": {
+                                "text": "string",
+                                "kind": "Intrinsic"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "LiteralType",
+                "kind": "TypeAlias",
+                "line": 10,
+                "value": {
+                    "text": "0",
+                    "kind": "Literal"
+                }
+            },
+            {
+                "name": "MappedType",
+                "kind": "TypeAlias",
+                "line": 11,
+                "value": {
+                    "text": "MappedType<T>",
+                    "kind": "Mapped"
+                },
+                "typeParameters": [
+                    {
+                        "name": "T"
+                    }
+                ]
+            },
+            {
+                "name": "OptionalType",
+                "kind": "TypeAlias",
+                "line": 12,
+                "value": {
+                    "text": "[1, 2?]",
+                    "kind": "Tuple",
+                    "elements": [
+                        {
+                            "text": "1",
+                            "kind": "Literal"
+                        },
+                        {
+                            "text": "2?",
+                            "kind": "Optional",
+                            "elementType": {
+                                "text": "2",
+                                "kind": "Literal"
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "typePredicateFunction",
+                "kind": "Function",
+                "signatures": [
+                    {
+                        "return": {
+                            "type": {
+                                "text": "void",
+                                "kind": "Intrinsic"
+                            }
+                        },
+                        "line": 13,
+                        "parameters": [
+                            {
+                                "name": "condition",
+                                "type": {
+                                    "text": "boolean",
+                                    "kind": "Intrinsic"
+                                },
+                                "line": 13
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "x",
+                "kind": "Variable",
+                "line": 18,
+                "type": {
+                    "text": "number",
+                    "kind": "Intrinsic"
+                },
+                "default": 1
+            },
+            {
+                "name": "QueryType",
+                "kind": "TypeAlias",
+                "line": 19,
+                "value": {
+                    "text": "1",
+                    "kind": "Query",
+                    "source": {
+                        "line": 18,
+                        "path": "tests/type-alias/combining-types/index.ts"
+                    }
+                }
+            },
+            {
+                "name": "ReferenceType",
+                "kind": "TypeAlias",
+                "line": 20,
+                "value": {
+                    "text": "0",
+                    "kind": "Reference",
+                    "source": {
+                        "line": 2,
+                        "path": "tests/type-alias/combining-types/index.ts"
+                    },
+                    "typeArguments": [
+                        {
+                            "text": "string",
+                            "kind": "Intrinsic"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "RestType",
+                "kind": "TypeAlias",
+                "line": 21,
+                "value": {
+                    "text": "[1, ...2[]]",
+                    "kind": "Tuple",
+                    "elements": [
+                        {
+                            "text": "1",
+                            "kind": "Literal"
+                        },
+                        {
+                            "text": "...2[]",
+                            "kind": "Rest",
+                            "elementType": {
+                                "text": "2[]",
+                                "kind": "Array",
+                                "elementType": {
+                                    "text": "2",
+                                    "kind": "Literal"
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "TemplateLiteralType",
+                "kind": "TypeAlias",
+                "line": 22,
+                "value": {
+                    "text": "\"aa\" | \"ab\" | \"ba\" | \"bb\"",
+                    "kind": "TemplateLiteral"
+                }
+            },
+            {
+                "name": "TupleType",
+                "kind": "TypeAlias",
+                "line": 23,
+                "value": {
+                    "text": "[string, boolean]",
+                    "kind": "Tuple",
+                    "elements": [
+                        {
+                            "text": "string",
+                            "kind": "Intrinsic"
+                        },
+                        {
+                            "text": "boolean",
+                            "kind": "Intrinsic"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "NamedTupleMembers",
+                "kind": "TypeAlias",
+                "line": 24,
+                "value": {
+                    "text": "[name: string]",
+                    "kind": "Tuple",
+                    "elements": [
+                        {
+                            "name": "name",
+                            "text": "string",
+                            "kind": "Intrinsic"
+                        }
+                    ]
+                }
+            },
+            {
+                "name": "TypeOperator",
+                "kind": "TypeAlias",
+                "line": 25,
+                "value": {
+                    "text": "readonly number[]",
+                    "kind": "Operator",
+                    "elementType": {
+                        "text": "number[]",
+                        "kind": "Array",
+                        "elementType": {
+                            "text": "number",
+                            "kind": "Intrinsic"
+                        }
+                    }
+                }
+            }
+        ],
+        "exports": [
+            {
+                "name": "ArrayType",
+                "kind": "Named"
+            },
+            {
+                "name": "ConditionalType",
+                "kind": "Named"
+            },
+            {
+                "name": "IndexedAccessType",
+                "kind": "Named"
+            },
+            {
+                "name": "ObjectLiteralType",
+                "kind": "Named"
+            },
+            {
+                "name": "IndexedAccessType2",
+                "kind": "Named"
+            },
+            {
+                "name": "InferredType",
+                "kind": "Named"
+            },
+            {
+                "name": "IntrinsicType",
+                "kind": "Named"
+            },
+            {
+                "name": "IntersectionType",
+                "kind": "Named"
+            },
+            {
+                "name": "UnionType",
+                "kind": "Named"
+            },
+            {
+                "name": "LiteralType",
+                "kind": "Named"
+            },
+            {
+                "name": "MappedType",
+                "kind": "Named"
+            },
+            {
+                "name": "OptionalType",
+                "kind": "Named"
+            },
+            {
+                "name": "typePredicateFunction",
+                "kind": "Named"
+            },
+            {
+                "name": "x",
+                "kind": "Named"
+            },
+            {
+                "name": "QueryType",
+                "kind": "Named"
+            },
+            {
+                "name": "ReferenceType",
+                "kind": "Named"
+            },
+            {
+                "name": "RestType",
+                "kind": "Named"
+            },
+            {
+                "name": "TemplateLiteralType",
+                "kind": "Named"
+            },
+            {
+                "name": "TupleType",
+                "kind": "Named"
+            },
+            {
+                "name": "NamedTupleMembers",
+                "kind": "Named"
+            },
+            {
+                "name": "TypeOperator",
+                "kind": "Named"
+            }
+        ]
+    }
+]

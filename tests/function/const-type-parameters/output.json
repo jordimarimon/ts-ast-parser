@@ -82,7 +82,11 @@
                         "return": {
                             "type": {
                                 "text": "T[\"names\"]",
-                                "kind": "IndexAccess"
+                                "kind": "IndexAccess",
+                                "source": {
+                                    "line": 7,
+                                    "path": "tests/function/const-type-parameters/index.ts"
+                                }
                             }
                         },
                         "line": 7,
