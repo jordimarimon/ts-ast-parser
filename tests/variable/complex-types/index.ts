@@ -15,3 +15,11 @@ export const bar: TypeX = { x: 4, y: 4 };
 export const bar2: TypeX & TypeY = { x: 3 };
 export const foo2: TypeX[] = [];
 export const foo3: TypeArray = [];
+
+/**
+ * This variable declaration is of type number, but we override
+ * the type using JSDoc
+ *
+ * @type string
+ */
+export const x = 4;

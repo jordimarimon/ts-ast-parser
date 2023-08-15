@@ -19,12 +19,12 @@ export interface NodeSystemOptions {
     /**
      * If, true, an in-memory file system will be used
      */
-    vfs?: boolean;
+    vfs: boolean;
 
     /**
      * The initial files to add in the in-memory file system
      */
-    fsMap?: Map<string, string>;
+    fsMap: Map<string, string>;
 }
 
 /**
@@ -32,18 +32,22 @@ export interface NodeSystemOptions {
  */
 export class NodeSystem implements AnalyserSystem {
 
-    private readonly _host: ts.CompilerHost;
+    private _commandLine: ts.ParsedCommandLine;
 
-    private readonly _commandLine: ts.ParsedCommandLine;
+    private readonly _host: ts.CompilerHost;
 
     private readonly _sys: ts.System;
 
-    constructor(options: NodeSystemOptions) {
-        const { analyserOptions, vfs, fsMap } = options;
+    private readonly _options: Partial<NodeSystemOptions> = {};
 
-        if (vfs) {
-            this._sys = tsvfs.createSystem(fsMap ?? new Map<string, string>());
-            this._commandLine = this._createCommandLine(analyserOptions, options);
+    private readonly _updateFile: ((sourceFile: ts.SourceFile) => void) | null = null;
+
+    constructor(options: Partial<NodeSystemOptions> = {}) {
+        this._options = options;
+
+        if (options.vfs) {
+            this._sys = tsvfs.createSystem(options.fsMap ?? new Map<string, string>());
+            this._commandLine = this._createCommandLine();
 
             // @see https://github.com/microsoft/TypeScript-Website/issues/2801
             // @see https://github.com/microsoft/TypeScript-Website/pull/2802
@@ -55,10 +59,12 @@ export class NodeSystem implements AnalyserSystem {
                 this._sys.writeFile(`/${name}`, fs.readFileSync(path.join(tsLibDirectory, name), 'utf-8'));
             });
 
-            this._host = tsvfs.createVirtualCompilerHost(this._sys, this._commandLine.options, ts).compilerHost;
+            const virtualCompilerHost = tsvfs.createVirtualCompilerHost(this._sys, this._commandLine.options, ts);
+            this._host = virtualCompilerHost.compilerHost;
+            this._updateFile = virtualCompilerHost.updateFile;
         } else {
             this._sys = ts.sys;
-            this._commandLine = this._createCommandLine(analyserOptions, options);
+            this._commandLine = this._createCommandLine();
             this._host = ts.createCompilerHost(this._commandLine.options, true);
         }
     }
@@ -88,7 +94,24 @@ export class NodeSystem implements AnalyserSystem {
     }
 
     writeFile(filePath: string, data: string): void {
-        this._host.writeFile(filePath, data, false);
+        const fileExists = this._host.fileExists(filePath);
+
+        if (this._options.vfs && fileExists) {
+            const target = this._commandLine.options.target ?? ts.ScriptTarget.ES2022;
+            const oldSourceFile = this._host.getSourceFile(filePath, target) as ts.SourceFile;
+            const textRangeChange: ts.TextChangeRange = {
+                span: {start: 0, length: oldSourceFile.text.length},
+                newLength: data.length,
+            };
+            const newSourceFile = oldSourceFile.update(data, textRangeChange);
+            this._updateFile?.(newSourceFile);
+        } else {
+            this._host.writeFile(filePath, data, false);
+        }
+
+        if (!fileExists) {
+            this._commandLine = this._createCommandLine();
+        }
     }
 
     normalizePath(filePath: string | undefined): string {
@@ -100,10 +123,11 @@ export class NodeSystem implements AnalyserSystem {
     }
 
     // eslint-disable-next-line sonarjs/cognitive-complexity
-    private _createCommandLine(options: Partial<AnalyserOptions>, systemOpts: NodeSystemOptions): ts.ParsedCommandLine {
-        const { compilerOptions, jsProject, include, exclude } = options;
+    private _createCommandLine(): ts.ParsedCommandLine {
+        const {analyserOptions = {}, vfs} = this._options;
+        const {compilerOptions, jsProject, include, exclude} = analyserOptions;
         const defaultExclude = ['**node_modules**'];
-        const basePath = systemOpts.vfs ? '/' : process.cwd();
+        const basePath = vfs ? '/' : process.cwd();
 
         // If it's a JS project, we currently don't allow the user to
         // customize the compiler options
@@ -135,7 +159,7 @@ export class NodeSystem implements AnalyserSystem {
 
         // If user doesn't provide the compiler options, we will resolve them by
         // searching for a TSConfig file
-        const commandLine = this._parseTSConfigFile(options, systemOpts);
+        const commandLine = this._parseTSConfigFile();
 
         if (commandLine) {
             return commandLine;
@@ -152,11 +176,9 @@ export class NodeSystem implements AnalyserSystem {
         );
     }
 
-    private _parseTSConfigFile(
-        options: Partial<AnalyserOptions>,
-        systemOpts: NodeSystemOptions,
-    ): ts.ParsedCommandLine | null {
-        const { tsConfigFilePath, include, exclude } = options;
+    private _parseTSConfigFile(): ts.ParsedCommandLine | null {
+        const {analyserOptions = {}, vfs} = this._options;
+        const {tsConfigFilePath, include, exclude} = analyserOptions;
         const fileExists = (filePath: string): boolean => ts.sys.fileExists(filePath);
         const readFile = (filePath: string): string | undefined => ts.sys.readFile(filePath);
         const basePath = tsConfigFilePath
@@ -185,9 +207,9 @@ export class NodeSystem implements AnalyserSystem {
         return ts.parseJsonConfigFileContent(
             configFile.config,
             this._sys,
-            systemOpts.vfs ? '/' : path.dirname(configFileName),
+            vfs ? '/' : path.dirname(configFileName),
             {},
-            systemOpts.vfs ? undefined : configFileName,
+            vfs ? undefined : configFileName,
         );
     }
 }

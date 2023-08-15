@@ -12,15 +12,15 @@ import ts from 'typescript';
 
 export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
-    private readonly _node: ts.SourceFile;
+    private _node: ts.SourceFile;
 
-    private readonly _imports: ImportNode[] = [];
+    private _imports: ImportNode[] = [];
 
-    private readonly _context: AnalyserContext;
-
-    private readonly _exports: ExportNode[] = [];
+    private _exports: ExportNode[] = [];
 
     private _declarations: DeclarationNode[] = [];
+
+    private readonly _context: AnalyserContext;
 
     constructor(node: ts.SourceFile, context: AnalyserContext) {
         this._node = node;
@@ -102,6 +102,22 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         return this.getDeclarations().filter(decl => {
             return decl.getJSDoc()?.getTag(JSDocTagName.category)?.getValue<string>() === category;
         });
+    }
+
+    update(text: string): void {
+        const newSourceFile = this._context.upsertFile(this._node.fileName, text);
+
+        if (!newSourceFile) {
+            return;
+        }
+
+        this._node = newSourceFile;
+        this._imports = [];
+        this._exports = [];
+        this._declarations = [];
+
+        this._visitNode(newSourceFile);
+        this._removeNonPublicDeclarations();
     }
 
     serialize(): Module {

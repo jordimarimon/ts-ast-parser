@@ -99,7 +99,7 @@ export interface BrowserSystemOptions {
     /**
      * The initial files to add in the in-memory file system
      */
-    fsMap?: Map<string, string>;
+    fsMap: Map<string, string>;
 }
 
 /**
@@ -107,19 +107,27 @@ export interface BrowserSystemOptions {
  */
 export class BrowserSystem implements AnalyserSystem {
 
-    private readonly _sys: ts.System;
+    private _commandLine: ts.ParsedCommandLine;
 
-    private readonly _commandLine: ts.ParsedCommandLine;
+    private readonly _sys: ts.System;
 
     private readonly _host: ts.CompilerHost;
 
-    private constructor(options: BrowserSystemOptions) {
-        this._sys = tsvfs.createSystem(options.fsMap ?? new Map<string, string>());
-        this._commandLine = this._createCommandLine(options.analyserOptions);
-        this._host = tsvfs.createVirtualCompilerHost(this._sys, this._commandLine.options, ts).compilerHost;
+    private readonly _options: Partial<BrowserSystemOptions> = {};
+
+    private readonly _updateFile: (sourceFile: ts.SourceFile) => void;
+
+    private constructor(options: Partial<BrowserSystemOptions> = {}) {
+        this._options = options;
+        this._sys = tsvfs.createSystem(options?.fsMap ?? new Map<string, string>());
+        this._commandLine = this._createCommandLine();
+
+        const virtualCompilerHost = tsvfs.createVirtualCompilerHost(this._sys, this._commandLine.options, ts);
+        this._host = virtualCompilerHost.compilerHost;
+        this._updateFile = virtualCompilerHost.updateFile;
     }
 
-    static async create(options: BrowserSystemOptions): Promise<BrowserSystem> {
+    static async create(options: Partial<BrowserSystemOptions> = {}): Promise<BrowserSystem> {
         const system = new BrowserSystem(options);
         await system._createDefaultMapFromCDN(ts.version);
         return system;
@@ -150,11 +158,25 @@ export class BrowserSystem implements AnalyserSystem {
     }
 
     writeFile(path: string, data: string): void {
-        this._host.writeFile(path, data, false);
+        if (!this._host.fileExists(path)) {
+            this._host.writeFile(path, data, false);
+            this._commandLine = this._createCommandLine();
+            return;
+        }
+
+        const target = this._commandLine.options.target ?? ts.ScriptTarget.ES2022;
+        const oldSourceFile = this._host.getSourceFile(path, target) as ts.SourceFile;
+        const textRangeChange: ts.TextChangeRange = {
+            span: {start: 0, length: oldSourceFile.text.length},
+            newLength: data.length,
+        };
+
+        const newSourceFile = oldSourceFile.update(data, textRangeChange);
+        this._updateFile(newSourceFile);
     }
 
     normalizePath(path: string | undefined): string {
-        return path ?? '';
+        return (path ?? '').slice(1);
     }
 
     getAbsolutePath(path: string | undefined): string {
@@ -178,8 +200,8 @@ export class BrowserSystem implements AnalyserSystem {
         return Promise.all(promises);
     }
 
-    private _createCommandLine(options: Partial<AnalyserOptions>): ts.ParsedCommandLine {
-        const { compilerOptions, jsProject, include, exclude } = options;
+    private _createCommandLine(): ts.ParsedCommandLine {
+        const { compilerOptions, jsProject, include, exclude } = this._options.analyserOptions ?? {};
 
         return ts.parseJsonConfigFileContent(
             {

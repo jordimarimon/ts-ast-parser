@@ -1,0 +1,67 @@
+{
+    "sourcePath": "unknown.ts",
+    "outputPath": "unknown.js",
+    "imports": [],
+    "declarations": [
+        {
+            "name": "Point",
+            "kind": "Class",
+            "line": 1,
+            "properties": [
+                {
+                    "name": "x",
+                    "kind": "Property",
+                    "type": {
+                        "text": "number",
+                        "kind": "Intrinsic"
+                    },
+                    "line": 2,
+                    "default": 10
+                },
+                {
+                    "name": "y",
+                    "kind": "Property",
+                    "type": {
+                        "text": "number",
+                        "kind": "Intrinsic"
+                    },
+                    "line": 3,
+                    "default": 10
+                }
+            ],
+            "methods": [
+                {
+                    "name": "scale",
+                    "kind": "Method",
+                    "signatures": [
+                        {
+                            "return": {
+                                "type": {
+                                    "text": "void",
+                                    "kind": "Intrinsic"
+                                }
+                            },
+                            "line": 5,
+                            "parameters": [
+                                {
+                                    "name": "n",
+                                    "type": {
+                                        "text": "number",
+                                        "kind": "Intrinsic"
+                                    },
+                                    "line": 5
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "exports": [
+        {
+            "name": "Point",
+            "kind": "Named"
+        }
+    ]
+}

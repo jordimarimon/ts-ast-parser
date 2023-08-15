@@ -173,6 +173,26 @@
                     }
                 },
                 "default": "[]"
+            },
+            {
+                "name": "x",
+                "kind": "Variable",
+                "line": 25,
+                "type": {
+                    "text": "string",
+                    "kind": "Intrinsic"
+                },
+                "default": 4,
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "value": "This variable declaration is of type number, but we override\nthe type using JSDoc"
+                    },
+                    {
+                        "kind": "type",
+                        "value": "string"
+                    }
+                ]
             }
         ],
         "exports": [
@@ -210,6 +230,10 @@
             },
             {
                 "name": "foo3",
+                "kind": "Named"
+            },
+            {
+                "name": "x",
                 "kind": "Named"
             }
         ]

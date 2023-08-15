@@ -33,8 +33,8 @@ export async function getTestResult(options: TestOptions): Promise<{ actual: Mod
     };
 }
 
-export function readExpectedOutput(category: string, subcategory = ''): Module[] {
-    const expectedOutputPath = path.join(basedDir, category, subcategory, 'output.json');
+export function readExpectedOutput(category: string, subcategory = '', file = 'output.json'): Module[] {
+    const expectedOutputPath = path.join(basedDir, category, subcategory, file);
 
     if (!fs.existsSync(expectedOutputPath)) {
         return [];
@@ -47,6 +47,11 @@ export function readExpectedOutput(category: string, subcategory = ''): Module[]
     }
 }
 
-export function updateExpectedOutput(content: Module | Module[], category: string, subcategory = ''): void {
-    fs.writeFileSync(path.join(basedDir, category, subcategory, 'output.json'), JSON.stringify(content, null, 4));
+export function updateExpectedOutput(
+    content: Module | Module[],
+    category: string,
+    subcategory = '',
+    file = 'output.json',
+): void {
+    fs.writeFileSync(path.join(basedDir, category, subcategory, file), JSON.stringify(content, null, 4));
 }

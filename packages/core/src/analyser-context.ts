@@ -13,7 +13,7 @@ export const isBrowser = typeof document === 'object' && !!document;
 
 export class AnalyserContext {
 
-    private readonly _program: ts.Program;
+    private _program: ts.Program;
 
     private readonly _options: Partial<AnalyserOptions>;
 
@@ -71,6 +71,28 @@ export class AnalyserContext {
      */
     getOptions(): Partial<AnalyserOptions> {
         return this._options;
+    }
+
+    /**
+     * Adds a new file or updates the contents of an existing file
+     *
+     * @param fileName - The path where the file is located
+     * @param data - The new content
+     *
+     * @returns The SourceFile node associated with the file
+     */
+    upsertFile(fileName: string, data: string): ts.SourceFile | undefined {
+        this._system.writeFile(fileName, data);
+
+        this._program = ts.createProgram({
+            rootNames: this._system.getCommandLine().fileNames,
+            options: this._program.getCompilerOptions(),
+            host: this._system.getCompilerHost(),
+            oldProgram: this._program,
+            projectReferences: this._program.getProjectReferences() ?? [],
+        });
+
+        return this._program.getSourceFile(fileName);
     }
 
     /**
