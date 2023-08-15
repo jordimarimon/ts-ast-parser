@@ -31,7 +31,7 @@ export class ProjectNode {
         return this._modules.some(m => m.getSourcePath() === normalizedPath);
     }
 
-    add(filePath: string, content: string): void {
+    add(filePath: string, content: string): ModuleNode {
         const normalizedPath = this._context.getSystem().normalizePath(filePath);
         const module = this._modules.find(m => m.getSourcePath() === normalizedPath);
 
@@ -40,11 +40,14 @@ export class ProjectNode {
         }
 
         const newSourceFile = this._context.upsertFile(normalizedPath, content);
+        const newModuleNode = new ModuleNode(newSourceFile, this._context);
 
-        this._modules.push(new ModuleNode(newSourceFile, this._context));
+        this._modules.push(newModuleNode);
+
+        return newModuleNode;
     }
 
-    update(filePath: string, content: string): void {
+    update(filePath: string, content: string): ModuleNode {
         const normalizedPath = this._context.getSystem().normalizePath(filePath);
         const absolutePath = this._context.getSystem().getAbsolutePath(normalizedPath);
         const moduleIdx = this._modules.findIndex(m => m.getSourcePath() === normalizedPath);
@@ -53,12 +56,15 @@ export class ProjectNode {
             throw new Error('The file doesn\'t exist');
         }
 
-        const newSourceFile = this._context.upsertFile(absolutePath, content);
-
         // FIXME(Jordi M.): In case of updating an existing file, we should
         //  update also all the source files that depend on it
 
-        this._modules.splice(moduleIdx, 1, new ModuleNode(newSourceFile, this._context));
+        const newSourceFile = this._context.upsertFile(absolutePath, content);
+        const newModuleNode = new ModuleNode(newSourceFile, this._context);
+
+        this._modules.splice(moduleIdx, 1, newModuleNode);
+
+        return newModuleNode;
     }
 
     getName(): string {

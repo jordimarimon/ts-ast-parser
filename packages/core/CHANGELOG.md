@@ -2,7 +2,7 @@
 
 ### Bug Fixes
 
-- Use `/` as the base path when parsing the command line options in a browser environment
+- Use `/` as the base path when parsing the command line options in an in-memory file system
 - Add missing exports
 
 ### Features
@@ -10,7 +10,20 @@
 - The reflected information about the constraint in a type parameter has been improved
 - The information that gets reflected about types has been improved
 - The type arguments in the types inside a heritage clause are reflected
-- Added in `AnalyserResult` the errors formatted in case it's needed to show them in a UI
+- The `AnalyserResult` contains also the errors formatted in case it's needed to show them in a UI
+- You can add new files in a project after the analysis (using the `ProjectNode` API)
+- You can update the entire contents of an existing file after the analysis (using the `ProjectNode` API)
+
+### 🚨 Breaking Changes
+
+- The return type of all the `parseFrom*` functions has been updated. It now returns the following:
+  ```ts
+  interface AnalyserResult {
+    project: ProjectNode | null;
+    errors: AnalyserError[];
+    formattedDiagnostics?: string;
+  }
+  ```
 
 # 0.4.0 (2023-08-11)
 
