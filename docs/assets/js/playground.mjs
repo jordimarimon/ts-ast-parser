@@ -38,10 +38,10 @@ const dialogElCloseButton = document.getElementById('dialog-button-close');
 
 const parseCode = async code => {
     try {
-        return (await parseFromSource(code)).result.serialize();
+        return (await parseFromSource(code)).project?.getModules().map(m => m.serialize()) ?? [];
     } catch (error) {
         console.error(error);
-        return {};
+        return [];
     }
 };
 
@@ -63,17 +63,17 @@ codeEditor.session.selection.clearSelection();
 
 const parse = async () => {
     const code = codeEditor.getValue();
-    const metadata = await parseCode(code);
+    const reflectedModules = await parseCode(code);
 
-    jsonEditor?.set(metadata);
+    jsonEditor?.set(reflectedModules);
 };
 
 const change = async code => {
-    const metadata = await parseCode(code);
+    const reflectedModules = await parseCode(code);
 
     codeEditor.setValue(code);
     codeEditor.session.selection.clearSelection();
-    jsonEditor.set(metadata);
+    jsonEditor.set(reflectedModules);
 };
 
 selectCodeExampleEl?.addEventListener('change', async () => {

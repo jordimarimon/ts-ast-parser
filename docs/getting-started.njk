@@ -54,7 +54,14 @@ pnpm add -D @ts-ast-parser/core
 {% highlight "ts" %}
 import { parseFromProject } from '@ts-ast-parser/core';
 
-const {result, errors} = await parseFromProject(<options>);
+const {project, errors} = await parseFromProject(<options>);
+
+if (errors.length > 0) {
+    // Handle the errors
+    process.exit(1);
+}
+
+const reflectedModules = project?.getModules() ?? [];
 {% endhighlight %}
 
     <p class="text-md mb-4">
@@ -64,7 +71,14 @@ const {result, errors} = await parseFromProject(<options>);
 {% highlight "ts" %}
 import { parseFromFiles } from '@ts-ast-parser/core';
 
-const {result, errors} = await parseFromFiles(['test1.ts', 'test2.ts'], <options>);
+const {project, errors} = await parseFromFiles(['test1.ts', 'test2.ts'], <options>);
+
+if (errors.length > 0) {
+    // Handle the errors
+    process.exit(1);
+}
+
+const reflectedModules = project?.getModules() ?? [];
 {% endhighlight %}
 
     <p class="text-md mb-4">
@@ -74,7 +88,14 @@ const {result, errors} = await parseFromFiles(['test1.ts', 'test2.ts'], <options
 {% highlight "ts" %}
 import { parseFromGlob } from '@ts-ast-parser/core';
 
-const {result, errors} = await parseFromGlob('**/*.ts', <options>);
+const {project, errors} = await parseFromGlob('**/*.ts', <options>);
+
+if (errors.length > 0) {
+    // Handle the errors
+    process.exit(1);
+}
+
+const reflectedModules = project?.getModules() ?? [];
 {% endhighlight %}
 
     <p class="text-md mb-4">
@@ -84,7 +105,14 @@ const {result, errors} = await parseFromGlob('**/*.ts', <options>);
 {% highlight "ts" %}
 import { parseFromSource } from '@ts-ast-parser/core';
 
-const {result, errors} = await parseFromSource('const foo = true;export { foo };', <options>);
+const {project, errors} = await parseFromSource('const foo = true;export { foo };', <options>);
+
+if (errors.length > 0) {
+    // Handle the errors
+    process.exit(1);
+}
+
+const reflectedModules = project?.getModules() ?? [];
 {% endhighlight %}
 
     <p class="text mt-4">

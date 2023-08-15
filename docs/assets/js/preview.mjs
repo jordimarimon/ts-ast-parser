@@ -66,11 +66,11 @@ class Preview extends HTMLElement {
         fetch(`${origin}${pathName}/assets/previews/${src}`)
             .then(response => response.text())
             .then(async code => {
-                const { result } = await parseFromSource(code);
-                return [code, result];
+                const { project } = await parseFromSource(code);
+                return [code, project];
             })
-            .then(([code, reflectedNodes]) => {
-                const serializedNodes = JSON.stringify(reflectedNodes.serialize(), null, 4);
+            .then(([code, project]) => {
+                const serializedNodes = JSON.stringify(project.getModules().map(m => m.serialize()), null, 4);
                 const sourceCode = Prism.highlight(code, Prism.languages.typescript, 'typescript');
                 const json = Prism.highlight(serializedNodes, Prism.languages.json, 'json');
 

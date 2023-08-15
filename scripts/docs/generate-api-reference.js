@@ -5,6 +5,7 @@ import { marked } from 'marked';
 import path from 'path';
 import fs from 'fs';
 
+
 marked.use(markedSmartypants());
 marked.use({
     breaks: false,
@@ -31,7 +32,8 @@ Handlebars.registerHelper('typeWithReference', type => {
 });
 
 // Obtain the reflected modules
-const { result: reflectedModules } = await parseFromGlob('packages/core/src/**/*.ts');
+const {project} = await parseFromGlob('packages/core/src/**/*.ts');
+const reflectedModules = project?.getModules() ?? [];
 
 // Handlebars templates
 const { pathname: cwd } = new URL('../..', import.meta.url);
