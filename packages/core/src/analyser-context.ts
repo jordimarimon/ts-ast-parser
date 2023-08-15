@@ -81,7 +81,7 @@ export class AnalyserContext {
      *
      * @returns The SourceFile node associated with the file
      */
-    upsertFile(fileName: string, data: string): ts.SourceFile | undefined {
+    upsertFile(fileName: string, data: string): ts.SourceFile {
         this._system.writeFile(fileName, data);
 
         this._program = ts.createProgram({
@@ -92,7 +92,7 @@ export class AnalyserContext {
             projectReferences: this._program.getProjectReferences() ?? [],
         });
 
-        return this._program.getSourceFile(fileName);
+        return this._program.getSourceFile(fileName) as ts.SourceFile;
     }
 
     /**

@@ -4,7 +4,7 @@ import type { AnalyserOptions } from './analyser-options.js';
 import { isNotEmptyArray } from './utils/not-empty-array.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type { AnalyserResult } from './analyser-result.js';
-import { ModuleNode } from './nodes/module-node.js';
+import { ProjectNode } from './nodes/project-node.js';
 import ts from 'typescript';
 
 
@@ -20,17 +20,17 @@ import ts from 'typescript';
 export async function parseFromFiles(
     files: readonly string[],
     options: Partial<AnalyserOptions> = {},
-): Promise<AnalyserResult<ModuleNode[]>> {
+): Promise<AnalyserResult> {
     if (!isNotEmptyArray<string[]>(files)) {
         return {
-            result: [],
+            project: null,
             errors: [{messageText: 'Expected an array of files.'}],
         };
     }
 
     if (!options.system && isBrowser) {
         return {
-            result: [],
+            project: null,
             errors: [{messageText: 'You need to supply the AnalyserSystem when working inside the browser.'}],
         };
     }
@@ -54,7 +54,7 @@ export async function parseFromFiles(
     diagnostics.addManyDiagnostics(commandLineErrors);
     if (commandLine.errors.length > 0) {
         return {
-            result: null,
+            project: null,
             errors: diagnostics.getAll(),
             formattedDiagnostics: diagnostics.formatDiagnostics(),
         };
@@ -64,15 +64,13 @@ export async function parseFromFiles(
     diagnostics.addManyDiagnostics(program.getSyntacticDiagnostics());
     if (!options.skipDiagnostics && !diagnostics.isEmpty()) {
         return {
-            result: null,
+            project: null,
             errors: diagnostics.getAll(),
             formattedDiagnostics: diagnostics.formatDiagnostics(),
         };
     }
 
-    const context = new AnalyserContext(system, program, diagnostics, options);
-    const modules: ModuleNode[] = [];
-
+    const sourceFiles: ts.SourceFile[] = [];
     for (const file of files) {
         const sourceFile = program.getSourceFile(file);
 
@@ -81,11 +79,14 @@ export async function parseFromFiles(
             continue;
         }
 
-        modules.push(new ModuleNode(sourceFile, context));
+        sourceFiles.push(sourceFile);
     }
 
+    const context = new AnalyserContext(system, program, diagnostics, options);
+    const project = new ProjectNode(sourceFiles, context);
+
     return {
-        result: modules,
+        project,
         errors: diagnostics.getAll(),
         formattedDiagnostics: diagnostics.formatDiagnostics(),
     };

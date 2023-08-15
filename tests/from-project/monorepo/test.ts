@@ -16,7 +16,7 @@ describe(category, () => {
         test(`should reflect the expected modules of package @test-project/${pkg}`, async ({ update }) => {
             const expected = JSON.parse(fs.readFileSync(path.join(pkgsDir, pkg, 'output.json'), 'utf-8'));
             const actual = await parseFromProject({ tsConfigFilePath: path.join(pkgsDir, pkg, 'tsconfig.json') });
-            const result = actual.result?.getModules().map(m => m.serialize()) ?? [];
+            const result = actual.project?.getModules().map(m => m.serialize()) ?? [];
 
             if (update) {
                 fs.writeFileSync(path.join(pkgsDir, pkg, 'output.json'), JSON.stringify(result, null, 4));
@@ -24,7 +24,7 @@ describe(category, () => {
             }
 
             expect(result).to.deep.equal(expected);
-            expect(actual.result?.getName()).to.equal(`@test-project/${pkg}`);
+            expect(actual.project?.getName()).to.equal(`@test-project/${pkg}`);
         });
     }
 });

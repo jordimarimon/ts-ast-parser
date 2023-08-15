@@ -1,71 +1,73 @@
-{
-    "sourcePath": "unknown.ts",
-    "outputPath": "unknown.js",
-    "imports": [],
-    "declarations": [
-        {
-            "name": "Pingable",
-            "kind": "Interface",
-            "line": 1,
-            "methods": [
-                {
-                    "name": "ping",
-                    "kind": "Method",
-                    "signatures": [
-                        {
-                            "return": {
-                                "type": {
-                                    "text": "void",
-                                    "kind": "Intrinsic"
-                                }
-                            },
-                            "line": 2
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "name": "Sonar",
-            "kind": "Class",
-            "line": 5,
-            "heritage": [
-                {
-                    "name": "Pingable",
-                    "kind": "Interface",
-                    "source": {
-                        "line": 1,
-                        "path": "unknown.ts"
+[
+    {
+        "sourcePath": "unknown.ts",
+        "outputPath": "unknown.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "Pingable",
+                "kind": "Interface",
+                "line": 1,
+                "methods": [
+                    {
+                        "name": "ping",
+                        "kind": "Method",
+                        "signatures": [
+                            {
+                                "return": {
+                                    "type": {
+                                        "text": "void",
+                                        "kind": "Intrinsic"
+                                    }
+                                },
+                                "line": 2
+                            }
+                        ]
                     }
-                }
-            ],
-            "methods": [
-                {
-                    "name": "ping",
-                    "kind": "Method",
-                    "signatures": [
-                        {
-                            "return": {
-                                "type": {
-                                    "text": "void",
-                                    "kind": "Intrinsic"
-                                }
-                            },
-                            "line": 6
+                ]
+            },
+            {
+                "name": "Sonar",
+                "kind": "Class",
+                "line": 5,
+                "heritage": [
+                    {
+                        "name": "Pingable",
+                        "kind": "Interface",
+                        "source": {
+                            "line": 1,
+                            "path": "unknown.ts"
                         }
-                    ]
-                }
-            ]
-        }
-    ],
-    "exports": [
-        {
-            "name": "Pingable",
-            "kind": "Named"
-        },
-        {
-            "name": "Sonar",
-            "kind": "Named"
-        }
-    ]
-}
+                    }
+                ],
+                "methods": [
+                    {
+                        "name": "ping",
+                        "kind": "Method",
+                        "signatures": [
+                            {
+                                "return": {
+                                    "type": {
+                                        "text": "void",
+                                        "kind": "Intrinsic"
+                                    }
+                                },
+                                "line": 6
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "Pingable",
+                "kind": "Named"
+            },
+            {
+                "name": "Sonar",
+                "kind": "Named"
+            }
+        ]
+    }
+]

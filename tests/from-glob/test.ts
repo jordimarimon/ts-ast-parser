@@ -10,7 +10,7 @@ const actual = await parseFromGlob(path.join(process.cwd(), 'tests', category, '
 
 describe(category, () => {
     test('should reflect the expected modules', ({ update }) => {
-        const result = actual.result?.map(m => m.serialize()) ?? [];
+        const result = actual.project?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category);

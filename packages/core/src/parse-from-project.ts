@@ -7,10 +7,10 @@ import { ProjectNode } from './nodes/project-node.js';
 import ts from 'typescript';
 
 
-export async function parseFromProject(options: Partial<AnalyserOptions> = {}): Promise<AnalyserResult<ProjectNode>> {
+export async function parseFromProject(options: Partial<AnalyserOptions> = {}): Promise<AnalyserResult> {
     if (!options.system && isBrowser) {
         return {
-            result: null,
+            project: null,
             errors: [{
                 messageText: 'You need to supply the AnalyserSystem when working inside the browser.',
             }],
@@ -36,7 +36,7 @@ export async function parseFromProject(options: Partial<AnalyserOptions> = {}): 
     diagnostics.addManyDiagnostics(commandLineErrors);
     if (commandLine.errors.length > 0) {
         return {
-            result: null,
+            project: null,
             errors: diagnostics.getAll(),
             formattedDiagnostics: diagnostics.formatDiagnostics(),
         };
@@ -46,7 +46,7 @@ export async function parseFromProject(options: Partial<AnalyserOptions> = {}): 
     diagnostics.addManyDiagnostics(program.getSyntacticDiagnostics());
     if (!options.skipDiagnostics && !diagnostics.isEmpty()) {
         return {
-            result: null,
+            project: null,
             errors: diagnostics.getAll(),
             formattedDiagnostics: diagnostics.formatDiagnostics(),
         };
@@ -68,7 +68,7 @@ export async function parseFromProject(options: Partial<AnalyserOptions> = {}): 
     const project = new ProjectNode(sourceFiles, context);
 
     return {
-        result: project,
+        project,
         errors: diagnostics.getAll(),
         formattedDiagnostics: diagnostics.formatDiagnostics(),
     };

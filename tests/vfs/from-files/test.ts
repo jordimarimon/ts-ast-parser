@@ -22,8 +22,8 @@ describe(category, () => {
         const system = new NodeSystem({vfs: true, analyserOptions: {include: ['/*.ts']}});
         system.writeFile(path1, code1);
 
-        let actual = (await parseFromFiles([path1], {system})).result;
-        let result = actual?.map(m => m.serialize()) ?? [];
+        let actual = (await parseFromFiles([path1], {system})).project;
+        let result = actual?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category, subcategory, 'output1.json');
@@ -32,8 +32,8 @@ describe(category, () => {
         }
 
         system.writeFile(path2, code2);
-        actual = (await parseFromFiles([path1, path2], {system})).result;
-        result = actual?.map(m => m.serialize()) ?? [];
+        actual = (await parseFromFiles([path1, path2], {system})).project;
+        result = actual?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category, subcategory, 'output2.json');
@@ -46,8 +46,8 @@ describe(category, () => {
         const system = await BrowserSystem.create({analyserOptions: {include: ['/*.ts']}});
         system.writeFile(path1, code1);
 
-        let actual = (await parseFromFiles([path1], {system})).result;
-        let result = actual?.map(m => m.serialize()) ?? [];
+        let actual = (await parseFromFiles([path1], {system})).project;
+        let result = actual?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category, subcategory, 'output1.json');
@@ -56,8 +56,8 @@ describe(category, () => {
         }
 
         system.writeFile(path2, code2);
-        actual = (await parseFromFiles([path1, path2], {system})).result;
-        result = actual?.map(m => m.serialize()) ?? [];
+        actual = (await parseFromFiles([path1, path2], {system})).project;
+        result = actual?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category, subcategory, 'output2.json');

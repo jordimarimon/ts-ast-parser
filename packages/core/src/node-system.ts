@@ -119,7 +119,23 @@ export class NodeSystem implements AnalyserSystem {
     }
 
     getAbsolutePath(filePath: string | undefined): string {
-        return filePath ? (path.isAbsolute(filePath) ? filePath : path.resolve(filePath)) : '';
+        if (!filePath) {
+            return '';
+        }
+
+        if (path.isAbsolute(filePath)) {
+            return filePath;
+        }
+
+        return this._options.vfs ? path.join(this.getCurrentDirectory(), filePath) : path.resolve(filePath);
+    }
+
+    getDirName(filePath: string): string {
+        return path.dirname(filePath);
+    }
+
+    join(...segments: string[]): string {
+        return path.join(...segments);
     }
 
     // eslint-disable-next-line sonarjs/cognitive-complexity

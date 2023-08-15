@@ -53,4 +53,14 @@ export interface AnalyserSystem {
      * Returns the absolute path
      */
     getAbsolutePath(path: string | undefined): string;
+
+    /**
+     * Returns the directory name
+     */
+    getDirName(path: string): string;
+
+    /**
+     * Joins the segments using the path separator of the OS/Browser
+     */
+    join(...segments: string[]): string;
 }

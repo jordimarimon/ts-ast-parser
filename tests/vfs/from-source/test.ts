@@ -1,4 +1,4 @@
-import { BrowserSystem, type Module, NodeSystem, parseFromSource } from '@ts-ast-parser/core';
+import { BrowserSystem, NodeSystem, parseFromSource } from '@ts-ast-parser/core';
 import { readExpectedOutput, test, updateExpectedOutput } from '../../utils.js';
 import { describe, expect } from 'vitest';
 import * as path from 'path';
@@ -19,8 +19,8 @@ describe(category, () => {
     test('should allow updating the contents of a file in Node.js', async ({ update }) => {
         const system = new NodeSystem({vfs: true, analyserOptions: {include: ['/*.ts']}});
 
-        let actual = (await parseFromSource(code1, {system})).result;
-        let result = actual?.serialize() ?? ({} as Module);
+        let actual = (await parseFromSource(code1, {system})).project;
+        let result = actual?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category, subcategory, 'output1.json');
@@ -28,8 +28,10 @@ describe(category, () => {
             expect(result).to.deep.equal(expectedOutput1);
         }
 
-        actual?.update(code2);
-        result = actual?.serialize() ?? ({} as Module);
+        const filePath = actual?.getModules()[0]?.getTSNode().fileName ?? '';
+
+        actual?.update(filePath, code2);
+        result = actual?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category, subcategory, 'output2.json');
@@ -41,8 +43,8 @@ describe(category, () => {
     test('should allow updating the contents of a file in a browser', async ({ update }) => {
         const system = await BrowserSystem.create({analyserOptions: {include: ['/*.ts']}});
 
-        let actual = (await parseFromSource(code1, {system})).result;
-        let result = actual?.serialize() ?? ({} as Module);
+        let actual = (await parseFromSource(code1, {system})).project;
+        let result = actual?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category, subcategory, 'output1.json');
@@ -50,8 +52,10 @@ describe(category, () => {
             expect(result).to.deep.equal(expectedOutput1);
         }
 
-        actual?.update(code2);
-        result = actual?.serialize() ?? ({} as Module);
+        const filePath = actual?.getModules()[0]?.getTSNode().fileName ?? '';
+
+        actual?.update(filePath, code2);
+        result = actual?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category, subcategory, 'output2.json');

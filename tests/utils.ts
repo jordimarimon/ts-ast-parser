@@ -25,10 +25,10 @@ export async function getTestResult(options: TestOptions): Promise<{ actual: Mod
         .filter(d => d.isFile() && path.extname(d.name) === '.ts' && d.name !== 'test.ts')
         .map(f => path.join(basedDir, category, subcategory ?? '', f.name));
 
-    const modules = await parseFromFiles(testFiles, analyzerOptions);
+    const {project} = await parseFromFiles(testFiles, analyzerOptions);
 
     return {
-        actual: modules.result ?? [],
+        actual: project?.getModules() ?? [],
         expected: expectedOutputFile,
     };
 }

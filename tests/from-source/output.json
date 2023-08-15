@@ -1,23 +1,25 @@
-{
-    "sourcePath": "unknown.ts",
-    "outputPath": "unknown.js",
-    "imports": [],
-    "declarations": [
-        {
-            "name": "foo",
-            "kind": "Variable",
-            "line": 1,
-            "type": {
-                "text": "boolean",
-                "kind": "Intrinsic"
-            },
-            "default": true
-        }
-    ],
-    "exports": [
-        {
-            "name": "foo",
-            "kind": "Named"
-        }
-    ]
-}
+[
+    {
+        "sourcePath": "unknown.ts",
+        "outputPath": "unknown.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "foo",
+                "kind": "Variable",
+                "line": 1,
+                "type": {
+                    "text": "boolean",
+                    "kind": "Intrinsic"
+                },
+                "default": true
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            }
+        ]
+    }
+]

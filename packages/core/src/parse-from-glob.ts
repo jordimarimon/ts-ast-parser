@@ -1,7 +1,6 @@
 import { DEFAULT_GLOBBY_EXCLUDE } from './default-compiler-options.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserResult } from './analyser-result.js';
-import type { ModuleNode } from './nodes/module-node.js';
 import { parseFromFiles } from './parse-from-files.js';
 import { globbySync } from 'globby';
 
@@ -21,7 +20,7 @@ import { globbySync } from 'globby';
 export function parseFromGlob(
     patterns: string | string[],
     options: Partial<AnalyserOptions> = {},
-): Promise<AnalyserResult<ModuleNode[]>> {
+): Promise<AnalyserResult> {
     const arrPatterns = Array.isArray(patterns) ? patterns : [patterns];
     const paths = globbySync([...arrPatterns, ...DEFAULT_GLOBBY_EXCLUDE]);
 

@@ -13,7 +13,7 @@ const actual = await parseFromProject({
 
 describe(category, () => {
     test('should reflect the expected modules', ({ update }) => {
-        const result = actual.result?.getModules().map(m => m.serialize()) ?? [];
+        const result = actual.project?.getModules().map(m => m.serialize()) ?? [];
 
         if (update) {
             updateExpectedOutput(result, category, subcategory);
@@ -21,6 +21,6 @@ describe(category, () => {
         }
 
         expect(result).to.deep.equal(expected);
-        expect(actual.result?.getName()).to.equal('test-project');
+        expect(actual.project?.getName()).to.equal('test-project');
     });
 });

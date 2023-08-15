@@ -3,7 +3,7 @@ import { AnalyserDiagnostic } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { AnalyserSystem } from './analyser-system.js';
 import type { AnalyserResult } from './analyser-result.js';
-import { ModuleNode } from './nodes/module-node.js';
+import { ProjectNode } from './nodes/project-node.js';
 import ts from 'typescript';
 
 
@@ -19,12 +19,12 @@ import ts from 'typescript';
 export async function parseFromSource(
     source: string,
     options: Partial<AnalyserOptions> = {},
-): Promise<AnalyserResult<ModuleNode>> {
+): Promise<AnalyserResult> {
     const fileName = '/unknown.ts';
 
     if (!source) {
         return {
-            result: null,
+            project: null,
             errors: [{messageText: 'Source code is empty.'}],
         };
     }
@@ -65,7 +65,7 @@ export async function parseFromSource(
     diagnostics.addManyDiagnostics(commandLineErrors);
     if (commandLine.errors.length > 0) {
         return {
-            result: null,
+            project: null,
             errors: diagnostics.getAll(),
             formattedDiagnostics: diagnostics.formatDiagnostics(),
         };
@@ -75,7 +75,7 @@ export async function parseFromSource(
     diagnostics.addManyDiagnostics(program.getSyntacticDiagnostics());
     if (!options.skipDiagnostics && !diagnostics.isEmpty()) {
         return {
-            result: null,
+            project: null,
             errors: diagnostics.getAll(),
             formattedDiagnostics: diagnostics.formatDiagnostics(),
         };
@@ -83,14 +83,14 @@ export async function parseFromSource(
 
     if (!sourceFile) {
         diagnostics.addArgumentError('Unable to analyse source code.');
-        return { result: null, errors: diagnostics.getAll() };
+        return { project: null, errors: diagnostics.getAll() };
     }
 
     const context = new AnalyserContext(system, program, diagnostics, options);
-    const module = new ModuleNode(sourceFile, context);
+    const project = new ProjectNode([sourceFile], context);
 
     return {
-        result: module,
+        project,
         errors: diagnostics.getAll(),
         formattedDiagnostics: diagnostics.formatDiagnostics(),
     };

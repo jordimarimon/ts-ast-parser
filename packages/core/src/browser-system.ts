@@ -176,11 +176,19 @@ export class BrowserSystem implements AnalyserSystem {
     }
 
     normalizePath(path: string | undefined): string {
-        return (path ?? '').slice(1);
+        return path?.startsWith('/') ? (path ?? '').slice(1) : (path ?? '');
     }
 
     getAbsolutePath(path: string | undefined): string {
-        return path ?? '';
+        return path?.startsWith('/') ? (path ?? '') : (`/${ path ?? ''}`);
+    }
+
+    getDirName(path: string): string {
+        return path.split('/').slice(0, -1).join('/');
+    }
+
+    join(...segments: string[]): string {
+        return segments.join('/');
     }
 
     private _createDefaultMapFromCDN(version: string): Promise<void[]> {
