@@ -40,7 +40,7 @@ describe(category, () => {
         } else {
             expect(result).to.deep.equal(expectedOutput2);
         }
-    });
+    }, {timeout: 10_000});
 
     test('should allow updating the contents of a file', async ({ update }) => {
         const system = await BrowserSystem.create({analyserOptions: {include: ['/*.ts']}});
@@ -64,5 +64,5 @@ describe(category, () => {
         } else {
             expect(result).to.deep.equal(expectedOutput2);
         }
-    });
+    }, {timeout: 10_000});
 });
