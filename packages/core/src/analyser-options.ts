@@ -2,7 +2,8 @@ import type { AnalyserSystem } from './analyser-system.js';
 
 
 /**
- * The analyser options
+ * All the options that the analyser supports. You can provide
+ * them in any parse function.
  */
 export interface AnalyserOptions {
     /**
@@ -11,7 +12,7 @@ export interface AnalyserOptions {
     tsConfigFilePath: string;
 
     /**
-     * If true, it won't stop the analysis when there are semantics errors in the code.
+     * If true, it won't stop the analysis when there are syntactic or semantic errors in the code.
      * @default false
      */
     skipDiagnostics: boolean;
@@ -19,24 +20,22 @@ export interface AnalyserOptions {
     /**
      * Allows you to override the default compiler options to use when analyzing the source files
      *
-     * @see https://www.typescriptlang.org/tsconfig#compilerOptions
+     * @see {@link https://www.typescriptlang.org/tsconfig#compilerOptions | CompilerOptions}
      */
     compilerOptions: Record<string, unknown>;
 
     /**
      * Allows you to define which files get included in the analysis
-     * in cases where there is no TSConfig file available
      */
     include: string[];
 
     /**
      * Allows you to define which files get excluded in the analysis
-     * in cases where there is no TSConfig file available
      */
     exclude: string[];
 
     /**
-     * Whether the project represents a JS project
+     * Whether the project represents a JS project (all source files are JavaScript files)
      * @default false
      */
     jsProject: boolean;

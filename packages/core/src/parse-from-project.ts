@@ -7,6 +7,14 @@ import { ProjectNode } from './nodes/project-node.js';
 import ts from 'typescript';
 
 
+/**
+ * Reflects a simplified version of the TypeScript Abstract
+ * Syntax Tree from a project (a collection of TypeScript or JavaScript files)
+ *
+ * @param options - Options to configure the analyzer
+ *
+ * @returns The reflected TypeScript AST
+ */
 export async function parseFromProject(options: Partial<AnalyserOptions> = {}): Promise<AnalyserResult> {
     if (!options.system && isBrowser) {
         return {

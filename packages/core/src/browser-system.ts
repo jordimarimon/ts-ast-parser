@@ -133,30 +133,59 @@ export class BrowserSystem implements AnalyserSystem {
         return system;
     }
 
+    /**
+     * All interaction of the TypeScript compiler with the operating system goes
+     * through a System interface.
+     *
+     * You can think of it as the Operating Environment (OE).
+     */
     getSystem(): ts.System {
         return this._sys;
     }
 
+    /**
+     * This is used by the Program to interact with the System.
+     */
     getCompilerHost(): ts.CompilerHost {
         return this._host;
     }
 
+    /**
+     * The parsed compiler options
+     */
     getCommandLine(): ts.ParsedCommandLine {
         return this._commandLine;
     }
 
+    /**
+     * The current working directory
+     */
     getCurrentDirectory(): string {
         return this._host.getCurrentDirectory();
     }
 
+    /**
+     * Checks whether the file exists
+     *
+     * @returns True if the file exists, otherwise false
+     */
     fileExists(path: string): boolean {
         return this._host.fileExists(path);
     }
 
+    /**
+     * Reads the data encoded inside a file
+     */
     readFile(path: string): string {
         return this._host.readFile(path) ?? '';
     }
 
+    /**
+     * Writes the provided data to the file.
+     *
+     * Be careful! As of right now, it will write to disk
+     * when working with a real file system
+     */
     writeFile(path: string, data: string): void {
         if (!this._host.fileExists(path)) {
             this._host.writeFile(path, data, false);
@@ -175,18 +204,31 @@ export class BrowserSystem implements AnalyserSystem {
         this._updateFile(newSourceFile);
     }
 
+    /**
+     * Normalizes the path based on the OS and makes it
+     * relative to the current working directory.
+     */
     normalizePath(path: string | undefined): string {
         return path?.startsWith('/') ? (path ?? '').slice(1) : (path ?? '');
     }
 
+    /**
+     * Returns the absolute path
+     */
     getAbsolutePath(path: string | undefined): string {
         return path?.startsWith('/') ? (path ?? '') : (`/${ path ?? ''}`);
     }
 
+    /**
+     * Returns the directory name
+     */
     getDirName(path: string): string {
         return path.split('/').slice(0, -1).join('/');
     }
 
+    /**
+     * Joins the segments using the path separator of the OS/Browser
+     */
     join(...segments: string[]): string {
         return segments.join('/');
     }

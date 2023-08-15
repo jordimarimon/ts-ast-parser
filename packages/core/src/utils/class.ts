@@ -1,5 +1,6 @@
 import ts from 'typescript';
 
+
 /**
  * Type predicate function that returns true if the node is a `ts.ClassDeclaration` or a
  * `ts.VariableStatement` that has as initializer a `ts.ClassExpression`.

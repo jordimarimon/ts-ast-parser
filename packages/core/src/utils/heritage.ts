@@ -2,6 +2,7 @@ import type { AnalyserContext } from '../analyser-context.js';
 import type { ClassLikeNode } from './is.js';
 import type ts from 'typescript';
 
+
 /**
  * Checks it the node is a custom element. As of right now we treat a node to be a custom element
  * if HTMLElement is in the heritage chain.

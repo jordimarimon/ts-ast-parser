@@ -104,7 +104,8 @@ for (const module of reflectedModules) {
         const name = declaration.getName();
         const kind = declaration.getKind();
         const type = kind.toLowerCase();
-        const href = `${normalizedCategory}/${toDashCase(name)}`;
+        const isConstant = declaration.getName().toUpperCase() === declaration.getName();
+        const href = `${normalizedCategory}/${isConstant ? name : toDashCase(name)}`;
 
         if (normalizedCategory === 'models') {
             models.push({ name, href, type });
@@ -239,6 +240,7 @@ function createEnum(enumerable, category, filePath) {
 
 function createVariable(variable, category, filePath) {
     const jsDoc = variable.getJSDoc();
+    const isConstant = variable.getName().toUpperCase() === variable.getName();
     const context = {
         name: variable.getName(),
         path: filePath,
@@ -248,7 +250,7 @@ function createVariable(variable, category, filePath) {
     };
 
     const content = templateVariable(context);
-    const fileName = toDashCase(variable.getName());
+    const fileName = isConstant ? variable.getName() : toDashCase(variable.getName());
 
     fs.writeFileSync(path.join(cwd, 'docs', 'api-reference', category, `${fileName}.njk`), content);
 }
@@ -260,7 +262,7 @@ function createTypeAlias(typeAlias, category, filePath) {
         path: filePath,
         line: typeAlias.getLine(),
         description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
-        value: typeAlias.getValue(),
+        value: typeAlias.getValue().getText(),
     };
 
     const content = templateTypeAlias(context);
@@ -276,14 +278,11 @@ function createFunctionContext(func, filePath) {
     const returnTypeDescription = funcJsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
     const parameters = signature.getParameters().map(p => ({
         name: p.getName(),
-        description:
-            funcJsDoc
-                .getAllTags(JSDocTagName.param)
-                ?.find(t => t.getName() === p.getName())
-                ?.getDescription() ?? '',
-        type: {
-            text: p.getType().getText(),
-        },
+        description: funcJsDoc
+            .getAllTags(JSDocTagName.param)
+            ?.find(t => t.getName() === p.getName())
+            ?.getDescription() ?? '',
+        type: {text: p.getType().getText()},
         default: p.getDefault(),
     }));
 

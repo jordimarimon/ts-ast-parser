@@ -1,6 +1,7 @@
 import { getModifiers } from './modifiers.js';
 import ts from 'typescript';
 
+
 /**
  * Checks if a declaration has the special keyword `export`.
  *

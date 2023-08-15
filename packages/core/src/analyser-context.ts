@@ -11,6 +11,9 @@ import ts from 'typescript';
  */
 export const isBrowser = typeof document === 'object' && !!document;
 
+/**
+ * A class that shares common utilities between all reflected nodes
+ */
 export class AnalyserContext {
 
     private _program: ts.Program;
@@ -38,6 +41,8 @@ export class AnalyserContext {
     /**
      * A Program is an immutable collection of source files and the compiler options. Together
      * represent a compilation unit.
+     *
+     * @returns The TypeScript program created with the TypeScript compiler API
      */
     getProgram(): ts.Program {
         return this._program;
@@ -47,6 +52,8 @@ export class AnalyserContext {
      * The TypeScript type checker.
      *
      * Useful to resolve the types of the symbols and declarations.
+     *
+     * @returns The TypeScript type checker
      */
     getTypeChecker(): ts.TypeChecker {
         return this._program.getTypeChecker();
@@ -54,6 +61,8 @@ export class AnalyserContext {
 
     /**
      * An abstraction layer around how we interact with the environment (browser or Node.js)
+     *
+     * @returns The system environment used
      */
     getSystem(): AnalyserSystem {
         return this._system;
@@ -61,6 +70,8 @@ export class AnalyserContext {
 
     /**
      * Here we save all the errors we find while analysing the source files
+     *
+     * @returns An instance of the `AnalyserDiagnostic` where all errors are enqueue
      */
     getDiagnostics(): AnalyserDiagnostic {
         return this._diagnostics;
@@ -68,6 +79,8 @@ export class AnalyserContext {
 
     /**
      * The user provided analyzer options.
+     *
+     * @returns The options that were provided when calling the parser function
      */
     getOptions(): Partial<AnalyserOptions> {
         return this._options;

@@ -28,8 +28,7 @@ export interface ReflectedNode<Model extends object = object, T extends ts.Node 
 /**
  * Represents a top level node (import, export or declaration)
  */
-export interface ReflectedRootNode<Model extends object = object, T extends ts.Node | ts.Signature = ts.Node>
-    extends ReflectedNode<Model, T> {
+export interface ReflectedRootNode<Model extends object = object, T extends ts.Node | ts.Signature = ts.Node> extends ReflectedNode<Model, T> {
     /**
      * The type of node. Can be an import, an export or a declaration
      */

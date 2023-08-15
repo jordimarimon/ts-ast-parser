@@ -8,11 +8,11 @@ import * as fs from 'fs';
 
 
 /**
- * Options to configure the system behaviour
+ * Options to configure the Node.js system behaviour
  */
 export interface NodeSystemOptions {
     /**
-     * The original analyser options
+     * The analyser options
      */
     analyserOptions: Partial<AnalyserOptions>;
 
@@ -69,30 +69,59 @@ export class NodeSystem implements AnalyserSystem {
         }
     }
 
+    /**
+     * All interaction of the TypeScript compiler with the operating system goes
+     * through a System interface.
+     *
+     * You can think of it as the Operating Environment (OE).
+     */
     getSystem(): ts.System {
         return this._sys;
     }
 
+    /**
+     * This is used by the Program to interact with the System.
+     */
     getCompilerHost(): ts.CompilerHost {
         return this._host;
     }
 
+    /**
+     * The parsed compiler options
+     */
     getCommandLine(): ts.ParsedCommandLine {
         return this._commandLine;
     }
 
+    /**
+     * The current working directory
+     */
     getCurrentDirectory(): string {
         return this._host.getCurrentDirectory();
     }
 
+    /**
+     * Checks whether the file exists
+     *
+     * @returns True if the file exists, otherwise false
+     */
     fileExists(filePath: string): boolean {
         return this._host.fileExists(filePath);
     }
 
+    /**
+     * Reads the data encoded inside a file
+     */
     readFile(filePath: string): string {
         return this._host.readFile(filePath) ?? '';
     }
 
+    /**
+     * Writes the provided data to the file.
+     *
+     * Be careful! As of right now, it will write to disk
+     * when working with a real file system
+     */
     writeFile(filePath: string, data: string): void {
         const fileExists = this._host.fileExists(filePath);
 
@@ -114,10 +143,17 @@ export class NodeSystem implements AnalyserSystem {
         }
     }
 
+    /**
+     * Normalizes the path based on the OS and makes it
+     * relative to the current working directory.
+     */
     normalizePath(filePath: string | undefined): string {
         return filePath ? path.normalize(path.relative(this.getCurrentDirectory(), filePath)) : '';
     }
 
+    /**
+     * Returns the absolute path
+     */
     getAbsolutePath(filePath: string | undefined): string {
         if (!filePath) {
             return '';
@@ -130,10 +166,16 @@ export class NodeSystem implements AnalyserSystem {
         return this._options.vfs ? path.join(this.getCurrentDirectory(), filePath) : path.resolve(filePath);
     }
 
+    /**
+     * Returns the directory name
+     */
     getDirName(filePath: string): string {
         return path.dirname(filePath);
     }
 
+    /**
+     * Joins the segments using the path separator of the OS/Browser
+     */
     join(...segments: string[]): string {
         return path.join(...segments);
     }

@@ -4,6 +4,7 @@ import type { MixinNodes } from '../models/mixin.js';
 import { getReturnStatement } from './function.js';
 import ts from 'typescript';
 
+
 //
 // Extracts the function and class nodes that are used to define a Mixin
 //

@@ -1,12 +1,26 @@
 import ts from 'typescript';
 
 
+/**
+ * Represents an error caused because of invalid arguments when
+ * calling the parse function
+ */
 export interface ArgumentError {
     messageText: string;
 }
 
+/**
+ * There are three types of errors:
+ *
+ *      - Invalid argument error: Errors caused because of invalid arguments when calling the parse function
+ *      - Config errors: Errors caused because of invalid compiler options
+ *      - Syntactic/Semantic errors: Errors thrown by the TypeScript compiler when parsing the code
+ */
 export type AnalyserError = ArgumentError | ts.Diagnostic;
 
+/**
+ * Internal class to enqueue any error during the analysis
+ */
 export class AnalyserDiagnostic {
 
     private readonly _diagnostics: ts.Diagnostic[] = [];
@@ -19,6 +33,9 @@ export class AnalyserDiagnostic {
         this._cwd = cwd;
     }
 
+    /**
+     * Formats syntactic and semantic errors found during the analysis
+     */
     formatDiagnostics(): string {
         const diagnosticsHost: ts.FormatDiagnosticsHost = {
             getCanonicalFileName: (name: string) => name,
@@ -29,6 +46,9 @@ export class AnalyserDiagnostic {
         return ts.formatDiagnosticsWithColorAndContext(this._diagnostics, diagnosticsHost);
     }
 
+    /**
+     * Returns all the errors
+     */
     getAll(): (ArgumentError | ts.Diagnostic)[] {
         return [
             ...this._argumentErrors,
@@ -36,14 +56,31 @@ export class AnalyserDiagnostic {
         ];
     }
 
+    /**
+     * Checks whether there are errors or not
+     *
+     * @returns True if there are no errors, otherwise false
+     */
     isEmpty(): boolean {
         return !this._diagnostics.length;
     }
 
+    /**
+     * A message may be a chain of multiple messages. This helps provide better
+     * context for an error. This function flattens the chain of messages
+     *
+     * @param diagnostic - The error to flatten
+     */
     flattenMessage(diagnostic: ts.Diagnostic): string {
         return ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
     }
 
+    /**
+     * Adds a new diagnostic error
+     *
+     * @param node - The node where the error was found
+     * @param message - The error message
+     */
     addDiagnostic(node: ts.Node, message: string | ts.DiagnosticMessageChain): void {
         const error: ts.Diagnostic = {
             file: node.getSourceFile(),
@@ -57,10 +94,20 @@ export class AnalyserDiagnostic {
         this._diagnostics.push(error);
     }
 
+    /**
+     * Adds a new invalid argument error
+     *
+     * @param messageText - The error message
+     */
     addArgumentError(messageText: string): void {
         this._argumentErrors.push({messageText});
     }
 
+    /**
+     * Adds multiple syntactic/semantic errors
+     *
+     * @param diagnostics - An array of syntactic/semantic errors
+     */
     addManyDiagnostics(diagnostics: readonly ts.Diagnostic[]): void {
         this._diagnostics.push(...diagnostics);
     }

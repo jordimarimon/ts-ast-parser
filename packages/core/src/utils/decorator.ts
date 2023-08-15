@@ -1,6 +1,7 @@
 import { isTS4_8 } from './version.js';
 import ts from 'typescript';
 
+
 /**
  * Returns the decorators defined in the node. An empty array is returned if no decorators are found.
  *
