@@ -9,7 +9,7 @@ import type { ReflectedNode } from '../reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
 import { DecoratorNode } from './decorator-node.js';
-import { JSDocTagName } from '../models/js-doc.js';
+import { DocTagName } from '../models/js-doc.js';
 import { RootNodeType } from '../models/node.js';
 import type { Type } from '../models/type.js';
 import { JSDocNode } from './jsdoc-node.js';
@@ -66,7 +66,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
     }
 
     getValue(): unknown {
-        const jsDocDefaultValue = this.getJSDoc().getTag(JSDocTagName.default)?.getValue<string>();
+        const jsDocDefaultValue = this.getJSDoc().getTag(DocTagName.default)?.getValue<string>();
         return jsDocDefaultValue ?? resolveExpression(this._declaration.initializer, this._context);
     }
 

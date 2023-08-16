@@ -1,10 +1,18 @@
-import type { JSDocTagValue, JSDocTSComment, JSDocTSNode, JSDoc } from '../models/js-doc.js';
+import type { DocComment, DocTagValue } from '../models/js-doc.js';
 import { JSDocValueNode } from './jsdoc-value-node.js';
 import type { Spec } from 'comment-parser/primitives';
-import { JSDocTagName } from '../models/js-doc.js';
+import { DocTagName } from '../models/js-doc.js';
 import { parse } from 'comment-parser';
-import type ts from 'typescript';
+import ts from 'typescript';
 
+
+// FIXME(Jordi M.): This is not a correct solution. We should implement a lexer and a parser...
+//  For inspiration:
+//      - https://github.com/TypeStrong/typedoc/tree/master/src/lib/converter/comments
+//      - https://github.com/TypeStrong/typedoc/tree/master/src/lib/models/comments
+//      - https://github.com/microsoft/tsdoc/blob/main/tsdoc/src/beta/DeclarationReference.grammarkdown
+//      - https://github.com/microsoft/tsdoc/blob/main/tsdoc/src/beta/DeclarationReference.ts
+//      - https://github.com/microsoft/tsdoc/tree/main/tsdoc/src/parser
 
 export class JSDocNode {
 
@@ -13,13 +21,16 @@ export class JSDocNode {
     private readonly _jsDoc: Record<string, JSDocValueNode[]> = {};
 
     constructor(node: ts.Node) {
-        this._getAllJSDoc(node).forEach(tag => {
+        const comment = this._getComment(node);
+        const tags = this._collect(comment);
+
+        for (const tag of tags) {
             if (this._jsDoc[tag.kind] === undefined) {
                 this._jsDoc[tag.kind] = [];
             }
 
             this._jsDoc[tag.kind]?.push(new JSDocValueNode(tag.value));
-        });
+        }
     }
 
     hasTag(name: string): boolean {
@@ -43,35 +54,31 @@ export class JSDocNode {
 
     isIgnored(): boolean {
         return (
-            this.hasTag(JSDocTagName.ignore) || this.hasTag(JSDocTagName.internal) || this.hasTag(JSDocTagName.private)
+            this.hasTag(DocTagName.ignore) || this.hasTag(DocTagName.internal) || this.hasTag(DocTagName.private)
         );
     }
 
-    serialize(): JSDoc {
+    serialize(): DocComment {
         return Object.entries(this._jsDoc).flatMap(([kind, value]) => {
             return value.map(v => ({ kind, value: v.serialize() }));
         });
     }
 
-    /**
-     * Returns all the JSDoc comments in a given node
-     *
-     * @param node - The node to extract the JSDoc from
-     *
-     * @returns The JSDoc
-     */
-    private _getAllJSDoc(node: JSDocTSNode): JSDoc {
-        const doc: JSDoc = [];
+    private _getComment(node: ts.Node): string {
+        const sourceCode = node.getSourceFile()?.text;
 
-        for (const jsDocComment of node.jsDoc ?? []) {
-            this._collectJsDoc(jsDocComment, doc);
+        if (!sourceCode) {
+            return '';
         }
 
-        return doc;
+        const leadingComments = ts.getLeadingCommentRanges(sourceCode, node.pos) ?? [];
+
+        return leadingComments.map(comment => sourceCode.substring(comment.pos, comment.end)).join('\n');
     }
 
-    private _collectJsDoc(jsDocComment: JSDocTSComment, doc: JSDoc): void {
-        const parsedJsDocComment = parse(jsDocComment.getFullText(), { spacing: 'preserve' }) ?? [];
+    private _collect(text: string): DocComment {
+        const doc: DocComment = [];
+        const parsedJsDocComment = parse(text, {spacing: 'preserve'});
 
         for (const block of parsedJsDocComment) {
             if (block.problems.length) {
@@ -82,7 +89,7 @@ export class JSDocNode {
 
             if (descriptionValue !== '') {
                 doc.push({
-                    kind: JSDocTagName.description,
+                    kind: DocTagName.description,
                     value: descriptionValue,
                 });
             }
@@ -92,19 +99,21 @@ export class JSDocNode {
 
                 doc.push({
                     kind: name,
-                    value: this._getJSTagValue(name, tag),
+                    value: this._getTagValue(name, tag),
                 });
             }
         }
+
+        return doc;
     }
 
     // eslint-disable-next-line sonarjs/cognitive-complexity
-    private _getJSTagValue(tagName: string, tag: Spec): JSDocTagValue {
-        const result: JSDocTagValue = {};
-        const descriptionValue = this._trimNewLines(this._normalizeDescription(tag.description ?? ''));
-        const defaultValue = tag.default ?? '';
-        const nameValue = tag.name ?? '';
+    private _getTagValue(tagName: string, tag: Spec): DocTagValue {
+        const result: DocTagValue = {};
         const typeValue = tag.type ?? '';
+        const defaultValue = tag.default ?? '';
+        const descriptionValue = this._trimNewLines(this._normalizeDescription(tag.description ?? ''));
+        const nameValue = tag.name ?? '';
 
         if (defaultValue !== '') {
             result.default = defaultValue;

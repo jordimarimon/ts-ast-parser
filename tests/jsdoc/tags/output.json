@@ -5,9 +5,19 @@
         "imports": [],
         "declarations": [
             {
+                "name": "bar",
+                "kind": "Variable",
+                "line": 1,
+                "type": {
+                    "text": "number",
+                    "kind": "Intrinsic"
+                },
+                "default": 3
+            },
+            {
                 "name": "x",
                 "kind": "Variable",
-                "line": 14,
+                "line": 20,
                 "type": {
                     "text": "number",
                     "kind": "Intrinsic"
@@ -24,7 +34,33 @@
                     },
                     {
                         "kind": "see",
-                        "value": "https://www.example.com"
+                        "value": {
+                            "type": "@link https://www.example.com | Example"
+                        }
+                    },
+                    {
+                        "kind": "see",
+                        "value": {
+                            "type": "@link https://github.com|GitHub"
+                        }
+                    },
+                    {
+                        "kind": "see",
+                        "value": {
+                            "type": "@link bar"
+                        }
+                    },
+                    {
+                        "kind": "see",
+                        "value": "bar"
+                    },
+                    {
+                        "kind": "see",
+                        "value": {
+                            "type": "@link foo",
+                            "name": "for",
+                            "description": "further information."
+                        }
                     },
                     {
                         "kind": "example",
@@ -38,6 +74,10 @@
             }
         ],
         "exports": [
+            {
+                "name": "bar",
+                "kind": "Named"
+            },
             {
                 "name": "x",
                 "kind": "Named"

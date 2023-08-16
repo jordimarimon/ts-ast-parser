@@ -4,7 +4,7 @@ import type { DeclarationKind } from '../models/declaration-kind.js';
 import type { AnalyserContext } from '../analyser-context.js';
 import type { ExportNode, ImportNode } from '../utils/is.js';
 import type { DeclarationNode } from './declaration-node.js';
-import { JSDocTagName } from '../models/js-doc.js';
+import { DocTagName } from '../models/js-doc.js';
 import type { Module } from '../models/module.js';
 import { is } from '../utils/is.js';
 import ts from 'typescript';
@@ -100,7 +100,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     getDeclarationsByCategory(category: string): DeclarationNode[] {
         return this.getDeclarations().filter(decl => {
-            return decl.getJSDoc()?.getTag(JSDocTagName.category)?.getValue<string>() === category;
+            return decl.getJSDoc()?.getTag(DocTagName.category)?.getValue<string>() === category;
         });
     }
 

@@ -1,12 +1,13 @@
-import type ts from 'typescript';
+import type { SourceReference } from './reference.js';
+
 
 /**
- * Common JSDoc tag names (we support any tag name, these are just common ones so
+ * Common documentation tag names (we support any tag name, these are just common ones, so
  * we don't have to use strings to refer to them).
  *
  * @see https://jsdoc.app/
  */
-export enum JSDocTagName {
+export enum DocTagName {
     description = 'description',
     param = 'param',
     returns = 'returns',
@@ -17,6 +18,8 @@ export enum JSDocTagName {
     deprecated = 'deprecated',
     example = 'example',
     override = 'override',
+    overview = 'overview',
+    license = 'license',
     see = 'see',
     since = 'since',
     throws = 'throws',
@@ -28,6 +31,10 @@ export enum JSDocTagName {
     category = 'category',
     typedef = 'typedef',
     typeParam = 'typeParam',
+    version = 'version',
+    exception = 'exception',
+    kind = 'kind',
+    author = 'author',
 
     // Custom Elements specific tags
     reflect = 'reflect',
@@ -43,77 +50,34 @@ export enum JSDocTagName {
 }
 
 /**
- * A JSDoc tag reflected object
+ * A documentation comment tag reflected value as an object
  */
-export interface JSDocTagObjectValue {
-    [key: string]: unknown;
+export interface DocTagObjectValue {
     name?: string;
     type?: string;
     value?: unknown;
     default?: string;
     optional?: boolean;
     description?: string;
+
+    /**
+     * Indicates which reflection/url it links to. Useful
+     * for `@link` tags
+     */
+    target?: string | SourceReference;
+
+    /**
+     * Text that should be displayed as the link text
+     */
+    linkText?: string;
 }
 
 /**
- * The value associated to a JSDoc tag
+ * A documentation comment tag reflected value
  */
-export type JSDocTagValue = JSDocTagObjectValue | string | boolean;
+export type DocTagValue = DocTagObjectValue | string | boolean;
 
 /**
- * JSDoc values for the most common tags
+ * A reflected documentation comment is an array of reflected tags
  */
-export type JSDocResult =
-    | { kind: JSDocTagName.description; value: string }
-    | { kind: JSDocTagName.param; value: { name: string; default: string; optional: boolean; description: string } }
-    | { kind: JSDocTagName.returns; value: string }
-    | { kind: JSDocTagName.type; value: string }
-    | { kind: JSDocTagName.summary; value: string }
-    | { kind: JSDocTagName.default; value: string }
-    | { kind: JSDocTagName.readonly; value: boolean }
-    | { kind: JSDocTagName.deprecated; value: boolean }
-    | { kind: JSDocTagName.example; value: string }
-    | { kind: JSDocTagName.override; value: boolean }
-    | { kind: JSDocTagName.see; value: string }
-    | { kind: JSDocTagName.since; value: string }
-    | { kind: JSDocTagName.throws; value: string }
-    | { kind: JSDocTagName.public; value: boolean }
-    | { kind: JSDocTagName.protected; value: boolean }
-    | { kind: JSDocTagName.private; value: boolean }
-    | { kind: JSDocTagName.internal; value: boolean }
-    | { kind: JSDocTagName.ignore; value: boolean }
-    | { kind: JSDocTagName.category; value: string }
-    | { kind: JSDocTagName.typedef; value: { name: string; type: string } }
-    | { kind: JSDocTagName.typeParam; value: { name: string; default?: string; description: string } }
-    | { kind: JSDocTagName.reflect; value: boolean }
-    | { kind: JSDocTagName.cssprop; value: { name: string; default: string; description: string } }
-    | { kind: JSDocTagName.cssproperty; value: { name: string; default: string; description: string } }
-    | { kind: JSDocTagName.csspart; value: { name: string; description: string } }
-    | { kind: JSDocTagName.slot; value: { name: string; description: string } }
-    | { kind: JSDocTagName.attr; value: { name: string; description: string } }
-    | { kind: JSDocTagName.fires; value: { name: string; type: string; description: string } }
-    | { kind: JSDocTagName.event; value: { name: string; type: string; description: string } }
-    | { kind: JSDocTagName.tag; value: string }
-    | { kind: JSDocTagName.tagname; value: string }
-    | { kind: string; value: JSDocTagValue };
-
-/**
- * A JSDoc comment is an array of JSDoc tags
- */
-export type JSDoc = JSDocResult[];
-
-//
-// TS doesn't make publicly available the following types
-// See: https://github.com/microsoft/TypeScript/issues/7393
-// You can also view them in the TS AST Viewer enabling the `show internals` options
-//
-
-export interface JSDocTSNode extends ts.Node {
-    jsDoc?: JSDocTSComment[];
-}
-
-export interface JSDocTSComment extends ts.Node {
-    kind: ts.SyntaxKind.JSDocComment;
-    comment?: string;
-    tags?: ts.JSDocTag[];
-}
+export type DocComment = { kind: string; value: DocTagValue }[];

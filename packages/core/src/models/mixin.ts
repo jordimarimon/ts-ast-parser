@@ -2,7 +2,7 @@ import type { DeclarationKind } from './declaration-kind.js';
 import type { FunctionSignature } from './function.js';
 import type { Field, Method } from './member.js';
 import type { Decorator } from './decorator.js';
-import type { JSDoc } from './js-doc.js';
+import type { DocComment } from './js-doc.js';
 import type ts from 'typescript';
 
 
@@ -17,7 +17,7 @@ export interface MixinDeclaration {
     signatures: readonly FunctionSignature[];
     namespace?: string;
     decorators?: readonly Decorator[];
-    jsDoc?: JSDoc;
+    jsDoc?: DocComment;
     properties?: readonly Field[];
     methods?: readonly Method[];
     constructors?: readonly FunctionSignature[];

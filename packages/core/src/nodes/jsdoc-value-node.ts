@@ -1,11 +1,11 @@
-import type { JSDocTagValue } from '../models/js-doc.js';
+import type { DocTagValue } from '../models/js-doc.js';
 
 
 export class JSDocValueNode {
 
-    private readonly _jsDocTagValue: JSDocTagValue;
+    private readonly _jsDocTagValue: DocTagValue;
 
-    constructor(jsDocTagValue: JSDocTagValue) {
+    constructor(jsDocTagValue: DocTagValue) {
         this._jsDocTagValue = jsDocTagValue;
     }
 
@@ -61,7 +61,7 @@ export class JSDocValueNode {
         return !!this._jsDocTagValue.optional;
     }
 
-    serialize(): JSDocTagValue {
+    serialize(): DocTagValue {
         return this._jsDocTagValue;
     }
 }

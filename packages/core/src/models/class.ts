@@ -4,7 +4,7 @@ import type { TypeParameter } from './type-parameter.js';
 import type { FunctionSignature } from './function.js';
 import type { Field, Method } from './member.js';
 import type { Decorator } from './decorator.js';
-import type { JSDoc } from './js-doc.js';
+import type { DocComment } from './js-doc.js';
 
 /**
  * The result of a class node after being serialized
@@ -48,7 +48,7 @@ export interface ClassDeclaration {
     /**
      * The JSDoc
      */
-    jsDoc?: JSDoc;
+    jsDoc?: DocComment;
 
     /**
      * The type parameters

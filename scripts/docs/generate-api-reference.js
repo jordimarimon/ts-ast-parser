@@ -20,6 +20,7 @@ Handlebars.registerHelper('markdownToHTML', (str, inline) => {
     let html = inline ? marked.parseInline(str ?? '') : marked.parse(str ?? '');
     html = html.replaceAll(/<a/g, '<a class="prose" target="_blank"');
     html = html.replaceAll(/<code/g, '<code class="code"');
+    html = html.replaceAll(/\n{2,}/g, '<br><br>').replaceAll('\n', ' ');
 
     return new Handlebars.SafeString(html);
 });
@@ -286,14 +287,15 @@ function createFunctionContext(func, filePath) {
         default: p.getDefault(),
     }));
 
+    const parametersStringify = parameters.map(p => `${p.name}: ${p.type.text}`).join(', ');
+
     return {
         name: func.getName(),
         path: filePath,
         line: signature.getLine(),
         description: funcJsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
-        signature: `${func.getName()}(${parameters
-            .map(p => `${p.name}: ${p.type.text}`)
-            .join(', ')}): ${returnType.getText()}`,
+        see: funcJsDoc.getAllTags(JSDocTagName.see),
+        signature: `${func.getName()}(${parametersStringify}): ${returnType.getText()}`,
         parameters,
         returnType: {
             text: returnType.getText(),
@@ -308,6 +310,7 @@ function createPropertyContext(property, filePath) {
         path: filePath,
         line: property.getLine(),
         description: property.getJSDoc().getTag(JSDocTagName.description)?.getValue() ?? '',
+        see: property.getJSDoc().getAllTags(JSDocTagName.see),
         type: {
             text: property.getType().getText(),
         },

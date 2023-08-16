@@ -1,6 +1,6 @@
 import type { DeclarationKind } from './declaration-kind.js';
 import type { TypeParameter } from './type-parameter.js';
-import type { JSDoc } from './js-doc.js';
+import type { DocComment } from './js-doc.js';
 import type { Type } from './type.js';
 
 /**
@@ -35,7 +35,7 @@ export interface TypeAliasDeclaration {
     /**
      * Any JSDoc comment
      */
-    jsDoc?: JSDoc;
+    jsDoc?: DocComment;
 
     /**
      * The namespace name where the type-alias is defined
