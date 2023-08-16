@@ -12,7 +12,7 @@ import ts from 'typescript';
 //      - https://github.com/TypeStrong/typedoc/tree/master/src/lib/models/comments
 //      - https://github.com/microsoft/tsdoc/blob/main/tsdoc/src/beta/DeclarationReference.grammarkdown
 //      - https://github.com/microsoft/tsdoc/blob/main/tsdoc/src/beta/DeclarationReference.ts
-//      - https://github.com/microsoft/tsdoc/tree/main/tsdoc/src/parser
+//      - https://github.com/microsoft/tsdoc/tree/main/tsdoc/src
 
 export class JSDocNode {
 
