@@ -240,9 +240,8 @@ export class BrowserSystem implements AnalyserSystem {
         for (const lib of knownLibFiles) {
             const promise = fetch(prefix + lib)
                 .then(resp => resp.text())
-                .then(text => {
-                    this.writeFile(`/${lib}`, text);
-                });
+                .then(text => this.writeFile(`/${lib}`, text))
+                .catch(err => console.error(err));
 
             promises.push(promise);
         }
