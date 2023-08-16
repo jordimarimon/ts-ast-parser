@@ -1,4 +1,4 @@
-## [next]
+# 0.5.0 (2023-08-16)
 
 ### Bug Fixes
 
@@ -53,7 +53,7 @@
 - The reflection object of a type has changed
 - All `parserFrom*` functions now return an `AnalyserResult<T>` object
 
-## 0.3.2 (2023-06-18)
+## 0.3.1 (2023-06-18)
 
 ### Bug Fixes
 
