@@ -3,647 +3,647 @@
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/getting-started/</loc>
-            <lastmod>1692211031259</lastmod>
+            <lastmod>1692214777512</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/</loc>
-            <lastmod>1692211031263</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/playground/</loc>
-            <lastmod>1692211031263</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/</loc>
-            <lastmod>1692211031263</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/overview/</loc>
-            <lastmod>1692211031263</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/is-browser/</loc>
-            <lastmod>1692211031263</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/analyser-context/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/analyser-error/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/argument-error/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/analyser-diagnostic/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777518</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/analyser-error/</loc>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/analyser-options/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/analyser-result/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/analyser-system/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/DEFAULT_GLOBBY_EXCLUDE/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/JS_DEFAULT_COMPILER_OPTIONS/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/TS_DEFAULT_COMPILER_OPTIONS/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777518</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/browser-system-options/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777518</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/DEFAULT_GLOBBY_EXCLUDE/</loc>
+            <lastmod>1692214777518</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/JS_DEFAULT_COMPILER_OPTIONS/</loc>
+            <lastmod>1692214777518</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/TS_DEFAULT_COMPILER_OPTIONS/</loc>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/browser-system/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/node-system-options/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/node-system/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/parsers/parse-from-files/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/parsers/parse-from-glob/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/parsers/parse-from-project/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/parsers/parse-from-source/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/reflected-node/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/reflected-root-node/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/binding-element/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/reflected-type-node/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/class-declaration/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/reflected-type-node/</loc>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/declaration-kind/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/declaration/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/decorator/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/enum-declaration/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/enum-member/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/export-kind/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/export/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/expression-with-type-arguments/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/function-like/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/function-return/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/function-signature/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/function-declaration/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/function-like/</loc>
+            <lastmod>1692214777519</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/function-signature/</loc>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/import-kind/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/import/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/index-signature/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/interface-declaration/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/doc-comment/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/doc-tag-name/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/doc-tag-object-value/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/doc-tag-value/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/index-signature/</loc>
+            <lastmod>1692214777519</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/interface-declaration/</loc>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/member-kind/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/member-like/</loc>
-            <lastmod>1692211031264</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/modifier-type/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/field/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/member-like/</loc>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/method/</loc>
-            <lastmod>1692211031264</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/mixin-nodes/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/modifier-type/</loc>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/module/</loc>
-            <lastmod>1692211031265</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/root-node-type/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/parameter/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/property-like/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/root-node-type/</loc>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/source-reference/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/type-alias-declaration/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/type-kind/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/type-parameter/</loc>
-            <lastmod>1692211031265</lastmod>
-        </url>
-    
-        <url>
-            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/named-tuple-member/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/type/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
+        </url>
+    
+        <url>
+            <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/named-tuple-member/</loc>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/models/variable-declaration/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/binding-element-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/class-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/declaration-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/decorator-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/default-import-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/enum-member-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/enum-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/export-assignment-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/export-declaration-node-type/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/export-declaration-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/expression-with-type-arguments-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/function-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/index-signature-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/interface-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/js-doc-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/js-doc-value-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/module-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/named-export-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/named-import-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/namespace-export-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/namespace-import-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/parameter-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/project-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/property-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/re-export-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/side-effect-import-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/signature-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/type-alias-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/type-parameter-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777519</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/nodes/variable-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/array-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/conditional-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/function-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/indexed-access-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/infer-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/intersection-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/intrinsic-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/literal-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/mapped-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/named-tuple-member-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/optional-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/rest-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/template-literal-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/tuple-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/type-literal-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/type-operator-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/type-predicate-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/type-query-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/type-reference-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/union-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/types/unknown-type-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/class-like-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/export-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/export-statement-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/function-like-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/import-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/interface-or-class-declaration/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/is/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/named-node-name/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/node-with-function-declaration/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777520</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/property-like-node/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777521</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/symbol-with-context/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777521</lastmod>
         </url>
     
         <url>
             <loc>https://jordimarimon.github.io/ts-ast-parser/api-reference/utils/symbol-with-location/</loc>
-            <lastmod>1692211031265</lastmod>
+            <lastmod>1692214777521</lastmod>
         </url>
     
 </urlset>
