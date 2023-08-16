@@ -5,6 +5,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents a template literal type.
+ * For example: ``type foo = `${'a' | 'b'}${'a' | 'b'}` ``
+ */
 export class TemplateLiteralTypeNode implements ReflectedTypeNode<ts.TemplateLiteralTypeNode> {
 
     private readonly _node: ts.TemplateLiteralTypeNode;

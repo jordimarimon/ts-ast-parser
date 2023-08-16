@@ -10,6 +10,10 @@ import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents the reflected indexed access type.
+ * For example: `T['name']`
+ */
 export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccessTypeNode> {
 
     private readonly _node: ts.IndexedAccessTypeNode;

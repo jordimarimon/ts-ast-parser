@@ -7,6 +7,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected infer type
+ * For example: `type foo<T> = T extends Promise<infer U> ? U : never`
+ */
 export class InferTypeNode implements ReflectedTypeNode<ts.InferTypeNode> {
 
     private readonly _node: ts.InferTypeNode;

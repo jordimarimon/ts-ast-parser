@@ -349,12 +349,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     private _getClassNode(): ts.ClassDeclaration | ts.ClassExpression | null {
-        if (ts.isClassDeclaration(this._node)) {
+        if (ts.isClassDeclaration(this._node) || ts.isClassExpression(this._node)) {
             return this._node;
-        }
-
-        if (!ts.isVariableStatement(this._node)) {
-            return null;
         }
 
         const decl = this._node.declarationList.declarations[0];

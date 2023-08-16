@@ -4,8 +4,8 @@ import { tryAddProperty } from '../utils/try-add-property.js';
 import type { AnalyserContext } from '../analyser-context.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import type { DeclarationNode } from './declaration-node.js';
-import { createType } from '../factories/create-type.js';
 import type { ReflectedNode } from '../reflected-node.js';
+import { createType } from '../factories/create-type.js';
 import { getNamespace } from '../utils/namespace.js';
 import { RootNodeType } from '../models/node.js';
 import type { Type } from '../models/type.js';
@@ -13,6 +13,9 @@ import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of a type alias declaration
+ */
 export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.TypeAliasDeclaration> {
 
     private readonly _node: ts.TypeAliasDeclaration;

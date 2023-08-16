@@ -5,6 +5,10 @@ import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents a literal type.
+ * For example: `type foo = 4`
+ */
 export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
 
     private readonly _node: ts.LiteralTypeNode;

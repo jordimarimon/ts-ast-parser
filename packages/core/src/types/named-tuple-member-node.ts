@@ -7,6 +7,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents a named tuple member.
+ * For example: `type foo = [name: string]`.
+ */
 export class NamedTupleMemberNode implements ReflectedTypeNode<ts.NamedTupleMember> {
 
     private readonly _node: ts.NamedTupleMember;

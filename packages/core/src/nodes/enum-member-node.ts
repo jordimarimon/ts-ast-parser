@@ -6,6 +6,9 @@ import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of an enum member
+ */
 export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> {
 
     private readonly _node: ts.EnumMember;
@@ -23,26 +26,44 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
         this._jsDoc = new JSDocNode(node);
     }
 
+    /**
+     * The name of the enum member
+     */
     getName(): string {
         return this._node.name.getText() ?? '';
     }
 
+    /**
+     * The value of the enum member
+     */
     getValue(): string | number {
         return this._value;
     }
 
+    /**
+     * The analyser context
+     */
     getContext(): AnalyserContext {
         return this._context;
     }
 
+    /**
+     * The line position where the enum member is defined
+     */
     getLine(): number {
         return this._context.getLinePosition(this._node);
     }
 
+    /**
+     * The original TypeScript node
+     */
     getTSNode(): ts.EnumMember {
         return this._node;
     }
 
+    /**
+     * The reflected documentation comment
+     */
     getJSDoc(): JSDocNode {
         return this._jsDoc;
     }

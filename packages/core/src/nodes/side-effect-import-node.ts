@@ -8,6 +8,10 @@ import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of a side effect import declaration.
+ * For example: `import './foo.js'`
+ */
 export class SideEffectImportNode implements ReflectedRootNode<Import, ts.ImportDeclaration> {
 
     private readonly _node: ts.ImportDeclaration;

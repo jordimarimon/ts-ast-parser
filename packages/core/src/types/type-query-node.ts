@@ -10,6 +10,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents a type query.
+ * For example: `type foo = typeof Foo` where `Foo` could be a class declaration.
+ */
 export class TypeQueryNode implements ReflectedTypeNode<ts.TypeQueryNode> {
 
     private readonly _node: ts.TypeQueryNode;

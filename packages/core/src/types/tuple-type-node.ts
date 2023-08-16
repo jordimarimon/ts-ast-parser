@@ -6,6 +6,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents a tuple type.
+ * For example: `type foo = [number, number]`
+ */
 export class TupleTypeNode implements ReflectedTypeNode<ts.TupleTypeNode> {
 
     private readonly _node: ts.TupleTypeNode;

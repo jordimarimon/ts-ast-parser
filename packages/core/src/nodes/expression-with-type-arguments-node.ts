@@ -11,6 +11,10 @@ import { hasFlag } from '../utils/member.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of a type in the heritage
+ * chain of a class or interface declaration
+ */
 export class ExpressionWithTypeArgumentsNode implements ReflectedNode<ExpressionWithTypeArguments, ts.ExpressionWithTypeArguments> {
 
     private readonly _node: ts.ExpressionWithTypeArguments;

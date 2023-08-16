@@ -15,11 +15,10 @@ export type ExportDeclarationNodeType =
     | ts.TypeAliasDeclaration
     | ts.VariableStatement;
 
-// CASE of:
-//      export const x = 4;
-//      export class Foo {}
-//      export default function foo() {}
-//      ...
+/**
+ * Represents the reflected node of an export declaration.
+ * For example: `export const x = 4` or `export class Foo {}`
+ */
 export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDeclarationNodeType> {
 
     private readonly _node: ExportDeclarationNodeType;

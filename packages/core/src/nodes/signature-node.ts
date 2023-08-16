@@ -10,6 +10,9 @@ import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of a signature declaration
+ */
 export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signature> {
 
     private readonly _node: ts.Signature;

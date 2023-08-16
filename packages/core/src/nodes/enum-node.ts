@@ -4,12 +4,14 @@ import type { AnalyserContext } from '../analyser-context.js';
 import type { DeclarationNode } from './declaration-node.js';
 import type { EnumDeclaration } from '../models/enum.js';
 import { EnumMemberNode } from './enum-member-node.js';
+import { getNamespace } from '../utils/namespace.js';
 import { RootNodeType } from '../models/node.js';
 import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
+
 /**
- * The reflected node when an enumerable is found
+ * Represents the reflected node of an enumerable declaration
  */
 export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclaration> {
 
@@ -25,42 +27,66 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
         this._jsDoc = new JSDocNode(this._node);
     }
 
+    /**
+     * The reflected node kind
+     */
     getNodeType(): RootNodeType {
         return RootNodeType.Declaration;
     }
 
+    /**
+     * The reflected declaration kind
+     */
     getKind(): DeclarationKind.Enum {
         return DeclarationKind.Enum;
     }
 
+    /**
+     * The original TypeScript node
+     */
     getTSNode(): ts.EnumDeclaration {
         return this._node;
     }
 
+    /**
+     * The analyser context
+     */
     getContext(): AnalyserContext {
         return this._context;
     }
 
+    /**
+     * The name of the enum declaration
+     */
     getName(): string {
         return this._node.name.getText() ?? '';
     }
 
+    /**
+     * The line position where the node is defined
+     */
     getLine(): number {
         return this._context.getLinePosition(this._node);
     }
 
+    /**
+     * The namespace where the enum declaration is defined.
+     * If there is no namespace, it will return an empty string.
+     */
     getNamespace(): string {
-        if (!this._node.parent) {
-            return '';
-        }
-
-        return (this._node.parent.parent as ts.ModuleDeclaration | undefined)?.name.getText() ?? '';
+        return getNamespace(this._node);
     }
 
+    /**
+     * The reflected documentation comment
+     */
     getJSDoc(): JSDocNode {
         return this._jsDoc;
     }
 
+    /**
+     * The reflected members of the enum declaration
+     */
     getMembers(): EnumMemberNode[] {
         let defaultInitializer = 0;
 

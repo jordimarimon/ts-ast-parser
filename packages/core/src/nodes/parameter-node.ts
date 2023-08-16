@@ -11,6 +11,9 @@ import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of a parameter declaration
+ */
 export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDeclaration> {
 
     private readonly _node: ts.ParameterDeclaration;

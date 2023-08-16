@@ -18,6 +18,9 @@ import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of a function declaration
+ */
 export class FunctionNode implements DeclarationNode<FunctionDeclaration | Method, NodeWithFunctionDeclaration> {
 
     private readonly _node: NodeWithFunctionDeclaration;

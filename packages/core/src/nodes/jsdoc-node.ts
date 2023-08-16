@@ -6,7 +6,7 @@ import { parse } from 'comment-parser';
 import ts from 'typescript';
 
 
-// FIXME(Jordi M.): This is not a correct solution. We should implement a lexer and a parser...
+// FIXME(Jordi M.): This is not a correct solution.
 //  For inspiration:
 //      - https://github.com/TypeStrong/typedoc/tree/master/src/lib/converter/comments
 //      - https://github.com/TypeStrong/typedoc/tree/master/src/lib/models/comments
@@ -32,7 +32,7 @@ export class JSDocNode {
                 this._jsDoc[tag.kind] = [];
             }
 
-            this._jsDoc[tag.kind]?.push(new JSDocValueNode(tag.value));
+            this._jsDoc[tag.kind]?.push(new JSDocValueNode(tag.kind, tag.value));
         }
     }
 

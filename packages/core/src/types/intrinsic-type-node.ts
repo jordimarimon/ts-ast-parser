@@ -5,6 +5,10 @@ import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents an intrinsic type. Intrinsic types are `number`,
+ * `string`, `boolean`, `object`, `null`, etc...
+ */
 export class IntrinsicTypeNode implements ReflectedTypeNode {
 
     private readonly _node: ts.TypeNode;

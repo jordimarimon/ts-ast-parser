@@ -8,6 +8,10 @@ import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of a namespace import declaration.
+ * For example: `import * as foo from './foo.js'`
+ */
 export class NamespaceImportNode implements ReflectedRootNode<Import, ts.ImportDeclaration> {
 
     private readonly _node: ts.ImportDeclaration;

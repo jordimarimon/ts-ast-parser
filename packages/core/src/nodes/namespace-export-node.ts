@@ -7,7 +7,10 @@ import { RootNodeType } from '../models/node.js';
 import ts from 'typescript';
 
 
-// CASE export * as bar from './foo.js';
+/**
+ * Represents the reflected node of a namespace export declaration.
+ * For example: `export * as bar from './foo.js'`
+ */
 export class NamespaceExportNode implements ReflectedRootNode<Export, ts.ExportDeclaration> {
 
     private readonly _node: ts.ExportDeclaration;

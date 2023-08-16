@@ -6,6 +6,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected array type.
+ * For example: `type foo = string[]`
+ */
 export class ArrayTypeNode implements ReflectedTypeNode<ts.ArrayTypeNode> {
 
     private readonly _node: ts.ArrayTypeNode;

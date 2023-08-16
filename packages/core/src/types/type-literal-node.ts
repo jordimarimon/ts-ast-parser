@@ -9,6 +9,10 @@ import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents a type literal.
+ * For example: `type foo = {a: number}`
+ */
 export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
 
     private readonly _node: ts.TypeLiteralNode;

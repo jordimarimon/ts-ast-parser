@@ -6,6 +6,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents a rest type.
+ * For example: `type foo = [1, ...2[]]`
+ */
 export class RestTypeNode implements ReflectedTypeNode<ts.RestTypeNode> {
 
     private readonly _node: ts.RestTypeNode;

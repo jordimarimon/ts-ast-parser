@@ -1,11 +1,11 @@
 import ts from 'typescript';
 
 
-export function isNamespace(node: ts.Node | undefined): node is ts.ModuleDeclaration {
+function isNamespace(node: ts.Node | undefined): node is ts.ModuleDeclaration {
     return !!(node && ts.isModuleDeclaration(node) && node.body && ts.isModuleBlock(node.body));
 }
 
-export function getNamespaceName(node: ts.ModuleDeclaration): string {
+function getNamespaceName(node: ts.ModuleDeclaration): string {
     const path: string[] = [node.name.getText() ?? ''];
 
     let currNode = node;

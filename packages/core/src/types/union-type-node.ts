@@ -6,6 +6,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents a union type.
+ * For example: `type foo = string | number`
+ */
 export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
 
     private readonly _node: ts.UnionTypeNode;

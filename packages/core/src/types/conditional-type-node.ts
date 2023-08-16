@@ -6,6 +6,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected conditional type.
+ * For example: `type foo<T> = T extends boolean ? 1 : 0`
+ */
 export class ConditionalTypeNode implements ReflectedTypeNode<ts.ConditionalTypeNode> {
 
     private readonly _node: ts.ConditionalTypeNode;

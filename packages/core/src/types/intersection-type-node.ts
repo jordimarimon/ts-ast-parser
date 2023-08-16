@@ -6,6 +6,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected intersection type.
+ * For example: `type foo = string & number`
+ */
 export class IntersectionTypeNode implements ReflectedTypeNode<ts.IntersectionTypeNode> {
 
     private readonly _node: ts.IntersectionTypeNode;

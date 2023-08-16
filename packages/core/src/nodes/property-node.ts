@@ -16,6 +16,9 @@ import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of a property declaration
+ */
 export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
 
     private readonly _node: PropertyLikeNode;

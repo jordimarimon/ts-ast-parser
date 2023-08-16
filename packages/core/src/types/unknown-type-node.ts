@@ -5,6 +5,10 @@ import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents any type that we weren't able to associate with any of the existing types.
+ * Also, the `unknown` keyword is reflected using this node.
+ */
 export class UnknownTypeNode implements ReflectedTypeNode {
 
     private readonly _node: ts.TypeNode | null;

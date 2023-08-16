@@ -10,6 +10,10 @@ import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents a type reference. It's basically a type that references another one.
+ * For example: `type foo = HTMLElement`
+ */
 export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode> {
 
     private readonly _node: ts.TypeReferenceNode;

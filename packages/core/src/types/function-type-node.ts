@@ -9,6 +9,10 @@ import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents the reflected function type
+ * For example: `() => void`
+ */
 export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> {
 
     private readonly _node: ts.FunctionTypeNode;

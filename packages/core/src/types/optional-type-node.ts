@@ -6,6 +6,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents an optional type.
+ * For example: `type foo = [1, 2?]`
+ */
 export class OptionalTypeNode implements ReflectedTypeNode<ts.OptionalTypeNode> {
 
     private readonly _node: ts.OptionalTypeNode;

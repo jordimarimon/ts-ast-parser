@@ -6,6 +6,10 @@ import { TypeKind } from '../models/type.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents a type predicate.
+ * For example: `function isString(x: unknown): x is string {}`
+ */
 export class TypePredicateNode implements ReflectedTypeNode<ts.TypePredicateNode> {
 
     private readonly _node: ts.TypePredicateNode;

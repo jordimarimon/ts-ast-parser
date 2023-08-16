@@ -6,6 +6,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents a type operator.
+ * For example: `type foo = readonly string[]`
+ */
 export class TypeOperatorNode implements ReflectedTypeNode<ts.TypeOperatorNode> {
 
     private readonly _node: ts.TypeOperatorNode;

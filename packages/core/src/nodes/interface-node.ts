@@ -17,6 +17,9 @@ import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of an interface declaration
+ */
 export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.InterfaceDeclaration> {
 
     private readonly _node: ts.InterfaceDeclaration;

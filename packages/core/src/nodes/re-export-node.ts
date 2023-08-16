@@ -7,7 +7,10 @@ import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
 
-// CASE export * from './foo.js';
+/**
+ * Represents the reflected node of a re-export declaration.
+ * For example: `export * from './foo.js'`
+ */
 export class ReExportNode implements ReflectedRootNode<Export, ts.ExportDeclaration> {
 
     private readonly _node: ts.ExportDeclaration;

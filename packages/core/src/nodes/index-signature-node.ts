@@ -11,6 +11,10 @@ import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of an index signature in an interface or in a type literal.
+ * For example: `{ [key: string]: number }`
+ */
 export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.IndexSignatureDeclaration> {
 
     private readonly _node: ts.IndexSignatureDeclaration;

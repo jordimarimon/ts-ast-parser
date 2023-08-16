@@ -5,6 +5,10 @@ import { TypeKind } from '../models/type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents a mapped type.
+ * For example `type foo<T> = { [p in keyof T]: boolean; }`.
+ */
 export class MappedTypeNode implements ReflectedTypeNode<ts.MappedTypeNode> {
 
     private readonly _node: ts.MappedTypeNode;

@@ -6,6 +6,9 @@ import { createType } from '../factories/create-type.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represents the reflected node of a type parameter
+ */
 export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypeParameterDeclaration> {
 
     private readonly _node: ts.TypeParameterDeclaration;

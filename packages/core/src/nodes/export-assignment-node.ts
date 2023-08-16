@@ -5,9 +5,12 @@ import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
 import type ts from 'typescript';
 
-// Case of:
-//      export default 4;
-//      export = class Foo {};
+
+/**
+ * Represents the reflected node of an export assignment.
+ *
+ * For example `export default foo` or `export = class Foo {}`.
+ */
 export class ExportAssignmentNode implements ReflectedRootNode<Export, ts.ExportAssignment> {
 
     private readonly _node: ts.ExportAssignment;
