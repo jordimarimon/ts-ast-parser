@@ -58,6 +58,9 @@ export class NamedExportNode implements ReflectedRootNode<Export, ts.ExportDecla
         return this.getOriginalName() !== this.getName();
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Export {
         const originalName = this.getOriginalName();
         const tmpl: Export = {

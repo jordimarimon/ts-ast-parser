@@ -43,6 +43,9 @@ export class SideEffectImportNode implements ReflectedRootNode<Import, ts.Import
         return isBareModuleSpecifier(this.getImportPath());
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Import {
         const tmpl: Import = {
             kind: ImportKind.SideEffect,

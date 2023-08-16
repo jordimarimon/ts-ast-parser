@@ -47,6 +47,9 @@ export class ExportAssignmentNode implements ReflectedRootNode<Export, ts.Export
         return this._node;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Export {
         return {
             name: this.getName(),

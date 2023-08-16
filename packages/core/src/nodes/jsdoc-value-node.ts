@@ -29,14 +29,6 @@ export class JSDocValueNode {
         return this._jsDocTagValue.name ?? '';
     }
 
-    getValue<T>(): T | undefined {
-        if (typeof this._jsDocTagValue === 'string' || typeof this._jsDocTagValue === 'boolean') {
-            return this._jsDocTagValue as T;
-        }
-
-        return this._jsDocTagValue.value as T;
-    }
-
     getType(): string {
         if (typeof this._jsDocTagValue === 'string' || typeof this._jsDocTagValue === 'boolean') {
             return '';
@@ -61,7 +53,10 @@ export class JSDocValueNode {
         return !!this._jsDocTagValue.optional;
     }
 
-    serialize(): DocTagValue {
-        return this._jsDocTagValue;
+    /**
+     * The reflected node as a serializable object
+     */
+    serialize<T extends DocTagValue = DocTagValue>(): T {
+        return this._jsDocTagValue as T;
     }
 }

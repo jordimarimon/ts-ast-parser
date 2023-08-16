@@ -1,5 +1,6 @@
 import type { Type } from './type.js';
 
+
 /**
  * A type parameter after being serialized
  */

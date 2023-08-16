@@ -67,6 +67,9 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
         return this._node.typeParameters?.map(tp => new TypeParameterNode(tp, this._context)) ?? [];
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): TypeAliasDeclaration {
         const tmpl: TypeAliasDeclaration = {
             name: this.getName(),

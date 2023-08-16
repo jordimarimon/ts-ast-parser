@@ -44,6 +44,9 @@ export class ArrayTypeNode implements ReflectedTypeNode<ts.ArrayTypeNode> {
         return createType(this._node.elementType, this._context);
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         return {
             text: this.getText(),

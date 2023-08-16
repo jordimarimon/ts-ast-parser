@@ -105,7 +105,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
     }
 
     getDefault(): unknown {
-        const jsDocDefaultValue = this.getJSDoc().getTag(DocTagName.default)?.getValue<string>() ?? '';
+        const jsDocDefaultValue = this.getJSDoc().getTag(DocTagName.default)?.serialize<string>() ?? '';
         const [getter, setter] = this._getAccessors();
 
         if (jsDocDefaultValue) {
@@ -174,7 +174,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
     }
 
     isReadOnly(): boolean {
-        const readOnlyTag = !!this.getJSDoc().getTag(DocTagName.readonly)?.getValue<boolean>();
+        const readOnlyTag = !!this.getJSDoc().getTag(DocTagName.readonly)?.serialize<boolean>();
         const [getter, setter] = this._getAccessors();
 
         return readOnlyTag || (!!getter && !setter) || isReadOnly(this._node);
@@ -198,6 +198,9 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         return !!this._nodeContext?.overrides;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Field {
         const tmpl: Field = {
             name: this.getName(),

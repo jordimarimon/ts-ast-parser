@@ -53,16 +53,34 @@ export enum DocTagName {
  * A documentation comment tag reflected value as an object
  */
 export interface DocTagObjectValue {
+    /**
+     * The name of the tag
+     */
     name?: string;
+
+    /**
+     * If there is any type defined
+     */
     type?: string;
-    value?: unknown;
+
+    /**
+     * The default value: [name=default]
+     */
     default?: string;
+
+    /**
+     * If it's optional
+     */
     optional?: boolean;
+
+    /**
+     * The description
+     */
     description?: string;
 
     /**
-     * Indicates which reflection/url it links to. Useful
-     * for `@link` tags
+     * Indicates which reflection/url it links to.
+     * Useful for `@link` tags
      */
     target?: string | SourceReference;
 

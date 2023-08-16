@@ -8,7 +8,7 @@ import ts from 'typescript';
 
 
 /**
- * The reflected node when a decorator call is found
+ * Represents the reflected node of a decorator call
  */
 export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
 
@@ -37,21 +37,37 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
         return expr.getText();
     }
 
+    /**
+     * The internal TypeScript node
+     */
     getTSNode(): ts.Decorator {
         return this._decorator;
     }
 
+    /**
+     * The analyser context
+     */
     getContext(): AnalyserContext {
         return this._context;
     }
 
     /**
-     * The JSDoc comments
+     * The reflected documentation comment
      */
     getJSDoc(): JSDocNode {
         return this._jsDoc;
     }
 
+    /**
+     * If there are arguments supplied
+     */
+    hasArguments(): boolean {
+        return !!this.getArguments().length;
+    }
+
+    /**
+     * The values of the arguments supplied in the call
+     */
     getArguments(): unknown[] {
         const expr = this._decorator.expression;
 
@@ -62,6 +78,10 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
         return [];
     }
 
+    /**
+     * The line number where the decorator
+     * is defined (not where it's used)
+     */
     getLine(): number | null {
         const expr = this._decorator.expression;
 
@@ -72,10 +92,10 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
         return this._context.getLocation(expr).line;
     }
 
-    hasArguments(): boolean {
-        return !!this.getArguments().length;
-    }
-
+    /**
+     * The source file path where the decorator
+     * is defined (not where it's used)
+     */
     getPath(): string {
         const expr = this._decorator.expression;
 
@@ -86,6 +106,9 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
         return this._context.getLocation(expr).path;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Decorator {
         const path = this.getPath();
         const line = this.getLine();

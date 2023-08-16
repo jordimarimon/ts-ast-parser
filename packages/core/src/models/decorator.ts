@@ -1,6 +1,7 @@
 import type { SourceReference } from './reference.js';
 import type { DocComment } from './js-doc.js';
 
+
 /**
  * Result of a decorator after serializing it
  */

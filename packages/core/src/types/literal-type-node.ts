@@ -65,6 +65,9 @@ export class LiteralTypeNode implements ReflectedTypeNode<ts.LiteralTypeNode> {
         }
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         return {
             text: this.getText(),

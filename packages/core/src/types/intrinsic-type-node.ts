@@ -60,6 +60,9 @@ export class IntrinsicTypeNode implements ReflectedTypeNode {
         }
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         return {
             text: this.getText(),

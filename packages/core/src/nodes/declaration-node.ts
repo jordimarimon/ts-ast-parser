@@ -16,17 +16,17 @@ export interface DeclarationNode<Model extends object = Declaration, TSNode exte
     getName(): string;
 
     /**
-     * Returns the JSDoc comments attached to this declaration.
+     * Returns the documentation comment attached to this declaration.
      */
     getJSDoc(): JSDocNode | null;
 
     /**
-     * Returns the type of declaration or member.
+     * Returns the type of declaration
      */
     getKind(): DeclarationKind | MemberKind;
 
     /**
-     * Returns the namespaces this declaration is inside.
+     * Returns the namespaces where this declaration is inside.
      *
      * If no namespace is found, an empty string is returned.
      */

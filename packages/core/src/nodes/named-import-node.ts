@@ -67,6 +67,9 @@ export class NamedImportNode implements ReflectedRootNode<Import, ts.ImportDecla
         return isBareModuleSpecifier(this.getImportPath());
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Import {
         const originalPath = this.getOriginalPath();
         const referenceName = this.getReferenceName();

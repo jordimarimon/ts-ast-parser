@@ -63,6 +63,9 @@ export class NamespaceImportNode implements ReflectedRootNode<Import, ts.ImportD
         return isBareModuleSpecifier(this.getImportPath());
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Import {
         const originalPath = this.getOriginalPath();
         const tmpl: Import = {

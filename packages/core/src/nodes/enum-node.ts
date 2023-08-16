@@ -83,6 +83,9 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
         });
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): EnumDeclaration {
         const tmpl: EnumDeclaration = {
             kind: this.getKind(),

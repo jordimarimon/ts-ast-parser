@@ -39,6 +39,9 @@ export class MappedTypeNode implements ReflectedTypeNode<ts.MappedTypeNode> {
         return this._context.getTypeChecker().typeToString(this._type);
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         return {
             text: this.getText(),

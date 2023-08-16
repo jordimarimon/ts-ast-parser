@@ -53,6 +53,9 @@ export class NamedTupleMemberNode implements ReflectedTypeNode<ts.NamedTupleMemb
         return !!this._node.questionToken;
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): NamedTupleMember {
         const tmpl: NamedTupleMember = {
             name: this.getName(),

@@ -69,6 +69,9 @@ export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode
         return (this._node.typeArguments ?? []).map(t => createType(t, this._context));
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         const tmpl: Type = {
             text: this.getText(),

@@ -47,6 +47,9 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
         return this._jsDoc;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): EnumMember {
         const tmpl: EnumMember = {
             name: this.getName(),

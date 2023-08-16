@@ -161,6 +161,9 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         return this._heritage;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): InterfaceDeclaration {
         const tmpl: InterfaceDeclaration = {
             name: this.getName(),

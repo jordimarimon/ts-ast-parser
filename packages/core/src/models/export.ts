@@ -1,11 +1,30 @@
 /**
- * The type of export
+ * The kind of export
  */
 export enum ExportKind {
+    /**
+     * Case of `export default foo`
+     */
     Default = 'Default',
+
+    /**
+     * Case of `export * as foo from './foo.js'`
+     */
     Namespace = 'Namespace',
+
+    /**
+     * Case of `export * from './foo.js'`
+     */
     Star = 'Star',
+
+    /**
+     * Case of `export const foo = 4` or `export { a, b } from './foo.js'`
+     */
     Named = 'Named',
+
+    /**
+     * Case of `export = Foo`
+     */
     Equals = 'Equals',
 }
 

@@ -83,6 +83,9 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
         return this.getParameters().find(param => param.getName() === name) ?? null;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): FunctionSignature {
         const tmpl: FunctionSignature = {
             return: {

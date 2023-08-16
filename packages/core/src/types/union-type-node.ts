@@ -48,6 +48,9 @@ export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
         return this._node.types.map(typeNode => createType(typeNode, this._context));
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         return {
             text: this.getText(),

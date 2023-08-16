@@ -3,6 +3,7 @@ import type { TypeParameter } from './type-parameter.js';
 import type { DocComment } from './js-doc.js';
 import type { Type } from './type.js';
 
+
 /**
  * A type-alias declaration after being serialized
  */

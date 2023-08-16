@@ -55,6 +55,9 @@ export class NamespaceExportNode implements ReflectedRootNode<Export, ts.ExportD
         return !!this._node.isTypeOnly;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Export {
         const tmpl: Export = {
             name: this.getName(),

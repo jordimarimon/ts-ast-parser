@@ -39,6 +39,9 @@ export class TemplateLiteralTypeNode implements ReflectedTypeNode<ts.TemplateLit
         return this._context.getTypeChecker().typeToString(this._type);
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         return {
             text: this.getText(),

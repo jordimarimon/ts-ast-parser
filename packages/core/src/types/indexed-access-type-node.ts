@@ -66,6 +66,9 @@ export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccess
         return createType(this._node.indexType, this._context);
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         const tmpl: Type = {
             text: this.getText(),

@@ -59,6 +59,9 @@ export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> 
         return createType(this._node.type, this._context);
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         const tmpl: Type = {
             text: this.getText(),

@@ -10,6 +10,10 @@ import { is } from '../utils/is.js';
 import ts from 'typescript';
 
 
+/**
+ * Represents a reflected module as a collection of imports, exports and
+ * class/interface/function/type-alias/enum declarations
+ */
 export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     private _declarations: DeclarationNode[] = [];
@@ -31,21 +35,22 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     /**
-     * The TS AST node for the file
+     * The original TypeScript node
      */
     getTSNode(): ts.SourceFile {
         return this._node;
     }
 
     /**
-     * The path to the source file for this module.
+     * The path to the source file for this module relative to the current
+     * working directory
      */
     getSourcePath(): string {
         return this._context.getSystem().normalizePath(this._node.fileName);
     }
 
     /**
-     * The path where the JS file will be output by the TS Compiler
+     * The path where the JS file will be output by the TypeScript Compiler
      */
     getOutputPath(): string {
         const sourcePath = this._node.fileName;
@@ -70,40 +75,74 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         return sys.normalizePath(outputPath);
     }
 
+    /**
+     * The analyser context
+     */
     getContext(): AnalyserContext {
         return this._context;
     }
 
+    /**
+     * All the import declarations found in the source file
+     */
     getImports(): ImportNode[] {
         return this._imports;
     }
 
+    /**
+     * All the export declarations found in the source file
+     */
     getExports(): ExportNode[] {
         return this._exports;
     }
 
+    /**
+     * All the class/interface/function/type-alias/enum declarations found
+     * in the source file
+     */
     getDeclarations(): DeclarationNode[] {
         return this._declarations;
     }
 
+    /**
+     * Finds a declaration based on it's kind
+     *
+     * @param kind - The declaration kind
+     *
+     * @returns All declaration nodes found
+     */
     getDeclarationByKind(kind: DeclarationKind): DeclarationNode[] {
         return this.getDeclarations().filter(decl => decl.getKind() === kind);
     }
 
+    /**
+     * Finds a declaration based on it's name
+     *
+     * @param name - The declaration name
+     *
+     * @returns The matched declaration found if any
+     */
     getDeclarationByName(name: string): DeclarationNode | null {
         return this.getDeclarations().find(decl => decl.getName() === name) ?? null;
     }
 
-    getAllDeclarationsInNamespace(name: string): DeclarationNode[] {
-        return this.getDeclarations().filter(decl => decl.getNamespace() === name);
-    }
-
+    /**
+     * Returns all the declarations that have the tag `@category`
+     * with the specified name
+     *
+     * @param category - The category name
+     *
+     * @returns All declaration nodes found
+     */
     getDeclarationsByCategory(category: string): DeclarationNode[] {
         return this.getDeclarations().filter(decl => {
-            return decl.getJSDoc()?.getTag(DocTagName.category)?.getValue<string>() === category;
+            return decl.getJSDoc()?.getTag(DocTagName.category)?.serialize<string>() === category;
         });
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Module {
         return {
             sourcePath: this.getSourcePath(),

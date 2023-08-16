@@ -14,6 +14,9 @@ import ts from 'typescript';
 //      - https://github.com/microsoft/tsdoc/blob/main/tsdoc/src/beta/DeclarationReference.ts
 //      - https://github.com/microsoft/tsdoc/tree/main/tsdoc/src
 
+/**
+ * Reflected node that represents a documentation comment
+ */
 export class JSDocNode {
 
     // There could be more than one JSDoc tag with the same name.
@@ -33,31 +36,51 @@ export class JSDocNode {
         }
     }
 
+    /**
+     * Whether the comment has the specified tag
+     *
+     * @param name - The name of the documentation tag to check
+     */
     hasTag(name: string): boolean {
         return this._jsDoc[name] !== undefined;
     }
 
     /**
-     * Returns the first JSDoc tag with the given name.
+     * Returns the first tag with the given name.
      *
-     * @param name - The name of the JSDoc tag.
+     * @param name - The name of the tag.
      *
-     * @returns The first JSDoc tag with the given name or `undefined` if no such tag exists.
+     * @returns The first tag with the given name or `undefined` if no such tag exists.
      */
     getTag(name: string): JSDocValueNode | undefined {
         return this._jsDoc[name]?.[0];
     }
 
+    /**
+     * Returns all the matches found for the given tag.
+     * A tag may appear more than once in a documentation comment.
+     * For example `@param` can appear multiple times. This method
+     * will return all the appearances of a given tag.
+     *
+     * @param name - The name of the tag to search
+     */
     getAllTags(name: string): JSDocValueNode[] {
         return this._jsDoc[name] ?? [];
     }
 
+    /**
+     * Whether the documentation comment has tags that make the
+     * associated declaration ignored for documentation purposes.
+     */
     isIgnored(): boolean {
         return (
             this.hasTag(DocTagName.ignore) || this.hasTag(DocTagName.internal) || this.hasTag(DocTagName.private)
         );
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): DocComment {
         return Object.entries(this._jsDoc).flatMap(([kind, value]) => {
             return value.map(v => ({ kind, value: v.serialize() }));

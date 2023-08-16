@@ -58,6 +58,9 @@ export class InferTypeNode implements ReflectedTypeNode<ts.InferTypeNode> {
         return createType(constraint, this._context);
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         const tmpl: Type = {
             text: this.getText(),

@@ -98,6 +98,9 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         return !!this._context.getTypeChecker().isOptionalParameter(this._node);
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Parameter {
         const tmpl: Parameter = {
             name: this.getName(),

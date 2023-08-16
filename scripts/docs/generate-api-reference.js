@@ -1,4 +1,4 @@
-import { DeclarationKind, is, JSDocTagName, parseFromGlob } from '@ts-ast-parser/core';
+import { DeclarationKind, is, DocTagName, parseFromGlob } from '@ts-ast-parser/core';
 import { markedSmartypants } from 'marked-smartypants';
 import Handlebars from 'handlebars';
 import { marked } from 'marked';
@@ -192,7 +192,7 @@ function createInterface(inter, category, filePath) {
         name: inter.getName(),
         path: filePath,
         line: inter.getLine(),
-        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
         properties: inter.getProperties().map(p => createPropertyContext(p, filePath)),
         methods: inter.getMethods().map(m => createFunctionContext(m, filePath)),
     };
@@ -209,7 +209,7 @@ function createClass(clazz, category, filePath) {
         name: clazz.getName(),
         path: filePath,
         line: clazz.getLine(),
-        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
         methods: clazz.getMethods().map(m => createFunctionContext(m, filePath)),
     };
 
@@ -225,11 +225,11 @@ function createEnum(enumerable, category, filePath) {
         name: enumerable.getName(),
         path: filePath,
         line: enumerable.getLine(),
-        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
         members: enumerable.getMembers().map(member => ({
             name: member.getName(),
             value: member.getValue(),
-            description: member.getJSDoc().getTag(JSDocTagName.description)?.getValue() ?? '',
+            description: member.getJSDoc().getTag(DocTagName.description)?.serialize() ?? '',
         })),
     };
 
@@ -246,7 +246,7 @@ function createVariable(variable, category, filePath) {
         name: variable.getName(),
         path: filePath,
         line: variable.getLine(),
-        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
         value: variable.getValue(),
     };
 
@@ -262,7 +262,7 @@ function createTypeAlias(typeAlias, category, filePath) {
         name: typeAlias.getName(),
         path: filePath,
         line: typeAlias.getLine(),
-        description: jsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
+        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
         value: typeAlias.getValue().getText(),
     };
 
@@ -276,11 +276,11 @@ function createFunctionContext(func, filePath) {
     const signature = func.getSignatures()[0];
     const funcJsDoc = func.isArrowFunctionOrFunctionExpression() ? func.getJSDoc() : signature.getJSDoc();
     const returnType = signature.getReturnType();
-    const returnTypeDescription = funcJsDoc.getTag(JSDocTagName.returns)?.getValue() ?? '';
+    const returnTypeDescription = funcJsDoc.getTag(DocTagName.returns)?.serialize() ?? '';
     const parameters = signature.getParameters().map(p => ({
         name: p.getName(),
         description: funcJsDoc
-            .getAllTags(JSDocTagName.param)
+            .getAllTags(DocTagName.param)
             ?.find(t => t.getName() === p.getName())
             ?.getDescription() ?? '',
         type: {text: p.getType().getText()},
@@ -293,8 +293,8 @@ function createFunctionContext(func, filePath) {
         name: func.getName(),
         path: filePath,
         line: signature.getLine(),
-        description: funcJsDoc.getTag(JSDocTagName.description)?.getValue() ?? '',
-        see: funcJsDoc.getAllTags(JSDocTagName.see),
+        description: funcJsDoc.getTag(DocTagName.description)?.serialize() ?? '',
+        see: funcJsDoc.getAllTags(DocTagName.see),
         signature: `${func.getName()}(${parametersStringify}): ${returnType.getText()}`,
         parameters,
         returnType: {
@@ -309,8 +309,8 @@ function createPropertyContext(property, filePath) {
         name: property.getName(),
         path: filePath,
         line: property.getLine(),
-        description: property.getJSDoc().getTag(JSDocTagName.description)?.getValue() ?? '',
-        see: property.getJSDoc().getAllTags(JSDocTagName.see),
+        description: property.getJSDoc().getTag(DocTagName.description)?.serialize() ?? '',
+        see: property.getJSDoc().getAllTags(DocTagName.see),
         type: {
             text: property.getType().getText(),
         },

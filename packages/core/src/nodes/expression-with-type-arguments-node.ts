@@ -55,6 +55,9 @@ export class ExpressionWithTypeArgumentsNode implements ReflectedNode<Expression
         return this._loc.line;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): ExpressionWithTypeArguments {
         const tmpl: ExpressionWithTypeArguments = {
             name: this.getName(),

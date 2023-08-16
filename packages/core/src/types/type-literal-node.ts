@@ -85,6 +85,9 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
         return result;
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         const tmpl: Type = {
             text: this.getText(),

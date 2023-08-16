@@ -1,24 +1,19 @@
-import type { DeclarationKind } from './declaration-kind.js';
-import type { FunctionSignature } from './function.js';
-import type { Field, Method } from './member.js';
-import type { Decorator } from './decorator.js';
-import type { DocComment } from './js-doc.js';
 import type ts from 'typescript';
 
 
+/**
+ * Represent the nodes that are part of a mixin
+ */
 export interface MixinNodes {
+    /**
+     * The function declaration that represents the mixin.
+     * It can also be a variable statement in case of using a
+     * function expression to define the mixin.
+     */
     function: ts.FunctionDeclaration | ts.VariableStatement;
-    class: ts.ClassExpression | ts.ClassDeclaration;
-}
 
-export interface MixinDeclaration {
-    name: string;
-    kind: DeclarationKind.Mixin;
-    signatures: readonly FunctionSignature[];
-    namespace?: string;
-    decorators?: readonly Decorator[];
-    jsDoc?: DocComment;
-    properties?: readonly Field[];
-    methods?: readonly Method[];
-    constructors?: readonly FunctionSignature[];
+    /**
+     * The internal class that extends the base class provided as argument
+     */
+    class: ts.ClassExpression | ts.ClassDeclaration;
 }

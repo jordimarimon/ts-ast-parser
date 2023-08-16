@@ -187,6 +187,9 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         return !!this._member?.overrides;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): FunctionDeclaration | Method {
         const tmpl: FunctionDeclaration | Method = {
             name: this.getName(),

@@ -46,6 +46,9 @@ export class TupleTypeNode implements ReflectedTypeNode<ts.TupleTypeNode> {
         return this._node.elements.map(t => createType(t, this._context));
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         return {
             text: this.getText(),

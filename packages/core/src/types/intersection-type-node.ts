@@ -48,6 +48,9 @@ export class IntersectionTypeNode implements ReflectedTypeNode<ts.IntersectionTy
         return this._node.types.map(typeNode => createType(typeNode, this._context));
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         return {
             text: this.getText(),

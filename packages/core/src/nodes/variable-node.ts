@@ -66,7 +66,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
     }
 
     getValue(): unknown {
-        const jsDocDefaultValue = this.getJSDoc().getTag(DocTagName.default)?.getValue<string>();
+        const jsDocDefaultValue = this.getJSDoc().getTag(DocTagName.default)?.serialize<string>();
         return jsDocDefaultValue ?? resolveExpression(this._declaration.initializer, this._context);
     }
 
@@ -78,6 +78,9 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
         return this._jsDoc;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): VariableDeclaration {
         const defaultValue = this.getValue();
         const tmpl: VariableDeclaration = {

@@ -79,6 +79,9 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
         return this._node;
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): Export {
         return {
             name: this.getFullyQualifiedName(),

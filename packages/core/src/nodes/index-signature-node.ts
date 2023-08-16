@@ -67,6 +67,9 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         return !!this._parameter?.isOptional();
     }
 
+    /**
+     * The reflected node as a serializable object
+     */
     serialize(): IndexSignature {
         const tmpl: IndexSignature = {
             name: this.getName(),

@@ -1,11 +1,30 @@
 /**
- * The type of import
+ * The kind of import
  */
 export enum ImportKind {
+    /**
+     * Case of `import x from 'y'`
+     */
     Default = 'Default',
+
+    /**
+     * Case of `import { x } from 'y'`
+     */
     Named = 'Named',
+
+    /**
+     * Case of `import * as x from 'y'`
+     */
     Namespace = 'Namespace',
+
+    /**
+     * Case of `import './foo.js'`
+     */
     SideEffect = 'SideEffect',
+
+    /**
+     * Case of `import('./foo.js')`
+     */
     Dynamic = 'Dynamic',
 }
 

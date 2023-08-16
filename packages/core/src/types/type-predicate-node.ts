@@ -60,6 +60,9 @@ export class TypePredicateNode implements ReflectedTypeNode<ts.TypePredicateNode
         return !!this._node.assertsModifier;
     }
 
+    /**
+     * The reflected type as a serializable object
+     */
     serialize(): Type {
         return {
             text: this.getText(),

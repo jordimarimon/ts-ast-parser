@@ -26,9 +26,9 @@ import ts from 'typescript';
 /**
  * Reflected node that represents a ClassDeclaration or a ClassExpression
  */
-export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDeclaration | ts.VariableStatement> {
+export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement> {
 
-    private readonly _node: ts.ClassDeclaration | ts.VariableStatement;
+    private readonly _node: ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement;
 
     private readonly _context: AnalyserContext;
 
@@ -40,7 +40,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.ClassDeclaration | ts.VariableStatement, context: AnalyserContext) {
+    constructor(node: ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement, context: AnalyserContext) {
         this._node = node;
         this._context = context;
         this._jsDoc = new JSDocNode(node);
@@ -57,7 +57,10 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     /**
-     * Returns the name of the class
+     * Returns the name of the class.
+     *
+     * If it's a class expression that it's assigned to a variable, it will return
+     * the name of the variable
      */
     getName(): string {
         if (ts.isVariableStatement(this._node)) {
@@ -68,21 +71,21 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     /**
-     * The type of node inside the module
+     * The reflected node type
      */
     getNodeType(): RootNodeType {
         return RootNodeType.Declaration;
     }
 
     /**
-     * The type of declaration
+     * The reflected declaration kind
      */
     getKind(): DeclarationKind.Class {
         return DeclarationKind.Class;
     }
 
     /**
-     * The analyzer context
+     * The analyser context
      */
     getContext(): AnalyserContext {
         return this._context;
@@ -91,7 +94,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     /**
      * The internal TypeScript node
      */
-    getTSNode(): ts.ClassDeclaration | ts.VariableStatement {
+    getTSNode(): ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement {
         return this._node;
     }
 
@@ -103,14 +106,15 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     /**
-     * The namespace where the class has been defined
+     * The namespace where the class has been defined.
+     * An empty string if it's not inside a namespace.
      */
     getNamespace(): string {
         return getNamespace(this._node);
     }
 
     /**
-     * The JSDoc comments
+     * The reflected JSDoc comment node
      */
     getJSDoc(): JSDocNode {
         return this._jsDoc;
@@ -133,7 +137,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     /**
-     * An array of constructors that can be used to create an instance of the class
+     * An array of constructors that can be used to
+     * create an instance of the class
      */
     getConstructors(): SignatureNode[] {
         const classNode = this._getClassNode();
@@ -226,7 +231,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     /**
-     * The heritage chain
+     * The heritage chain. Interfaces that the class implements or
+     * parent classes that it extends.
      */
     getHeritage(): ExpressionWithTypeArgumentsNode[] {
         return this._heritage;
@@ -246,7 +252,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     /**
-     * Whether it's abstract or not
+     * Whether it's an abstract class or not
      */
     isAbstract(): boolean {
         const classNode = this._getClassNode();
@@ -259,7 +265,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     /**
-     * Generates a simple JS object with read-only properties representing the node
+     * The reflected node as a serializable object
      */
     serialize(): ClassDeclaration {
         const tmpl: ClassDeclaration = {
