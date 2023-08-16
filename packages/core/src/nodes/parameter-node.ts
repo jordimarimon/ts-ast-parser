@@ -1,9 +1,10 @@
 import { createType, createTypeFromDeclaration } from '../factories/create-type.js';
-import type { NamedParameterElement, Parameter } from '../models/parameter.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
+import { BindingElementNode } from './binding-element-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { AnalyserContext } from '../analyser-context.js';
 import type { ReflectedNode } from '../reflected-node.js';
+import type { Parameter } from '../models/parameter.js';
 import { getDecorators } from '../utils/decorator.js';
 import { DecoratorNode } from './decorator-node.js';
 import type { Type } from '../models/type.js';
@@ -70,16 +71,16 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         return getDecorators(this._node).map(d => new DecoratorNode(d, this._context));
     }
 
-    getNamedElements(): NamedParameterElement[] {
+    getNamedElements(): BindingElementNode[] {
         if (!this.isNamed()) {
             return [];
         }
 
         const bindings = (this._node.name as ts.ObjectBindingPattern).elements ?? [];
-        const result: NamedParameterElement[] = [];
+        const result: BindingElementNode[] = [];
 
         for (const binding of bindings) {
-            result.push(this._createNamedParameterBinding(binding));
+            result.push(new BindingElementNode(binding, this._context));
         }
 
         return result;
@@ -117,17 +118,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         tryAddProperty(tmpl, 'rest', this.isRest());
         tryAddProperty(tmpl, 'named', this.isNamed());
         tryAddProperty(tmpl, 'default', this.getDefault());
-        tryAddProperty(tmpl, 'elements', this.getNamedElements());
-
-        return tmpl;
-    }
-
-    private _createNamedParameterBinding(binding: ts.BindingElement): NamedParameterElement {
-        const tmpl: NamedParameterElement = {
-            name: binding.name.getText() || '',
-        };
-
-        tryAddProperty(tmpl, 'default', resolveExpression(binding.initializer, this._context));
+        tryAddProperty(tmpl, 'elements', this.getNamedElements().map(e => e.serialize()));
 
         return tmpl;
     }

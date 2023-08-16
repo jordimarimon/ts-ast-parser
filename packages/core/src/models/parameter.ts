@@ -1,4 +1,6 @@
+import type { BindingElement } from './binding-element.js';
 import type { PropertyLike } from './property.js';
+
 
 /**
  * A parameter after being serialized
@@ -23,20 +25,5 @@ export interface Parameter extends PropertyLike {
     /**
      * The elements of a named parameter
      */
-    elements?: NamedParameterElement[];
-}
-
-/**
- * A named parameter after being serialized
- */
-export interface NamedParameterElement {
-    /**
-     * The name of the parameter element
-     */
-    name: string;
-
-    /**
-     * The default value
-     */
-    default?: unknown;
+    elements?: BindingElement[];
 }

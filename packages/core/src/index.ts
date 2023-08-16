@@ -5,6 +5,7 @@ export * from './parse-from-glob.js';
 export * from './parse-from-project.js';
 
 // MODELS
+export * from './models/binding-element.js';
 export * from './models/class.js';
 export * from './models/declaration.js';
 export * from './models/declaration-kind.js';
@@ -30,6 +31,7 @@ export * from './models/type-parameter.js';
 export * from './models/variable.js';
 
 // NODES
+export * from './nodes/binding-element-node.js';
 export * from './nodes/class-node.js';
 export * from './nodes/declaration-node.js';
 export * from './nodes/decorator-node.js';

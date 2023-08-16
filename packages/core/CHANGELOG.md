@@ -25,6 +25,10 @@
   }
   ```
 
+- Now in a `ParameterNode` when calling the method `getNamedElements()` it will return an array of `BindingElementNode[]`
+  instead of an array of `NamedParameterElement[]`. This change has been done for consistency with the rest of the 
+  library.
+
 # 0.4.0 (2023-08-11)
 
 ### Features
