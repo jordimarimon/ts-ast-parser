@@ -21,7 +21,7 @@
         INTERFACE
     </span>
 
-    <a class="mis-auto material-icons" target="_blank" href="\{{ github }}/{{ this.path }}#L{{ this.line }}">
+    <a class="mis-auto material-icons" target="_blank" href="\{{ github }}/{{this.path}}#L{{this.line}}">
         code
     </a>
 </div>
@@ -32,9 +32,9 @@
         Description
     </h2>
 
-    <p class="block text w-full mt-4">
-        {{markdownToHTML this.description }}
-    </p>
+    <div class="block text w-full mt-4">
+        {{markdownToHTML this.description}}
+    </div>
 </section>
 {{/if}}
 
@@ -90,9 +90,9 @@
             </div>
 
             {{#if this.description}}
-            <p class="text px-4 mt-4">
+            <div class="text px-4 mt-4">
                 {{markdownToHTML this.description}}
-            </p>
+            </div>
             {{/if}}
 
             {{#if this.signature}}
@@ -121,7 +121,7 @@
             <h4 class="heading-5 mt-4 mb-2 px-4">Returns</h4>
             <div class="flex items-start gap-2 px-4">
                 <span class="shrink-0">{{typeWithReference this.returnType}}:</span>
-                <span class="text leading-relaxed">{{markdownToHTML this.returnType.description true}}</span>
+                <span class="text leading-relaxed">{{markdownToHTML this.returnType.description}}</span>
             </div>
         </li>
         {{/each}}

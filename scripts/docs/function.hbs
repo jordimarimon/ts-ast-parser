@@ -32,9 +32,9 @@
         Description
     </h2>
 
-    <p class="block text w-full mt-4">
-        {{markdownToHTML this.description }}
-    </p>
+    <div class="block text w-full mt-4">
+        {{markdownToHTML this.description}}
+    </div>
 </section>
 {{/if}}
 
@@ -72,9 +72,9 @@
             {{#each this.parameters}}
             <tr>
                 <td>{{this.name}}</td>
-                <td>{{ typeWithReference this.type }}</td>
+                <td>{{typeWithReference this.type}}</td>
                 <td><code class="code code-accent">{{this.default}}</code></td>
-                <td>{{markdownToHTML this.description }}</td>
+                <td>{{markdownToHTML this.description}}</td>
             </tr>
             {{/each}}
         </tbody>
@@ -90,7 +90,7 @@
 
     <div class="flex items-start gap-2 mt-4">
         <span class="shrink-0">{{typeWithReference this.returnType}}:</span>
-        <span class="text leading-relaxed">{{markdownToHTML this.returnType.description true}}</span>
+        <span class="text leading-relaxed">{{markdownToHTML this.returnType.description}}</span>
     </div>
 </section>
 {{/if}}

@@ -51,7 +51,7 @@ export class AnalyserContext {
     /**
      * The TypeScript type checker.
      *
-     * Useful to resolve the types of the symbols and declarations.
+     * Useful to resolve the types and location of the reflected nodes.
      *
      * @returns The TypeScript type checker
      */

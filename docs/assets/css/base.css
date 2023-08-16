@@ -43,3 +43,15 @@ img {
 [hidden] {
     display: none;
 }
+
+ul {
+    &.disc {
+        list-style: disc;
+        margin-top: theme("spacing.2");
+        padding-inline-start: 1.25em;
+    }
+}
+
+p + p {
+    margin-top: theme("spacing.2");
+}

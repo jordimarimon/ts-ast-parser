@@ -21,7 +21,7 @@
         TYPE-ALIAS
     </span>
 
-    <a class="mis-auto material-icons" target="_blank" href="\{{ github }}/{{ this.path }}#L{{ this.line }}">
+    <a class="mis-auto material-icons" target="_blank" href="\{{ github }}/{{this.path}}#L{{this.line}}">
         code
     </a>
 </div>
@@ -32,9 +32,9 @@
         Description
     </h2>
 
-    <p class="block text w-full mt-4">
-        {{markdownToHTML this.description }}
-    </p>
+    <div class="block text w-full mt-4">
+        {{markdownToHTML this.description}}
+    </div>
 </section>
 {{/if}}
 
@@ -43,7 +43,7 @@
         Value
     </h2>
 
-    {% highlight "ts" %}
-    type {{ this.name }} = {{ this.value }}
-    {% endhighlight %}
+{% highlight "ts" %}
+type {{ this.name }} = {{ this.value }}
+{% endhighlight %}
 </section>

@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    content: ['./docs/**/*.{njk,md,html}'],
+    content: [
+        './docs/**/*.{njk,md,html}',
+        './scripts/docs/generate-api-reference.js',
+    ],
 
     theme: {
         screens: {

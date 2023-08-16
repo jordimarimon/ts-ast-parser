@@ -12,9 +12,9 @@ export interface ArgumentError {
 /**
  * There are three types of errors:
  *
- *      - Invalid argument error: Errors caused because of invalid arguments when calling the parse function
- *      - Config errors: Errors caused because of invalid compiler options
- *      - Syntactic/Semantic errors: Errors thrown by the TypeScript compiler when parsing the code
+ * - **Invalid argument error**: Errors caused because of invalid arguments when calling the parse function
+ * - **Config errors**: Errors caused because of invalid compiler options
+ * - **Syntactic/Semantic errors**: Errors thrown by the TypeScript compiler when parsing the code
  */
 export type AnalyserError = ArgumentError | ts.Diagnostic;
 

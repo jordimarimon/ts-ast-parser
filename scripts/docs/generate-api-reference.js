@@ -1,26 +1,24 @@
-import { DeclarationKind, is, DocTagName, parseFromGlob } from '@ts-ast-parser/core';
-import { markedSmartypants } from 'marked-smartypants';
+import { DeclarationKind, DocTagName, is, parseFromGlob } from '@ts-ast-parser/core';
+import MarkdownIt from 'markdown-it';
 import Handlebars from 'handlebars';
-import { marked } from 'marked';
 import path from 'path';
 import fs from 'fs';
 
 
-marked.use(markedSmartypants());
-marked.use({
+const md = new MarkdownIt({
+    html: true,
+    linkify: true,
+    typographer: true,
     breaks: false,
-    gfm: true,
-    headerIds: false,
-    mangle: false,
 });
 
 // Handlebars Helpers
 Handlebars.registerHelper('firstLetter', str => str[0].toUpperCase());
-Handlebars.registerHelper('markdownToHTML', (str, inline) => {
-    let html = inline ? marked.parseInline(str ?? '') : marked.parse(str ?? '');
+Handlebars.registerHelper('markdownToHTML', str => {
+    let html = md.render(str);
     html = html.replaceAll(/<a/g, '<a class="prose" target="_blank"');
     html = html.replaceAll(/<code/g, '<code class="code"');
-    html = html.replaceAll(/\n{2,}/g, '<br><br>').replaceAll('\n', ' ');
+    html = html.replaceAll(/<ul/g, '<ul class="disc"');
 
     return new Handlebars.SafeString(html);
 });
@@ -277,6 +275,13 @@ function createFunctionContext(func, filePath) {
     const funcJsDoc = func.isArrowFunctionOrFunctionExpression() ? func.getJSDoc() : signature.getJSDoc();
     const returnType = signature.getReturnType();
     const returnTypeDescription = funcJsDoc.getTag(DocTagName.returns)?.serialize() ?? '';
+    const typeParameters = signature.getTypeParameters().map(t => {
+        return {
+            name: t.getName(),
+            default: t.getDefault()?.getText() ?? '',
+            constraint: t.getConstraint()?.getText() ?? '',
+        };
+    });
     const parameters = signature.getParameters().map(p => ({
         name: p.getName(),
         description: funcJsDoc
@@ -287,6 +292,17 @@ function createFunctionContext(func, filePath) {
         default: p.getDefault(),
     }));
 
+    const typeParametersStringify = typeParameters.map(t => {
+        let result = `${t.name}`;
+        if (t.constraint) {
+            result += ` extends ${t.constraint}`;
+        }
+        if (t.default) {
+            result += ` = ${t.default}`;
+        }
+        return result;
+    });
+    const typeParametersJoined = typeParameters.length ? `<${typeParametersStringify.join(', ')}>` : '';
     const parametersStringify = parameters.map(p => `${p.name}: ${p.type.text}`).join(', ');
 
     return {
@@ -295,8 +311,9 @@ function createFunctionContext(func, filePath) {
         line: signature.getLine(),
         description: funcJsDoc.getTag(DocTagName.description)?.serialize() ?? '',
         see: funcJsDoc.getAllTags(DocTagName.see),
-        signature: `${func.getName()}(${parametersStringify}): ${returnType.getText()}`,
+        signature: `${func.getName()}${typeParametersJoined}(${parametersStringify}): ${returnType.getText()}`,
         parameters,
+        typeParameters,
         returnType: {
             text: returnType.getText(),
             description: returnTypeDescription,

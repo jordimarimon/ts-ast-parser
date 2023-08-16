@@ -32,9 +32,9 @@
         Description
     </h2>
 
-    <p class="block text w-full mt-4">
-        {{markdownToHTML this.description }}
-    </p>
+    <div class="block text w-full mt-4">
+        {{markdownToHTML this.description}}
+    </div>
 </section>
 {{/if}}
 
@@ -43,7 +43,7 @@
         Value
     </h2>
 
-    {% highlight "ts" %}
-    const {{ this.name }} = {{ this.value }}
-    {% endhighlight %}
+{% highlight "ts" %}
+const {{ this.name }} = {{ this.value }}
+{% endhighlight %}
 </section>
