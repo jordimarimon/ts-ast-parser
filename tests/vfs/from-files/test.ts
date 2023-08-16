@@ -17,52 +17,35 @@ const path2 = '/file2.ts';
 const code2 = fs.readFileSync(path.join(dir, 'index2.ts'), 'utf-8');
 const expectedOutput2 = readExpectedOutput(category, subcategory, 'output2.json');
 
-describe(category, () => {
+describe(`${category}/${subcategory}`, () => {
     test('should allow updating the contents of a file', async ({ update }) => {
-        const system = new NodeSystem({vfs: true, analyserOptions: {include: ['/*.ts']}});
-        system.writeFile(path1, code1);
+        const systems = [
+            new NodeSystem({vfs: true, analyserOptions: {include: ['/*.ts']}}),
+            await BrowserSystem.create({analyserOptions: {include: ['/*.ts']}}),
+        ];
 
-        let actual = (await parseFromFiles([path1], {system})).project;
-        let result = actual?.getModules().map(m => m.serialize()) ?? [];
+        for (const system of systems) {
+            system.writeFile(path1, code1);
 
-        if (update) {
-            updateExpectedOutput(result, category, subcategory, 'output1.json');
-        } else {
-            expect(result).to.deep.equal(expectedOutput1);
+            let actual = (await parseFromFiles([path1], {system})).project;
+            let result = actual?.getModules().map(m => m.serialize()) ?? [];
+
+            if (update) {
+                updateExpectedOutput(result, category, subcategory, 'output1.json');
+            } else {
+                expect(result).to.deep.equal(expectedOutput1);
+            }
+
+            system.writeFile(path2, code2);
+            actual = (await parseFromFiles([path1, path2], {system})).project;
+            result = actual?.getModules().map(m => m.serialize()) ?? [];
+
+            if (update) {
+                updateExpectedOutput(result, category, subcategory, 'output2.json');
+                break;
+            } else {
+                expect(result).to.deep.equal(expectedOutput2);
+            }
         }
-
-        system.writeFile(path2, code2);
-        actual = (await parseFromFiles([path1, path2], {system})).project;
-        result = actual?.getModules().map(m => m.serialize()) ?? [];
-
-        if (update) {
-            updateExpectedOutput(result, category, subcategory, 'output2.json');
-        } else {
-            expect(result).to.deep.equal(expectedOutput2);
-        }
-    }, {timeout: 10_000});
-
-    test('should allow updating the contents of a file', async ({ update }) => {
-        const system = await BrowserSystem.create({analyserOptions: {include: ['/*.ts']}});
-        system.writeFile(path1, code1);
-
-        let actual = (await parseFromFiles([path1], {system})).project;
-        let result = actual?.getModules().map(m => m.serialize()) ?? [];
-
-        if (update) {
-            updateExpectedOutput(result, category, subcategory, 'output1.json');
-        } else {
-            expect(result).to.deep.equal(expectedOutput1);
-        }
-
-        system.writeFile(path2, code2);
-        actual = (await parseFromFiles([path1, path2], {system})).project;
-        result = actual?.getModules().map(m => m.serialize()) ?? [];
-
-        if (update) {
-            updateExpectedOutput(result, category, subcategory, 'output2.json');
-        } else {
-            expect(result).to.deep.equal(expectedOutput2);
-        }
-    }, {timeout: 10_000});
+    }, {timeout: 20_000});
 });
