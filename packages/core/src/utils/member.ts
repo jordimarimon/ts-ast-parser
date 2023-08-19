@@ -25,7 +25,7 @@ export function getInstanceMembers(node: InterfaceOrClassDeclaration, context: P
     const type = symbol && checker.getDeclaredTypeOfSymbol(symbol);
     const props = type?.getProperties() ?? [];
 
-    return createSymbolsWithContext(node, props, checker);
+    return createSymbolsWithContext(node, props, context);
 }
 
 export function getStaticMembers(node: ClassLikeNode, context: ProjectContext): SymbolWithContext[] {
@@ -34,19 +34,22 @@ export function getStaticMembers(node: ClassLikeNode, context: ProjectContext): 
     const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, node);
     const staticProps = (type && checker.getPropertiesOfType(type)) ?? [];
 
-    return createSymbolsWithContext(node, staticProps, checker);
+    return createSymbolsWithContext(node, staticProps, context);
 }
 
 export function createSymbolsWithContext(
     node: InterfaceOrClassDeclaration,
     symbols: ts.Symbol[],
-    checker: ts.TypeChecker,
+    context: ProjectContext,
 ): SymbolWithContext[] {
     const result: SymbolWithContext[] = [];
+    const checker = context.getTypeChecker();
+    const system = context.getSystem();
 
     for (const propSymbol of symbols) {
         const decl = propSymbol.getDeclarations()?.[0];
-        const filePath = decl?.getSourceFile()?.fileName ?? '';
+        const fileName = decl?.getSourceFile()?.fileName ?? '';
+        const filePath = fileName ? system.realpath(fileName) : '';
         const propType = checker.getTypeOfSymbolAtLocation(propSymbol, node);
 
         // Don't convert namespace members, or the prototype here

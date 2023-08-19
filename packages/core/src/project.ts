@@ -80,6 +80,7 @@ export class Project {
             rootNames: commandLine.fileNames,
             options: commandLine.options,
             host: compilerHost,
+            projectReferences: commandLine.projectReferences ?? [],
         });
 
         return new Project(system, compilerHost, program, commandLine, options);
@@ -96,6 +97,7 @@ export class Project {
             rootNames: files.map(f => system.getAbsolutePath(f)),
             options: commandLine.options,
             host: compilerHost,
+            projectReferences: commandLine.projectReferences ?? [],
         });
 
         return new Project(system, compilerHost, program, commandLine, options);
@@ -111,6 +113,7 @@ export class Project {
             rootNames: [system.getAbsolutePath(fileName)],
             options: commandLine.options,
             host: compilerHost,
+            projectReferences: commandLine.projectReferences ?? [],
         });
 
         return new Project(system, compilerHost, program, commandLine, options);

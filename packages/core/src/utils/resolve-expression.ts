@@ -74,7 +74,8 @@ function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression, co
     const reference = context.getSymbol(expr);
     const text = expr.getText() ?? '';
     const refExpr = reference?.declarations?.[0];
-    const importPath = refExpr?.getSourceFile().fileName ?? '';
+    const fileName = refExpr?.getSourceFile().fileName ?? '';
+    const importPath = fileName ? context.getSystem().realpath(fileName) : '';
 
     if (refExpr == null) {
         return text;

@@ -1,7 +1,8 @@
 import type { AnalyserSystem } from './analyser-system.js';
-import * as path from 'path';
+import { platform } from 'node:process';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 import ts from 'typescript';
-import * as fs from 'fs';
 
 
 /**
@@ -37,7 +38,8 @@ export class NodeSystem implements AnalyserSystem {
      * Reads the data encoded inside a file
      */
     readFile(filePath: string, encoding?: string): string {
-        return ts.sys.readFile(filePath, encoding) ?? '';
+        const absolutePath = this.getAbsolutePath(filePath);
+        return ts.sys.readFile(absolutePath, encoding) ?? '';
     }
 
     writeFile(filePath: string, data: string): void {
@@ -150,6 +152,14 @@ export class NodeSystem implements AnalyserSystem {
         return path.isAbsolute(filePath);
     }
 
+    realpath(filePath: string): string {
+        return fs.realpathSync.native
+            ? platform === 'win32'
+                ? this.fsRealPathHandlingLongPath(filePath)
+                : fs.realpathSync.native(filePath)
+            : fs.realpathSync(filePath);
+    }
+
     /**
      * Returns the absolute path
      */
@@ -171,5 +181,9 @@ export class NodeSystem implements AnalyserSystem {
         this._ensureDirectoryExistence(dirname);
 
         fs.mkdirSync(dirname);
+    }
+
+    private fsRealPathHandlingLongPath(filePath: string): string {
+        return filePath.length < 260 ? fs.realpathSync.native(filePath) : fs.realpathSync(filePath);
     }
 }

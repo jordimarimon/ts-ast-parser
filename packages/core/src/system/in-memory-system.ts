@@ -254,6 +254,10 @@ export class InMemorySystem implements AnalyserSystem {
         return path.startsWith(ROOT_DIR);
     }
 
+    realpath(path: string): string {
+        return this.getAbsolutePath(path);
+    }
+
     /**
      * Transforms the path to an absolute path.
      *

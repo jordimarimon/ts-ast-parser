@@ -40,7 +40,8 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
     }
 
     getPath(): string {
-        return this._node.getDeclaration().getSourceFile().fileName ?? '';
+        const fileName = this._node.getDeclaration().getSourceFile().fileName ?? '';
+        return fileName ? this._context.getSystem().realpath(fileName) : fileName;
     }
 
     getJSDoc(): JSDocNode {

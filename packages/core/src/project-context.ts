@@ -160,7 +160,9 @@ export class ProjectContext {
 
         const decl = symbol?.getDeclarations()?.[0];
         const sourceFile = decl?.getSourceFile();
-        const path = this._system.normalizePath(sourceFile?.fileName ?? '');
+        const path = sourceFile?.fileName
+            ? this._system.normalizePath(this._system.realpath(sourceFile.fileName))
+            : '';
         const line = decl ? this.getLinePosition(decl) : null;
 
         return { symbol, path, line };

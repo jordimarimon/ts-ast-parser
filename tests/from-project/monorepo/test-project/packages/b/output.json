@@ -59,7 +59,11 @@
                 "heritage": [
                     {
                         "name": "Person",
-                        "kind": "Class"
+                        "kind": "Class",
+                        "source": {
+                            "line": 1,
+                            "path": "tests/from-project/monorepo/test-project/packages/a/dist/index.d.ts"
+                        }
                     }
                 ],
                 "properties": [
@@ -71,6 +75,26 @@
                             "kind": "Intrinsic"
                         },
                         "line": 5
+                    },
+                    {
+                        "name": "name",
+                        "kind": "Property",
+                        "type": {
+                            "text": "string",
+                            "kind": "Intrinsic"
+                        },
+                        "line": 2,
+                        "inherited": true
+                    },
+                    {
+                        "name": "age",
+                        "kind": "Property",
+                        "type": {
+                            "text": "number",
+                            "kind": "Intrinsic"
+                        },
+                        "line": 4,
+                        "inherited": true
                     }
                 ]
             }
