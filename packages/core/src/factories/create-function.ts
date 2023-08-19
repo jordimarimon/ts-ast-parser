@@ -1,5 +1,5 @@
 import type { FunctionDeclaration } from '../models/function.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { isFunctionDeclaration } from '../utils/function.js';
 import { FunctionNode } from '../nodes/function-node.js';
 import type { NodeFactory } from './node-factory.js';
@@ -15,7 +15,7 @@ export const functionFactory: NodeFactory<
 
     isNode: isFunctionDeclaration,
 
-    create: (node: ts.VariableStatement | ts.FunctionDeclaration, context: AnalyserContext): FunctionNode[] => {
+    create: (node: ts.VariableStatement | ts.FunctionDeclaration, context: ProjectContext): FunctionNode[] => {
         const reflectedNode = context.registerReflectedNode(node, () => new FunctionNode(node, null, context));
         return [reflectedNode];
     },

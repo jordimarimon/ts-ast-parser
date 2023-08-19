@@ -8,7 +8,6 @@ import * as fs from 'fs';
 const category = 'from-project';
 const subcategory = 'monorepo';
 const pkgsDir = path.join(process.cwd(), 'tests', category, subcategory, 'test-project', 'packages');
-
 const pkgs = fs.readdirSync(pkgsDir);
 
 describe(category, () => {

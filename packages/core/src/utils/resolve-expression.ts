@@ -1,9 +1,9 @@
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
 
-export function resolveExpression(expression: ts.Expression | undefined, context: AnalyserContext): unknown {
+export function resolveExpression(expression: ts.Expression | undefined, context: ProjectContext): unknown {
     let expr = expression;
 
     if (expr == null) {
@@ -70,7 +70,7 @@ function parseStringToFloat(text: string): number | string {
     return text;
 }
 
-function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression, context: AnalyserContext): unknown {
+function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression, context: ProjectContext): unknown {
     const reference = context.getSymbol(expr);
     const text = expr.getText() ?? '';
     const refExpr = reference?.declarations?.[0];
@@ -92,7 +92,7 @@ function resolveIdentifier(expr: ts.Identifier | ts.PropertyAccessExpression, co
     return text;
 }
 
-function applyPrefixUnaryOperatorToValue(expression: ts.PrefixUnaryExpression, context: AnalyserContext): unknown {
+function applyPrefixUnaryOperatorToValue(expression: ts.PrefixUnaryExpression, context: ProjectContext): unknown {
     const value = resolveExpression(expression.operand, context);
 
     if (typeof value !== 'number' && typeof value !== 'string' && typeof value !== 'boolean') {

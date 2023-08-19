@@ -1,5 +1,5 @@
 import type { ReflectedRootNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
@@ -15,9 +15,9 @@ export class ExportAssignmentNode implements ReflectedRootNode<Export, ts.Export
 
     private readonly _node: ts.ExportAssignment;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
-    constructor(node: ts.ExportAssignment, context: AnalyserContext) {
+    constructor(node: ts.ExportAssignment, context: ProjectContext) {
         this._node = node;
         this._context = context;
     }
@@ -34,7 +34,7 @@ export class ExportAssignmentNode implements ReflectedRootNode<Export, ts.Export
         return RootNodeType.Export;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

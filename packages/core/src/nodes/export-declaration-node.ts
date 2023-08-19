@@ -1,4 +1,4 @@
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { ReflectedRootNode } from '../reflected-node.js';
 import { hasDefaultKeyword } from '../utils/export.js';
 import type { Export } from '../models/export.js';
@@ -25,9 +25,9 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
 
     private readonly _declaration: ts.VariableDeclaration | null = null;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
-    constructor(node: ExportDeclarationNodeType, context: AnalyserContext, declaration?: ts.VariableDeclaration) {
+    constructor(node: ExportDeclarationNodeType, context: ProjectContext, declaration?: ts.VariableDeclaration) {
         this._node = node;
         this._declaration = declaration ?? null;
         this._context = context;
@@ -66,7 +66,7 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
         return RootNodeType.Export;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

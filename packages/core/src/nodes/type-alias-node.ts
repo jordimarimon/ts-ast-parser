@@ -1,7 +1,7 @@
 import type { TypeAliasDeclaration } from '../models/type-alias.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import type { DeclarationNode } from './declaration-node.js';
 import type { ReflectedNode } from '../reflected-node.js';
@@ -20,17 +20,17 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
 
     private readonly _node: ts.TypeAliasDeclaration;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.TypeAliasDeclaration, context: AnalyserContext) {
+    constructor(node: ts.TypeAliasDeclaration, context: ProjectContext) {
         this._node = node;
         this._context = context;
         this._jsDoc = new JSDocNode(this._node);
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

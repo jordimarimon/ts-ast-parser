@@ -1,4 +1,4 @@
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import type { EnumMember } from '../models/enum.js';
@@ -15,11 +15,11 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
 
     private readonly _value: string | number;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.EnumMember, value: string | number, context: AnalyserContext) {
+    constructor(node: ts.EnumMember, value: string | number, context: ProjectContext) {
         this._node = node;
         this._value = value;
         this._context = context;
@@ -43,7 +43,7 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
     /**
      * The analyser context
      */
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

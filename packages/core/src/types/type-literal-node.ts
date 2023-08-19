@@ -1,6 +1,6 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedTypeNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { PropertyNode } from '../nodes/property-node.js';
 import { FunctionNode } from '../nodes/function-node.js';
 import type { Method } from '../models/member.js';
@@ -19,15 +19,15 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
 
     private readonly _type: ts.Type;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
-    constructor(node: ts.TypeLiteralNode, type: ts.Type, context: AnalyserContext) {
+    constructor(node: ts.TypeLiteralNode, type: ts.Type, context: ProjectContext) {
         this._node = node;
         this._type = type;
         this._context = context;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

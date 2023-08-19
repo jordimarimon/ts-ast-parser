@@ -2,7 +2,7 @@ import { createType, createTypeFromDeclaration } from '../factories/create-type.
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { BindingElementNode } from './binding-element-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import type { Parameter } from '../models/parameter.js';
 import { getDecorators } from '../utils/decorator.js';
@@ -21,11 +21,11 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
 
     private readonly _symbol: ts.Symbol | null;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.ParameterDeclaration, symbol: ts.Symbol | null, context: AnalyserContext) {
+    constructor(node: ts.ParameterDeclaration, symbol: ts.Symbol | null, context: ProjectContext) {
         this._node = node;
         this._symbol = symbol;
         this._context = context;
@@ -48,7 +48,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         return this._node;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

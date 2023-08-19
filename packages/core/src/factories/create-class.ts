@@ -1,4 +1,4 @@
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { ClassDeclaration } from '../models/class.js';
 import { isClassDeclaration } from '../utils/class.js';
 import type { NodeFactory } from './node-factory.js';
@@ -12,7 +12,7 @@ export const classFactory: NodeFactory<ClassDeclaration, ClassNode, ts.ClassDecl
         return isClassDeclaration(node);
     },
 
-    create: (node: ts.ClassDeclaration | ts.VariableStatement, context: AnalyserContext): ClassNode[] => {
+    create: (node: ts.ClassDeclaration | ts.VariableStatement, context: ProjectContext): ClassNode[] => {
         const reflectedNode = context.registerReflectedNode(node, () => new ClassNode(node, context));
         return [reflectedNode];
     },

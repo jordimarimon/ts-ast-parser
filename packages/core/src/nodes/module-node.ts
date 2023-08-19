@@ -1,7 +1,7 @@
 import { importFactory, declarationFactories, exportFactories } from '../factories/index.js';
 import type { ReflectedNode, ReflectedRootNode } from '../reflected-node.js';
 import type { DeclarationKind } from '../models/declaration-kind.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { ExportNode, ImportNode } from '../utils/is.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { DocTagName } from '../models/js-doc.js';
@@ -24,9 +24,9 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     private readonly _node: ts.SourceFile;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
-    constructor(node: ts.SourceFile, context: AnalyserContext) {
+    constructor(node: ts.SourceFile, context: ProjectContext) {
         this._node = node;
         this._context = context;
 
@@ -54,31 +54,25 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      */
     getOutputPath(): string {
         const sourcePath = this._node.fileName;
+        const system = this._context.getSystem();
 
         // If the source file was already JS, just return that
         if (sourcePath.endsWith('js')) {
-            return this._context.getSystem().normalizePath(sourcePath);
-        }
-
-        if (sourcePath.endsWith('.d.ts')) {
-            return '';
+            return system.normalizePath(sourcePath);
         }
 
         // Use the TS API to determine where the associated JS will be output based
         // on tsconfig settings.
-        const sys = this._context.getSystem();
-        const absolutePath = sys.getAbsolutePath(sourcePath);
-        const outputPath = ts
-            .getOutputFileNames(sys.getCommandLine(), absolutePath, false)
-            .filter(f => f.endsWith('.js'))[0];
+        const absolutePath = system.getAbsolutePath(sourcePath);
+        const outputPath = ts.getOutputFileNames(this._context.getCommandLine(), absolutePath, false)[0];
 
-        return sys.normalizePath(outputPath);
+        return system.normalizePath(outputPath ?? '');
     }
 
     /**
      * The analyser context
      */
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

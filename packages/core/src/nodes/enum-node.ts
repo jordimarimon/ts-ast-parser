@@ -1,6 +1,6 @@
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { DeclarationNode } from './declaration-node.js';
 import type { EnumDeclaration } from '../models/enum.js';
 import { EnumMemberNode } from './enum-member-node.js';
@@ -17,11 +17,11 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     private readonly _node: ts.EnumDeclaration;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.EnumDeclaration, context: AnalyserContext) {
+    constructor(node: ts.EnumDeclaration, context: ProjectContext) {
         this._node = node;
         this._context = context;
         this._jsDoc = new JSDocNode(this._node);
@@ -51,7 +51,7 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
     /**
      * The analyser context
      */
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

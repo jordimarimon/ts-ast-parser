@@ -52,7 +52,6 @@ export * from './nodes/named-import-node.js';
 export * from './nodes/namespace-export-node.js';
 export * from './nodes/namespace-import-node.js';
 export * from './nodes/parameter-node.js';
-export * from './nodes/project-node.js';
 export * from './nodes/property-node.js';
 export * from './nodes/re-export-node.js';
 export * from './nodes/side-effect-import-node.js';
@@ -84,14 +83,20 @@ export * from './types/type-reference-node.js';
 export * from './types/union-type-node.js';
 export * from './types/unknown-type-node.js';
 
+// SYSTEM
+export * from './system/analyser-system.js';
+export * from './system/compiler-host.js';
+export * from './system/create-command-line.js';
+export * from './system/create-system.js';
+export * from './system/in-memory-system.js';
+export * from './system/node-system.js';
+
 // UTILS
-export * from './analyser-context.js';
 export * from './analyser-diagnostic.js';
 export * from './analyser-options.js';
 export * from './analyser-result.js';
-export * from './analyser-system.js';
-export * from './browser-system.js';
 export * from './default-compiler-options.js';
-export * from './node-system.js';
+export * from './project.js';
+export * from './project-context.js';
 export * from './reflected-node.js';
 export * from './utils/is.js';

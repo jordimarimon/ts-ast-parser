@@ -32,7 +32,6 @@
                 "eslint:recommended",
                 "plugin:import/recommended",
                 "plugin:import/typescript",
-                "plugin:@typescript-eslint/eslint-recommended",
                 "plugin:@typescript-eslint/strict-type-checked",
                 "plugin:@typescript-eslint/stylistic-type-checked",
                 "plugin:sonarjs/recommended"

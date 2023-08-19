@@ -1,6 +1,6 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedRootNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { Export } from '../models/export.js';
 import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
@@ -17,9 +17,9 @@ export class NamedExportNode implements ReflectedRootNode<Export, ts.ExportDecla
 
     private readonly _element: ts.ExportSpecifier;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
-    constructor(node: ts.ExportDeclaration, element: ts.ExportSpecifier, context: AnalyserContext) {
+    constructor(node: ts.ExportDeclaration, element: ts.ExportSpecifier, context: ProjectContext) {
         this._node = node;
         this._element = element;
         this._context = context;
@@ -41,7 +41,7 @@ export class NamedExportNode implements ReflectedRootNode<Export, ts.ExportDecla
         return RootNodeType.Export;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

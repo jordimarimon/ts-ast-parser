@@ -1,22 +1,19 @@
 import type { NamedNodeName, SymbolWithLocation } from './utils/is.js';
 import type { AnalyserDiagnostic } from './analyser-diagnostic.js';
+import type { AnalyserSystem } from './system/analyser-system.js';
 import type { AnalyserOptions } from './analyser-options.js';
-import type { AnalyserSystem } from './analyser-system.js';
 import type { ReflectedNode } from './reflected-node.js';
 import ts from 'typescript';
 
 
 /**
- * Returns true if we're executing inside a browser
- */
-export const isBrowser = typeof document === 'object' && !!document;
-
-/**
  * A class that shares common utilities between all reflected nodes
  */
-export class AnalyserContext {
+export class ProjectContext {
 
-    private _program: ts.Program;
+    private readonly _getProgram: () => ts.Program;
+
+    private readonly _getCommandLine: () => ts.ParsedCommandLine;
 
     private readonly _options: Partial<AnalyserOptions>;
 
@@ -28,12 +25,14 @@ export class AnalyserContext {
 
     constructor(
         system: AnalyserSystem,
-        program: ts.Program,
+        getProgram: () => ts.Program,
+        getCommandLine: () => ts.ParsedCommandLine,
         diagnostics: AnalyserDiagnostic,
         options: Partial<AnalyserOptions>,
     ) {
         this._system = system;
-        this._program = program;
+        this._getProgram = getProgram;
+        this._getCommandLine = getCommandLine;
         this._diagnostics = diagnostics;
         this._options = options;
     }
@@ -45,7 +44,14 @@ export class AnalyserContext {
      * @returns The TypeScript program created with the TypeScript compiler API
      */
     getProgram(): ts.Program {
-        return this._program;
+        return this._getProgram();
+    }
+
+    /**
+     * Returns the parsed compiler options
+     */
+    getCommandLine(): ts.ParsedCommandLine {
+        return this._getCommandLine();
     }
 
     /**
@@ -56,7 +62,7 @@ export class AnalyserContext {
      * @returns The TypeScript type checker
      */
     getTypeChecker(): ts.TypeChecker {
-        return this._program.getTypeChecker();
+        return this._getProgram().getTypeChecker();
     }
 
     /**
@@ -84,28 +90,6 @@ export class AnalyserContext {
      */
     getOptions(): Partial<AnalyserOptions> {
         return this._options;
-    }
-
-    /**
-     * Adds a new file or updates the contents of an existing file
-     *
-     * @param fileName - The path where the file is located
-     * @param data - The new content
-     *
-     * @returns The SourceFile node associated with the file
-     */
-    upsertFile(fileName: string, data: string): ts.SourceFile {
-        this._system.writeFile(fileName, data);
-
-        this._program = ts.createProgram({
-            rootNames: this._system.getCommandLine().fileNames,
-            options: this._program.getCompilerOptions(),
-            host: this._system.getCompilerHost(),
-            oldProgram: this._program,
-            projectReferences: this._program.getProjectReferences() ?? [],
-        });
-
-        return this._program.getSourceFile(fileName) as ts.SourceFile;
     }
 
     /**
@@ -176,7 +160,7 @@ export class AnalyserContext {
 
         const decl = symbol?.getDeclarations()?.[0];
         const sourceFile = decl?.getSourceFile();
-        const path = this._system.normalizePath(sourceFile?.fileName);
+        const path = this._system.normalizePath(sourceFile?.fileName ?? '');
         const line = decl ? this.getLinePosition(decl) : null;
 
         return { symbol, path, line };

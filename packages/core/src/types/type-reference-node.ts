@@ -1,7 +1,7 @@
 import type { SourceReference } from '../models/reference.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedTypeNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type { SymbolWithLocation } from '../utils/is.js';
 import { isThirdParty } from '../utils/import.js';
@@ -20,18 +20,18 @@ export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode
 
     private readonly _type: ts.Type;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _loc: SymbolWithLocation;
 
-    constructor(node: ts.TypeReferenceNode, type: ts.Type, context: AnalyserContext) {
+    constructor(node: ts.TypeReferenceNode, type: ts.Type, context: ProjectContext) {
         this._node = node;
         this._type = type;
         this._context = context;
         this._loc = context.getLocation(node.typeName);
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

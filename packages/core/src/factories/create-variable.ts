@@ -1,5 +1,5 @@
 import type { VariableDeclaration } from '../models/variable.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { isFunctionDeclaration } from '../utils/function.js';
 import { VariableNode } from '../nodes/variable-node.js';
 import { isClassDeclaration } from '../utils/class.js';
@@ -13,7 +13,7 @@ export const variableFactory: NodeFactory<VariableDeclaration, VariableNode, ts.
         return ts.isVariableStatement(node) && !isFunctionDeclaration(node) && !isClassDeclaration(node);
     },
 
-    create: (node: ts.VariableStatement, context: AnalyserContext): VariableNode[] => {
+    create: (node: ts.VariableStatement, context: ProjectContext): VariableNode[] => {
         const result: VariableNode[] = [];
 
         for (const declaration of node.declarationList.declarations) {

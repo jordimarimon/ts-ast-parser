@@ -1,4 +1,4 @@
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import type ts from 'typescript';
 
@@ -7,6 +7,6 @@ export interface NodeFactory<Model extends object, Node extends ReflectedNode<Mo
 
     isNode(node: ts.Node): node is TSNode;
 
-    create(node: ts.Node, context: AnalyserContext): Node[];
+    create(node: ts.Node, context: ProjectContext): Node[];
 
 }

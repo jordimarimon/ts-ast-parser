@@ -1,6 +1,6 @@
 import type { ReflectedNode, ReflectedTypeNode } from '../reflected-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { IndexSignature } from '../models/interface.js';
 import { createType } from '../factories/create-type.js';
 import type { SymbolWithContext } from '../utils/is.js';
@@ -21,13 +21,13 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
 
     private readonly _member: SymbolWithContext;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _parameter: ParameterNode | null;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.IndexSignatureDeclaration, member: SymbolWithContext, context: AnalyserContext) {
+    constructor(node: ts.IndexSignatureDeclaration, member: SymbolWithContext, context: ProjectContext) {
         this._node = node;
         this._member = member;
         this._context = context;
@@ -39,7 +39,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         return this._parameter?.getName() ?? '';
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

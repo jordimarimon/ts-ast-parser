@@ -11,15 +11,15 @@
 - The information that gets reflected about types has been improved
 - The type arguments in the types inside a heritage clause are reflected
 - The `AnalyserResult` contains also the errors formatted in case it's needed to show them in a UI
-- You can add new files in a project after the analysis (using the `ProjectNode` API)
-- You can update the entire contents of an existing file after the analysis (using the `ProjectNode` API)
+- You can add new files in a project after the analysis (using the `Project` API)
+- You can update the entire contents of an existing file after the analysis (using the `Project` API)
 
 ### 🚨 Breaking Changes
 
 - The return type of all the `parseFrom*` functions has been updated. It now returns the following:
   ```ts
   interface AnalyserResult {
-    project: ProjectNode | null;
+    project: Project | null;
     errors: AnalyserError[];
     formattedDiagnostics?: string;
   }

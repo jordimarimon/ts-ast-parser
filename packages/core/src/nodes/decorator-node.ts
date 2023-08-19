@@ -1,6 +1,6 @@
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import type { Decorator } from '../models/decorator.js';
 import { JSDocNode } from './jsdoc-node.js';
@@ -14,11 +14,11 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
 
     private readonly _decorator: ts.Decorator;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(decorator: ts.Decorator, context: AnalyserContext) {
+    constructor(decorator: ts.Decorator, context: ProjectContext) {
         this._decorator = decorator;
         this._context = context;
         this._jsDoc = new JSDocNode(decorator);
@@ -47,7 +47,7 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
     /**
      * The analyser context
      */
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

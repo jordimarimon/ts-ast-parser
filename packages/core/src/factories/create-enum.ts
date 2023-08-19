@@ -1,4 +1,4 @@
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { EnumDeclaration } from '../models/enum.js';
 import type { NodeFactory } from './node-factory.js';
 import { EnumNode } from '../nodes/enum-node.js';
@@ -11,7 +11,7 @@ export const enumFactory: NodeFactory<EnumDeclaration, EnumNode, ts.EnumDeclarat
         return ts.isEnumDeclaration(node);
     },
 
-    create: (node: ts.EnumDeclaration, context: AnalyserContext): EnumNode[] => {
+    create: (node: ts.EnumDeclaration, context: ProjectContext): EnumNode[] => {
         const reflectedNode = context.registerReflectedNode(node, () => new EnumNode(node, context));
         return [reflectedNode];
     },

@@ -1,5 +1,5 @@
 import type { AnalyserError } from './analyser-diagnostic.js';
-import type { ProjectNode } from './nodes/project-node.js';
+import type { Project } from './project.js';
 
 
 /**
@@ -9,7 +9,7 @@ export interface AnalyserResult {
     /**
      * A project node contains a collection of modules that have been successfully analysed
      */
-    project: ProjectNode | null;
+    project: Project | null;
 
     /**
      * In case there have been errors during the analysis, you will find them here

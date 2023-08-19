@@ -3,7 +3,7 @@ import { resolveExpression } from '../utils/resolve-expression.js';
 import type { VariableDeclaration } from '../models/variable.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { DeclarationNode } from './declaration-node.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
@@ -25,18 +25,18 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
 
     private readonly _declaration: ts.VariableDeclaration;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.VariableStatement, declaration: ts.VariableDeclaration, context: AnalyserContext) {
+    constructor(node: ts.VariableStatement, declaration: ts.VariableDeclaration, context: ProjectContext) {
         this._node = node;
         this._declaration = declaration;
         this._context = context;
         this._jsDoc = new JSDocNode(this._node);
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

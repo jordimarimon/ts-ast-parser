@@ -3,7 +3,7 @@ import type { InterfaceDeclaration } from '../models/interface.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import { IndexSignatureNode } from './index-signature-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { getInstanceMembers } from '../utils/member.js';
@@ -24,7 +24,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
 
     private readonly _node: ts.InterfaceDeclaration;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _members: SymbolWithContext[] = [];
 
@@ -32,7 +32,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
 
     private readonly _heritage: ExpressionWithTypeArgumentsNode[] = [];
 
-    constructor(node: ts.InterfaceDeclaration, context: AnalyserContext) {
+    constructor(node: ts.InterfaceDeclaration, context: ProjectContext) {
         this._node = node;
         this._context = context;
         this._members = getInstanceMembers(this._node, this._context);
@@ -54,7 +54,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         return DeclarationKind.Interface;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

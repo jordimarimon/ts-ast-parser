@@ -1,4 +1,4 @@
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { isNotEmptyArray } from './not-empty-array.js';
 import ts from 'typescript';
 
@@ -37,7 +37,7 @@ export function isThirdParty(path: string): boolean {
  *
  * @returns The path where the node is defined
  */
-export function getOriginalImportPath(node: ts.Identifier | undefined, context: AnalyserContext): string {
+export function getOriginalImportPath(node: ts.Identifier | undefined, context: ProjectContext): string {
     if (!node) {
         return '';
     }

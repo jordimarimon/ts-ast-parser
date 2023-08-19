@@ -1,5 +1,5 @@
 import type { FunctionSignature } from '../models/function.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import type { ReflectedNode } from '../reflected-node.js';
@@ -17,17 +17,17 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
 
     private readonly _node: ts.Signature;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: ts.Signature, context: AnalyserContext) {
+    constructor(node: ts.Signature, context: ProjectContext) {
         this._node = node;
         this._context = context;
         this._jsDoc = new JSDocNode(this._node.getDeclaration());
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

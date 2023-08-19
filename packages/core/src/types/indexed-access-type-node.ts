@@ -1,5 +1,5 @@
 import type { ReflectedTypeNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { SourceReference } from '../models/reference.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import { createType } from '../factories/create-type.js';
@@ -20,11 +20,11 @@ export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccess
 
     private readonly _type: ts.Type;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _loc: SymbolWithLocation | null = null;
 
-    constructor(node: ts.IndexedAccessTypeNode, type: ts.Type, context: AnalyserContext) {
+    constructor(node: ts.IndexedAccessTypeNode, type: ts.Type, context: ProjectContext) {
         this._node = node;
         this._type = type;
         this._context = context;
@@ -34,7 +34,7 @@ export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccess
         }
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

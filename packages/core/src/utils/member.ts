@@ -1,5 +1,5 @@
 import type { ClassLikeNode, InterfaceOrClassDeclaration, SymbolWithContext } from './is.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { ModifierType } from '../models/member.js';
 import { isThirdParty } from './import.js';
 import ts from 'typescript';
@@ -19,7 +19,7 @@ export function getVisibilityModifier(member: ts.ClassElement): ModifierType {
     return ModifierType.public;
 }
 
-export function getInstanceMembers(node: InterfaceOrClassDeclaration, context: AnalyserContext): SymbolWithContext[] {
+export function getInstanceMembers(node: InterfaceOrClassDeclaration, context: ProjectContext): SymbolWithContext[] {
     const checker = context.getTypeChecker();
     const symbol = checker.getTypeAtLocation(node).getSymbol();
     const type = symbol && checker.getDeclaredTypeOfSymbol(symbol);
@@ -28,7 +28,7 @@ export function getInstanceMembers(node: InterfaceOrClassDeclaration, context: A
     return createSymbolsWithContext(node, props, checker);
 }
 
-export function getStaticMembers(node: ClassLikeNode, context: AnalyserContext): SymbolWithContext[] {
+export function getStaticMembers(node: ClassLikeNode, context: ProjectContext): SymbolWithContext[] {
     const checker = context.getTypeChecker();
     const symbol = checker.getTypeAtLocation(node).getSymbol();
     const type = symbol && checker.getTypeOfSymbolAtLocation(symbol, node);

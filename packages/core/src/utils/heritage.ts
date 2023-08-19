@@ -1,4 +1,4 @@
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { ClassLikeNode } from './is.js';
 import type ts from 'typescript';
 
@@ -12,7 +12,7 @@ import type ts from 'typescript';
  *
  * @returns True if the node extends HTMLElement
  */
-export function isCustomElement(node: ClassLikeNode, context: AnalyserContext): boolean {
+export function isCustomElement(node: ClassLikeNode, context: ProjectContext): boolean {
     const checker = context.getTypeChecker();
     const type = checker.getTypeAtLocation(node);
     const baseTypes = type.isClassOrInterface() ? checker.getBaseTypes(type) : [];

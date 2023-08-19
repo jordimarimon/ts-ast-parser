@@ -1,6 +1,6 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedRootNode } from '../reflected-node.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { isBareModuleSpecifier } from '../utils/import.js';
 import type { Import } from '../models/import.js';
 import { ImportKind } from '../models/import.js';
@@ -16,9 +16,9 @@ export class SideEffectImportNode implements ReflectedRootNode<Import, ts.Import
 
     private readonly _node: ts.ImportDeclaration;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
-    constructor(node: ts.ImportDeclaration, context: AnalyserContext) {
+    constructor(node: ts.ImportDeclaration, context: ProjectContext) {
         this._node = node;
         this._context = context;
     }
@@ -35,7 +35,7 @@ export class SideEffectImportNode implements ReflectedRootNode<Import, ts.Import
         return ImportKind.SideEffect;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

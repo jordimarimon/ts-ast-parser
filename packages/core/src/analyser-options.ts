@@ -1,4 +1,4 @@
-import type { AnalyserSystem } from './analyser-system.js';
+import type { AnalyserSystem } from './system/analyser-system.js';
 
 
 /**

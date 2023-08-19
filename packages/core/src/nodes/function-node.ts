@@ -5,7 +5,7 @@ import type { FunctionDeclaration } from '../models/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import type { Method, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
@@ -27,11 +27,11 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
     private readonly _member: SymbolWithContext | null;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _jsDoc: JSDocNode | null = null;
 
-    constructor(node: NodeWithFunctionDeclaration, member: SymbolWithContext | null, context: AnalyserContext) {
+    constructor(node: NodeWithFunctionDeclaration, member: SymbolWithContext | null, context: ProjectContext) {
         this._node = node;
         this._member = member;
         this._context = context;
@@ -69,7 +69,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         return RootNodeType.Declaration;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

@@ -2,7 +2,7 @@ import { ExportDeclarationNode } from '../nodes/export-declaration-node.js';
 import { ExportAssignmentNode } from '../nodes/export-assignment-node.js';
 import { NamespaceExportNode } from '../nodes/namespace-export-node.js';
 import { NamedExportNode } from '../nodes/named-export-node.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import type { ExportStatementNode } from '../utils/is.js';
 import { ReExportNode } from '../nodes/re-export-node.js';
 import { hasExportKeyword } from '../utils/export.js';
@@ -15,7 +15,7 @@ export const exportDeclarationFactory: NodeFactory<Export, ExportDeclarationNode
 
     isNode: (node: ts.Node): node is ts.Node => hasExportKeyword(node),
 
-    create: (node: ts.Node, context: AnalyserContext): ExportDeclarationNode[] => {
+    create: (node: ts.Node, context: ProjectContext): ExportDeclarationNode[] => {
         const exports: ExportDeclarationNode[] = [];
 
         if (ts.isVariableStatement(node)) {
@@ -43,7 +43,7 @@ export const exportAssignmentFactory: NodeFactory<Export, ExportAssignmentNode, 
 
     isNode: (node: ts.Node): node is ts.ExportAssignment => ts.isExportAssignment(node),
 
-    create: (node: ts.ExportAssignment, context: AnalyserContext): ExportAssignmentNode[] => {
+    create: (node: ts.ExportAssignment, context: ProjectContext): ExportAssignmentNode[] => {
         return [new ExportAssignmentNode(node, context)];
     },
 
@@ -53,7 +53,7 @@ export const exportStatementFactory: NodeFactory<Export, ExportStatementNode, ts
 
     isNode: (node: ts.Node): node is ts.ExportDeclaration => ts.isExportDeclaration(node),
 
-    create: (node: ts.ExportDeclaration, context: AnalyserContext): ExportStatementNode[] => {
+    create: (node: ts.ExportDeclaration, context: ProjectContext): ExportStatementNode[] => {
         const isNamed = node.exportClause && ts.isNamedExports(node.exportClause);
         const isNamespaced = node.exportClause && ts.isNamespaceExport(node.exportClause);
         const isReexport = node.moduleSpecifier !== undefined;

@@ -1,7 +1,7 @@
 import type { ReflectedNode, ReflectedTypeNode } from '../reflected-node.js';
 import type { TypeParameter } from '../models/type-parameter.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type ts from 'typescript';
 
@@ -13,14 +13,14 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
 
     private readonly _node: ts.TypeParameterDeclaration;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
-    constructor(node: ts.TypeParameterDeclaration, context: AnalyserContext) {
+    constructor(node: ts.TypeParameterDeclaration, context: ProjectContext) {
         this._node = node;
         this._context = context;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

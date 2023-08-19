@@ -4,7 +4,7 @@ import type { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import type { Field, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { getReturnStatement } from '../utils/function.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import { MemberKind } from '../models/member-kind.js';
@@ -25,11 +25,11 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
 
     private readonly _nodeContext: SymbolWithContext | null;
 
-    private readonly _context: AnalyserContext;
+    private readonly _context: ProjectContext;
 
     private readonly _jsDoc: JSDocNode;
 
-    constructor(node: PropertyLikeNode, nodeContext: SymbolWithContext | null, context: AnalyserContext) {
+    constructor(node: PropertyLikeNode, nodeContext: SymbolWithContext | null, context: ProjectContext) {
         this._node = node;
         this._nodeContext = nodeContext;
         this._context = context;
@@ -71,7 +71,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         return this._node;
     }
 
-    getContext(): AnalyserContext {
+    getContext(): ProjectContext {
         return this._context;
     }
 

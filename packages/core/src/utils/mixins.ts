@@ -1,4 +1,4 @@
-import type { AnalyserContext } from '../analyser-context.js';
+import type { ProjectContext } from '../project-context.js';
 import { resolveExpression } from './resolve-expression.js';
 import type { MixinNodes } from '../models/mixin.js';
 import { getReturnStatement } from './function.js';
@@ -9,7 +9,7 @@ import ts from 'typescript';
 // Extracts the function and class nodes that are used to define a Mixin
 //
 
-export function extractMixinNodes(node: ts.Node, context: AnalyserContext): MixinNodes | null {
+export function extractMixinNodes(node: ts.Node, context: ProjectContext): MixinNodes | null {
     if (ts.isVariableStatement(node)) {
         extractMixinNodesFromVariableStatement(node, context);
     }
@@ -23,7 +23,7 @@ export function extractMixinNodes(node: ts.Node, context: AnalyserContext): Mixi
 
 function extractMixinNodesFromVariableStatement(
     node: ts.VariableStatement,
-    context: AnalyserContext,
+    context: ProjectContext,
 ): MixinNodes | null {
     //
     // CASE 1: We have a mixin declared in the form of:
@@ -95,7 +95,7 @@ function extractMixinNodesFromVariableStatement(
 
 function extractMixinNodesFromFunctionDeclaration(
     node: ts.FunctionDeclaration,
-    context: AnalyserContext,
+    context: ProjectContext,
 ): MixinNodes | null {
     if (node.body == null || !ts.isBlock(node.body)) {
         return null;
