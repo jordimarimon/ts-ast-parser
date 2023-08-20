@@ -20,6 +20,8 @@ export class Project {
 
     private _commandLine: ts.ParsedCommandLine;
 
+    private readonly _fileNames = new Set<string>();
+
     private readonly _modules: ModuleNode[] = [];
 
     private readonly _compilerHost: CompilerHost;
@@ -69,6 +71,7 @@ export class Project {
                 continue;
             }
 
+            this._fileNames.add(fileName);
             this._modules.push(new ModuleNode(sourceFile, this._context));
         }
     }
@@ -189,7 +192,7 @@ export class Project {
     /**
      * Adds a new source file to the collection of reflected modules.
      *
-     * Will throw an error if the source file already exists.
+     * Will throw an error if the source file already exists in the program.
      *
      * @param filePath - The path of the new source file
      * @param content - The content of the source file
@@ -216,7 +219,7 @@ export class Project {
     /**
      * Updates the content of an existing source file.
      *
-     * Will throw an error if the source file doesn't exist.
+     * Will throw an error if the source file doesn't exist in the program.
      *
      * @param filePath - The path of the source file to update
      * @param content - The new content of the source file
@@ -274,16 +277,15 @@ export class Project {
     }
 
     private _upsertFile(fileName: string, data: string): ts.SourceFile {
-        const fileExists = this._system.fileExists(fileName);
-
         this._system.writeFile(fileName, data);
 
-        if (!fileExists) {
+        if (!this._fileNames.has(fileName)) {
             this._commandLine = createCommandLine(this._system, this._options);
+            this._fileNames.add(fileName);
         }
 
         this._program = ts.createProgram({
-            rootNames: this._commandLine.fileNames,
+            rootNames: [...this._fileNames],
             options: this._program.getCompilerOptions(),
             host: this._compilerHost,
             oldProgram: this._program,
