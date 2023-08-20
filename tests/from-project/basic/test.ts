@@ -1,7 +1,7 @@
 import { readExpectedOutput, test, updateExpectedOutput } from '../../utils.js';
 import { parseFromProject } from '@ts-ast-parser/core';
 import { describe, expect } from 'vitest';
-import * as path from 'path';
+import * as path from 'node:path';
 
 
 const category = 'from-project';

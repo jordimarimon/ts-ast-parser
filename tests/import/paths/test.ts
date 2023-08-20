@@ -1,6 +1,6 @@
 import { getTestResult, test, updateExpectedOutput } from '../../utils.js';
 import { describe, expect } from 'vitest';
-import * as path from 'path';
+import * as path from 'node:path';
 
 
 const category = 'import';

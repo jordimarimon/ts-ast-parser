@@ -1,8 +1,8 @@
 import { DeclarationKind, DocTagName, is, parseFromGlob } from '@ts-ast-parser/core';
 import MarkdownIt from 'markdown-it';
 import Handlebars from 'handlebars';
-import path from 'path';
-import fs from 'fs';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 
 const md = new MarkdownIt({

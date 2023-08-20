@@ -1,7 +1,7 @@
 import { globbySync } from 'globby';
-import * as path from 'path';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 import chalk from 'chalk';
-import * as fs from 'fs';
 
 
 const mainPkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf8'));

@@ -10,6 +10,7 @@ const origin = window.location.origin;
 const pathName = window.location.pathname.startsWith('/ts-ast-parser/') ? '/ts-ast-parser' : '';
 
 class Preview extends HTMLElement {
+
     #isRendered = false;
 
     #outputEl = null;
@@ -20,34 +21,32 @@ class Preview extends HTMLElement {
         return ['src'];
     }
 
-    constructor() {
-        super();
-    }
-
     connectedCallback() {
-        if (!this.#isRendered) {
-            this.innerHTML = `
-                <section class="container">
-                    <p class="text-md my-2">
-                        Given the following code:
-                    </p>
-
-                    <div class="source-code"></div>
-
-                    <p class="text-md my-2">
-                        The output information in JSON format will look like:
-                    </p>
-
-                    <div class="reflected-output"></div>
-                </section>
-            `;
-
-            this.#sourceEl = this.querySelector('.source-code');
-            this.#outputEl = this.querySelector('.reflected-output');
-
-            this.#render();
-            this.#isRendered = true;
+        if (this.#isRendered) {
+            return;
         }
+
+        this.innerHTML = `
+            <section class="container">
+                <p class="text-md my-2">
+                    Given the following code:
+                </p>
+
+                <div class="source-code"></div>
+
+                <p class="text-md my-2">
+                    The output information in JSON format will look like:
+                </p>
+
+                <div class="reflected-output"></div>
+            </section>
+        `;
+
+        this.#sourceEl = this.querySelector('.source-code');
+        this.#outputEl = this.querySelector('.reflected-output');
+
+        this.#render();
+        this.#isRendered = true;
     }
 
     attributeChangedCallback() {

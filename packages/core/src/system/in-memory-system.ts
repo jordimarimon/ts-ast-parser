@@ -292,9 +292,15 @@ export class InMemorySystem implements AnalyserSystem {
     }
 
     private async _writeLibFilesFromNodeModules(): Promise<void> {
-        const libFiles = await import('./get-lib-files-from-node.js').then(m => m.getLibFilesFromNode());
+        const m = await import('./get-lib-files-from-node.js');
+        const libFiles = m.getLibFilesFromNode();
+        const typeFiles = m.getTypesFromNode();
 
         for (const [name, content] of libFiles.entries()) {
+            this.writeFile(name, content);
+        }
+
+        for (const [name, content] of typeFiles.entries()) {
             this.writeFile(name, content);
         }
     }

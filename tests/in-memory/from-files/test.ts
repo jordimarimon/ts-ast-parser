@@ -1,8 +1,8 @@
 import { readExpectedOutput, test, updateExpectedOutput } from '../../utils.js';
 import { InMemorySystem, parseFromFiles } from '@ts-ast-parser/core';
 import { describe, expect } from 'vitest';
-import * as path from 'path';
-import * as fs from 'fs';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 
 const category = 'in-memory';

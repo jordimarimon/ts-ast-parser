@@ -25,6 +25,7 @@ export const TS_DEFAULT_COMPILER_OPTIONS = {
     module: 'ES2020',
     lib: ['es2020', 'DOM'],
     declaration: true,
+    suppressOutputPathCheck: true,
     skipLibCheck: true,
     skipDefaultLibCheck: true,
 };
@@ -40,6 +41,7 @@ export const JS_DEFAULT_COMPILER_OPTIONS = {
     module: 'ES2020',
     lib: ['es2020', 'DOM'],
     allowJs: true,
+    suppressOutputPathCheck: true,
     skipLibCheck: true,
     skipDefaultLibCheck: true,
     moduleResolution: 'node',

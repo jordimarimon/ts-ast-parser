@@ -1,8 +1,8 @@
 import type { AnalyserOptions, Module, ModuleNode } from '@ts-ast-parser/core';
 import { parseFromFiles } from '@ts-ast-parser/core';
 import { test as base } from 'vitest';
-import * as path from 'path';
-import * as fs from 'fs';
+import * as path from 'node:path';
+import * as fs from 'node:fs';
 
 
 interface TestOptions {

@@ -1,4 +1,5 @@
 import type { AnalyserSystem } from './analyser-system.js';
+import { isBrowser } from './is-browser.js';
 import ts from 'typescript';
 
 
@@ -26,7 +27,7 @@ export class CompilerHost implements ts.CompilerHost {
     }
 
     getDefaultLibFileName(options: ts.CompilerOptions): string {
-        return ts.getDefaultLibFilePath(options);
+        return isBrowser ? ts.getDefaultLibFileName(options) : ts.getDefaultLibFilePath(options);
     }
 
     writeFile(fileName: string, text: string, writeByteOrderMark: boolean): void {
