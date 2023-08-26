@@ -1,21 +1,15 @@
-import type { DocComment, DocTagValue } from '../models/js-doc.js';
 import { JSDocValueNode } from './jsdoc-value-node.js';
-import type { Spec } from 'comment-parser/primitives';
+import type { DocComment } from '../models/js-doc.js';
 import { DocTagName } from '../models/js-doc.js';
-import { parse } from 'comment-parser';
 import ts from 'typescript';
 
 
-// FIXME(Jordi M.): This is not a correct solution.
-//  For inspiration:
-//      - https://github.com/TypeStrong/typedoc/tree/master/src/lib/converter/comments
-//      - https://github.com/TypeStrong/typedoc/tree/master/src/lib/models/comments
-//      - https://github.com/microsoft/tsdoc/blob/main/tsdoc/src/beta/DeclarationReference.grammarkdown
-//      - https://github.com/microsoft/tsdoc/blob/main/tsdoc/src/beta/DeclarationReference.ts
-//      - https://github.com/microsoft/tsdoc/tree/main/tsdoc/src
-
 /**
  * Reflected node that represents a documentation comment
+ *
+ * @see https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html
+ * @see https://tsdoc.org/
+ * @see https://jsdoc.app/
  */
 export class JSDocNode {
 
@@ -99,95 +93,8 @@ export class JSDocNode {
         return leadingComments.map(comment => sourceCode.substring(comment.pos, comment.end)).join('\n');
     }
 
-    private _collect(text: string): DocComment {
-        const doc: DocComment = [];
-        const parsedJsDocComment = parse(text, {spacing: 'preserve'});
-
-        for (const block of parsedJsDocComment) {
-            if (block.problems.length) {
-                continue;
-            }
-
-            const descriptionValue = this._trimNewLines(block.description ?? '');
-
-            if (descriptionValue !== '') {
-                doc.push({
-                    kind: DocTagName.description,
-                    value: descriptionValue,
-                });
-            }
-
-            for (const tag of block.tags) {
-                const name = tag.tag ?? '';
-
-                doc.push({
-                    kind: name,
-                    value: this._getTagValue(name, tag),
-                });
-            }
-        }
-
-        return doc;
-    }
-
-    // eslint-disable-next-line sonarjs/cognitive-complexity
-    private _getTagValue(tagName: string, tag: Spec): DocTagValue {
-        const result: DocTagValue = {};
-        const typeValue = tag.type ?? '';
-        const defaultValue = tag.default ?? '';
-        const descriptionValue = this._trimNewLines(this._normalizeDescription(tag.description ?? ''));
-        const nameValue = tag.name ?? '';
-
-        if (defaultValue !== '') {
-            result.default = defaultValue;
-        }
-
-        if (tag.optional) {
-            result.optional = true;
-        }
-
-        if (typeValue !== '') {
-            result.type = typeValue;
-        }
-
-        if (nameValue !== '') {
-            result.name = nameValue;
-        }
-
-        if (descriptionValue !== '') {
-            result.description = descriptionValue;
-        }
-
-        const metadataCount = Object.keys(result).length;
-
-        // If there is only one key and is a string key, we simplify the tag
-        // value to a string instead of an object
-        if (metadataCount === 1 && (result.description ?? result.name)) {
-            return nameValue || descriptionValue;
-        }
-
-        // Case when there is no delimiter between the name and the description
-        if (metadataCount === 2 && result.description && result.name) {
-            const line = tag.source.find(s => s.source.includes(tagName));
-            const text = (line?.tokens.name ?? '') + (line?.tokens.description ?? '');
-
-            if (!text.includes('-')) {
-                return [nameValue, descriptionValue].join(' ');
-            }
-        }
-
-        return result;
-    }
-
-    private _trimNewLines(str = ''): string {
-        return str.replace(/^\s+|\s+$/g, '');
-    }
-
-    private _normalizeDescription(desc = ''): string {
-        if (desc.startsWith('- ')) {
-            return desc.slice(2);
-        }
-
-        return desc;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    private _collect(_text: string): DocComment {
+        return [];
     }
 }

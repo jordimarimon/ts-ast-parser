@@ -1,5 +1,7 @@
 export const bar = 3;
 
+export const foo = 5;
+
 /**
  * This the description
  *
@@ -9,6 +11,8 @@ export const bar = 3;
  * @see {@link bar}
  * @see bar
  * @see {@link foo} for further information.
+ *
+ * @myCustomTag Això és una etiqueta personalitzada
  *
  * @example
  * ```

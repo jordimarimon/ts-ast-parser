@@ -1,8 +1,8 @@
 {
-    "name": "@ts-ast-parser/core",
-    "version": "0.5.0",
+    "name": "@ts-ast-parser/jsdoc",
+    "version": "0.0.0",
     "author": "Jordi Marimon Palarea",
-    "description": "Reflects a simplified version of the TypeScript AST for generating documentation",
+    "description": "Parses a JSDoc comment",
     "homepage": "https://jordimarimon.github.io/ts-ast-parser",
     "license": "MIT",
     "type": "module",
@@ -17,15 +17,14 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/jordimarimon/ts-ast-parser.git",
-        "directory": "packages/core"
+        "directory": "packages/jsdoc"
     },
     "bugs": {
         "url": "https://github.com/jordimarimon/ts-ast-parser/issues"
     },
     "keywords": [
-        "TypeScript",
-        "AST",
-        "Abstract Syntax Tree",
+        "JSDoc",
+        "Parser",
         "Documentation",
         "doc"
     ],
@@ -38,12 +37,6 @@
         "node": "^16.0.0 || ^18.0.0 || ^20.0.0"
     },
     "dependencies": {
-        "@ts-ast-parser/jsdoc": "0.0.0",
-        "globby": "^13.2.2",
-        "package-json-type": "^1.0.3",
         "tslib": "^2.6.1"
-    },
-    "peerDependencies": {
-        "typescript": "4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x"
     }
 }
