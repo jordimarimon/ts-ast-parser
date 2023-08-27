@@ -7,9 +7,8 @@ import ts from 'typescript';
 /**
  * Reflected node that represents a documentation comment
  *
- * @see https://www.typescriptlang.org/docs/handbook/jsdoc-supported-types.html
- * @see https://tsdoc.org/
- * @see https://jsdoc.app/
+ * @see {@link https://tsdoc.org/}
+ * @see {@link https://jsdoc.app/}
  */
 export class JSDocNode {
 

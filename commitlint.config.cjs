@@ -8,6 +8,6 @@ module.exports = {
         'footer-leading-blank': [2, 'always'],
         'footer-max-line-length': [2, 'always', 100],
         'scope-empty': [0, 'never'],
-        'scope-enum': [2, 'always', ['core', 'deps']],
+        'scope-enum': [2, 'always', ['core', 'jsdoc', 'deps']],
     },
 };
