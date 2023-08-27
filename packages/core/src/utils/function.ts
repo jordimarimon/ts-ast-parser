@@ -5,7 +5,6 @@ import ts from 'typescript';
  * Finds the return statement in the body of a function
  *
  * @param node - The function body node
- *
  * @returns The return statement if found, otherwise undefined
  */
 export function getReturnStatement(node: ts.Block | undefined): ts.ReturnStatement | undefined {
@@ -17,10 +16,9 @@ export function getReturnStatement(node: ts.Block | undefined): ts.ReturnStateme
  *
  * For example:
  *
- *      const foo = () => {...}
+ * const foo = () => {...}
  *
  * @param node - The node to check
- *
  * @returns True if the node is an arrow function
  */
 export function isArrowFunction(node: ts.Node | undefined): node is ts.ArrowFunction {
@@ -32,10 +30,9 @@ export function isArrowFunction(node: ts.Node | undefined): node is ts.ArrowFunc
  *
  * For example:
  *
- *      const foo = function() { ... }
+ * const foo = function() { ... }
  *
  * @param node - The node to check
- *
  * @returns True if the node is a function expression
  */
 export function isFunctionExpression(node: ts.Node | undefined): node is ts.FunctionExpression {
@@ -47,12 +44,11 @@ export function isFunctionExpression(node: ts.Node | undefined): node is ts.Func
  *
  * For example:
  *
- *      function name(...) { ... }
- *      const name = (...) => { ... }
- *      const name = function(...) { ... }
+ * function name(...) { ... }
+ * const name = (...) => { ... }
+ * const name = function(...) { ... }
  *
  * @param node - The node to check
- *
  * @returns True if the node is a function like node
  */
 export function isFunctionDeclaration(node: ts.Node): node is ts.FunctionDeclaration | ts.VariableStatement {

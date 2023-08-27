@@ -1,4 +1,4 @@
-import { DocScanner, TokenKind } from '@ts-ast-parser/jsdoc';
+import { TokenKind, tokens } from '@ts-ast-parser/comment';
 import { describe, expect } from 'vitest';
 import { test } from '../../utils.js';
 
@@ -7,54 +7,60 @@ const category = 'jsdoc';
 const subcategory = 'scanner';
 
 describe(`${category}/${subcategory}`, () => {
-    test('empty comment', () => {
-        const scanner = new DocScanner('/***/');
+    test('should allow an empty comment', () => {
         const expected = [
-            TokenKind.StartOfInput,
-            TokenKind.EndOfInput,
+            TokenKind.Slash,
+            TokenKind.Star,
+            TokenKind.Star,
+            TokenKind.Star,
+            TokenKind.Slash,
         ];
 
         const actual: TokenKind[] = [];
-        for (const line of scanner.lines()) {
-            actual.push(...line.map(token => token.kind));
+        for (const token of tokens('/***/')) {
+            actual.push(token.kind);
         }
 
         expect(actual).toEqual(expected);
     });
 
-    test('empty comment with new lines', () => {
-        const scanner = new DocScanner(['/**', ' *', ' */'].join('\n'));
+    test('should allow an empty comment with new lines', () => {
         const expected = [
-            TokenKind.StartOfInput,
-            TokenKind.Newline,
-            TokenKind.Spacing,
+            TokenKind.Slash,
+            TokenKind.Star,
             TokenKind.Star,
             TokenKind.Newline,
-            TokenKind.EndOfInput,
+            TokenKind.Spaces,
+            TokenKind.Star,
+            TokenKind.Newline,
+            TokenKind.Spaces,
+            TokenKind.Star,
+            TokenKind.Slash,
         ];
 
         const actual: TokenKind[] = [];
-        for (const line of scanner.lines()) {
-            actual.push(...line.map(token => token.kind));
+        for (const token of tokens(['/**', ' *', ' */'].join('\n'))) {
+            actual.push(token.kind);
         }
 
         expect(actual).toEqual(expected);
     });
 
-    test('general characters', () => {
+    test('should allow a comment with general characters', () => {
         const text = [
             '/**',
             ' * "~@{|}`.:#\\abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_',
             ' */',
         ];
-        const scanner = new DocScanner(text.join('\n'));
         const expected = [
-            TokenKind.StartOfInput,
+            TokenKind.Slash,
+            TokenKind.Star,
+            TokenKind.Star,
             TokenKind.Newline,
 
-            TokenKind.Spacing,
+            TokenKind.Spaces,
             TokenKind.Star,
-            TokenKind.Spacing,
+            TokenKind.Spaces,
             TokenKind.DoubleQuote,
             TokenKind.Tilde,
             TokenKind.AtSign,
@@ -69,46 +75,52 @@ describe(`${category}/${subcategory}`, () => {
             TokenKind.AsciiWord,
             TokenKind.Newline,
 
-            TokenKind.EndOfInput,
+            TokenKind.Spaces,
+            TokenKind.Star,
+            TokenKind.Slash,
         ];
 
         const actual: TokenKind[] = [];
-        for (const line of scanner.lines()) {
-            actual.push(...line.map(token => token.kind));
+        for (const token of tokens(text.join('\n'))) {
+            actual.push(token.kind);
         }
 
         expect(actual).toEqual(expected);
     });
 
-    test('spacing characters', () => {
-        const scanner = new DocScanner(['/**', ' * space:  tab: \t  form feed: \f end', ' */'].join('\n'));
+    test('should allow a comment with spacing characters', () => {
+        const text = ['/**', ' * space:  tab: \t  form feed: \f end', ' */'].join('\n');
         const expected = [
-            TokenKind.StartOfInput,
-            TokenKind.Newline,
-
-            TokenKind.Spacing,
+            TokenKind.Slash,
             TokenKind.Star,
-            TokenKind.Spacing,
+            TokenKind.Star,
+            TokenKind.Newline,
+
+            TokenKind.Spaces,
+            TokenKind.Star,
+            TokenKind.Spaces,
             TokenKind.AsciiWord,
             TokenKind.Colon,
-            TokenKind.Spacing,
+            TokenKind.Spaces,
             TokenKind.AsciiWord,
             TokenKind.Colon,
-            TokenKind.Spacing,
+            TokenKind.Spaces,
             TokenKind.AsciiWord,
-            TokenKind.Spacing,
+            TokenKind.Spaces,
             TokenKind.AsciiWord,
             TokenKind.Colon,
-            TokenKind.Spacing,
+            TokenKind.Spaces,
             TokenKind.AsciiWord,
             TokenKind.Newline,
 
-            TokenKind.EndOfInput,
+            TokenKind.Spaces,
+            TokenKind.Star,
+            TokenKind.Slash,
         ];
 
         const actual: TokenKind[] = [];
-        for (const line of scanner.lines()) {
-            actual.push(...line.map(token => token.kind));
+        for (const token of tokens(text)) {
+            actual.push(token.kind);
         }
 
         expect(actual).toEqual(expected);

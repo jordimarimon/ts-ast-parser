@@ -102,7 +102,6 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * Finds a declaration based on it's kind
      *
      * @param kind - The declaration kind
-     *
      * @returns All declaration nodes found
      */
     getDeclarationByKind(kind: DeclarationKind): DeclarationNode[] {
@@ -113,7 +112,6 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * Finds a declaration based on it's name
      *
      * @param name - The declaration name
-     *
      * @returns The matched declaration found if any
      */
     getDeclarationByName(name: string): DeclarationNode | null {
@@ -125,7 +123,6 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * with the specified name
      *
      * @param category - The category name
-     *
      * @returns All declaration nodes found
      */
     getDeclarationsByCategory(category: string): DeclarationNode[] {

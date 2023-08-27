@@ -181,7 +181,6 @@ export class Project {
      * Whether the given source file path is present in the reflected modules
      *
      * @param filePath - The source file path to check
-     *
      * @returns True if the source file has been already analysed, false otherwise
      */
     has(filePath: string): boolean {
@@ -196,7 +195,6 @@ export class Project {
      *
      * @param filePath - The path of the new source file
      * @param content - The content of the source file
-     *
      * @returns The new reflected module
      */
     add(filePath: string, content: string): ModuleNode {
@@ -223,7 +221,6 @@ export class Project {
      *
      * @param filePath - The path of the source file to update
      * @param content - The new content of the source file
-     *
      * @returns The updated reflected module
      */
     update(filePath: string, content: string): ModuleNode {

@@ -222,8 +222,10 @@ export function createTypeFromDeclaration(node: ts.Node, context: ProjectContext
  *
  * For example:
  *
- *      const foo = [4, 5] as const;
- *      const bar = <[4, 5]>[4, 5];
+ * const foo = [4, 5] as const;
+ * const bar = <[4, 5]>[4, 5];
+ *
+ * @param node
  */
 function isTypeAssertion(node: ts.Node): boolean {
     return (

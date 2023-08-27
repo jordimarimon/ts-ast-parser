@@ -14,3 +14,6 @@ This is a list of libraries of interest from where to source ideas:
 - [tsquery](https://github.com/phenomnomnominal/tsquery)
 - [ts-patch](https://github.com/nonara/ts-patch)
 - [typescript-transformer-handbook](https://github.com/itsdouges/typescript-transformer-handbook)
+- [TS to JSDoc](https://github.com/futurGH/ts-to-jsdoc)
+- [Doctrine](https://github.com/eslint/doctrine)
+- [tst-reflect](https://github.com/Hookyns/tst-reflect/tree/main)

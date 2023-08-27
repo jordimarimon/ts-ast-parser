@@ -3,29 +3,24 @@
  */
 export enum TokenKind {
     /**
-     * A token representing the start of the input -> "/**"
-     */
-    StartOfInput,
-
-    /**
-     * A token representing the end of the input -> "*\/"
-     */
-    EndOfInput,
-
-    /**
-     * A token representing a newline -> "\n", "\r" or "\r\n"
+     * A token representing a newline -> "\n" or "\r\n"
      */
     Newline,
 
     /**
      * A token representing one or more spaces and/or tabs (but not newlines).
      */
-    Spacing,
+    Spaces,
 
     /**
      * A token representing one or more ASCII letters, numbers, and/or underscores.
      */
     AsciiWord,
+
+    /**
+     * The slash character `/`
+     */
+    Slash,
 
     /**
      * The star character `*`.
@@ -87,6 +82,28 @@ export enum TokenKind {
      * The pound character `#`. Can be used to define instance members in links.
      */
     PoundSymbol,
+
+    /**
+     * The right square bracket character `]`. Can be used when defining
+     * the default value.
+     */
+    RightSquareBracket,
+
+    /**
+     * The left square bracket character `[`. Can be used when defining
+     * the default value.
+     */
+    LeftSquareBracket,
+
+    /**
+     * The equal character `=`. Can be used when defining the default value.
+     */
+    Equal,
+
+    /**
+     * The hyphen character `-`. Can be used to separate the name from the description.
+     */
+    Hyphen,
 
     /**
      * A token representing any other character not present in the above tokens.

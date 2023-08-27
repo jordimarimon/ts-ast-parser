@@ -14,7 +14,6 @@ import { globbySync } from 'globby';
  *
  * @param patterns - A string or an array of strings that represent glob patterns
  * @param options - Options to configure the analyzer
- *
  * @returns The reflected TypeScript AST
  */
 export function parseFromGlob(

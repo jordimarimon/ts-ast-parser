@@ -29,6 +29,8 @@ export class NodeSystem implements AnalyserSystem {
 
     /**
      * Writes the content
+     *
+     * @param content
      */
     write(content: string): void {
         ts.sys.write(content);
@@ -36,6 +38,9 @@ export class NodeSystem implements AnalyserSystem {
 
     /**
      * Reads the data encoded inside a file
+     *
+     * @param filePath
+     * @param encoding
      */
     readFile(filePath: string, encoding?: string): string {
         const absolutePath = this.getAbsolutePath(filePath);
@@ -57,6 +62,7 @@ export class NodeSystem implements AnalyserSystem {
     /**
      * Checks whether the file exists
      *
+     * @param filePath
      * @returns True if the file exists, otherwise false
      */
     fileExists(filePath: string): boolean {
@@ -91,7 +97,7 @@ export class NodeSystem implements AnalyserSystem {
     /**
      * Returns the directory names (not the absolute path)
      *
-     * @param path - The path from where to search
+     * @param filePath - The path from where to search
      */
     getDirectories(filePath: string): string[] {
         const absolutePath = this.getAbsolutePath(filePath);
@@ -116,6 +122,8 @@ export class NodeSystem implements AnalyserSystem {
     /**
      * Normalizes the path based on the OS and makes it
      * relative to the current working directory.
+     *
+     * @param filePath
      */
     normalizePath(filePath: string): string {
         return path.normalize(path.relative(this.getCurrentDirectory(), filePath));
@@ -123,6 +131,8 @@ export class NodeSystem implements AnalyserSystem {
 
     /**
      * Returns the directory name
+     *
+     * @param filePath
      */
     getDirectoryName(filePath: string): string {
         return path.dirname(filePath);
@@ -130,6 +140,8 @@ export class NodeSystem implements AnalyserSystem {
 
     /**
      * Returns a string with the filename portion of the path
+     *
+     * @param filePath
      */
     getBaseName(filePath: string): string {
         return path.basename(filePath);
@@ -137,6 +149,8 @@ export class NodeSystem implements AnalyserSystem {
 
     /**
      * Joins the segments using the path separator of the OS/Browser
+     *
+     * @param segments
      */
     join(...segments: string[]): string {
         return path.join(...segments);
@@ -146,6 +160,7 @@ export class NodeSystem implements AnalyserSystem {
      * Checks if the path is an absolute path. An absolute
      * path is a path that starts with the ROOT directory.
      *
+     * @param filePath
      * @returns True if the path is absolute
      */
     isAbsolute(filePath: string): boolean {
@@ -162,6 +177,8 @@ export class NodeSystem implements AnalyserSystem {
 
     /**
      * Returns the absolute path
+     *
+     * @param filePath
      */
     getAbsolutePath(filePath: string): string {
         if (this.isAbsolute(filePath)) {

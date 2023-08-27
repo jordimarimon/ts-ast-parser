@@ -42,7 +42,6 @@ export class JSDocNode {
      * Returns the first tag with the given name.
      *
      * @param name - The name of the tag.
-     *
      * @returns The first tag with the given name or `undefined` if no such tag exists.
      */
     getTag(name: string): JSDocValueNode | undefined {

@@ -7,11 +7,10 @@ import ts from 'typescript';
  * Checks whether the imported module only specifies its module in the import path,
  * rather than the full or relative path to where it's located:
  *
- *      import lodash from 'lodash'; --> Correct
- *      import foo from './foo.js'; --> Incorrect
+ * import lodash from 'lodash'; --> Correct
+ * import foo from './foo.js'; --> Incorrect
  *
  * @param importPath - The path to check
- *
  * @returns True of the path represents a bare module specifier
  */
 export function isBareModuleSpecifier(importPath: string): boolean {
@@ -22,7 +21,6 @@ export function isBareModuleSpecifier(importPath: string): boolean {
  * Checks whether the import path is from a third party library
  *
  * @param path - The import path
- *
  * @returns True if the path is from a third party library
  */
 export function isThirdParty(path: string): boolean {
@@ -34,7 +32,6 @@ export function isThirdParty(path: string): boolean {
  *
  * @param node - The node to find
  * @param context - The analyzer context where the node belongs to
- *
  * @returns The path where the node is defined
  */
 export function getOriginalImportPath(node: ts.Identifier | undefined, context: ProjectContext): string {
@@ -53,10 +50,8 @@ export function getOriginalImportPath(node: ts.Identifier | undefined, context: 
  * Checks whether the import path matches a path defined in the `tsconfig.json`.
  *
  * @see https://www.typescriptlang.org/tsconfig#paths
- *
  * @param importPath - The import path
  * @param compilerOptions - The TypeScript compiler options from the analyzer context
- *
  * @returns True if the import has been re-map
  */
 export function matchesTsConfigPath(importPath: string, compilerOptions: ts.CompilerOptions): boolean {
@@ -79,10 +74,9 @@ export function matchesTsConfigPath(importPath: string, compilerOptions: ts.Comp
  *
  * Example:
  *
- *      import defaultExport from 'foo';
+ * import defaultExport from 'foo';
  *
  * @param node - The node to check
- *
  * @returns True if the declaration is a default import
  */
 export function isDefaultImport(node: ts.ImportDeclaration): boolean {
@@ -94,10 +88,9 @@ export function isDefaultImport(node: ts.ImportDeclaration): boolean {
  *
  * Example:
  *
- *      import {namedA, namedB} from 'foo';
+ * import {namedA, namedB} from 'foo';
  *
  * @param node - The node to check
- *
  * @returns True if the declaration is a named import
  */
 export function isNamedImport(node: ts.ImportDeclaration): boolean {
@@ -115,10 +108,9 @@ export function isNamedImport(node: ts.ImportDeclaration): boolean {
  *
  * Example:
  *
- *      import * as name from './my-module.js';
+ * import * as name from './my-module.js';
  *
  * @param node - The node to check
- *
  * @returns True if the declaration is a namespace import
  */
 export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
@@ -136,10 +128,9 @@ export function isNamespaceImport(node: ts.ImportDeclaration): boolean {
  *
  * Example:
  *
- *      import './my-module.js';
+ * import './my-module.js';
  *
  * @param node - The node to check
- *
  * @returns True if the import has side effects
  */
 export function isSideEffectImport(node: ts.ImportDeclaration): boolean {

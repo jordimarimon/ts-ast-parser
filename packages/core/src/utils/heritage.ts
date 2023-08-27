@@ -9,7 +9,6 @@ import type ts from 'typescript';
  *
  * @param node - The node to check
  * @param context - The analyzer context where the node belongs to
- *
  * @returns True if the node extends HTMLElement
  */
 export function isCustomElement(node: ClassLikeNode, context: ProjectContext): boolean {
@@ -31,7 +30,6 @@ export function isCustomElement(node: ClassLikeNode, context: ProjectContext): b
  *
  * @param type - The base type to check
  * @param checker - The TypeScript type checker from the analyzer context
- *
  * @returns True if HTMLElement has been found as a base type
  */
 export function hasHTMLElementAsBase(type: ts.Type, checker: ts.TypeChecker): boolean {

@@ -6,7 +6,6 @@ import ts from 'typescript';
  * `ts.VariableStatement` that has as initializer a `ts.ClassExpression`.
  *
  * @param node - The `ts.Node` to check
- *
  * @returns The node is a ClassDeclaration or a ClassExpression
  */
 export function isClassDeclaration(node: ts.Node): node is ts.ClassDeclaration | ts.VariableStatement {

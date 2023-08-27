@@ -12,7 +12,6 @@ import { Project } from './project.js';
  *
  * @param files - An array of paths where the TypeScripts files are located
  * @param options - Options to configure the analyzer
- *
  * @returns The reflected TypeScript AST
  */
 export async function parseFromFiles(

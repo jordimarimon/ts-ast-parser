@@ -1,8 +1,8 @@
 {
-    "name": "@ts-ast-parser/jsdoc",
+    "name": "@ts-ast-parser/comment",
     "version": "0.0.0",
     "author": "Jordi Marimon Palarea",
-    "description": "Parses a JSDoc comment",
+    "description": "Parses documentation comments",
     "homepage": "https://jordimarimon.github.io/ts-ast-parser",
     "license": "MIT",
     "type": "module",
@@ -24,7 +24,9 @@
     },
     "keywords": [
         "JSDoc",
+        "TSDoc",
         "Parser",
+        "comment",
         "Documentation",
         "doc"
     ],

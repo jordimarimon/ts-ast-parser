@@ -117,7 +117,6 @@ export class ProjectContext {
      * Returns the associated `ts.Symbol` for the given node
      *
      * @param node - The `ts.Node` to search its symbol
-     *
      * @returns The symbol if it has one
      */
     getSymbol(node: ts.Node): ts.Symbol | null {
@@ -146,7 +145,6 @@ export class ProjectContext {
      * it was defined.
      *
      * @param nodeOrType - The node or type to search for
-     *
      * @returns The symbol, line position and path where the node/type is located
      */
     getLocation(nodeOrType: ts.Node | ts.Type): SymbolWithLocation {
@@ -172,7 +170,6 @@ export class ProjectContext {
      * Returns the start line number where the node is located
      *
      * @param node - The node to locate
-     *
      * @returns The line number where the node is located
      */
     getLinePosition(node: ts.Node): number {
