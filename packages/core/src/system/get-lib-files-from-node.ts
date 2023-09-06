@@ -1,7 +1,10 @@
+import { createRequire } from 'node:module';
 import { cwd } from 'node:process';
 import * as path from 'node:path';
 import * as fs from 'node:fs';
 
+
+const require = createRequire(import.meta.url);
 
 // TODO(Jordi M.): Replace this with some sort of API call
 //  if https://github.com/microsoft/TypeScript/pull/54011 or
