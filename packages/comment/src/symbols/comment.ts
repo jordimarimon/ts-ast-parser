@@ -78,7 +78,7 @@ export function comment(): ParserSymbol {
                 for (const t of tokens) {
                     status = this.next(t);
                     if (status.kind === 'error') {
-                        break;
+                        return status;
                     }
                 }
             } else if (status.kind === 'success') {
