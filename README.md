@@ -54,9 +54,10 @@ Supported output formats:
 
 ## Projects in this monorepo
 
-| Name                                   | Version                                                                                                                           | Description                                                       |
-| -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| [@ts-ast-parser/core](./packages/core) | [![@ts-ast-parser/core](https://img.shields.io/npm/v/@ts-ast-parser/core.svg)](https://www.npmjs.com/package/@ts-ast-parser/core) | Reads the TS Compiler AST and reflects a simplified version of it |
+| Name                                         | Version                                                                                                                                    | Description                                                       |
+|----------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
+| [@ts-ast-parser/core](./packages/core)       | [![@ts-ast-parser/core](https://img.shields.io/npm/v/@ts-ast-parser/core.svg)](https://www.npmjs.com/package/@ts-ast-parser/core)          | Reads the TS Compiler AST and reflects a simplified version of it |
+| [@ts-ast-parser/comment](./packages/comment) | [![@ts-ast-parser/comment](https://img.shields.io/npm/v/@ts-ast-parser/comment.svg)](https://www.npmjs.com/package/@ts-ast-parser/comment) | Parses comments that follow the JSDoc or TSDoc standard           |
 
 ## Documentation
 
