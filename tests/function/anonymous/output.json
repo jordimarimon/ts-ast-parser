@@ -39,15 +39,23 @@
                 "jsDoc": [
                     {
                         "kind": "description",
-                        "value": "This is a description"
+                        "text": "This is a description"
                     },
                     {
                         "kind": "param",
-                        "value": "x"
+                        "name": "x",
+                        "text": "",
+                        "type": "",
+                        "optional": false,
+                        "default": ""
                     },
                     {
                         "kind": "param",
-                        "value": "y"
+                        "name": "y",
+                        "text": "",
+                        "type": "",
+                        "optional": false,
+                        "default": ""
                     }
                 ]
             },
@@ -86,15 +94,23 @@
                 "jsDoc": [
                     {
                         "kind": "description",
-                        "value": "This is a description"
+                        "text": "This is a description"
                     },
                     {
                         "kind": "param",
-                        "value": "x"
+                        "name": "x",
+                        "text": "",
+                        "type": "",
+                        "optional": false,
+                        "default": ""
                     },
                     {
                         "kind": "param",
-                        "value": "y"
+                        "name": "y",
+                        "text": "",
+                        "type": "",
+                        "optional": false,
+                        "default": ""
                     }
                 ]
             },
@@ -113,15 +129,23 @@
                         "jsDoc": [
                             {
                                 "kind": "description",
-                                "value": "This is a description"
+                                "text": "This is a description"
                             },
                             {
                                 "kind": "param",
-                                "value": "x"
+                                "name": "x",
+                                "text": "",
+                                "type": "",
+                                "optional": false,
+                                "default": ""
                             },
                             {
                                 "kind": "param",
-                                "value": "y"
+                                "name": "y",
+                                "text": "",
+                                "type": "",
+                                "optional": false,
+                                "default": ""
                             }
                         ],
                         "parameters": [

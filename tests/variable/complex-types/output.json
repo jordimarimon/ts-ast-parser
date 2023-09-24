@@ -186,11 +186,15 @@
                 "jsDoc": [
                     {
                         "kind": "description",
-                        "value": "This variable declaration is of type number, but we override\nthe type using JSDoc"
+                        "text": "This variable declaration is of type number, but we override\nthe type using JSDoc"
                     },
                     {
                         "kind": "type",
-                        "value": "string"
+                        "name": "string",
+                        "text": "",
+                        "type": "",
+                        "optional": false,
+                        "default": ""
                     }
                 ]
             }

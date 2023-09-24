@@ -52,7 +52,7 @@
                 "jsDoc": [
                     {
                         "kind": "description",
-                        "value": "Example `Foo` class"
+                        "text": "Example `Foo` class"
                     }
                 ],
                 "properties": [

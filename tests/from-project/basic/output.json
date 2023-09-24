@@ -110,11 +110,11 @@
                 "heritage": [
                     {
                         "name": "Person",
+                        "kind": "Class",
                         "source": {
                             "line": 1,
                             "path": "tests/from-project/basic/test-project/src/index.ts"
-                        },
-                        "kind": "Class"
+                        }
                     }
                 ],
                 "properties": [
