@@ -10,9 +10,8 @@ import type { ReflectedNode } from '../reflected-node.js';
 import { MemberKind } from '../models/member-kind.js';
 import { getDecorators } from '../utils/decorator.js';
 import { DecoratorNode } from './decorator-node.js';
-import { DocTagName } from '../models/js-doc.js';
+import { CommentNode } from './comment-node.js';
 import type { Type } from '../models/type.js';
-import { JSDocNode } from './jsdoc-node.js';
 import ts from 'typescript';
 
 
@@ -27,7 +26,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
 
     private readonly _context: ProjectContext;
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(node: PropertyLikeNode, nodeContext: SymbolWithContext | null, context: ProjectContext) {
         this._node = node;
@@ -37,11 +36,11 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         const [getter, setter] = this._getAccessors();
 
         if (getter) {
-            this._jsDoc = new JSDocNode(getter);
+            this._jsDoc = new CommentNode(getter);
         } else if (setter) {
-            this._jsDoc = new JSDocNode(setter);
+            this._jsDoc = new CommentNode(setter);
         } else {
-            this._jsDoc = new JSDocNode(this._node);
+            this._jsDoc = new CommentNode(this._node);
         }
     }
 
@@ -108,7 +107,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
     }
 
     getDefault(): unknown {
-        const jsDocDefaultValue = this.getJSDoc().getTag(DocTagName.default)?.serialize<string>() ?? '';
+        const jsDocDefaultValue = this.getJSDoc().getTag('default')?.text;
         const [getter, setter] = this._getAccessors();
 
         if (jsDocDefaultValue) {
@@ -134,7 +133,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         return getVisibilityModifier(this._node);
     }
 
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 
@@ -177,7 +176,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
     }
 
     isReadOnly(): boolean {
-        const readOnlyTag = !!this.getJSDoc().getTag(DocTagName.readonly)?.serialize<boolean>();
+        const readOnlyTag = !!this.getJSDoc().getTag('readonly');
         const [getter, setter] = this._getAccessors();
 
         return readOnlyTag || (!!getter && !setter) || isReadOnly(this._node);

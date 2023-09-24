@@ -11,7 +11,7 @@
                 "jsDoc": [
                     {
                         "kind": "description",
-                        "value": "This is the description of the anonymous class."
+                        "text": "This is the description of the anonymous class."
                     }
                 ],
                 "properties": [
@@ -34,7 +34,7 @@
                 "jsDoc": [
                     {
                         "kind": "description",
-                        "value": "This is the description of the class Bar."
+                        "text": "This is the description of the class Bar."
                     }
                 ],
                 "properties": [

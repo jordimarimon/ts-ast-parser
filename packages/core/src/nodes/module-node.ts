@@ -1,10 +1,9 @@
 import { importFactory, declarationFactories, exportFactories } from '../factories/index.js';
 import type { ReflectedNode, ReflectedRootNode } from '../reflected-node.js';
 import type { DeclarationKind } from '../models/declaration-kind.js';
-import type { ProjectContext } from '../project-context.js';
 import type { ExportNode, ImportNode } from '../utils/is.js';
 import type { DeclarationNode } from './declaration-node.js';
-import { DocTagName } from '../models/js-doc.js';
+import type { ProjectContext } from '../project-context.js';
 import type { Module } from '../models/module.js';
 import { is } from '../utils/is.js';
 import ts from 'typescript';
@@ -102,7 +101,6 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * Finds a declaration based on it's kind
      *
      * @param kind - The declaration kind
-     *
      * @returns All declaration nodes found
      */
     getDeclarationByKind(kind: DeclarationKind): DeclarationNode[] {
@@ -113,7 +111,6 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * Finds a declaration based on it's name
      *
      * @param name - The declaration name
-     *
      * @returns The matched declaration found if any
      */
     getDeclarationByName(name: string): DeclarationNode | null {
@@ -125,12 +122,11 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * with the specified name
      *
      * @param category - The category name
-     *
      * @returns All declaration nodes found
      */
     getDeclarationsByCategory(category: string): DeclarationNode[] {
         return this.getDeclarations().filter(decl => {
-            return decl.getJSDoc()?.getTag(DocTagName.category)?.serialize<string>() === category;
+            return decl.getJSDoc()?.getTag('category')?.text === category;
         });
     }
 

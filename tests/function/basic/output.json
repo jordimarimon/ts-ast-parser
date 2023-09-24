@@ -19,18 +19,23 @@
                         "jsDoc": [
                             {
                                 "kind": "description",
-                                "value": "Function that sums all the numbers in a list."
+                                "text": "Function that sums all the numbers in a list."
                             },
                             {
                                 "kind": "param",
-                                "value": {
-                                    "name": "list",
-                                    "description": "The list of numbers to sum"
-                                }
+                                "name": "list",
+                                "text": "The list of numbers to sum",
+                                "type": "",
+                                "optional": false,
+                                "default": ""
                             },
                             {
                                 "kind": "returns",
-                                "value": "The sum of all the numbers."
+                                "name": "",
+                                "text": "The sum of all the numbers.",
+                                "type": "",
+                                "optional": false,
+                                "default": ""
                             }
                         ],
                         "parameters": [

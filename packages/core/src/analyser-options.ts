@@ -13,6 +13,7 @@ export interface AnalyserOptions {
 
     /**
      * If true, it won't stop the analysis when there are syntactic or semantic errors in the code.
+     *
      * @default false
      */
     skipDiagnostics: boolean;
@@ -36,6 +37,7 @@ export interface AnalyserOptions {
 
     /**
      * Whether the project represents a JS project (all source files are JavaScript files)
+     *
      * @default false
      */
     jsProject: boolean;

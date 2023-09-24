@@ -24,43 +24,43 @@
                 "jsDoc": [
                     {
                         "kind": "typedef",
-                        "value": "PropertiesHash"
+                        "name": "PropertiesHash",
+                        "text": "",
+                        "type": "",
+                        "optional": false,
+                        "default": ""
                     },
                     {
                         "kind": "type",
-                        "value": {
-                            "type": "object"
-                        }
-                    },
-                    {
-                        "kind": "type",
-                        "value": {
-                            "type": "PropertiesHash[]"
-                        }
+                        "name": "",
+                        "text": "",
+                        "type": "object",
+                        "optional": false,
+                        "default": ""
                     },
                     {
                         "kind": "property",
-                        "value": {
-                            "type": "string",
-                            "name": "id",
-                            "description": "an ID."
-                        }
+                        "name": "id",
+                        "text": "an ID.",
+                        "type": "string",
+                        "optional": false,
+                        "default": ""
                     },
                     {
                         "kind": "property",
-                        "value": {
-                            "type": "string",
-                            "name": "name",
-                            "description": "your name."
-                        }
+                        "name": "name",
+                        "text": "your name.",
+                        "type": "string",
+                        "optional": false,
+                        "default": ""
                     },
                     {
                         "kind": "property",
-                        "value": {
-                            "type": "number",
-                            "name": "age",
-                            "description": "your age."
-                        }
+                        "name": "age",
+                        "text": "your age.",
+                        "type": "number",
+                        "optional": false,
+                        "default": ""
                     }
                 ]
             },
@@ -103,37 +103,39 @@
                         "jsDoc": [
                             {
                                 "kind": "description",
-                                "value": "Returns the sum of a and b"
+                                "text": "Returns the sum of a and b"
                             },
                             {
                                 "kind": "param",
-                                "value": {
-                                    "type": "number",
-                                    "name": "a"
-                                }
+                                "name": "a",
+                                "text": "",
+                                "type": "number",
+                                "optional": false,
+                                "default": ""
                             },
                             {
                                 "kind": "param",
-                                "value": {
-                                    "type": "number",
-                                    "name": "b"
-                                }
+                                "name": "b",
+                                "text": "",
+                                "type": "number",
+                                "optional": false,
+                                "default": ""
                             },
                             {
                                 "kind": "param",
-                                "value": {
-                                    "type": "boolean",
-                                    "name": "retArr",
-                                    "description": "If set to true, the function will return an array"
-                                }
+                                "name": "retArr",
+                                "text": "If set to true, the function will return an array",
+                                "type": "boolean",
+                                "optional": false,
+                                "default": ""
                             },
                             {
                                 "kind": "returns",
-                                "value": {
-                                    "type": "(number|number[])",
-                                    "name": "Sum",
-                                    "description": "of a and b or an array that contains a, b and the sum of a and b."
-                                }
+                                "name": "",
+                                "text": "Sum of a and b or an array that contains a, b and the sum of a and b.",
+                                "type": "(number|number[])",
+                                "optional": false,
+                                "default": ""
                             }
                         ],
                         "parameters": [

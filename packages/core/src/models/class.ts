@@ -1,10 +1,10 @@
 import type { ExpressionWithTypeArguments } from './expression-with-type-arguments.js';
 import type { DeclarationKind } from './declaration-kind.js';
+import type { CommentPart } from '@ts-ast-parser/comment';
 import type { TypeParameter } from './type-parameter.js';
 import type { FunctionSignature } from './function.js';
 import type { Field, Method } from './member.js';
 import type { Decorator } from './decorator.js';
-import type { DocComment } from './js-doc.js';
 
 /**
  * The result of a class node after being serialized
@@ -48,7 +48,7 @@ export interface ClassDeclaration {
     /**
      * The JSDoc
      */
-    jsDoc?: DocComment;
+    jsDoc?: CommentPart[];
 
     /**
      * The type parameters

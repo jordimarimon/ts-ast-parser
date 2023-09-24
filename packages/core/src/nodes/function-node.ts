@@ -14,7 +14,7 @@ import { getModifiers } from '../utils/modifiers.js';
 import { DecoratorNode } from './decorator-node.js';
 import { SignatureNode } from './signature-node.js';
 import { RootNodeType } from '../models/node.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import ts from 'typescript';
 
 
@@ -29,7 +29,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
     private readonly _context: ProjectContext;
 
-    private readonly _jsDoc: JSDocNode | null = null;
+    private readonly _jsDoc: CommentNode | null = null;
 
     constructor(node: NodeWithFunctionDeclaration, member: SymbolWithContext | null, context: ProjectContext) {
         this._node = node;
@@ -39,7 +39,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         // Function/Method declarations have the JSDoc in the signature also.
         // We don't want to emit it twice in these cases.
         if (ts.isVariableStatement(node) || ts.isPropertyDeclaration(node) || ts.isPropertySignature(node)) {
-            this._jsDoc = new JSDocNode(node);
+            this._jsDoc = new CommentNode(node);
         }
     }
 
@@ -89,7 +89,7 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         return getNamespace(this._node);
     }
 
-    getJSDoc(): JSDocNode | null {
+    getJSDoc(): CommentNode | null {
         return this._jsDoc;
     }
 

@@ -9,7 +9,7 @@ import { createType } from '../factories/create-type.js';
 import { getNamespace } from '../utils/namespace.js';
 import { RootNodeType } from '../models/node.js';
 import type { Type } from '../models/type.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import type ts from 'typescript';
 
 
@@ -22,12 +22,12 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
 
     private readonly _context: ProjectContext;
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(node: ts.TypeAliasDeclaration, context: ProjectContext) {
         this._node = node;
         this._context = context;
-        this._jsDoc = new JSDocNode(this._node);
+        this._jsDoc = new CommentNode(this._node);
     }
 
     getContext(): ProjectContext {
@@ -58,7 +58,7 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
         return getNamespace(this._node);
     }
 
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 

@@ -16,8 +16,7 @@
         "url": "https://github.com/jordimarimon/ts-ast-parser/issues"
     },
     "engines": {
-        "node": "^16.0.0 || ^18.0.0 || ^20.0.0",
-        "npm": "^8.0.0 || ^9.0.0"
+        "node": "^18.0.0 || ^20.0.0"
     },
     "scripts": {
         "build": "npm-run-all ts:reset ts:clear ts:build",
@@ -43,7 +42,7 @@
         "lint:fix": "eslint \"**/*.ts\" --fix --cache --max-warnings 0"
     },
     "lint-staged": {
-        "packages/**/*.ts": "npm run lint:fix"
+        "packages/**/*.ts": "eslint --fix --cache --max-warnings 0"
     },
     "devDependencies": {
         "@11ty/eleventy": "^2.0.1",
@@ -59,12 +58,12 @@
         "autoprefixer": "^10.4.14",
         "c8": "^8.0.1",
         "chalk": "^5.3.0",
-        "comment-parser": "^1.4.0",
         "cssnano": "^6.0.1",
         "esbuild": "^0.19.0",
         "eslint": "^8.46.0",
         "eslint-import-resolver-typescript": "^3.6.0",
         "eslint-plugin-import": "^2.28.0",
+        "eslint-plugin-jsdoc": "^46.8.2",
         "eslint-plugin-sonarjs": "^0.20.0",
         "gh-pages": "^6.0.0",
         "globby": "^13.2.2",

@@ -10,12 +10,16 @@
             "parserOptions": {
                 "ecmaVersion": 2020,
                 "sourceType": "module",
-                "project": "./tsconfig.json"
+                "project": [
+                    "./packages/*/tsconfig.json",
+                    "./tsconfig.json"
+                ]
             },
             "plugins": [
                 "@typescript-eslint",
                 "import",
-                "sonarjs"
+                "sonarjs",
+                "jsdoc"
             ],
             "settings": {
                 "import/parsers": {
@@ -96,7 +100,7 @@
                 "no-invalid-this": "error",
                 "no-label-var": "error",
                 "no-lonely-if": "error",
-                "no-loop-func": "error",
+                "no-loop-func": "off",
                 "no-mixed-operators": "error",
                 "no-multi-assign": "error",
                 "no-new": "error",
@@ -279,7 +283,16 @@
                 "@typescript-eslint/no-unsafe-return": "off",
                 "@typescript-eslint/no-unsafe-assignment": "off",
                 "@typescript-eslint/no-unnecessary-condition": "off",
-                "@typescript-eslint/non-nullable-type-assertion-style": "off"
+                "@typescript-eslint/non-nullable-type-assertion-style": "off",
+                "sonarjs/no-duplicate-string": "off",
+                "jsdoc/require-jsdoc": "off",
+                "jsdoc/tag-lines": [
+                    "error",
+                    "any",
+                    {
+                        "startLines": 1
+                    }
+                ]
             }
         }
     ]

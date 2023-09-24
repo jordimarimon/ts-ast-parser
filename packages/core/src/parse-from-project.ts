@@ -10,7 +10,6 @@ import { Project } from './project.js';
  * Syntax Tree from a project (a collection of TypeScript or JavaScript files)
  *
  * @param options - Options to configure the analyzer
- *
  * @returns The reflected TypeScript AST
  */
 export async function parseFromProject(options: Partial<AnalyserOptions> = {}): Promise<AnalyserResult> {

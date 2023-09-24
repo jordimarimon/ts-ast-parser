@@ -38,7 +38,7 @@
         "node": "^16.0.0 || ^18.0.0 || ^20.0.0"
     },
     "dependencies": {
-        "comment-parser": "^1.4.0",
+        "@ts-ast-parser/comment": "0.0.0",
         "globby": "^13.2.2",
         "package-json-type": "^1.0.3",
         "tslib": "^2.6.1"

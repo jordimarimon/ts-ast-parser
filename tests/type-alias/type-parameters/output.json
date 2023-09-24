@@ -43,7 +43,7 @@
                 "jsDoc": [
                     {
                         "kind": "description",
-                        "value": "Type Alias example with typed parameters"
+                        "text": "Type Alias example with typed parameters"
                     }
                 ],
                 "typeParameters": [

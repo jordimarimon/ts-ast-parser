@@ -1,10 +1,10 @@
 import type { ExpressionWithTypeArguments } from './expression-with-type-arguments.js';
 import type { DeclarationKind } from './declaration-kind.js';
+import type { CommentPart } from '@ts-ast-parser/comment';
 import type { TypeParameter } from './type-parameter.js';
 import type { MemberKind } from './member-kind.js';
 import type { PropertyLike } from './property.js';
 import type { Field, Method } from './member.js';
-import type { DocComment } from './js-doc.js';
 import type { Type } from './type.js';
 
 /**
@@ -64,7 +64,7 @@ export interface InterfaceDeclaration {
     /**
      * Any JSDoc comment
      */
-    jsDoc?: DocComment;
+    jsDoc?: CommentPart[];
 
     /**
      * The interface type parameters

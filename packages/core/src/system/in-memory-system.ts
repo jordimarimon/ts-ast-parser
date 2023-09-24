@@ -78,6 +78,8 @@ export class InMemorySystem implements AnalyserSystem {
     /**
      * This method is not implemented and calling it, will throw
      * an exception
+     *
+     * @param _content
      */
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     write(_content: string): void {
@@ -86,6 +88,8 @@ export class InMemorySystem implements AnalyserSystem {
 
     /**
      * Reads the data encoded inside a file
+     *
+     * @param path
      */
     readFile(path: string): string | undefined {
         const absolutePath = this.getAbsolutePath(path);
@@ -110,6 +114,7 @@ export class InMemorySystem implements AnalyserSystem {
     /**
      * Checks whether the file exists
      *
+     * @param path
      * @returns True if the file exists, otherwise false
      */
     fileExists(path: string): boolean {
@@ -210,6 +215,8 @@ export class InMemorySystem implements AnalyserSystem {
     /**
      * Normalizes the path based on the OS and makes it
      * relative to the current working directory.
+     *
+     * @param path
      */
     normalizePath(path: string): string {
         const absolutePath = this.getAbsolutePath(path);
@@ -218,6 +225,8 @@ export class InMemorySystem implements AnalyserSystem {
 
     /**
      * Returns the path of the directory
+     *
+     * @param path
      */
     getDirectoryName(path: string): string {
         return this.getAbsolutePath(path).split(SEP).slice(0, -1).join(SEP);
@@ -225,6 +234,8 @@ export class InMemorySystem implements AnalyserSystem {
 
     /**
      * Returns a string with the filename portion of the path
+     *
+     * @param path
      */
     getBaseName(path: string): string {
         const absolutePath = this.getAbsolutePath(path);
@@ -239,6 +250,8 @@ export class InMemorySystem implements AnalyserSystem {
 
     /**
      * Joins the segments using the path separator of the OS/Browser
+     *
+     * @param segments
      */
     join(...segments: string[]): string {
         return segments.join(SEP);
@@ -248,6 +261,7 @@ export class InMemorySystem implements AnalyserSystem {
      * Checks if the path is an absolute path. An absolute
      * path is a path that starts with the ROOT directory.
      *
+     * @param path
      * @returns True if the path is absolute
      */
     isAbsolute(path: string): boolean {
@@ -276,6 +290,8 @@ export class InMemorySystem implements AnalyserSystem {
      * - "/foo.js" -> "<ROOT_DIR>/foo.js"
      * - "foo.js" -> "<ROOT_DIR>/foo.js"
      * - "Bar/foo.js" or "./Bar/foo.js" -> "<ROOT_DIR>/bar/foo.js"
+     *
+     * @param path
      */
     getAbsolutePath(path: string): string {
         // Convert segment to lowercase and remove dots

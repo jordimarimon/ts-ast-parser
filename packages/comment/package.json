@@ -1,0 +1,44 @@
+{
+    "name": "@ts-ast-parser/comment",
+    "version": "0.0.0",
+    "author": "Jordi Marimon Palarea",
+    "description": "Parses documentation comments",
+    "homepage": "https://jordimarimon.github.io/ts-ast-parser",
+    "license": "MIT",
+    "type": "module",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jordimarimon/ts-ast-parser.git",
+        "directory": "packages/jsdoc"
+    },
+    "bugs": {
+        "url": "https://github.com/jordimarimon/ts-ast-parser/issues"
+    },
+    "keywords": [
+        "JSDoc",
+        "TSDoc",
+        "Parser",
+        "comment",
+        "Documentation",
+        "doc"
+    ],
+    "files": [
+        "dist/",
+        "LICENSE",
+        "README.md"
+    ],
+    "engines": {
+        "node": "^16.0.0 || ^18.0.0 || ^20.0.0"
+    },
+    "dependencies": {
+        "tslib": "^2.6.1"
+    }
+}

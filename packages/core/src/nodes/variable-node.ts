@@ -9,10 +9,9 @@ import type { ReflectedNode } from '../reflected-node.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';
 import { DecoratorNode } from './decorator-node.js';
-import { DocTagName } from '../models/js-doc.js';
 import { RootNodeType } from '../models/node.js';
+import { CommentNode } from './comment-node.js';
 import type { Type } from '../models/type.js';
-import { JSDocNode } from './jsdoc-node.js';
 import type ts from 'typescript';
 
 
@@ -27,13 +26,13 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
 
     private readonly _context: ProjectContext;
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(node: ts.VariableStatement, declaration: ts.VariableDeclaration, context: ProjectContext) {
         this._node = node;
         this._declaration = declaration;
         this._context = context;
-        this._jsDoc = new JSDocNode(this._node);
+        this._jsDoc = new CommentNode(this._node);
     }
 
     getContext(): ProjectContext {
@@ -69,7 +68,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
     }
 
     getValue(): unknown {
-        const jsDocDefaultValue = this.getJSDoc().getTag(DocTagName.default)?.serialize<string>();
+        const jsDocDefaultValue = this.getJSDoc().getTag('default')?.text;
         return jsDocDefaultValue ?? resolveExpression(this._declaration.initializer, this._context);
     }
 
@@ -77,7 +76,7 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
         return getNamespace(this._node);
     }
 
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 

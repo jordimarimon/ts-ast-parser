@@ -6,7 +6,7 @@ import type { EnumDeclaration } from '../models/enum.js';
 import { EnumMemberNode } from './enum-member-node.js';
 import { getNamespace } from '../utils/namespace.js';
 import { RootNodeType } from '../models/node.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import type ts from 'typescript';
 
 
@@ -19,12 +19,12 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     private readonly _context: ProjectContext;
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(node: ts.EnumDeclaration, context: ProjectContext) {
         this._node = node;
         this._context = context;
-        this._jsDoc = new JSDocNode(this._node);
+        this._jsDoc = new CommentNode(this._node);
     }
 
     /**
@@ -80,7 +80,7 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
     /**
      * The reflected documentation comment
      */
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 

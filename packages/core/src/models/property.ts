@@ -1,5 +1,5 @@
+import type { CommentPart } from '@ts-ast-parser/comment';
 import type { Decorator } from './decorator.js';
-import type { DocComment } from './js-doc.js';
 import type { Type } from './type.js';
 
 /**
@@ -41,5 +41,5 @@ export interface PropertyLike {
     /**
      * All the JSDoc comments
      */
-    jsDoc?: DocComment;
+    jsDoc?: CommentPart[];
 }

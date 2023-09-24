@@ -13,7 +13,7 @@ import type { Method } from '../models/member.js';
 import { PropertyNode } from './property-node.js';
 import { FunctionNode } from './function-node.js';
 import { RootNodeType } from '../models/node.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import ts from 'typescript';
 
 
@@ -28,7 +28,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
 
     private readonly _members: SymbolWithContext[] = [];
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     private readonly _heritage: ExpressionWithTypeArgumentsNode[] = [];
 
@@ -36,7 +36,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         this._node = node;
         this._context = context;
         this._members = getInstanceMembers(this._node, this._context);
-        this._jsDoc = new JSDocNode(this._node);
+        this._jsDoc = new CommentNode(this._node);
         this._heritage = (this._node.heritageClauses ?? []).flatMap(h => {
             return h.types.map(t => new ExpressionWithTypeArgumentsNode(t, this._context));
         });
@@ -156,7 +156,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         return getNamespace(this._node);
     }
 
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 

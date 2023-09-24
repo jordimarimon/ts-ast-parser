@@ -10,7 +10,6 @@ import { Project } from './project.js';
  *
  * @param source - A string that represents the TypeScript source code
  * @param options - Options to configure the analyzer
- *
  * @returns The reflected TypeScript AST
  */
 export async function parseFromSource(

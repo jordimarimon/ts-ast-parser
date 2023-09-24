@@ -3,7 +3,7 @@ import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import type { Decorator } from '../models/decorator.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import ts from 'typescript';
 
 
@@ -16,12 +16,12 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
 
     private readonly _context: ProjectContext;
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(decorator: ts.Decorator, context: ProjectContext) {
         this._decorator = decorator;
         this._context = context;
-        this._jsDoc = new JSDocNode(decorator);
+        this._jsDoc = new CommentNode(decorator);
     }
 
     /**
@@ -54,7 +54,7 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
     /**
      * The reflected documentation comment
      */
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 
