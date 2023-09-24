@@ -3,8 +3,8 @@ import { oneOrMore } from './one-or-more.js';
 import { inlineTag } from './inline-tag.js';
 import { terminal } from './terminal.js';
 import type { Token } from '../token.js';
-import { TokenKind } from '../token.js';
 import { optional } from './optional.js';
+import { TokenKind } from '../token.js';
 import { oneOf } from './one-of.js';
 import { omit } from './omit.js';
 import { not } from './not.js';
@@ -210,5 +210,7 @@ export function serializeDescription(parts: CommentPart[]): string | CommentPart
     }
 
     // Case when there is text and inline tags
+    const lastPart = result[result.length - 1] as CommentPart;
+    lastPart.text = ((lastPart.text ?? '') as string).replace(/\n+$/, '');
     return result;
 }

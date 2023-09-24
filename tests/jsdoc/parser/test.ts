@@ -297,4 +297,38 @@ describe(`${category}/${subcategory}`, () => {
         expect((result.parts[0]?.text as CommentPart[])[4]?.kind).toEqual('text');
         expect((result.parts[0]?.text as CommentPart[])[4]?.text).toEqual('this other link');
     });
+
+    test('should allow inline tags inside block tags', () => {
+        const comment = [
+            '/**',
+            ' * @param {Boolean} [options1] - This is the description of the first options parameter',
+            ' * and has the following inline tag [Google]{@link https://www.google.com}',
+            ' * @param {String} [options2="Hello World"] - See {@link https://www.example.com|Example} for',
+            ' * more information',
+            ' *',
+            ' */'
+        ];
+        const result = parse(comment.join('\n'));
+
+        expect(result.error).toEqual(null);
+        expect(result.parts.length).toEqual(2);
+
+        expect(result.parts[0]?.kind).toEqual('param');
+        expect((result.parts[0]?.text as CommentPart[]).length).toEqual(2);
+        expect((result.parts[0]?.text as CommentPart[])[0]?.kind).toEqual('text');
+        expect((result.parts[0]?.text as CommentPart[])[0]?.text).toEqual('This is the description of the first options parameter\nand has the following inline tag');
+        expect((result.parts[0]?.text as CommentPart[])[1]?.kind).toEqual('link');
+        expect((result.parts[0]?.text as CommentPart[])[1]?.target).toEqual('https://www.google.com');
+        expect((result.parts[0]?.text as CommentPart[])[1]?.targetText).toEqual('Google');
+
+        expect(result.parts[1]?.kind).toEqual('param');
+        expect((result.parts[1]?.text as CommentPart[]).length).toEqual(3);
+        expect((result.parts[1]?.text as CommentPart[])[0]?.kind).toEqual('text');
+        expect((result.parts[1]?.text as CommentPart[])[0]?.text).toEqual('See');
+        expect((result.parts[1]?.text as CommentPart[])[1]?.kind).toEqual('link');
+        expect((result.parts[1]?.text as CommentPart[])[1]?.target).toEqual('https://www.example.com');
+        expect((result.parts[1]?.text as CommentPart[])[1]?.targetText).toEqual('Example');
+        expect((result.parts[1]?.text as CommentPart[])[2]?.kind).toEqual('text');
+        expect((result.parts[1]?.text as CommentPart[])[2]?.text).toEqual('for\nmore information');
+    });
 });
