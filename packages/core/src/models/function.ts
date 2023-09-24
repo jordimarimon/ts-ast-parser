@@ -1,8 +1,8 @@
 import type { DeclarationKind } from './declaration-kind.js';
+import type { CommentPart } from '@ts-ast-parser/comment';
 import type { TypeParameter } from './type-parameter.js';
 import type { Parameter } from './parameter.js';
 import type { Decorator } from './decorator.js';
-import type { DocComment } from './js-doc.js';
 import type { Type } from './type.js';
 
 /**
@@ -39,7 +39,7 @@ export interface FunctionSignature {
     /**
      * Any JSDoc comment
      */
-    jsDoc?: DocComment;
+    jsDoc?: CommentPart[];
 }
 
 /**
@@ -81,7 +81,7 @@ export interface FunctionLike {
     /**
      * Any JSDoc comment
      */
-    jsDoc?: DocComment;
+    jsDoc?: CommentPart[];
 }
 
 /**

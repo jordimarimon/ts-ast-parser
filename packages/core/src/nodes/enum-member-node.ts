@@ -2,7 +2,7 @@ import type { ProjectContext } from '../project-context.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedNode } from '../reflected-node.js';
 import type { EnumMember } from '../models/enum.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import type ts from 'typescript';
 
 
@@ -17,13 +17,13 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
 
     private readonly _context: ProjectContext;
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(node: ts.EnumMember, value: string | number, context: ProjectContext) {
         this._node = node;
         this._value = value;
         this._context = context;
-        this._jsDoc = new JSDocNode(node);
+        this._jsDoc = new CommentNode(node);
     }
 
     /**
@@ -64,7 +64,7 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
     /**
      * The reflected documentation comment
      */
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 

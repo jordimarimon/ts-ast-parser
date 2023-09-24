@@ -1,5 +1,5 @@
 import type { DeclarationKind } from './declaration-kind.js';
-import type { DocComment } from './js-doc.js';
+import type { CommentPart } from '@ts-ast-parser/comment';
 
 /**
  * Result of an enumerable after getting serialized
@@ -28,7 +28,7 @@ export interface EnumDeclaration {
     /**
      * Any JSDoc comment
      */
-    jsDoc?: DocComment;
+    jsDoc?: CommentPart[];
 
     /**
      * The namespace where it's defined
@@ -53,5 +53,5 @@ export interface EnumMember {
     /**
      * Any JSDoc comment
      */
-    jsDoc?: DocComment;
+    jsDoc?: CommentPart[];
 }

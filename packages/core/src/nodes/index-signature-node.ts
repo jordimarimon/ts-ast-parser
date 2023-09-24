@@ -7,7 +7,7 @@ import type { SymbolWithContext } from '../utils/is.js';
 import { MemberKind } from '../models/member-kind.js';
 import { ParameterNode } from './parameter-node.js';
 import type { Type } from '../models/type.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import type ts from 'typescript';
 
 
@@ -25,14 +25,14 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
 
     private readonly _parameter: ParameterNode | null;
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(node: ts.IndexSignatureDeclaration, member: SymbolWithContext, context: ProjectContext) {
         this._node = node;
         this._member = member;
         this._context = context;
         this._parameter = this._getParameter();
-        this._jsDoc = new JSDocNode(this._node);
+        this._jsDoc = new CommentNode(this._node);
     }
 
     getName(): string {
@@ -51,7 +51,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         return this._node;
     }
 
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 

@@ -6,7 +6,7 @@ import type { ReflectedNode } from '../reflected-node.js';
 import { createType } from '../factories/create-type.js';
 import { ParameterNode } from './parameter-node.js';
 import type { Type } from '../models/type.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import ts from 'typescript';
 
 
@@ -19,12 +19,12 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
 
     private readonly _context: ProjectContext;
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(node: ts.Signature, context: ProjectContext) {
         this._node = node;
         this._context = context;
-        this._jsDoc = new JSDocNode(this._node.getDeclaration());
+        this._jsDoc = new CommentNode(this._node.getDeclaration());
     }
 
     getContext(): ProjectContext {
@@ -44,7 +44,7 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
         return fileName ? this._context.getSystem().realpath(fileName) : fileName;
     }
 
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 

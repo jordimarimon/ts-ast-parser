@@ -2,7 +2,7 @@ import type { DeclarationKind } from '../models/declaration-kind.js';
 import type { ReflectedRootNode } from '../reflected-node.js';
 import type { Declaration } from '../models/declaration.js';
 import type { MemberKind } from '../models/member-kind.js';
-import type { JSDocNode } from './jsdoc-node.js';
+import type { CommentNode } from './comment-node.js';
 import type ts from 'typescript';
 
 
@@ -18,7 +18,7 @@ export interface DeclarationNode<Model extends object = Declaration, TSNode exte
     /**
      * Returns the documentation comment attached to this declaration.
      */
-    getJSDoc(): JSDocNode | null;
+    getJSDoc(): CommentNode | null;
 
     /**
      * Returns the type of declaration

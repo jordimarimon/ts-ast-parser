@@ -1,5 +1,5 @@
+import type { CommentPart } from '@ts-ast-parser/comment';
 import type { SourceReference } from './reference.js';
-import type { DocComment } from './js-doc.js';
 
 
 /**
@@ -19,7 +19,7 @@ export interface Decorator {
     /**
      * The JSDoc
      */
-    jsDoc?: DocComment;
+    jsDoc?: CommentPart[];
 
     /**
      * Where the decorator is defined

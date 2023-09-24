@@ -19,7 +19,7 @@ import { FunctionNode } from './function-node.js';
 import { PropertyNode } from './property-node.js';
 import { isThirdParty } from '../utils/import.js';
 import { RootNodeType } from '../models/node.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import ts from 'typescript';
 
 
@@ -38,12 +38,12 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     private readonly _heritage: ExpressionWithTypeArgumentsNode[] = [];
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(node: ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement, context: ProjectContext) {
         this._node = node;
         this._context = context;
-        this._jsDoc = new JSDocNode(node);
+        this._jsDoc = new CommentNode(node);
 
         const classNode = this._getClassNode();
 
@@ -116,7 +116,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     /**
      * The reflected JSDoc comment node
      */
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 

@@ -1,6 +1,4 @@
-import { JSDocValueNode } from './jsdoc-value-node.js';
-import type { DocComment } from '../models/js-doc.js';
-import { DocTagName } from '../models/js-doc.js';
+import { type CommentPart, parse } from '@ts-ast-parser/comment';
 import ts from 'typescript';
 
 
@@ -10,22 +8,18 @@ import ts from 'typescript';
  * @see {@link https://tsdoc.org/}
  * @see {@link https://jsdoc.app/}
  */
-export class JSDocNode {
+export class CommentNode {
 
     // There could be more than one JSDoc tag with the same name.
-    // For example the `@param` tag can be used multiple times.
-    private readonly _jsDoc: Record<string, JSDocValueNode[]> = {};
+    private readonly _parts: CommentPart[] = [];
 
     constructor(node: ts.Node) {
         const comment = this._getComment(node);
-        const tags = this._collect(comment);
 
-        for (const tag of tags) {
-            if (this._jsDoc[tag.kind] === undefined) {
-                this._jsDoc[tag.kind] = [];
-            }
-
-            this._jsDoc[tag.kind]?.push(new JSDocValueNode(tag.kind, tag.value));
+        try {
+            this._parts = parse(comment).parts;
+        } catch (_) {
+            // TODO
         }
     }
 
@@ -35,7 +29,7 @@ export class JSDocNode {
      * @param name - The name of the documentation tag to check
      */
     hasTag(name: string): boolean {
-        return this._jsDoc[name] !== undefined;
+        return this._parts.some(p => p.kind === name);
     }
 
     /**
@@ -44,8 +38,8 @@ export class JSDocNode {
      * @param name - The name of the tag.
      * @returns The first tag with the given name or `undefined` if no such tag exists.
      */
-    getTag(name: string): JSDocValueNode | undefined {
-        return this._jsDoc[name]?.[0];
+    getTag(name: string): CommentPart | undefined {
+        return this._parts.find(p => p.kind === name);
     }
 
     /**
@@ -56,8 +50,8 @@ export class JSDocNode {
      *
      * @param name - The name of the tag to search
      */
-    getAllTags(name: string): JSDocValueNode[] {
-        return this._jsDoc[name] ?? [];
+    getAllTags(name: string): CommentPart[] {
+        return this._parts.filter(p => p.kind === name);
     }
 
     /**
@@ -65,18 +59,16 @@ export class JSDocNode {
      * associated declaration ignored for documentation purposes.
      */
     isIgnored(): boolean {
-        return (
-            this.hasTag(DocTagName.ignore) || this.hasTag(DocTagName.internal) || this.hasTag(DocTagName.private)
-        );
+        return this._parts.some(p => {
+            return p.kind === 'ignore' || p.kind === 'internal' || p.kind === 'private';
+        });
     }
 
     /**
      * The reflected node as a serializable object
      */
-    serialize(): DocComment {
-        return Object.entries(this._jsDoc).flatMap(([kind, value]) => {
-            return value.map(v => ({ kind, value: v.serialize() }));
-        });
+    serialize(): CommentPart[] {
+        return this._parts;
     }
 
     private _getComment(node: ts.Node): string {
@@ -87,12 +79,6 @@ export class JSDocNode {
         }
 
         const leadingComments = ts.getLeadingCommentRanges(sourceCode, node.pos) ?? [];
-
         return leadingComments.map(comment => sourceCode.substring(comment.pos, comment.end)).join('\n');
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    private _collect(_text: string): DocComment {
-        return [];
     }
 }

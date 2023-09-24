@@ -8,7 +8,7 @@ import type { Parameter } from '../models/parameter.js';
 import { getDecorators } from '../utils/decorator.js';
 import { DecoratorNode } from './decorator-node.js';
 import type { Type } from '../models/type.js';
-import { JSDocNode } from './jsdoc-node.js';
+import { CommentNode } from './comment-node.js';
 import ts from 'typescript';
 
 
@@ -23,13 +23,13 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
 
     private readonly _context: ProjectContext;
 
-    private readonly _jsDoc: JSDocNode;
+    private readonly _jsDoc: CommentNode;
 
     constructor(node: ts.ParameterDeclaration, symbol: ts.Symbol | null, context: ProjectContext) {
         this._node = node;
         this._symbol = symbol;
         this._context = context;
-        this._jsDoc = new JSDocNode(this._node);
+        this._jsDoc = new CommentNode(this._node);
     }
 
     getName(): string {
@@ -86,7 +86,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         return result;
     }
 
-    getJSDoc(): JSDocNode {
+    getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 
