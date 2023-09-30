@@ -122,7 +122,7 @@ describe(`${category}/${subcategory}`, () => {
         expect(result.error).toEqual(null);
         expect(result.parts.length).toEqual(1);
         expect(result.parts[0]?.kind).toEqual('returns');
-        expect(result.parts[0]?.name).toEqual('');
+        expect(result.parts[0]?.name).toEqual(undefined);
         expect(result.parts[0]?.text).toEqual('This is the description of the tag');
     });
 
@@ -330,5 +330,18 @@ describe(`${category}/${subcategory}`, () => {
         expect((result.parts[1]?.text as CommentPart[])[1]?.targetText).toEqual('Example');
         expect((result.parts[1]?.text as CommentPart[])[2]?.kind).toEqual('text');
         expect((result.parts[1]?.text as CommentPart[])[2]?.text).toEqual('for\nmore information');
+    });
+
+    test('should allow object literal types in block tags', () => {
+        const comment = '/** @param {{a: Number; b: {c: String}}} [options1] - This is the description */';
+        const result = parse(comment);
+
+        expect(result.error).toEqual(null);
+        expect(result.parts.length).toEqual(1);
+        expect(result.parts[0]?.kind).toEqual('param');
+        expect(result.parts[0]?.name).toEqual('options1');
+        expect(result.parts[0]?.type).toEqual('{a: Number; b: {c: String}}');
+        expect(result.parts[0]?.optional).toEqual(true);
+        expect(result.parts[0]?.text).toEqual('This is the description');
     });
 });

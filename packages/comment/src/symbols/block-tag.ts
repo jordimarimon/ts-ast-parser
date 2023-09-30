@@ -104,10 +104,13 @@ export function blockTag(): ParserSymbol {
             return pos > 4;
         },
 
+        // eslint-disable-next-line sonarjs/cognitive-complexity
         serialize(): CommentPart[] {
             if (pos <= 4) {
                 return [];
             }
+
+            const result: CommentPart = {};
 
             const kind = (symbols[4]?.serialize()[0]?.text ?? '') as string;
             const typeText = (symbols[6]?.serialize()[0]?.text ?? '') as string;
@@ -129,62 +132,68 @@ export function blockTag(): ParserSymbol {
                 text = '';
             }
 
-            return [{
-                kind,
-                name,
-                text,
-                type: typeText,
-                optional: isOptional,
-                default: defaultValueText,
-            }];
+            result.kind = kind;
+
+            if (name) {
+                result.name = name;
+            }
+
+            if (text) {
+                result.text = text;
+            }
+
+            if (typeText) {
+                result.type = typeText;
+            }
+
+            if (isOptional) {
+                result.optional = true;
+            }
+
+            if (defaultValueText) {
+                result.default = defaultValueText;
+            }
+
+            return [result];
         },
     };
 }
 
 function type(): ParserSymbol {
-    const symbols = [
-        terminal(TokenKind.LeftCurlyBracket),
-        omit([
-            {kinds: [TokenKind.AtSign], canEscape: true},
-            {kinds: [TokenKind.Star, TokenKind.Slash]},
-            {kinds: [TokenKind.RightCurlyBracket], canEscape: true},
-        ]),
-        terminal(TokenKind.RightCurlyBracket),
-    ] as const;
-
     const tokens: Token[] = [];
 
-    let pos = 0;
+    let brackets = 0;
     let isValid = true;
 
     return {
         next(token: Token): ParserStatus {
             tokens.push(token);
 
-            const symbol = symbols[pos] as ParserSymbol;
-            const status = symbol.next(token);
-
-            if (status.kind === 'backtrack') {
-                pos++;
-
-                isValid = status.tokens.length === 1;
-
-                // We can only receive a backtrack status from the "omit" symbol
-                return status.tokens.length > 1
-                    ? {kind: 'backtrack', tokens}
-                    : this.next(status.tokens[0] as Token);
+            if (token.kind === TokenKind.LeftCurlyBracket) {
+                brackets++;
+                return {kind: 'in-progress'};
             }
 
-            if (status.kind === 'error') {
+            if (!brackets) {
                 isValid = false;
-                return {kind: 'backtrack', tokens};
+                return {
+                    kind: 'error',
+                    error: {
+                        line: token.line,
+                        start: token.start,
+                        end: token.end,
+                        message: `Expected a left curly bracket but found "${TokenKind[token.kind]}"`,
+                    },
+                };
             }
 
-            if (status.kind === 'success') {
-                pos++;
-            }
+            if (token.kind === TokenKind.RightCurlyBracket) {
+                brackets--;
 
-            if (pos === symbols.length) {
+                if (brackets > 0) {
+                    return {kind: 'in-progress'};
+                }
+
                 isValid = true;
                 return {kind: 'success'};
             }
@@ -197,7 +206,14 @@ function type(): ParserSymbol {
         },
 
         serialize(): CommentPart[] {
-            return symbols[1].serialize();
+            if (!isValid) {
+                return [];
+            }
+
+            return [{
+                kind: 'text',
+                text: tokens.slice(1, -1).map(token => token.toString()).join('').trim(),
+            }];
         },
     };
 }
