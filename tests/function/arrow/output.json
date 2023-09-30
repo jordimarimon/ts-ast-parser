@@ -41,18 +41,11 @@
                     {
                         "kind": "param",
                         "name": "list",
-                        "text": "The list of numbers to sum",
-                        "type": "",
-                        "optional": false,
-                        "default": ""
+                        "text": "The list of numbers to sum"
                     },
                     {
                         "kind": "returns",
-                        "name": "",
-                        "text": "The sum of all the numbers.",
-                        "type": "",
-                        "optional": false,
-                        "default": ""
+                        "text": "The sum of all the numbers."
                     }
                 ]
             }

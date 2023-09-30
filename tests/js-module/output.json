@@ -24,43 +24,29 @@
                 "jsDoc": [
                     {
                         "kind": "typedef",
-                        "name": "PropertiesHash",
-                        "text": "",
-                        "type": "",
-                        "optional": false,
-                        "default": ""
+                        "name": "PropertiesHash"
                     },
                     {
                         "kind": "type",
-                        "name": "",
-                        "text": "",
-                        "type": "object",
-                        "optional": false,
-                        "default": ""
+                        "type": "object"
                     },
                     {
                         "kind": "property",
                         "name": "id",
                         "text": "an ID.",
-                        "type": "string",
-                        "optional": false,
-                        "default": ""
+                        "type": "string"
                     },
                     {
                         "kind": "property",
                         "name": "name",
                         "text": "your name.",
-                        "type": "string",
-                        "optional": false,
-                        "default": ""
+                        "type": "string"
                     },
                     {
                         "kind": "property",
                         "name": "age",
                         "text": "your age.",
-                        "type": "number",
-                        "optional": false,
-                        "default": ""
+                        "type": "number"
                     }
                 ]
             },
@@ -108,34 +94,23 @@
                             {
                                 "kind": "param",
                                 "name": "a",
-                                "text": "",
-                                "type": "number",
-                                "optional": false,
-                                "default": ""
+                                "type": "number"
                             },
                             {
                                 "kind": "param",
                                 "name": "b",
-                                "text": "",
-                                "type": "number",
-                                "optional": false,
-                                "default": ""
+                                "type": "number"
                             },
                             {
                                 "kind": "param",
                                 "name": "retArr",
                                 "text": "If set to true, the function will return an array",
-                                "type": "boolean",
-                                "optional": false,
-                                "default": ""
+                                "type": "boolean"
                             },
                             {
                                 "kind": "returns",
-                                "name": "",
                                 "text": "Sum of a and b or an array that contains a, b and the sum of a and b.",
-                                "type": "(number|number[])",
-                                "optional": false,
-                                "default": ""
+                                "type": "(number|number[])"
                             }
                         ],
                         "parameters": [

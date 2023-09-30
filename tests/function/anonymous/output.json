@@ -43,19 +43,11 @@
                     },
                     {
                         "kind": "param",
-                        "name": "x",
-                        "text": "",
-                        "type": "",
-                        "optional": false,
-                        "default": ""
+                        "name": "x"
                     },
                     {
                         "kind": "param",
-                        "name": "y",
-                        "text": "",
-                        "type": "",
-                        "optional": false,
-                        "default": ""
+                        "name": "y"
                     }
                 ]
             },
@@ -98,19 +90,11 @@
                     },
                     {
                         "kind": "param",
-                        "name": "x",
-                        "text": "",
-                        "type": "",
-                        "optional": false,
-                        "default": ""
+                        "name": "x"
                     },
                     {
                         "kind": "param",
-                        "name": "y",
-                        "text": "",
-                        "type": "",
-                        "optional": false,
-                        "default": ""
+                        "name": "y"
                     }
                 ]
             },
@@ -133,19 +117,11 @@
                             },
                             {
                                 "kind": "param",
-                                "name": "x",
-                                "text": "",
-                                "type": "",
-                                "optional": false,
-                                "default": ""
+                                "name": "x"
                             },
                             {
                                 "kind": "param",
-                                "name": "y",
-                                "text": "",
-                                "type": "",
-                                "optional": false,
-                                "default": ""
+                                "name": "y"
                             }
                         ],
                         "parameters": [
