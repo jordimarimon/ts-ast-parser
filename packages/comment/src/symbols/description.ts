@@ -211,6 +211,9 @@ export function serializeDescription(parts: CommentPart[]): string | CommentPart
 
     // Case when there is text and inline tags
     const lastPart = result[result.length - 1] as CommentPart;
-    lastPart.text = ((lastPart.text ?? '') as string).replace(/\n+$/, '');
+    if (lastPart.kind === 'text') {
+        lastPart.text = ((lastPart.text ?? '') as string).replace(/\n+$/, '');
+    }
+
     return result;
 }

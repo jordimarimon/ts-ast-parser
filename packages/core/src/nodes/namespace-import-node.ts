@@ -68,7 +68,9 @@ export class NamespaceImportNode implements ReflectedRootNode<Import, ts.ImportD
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Import {
         const originalPath = this.getOriginalPath();

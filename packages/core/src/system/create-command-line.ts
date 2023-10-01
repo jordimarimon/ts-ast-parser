@@ -4,12 +4,6 @@ import type { AnalyserSystem } from './analyser-system.js';
 import ts from 'typescript';
 
 
-/**
- * Returns the parsed compiler options
- *
- * @param system
- * @param options
- */
 export function createCommandLine(system: AnalyserSystem, options: Partial<AnalyserOptions>): ts.ParsedCommandLine {
     const {compilerOptions, jsProject, include, exclude} = options;
     const defaultExclude = ['**node_modules**'];
@@ -61,12 +55,6 @@ export function createCommandLine(system: AnalyserSystem, options: Partial<Analy
     );
 }
 
-/**
- * Returns the parsed TS Config file
- *
- * @param system
- * @param options
- */
 function parseTSConfigFile(system: AnalyserSystem, options: Partial<AnalyserOptions>): ts.ParsedCommandLine | null {
     const {tsConfigFilePath, include, exclude} = options;
     const fileExists = (filePath: string): boolean => system.fileExists(filePath);

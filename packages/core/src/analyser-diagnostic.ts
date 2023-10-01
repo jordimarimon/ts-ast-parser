@@ -35,6 +35,8 @@ export class AnalyserDiagnostic {
 
     /**
      * Formats syntactic and semantic errors found during the analysis
+     *
+     * @returns The diagnostics formatted
      */
     formatDiagnostics(): string {
         const diagnosticsHost: ts.FormatDiagnosticsHost = {
@@ -47,7 +49,9 @@ export class AnalyserDiagnostic {
     }
 
     /**
-     * Returns all the errors
+     * Used to retrieve all the errors the analyser has encountered
+     *
+     * @returns All the errors
      */
     getAll(): (ArgumentError | ts.Diagnostic)[] {
         return [
@@ -70,6 +74,7 @@ export class AnalyserDiagnostic {
      * context for an error. This function flattens the chain of messages
      *
      * @param diagnostic - The error to flatten
+     * @returns The messages flattened
      */
     flattenMessage(diagnostic: ts.Diagnostic): string {
         return ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');

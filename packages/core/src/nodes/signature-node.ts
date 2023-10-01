@@ -88,7 +88,9 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): FunctionSignature {
         const tmpl: FunctionSignature = {

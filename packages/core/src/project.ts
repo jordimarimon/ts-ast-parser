@@ -171,7 +171,9 @@ export class Project {
     }
 
     /**
-     * The reflected modules
+     * All the reflected modules/files that have been successfully analysed.
+     *
+     * @returns The reflected modules
      */
     getModules(): ModuleNode[] {
         return this._modules;
@@ -246,13 +248,17 @@ export class Project {
     /**
      * The name of the package defined in the `package.json` in
      * case one was found
+     *
+     * @returns The package name if found, otherwise an empty string
      */
     getName(): string {
         return this._packageJson?.name ?? '';
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the project
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Module[] {
         return this._modules.map(m => m.serialize());

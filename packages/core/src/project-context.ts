@@ -48,7 +48,10 @@ export class ProjectContext {
     }
 
     /**
-     * Returns the parsed compiler options
+     * The TypeScript compiler options parsed (if you have a TSConfig file, the parsed
+     * options will be the ones defined there)
+     *
+     * @returns The parsed compiler options
      */
     getCommandLine(): ts.ParsedCommandLine {
         return this._getCommandLine();
@@ -97,6 +100,7 @@ export class ProjectContext {
      *
      * @param node - The `ts.Node` associated with the reflected node
      * @param reflectedNodeFactory - The function to use to build the new reflection if it doesn't exist
+     * @returns The reflected node instance
      */
     registerReflectedNode<T extends ReflectedNode>(node: ts.Node, reflectedNodeFactory: () => T): T {
         const symbol = this.getSymbol(node);

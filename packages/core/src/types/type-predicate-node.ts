@@ -65,7 +65,9 @@ export class TypePredicateNode implements ReflectedTypeNode<ts.TypePredicateNode
     }
 
     /**
-     * The reflected type as a serializable object
+     * Serializes the reflected type
+     *
+     * @returns The type as a serializable object
      */
     serialize(): Type {
         return {

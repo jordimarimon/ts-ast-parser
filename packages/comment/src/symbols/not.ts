@@ -8,7 +8,10 @@ import { TokenKind } from '../token.js';
  *
  * It's use case is to make sure that a sequence of tokens is not present.
  *
- * @param invalidKinds
+ * @param invalidKinds - The sequence of token kinds that should be considered as invalid
+ * and throw an error when matched
+ *
+ * @returns The grammar symbol
  */
 export function not(invalidKinds: TokenKind[]): ParserSymbol {
     const tokens: Token[] = [];

@@ -165,7 +165,9 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): InterfaceDeclaration {
         const tmpl: InterfaceDeclaration = {

@@ -14,6 +14,8 @@ const require = createRequire(import.meta.url);
  * Resolves the TypeScript declaration files from "node_modules" directory.
  * This is used when working in an in memory file system inside Node.js.
  * We need to load the declaration files in memory.
+ *
+ * @returns The TypeScript declaration files location and content
  */
 export function getLibFilesFromNode(): Map<string, string> {
     const files = new Map<string, string>();

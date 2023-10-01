@@ -11,8 +11,10 @@ export interface TerminalOptions {
 /**
  * Represents a token in a production rule
  *
- * @param expectedKind
- * @param options
+ * @param expectedKind - The token kind that should match
+ * @param options - Options to configure the behaviour
+ *
+ * @returns The grammar symbol
  */
 export function terminal(expectedKind: TokenKind, options?: Partial<TerminalOptions>): ParserSymbol {
     let acceptedToken: Token | null = null;

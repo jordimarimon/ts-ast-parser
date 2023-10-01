@@ -29,6 +29,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     /**
      * The reflected node kind
+     *
+     * @returns A declaration kind node
      */
     getNodeType(): RootNodeType {
         return RootNodeType.Declaration;
@@ -36,6 +38,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     /**
      * The reflected declaration kind
+     *
+     * @returns An Enum kind node
      */
     getKind(): DeclarationKind.Enum {
         return DeclarationKind.Enum;
@@ -43,20 +47,30 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     /**
      * The original TypeScript node
+     *
+     * @returns The TypeScript AST node related to this reflected node
      */
     getTSNode(): ts.EnumDeclaration {
         return this._node;
     }
 
     /**
-     * The analyser context
+     * The context includes useful APIs that are shared across
+     * all the reflected symbols.
+     *
+     * Some APIs include the parsed configuration options, the
+     * system interface, the type checker
+     *
+     * @returns The analyser context
      */
     getContext(): ProjectContext {
         return this._context;
     }
 
     /**
-     * The name of the enum declaration
+     * Gets the name of the enum declaration
+     *
+     * @returns The name of the enum declaration
      */
     getName(): string {
         return this._node.name.getText() ?? '';
@@ -64,6 +78,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     /**
      * The line position where the node is defined
+     *
+     * @returns The start line position number
      */
     getLine(): number {
         return this._context.getLinePosition(this._node);
@@ -71,7 +87,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     /**
      * The namespace where the enum declaration is defined.
-     * If there is no namespace, it will return an empty string.
+     *
+     * @returns The namespace name if found one, otherwise an empty string
      */
     getNamespace(): string {
         return getNamespace(this._node);
@@ -79,6 +96,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     /**
      * The reflected documentation comment
+     *
+     * @returns The JSDoc node
      */
     getJSDoc(): CommentNode {
         return this._jsDoc;
@@ -86,6 +105,8 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
 
     /**
      * The reflected members of the enum declaration
+     *
+     * @returns The array of reflected enum members
      */
     getMembers(): EnumMemberNode[] {
         let defaultInitializer = 0;
@@ -110,7 +131,9 @@ export class EnumNode implements DeclarationNode<EnumDeclaration, ts.EnumDeclara
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): EnumDeclaration {
         const tmpl: EnumDeclaration = {

@@ -1,3 +1,114 @@
+## [next]
+
+### Bug Fixes
+
+- Create `require` function for Node environments where it's not available by default 
+
+### Features
+
+- Reflect module level JSDoc comments
+- Reflect inline tags in JSDoc comments
+
+### 🚨 Breaking Changes
+
+A JSDoc parser has been implemented from scratch to be able to reflect comments that 
+follow the JSDoc or TSDoc spec.
+
+This means that there are breaking changes on how JSDoc comments are reflected.
+
+For example:
+
+```ts
+/**
+ * This is the description. To see more information go to {@link https://www.example.com | Example}
+ * 
+ * @param {Boolean} [param1=false] - Description of param1. To see more information go 
+ * to {@link https://www.google.com | Google}
+ * @param param2 - Description of param2
+ */
+```
+
+Before, the above comment, was reflected above like this:
+
+```json
+{
+    "jsDoc": [
+        {
+            "kind": "description",
+            "value": "This is the description. To see more information go to {@link https://www.example.com | Example}"
+        },
+        {
+            "kind": "param",
+            "value": {
+                "default": "false",
+                "optional": true,
+                "type": "Boolean",
+                "name": "param1",
+                "description": "Description of param1. To see more information go \nto {@link https://www.google.com | Google}"
+            }
+        },
+        {
+            "kind": "param",
+            "value": {
+                "name": "param2",
+                "description": "Description of param2"
+            }
+        }
+    ]
+}
+```
+
+Now it gets reflected like this:
+
+```json
+{
+    "jsDoc": [
+        {
+            "kind": "description",
+            "text": [
+                {
+                    "kind": "text",
+                    "text": "This is the description. To see more information go to"
+                },
+                {
+                    "kind": "link",
+                    "target": "https://www.example.com",
+                    "targetText": "Example"
+                }
+            ]
+        },
+        {
+            "kind": "param",
+            "name": "param1",
+            "text": [
+                {
+                    "kind": "text",
+                    "text": "Description of param1. To see more information go\nto"
+                },
+                {
+                    "kind": "link",
+                    "target": "https://www.google.com",
+                    "targetText": "Google"
+                }
+            ],
+            "type": "Boolean",
+            "optional": true,
+            "default": "false"
+        },
+        {
+            "kind": "param",
+            "name": "param2",
+            "text": "Description of param2"
+        }
+    ]
+}
+```
+
+Basically the changes are the following ones:
+
+- The JSDoc `description` field has been renamed to `text`
+- The renamed JSDoc field `text` can be a `string` or an array depending on if it has inline tags or not.
+
 # 0.5.0 (2023-08-16)
 
 ### Bug Fixes

@@ -51,7 +51,9 @@ export class ExportAssignmentNode implements ReflectedRootNode<Export, ts.Export
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Export {
         return {

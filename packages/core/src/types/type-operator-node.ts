@@ -53,7 +53,9 @@ export class TypeOperatorNode implements ReflectedTypeNode<ts.TypeOperatorNode> 
     }
 
     /**
-     * The reflected type as a serializable object
+     * Serializes the reflected type
+     *
+     * @returns The type as a serializable object
      */
     serialize(): Type {
         return {

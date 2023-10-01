@@ -40,6 +40,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     /**
      * The original TypeScript node
+     *
+     * @returns The TypeScript AST node associated with this module
      */
     getTSNode(): ts.SourceFile {
         return this._node;
@@ -48,6 +50,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     /**
      * The path to the source file for this module relative to the current
      * working directory
+     *
+     * @returns The relative path where the module is located
      */
     getSourcePath(): string {
         return this._context.getSystem().normalizePath(this._node.fileName);
@@ -55,6 +59,9 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     /**
      * The path where the JS file will be output by the TypeScript Compiler
+     *
+     * @returns The relative path where the TypeScript compiler would emit the JS module. If
+     * the source file is a JS file, it returns the source path.
      */
     getOutputPath(): string {
         const sourcePath = this._node.fileName;
@@ -74,7 +81,13 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     /**
-     * The analyser context
+     * The context includes useful APIs that are shared across
+     * all the reflected symbols.
+     *
+     * Some APIs include the parsed configuration options, the
+     * system interface, the type checker
+     *
+     * @returns The analyser context
      */
     getContext(): ProjectContext {
         return this._context;
@@ -82,6 +95,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     /**
      * All the import declarations found in the source file
+     *
+     * @returns The reflected import declarations
      */
     getImports(): ImportNode[] {
         return this._imports;
@@ -89,6 +104,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     /**
      * All the export declarations found in the source file
+     *
+     * @returns The reflected export declarations
      */
     getExports(): ExportNode[] {
         return this._exports;
@@ -97,11 +114,18 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     /**
      * All the class/interface/function/type-alias/enum declarations found
      * in the source file
+     *
+     * @returns The reflected declaration nodes
      */
     getDeclarations(): DeclarationNode[] {
         return this._declarations;
     }
 
+    /**
+     * Reflects the module-level JSDoc comment
+     *
+     * @returns The module-level JSDoc comment blocks for a given source file.
+     */
     getJSDoc(): CommentNode {
         return this._jsDoc;
     }
@@ -140,7 +164,9 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Module {
         const result: Module = {

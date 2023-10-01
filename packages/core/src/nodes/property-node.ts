@@ -201,7 +201,9 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Field {
         const tmpl: Field = {

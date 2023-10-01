@@ -7,7 +7,9 @@ import type { Token } from '../token.js';
  *
  * It will only be valid if at least one instance of the symbol has been matched.
  *
- * @param factory
+ * @param factory - The function that creates the grammar symbol that may appear more than once
+ *
+ * @returns The grammar symbol
  */
 export function oneOrMore(factory: (index: number) => ParserSymbol): ParserSymbol {
     const iterations = [factory(0)];

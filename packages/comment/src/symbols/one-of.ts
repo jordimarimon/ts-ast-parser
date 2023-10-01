@@ -20,7 +20,9 @@ interface Branch {
  * If multiple branches match the current input, the "priority" field will be used
  * to decide which branch to accept to resolve the ambiguity.
  *
- * @param branches
+ * @param branches - The different branches available to choose
+ *
+ * @returns The grammar symbol
  */
 export function oneOf(branches: Branch[]): ParserSymbol {
     const branchesState = branches.reduce<Record<number, BranchState>>((acc, _, index) => {

@@ -10,9 +10,6 @@ import { TokenKind } from '../token.js';
 import { oneOf } from './one-of.js';
 
 
-/**
- * The initial symbol of the grammar
- */
 export function comment(): ParserSymbol {
     // Right hand side of the production rule
     const symbols: ParserSymbol[] = [

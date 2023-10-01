@@ -22,21 +22,31 @@ export class BindingElementNode implements ReflectedNode<BindingElement, ts.Bind
     }
 
     /**
-     * The original TypeScript node
+     * The TypeScript AST node related to this reflected node
+     *
+     * @returns The original TypeScript node
      */
     getTSNode(): ts.BindingElement {
         return this._node;
     }
 
     /**
-     * The analyser context
+     * The context includes useful APIs that are shared across
+     * all the reflected symbols.
+     *
+     * Some APIs include the parsed configuration options, the
+     * system interface, the type checker
+     *
+     * @returns The analyser context
      */
     getContext(): ProjectContext {
         return this._context;
     }
 
     /**
-     * The name of the binding element
+     * Reads the name of the binding element node
+     *
+     * @returns The name of the binding element
      */
     getName(): string {
         return this._node.name.getText() || '';
@@ -52,7 +62,9 @@ export class BindingElementNode implements ReflectedNode<BindingElement, ts.Bind
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): BindingElement {
         const tmpl: BindingElement = {

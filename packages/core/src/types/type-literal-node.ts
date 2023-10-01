@@ -90,7 +90,9 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
     }
 
     /**
-     * The reflected type as a serializable object
+     * Serializes the reflected type
+     *
+     * @returns The type as a serializable object
      */
     serialize(): Type {
         const tmpl: Type = {

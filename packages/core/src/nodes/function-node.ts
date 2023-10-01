@@ -191,7 +191,9 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): FunctionDeclaration | Method {
         const tmpl: FunctionDeclaration | Method = {

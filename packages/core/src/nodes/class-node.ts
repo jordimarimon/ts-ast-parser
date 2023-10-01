@@ -57,10 +57,12 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     /**
-     * Returns the name of the class.
+     * The name of the class.
      *
      * If it's a class expression that it's assigned to a variable, it will return
      * the name of the variable
+     *
+     * @returns The name of the class
      */
     getName(): string {
         if (ts.isVariableStatement(this._node)) {
@@ -72,6 +74,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The reflected node type
+     *
+     * @returns The declaration kind
      */
     getNodeType(): RootNodeType {
         return RootNodeType.Declaration;
@@ -79,13 +83,21 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The reflected declaration kind
+     *
+     * @returns The class declaration kind
      */
     getKind(): DeclarationKind.Class {
         return DeclarationKind.Class;
     }
 
     /**
-     * The analyser context
+     * The context includes useful APIs that are shared across
+     * all the reflected symbols.
+     *
+     * Some APIs include the parsed configuration options, the
+     * system interface, the type checker
+     *
+     * @returns The analyser context
      */
     getContext(): ProjectContext {
         return this._context;
@@ -93,6 +105,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The internal TypeScript node
+     *
+     * @returns The TypeScript AST node related to this reflected node
      */
     getTSNode(): ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement {
         return this._node;
@@ -100,6 +114,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The start line number position
+     *
+     * @returns The start line number position
      */
     getLine(): number {
         return this._context.getLinePosition(this._node);
@@ -107,7 +123,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The namespace where the class has been defined.
-     * An empty string if it's not inside a namespace.
+     *
+     * @returns The name of the namespace where this declaration is defined.
+     * Will return an empty string if no namespace is found.
      */
     getNamespace(): string {
         return getNamespace(this._node);
@@ -115,22 +133,28 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The reflected JSDoc comment node
+     *
+     * @returns The JSDoc node
      */
     getJSDoc(): CommentNode {
         return this._jsDoc;
     }
 
     /**
-     * An array of decorators applied to the class
+     * The reflected decorators applied to the class
+     *
+     * @returns An array of reflected decorators
      */
     getDecorators(): DecoratorNode[] {
         return getDecorators(this._node).map(d => new DecoratorNode(d, this._context));
     }
 
     /**
-     * Finds a decorator based on the name
+     * Finds a reflected decorator based on the name
      *
      * @param name - The decorator name to find
+     *
+     * @returns The reflected decorator that matches the given name
      */
     getDecoratorWithName(name: string): DecoratorNode | null {
         return this.getDecorators().find(d => d.getName() === name) ?? null;
@@ -139,6 +163,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     /**
      * An array of constructors that can be used to
      * create an instance of the class
+     *
+     * @returns All the constructor signatures
      */
     getConstructors(): SignatureNode[] {
         const classNode = this._getClassNode();
@@ -173,6 +199,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The instance properties
+     *
+     * @returns All the reflected instance properties
      */
     getProperties(): PropertyNode[] {
         return this._getPropertyMembers(this._instanceMembers);
@@ -180,6 +208,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The static properties
+     *
+     * @returns All the reflected static properties
      */
     getStaticProperties(): PropertyNode[] {
         return this._getPropertyMembers(this._staticMembers);
@@ -189,6 +219,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
      * Finds an instance property based on the name
      *
      * @param name - The property name to find
+     *
+     * @returns The reflected instance property that matches the given name
      */
     getPropertyWithName(name: string): PropertyNode | null {
         return this.getProperties().find(m => m.getName() === name) ?? null;
@@ -196,6 +228,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The instance methods
+     *
+     * @returns All the reflected instance methods
      */
     getMethods(): FunctionNode[] {
         return this._getMethodMembers(this._instanceMembers);
@@ -203,6 +237,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The static methods
+     *
+     * @returns All the reflected static methods
      */
     getStaticMethods(): FunctionNode[] {
         return this._getMethodMembers(this._staticMembers);
@@ -212,6 +248,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
      * Finds an instance method based on the name
      *
      * @param name - The name of the method to find
+     *
+     * @returns The reflected instance method that matches the given name
      */
     getMethodWithName(name: string): FunctionNode | null {
         return this.getMethods().find(m => m.getName() === name) ?? null;
@@ -219,6 +257,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * The type parameters
+     *
+     * @returns All the reflected type parameters
      */
     getTypeParameters(): TypeParameterNode[] {
         const classNode = this._getClassNode();
@@ -233,6 +273,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     /**
      * The heritage chain. Interfaces that the class implements or
      * parent classes that it extends.
+     *
+     * @returns The heritage chain
      */
     getHeritage(): ExpressionWithTypeArgumentsNode[] {
         return this._heritage;
@@ -240,6 +282,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * Whether is a custom element or not
+     *
+     * @returns True if the class declaration is a custom element, otherwise false
      */
     isCustomElement(): boolean {
         const classNode = this._getClassNode();
@@ -253,6 +297,8 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     /**
      * Whether it's an abstract class or not
+     *
+     * @returns True if it's an abstract class, otherwise false
      */
     isAbstract(): boolean {
         const classNode = this._getClassNode();
@@ -265,7 +311,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): ClassDeclaration {
         const tmpl: ClassDeclaration = {

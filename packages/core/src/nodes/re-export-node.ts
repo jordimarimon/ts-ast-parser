@@ -55,7 +55,9 @@ export class ReExportNode implements ReflectedRootNode<Export, ts.ExportDeclarat
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Export {
         const tmpl: Export = {

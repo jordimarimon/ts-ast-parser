@@ -5,9 +5,6 @@ import type { Token} from '../token.js';
 import { TokenKind } from '../token.js';
 
 
-/**
- * Represents an empty line
- */
 export function emptyLine(): ParserSymbol {
     const symbols = [
         terminal(TokenKind.Spaces, {length: 1}),

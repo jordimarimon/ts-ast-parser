@@ -30,14 +30,22 @@ export class ExpressionWithTypeArgumentsNode implements ReflectedNode<Expression
     }
 
     /**
-     * The analyzer context
+     * The context includes useful APIs that are shared across
+     * all the reflected symbols.
+     *
+     * Some APIs include the parsed configuration options, the
+     * system interface, the type checker
+     *
+     * @returns The analyser context
      */
     getContext(): ProjectContext {
         return this._context;
     }
 
     /**
-     * The internal TypeScript node
+     * The TypeScript AST node that is associated with the reflected one
+     *
+     * @returns The internal TypeScript node
      */
     getTSNode(): ts.ExpressionWithTypeArguments {
         return this._node;
@@ -60,7 +68,9 @@ export class ExpressionWithTypeArgumentsNode implements ReflectedNode<Expression
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): ExpressionWithTypeArguments {
         const tmpl: ExpressionWithTypeArguments = {

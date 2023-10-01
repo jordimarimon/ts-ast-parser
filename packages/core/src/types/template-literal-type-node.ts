@@ -44,7 +44,9 @@ export class TemplateLiteralTypeNode implements ReflectedTypeNode<ts.TemplateLit
     }
 
     /**
-     * The reflected type as a serializable object
+     * Serializes the reflected type
+     *
+     * @returns The type as a serializable object
      */
     serialize(): Type {
         return {

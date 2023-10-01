@@ -103,7 +103,9 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Parameter {
         const tmpl: Parameter = {

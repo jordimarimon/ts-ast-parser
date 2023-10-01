@@ -81,7 +81,9 @@ export class VariableNode implements DeclarationNode<VariableDeclaration, ts.Var
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): VariableDeclaration {
         const defaultValue = this.getValue();

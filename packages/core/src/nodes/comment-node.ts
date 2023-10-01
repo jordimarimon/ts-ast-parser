@@ -20,6 +20,7 @@ export class CommentNode {
      * Whether the comment has the specified tag
      *
      * @param name - The name of the documentation tag to check
+     * @returns True if the block tag exist, otherwise false
      */
     hasTag(name: string): boolean {
         return this._parts.some(p => p.kind === name);
@@ -42,6 +43,7 @@ export class CommentNode {
      * will return all the appearances of a given tag.
      *
      * @param name - The name of the tag to search
+     * @returns All the available block tags instances
      */
     getAllTags(name: string): CommentPart[] {
         return this._parts.filter(p => p.kind === name);
@@ -50,6 +52,8 @@ export class CommentNode {
     /**
      * Whether the documentation comment has tags that make the
      * associated declaration ignored for documentation purposes.
+     *
+     * @returns True if the symbol should be ignored based on the JSDoc, otherwise false
      */
     isIgnored(): boolean {
         return this._parts.some(p => {
@@ -58,7 +62,9 @@ export class CommentNode {
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): CommentPart[] {
         return this._parts;
@@ -72,6 +78,8 @@ export class CommentNode {
         let jsDocNode: ts.Node | undefined;
 
         if (isSourceFile) {
+            // TS does not have a concept of module-level JSDoc.
+            // If it exists, it will always be attached to the first statement in the module.
             jsDocNode = ts.forEachChild(node, n => n);
             sourceCode = node.text;
         } else {
@@ -90,8 +98,10 @@ export class CommentNode {
         }
 
         if (isSourceFile) {
-            // If there is more than one leading JSDoc block, grab all but the last,
-            // otherwise grab the one
+            // If the first statement has more than one JSDoc block, we collect all
+            // but the last and use those, regardless of whether they contain one
+            // of the module-designating tags (the last one is assumed to belong
+            // to the first statement)
             ranges = ranges.slice(0, ranges.length > 1 ? -1 : 1);
         } else {
             // For declarations, we only care about one JSDoc
@@ -112,6 +122,11 @@ export class CommentNode {
                 continue;
             }
 
+            // For the module-level JSDoc if the first statement only has one
+            // JSDoc block, it is only treated as module documentation
+            // if it contains a `@module`, `@fileoverview`, or `@packageDocumentation` tag.
+            // This is required to disambiguate a module description (with an
+            // undocumented first statement) from documentation for the first statement.
             const isModuleJSDoc = parserResult.parts.some(p => {
                 return p.kind === 'module' || p.kind === 'fileoverview' || p.kind === 'packageDocumentation';
             });

@@ -222,10 +222,13 @@ export function createTypeFromDeclaration(node: ts.Node, context: ProjectContext
  *
  * For example:
  *
+ * ```ts
  * const foo = [4, 5] as const;
  * const bar = <[4, 5]>[4, 5];
+ * ```
  *
- * @param node
+ * @param node - The TypeScript node to check
+ * @returns True if the node has a type assertion, otherwise false
  */
 function isTypeAssertion(node: ts.Node): boolean {
     return (

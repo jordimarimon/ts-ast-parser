@@ -4,10 +4,12 @@ import type { Token } from '../token.js';
 
 /**
  * Checks it the given symbol is defined. If it's not, it won't throw an error,
- * but instead it will tell us to backtrack and we will continue with the next symbol
+ * but instead it will tell us to backtrack, and we will continue with the next symbol
  * in the production rule.
  *
- * @param symbol
+ * @param symbol - The grammar symbol that may match or not
+ *
+ * @returns The grammar symbol
  */
 export function optional(symbol: ParserSymbol): ParserSymbol {
     const tokens: Token[] = [];

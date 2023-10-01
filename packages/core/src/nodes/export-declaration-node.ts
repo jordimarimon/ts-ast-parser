@@ -42,9 +42,12 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
     }
 
     /**
-     * Returns the name of the symbol prefixed by any parent namespace is inside:
+     * The qualified name of the symbol is considered the name of the symbol including the
+     * parent namespaces where the symbol is defined.
      *
-     *      <NamespaceName1>.<Namespace2>.<SymbolName>
+     * For example: `<NamespaceName1>.<Namespace2>.<SymbolName>`
+     *
+     * @returns The name of the symbol prefixed by any parent namespace is inside
      */
     getFullyQualifiedName(): string {
         const node = this._declaration ?? this._node;
@@ -79,7 +82,9 @@ export class ExportDeclarationNode implements ReflectedRootNode<Export, ExportDe
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Export {
         return {

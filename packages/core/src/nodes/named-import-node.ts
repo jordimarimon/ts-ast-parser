@@ -72,7 +72,9 @@ export class NamedImportNode implements ReflectedRootNode<Import, ts.ImportDecla
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Import {
         const originalPath = this.getOriginalPath();

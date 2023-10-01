@@ -62,7 +62,9 @@ export class NamedExportNode implements ReflectedRootNode<Export, ts.ExportDecla
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Export {
         const originalName = this.getOriginalName();

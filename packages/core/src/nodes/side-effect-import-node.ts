@@ -48,7 +48,9 @@ export class SideEffectImportNode implements ReflectedRootNode<Import, ts.Import
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Import {
         const tmpl: Import = {

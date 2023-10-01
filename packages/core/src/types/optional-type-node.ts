@@ -49,7 +49,9 @@ export class OptionalTypeNode implements ReflectedTypeNode<ts.OptionalTypeNode> 
     }
 
     /**
-     * The reflected type as a serializable object
+     * Serializes the reflected type
+     *
+     * @returns The type as a serializable object
      */
     serialize(): Type {
         return {

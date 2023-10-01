@@ -71,7 +71,9 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): TypeAliasDeclaration {
         const tmpl: TypeAliasDeclaration = {

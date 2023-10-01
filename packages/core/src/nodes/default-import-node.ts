@@ -26,6 +26,8 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
 
     /**
      * The name of symbol that is imported
+     *
+     * @returns The name of symbol that is imported
      */
     getName(): string {
         return this._node.importClause?.name?.escapedText ?? '';
@@ -33,13 +35,21 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
 
     /**
      * The original TypeScript node
+     *
+     * @returns The TypeScript AST node related to this relfected node
      */
     getTSNode(): ts.ImportDeclaration {
         return this._node;
     }
 
     /**
-     * The analyser context
+     * The context includes useful APIs that are shared across
+     * all the reflected symbols.
+     *
+     * Some APIs include the parsed configuration options, the
+     * system interface, the type checker
+     *
+     * @returns The analyser context
      */
     getContext(): ProjectContext {
         return this._context;
@@ -47,6 +57,8 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
 
     /**
      * The reflected node kind
+     *
+     * @returns The import declaration kind
      */
     getNodeType(): RootNodeType {
         return RootNodeType.Import;
@@ -54,6 +66,8 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
 
     /**
      * The reflected import kind
+     *
+     * @returns The default import kind
      */
     getKind(): ImportKind {
         return ImportKind.Default;
@@ -63,6 +77,8 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
      * An import may be an alias to another symbol.
      * For default imports it won't happen.
      * This method as of right now is an alias to `getName()`.
+     *
+     * @returns The referenced symbol name
      */
     getReferenceName(): string {
         return this.getName();
@@ -70,6 +86,9 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
 
     /**
      * The path used in the import declaration
+     *
+     * @returns The path specified in the import declaration. This may not be the
+     * real path if you're using an alias
      */
     getImportPath(): string {
         return (this._node.moduleSpecifier as ts.StringLiteral).text ?? '';
@@ -78,6 +97,8 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
     /**
      * If the path matches a TSConfig file path, this will be the original
      * source path from where the symbol is being imported
+     *
+     * @returns The real path where the symbol is located
      */
     getOriginalPath(): string {
         const identifier = this._node.importClause?.name;
@@ -92,6 +113,8 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
     /**
      * Whether it's a type only import.
      * For example: `import type x from 'y'`
+     *
+     * @returns True if the imported symbol uses the `type` keyword
      */
     isTypeOnly(): boolean {
         return !!this._node.importClause?.isTypeOnly;
@@ -102,13 +125,17 @@ export class DefaultImportNode implements ReflectedRootNode<Import, ts.ImportDec
      * the absolute/relative path where the module is located.
      *
      * For example: `import lodash from 'lodash'`
+     *
+     * @returns True if the import specifier is a bare module specifier, otherwise false
      */
     isBareModuleSpecifier(): boolean {
         return isBareModuleSpecifier(this.getImportPath());
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): Import {
         const originalPath = this.getOriginalPath();

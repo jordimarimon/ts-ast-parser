@@ -12,7 +12,9 @@ export interface OmitOptions {
  * Accepts any token except the sequences provided as arguments.
  * An invalid sequence can be escaped to be considered as valid.
  *
- * @param omittedSequences
+ * @param omittedSequences - The sequences that should be considered invalid when found
+ *
+ * @returns The grammar symbol
  */
 export function omit(omittedSequences: OmitOptions[]): ParserSymbol {
     let tokens: Token[] = [];

@@ -53,7 +53,9 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
     }
 
     /**
-     * The reflected node as a serializable object
+     * Serializes the reflected node
+     *
+     * @returns The reflected node as a serializable object
      */
     serialize(): TypeParameter {
         const tmpl: TypeParameter = {
