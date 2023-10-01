@@ -109,7 +109,8 @@ export class CommentNode {
         }
 
         for (const range of ranges) {
-            const comment = sourceCode.substring(range.pos, range.end);
+            let comment = sourceCode.substring(range.pos, range.end);
+            comment = comment.split(/\r\n|\n/).map(p => p.replace(/^\s+/, ' ')).join('\n');
 
             let parserResult: ParserResult | undefined;
             try {

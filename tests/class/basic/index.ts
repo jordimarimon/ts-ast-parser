@@ -14,6 +14,11 @@ export class Foo {
 
     private readonly _y: number = 3;
 
+    /**
+     * @param {number} x - The x parameter description
+     * @param {number} y - The y parameter description
+     * @param {string} message - The massage parameter description
+     */
     constructor(x: number, y: number, message: string) {
         this._x = x;
         this._y = y;
@@ -24,8 +29,14 @@ export class Foo {
         console.log(message + this.#privateField);
     };
 
-    add(): number {
-        return this.#privateMethod() + this._y;
+    /**
+     * Description of add method
+     *
+     * @param {number} n - The scale factor
+     * @returns The sum
+     */
+    add(n: number): number {
+        return this.#privateMethod() + this._y + n;
     }
 
     #privateMethod(): number {
