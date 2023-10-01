@@ -1,4 +1,4 @@
-import { DeclarationKind, DocTagName, is, parseFromGlob } from '@ts-ast-parser/core';
+import { DeclarationKind, is, parseFromGlob } from '@ts-ast-parser/core';
 import MarkdownIt from 'markdown-it';
 import Handlebars from 'handlebars';
 import * as path from 'node:path';
@@ -14,8 +14,27 @@ const md = new MarkdownIt({
 
 // Handlebars Helpers
 Handlebars.registerHelper('firstLetter', str => str[0].toUpperCase());
-Handlebars.registerHelper('markdownToHTML', str => {
-    let html = md.render(str);
+Handlebars.registerHelper('markdownToHTML', commentPart => {
+    const parts = Array.isArray(commentPart)
+        ? commentPart
+        : typeof commentPart === 'string'
+            ? [{kind: 'text', text: commentPart}]
+            : [commentPart];
+
+    const markdown = [];
+    for (const part of parts) {
+        let partMd = '';
+
+        if (part.kind === 'text') {
+            partMd = part.text;
+        } else {
+            partMd = `[${part.targetText || part.target}](${part.target})`;
+        }
+
+        markdown.push(partMd);
+    }
+
+    let html = md.render(markdown.join(' '));
     html = html.replaceAll(/<a/g, '<a class="prose" target="_blank"');
     html = html.replaceAll(/<code/g, '<code class="code"');
     html = html.replaceAll(/<ul/g, '<ul class="disc"');
@@ -29,10 +48,6 @@ Handlebars.registerHelper('typeWithReference', type => {
 
     return new Handlebars.SafeString(`<code class="code code-accent">${text}</code>`);
 });
-
-// Obtain the reflected modules
-const {project} = await parseFromGlob('packages/core/src/**/*.ts');
-const reflectedModules = project?.getModules() ?? [];
 
 // Handlebars templates
 const { pathname: cwd } = new URL('../..', import.meta.url);
@@ -52,6 +67,27 @@ const templateVariable = Handlebars.compile(templateVariableFile, { noEscape: tr
 const templateTypeAliasFile = fs.readFileSync(path.join(templatesDir, 'type-alias.hbs'), 'utf8');
 const templateTypeAlias = Handlebars.compile(templateTypeAliasFile, { noEscape: true });
 
+// Obtain the reflected modules
+const indexPath = path.join('packages', 'core', 'src', 'index.ts');
+const {project} = await parseFromGlob('packages/core/src/**/*.ts');
+const reflectedModules = project?.getModules() ?? [];
+const indexModule = reflectedModules.find(mod => mod.getSourcePath() === indexPath);
+
+if (!indexModule) {
+    console.error("Couldn't found the index file of the package.");
+    process.exit(1);
+}
+
+// The modules that are explicitly exported in the entry point of the package
+const publicModules = indexModule
+    .getExports()
+    .filter(exp => is.ReExportNode(exp))
+    .map(exp => {
+        // Modern ESM imports include the ".js" extension
+        const modulePath = exp.getModule().replace(/'/g, '').replace('.js', '.ts');
+        return path.join('packages', 'core', 'src', modulePath);
+    });
+
 // Here we will store the data for the templates
 const models = [];
 const utils = [];
@@ -66,33 +102,16 @@ clearDir('nodes');
 clearDir('types');
 clearDir('parsers');
 
-const indexPath = path.join('packages', 'core', 'src', 'index.ts');
-const indexModule = reflectedModules.find(mod => mod.getSourcePath() === indexPath);
-
-if (!indexModule) {
-    console.error("Couldn't found the index file of the package.");
-    process.exit(1);
-}
-
-const publicFiles = indexModule
-    .getExports()
-    .filter(exp => is.ReExportNode(exp))
-    .map(exp => {
-        const modulePath = exp.getModule().replace(/'/g, '');
-        return path.join('packages', 'core', 'src', modulePath);
-    });
-
 // Loop through each reflected module and create the data for the templates
 for (const module of reflectedModules) {
     const modulePath = module.getSourcePath();
 
-    if (!publicFiles.includes(modulePath.replace('.ts', '.js'))) {
+    if (!publicModules.includes(modulePath)) {
         continue;
     }
 
     const segments = modulePath.split(path.sep);
     const declarations = module.getDeclarations();
-
     const fileBaseName = segments[segments.length - 1].replace('.ts', '');
     const category = segments[segments.length - 2];
     const normalizedCategory = category === 'src'
@@ -190,7 +209,7 @@ function createInterface(inter, category, filePath) {
         name: inter.getName(),
         path: filePath,
         line: inter.getLine(),
-        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
+        description: jsDoc.getTag('description')?.text ?? '',
         properties: inter.getProperties().map(p => createPropertyContext(p, filePath)),
         methods: inter.getMethods().map(m => createFunctionContext(m, filePath)),
     };
@@ -207,7 +226,7 @@ function createClass(clazz, category, filePath) {
         name: clazz.getName(),
         path: filePath,
         line: clazz.getLine(),
-        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
+        description: jsDoc.getTag('description')?.text ?? '',
         methods: clazz.getMethods().map(m => createFunctionContext(m, filePath)),
     };
 
@@ -223,11 +242,11 @@ function createEnum(enumerable, category, filePath) {
         name: enumerable.getName(),
         path: filePath,
         line: enumerable.getLine(),
-        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
+        description: jsDoc.getTag('description')?.text ?? '',
         members: enumerable.getMembers().map(member => ({
             name: member.getName(),
             value: member.getValue(),
-            description: member.getJSDoc().getTag(DocTagName.description)?.serialize() ?? '',
+            description: member.getJSDoc().getTag('description')?.text ?? '',
         })),
     };
 
@@ -244,7 +263,7 @@ function createVariable(variable, category, filePath) {
         name: variable.getName(),
         path: filePath,
         line: variable.getLine(),
-        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
+        description: jsDoc.getTag('description')?.text ?? '',
         value: variable.getValue(),
     };
 
@@ -260,7 +279,7 @@ function createTypeAlias(typeAlias, category, filePath) {
         name: typeAlias.getName(),
         path: filePath,
         line: typeAlias.getLine(),
-        description: jsDoc.getTag(DocTagName.description)?.serialize() ?? '',
+        description: jsDoc.getTag('description')?.text ?? '',
         value: typeAlias.getValue().getText(),
     };
 
@@ -274,7 +293,7 @@ function createFunctionContext(func, filePath) {
     const signature = func.getSignatures()[0];
     const funcJsDoc = func.isArrowFunctionOrFunctionExpression() ? func.getJSDoc() : signature.getJSDoc();
     const returnType = signature.getReturnType();
-    const returnTypeDescription = funcJsDoc.getTag(DocTagName.returns)?.serialize() ?? '';
+    const returnTypeDescription = funcJsDoc.getTag('returns')?.text ?? '';
     const typeParameters = signature.getTypeParameters().map(t => {
         return {
             name: t.getName(),
@@ -284,10 +303,7 @@ function createFunctionContext(func, filePath) {
     });
     const parameters = signature.getParameters().map(p => ({
         name: p.getName(),
-        description: funcJsDoc
-            .getAllTags(DocTagName.param)
-            ?.find(t => t.getName() === p.getName())
-            ?.getDescription() ?? '',
+        description: funcJsDoc.getAllTags('param')?.find(t => t.name === p.getName())?.text ?? '',
         type: {text: p.getType().getText()},
         default: p.getDefault(),
     }));
@@ -309,8 +325,8 @@ function createFunctionContext(func, filePath) {
         name: func.getName(),
         path: filePath,
         line: signature.getLine(),
-        description: funcJsDoc.getTag(DocTagName.description)?.serialize() ?? '',
-        see: funcJsDoc.getAllTags(DocTagName.see),
+        description: funcJsDoc.getTag('description')?.text ?? '',
+        see: funcJsDoc.getAllTags('see'),
         signature: `${func.getName()}${typeParametersJoined}(${parametersStringify}): ${returnType.getText()}`,
         parameters,
         typeParameters,
@@ -326,8 +342,8 @@ function createPropertyContext(property, filePath) {
         name: property.getName(),
         path: filePath,
         line: property.getLine(),
-        description: property.getJSDoc().getTag(DocTagName.description)?.serialize() ?? '',
-        see: property.getJSDoc().getAllTags(DocTagName.see),
+        description: property.getJSDoc().getTag('description')?.text ?? '',
+        see: property.getJSDoc().getAllTags('see'),
         type: {
             text: property.getType().getText(),
         },

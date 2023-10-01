@@ -5,11 +5,11 @@ import { parseFromFiles } from './parse-from-files.js';
 import { globbySync } from 'globby';
 
 /**
- * Given some [glob](https://en.wikipedia.org/wiki/Glob_(programming))
+ * Given some [glob]{@link https://en.wikipedia.org/wiki/Glob_(programming)}
  * patterns and some configurable options, reflects a simplified version
  * of the TypeScript Abstract Syntax Tree.
  *
- * Internally [globby](https://github.com/sindresorhus/globby) handles the pattern matching.
+ * Internally [globby]{@link https://github.com/sindresorhus/globby} handles the pattern matching.
  * Any pattern that `globby` accepts can be used.
  *
  * @param patterns - A string or an array of strings that represent glob patterns

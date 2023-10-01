@@ -16,7 +16,12 @@ function build(entryPoints) {
         target: 'es2022',
         outdir: '_site/assets/js',
         entryNames: '[name]',
-        external: ['node:path', 'node:fs', 'node:process'],
+        external: [
+            'node:path',
+            'node:fs',
+            'node:process',
+            'node:module',
+        ],
     });
 }
 
