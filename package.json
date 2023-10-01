@@ -30,7 +30,6 @@
         "ts:build": "tsc --build packages/*/tsconfig.json",
         "ts:reset": "rm -rf ./packages/*/.tsbuildinfo",
         "ts:clear": "rm -rf ./packages/*/dist",
-        "publish": "npm publish --access public --workspaces",
         "test": "vitest run --config vitest.config.ts",
         "test:update": "UPDATE_SNAPSHOTS=true vitest run --config vitest.config.ts",
         "coverage": "vitest run --coverage --config vitest.config.ts",
