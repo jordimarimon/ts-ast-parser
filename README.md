@@ -30,28 +30,6 @@
 
 Reflects a simplified version of the TypeScript AST generated from the TypeScript compiler.
 
-## Features
-
-Reflects the following declarations:
-
--   Import declarations
--   Export declarations
--   Function declarations
--   Variable declarations
--   Interface declarations
--   Type Alias declarations
--   Enum declarations
--   JSDoc
--   Class declarations
--   Decorators
--   Inheritance
--   Mixins **(coming soon)**
--   Custom elements **(coming soon)**
-
-Supported output formats:
-
--   JSON
-
 ## Projects in this monorepo
 
 | Name                                         | Version                                                                                                                                    | Description                                                       |

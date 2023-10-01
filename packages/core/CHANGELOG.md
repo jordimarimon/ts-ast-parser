@@ -28,7 +28,7 @@ For example:
  */
 ```
 
-Before, the above comment, was reflected above like this:
+Before, the above comment, was reflected like this:
 
 ```json
 {
