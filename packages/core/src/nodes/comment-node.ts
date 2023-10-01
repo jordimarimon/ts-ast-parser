@@ -1,4 +1,4 @@
-import { type CommentPart, parse } from '@ts-ast-parser/comment';
+import { type CommentPart, parse, type ParserResult } from '@ts-ast-parser/comment';
 import ts from 'typescript';
 
 
@@ -10,17 +10,10 @@ import ts from 'typescript';
  */
 export class CommentNode {
 
-    // There could be more than one JSDoc tag with the same name.
-    private readonly _parts: CommentPart[] = [];
+    private _parts: CommentPart[] = [];
 
     constructor(node: ts.Node) {
-        const comment = this._getComment(node);
-
-        try {
-            this._parts = parse(comment).parts;
-        } catch (_) {
-            // TODO
-        }
+        this._parseComments(node);
     }
 
     /**
@@ -71,14 +64,63 @@ export class CommentNode {
         return this._parts;
     }
 
-    private _getComment(node: ts.Node): string {
-        const sourceCode = node.getSourceFile()?.text;
+    // eslint-disable-next-line sonarjs/cognitive-complexity
+    private _parseComments(node: ts.Node): void {
+        const isSourceFile = ts.isSourceFile(node);
 
-        if (!sourceCode) {
-            return '';
+        let sourceCode: string | undefined;
+        let jsDocNode: ts.Node | undefined;
+
+        if (isSourceFile) {
+            jsDocNode = ts.forEachChild(node, n => n);
+            sourceCode = node.text;
+        } else {
+            jsDocNode = node;
+            sourceCode = node.getSourceFile()?.text;
         }
 
-        const leadingComments = ts.getLeadingCommentRanges(sourceCode, node.pos) ?? [];
-        return leadingComments.map(comment => sourceCode.substring(comment.pos, comment.end)).join('\n');
+        if (!sourceCode || !jsDocNode) {
+            return;
+        }
+
+        let ranges = ts.getLeadingCommentRanges(sourceCode, jsDocNode.pos) ?? [];
+
+        if (!ranges.length) {
+            return;
+        }
+
+        if (isSourceFile) {
+            // If there is more than one leading JSDoc block, grab all but the last,
+            // otherwise grab the one
+            ranges = ranges.slice(0, ranges.length > 1 ? -1 : 1);
+        } else {
+            // For declarations, we only care about one JSDoc
+            ranges = [ranges[ranges.length - 1] as ts.CommentRange];
+        }
+
+        for (const range of ranges) {
+            const comment = sourceCode.substring(range.pos, range.end);
+
+            let parserResult: ParserResult | undefined;
+            try {
+                parserResult = parse(comment);
+            } catch (_) {
+                // TODO(Jordi M.): Handle the error accordingly
+            }
+
+            if (!parserResult || parserResult.error) {
+                continue;
+            }
+
+            const isModuleJSDoc = parserResult.parts.some(p => {
+                return p.kind === 'module' || p.kind === 'fileoverview' || p.kind === 'packageDocumentation';
+            });
+
+            if ((!isSourceFile && isModuleJSDoc) || (ranges.length === 1 && isSourceFile && !isModuleJSDoc)) {
+                continue;
+            }
+
+            this._parts = this._parts.concat(parserResult.parts);
+        }
     }
 }

@@ -1,3 +1,4 @@
+import type { CommentPart } from '@ts-ast-parser/comment';
 import type { Declaration } from './declaration.js';
 import type { Export } from './export.js';
 import type { Import } from './import.js';
@@ -30,4 +31,9 @@ export interface Module {
      * All the exports
      */
     exports: Export[];
+
+    /**
+     * Module JSDoc
+     */
+    jsDoc?: CommentPart[];
 }

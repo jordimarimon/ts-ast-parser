@@ -1,0 +1,40 @@
+[
+    {
+        "sourcePath": "tests/jsdoc/module/index.ts",
+        "outputPath": "tests/jsdoc/module/index.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "foo",
+                "kind": "Variable",
+                "line": 9,
+                "type": {
+                    "text": "number",
+                    "kind": "Intrinsic"
+                },
+                "default": 4,
+                "jsDoc": [
+                    {
+                        "kind": "description",
+                        "text": "This is the description of the variable declaration"
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "foo",
+                "kind": "Named"
+            }
+        ],
+        "jsDoc": [
+            {
+                "kind": "description",
+                "text": "This is the description of the module"
+            },
+            {
+                "kind": "module"
+            }
+        ]
+    }
+]

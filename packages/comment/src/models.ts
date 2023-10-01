@@ -7,7 +7,7 @@ import type { Token } from './token.js';
  */
 export interface CommentPart {
     /**
-     * The name of the tag or "description" if it's the description of the comment
+     * The name of the block tag or "description" if it's the description of the comment
      */
     kind?: string;
 
@@ -70,6 +70,7 @@ export interface ParserError {
  * - "error": Means that the symbol is not valid, and it doesn't accept more tokens.
  * - "backtrack": Means that the symbol may or may not be valid, but some tokens that were read,
  *                aren't part of the symbol and should be evaluated with the next symbols in the grammar.
+ *                It doesn't accept more tokens.
  */
 export type ParserStatus = {kind: 'in-progress'}
     | {kind: 'backtrack'; tokens: Token[]}

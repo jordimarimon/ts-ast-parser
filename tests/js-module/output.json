@@ -23,30 +23,8 @@
                 "default": "[]",
                 "jsDoc": [
                     {
-                        "kind": "typedef",
-                        "name": "PropertiesHash"
-                    },
-                    {
                         "kind": "type",
-                        "type": "object"
-                    },
-                    {
-                        "kind": "property",
-                        "name": "id",
-                        "text": "an ID.",
-                        "type": "string"
-                    },
-                    {
-                        "kind": "property",
-                        "name": "name",
-                        "text": "your name.",
-                        "type": "string"
-                    },
-                    {
-                        "kind": "property",
-                        "name": "age",
-                        "text": "your age.",
-                        "type": "number"
+                        "type": "PropertiesHash[]"
                     }
                 ]
             },

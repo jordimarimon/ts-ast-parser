@@ -1,10 +1,12 @@
 import { importFactory, declarationFactories, exportFactories } from '../factories/index.js';
 import type { ReflectedNode, ReflectedRootNode } from '../reflected-node.js';
 import type { DeclarationKind } from '../models/declaration-kind.js';
+import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ExportNode, ImportNode } from '../utils/is.js';
 import type { DeclarationNode } from './declaration-node.js';
 import type { ProjectContext } from '../project-context.js';
 import type { Module } from '../models/module.js';
+import { CommentNode } from './comment-node.js';
 import { is } from '../utils/is.js';
 import ts from 'typescript';
 
@@ -25,9 +27,12 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
     private readonly _context: ProjectContext;
 
+    private readonly _jsDoc: CommentNode;
+
     constructor(node: ts.SourceFile, context: ProjectContext) {
         this._node = node;
         this._context = context;
+        this._jsDoc = new CommentNode(this._node);
 
         this._visitNode(node);
         this._removeNonPublicDeclarations();
@@ -97,6 +102,10 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         return this._declarations;
     }
 
+    getJSDoc(): CommentNode {
+        return this._jsDoc;
+    }
+
     /**
      * Finds a declaration based on it's kind
      *
@@ -134,13 +143,17 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * The reflected node as a serializable object
      */
     serialize(): Module {
-        return {
+        const result: Module = {
             sourcePath: this.getSourcePath(),
             outputPath: this.getOutputPath(),
             imports: this.getImports().map(imp => imp.serialize()),
             declarations: this.getDeclarations().map(dec => dec.serialize()),
             exports: this.getExports().map(exp => exp.serialize()),
         };
+
+        tryAddProperty(result, 'jsDoc', this.getJSDoc().serialize());
+
+        return result;
     }
 
     private _visitNode(rootNode: ts.Node | ts.SourceFile): void {
