@@ -1,6 +1,6 @@
 {
     "name": "@ts-ast-parser/core",
-    "version": "0.6.0",
+    "version": "0.6.1",
     "author": "Jordi Marimon Palarea",
     "description": "Reflects a simplified version of the TypeScript AST for generating documentation",
     "homepage": "https://jordimarimon.github.io/ts-ast-parser",

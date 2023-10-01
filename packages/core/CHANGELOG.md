@@ -1,3 +1,9 @@
+# 0.6.1 (2023-10-01)
+
+### Bug Fixes
+
+- Remove the extra spaces in the start of each line in the JSDoc comments
+
 # 0.6.0 (2023-10-01)
 
 ### Bug Fixes
