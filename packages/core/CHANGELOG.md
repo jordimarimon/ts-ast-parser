@@ -1,3 +1,11 @@
+## [next]
+
+### Bug Fixes
+
+- Correctly reflect import specifiers that are type only. Before only import clauses where checked for type only and
+  import specifiers were ignored. Something like `import type { Foo } from './foo.js'` was correctly reflected as 
+  type only, but if instead we had `import { type Foo } from './foo.js'`, this wasn't reflected as type only.
+
 # 0.6.1 (2023-10-01)
 
 ### Bug Fixes
