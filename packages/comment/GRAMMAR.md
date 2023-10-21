@@ -1,5 +1,9 @@
 # Grammar
 
+> **Note**
+> This still a work in progress. There may be a lot of ambiguities in the grammar. Also, the parser doesn't yet fully 
+> support all the features in JSDoc and TSDoc specs.
+
 This document explains the formal grammar that is able to generate a documentation comment.
 
 The grammar is inspired on the [JSDoc 3](https://jsdoc.app/index.html) spec and the [TSDoc](https://tsdoc.org/) spec.
