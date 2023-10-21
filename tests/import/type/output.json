@@ -8,13 +8,19 @@
                 "kind": "Named",
                 "importPath": "./type-a.js",
                 "typeOnly": true
+            },
+            {
+                "name": "TypeB",
+                "kind": "Named",
+                "importPath": "./type-b.js",
+                "typeOnly": true
             }
         ],
         "declarations": [
             {
                 "name": "x",
                 "kind": "Variable",
-                "line": 4,
+                "line": 5,
                 "type": {
                     "text": "TypeA",
                     "kind": "Reference",
@@ -24,12 +30,30 @@
                     }
                 },
                 "default": "{ foo: 'bar' }"
+            },
+            {
+                "name": "y",
+                "kind": "Variable",
+                "line": 8,
+                "type": {
+                    "text": "TypeB",
+                    "kind": "Reference",
+                    "source": {
+                        "line": 1,
+                        "path": "tests/import/type/type-b.ts"
+                    }
+                },
+                "default": "{bar: 'foo'}"
             }
         ],
         "exports": [
             {
                 "name": "x",
                 "kind": "Default"
+            },
+            {
+                "name": "y",
+                "kind": "Named"
             }
         ]
     },
@@ -58,6 +82,36 @@
         "exports": [
             {
                 "name": "TypeA",
+                "kind": "Named",
+                "typeOnly": true
+            }
+        ]
+    },
+    {
+        "sourcePath": "tests/import/type/type-b.ts",
+        "outputPath": "tests/import/type/type-b.js",
+        "imports": [],
+        "declarations": [
+            {
+                "name": "TypeB",
+                "kind": "Interface",
+                "line": 1,
+                "properties": [
+                    {
+                        "name": "bar",
+                        "kind": "Property",
+                        "type": {
+                            "text": "string",
+                            "kind": "Intrinsic"
+                        },
+                        "line": 2
+                    }
+                ]
+            }
+        ],
+        "exports": [
+            {
+                "name": "TypeB",
                 "kind": "Named",
                 "typeOnly": true
             }

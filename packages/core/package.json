@@ -44,6 +44,6 @@
         "tslib": "^2.6.1"
     },
     "peerDependencies": {
-        "typescript": "4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x"
+        "typescript": "^4.6.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x"
     }
 }

@@ -64,7 +64,7 @@ export class NamedImportNode implements ReflectedRootNode<Import, ts.ImportDecla
     }
 
     isTypeOnly(): boolean {
-        return !!this._node.importClause?.isTypeOnly;
+        return !!this._node.importClause?.isTypeOnly || this._element.isTypeOnly;
     }
 
     isBareModuleSpecifier(): boolean {
