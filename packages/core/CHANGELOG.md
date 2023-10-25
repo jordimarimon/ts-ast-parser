@@ -1,4 +1,4 @@
-## [next]
+## 0.6.2 (2023-10-25)
 
 ### Bug Fixes
 
@@ -6,7 +6,7 @@
   import specifiers were ignored. Something like `import type { Foo } from './foo.js'` was correctly reflected as 
   type only, but if instead we had `import { type Foo } from './foo.js'`, this wasn't reflected as type only.
 
-# 0.6.1 (2023-10-01)
+## 0.6.1 (2023-10-01)
 
 ### Bug Fixes
 
