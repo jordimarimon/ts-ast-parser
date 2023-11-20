@@ -1,3 +1,11 @@
+## 0.6.3 (2023-11-20)
+
+- Drop support for Node `16.x`
+
+### Bug Fixes
+
+- Remove unknown compiler option `suppressOutputPathCheck`
+
 ## 0.6.2 (2023-10-25)
 
 ### Bug Fixes
