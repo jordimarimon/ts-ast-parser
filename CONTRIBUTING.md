@@ -30,7 +30,7 @@ Please follow these steps:
 
     git clone https://github.com/jordimarimon/ts-ast-parser.git
     cd ts-ast-parser
-    npm i
+    npm ci
     npm run build
 
 ### Running tests
