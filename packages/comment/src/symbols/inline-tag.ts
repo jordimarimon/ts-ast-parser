@@ -62,7 +62,6 @@ function inlineTagWithSquareBracket(): ParserSymbol {
     let isValid = true;
 
     return {
-        // eslint-disable-next-line sonarjs/cognitive-complexity
         next(token: Token): ParserStatus {
             const symbol = symbols[pos] as ParserSymbol;
             const status = symbol.next(token);
@@ -170,7 +169,6 @@ function inlineTagWithoutSquareBracket(): ParserSymbol {
     let isValid = true;
 
     return {
-        // eslint-disable-next-line sonarjs/cognitive-complexity
         next(token: Token): ParserStatus {
             const symbol = symbols[pos] as ParserSymbol;
             const status = symbol.next(token);

@@ -37,7 +37,6 @@ export function oneOf(branches: Branch[]): ParserSymbol {
     let acceptedBranch: number | null = null;
 
     return {
-        // eslint-disable-next-line sonarjs/cognitive-complexity
         next(token: Token): ParserStatus {
             for (let i = 0; i < branches.length; i++) {
                 const state = branchesState[i] as BranchState;

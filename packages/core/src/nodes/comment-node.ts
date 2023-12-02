@@ -70,7 +70,6 @@ export class CommentNode {
         return this._parts;
     }
 
-    // eslint-disable-next-line sonarjs/cognitive-complexity
     private _parseComments(node: ts.Node): void {
         const isSourceFile = ts.isSourceFile(node);
 

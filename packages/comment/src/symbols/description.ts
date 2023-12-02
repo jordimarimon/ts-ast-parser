@@ -43,7 +43,6 @@ export function description(): ParserSymbol {
     };
 }
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
 export function descriptionLine(options: DescriptionLineOptions): ParserSymbol {
     const symbols = [
         options.startPadding
@@ -83,7 +82,6 @@ export function descriptionLine(options: DescriptionLineOptions): ParserSymbol {
     let tokens: Token[] = [];
 
     return {
-        // eslint-disable-next-line sonarjs/cognitive-complexity
         next(token: Token): ParserStatus {
             tokens.push(token);
 
@@ -169,7 +167,6 @@ export function descriptionLine(options: DescriptionLineOptions): ParserSymbol {
     };
 }
 
-// eslint-disable-next-line sonarjs/cognitive-complexity
 export function serializeDescription(parts: CommentPart[]): string | CommentPart[] {
     const result: CommentPart[] = [];
     const isEmptyOrNewLine = parts.every(p => p.kind === 'text' && (p.text === '' || p.text === '\n'));

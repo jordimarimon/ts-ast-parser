@@ -17,7 +17,6 @@ export function oneOrMore(factory: (index: number) => ParserSymbol): ParserSymbo
     let tokens: Token[] = [];
 
     return {
-        // eslint-disable-next-line sonarjs/cognitive-complexity
         next(token: Token): ParserStatus {
             tokens.push(token);
 

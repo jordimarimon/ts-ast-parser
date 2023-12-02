@@ -48,7 +48,6 @@ export function blockTag(): ParserSymbol {
     let pos = 0;
 
     return {
-        // eslint-disable-next-line sonarjs/cognitive-complexity
         next(token: Token): ParserStatus {
             const symbol = symbols[pos] as ParserSymbol;
             const status = symbol.next(token);
@@ -104,7 +103,6 @@ export function blockTag(): ParserSymbol {
             return pos > 4;
         },
 
-        // eslint-disable-next-line sonarjs/cognitive-complexity
         serialize(): CommentPart[] {
             if (pos <= 4) {
                 return [];
