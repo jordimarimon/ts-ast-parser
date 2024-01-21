@@ -1,6 +1,6 @@
 import type { TemplateLiteralTypeNode } from '../types/template-literal-type-node.js';
 import type { IndexedAccessTypeNode } from '../types/indexed-access-type-node.js';
-import type { ReflectedRootNode, ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedTypeNode } from '../reflected-node.js';
 import type { ExportDeclarationNode } from '../nodes/export-declaration-node.js';
 import type { NamedTupleMemberNode } from '../types/named-tuple-member-node.js';
 import type { SideEffectImportNode } from '../nodes/side-effect-import-node.js';
@@ -91,167 +91,194 @@ export interface SymbolWithContext {
 }
 
 /**
- * A utility object that has a few type predicate functions available to make life easier when
+ * A utility object that has a few type predicate
+ * functions available to make life easier when
  * traversing the reflected nodes.
  */
 export const is = {
     // IMPORTS
-    ImportNode: (node: ReflectedRootNode): node is ImportNode => {
-        return node.getNodeType() === RootNodeType.Import;
+    ImportNode: (node: unknown): node is ImportNode => {
+        if (node == null || typeof node !== 'object') {
+            return false;
+        }
+
+        return 'getNodeType' in node &&
+            typeof node.getNodeType === 'function' &&
+            node.getNodeType() === RootNodeType.Import;
     },
 
-    DefaultImportNode: (node: ReflectedRootNode): node is DefaultImportNode => {
+    DefaultImportNode: (node: unknown): node is DefaultImportNode => {
         return is.ImportNode(node) && node.getKind() === ImportKind.Default;
     },
 
-    NamedImportNode: (node: ReflectedRootNode): node is NamedImportNode => {
+    NamedImportNode: (node: unknown): node is NamedImportNode => {
         return is.ImportNode(node) && node.getKind() === ImportKind.Named;
     },
 
-    NamespaceImportNode: (node: ReflectedRootNode): node is NamespaceImportNode => {
+    NamespaceImportNode: (node: unknown): node is NamespaceImportNode => {
         return is.ImportNode(node) && node.getKind() === ImportKind.Namespace;
     },
 
-    SideEffectImportNode: (node: ReflectedRootNode): node is SideEffectImportNode => {
+    SideEffectImportNode: (node: unknown): node is SideEffectImportNode => {
         return is.ImportNode(node) && node.getKind() === ImportKind.SideEffect;
     },
 
     // DECLARATIONS
-    DeclarationNode: (node: ReflectedRootNode): node is DeclarationNode => {
-        return node.getNodeType() === RootNodeType.Declaration;
+    DeclarationNode: (node: unknown): node is DeclarationNode => {
+        if (node == null || typeof node !== 'object') {
+            return false;
+        }
+
+        return 'getNodeType' in node &&
+            typeof node.getNodeType === 'function' &&
+            node.getNodeType() === RootNodeType.Declaration;
     },
 
-    EnumNode: (node: ReflectedRootNode): node is EnumNode => {
+    EnumNode: (node: unknown): node is EnumNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Enum;
     },
 
-    VariableNode: (node: ReflectedRootNode): node is VariableNode => {
+    VariableNode: (node: unknown): node is VariableNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Variable;
     },
 
-    TypeAliasNode: (node: ReflectedRootNode): node is TypeAliasNode => {
+    TypeAliasNode: (node: unknown): node is TypeAliasNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.TypeAlias;
     },
 
-    FunctionNode: (node: ReflectedRootNode): node is FunctionNode => {
+    FunctionNode: (node: unknown): node is FunctionNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Function;
     },
 
-    ClassNode: (node: ReflectedRootNode): node is ClassNode => {
+    ClassNode: (node: unknown): node is ClassNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Class;
     },
 
-    InterfaceNode: (node: ReflectedRootNode): node is InterfaceNode => {
+    InterfaceNode: (node: unknown): node is InterfaceNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Interface;
     },
 
     // TYPES
-    ArrayTypeNode: (node: ReflectedTypeNode): node is ArrayTypeNode => {
-        return node.getKind() === TypeKind.Array;
+    TypeNode: (node: unknown): node is ReflectedTypeNode => {
+        if (node == null || typeof node !== 'object') {
+            return false;
+        }
+
+        return 'getKind' in node && typeof node.getKind === 'function';
     },
 
-    ConditionalTypeNode: (node: ReflectedTypeNode): node is ConditionalTypeNode => {
-        return node.getKind() === TypeKind.Conditional;
+    ArrayTypeNode: (node: unknown): node is ArrayTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Array;
     },
 
-    FunctionTypeNode: (node: ReflectedTypeNode): node is FunctionTypeNode => {
-        return node.getKind() === TypeKind.Function;
+    ConditionalTypeNode: (node: unknown): node is ConditionalTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Conditional;
     },
 
-    IndexedAccessTypeNode: (node: ReflectedTypeNode): node is IndexedAccessTypeNode => {
-        return node.getKind() === TypeKind.IndexAccess;
+    FunctionTypeNode: (node: unknown): node is FunctionTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Function;
     },
 
-    InferTypeNode: (node: ReflectedTypeNode): node is InferTypeNode => {
-        return node.getKind() === TypeKind.Infer;
+    IndexedAccessTypeNode: (node: unknown): node is IndexedAccessTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.IndexAccess;
     },
 
-    IntersectionTypeNode: (node: ReflectedTypeNode): node is IntersectionTypeNode => {
-        return node.getKind() === TypeKind.Intersection;
+    InferTypeNode: (node: unknown): node is InferTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Infer;
     },
 
-    LiteralTypeNode: (node: ReflectedTypeNode): node is TypeLiteralNode => {
-        return node.getKind() === TypeKind.ObjectLiteral;
+    IntersectionTypeNode: (node: unknown): node is IntersectionTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Intersection;
     },
 
-    MappedTypeNode: (node: ReflectedTypeNode): node is MappedTypeNode => {
-        return node.getKind() === TypeKind.Mapped;
+    LiteralTypeNode: (node: unknown): node is TypeLiteralNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.ObjectLiteral;
     },
 
-    NamedTupleMemberNode: (node: ReflectedTypeNode): node is NamedTupleMemberNode => {
-        return node.getKind() === TypeKind.NamedTupleMember;
+    MappedTypeNode: (node: unknown): node is MappedTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Mapped;
     },
 
-    OptionalTypeNode: (node: ReflectedTypeNode): node is OptionalTypeNode => {
-        return node.getKind() === TypeKind.Optional;
+    NamedTupleMemberNode: (node: unknown): node is NamedTupleMemberNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.NamedTupleMember;
     },
 
-    PrimitiveTypeNode: (node: ReflectedTypeNode): node is IntrinsicTypeNode => {
-        return node.getKind() === TypeKind.Intrinsic;
+    OptionalTypeNode: (node: unknown): node is OptionalTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Optional;
     },
 
-    RestTypeNode: (node: ReflectedTypeNode): node is RestTypeNode => {
-        return node.getKind() === TypeKind.Rest;
+    PrimitiveTypeNode: (node: unknown): node is IntrinsicTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Intrinsic;
     },
 
-    TemplateLiteralTypeNode: (node: ReflectedTypeNode): node is TemplateLiteralTypeNode => {
-        return node.getKind() === TypeKind.TemplateLiteral;
+    RestTypeNode: (node: unknown): node is RestTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Rest;
     },
 
-    TupleTypeNode: (node: ReflectedTypeNode): node is TupleTypeNode => {
-        return node.getKind() === TypeKind.Tuple;
+    TemplateLiteralTypeNode: (node: unknown): node is TemplateLiteralTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.TemplateLiteral;
     },
 
-    TypeLiteralNode: (node: ReflectedTypeNode): node is TypeLiteralNode => {
-        return node.getKind() === TypeKind.Literal;
+    TupleTypeNode: (node: unknown): node is TupleTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Tuple;
     },
 
-    TypeOperatorNode: (node: ReflectedTypeNode): node is TypeOperatorNode => {
-        return node.getKind() === TypeKind.Operator;
+    TypeLiteralNode: (node: unknown): node is TypeLiteralNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Literal;
     },
 
-    TypePredicateNode: (node: ReflectedTypeNode): node is TypePredicateNode => {
-        return node.getKind() === TypeKind.Predicate;
+    TypeOperatorNode: (node: unknown): node is TypeOperatorNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Operator;
     },
 
-    TypeQueryNode: (node: ReflectedTypeNode): node is TypeQueryNode => {
-        return node.getKind() === TypeKind.Query;
+    TypePredicateNode: (node: unknown): node is TypePredicateNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Predicate;
     },
 
-    TypeReferenceNode: (node: ReflectedTypeNode): node is TypeReferenceNode => {
-        return node.getKind() === TypeKind.Reference;
+    TypeQueryNode: (node: unknown): node is TypeQueryNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Query;
     },
 
-    UnionTypeNode: (node: ReflectedTypeNode): node is UnionTypeNode => {
-        return node.getKind() === TypeKind.Union;
+    TypeReferenceNode: (node: unknown): node is TypeReferenceNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Reference;
     },
 
-    UnknownTypeNode: (node: ReflectedTypeNode): node is UnknownTypeNode => {
-        return node.getKind() === TypeKind.Unknown;
+    UnionTypeNode: (node: unknown): node is UnionTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Union;
+    },
+
+    UnknownTypeNode: (node: unknown): node is UnknownTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Unknown;
     },
 
     // EXPORTS
-    ExportNode: (node: ReflectedRootNode): node is ExportNode => {
-        return node.getNodeType() === RootNodeType.Export;
+    ExportNode: (node: unknown): node is ExportNode => {
+        if (node == null || typeof node !== 'object') {
+            return false;
+        }
+
+        return 'getNodeType' in node &&
+            typeof node.getNodeType === 'function' &&
+            node.getNodeType() === RootNodeType.Export;
     },
 
-    DefaultExportNode: (node: ReflectedRootNode): node is ExportAssignmentNode | ExportDeclarationNode => {
+    DefaultExportNode: (node: unknown): node is ExportAssignmentNode | ExportDeclarationNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Default;
     },
 
-    NamedExportNode: (node: ReflectedRootNode): node is NamedExportNode | ExportDeclarationNode => {
+    NamedExportNode: (node: unknown): node is NamedExportNode | ExportDeclarationNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Named;
     },
 
-    EqualExportNode: (node: ReflectedRootNode): node is ExportAssignmentNode => {
+    EqualExportNode: (node: unknown): node is ExportAssignmentNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Equals;
     },
 
-    NamespaceExportNode: (node: ReflectedRootNode): node is NamespaceExportNode => {
+    NamespaceExportNode: (node: unknown): node is NamespaceExportNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Namespace;
     },
 
-    ReExportNode: (node: ReflectedRootNode): node is ReExportNode => {
+    ReExportNode: (node: unknown): node is ReExportNode => {
         return is.ExportNode(node) && node.getKind() === ExportKind.Star;
     },
 };
