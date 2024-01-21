@@ -8,7 +8,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![TypeScript](https://img.shields.io/badge/%3C%2F%3E-TypeScript-%230074c1.svg)](https://www.typescriptlang.org/)
-[![codecov](https://codecov.io/gh/jordimarimon/ts-ast-parser/branch/main/graph/badge.svg?token=DMIFUI10V9)](https://codecov.io/gh/jordimarimon/ts-ast-parser)
+[![codecov](https://codecov.io/gh/jordimarimon/ts-ast-parser/graph/badge.svg?token=DMIFUI10V9)](https://codecov.io/gh/jordimarimon/ts-ast-parser)
 [![Build and Test Workflow](https://github.com/jordimarimon/ts-ast-parser/actions/workflows/build.yml/badge.svg)](https://github.com/jordimarimon/ts-ast-parser/blob/main/.github/workflows/build.yml)
 
 </div>
