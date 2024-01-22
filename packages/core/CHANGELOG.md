@@ -1,3 +1,15 @@
+# 0.7.0 (2024-01-22)
+
+### Features
+
+- Allow `null` or `undefined` to be used as arguments in the `is` utility that is used to narrow 
+types.
+
+### Bug Fixes
+
+- Fix the return type of `TypeAliasNode.getValue()`.
+- Resolve symlinks to support pnpm's `node_modules` layout.
+
 ## 0.6.3 (2023-11-20)
 
 - Drop support for Node `16.x`
