@@ -81,7 +81,7 @@ if (!indexModule) {
 // The modules that are explicitly exported in the entry point of the package
 const publicModules = indexModule
     .getExports()
-    .filter(exp => is.ReExportNode(exp))
+    .filter(is.ReExportNode)
     .map(exp => {
         // Modern ESM imports include the ".js" extension
         const modulePath = exp.getModule().replace(/'/g, '').replace('.js', '.ts');

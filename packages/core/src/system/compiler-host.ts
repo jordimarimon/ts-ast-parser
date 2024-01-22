@@ -75,4 +75,8 @@ export class CompilerHost implements ts.CompilerHost {
     ): string[] {
         return this._system.readDirectory(rootDir, extensions, excludes, includes, depth);
     }
+
+    realpath(filePath: string): string {
+        return this._system.realpath(filePath);
+    }
 }

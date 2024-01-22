@@ -30,7 +30,7 @@ export class NodeSystem implements AnalyserSystem {
     /**
      * Writes the content
      *
-     * @param content
+     * @param content - Content to write to the file
      */
     write(content: string): void {
         ts.sys.write(content);
@@ -39,8 +39,10 @@ export class NodeSystem implements AnalyserSystem {
     /**
      * Reads the data encoded inside a file
      *
-     * @param filePath
-     * @param encoding
+     * @param filePath - The file path
+     * @param encoding - The file econding
+     *
+     * @returns The content of the file
      */
     readFile(filePath: string, encoding?: string): string {
         const absolutePath = this.getAbsolutePath(filePath);
@@ -49,9 +51,7 @@ export class NodeSystem implements AnalyserSystem {
 
     writeFile(filePath: string, data: string): void {
         const absolutePath = this.getAbsolutePath(filePath);
-
         this._ensureDirectoryExistence(absolutePath);
-
         ts.sys.writeFile(absolutePath, data);
     }
 
@@ -77,9 +77,7 @@ export class NodeSystem implements AnalyserSystem {
 
     createDirectory(filePath: string): void {
         const absolutePath = this.getAbsolutePath(filePath);
-
         this._ensureDirectoryExistence(absolutePath);
-
         ts.sys.createDirectory(absolutePath);
     }
 
@@ -167,6 +165,11 @@ export class NodeSystem implements AnalyserSystem {
         return path.isAbsolute(filePath);
     }
 
+    /**
+     * Resolves symlinks to get the real path
+     *
+     * @param filePath
+     */
     realpath(filePath: string): string {
         return fs.realpathSync.native
             ? platform === 'win32'
