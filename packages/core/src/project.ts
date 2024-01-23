@@ -11,7 +11,8 @@ import ts from 'typescript';
 
 
 /**
- * Represents a collection of modules (TypeScript/JavaScript files) that have been
+ * Represents a collection of modules
+ * (TypeScript/JavaScript files) that have been
  * successfully analysed.
  */
 export class Project {
@@ -59,15 +60,15 @@ export class Project {
         );
 
         const commandLineErrors = ts.getConfigFileParsingDiagnostics(commandLine);
-        this._diagnostics.addManyDiagnostics(commandLineErrors);
-        this._diagnostics.addManyDiagnostics(program.getSyntacticDiagnostics());
-        this._diagnostics.addManyDiagnostics(program.getSemanticDiagnostics());
+        this._diagnostics.addMany(commandLineErrors);
+        this._diagnostics.addMany(program.getSyntacticDiagnostics());
+        this._diagnostics.addMany(program.getSemanticDiagnostics());
 
         for (const fileName of program.getRootFileNames()) {
             const sourceFile = program.getSourceFile(fileName);
 
             if (!sourceFile) {
-                this._diagnostics.addArgumentError(`Unable to analyse file "${fileName}".`);
+                this._diagnostics.addOne(sourceFile, `Unable to analyse file "${fileName}".`);
                 continue;
             }
 
@@ -106,7 +107,11 @@ export class Project {
         return new Project(system, compilerHost, program, commandLine, options);
     }
 
-    static fromSource(system: AnalyserSystem, source: string, options: Partial<AnalyserOptions> = {}): Project {
+    static fromSource(
+        system: AnalyserSystem,
+        source: string,
+        options: Partial<AnalyserOptions> = {},
+    ): Project {
         const fileName = 'unknown.ts';
         system.writeFile(fileName, source);
 

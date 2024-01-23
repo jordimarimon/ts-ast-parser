@@ -9,43 +9,41 @@ export interface ArgumentError {
     messageText: string;
 }
 
-/**
- * There are three types of errors:
- *
- * - **Invalid argument error**: Errors caused because of invalid arguments when calling the parse function
- * - **Config errors**: Errors caused because of invalid compiler options
- * - **Syntactic/Semantic errors**: Errors thrown by the TypeScript compiler when parsing the code
- */
 export type AnalyserError = ArgumentError | ts.Diagnostic;
 
 /**
- * Internal class to enqueue any error during the analysis
+ * Internal class to enqueue any error during the analysis.
+ *
+ * There are two types of errors the analyser can throw:
+ *
+ * - **Config errors**: Errors because of invalid compiler options
+ * - **Syntactic/Semantic errors**: Errors thrown by the TypeScript compiler when parsing the code
  */
 export class AnalyserDiagnostic {
 
     private readonly _diagnostics: ts.Diagnostic[] = [];
 
-    private readonly _argumentErrors: ArgumentError[] = [];
+    private readonly _formatDiagnosticHost: ts.FormatDiagnosticsHost;
 
     private readonly _cwd: string;
 
     constructor(cwd: string) {
         this._cwd = cwd;
+        this._formatDiagnosticHost = {
+            getCanonicalFileName: (name: string) => name,
+            getCurrentDirectory: () => this._cwd,
+            getNewLine: () => '\n',
+        };
     }
 
     /**
      * Formats syntactic and semantic errors found during the analysis
      *
+     * @param errors
      * @returns The diagnostics formatted
      */
-    formatDiagnostics(): string {
-        const diagnosticsHost: ts.FormatDiagnosticsHost = {
-            getCanonicalFileName: (name: string) => name,
-            getCurrentDirectory: () => this._cwd,
-            getNewLine: () => '\n',
-        };
-
-        return ts.formatDiagnosticsWithColorAndContext(this._diagnostics, diagnosticsHost);
+    format(errors: ts.Diagnostic[]): string {
+        return ts.formatDiagnosticsWithColorAndContext(errors, this._formatDiagnosticHost);
     }
 
     /**
@@ -53,11 +51,8 @@ export class AnalyserDiagnostic {
      *
      * @returns All the errors
      */
-    getAll(): (ArgumentError | ts.Diagnostic)[] {
-        return [
-            ...this._argumentErrors,
-            ...ts.sortAndDeduplicateDiagnostics(this._diagnostics),
-        ];
+    getAll(): ts.Diagnostic[] {
+        return Array.from(ts.sortAndDeduplicateDiagnostics(this._diagnostics));
     }
 
     /**
@@ -76,7 +71,7 @@ export class AnalyserDiagnostic {
      * @param diagnostic - The error to flatten
      * @returns The messages flattened
      */
-    flattenMessage(diagnostic: ts.Diagnostic): string {
+    flatten(diagnostic: ts.Diagnostic): string {
         return ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n');
     }
 
@@ -86,11 +81,11 @@ export class AnalyserDiagnostic {
      * @param node - The node where the error was found
      * @param message - The error message
      */
-    addDiagnostic(node: ts.Node, message: string | ts.DiagnosticMessageChain): void {
+    addOne(node: ts.Node | null | undefined, message: string | ts.DiagnosticMessageChain): void {
         const error: ts.Diagnostic = {
-            file: node.getSourceFile(),
-            start: node.getStart(),
-            length: node.getWidth(),
+            file: node?.getSourceFile(),
+            start: node?.getStart(),
+            length: node?.getWidth(),
             category: ts.DiagnosticCategory.Error,
             messageText: message,
             code: 1000000,
@@ -100,20 +95,11 @@ export class AnalyserDiagnostic {
     }
 
     /**
-     * Adds a new invalid argument error
-     *
-     * @param messageText - The error message
-     */
-    addArgumentError(messageText: string): void {
-        this._argumentErrors.push({messageText});
-    }
-
-    /**
      * Adds multiple syntactic/semantic errors
      *
      * @param diagnostics - An array of syntactic/semantic errors
      */
-    addManyDiagnostics(diagnostics: readonly ts.Diagnostic[]): void {
+    addMany(diagnostics: readonly ts.Diagnostic[]): void {
         this._diagnostics.push(...diagnostics);
     }
 }

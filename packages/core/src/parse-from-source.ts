@@ -32,11 +32,7 @@ export async function parseFromSource(
     }
 
     const project = Project.fromSource(system, source, options);
-    const diagnostics = project.getDiagnostics();
+    const errors = project.getDiagnostics().getAll();
 
-    return {
-        project,
-        errors: diagnostics.getAll(),
-        formattedDiagnostics: diagnostics.formatDiagnostics(),
-    };
+    return {project, errors};
 }

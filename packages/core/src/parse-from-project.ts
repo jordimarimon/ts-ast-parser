@@ -21,11 +21,7 @@ export async function parseFromProject(options: Partial<AnalyserOptions> = {}): 
     }
 
     const project = Project.fromTSConfig(system, options);
-    const diagnostics = project.getDiagnostics();
+    const errors = project.getDiagnostics().getAll();
 
-    return {
-        project,
-        errors: diagnostics.getAll(),
-        formattedDiagnostics: diagnostics.formatDiagnostics(),
-    };
+    return {project, errors};
 }

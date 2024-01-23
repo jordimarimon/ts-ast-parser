@@ -1,6 +1,5 @@
 import type { AnalyserSystem } from './system/analyser-system.js';
 import type { AnalyserOptions } from './analyser-options.js';
-import { isNotEmptyArray } from './utils/not-empty-array.js';
 import type { AnalyserResult } from './analyser-result.js';
 import { createSystem } from './system/create-system.js';
 import { Project } from './project.js';
@@ -18,7 +17,7 @@ export async function parseFromFiles(
     files: readonly string[],
     options: Partial<AnalyserOptions> = {},
 ): Promise<AnalyserResult> {
-    if (!isNotEmptyArray<string[]>(files)) {
+    if (!Array.isArray(files) || !files.length) {
         return {
             project: null,
             errors: [{messageText: 'Expected an array of files.'}],
@@ -33,11 +32,7 @@ export async function parseFromFiles(
     }
 
     const project = Project.fromFiles(system, files, options);
-    const diagnostics = project.getDiagnostics();
+    const errors = project.getDiagnostics().getAll();
 
-    return {
-        project,
-        errors: diagnostics.getAll(),
-        formattedDiagnostics: diagnostics.formatDiagnostics(),
-    };
+    return {project, errors};
 }
