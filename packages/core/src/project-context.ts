@@ -1,4 +1,4 @@
-import type { NamedNodeName, SymbolWithLocation } from './utils/is.js';
+import type { NamedNodeName, SymbolWithLocation } from './utils/types.js';
 import type { AnalyserDiagnostic } from './analyser-diagnostic.js';
 import type { AnalyserSystem } from './system/analyser-system.js';
 import type { AnalyserOptions } from './analyser-options.js';

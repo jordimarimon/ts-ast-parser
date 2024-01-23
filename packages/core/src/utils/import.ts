@@ -1,5 +1,4 @@
 import type { ProjectContext } from '../project-context.js';
-import { isNotEmptyArray } from './not-empty-array.js';
 import ts from 'typescript';
 
 
@@ -100,7 +99,7 @@ export function isNamedImport(node: ts.ImportDeclaration): boolean {
         return false;
     }
 
-    return isNotEmptyArray(namedImports.elements);
+    return namedImports.elements.length > 0;
 }
 
 /**

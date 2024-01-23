@@ -7,7 +7,7 @@ import type { ProjectContext } from '../project-context.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import type { ClassDeclaration } from '../models/class.js';
-import type { SymbolWithContext } from '../utils/is.js';
+import type { SymbolWithContext } from '../utils/types.js';
 import { isCustomElement } from '../utils/heritage.js';
 import { getDecorators } from '../utils/decorator.js';
 import { getNamespace } from '../utils/namespace.js';

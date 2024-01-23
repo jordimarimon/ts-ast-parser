@@ -3,7 +3,7 @@ import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
 import type { IndexSignature } from '../models/interface.js';
 import { createType } from '../factories/create-type.js';
-import type { SymbolWithContext } from '../utils/is.js';
+import type { SymbolWithContext } from '../utils/types.js';
 import { MemberKind } from '../models/member-kind.js';
 import { ParameterNode } from './parameter-node.js';
 import type { Type } from '../models/type.js';

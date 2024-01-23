@@ -48,7 +48,7 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
     }
 
     getKind(): TypeKind {
-        return TypeKind.ObjectLiteral;
+        return TypeKind.TypeLiteral;
     }
 
     getProperties(): PropertyNode[] {

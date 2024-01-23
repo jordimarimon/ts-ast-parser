@@ -5,7 +5,7 @@ import type { SourceReference } from '../models/reference.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
-import type { SymbolWithLocation } from '../utils/is.js';
+import type { SymbolWithLocation } from '../utils/types.js';
 import { isThirdParty } from '../utils/import.js';
 import { hasFlag } from '../utils/member.js';
 import ts from 'typescript';

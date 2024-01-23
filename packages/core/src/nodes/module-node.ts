@@ -2,7 +2,7 @@ import { importFactory, declarationFactories, exportFactories } from '../factori
 import type { ReflectedNode, ReflectedRootNode } from '../reflected-node.js';
 import type { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ExportNode, ImportNode } from '../utils/is.js';
+import type { ExportNode, ImportNode } from '../utils/types.js';
 import type { DeclarationNode } from './declaration-node.js';
 import type { ProjectContext } from '../project-context.js';
 import type { Module } from '../models/module.js';

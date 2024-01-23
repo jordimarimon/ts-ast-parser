@@ -83,9 +83,6 @@ export * from './types/unknown-type-node.js';
 
 // SYSTEM
 export * from './system/analyser-system.js';
-export * from './system/compiler-host.js';
-export * from './system/create-command-line.js';
-export * from './system/create-system.js';
 export * from './system/in-memory-system.js';
 export * from './system/node-system.js';
 
@@ -93,7 +90,6 @@ export * from './system/node-system.js';
 export * from './analyser-diagnostic.js';
 export * from './analyser-options.js';
 export * from './analyser-result.js';
-export * from './default-compiler-options.js';
 export * from './project.js';
 export * from './project-context.js';
 export * from './reflected-node.js';

@@ -3,7 +3,7 @@ import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ReflectedTypeNode } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
-import type { SymbolWithLocation } from '../utils/is.js';
+import type { SymbolWithLocation } from '../utils/types.js';
 import { isThirdParty } from '../utils/import.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';

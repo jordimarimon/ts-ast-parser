@@ -1,5 +1,5 @@
 import type { ProjectContext } from '../project-context.js';
-import type { ClassLikeNode } from './is.js';
+import type { ClassLikeNode } from './types.js';
 import type ts from 'typescript';
 
 

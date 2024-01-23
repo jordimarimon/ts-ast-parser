@@ -26,7 +26,7 @@ export enum TypeKind {
     /**
      * A type literal. For example: `type foo = {a: number}`
      */
-    ObjectLiteral = 'ObjectLiteral',
+    TypeLiteral = 'TypeLiteral',
 
     /**
      * A conditional type. For example: `type foo<T> = T extends boolean ? 1 : 0`

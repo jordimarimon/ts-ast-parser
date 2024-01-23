@@ -40,55 +40,8 @@ import { ImportKind } from '../models/import.js';
 import { ExportKind } from '../models/export.js';
 import { RootNodeType } from '../models/node.js';
 import { TypeKind } from '../models/type.js';
-import type ts from 'typescript';
+import type { ExportNode, ImportNode } from './types.js';
 
-
-export type ImportNode = DefaultImportNode | NamedImportNode | NamespaceImportNode | SideEffectImportNode;
-
-export type ExportStatementNode = NamedExportNode | NamespaceExportNode | ReExportNode;
-
-export type ExportNode = ExportDeclarationNode | ExportAssignmentNode | ExportStatementNode;
-
-export type NodeWithFunctionDeclaration =
-    | ts.VariableStatement
-    | ts.FunctionDeclaration
-    | ts.MethodDeclaration
-    | ts.MethodSignature
-    | ts.PropertyDeclaration
-    | ts.PropertySignature;
-
-export type FunctionLikeNode =
-    | ts.FunctionDeclaration
-    | ts.ArrowFunction
-    | ts.MethodSignature
-    | ts.FunctionExpression
-    | ts.FunctionTypeNode
-    | ts.MethodDeclaration;
-
-export type PropertyLikeNode =
-    | ts.PropertyDeclaration
-    | ts.PropertySignature
-    | ts.GetAccessorDeclaration
-    | ts.SetAccessorDeclaration;
-
-export type ClassLikeNode = ts.ClassDeclaration | ts.ClassExpression;
-
-export type InterfaceOrClassDeclaration = ClassLikeNode | ts.InterfaceDeclaration;
-
-export type NamedNodeName = ts.Identifier | ts.PrivateIdentifier | ts.ComputedPropertyName;
-
-export interface SymbolWithLocation {
-    path: string;
-    line: number | null;
-    symbol: ts.Symbol | undefined | null;
-}
-
-export interface SymbolWithContext {
-    symbol: ts.Symbol | undefined | null;
-    type: ts.Type | undefined | null;
-    overrides?: boolean;
-    inherited?: boolean;
-}
 
 /**
  * A utility object that has a few type predicate
@@ -191,8 +144,8 @@ export const is = {
         return is.TypeNode(node) && node.getKind() === TypeKind.Intersection;
     },
 
-    LiteralTypeNode: (node: unknown): node is TypeLiteralNode => {
-        return is.TypeNode(node) && node.getKind() === TypeKind.ObjectLiteral;
+    TypeLiteralTypeNode: (node: unknown): node is TypeLiteralNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.TypeLiteral;
     },
 
     MappedTypeNode: (node: unknown): node is MappedTypeNode => {
@@ -207,7 +160,7 @@ export const is = {
         return is.TypeNode(node) && node.getKind() === TypeKind.Optional;
     },
 
-    PrimitiveTypeNode: (node: unknown): node is IntrinsicTypeNode => {
+    IntrinsicTypeNode: (node: unknown): node is IntrinsicTypeNode => {
         return is.TypeNode(node) && node.getKind() === TypeKind.Intrinsic;
     },
 

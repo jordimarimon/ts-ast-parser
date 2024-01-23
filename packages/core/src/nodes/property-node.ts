@@ -1,6 +1,6 @@
 import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } from '../utils/member.js';
 import { createType, createTypeFromDeclaration } from '../factories/create-type.js';
-import type { PropertyLikeNode, SymbolWithContext } from '../utils/is.js';
+import type { PropertyLikeNode, SymbolWithContext } from '../utils/types.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import type { Field, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';

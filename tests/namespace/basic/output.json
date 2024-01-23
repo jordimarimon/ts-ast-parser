@@ -10,7 +10,7 @@
                 "line": 2,
                 "value": {
                     "text": "{\n        bar: number;\n    }",
-                    "kind": "ObjectLiteral",
+                    "kind": "TypeLiteral",
                     "properties": [
                         {
                             "name": "bar",

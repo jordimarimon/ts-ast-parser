@@ -50,7 +50,7 @@
                 "line": 4,
                 "value": {
                     "text": "{ age: number; name: string; alive: boolean }",
-                    "kind": "ObjectLiteral",
+                    "kind": "TypeLiteral",
                     "properties": [
                         {
                             "name": "age",

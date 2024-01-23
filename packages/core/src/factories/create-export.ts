@@ -3,7 +3,7 @@ import { ExportAssignmentNode } from '../nodes/export-assignment-node.js';
 import { NamespaceExportNode } from '../nodes/namespace-export-node.js';
 import { NamedExportNode } from '../nodes/named-export-node.js';
 import type { ProjectContext } from '../project-context.js';
-import type { ExportStatementNode } from '../utils/is.js';
+import type { ExportStatementNode } from '../utils/types.js';
 import { ReExportNode } from '../nodes/re-export-node.js';
 import { hasExportKeyword } from '../utils/export.js';
 import type { NodeFactory } from './node-factory.js';

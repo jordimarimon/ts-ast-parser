@@ -10,7 +10,7 @@
                 "line": 1,
                 "value": {
                     "text": "{\n    fieldInType: T;\n}",
-                    "kind": "ObjectLiteral",
+                    "kind": "TypeLiteral",
                     "properties": [
                         {
                             "name": "fieldInType",

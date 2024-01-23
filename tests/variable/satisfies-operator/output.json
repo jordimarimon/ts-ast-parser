@@ -59,7 +59,7 @@
                 "line": 5,
                 "type": {
                     "text": "{ red: [number, number, number]; green: string; blue: [number, number, number]; }",
-                    "kind": "ObjectLiteral",
+                    "kind": "TypeLiteral",
                     "properties": [
                         {
                             "name": "red",

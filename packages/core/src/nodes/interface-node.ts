@@ -7,7 +7,7 @@ import type { ProjectContext } from '../project-context.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import type { DeclarationNode } from './declaration-node.js';
 import { getInstanceMembers } from '../utils/member.js';
-import type { SymbolWithContext } from '../utils/is.js';
+import type { SymbolWithContext } from '../utils/types.js';
 import { getNamespace } from '../utils/namespace.js';
 import type { Method } from '../models/member.js';
 import { PropertyNode } from './property-node.js';

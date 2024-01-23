@@ -10,7 +10,7 @@
                 "line": 1,
                 "value": {
                     "text": "{ names: readonly string[] }",
-                    "kind": "ObjectLiteral",
+                    "kind": "TypeLiteral",
                     "properties": [
                         {
                             "name": "names",
@@ -53,7 +53,7 @@
                                 "name": "K",
                                 "constraint": {
                                     "text": "{ [key: string]: number }",
-                                    "kind": "ObjectLiteral"
+                                    "kind": "TypeLiteral"
                                 }
                             }
                         ],

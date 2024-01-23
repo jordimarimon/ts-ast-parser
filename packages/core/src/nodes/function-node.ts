@@ -1,5 +1,5 @@
 import { getVisibilityModifier, isAbstract, isMember, isOptional, isReadOnly, isStatic } from '../utils/member.js';
-import type { FunctionLikeNode, NodeWithFunctionDeclaration, SymbolWithContext } from '../utils/is.js';
+import type { FunctionLikeNode, NodeWithFunctionDeclaration, SymbolWithContext } from '../utils/types.js';
 import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import type { FunctionDeclaration } from '../models/function.js';
 import { DeclarationKind } from '../models/declaration-kind.js';

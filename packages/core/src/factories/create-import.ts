@@ -6,7 +6,7 @@ import { NamedImportNode } from '../nodes/named-import-node.js';
 import type { ProjectContext } from '../project-context.js';
 import type { NodeFactory } from './node-factory.js';
 import type { Import } from '../models/import.js';
-import type { ImportNode } from '../utils/is.js';
+import type { ImportNode } from '../utils/types.js';
 import ts from 'typescript';
 
 
