@@ -56,3 +56,13 @@ export interface SymbolWithContext {
     overrides?: boolean;
     inherited?: boolean;
 }
+
+// This is not a complete definition of what a "package.json"
+// has, but rather only the properties that we need.
+export interface PackageJson {
+    [field: string]: unknown;
+    readonly main?: string;
+    readonly name?: string;
+    readonly types?: string;
+    readonly version?: string;
+}

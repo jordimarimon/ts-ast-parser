@@ -4,8 +4,8 @@ import { AnalyserDiagnostic } from './analyser-diagnostic.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import { CompilerHost } from './system/compiler-host.js';
 import { ProjectContext } from './project-context.js';
-import type { IPackageJson } from 'package-json-type';
 import { ModuleNode } from './nodes/module-node.js';
+import type { PackageJson } from './utils/types.js';
 import type { Module } from './models/module.js';
 import ts from 'typescript';
 
@@ -29,7 +29,7 @@ export class Project {
 
     private readonly _context: ProjectContext;
 
-    private readonly _packageJson: IPackageJson | null;
+    private readonly _packageJson: PackageJson | null;
 
     private readonly _diagnostics: AnalyserDiagnostic;
 
@@ -269,7 +269,7 @@ export class Project {
         return this._modules.map(m => m.serialize());
     }
 
-    private _getPackageJSON(): IPackageJson | null {
+    private _getPackageJSON(): PackageJson | null {
         const projectDir = this._options.tsConfigFilePath
             ? this._system.getDirectoryName(this._options.tsConfigFilePath)
             : this._system.getCurrentDirectory();
@@ -278,7 +278,7 @@ export class Project {
         const pkgJSON = this._system.fileExists(packageDir) ? this._system.readFile(packageDir) : null;
 
         try {
-            return pkgJSON != null ? (JSON.parse(pkgJSON) as IPackageJson) : null;
+            return pkgJSON != null ? (JSON.parse(pkgJSON) as PackageJson) : null;
         } catch (_) {
             return null;
         }

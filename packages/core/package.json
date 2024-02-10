@@ -40,7 +40,6 @@
     "dependencies": {
         "@ts-ast-parser/comment": "0.1.0",
         "globby": "^14.0.0",
-        "package-json-type": "^1.0.3",
         "tslib": "^2.6.2"
     },
     "peerDependencies": {
