@@ -26,7 +26,7 @@
         "skipLibCheck": true,
         "verbatimModuleSyntax": true,
         "isolatedModules": true,
-        "useDefineForClassFields": false,
+        "useDefineForClassFields": true,
         "target": "ES2020",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
