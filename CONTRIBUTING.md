@@ -11,7 +11,7 @@ Recommended resources to look at:
 
 ## Filing Issues
 
-Please search though open and closed issues to see if a similar issue already exists. If not, open an
+Please search through open and closed issues to see if a similar issue already exists. If not, open an
 issue and try to provide a minimal reproduction if you can.
 
 ## Pull Requests
