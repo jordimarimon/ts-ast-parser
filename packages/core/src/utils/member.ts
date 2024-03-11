@@ -5,6 +5,9 @@ import { isThirdParty } from './import.js';
 import ts from 'typescript';
 
 
+// TODO(Jordi M.): Create method that abstracts the call to "ts.canHaveModifier"
+//  as this method only exists in TS >= 4.8
+
 export function getVisibilityModifier(member: ts.ClassElement): ModifierType {
     const modifierFlags = ts.getCombinedModifierFlags(member);
 

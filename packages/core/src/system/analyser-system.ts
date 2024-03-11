@@ -23,9 +23,7 @@ export interface AnalyserSystem extends ts.System {
     getAbsolutePath(path: string): string;
 
     /**
-     * Returns the real location of the path.
-     *
-     * This is handy when resolving symlinks.
+     * Returns the real location of the path (resolves symlinks).
      */
     realpath(path: string): string;
 

@@ -1,4 +1,5 @@
 import ts from 'typescript';
+import type { AnalyserSystem } from './system/analyser-system.js';
 
 
 /**
@@ -25,14 +26,11 @@ export class AnalyserDiagnostic {
 
     private readonly _formatDiagnosticHost: ts.FormatDiagnosticsHost;
 
-    private readonly _cwd: string;
-
-    constructor(cwd: string) {
-        this._cwd = cwd;
+    constructor(system: AnalyserSystem) {
         this._formatDiagnosticHost = {
             getCanonicalFileName: (name: string) => name,
-            getCurrentDirectory: () => this._cwd,
-            getNewLine: () => '\n',
+            getCurrentDirectory: () => system.getCurrentDirectory(),
+            getNewLine: () => system.newLine,
         };
     }
 

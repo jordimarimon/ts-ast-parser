@@ -49,7 +49,7 @@ export class Project {
         this._program = program;
         this._commandLine = commandLine;
         this._options = options;
-        this._diagnostics = new AnalyserDiagnostic(system.getCurrentDirectory());
+        this._diagnostics = new AnalyserDiagnostic(system);
         this._packageJson = this._getPackageJSON();
         this._context = new ProjectContext(
             system,
@@ -191,7 +191,7 @@ export class Project {
      * @returns True if the source file has been already analysed, false otherwise
      */
     has(filePath: string): boolean {
-        const normalizedPath = this._context.getSystem().normalizePath(filePath);
+        const normalizedPath = this._system.normalizePath(filePath);
         return this._modules.some(m => m.getSourcePath() === normalizedPath);
     }
 
