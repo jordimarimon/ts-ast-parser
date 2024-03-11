@@ -39,10 +39,10 @@
     },
     "dependencies": {
         "@ts-ast-parser/comment": "0.1.0",
-        "globby": "^14.0.0",
+        "globby": "^14.0.1",
         "tslib": "^2.6.2"
     },
     "peerDependencies": {
-        "typescript": "^4.6.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x"
+        "typescript": "^4.6.x || 5.0.x || 5.1.x || 5.2.x || 5.3.x || 5.4.x"
     }
 }

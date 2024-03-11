@@ -1,5 +1,9 @@
 ## [next]
 
+### Features
+
+- Support for TypeScript `5.4`
+
 ### 🚨 Breaking Changes
 
 - The type `ObjectLiteral` has been renamed to `TypeLiteral`. The type `PrimitiveType` has been renamed

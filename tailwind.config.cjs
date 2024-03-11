@@ -24,8 +24,23 @@ module.exports = {
                 'Noto Sans',
                 'sans-serif',
             ],
-            serif: ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
-            mono: ['SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+            serif: [
+                'ui-serif',
+                'Georgia',
+                'Cambria',
+                'Times New Roman',
+                'Times',
+                'serif',
+            ],
+            mono: [
+                'SFMono-Regular',
+                'Menlo',
+                'Monaco',
+                'Consolas',
+                'Liberation Mono',
+                'Courier New',
+                'monospace',
+            ],
         },
 
         colors: {
