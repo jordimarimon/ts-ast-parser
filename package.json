@@ -32,7 +32,7 @@
         "ts:clear": "rm -rf ./packages/*/dist",
         "test": "vitest run --config vitest.config.ts",
         "test:update": "UPDATE_SNAPSHOTS=true vitest run --config vitest.config.ts",
-        "coverage": "vitest run --coverage --config vitest.config.ts",
+        "test:coverage": "vitest run --coverage --config vitest.config.ts",
         "prepare": "node scripts/prepare.js",
         "upgrade": "rm -rf node_modules package-lock.json && npm i",
         "bump": "npx ncu -u -x typescript",

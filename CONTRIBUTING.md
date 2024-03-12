@@ -42,7 +42,3 @@ To run all the tests:
 You can optionally specify the path (or part of it) from where to search and execute test files:
 
     npm run test -- <test-file-path>
-
-The following example will execute all tests related to functions:
-
-    npm run test -- function
