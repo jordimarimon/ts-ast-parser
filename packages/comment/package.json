@@ -1,6 +1,6 @@
 {
     "name": "@ts-ast-parser/comment",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "author": "Jordi Marimon Palarea",
     "description": "Parses documentation comments",
     "homepage": "https://jordimarimon.github.io/ts-ast-parser",

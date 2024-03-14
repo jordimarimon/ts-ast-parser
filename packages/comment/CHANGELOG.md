@@ -1,4 +1,4 @@
-## [Next]
+# 0.2.0 (2024-03-14)
 
 - Drop support for Node `16.x` and enable support for Node `21.x`
 
