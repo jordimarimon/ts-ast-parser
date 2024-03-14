@@ -3,11 +3,13 @@
 ### Features
 
 - Support for TypeScript `5.4`
+- Enable support for Node `21.x`
 
 ### 🚨 Breaking Changes
 
 - The type `ObjectLiteral` has been renamed to `TypeLiteral`. The type `PrimitiveType` has been renamed
-  to `IntrinsicType`.
+  to `IntrinsicType`. This has been done for consistency with the TypeScript compiler and the ecosystem 
+  (other tools that also work with the TypeScript compiler API).
 - Now the returning value of the parsing functions won't include
   the property `formattedDiagnostics`. Instead, the analyser in a future release will provide some
   type of logging that will be disabled by default and will have
