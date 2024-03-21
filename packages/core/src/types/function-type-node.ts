@@ -52,9 +52,9 @@ export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> 
     }
 
     getParameters(): ParameterNode[] {
-        return (this._node.parameters ?? []).map(p => {
+        return this._node.parameters.map(p => {
             const symbol = this._context.getSymbol(p);
-            const decl = symbol?.getDeclarations()?.find(d => ts.isParameter(d)) as ts.ParameterDeclaration | undefined;
+            const decl = symbol?.getDeclarations()?.find(ts.isParameter);
             return new ParameterNode(decl ?? p, symbol, this._context);
         });
     }

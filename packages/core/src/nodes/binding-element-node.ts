@@ -1,8 +1,8 @@
 import type { BindingElement } from '../models/binding-element.js';
 import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedNode } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
+import type { ReflectedNode } from '../reflected-node.js';
 import type ts from 'typescript';
 
 

@@ -56,6 +56,9 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
         const members = this._node.members ?? [];
         const result: PropertyNode[] = [];
 
+        // FIXME: Reflect all members, not only `PropertySignature`.
+        //  Check all nodes that extend `TypeElement` in the TypeScript source.
+
         for (const member of members) {
             if (!ts.isPropertySignature(member)) {
                 continue;

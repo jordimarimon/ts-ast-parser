@@ -58,9 +58,13 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
 
     getType(): ReflectedNode<Type> {
         const checker = this._context.getTypeChecker();
-        const type = this._symbol ? checker.getTypeOfSymbolAtLocation(this._symbol, this._node) : null;
+        const type = this._symbol
+            ? checker.getTypeOfSymbolAtLocation(this._symbol, this._node)
+            : null;
 
-        return type ? createType(type, this._context) : createTypeFromDeclaration(this._node, this._context);
+        return type
+            ? createType(type, this._context)
+            : createTypeFromDeclaration(this._node, this._context);
     }
 
     getDefault(): unknown {
@@ -76,10 +80,15 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
             return [];
         }
 
-        const bindings = (this._node.name as ts.ObjectBindingPattern).elements ?? [];
+        const name = this._node.name as ts.ObjectBindingPattern | ts.ArrayBindingPattern;
+        const bindings = name.elements ?? [];
         const result: BindingElementNode[] = [];
 
         for (const binding of bindings) {
+            if (ts.isOmittedExpression(binding)) {
+                continue;
+            }
+
             result.push(new BindingElementNode(binding, this._context));
         }
 
@@ -91,7 +100,8 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
     }
 
     isNamed(): boolean {
-        return ts.isObjectBindingPattern(this._node.name);
+        return ts.isObjectBindingPattern(this._node.name) ||
+            ts.isArrayBindingPattern(this._node.name);
     }
 
     isRest(): boolean {

@@ -181,7 +181,7 @@ export class ProjectContext {
     }
 
     private _isNamedNode(node: ts.Node): node is ts.Node & { name: NamedNodeName } {
-        const name: ts.Node | undefined = (node as unknown as { name: ts.Node | undefined }).name;
+        const name = (node as unknown as { name: ts.Node | undefined }).name;
         return !!name && (ts.isMemberName(name) || ts.isComputedPropertyName(name));
     }
 }
