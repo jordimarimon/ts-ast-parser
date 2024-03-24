@@ -1,22 +1,23 @@
 import type { BindingElement } from '../models/binding-element.js';
-import { resolveExpression } from '../utils/resolve-expression.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
 import type { ReflectedNode } from '../reflected-node.js';
-import type ts from 'typescript';
+import { ExpressionNode } from './expression-node.js';
+import ts from 'typescript';
 
 
 /**
  * Represents the reflected binding element node.
+ *
  * A binding element appears in the named parameters of a signature.
  */
-export class BindingElementNode implements ReflectedNode<BindingElement, ts.BindingElement> {
+export class BindingElementNode implements ReflectedNode<BindingElement, ts.BindingElement | ts.OmittedExpression> {
 
-    private readonly _node: ts.BindingElement;
+    private readonly _node: ts.BindingElement | ts.OmittedExpression;
 
     private readonly _context: ProjectContext;
 
-    constructor(node: ts.BindingElement, context: ProjectContext) {
+    constructor(node: ts.BindingElement | ts.OmittedExpression, context: ProjectContext) {
         this._node = node;
         this._context = context;
     }
@@ -26,7 +27,7 @@ export class BindingElementNode implements ReflectedNode<BindingElement, ts.Bind
      *
      * @returns The original TypeScript node
      */
-    getTSNode(): ts.BindingElement {
+    getTsNode(): ts.BindingElement | ts.OmittedExpression {
         return this._node;
     }
 
@@ -49,7 +50,9 @@ export class BindingElementNode implements ReflectedNode<BindingElement, ts.Bind
      * @returns The name of the binding element
      */
     getName(): string {
-        return this._node.name.getText() || '';
+        return ts.isOmittedExpression(this._node)
+            ? '_'
+            : this._node.name.getText();
     }
 
     /**
@@ -57,8 +60,14 @@ export class BindingElementNode implements ReflectedNode<BindingElement, ts.Bind
      *
      * @returns The default value, otherwise it will return `undefined`
      */
-    getDefault(): unknown {
-        return resolveExpression(this._node.initializer, this._context);
+    getDefault(): ExpressionNode | undefined {
+        if (ts.isOmittedExpression(this._node)) {
+            return undefined;
+        }
+
+        return this._node.initializer
+            ? new ExpressionNode(this._node.initializer, this._context)
+            : undefined;
     }
 
     /**
@@ -71,7 +80,7 @@ export class BindingElementNode implements ReflectedNode<BindingElement, ts.Bind
             name: this.getName(),
         };
 
-        tryAddProperty(tmpl, 'default', this.getDefault());
+        tryAddProperty(tmpl, 'default', this.getDefault()?.serialize());
 
         return tmpl;
     }

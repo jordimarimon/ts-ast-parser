@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
@@ -9,7 +9,7 @@ import ts from 'typescript';
  * Represents an intrinsic type. Intrinsic types are `number`,
  * `string`, `boolean`, `object`, `null`, etc...
  */
-export class IntrinsicTypeNode implements ReflectedTypeNode {
+export class IntrinsicTypeNode implements ReflectedType {
 
     private readonly _node: ts.TypeNode;
 
@@ -27,11 +27,11 @@ export class IntrinsicTypeNode implements ReflectedTypeNode {
         return this._context;
     }
 
-    getTSNode(): ts.TypeNode {
+    getTsNode(): ts.TypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -59,8 +59,10 @@ export class IntrinsicTypeNode implements ReflectedTypeNode {
                 return 'bigint';
             case ts.SyntaxKind.VoidKeyword:
                 return 'void';
+            case ts.SyntaxKind.AnyKeyword:
+                return 'any';
             default:
-                return this._context.getTypeChecker().typeToString(this._type) ?? '';
+                return 'unknown';
         }
     }
 

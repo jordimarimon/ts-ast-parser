@@ -1,5 +1,5 @@
 import { TypeParameterNode } from '../nodes/type-parameter-node.js';
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
 import { ParameterNode } from '../nodes/parameter-node.js';
@@ -13,7 +13,7 @@ import ts from 'typescript';
  * Represents the reflected function type
  * For example: `() => void`
  */
-export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> {
+export class FunctionTypeNode implements ReflectedType<ts.FunctionTypeNode> {
 
     private readonly _node: ts.FunctionTypeNode;
 
@@ -31,11 +31,11 @@ export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> 
         return this._context;
     }
 
-    getTSNode(): ts.FunctionTypeNode {
+    getTsNode(): ts.FunctionTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -59,7 +59,7 @@ export class FunctionTypeNode implements ReflectedTypeNode<ts.FunctionTypeNode> 
         });
     }
 
-    getReturnType(): ReflectedTypeNode {
+    getReturnType(): ReflectedType {
         return createType(this._node.type, this._context);
     }
 

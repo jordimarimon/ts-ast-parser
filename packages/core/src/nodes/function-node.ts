@@ -1,45 +1,69 @@
-import { getVisibilityModifier, isAbstract, isMember, isOptional, isReadOnly, isStatic } from '../utils/member.js';
-import type { FunctionLikeNode, NodeWithFunctionDeclaration, SymbolWithContext } from '../utils/types.js';
-import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
 import type { FunctionDeclaration } from '../models/function.js';
-import { DeclarationKind } from '../models/declaration-kind.js';
+import { DeclarationKind } from '../models/declaration.js';
 import type { Method, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
-import type { DeclarationNode } from './declaration-node.js';
-import { MemberKind } from '../models/member-kind.js';
+import { MemberKind } from '../models/member.js';
 import { getDecorators } from '../utils/decorator.js';
-import { getNamespace } from '../utils/namespace.js';
 import { getModifiers } from '../utils/modifiers.js';
 import { DecoratorNode } from './decorator-node.js';
 import { SignatureNode } from './signature-node.js';
-import { RootNodeType } from '../models/node.js';
 import { CommentNode } from './comment-node.js';
 import ts from 'typescript';
+import type { ReflectedNode } from '../reflected-node.js';
+import type { SymbolWithContext } from './class-or-interface-node.js';
 
+
+type NodeWithFunctionDeclaration =
+    | ts.VariableStatement
+    | ts.FunctionDeclaration
+    | ts.MethodDeclaration
+    | ts.MethodSignature
+    | ts.ConstructorDeclaration
+    | ts.ConstructSignatureDeclaration
+    | ts.PropertyDeclaration
+    | ts.PropertySignature;
+
+type FunctionLikeNode =
+    | ts.FunctionDeclaration
+    | ts.ArrowFunction
+    | ts.MethodSignature
+    | ts.ConstructorDeclaration
+    | ts.ConstructSignatureDeclaration
+    | ts.FunctionExpression
+    | ts.FunctionTypeNode
+    | ts.MethodDeclaration;
 
 /**
  * Represents the reflected node of a function declaration
  */
-export class FunctionNode implements DeclarationNode<FunctionDeclaration | Method, NodeWithFunctionDeclaration> {
+export class FunctionNode implements ReflectedNode<FunctionDeclaration | Method, NodeWithFunctionDeclaration> {
 
     private readonly _node: NodeWithFunctionDeclaration;
 
-    private readonly _member: SymbolWithContext | null;
+    private readonly _member: SymbolWithContext | null | undefined;
 
     private readonly _context: ProjectContext;
 
     private readonly _jsDoc: CommentNode | null = null;
 
-    constructor(node: NodeWithFunctionDeclaration, member: SymbolWithContext | null, context: ProjectContext) {
+    constructor(
+        node: NodeWithFunctionDeclaration,
+        context: ProjectContext,
+        member: SymbolWithContext | null | undefined,
+    ) {
         this._node = node;
         this._member = member;
         this._context = context;
 
         // Function/Method declarations have the JSDoc in the signature also.
         // We don't want to emit it twice in these cases.
-        if (ts.isVariableStatement(node) || ts.isPropertyDeclaration(node) || ts.isPropertySignature(node)) {
-            this._jsDoc = new CommentNode(node);
+        if (
+            ts.isVariableStatement(node) ||
+            ts.isPropertyDeclaration(node) ||
+            ts.isPropertySignature(node)
+        ) {
+            this._jsDoc = new CommentNode(node, context);
         }
     }
 
@@ -56,7 +80,9 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
         if (ts.isVariableStatement(this._node)) {
             const declaration = this._node.declarationList.declarations.find(decl => {
-                return isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer);
+                return !!decl.initializer &&
+                    (ts.isArrowFunction(decl.initializer) ||
+                        ts.isFunctionExpression(decl.initializer));
             });
 
             return declaration?.name.getText() ?? '';
@@ -65,28 +91,20 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         return '';
     }
 
-    getNodeType(): RootNodeType {
-        return RootNodeType.Declaration;
-    }
-
     getContext(): ProjectContext {
         return this._context;
     }
 
     getKind(): MemberKind.Method | DeclarationKind.Function {
-        return isMember(this._node) ? MemberKind.Method : DeclarationKind.Function;
+        return this._isMember(this._node) ? MemberKind.Method : DeclarationKind.Function;
     }
 
-    getTSNode(): NodeWithFunctionDeclaration {
+    getTsNode(): NodeWithFunctionDeclaration {
         return this._node;
     }
 
     getLine(): number | null {
         return this._context.getLocation(this._node).line;
-    }
-
-    getNamespace(): string {
-        return getNamespace(this._node);
     }
 
     getJSDoc(): CommentNode | null {
@@ -182,7 +200,9 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         }
 
         return this._node.declarationList.declarations.some(decl => {
-            return isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer);
+            return !!decl.initializer &&
+                (ts.isArrowFunction(decl.initializer) ||
+                    ts.isFunctionExpression(decl.initializer));
         });
     }
 
@@ -202,7 +222,6 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
             signatures: this.getSignatures().map(signature => signature.serialize()),
         };
 
-        tryAddProperty(tmpl, 'namespace', this.getNamespace());
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc()?.serialize());
         tryAddProperty(tmpl, 'decorators', this.getDecorators().map(d => d.serialize()));
         tryAddProperty(tmpl, 'async', this.isAsync());
@@ -223,7 +242,9 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
 
         if (ts.isVariableStatement(this._node)) {
             const declaration = this._node.declarationList.declarations.find(decl => {
-                return isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer);
+                return !!decl.initializer &&
+                    (ts.isArrowFunction(decl.initializer) ||
+                        ts.isFunctionExpression(decl.initializer));
             });
 
             func = declaration?.initializer;
@@ -252,5 +273,14 @@ export class FunctionNode implements DeclarationNode<FunctionDeclaration | Metho
         }
 
         return func;
+    }
+
+    private _isMember(node: ts.Node): node is ts.Declaration {
+        return (
+            ts.isMethodSignature(node) ||
+            ts.isPropertySignature(node) ||
+            ts.isPropertyDeclaration(node) ||
+            ts.isMethodDeclaration(node)
+        );
     }
 }

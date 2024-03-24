@@ -1,4 +1,4 @@
-import type { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration.js';
 import type { SourceReference } from './reference.js';
 import type { Type } from './type.js';
 

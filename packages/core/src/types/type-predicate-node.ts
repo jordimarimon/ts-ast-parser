@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type { Type } from '../models/type.js';
@@ -10,7 +10,7 @@ import ts from 'typescript';
  * Represents a type predicate.
  * For example: `function isString(x: unknown): x is string {}`
  */
-export class TypePredicateNode implements ReflectedTypeNode<ts.TypePredicateNode> {
+export class TypePredicateNode implements ReflectedType<ts.TypePredicateNode> {
 
     private readonly _node: ts.TypePredicateNode;
 
@@ -28,11 +28,11 @@ export class TypePredicateNode implements ReflectedTypeNode<ts.TypePredicateNode
         return this._context;
     }
 
-    getTSNode(): ts.TypePredicateNode {
+    getTsNode(): ts.TypePredicateNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -52,7 +52,7 @@ export class TypePredicateNode implements ReflectedTypeNode<ts.TypePredicateNode
         return out.join(' ');
     }
 
-    getTargetType(): ReflectedTypeNode | null {
+    getTargetType(): ReflectedType | null {
         if (!this._node.type) {
             return null;
         }

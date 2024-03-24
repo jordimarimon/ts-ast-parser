@@ -1,13 +1,9 @@
-import { getVisibilityModifier, isAbstract, isOptional, isReadOnly, isStatic } from '../utils/member.js';
 import { createType, createTypeFromDeclaration } from '../factories/create-type.js';
-import type { PropertyLikeNode, SymbolWithContext } from '../utils/types.js';
-import { resolveExpression } from '../utils/resolve-expression.js';
 import type { Field, ModifierType } from '../models/member.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
-import { getReturnStatement } from '../utils/function.js';
 import type { ReflectedNode } from '../reflected-node.js';
-import { MemberKind } from '../models/member-kind.js';
+import { MemberKind } from '../models/member.js';
 import { getDecorators } from '../utils/decorator.js';
 import { DecoratorNode } from './decorator-node.js';
 import { CommentNode } from './comment-node.js';
@@ -66,7 +62,7 @@ export class PropertyNode implements ReflectedNode<Field, PropertyLikeNode> {
         return MemberKind.Property;
     }
 
-    getTSNode(): PropertyLikeNode {
+    getTsNode(): PropertyLikeNode {
         return this._node;
     }
 

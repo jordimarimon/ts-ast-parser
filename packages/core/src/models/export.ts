@@ -25,7 +25,7 @@ export enum ExportKind {
     /**
      * Case of `export = Foo`
      */
-    Equals = 'Equals',
+    Assignment = 'Assignment',
 }
 
 /**

@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import type { SourceReference } from '../models/reference.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
@@ -14,7 +14,7 @@ import ts from 'typescript';
  * Represents the reflected indexed access type.
  * For example: `T['name']`
  */
-export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccessTypeNode> {
+export class IndexedAccessTypeNode implements ReflectedType<ts.IndexedAccessTypeNode> {
 
     private readonly _node: ts.IndexedAccessTypeNode;
 
@@ -38,11 +38,11 @@ export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccess
         return this._context;
     }
 
-    getTSNode(): ts.IndexedAccessTypeNode {
+    getTsNode(): ts.IndexedAccessTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -62,11 +62,11 @@ export class IndexedAccessTypeNode implements ReflectedTypeNode<ts.IndexedAccess
         return this._loc?.line ?? null;
     }
 
-    getObjectType(): ReflectedTypeNode {
+    getObjectType(): ReflectedType {
         return createType(this._node.objectType, this._context);
     }
 
-    getIndexType(): ReflectedTypeNode {
+    getIndexType(): ReflectedType {
         return createType(this._node.indexType, this._context);
     }
 

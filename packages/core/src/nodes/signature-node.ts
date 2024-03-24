@@ -24,14 +24,14 @@ export class SignatureNode implements ReflectedNode<FunctionSignature, ts.Signat
     constructor(node: ts.Signature, context: ProjectContext) {
         this._node = node;
         this._context = context;
-        this._jsDoc = new CommentNode(this._node.getDeclaration());
+        this._jsDoc = new CommentNode(this._node.getDeclaration(), context);
     }
 
     getContext(): ProjectContext {
         return this._context;
     }
 
-    getTSNode(): ts.Signature {
+    getTsNode(): ts.Signature {
         return this._node;
     }
 

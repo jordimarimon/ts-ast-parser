@@ -1,10 +1,17 @@
-import type { NamedNodeName, SymbolWithLocation } from './utils/types.js';
 import type { AnalyserDiagnostic } from './analyser-diagnostic.js';
 import type { AnalyserSystem } from './system/analyser-system.js';
 import type { AnalyserOptions } from './analyser-options.js';
 import type { ReflectedNode } from './reflected-node.js';
 import ts from 'typescript';
 
+
+type NamedNodeName = ts.Identifier | ts.PrivateIdentifier | ts.ComputedPropertyName;
+
+export interface SymbolWithLocation {
+    path: string;
+    line: number | null;
+    symbol: ts.Symbol | undefined | null;
+}
 
 /**
  * A class that shares common utilities between all reflected nodes

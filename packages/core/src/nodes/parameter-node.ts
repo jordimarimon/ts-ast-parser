@@ -44,7 +44,7 @@ export class ParameterNode implements ReflectedNode<Parameter, ts.ParameterDecla
         return this._node.name.getText() ?? '';
     }
 
-    getTSNode(): ts.ParameterDeclaration {
+    getTsNode(): ts.ParameterDeclaration {
         return this._node;
     }
 

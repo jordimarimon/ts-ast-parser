@@ -71,7 +71,7 @@ export class EnumMemberNode implements ReflectedNode<EnumMember, ts.EnumMember> 
      *
      * @returns The TypeScript AST node related to this reflected node
      */
-    getTSNode(): ts.EnumMember {
+    getTsNode(): ts.EnumMember {
         return this._node;
     }
 

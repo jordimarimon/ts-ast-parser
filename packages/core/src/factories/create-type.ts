@@ -1,3 +1,8 @@
+import type { ReflectedType } from '../reflected-node.js';
+import type { ProjectContext } from '../project-context.js';
+import { assert } from '../analyser-diagnostic.js';
+import ts from 'typescript';
+
 import { TemplateLiteralTypeNode } from '../types/template-literal-type-node.js';
 import { IndexedAccessTypeNode } from '../types/indexed-access-type-node.js';
 import { NamedTupleMemberNode } from '../types/named-tuple-member-node.js';
@@ -10,23 +15,20 @@ import { TypeOperatorNode } from '../types/type-operator-node.js';
 import { FunctionTypeNode } from '../types/function-type-node.js';
 import { OptionalTypeNode } from '../types/optional-type-node.js';
 import { TypeLiteralNode } from '../types/type-literal-node.js';
-import { UnknownTypeNode } from '../types/unknown-type-node.js';
 import { LiteralTypeNode } from '../types/literal-type-node.js';
 import { MappedTypeNode } from '../types/mapped-type-node.js';
-import type { ReflectedTypeNode } from '../reflected-node.js';
-import type { ProjectContext } from '../project-context.js';
 import { TypeQueryNode } from '../types/type-query-node.js';
 import { InferTypeNode } from '../types/infer-type-node.js';
 import { UnionTypeNode } from '../types/union-type-node.js';
 import { ArrayTypeNode } from '../types/array-type-node.js';
 import { TupleTypeNode } from '../types/tuple-type-node.js';
 import { RestTypeNode } from '../types/rest-type-node.js';
-import ts from 'typescript';
+import { ParenthesizedTypeNode } from '../types/parenthesized-type-node.js';
 
 
-type ReflectorTypeFactory = (node: ts.TypeNode, type: ts.Type, context: ProjectContext) => ReflectedTypeNode;
+type ReflectorTypeFactory = (node: ts.TypeNode, type: ts.Type, context: ProjectContext) => ReflectedType;
 
-const typeReflectors: { [key in ts.SyntaxKind]?: ReflectorTypeFactory } = {
+const types: { [key in ts.SyntaxKind]?: ReflectorTypeFactory } = {
     // case of: {a: number}
     [ts.SyntaxKind.TypeLiteral]: (node: ts.TypeNode, type: ts.Type, context: ProjectContext) => {
         return new TypeLiteralNode(node as ts.TypeLiteralNode, type, context);
@@ -128,6 +130,11 @@ const typeReflectors: { [key in ts.SyntaxKind]?: ReflectorTypeFactory } = {
         return new TemplateLiteralTypeNode(node as ts.TemplateLiteralTypeNode, type, context);
     },
 
+    // case of: type foo = (number|number[])
+    [ts.SyntaxKind.ParenthesizedType]: (node: ts.TypeNode, type: ts.Type, context: ProjectContext) => {
+        return new ParenthesizedTypeNode(node as ts.ParenthesizedTypeNode, type, context);
+    },
+
     // Represents an intrinsic type like `string` or `boolean`.
     [ts.SyntaxKind.AnyKeyword]: (node: ts.TypeNode, type: ts.Type, context: ProjectContext) => {
         return new IntrinsicTypeNode(node, type, context);
@@ -159,62 +166,53 @@ const typeReflectors: { [key in ts.SyntaxKind]?: ReflectorTypeFactory } = {
     [ts.SyntaxKind.VoidKeyword]: (node: ts.TypeNode, type: ts.Type, context: ProjectContext) => {
         return new IntrinsicTypeNode(node, type, context);
     },
-
     [ts.SyntaxKind.UnknownKeyword]: (node: ts.TypeNode, type: ts.Type, context: ProjectContext) => {
-        return new UnknownTypeNode(node, type, context);
+        return new IntrinsicTypeNode(node, type, context);
     },
 };
 
-export function createType(nodeOrType: ts.TypeNode | ts.Type, context: ProjectContext): ReflectedTypeNode {
+export function createType(node: ts.TypeNode, context: ProjectContext): ReflectedType {
     const checker = context.getTypeChecker();
+    const diagnostic = context.getDiagnostics();
+    const type = checker.getTypeFromTypeNode(node);
+    const factory = types[node.kind];
+    const message = `Type not supported: "${ts.SyntaxKind[node.kind]}"`;
+    const error = diagnostic.format(diagnostic.create(node, message));
 
-    let node: ts.TypeNode | null;
-    let type: ts.Type;
-    if ('kind' in nodeOrType) {
-        node = nodeOrType;
-        type = checker.getTypeFromTypeNode(nodeOrType);
-    } else {
-        node = checker.typeToTypeNode(nodeOrType, void 0, ts.NodeBuilderFlags.IgnoreErrors) ?? null;
-        type = nodeOrType;
+    assert(factory !== undefined, error);
 
-        if (!node) {
-            return new UnknownTypeNode(null, nodeOrType, context);
-        }
-    }
-
-    // We remove the parenthesis from the type as they don't have any value for the user
-    // case of: (number|number[])
-    if (ts.isParenthesizedTypeNode(node)) {
-        node = node.type;
-        type = checker.getTypeFromTypeNode(node);
-    }
-
-    const factory = typeReflectors[node.kind];
-    if (factory) {
-        return factory(node, type, context);
-    }
-
-    return new UnknownTypeNode(node, type, context);
+    return factory(node, type, context);
 }
 
-export function createTypeFromDeclaration(node: ts.Node, context: ProjectContext): ReflectedTypeNode {
+export function createTypeFromDeclaration(node: ts.Node, context: ProjectContext): ReflectedType {
     const checker = context.getTypeChecker();
+    const diagnostic = context.getDiagnostics();
     const jsDocType = ts.getJSDocType(node);
 
     if (jsDocType) {
         return createType(jsDocType, context);
     }
 
+    // Generalize the type of declarations if it's not
+    // an assertion like "const x = [4, 5] as const"
     let type = checker.getTypeAtLocation(node);
-
-    // Don't generalize the type of declarations like "const x = [4, 5] as const"
     if (!isTypeAssertion(node)) {
         // Don't use the inferred literal types.
         // For example "const x = 4" gives "x: 4" instead of "x: number"
         type = checker.getBaseTypeOfLiteralType(type);
     }
 
-    return createType(type, context);
+    const message = `Unable to reflect type from declaration: "${ts.SyntaxKind[node.kind]}"`;
+    const error = diagnostic.format(diagnostic.create(node, message));
+    const typeNode = checker.typeToTypeNode(type, undefined, ts.NodeBuilderFlags.IgnoreErrors);
+
+    assert(typeNode !== undefined, error);
+
+    const factory = types[typeNode.kind];
+
+    assert(factory !== undefined, error);
+
+    return factory(typeNode, type, context);
 }
 
 /**

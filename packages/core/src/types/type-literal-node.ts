@@ -1,5 +1,5 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { PropertyNode } from '../nodes/property-node.js';
 import { FunctionNode } from '../nodes/function-node.js';
@@ -13,7 +13,7 @@ import ts from 'typescript';
  * Represents a type literal.
  * For example: `type foo = {a: number}`
  */
-export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
+export class TypeLiteralNode implements ReflectedType<ts.TypeLiteralNode> {
 
     private readonly _node: ts.TypeLiteralNode;
 
@@ -31,11 +31,11 @@ export class TypeLiteralNode implements ReflectedTypeNode<ts.TypeLiteralNode> {
         return this._context;
     }
 
-    getTSNode(): ts.TypeLiteralNode {
+    getTsNode(): ts.TypeLiteralNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 

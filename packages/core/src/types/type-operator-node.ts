@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type { Type } from '../models/type.js';
@@ -10,7 +10,7 @@ import type ts from 'typescript';
  * Represents a type operator.
  * For example: `type foo = readonly string[]`
  */
-export class TypeOperatorNode implements ReflectedTypeNode<ts.TypeOperatorNode> {
+export class TypeOperatorNode implements ReflectedType<ts.TypeOperatorNode> {
 
     private readonly _node: ts.TypeOperatorNode;
 
@@ -28,11 +28,11 @@ export class TypeOperatorNode implements ReflectedTypeNode<ts.TypeOperatorNode> 
         return this._context;
     }
 
-    getTSNode(): ts.TypeOperatorNode {
+    getTsNode(): ts.TypeOperatorNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -48,7 +48,7 @@ export class TypeOperatorNode implements ReflectedTypeNode<ts.TypeOperatorNode> 
         }
     }
 
-    getElementType(): ReflectedTypeNode {
+    getElementType(): ReflectedType {
         return createType(this._node.type, this._context);
     }
 

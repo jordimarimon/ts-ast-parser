@@ -1,8 +1,8 @@
 import type { ExpressionWithTypeArguments } from './expression-with-type-arguments.js';
-import type { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration.js';
 import type { CommentPart } from '@ts-ast-parser/comment';
 import type { TypeParameter } from './type-parameter.js';
-import type { MemberKind } from './member-kind.js';
+import type { MemberKind } from './member.js';
 import type { PropertyLike } from './property.js';
 import type { Field, Method } from './member.js';
 import type { Type } from './type.js';
@@ -75,9 +75,4 @@ export interface InterfaceDeclaration {
      * The heritage chain
      */
     heritage?: readonly ExpressionWithTypeArguments[];
-
-    /**
-     * The namespace name where the interface is defined
-     */
-    namespace?: string;
 }

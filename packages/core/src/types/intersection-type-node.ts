@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type { Type } from '../models/type.js';
@@ -10,7 +10,7 @@ import type ts from 'typescript';
  * Represents the reflected intersection type.
  * For example: `type foo = string & number`
  */
-export class IntersectionTypeNode implements ReflectedTypeNode<ts.IntersectionTypeNode> {
+export class IntersectionTypeNode implements ReflectedType<ts.IntersectionTypeNode> {
 
     private readonly _node: ts.IntersectionTypeNode;
 
@@ -28,11 +28,11 @@ export class IntersectionTypeNode implements ReflectedTypeNode<ts.IntersectionTy
         return this._context;
     }
 
-    getTSNode(): ts.IntersectionTypeNode {
+    getTsNode(): ts.IntersectionTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -48,7 +48,7 @@ export class IntersectionTypeNode implements ReflectedTypeNode<ts.IntersectionTy
         }
     }
 
-    getElements(): ReflectedTypeNode[] {
+    getElements(): ReflectedType[] {
         return this._node.types.map(typeNode => createType(typeNode, this._context));
     }
 

@@ -1,5 +1,5 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { SourceReference } from '../models/reference.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
@@ -14,7 +14,7 @@ import type ts from 'typescript';
  * Represents a type query.
  * For example: `type foo = typeof Foo` where `Foo` could be a class declaration.
  */
-export class TypeQueryNode implements ReflectedTypeNode<ts.TypeQueryNode> {
+export class TypeQueryNode implements ReflectedType<ts.TypeQueryNode> {
 
     private readonly _node: ts.TypeQueryNode;
 
@@ -35,11 +35,11 @@ export class TypeQueryNode implements ReflectedTypeNode<ts.TypeQueryNode> {
         return this._context;
     }
 
-    getTSNode(): ts.TypeQueryNode {
+    getTsNode(): ts.TypeQueryNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -59,7 +59,7 @@ export class TypeQueryNode implements ReflectedTypeNode<ts.TypeQueryNode> {
         return this._context.getTypeChecker().typeToString(this._type);
     }
 
-    getTypeArguments(): ReflectedTypeNode[] {
+    getTypeArguments(): ReflectedType[] {
         return (this._node.typeArguments ?? []).map(t => createType(t, this._context));
     }
 

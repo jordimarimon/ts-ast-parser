@@ -1,4 +1,4 @@
-import type { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration.js';
 import type { CommentPart } from '@ts-ast-parser/comment';
 import type { TypeParameter } from './type-parameter.js';
 import type { Parameter } from './parameter.js';
@@ -55,11 +55,6 @@ export interface FunctionLike {
      * An array of function signatures
      */
     signatures: readonly FunctionSignature[];
-
-    /**
-     * The namespace where the function is defined
-     */
-    namespace?: string;
 
     /**
      * Whether the function is async or not

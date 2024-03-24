@@ -5,10 +5,19 @@ import type { AnalyserOptions } from './analyser-options.js';
 import { CompilerHost } from './system/compiler-host.js';
 import { ProjectContext } from './project-context.js';
 import { ModuleNode } from './nodes/module-node.js';
-import type { PackageJson } from './utils/types.js';
 import type { Module } from './models/module.js';
 import ts from 'typescript';
 
+
+// This is not a complete definition of what a "package.json"
+// has, but rather only the properties that we need.
+export interface PackageJson {
+    [field: string]: unknown;
+    readonly main?: string;
+    readonly name?: string;
+    readonly types?: string;
+    readonly version?: string;
+}
 
 /**
  * Represents a collection of modules
@@ -68,7 +77,8 @@ export class Project {
             const sourceFile = program.getSourceFile(fileName);
 
             if (!sourceFile) {
-                this._diagnostics.addOne(sourceFile, `Unable to analyse file "${fileName}".`);
+                const error = `Unable to analyse file "${fileName}".`;
+                this._diagnostics.addOne(sourceFile, error);
                 continue;
             }
 

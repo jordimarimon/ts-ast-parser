@@ -1,6 +1,6 @@
 import type { SourceReference } from '../models/reference.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type { SymbolWithLocation } from '../utils/types.js';
@@ -14,7 +14,7 @@ import ts from 'typescript';
  * Represents a type reference. It's basically a type that references another one.
  * For example: `type foo = HTMLElement`
  */
-export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode> {
+export class TypeReferenceNode implements ReflectedType<ts.TypeReferenceNode> {
 
     private readonly _node: ts.TypeReferenceNode;
 
@@ -35,11 +35,11 @@ export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode
         return this._context;
     }
 
-    getTSNode(): ts.TypeReferenceNode {
+    getTsNode(): ts.TypeReferenceNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -69,7 +69,7 @@ export class TypeReferenceNode implements ReflectedTypeNode<ts.TypeReferenceNode
         return this._loc.line;
     }
 
-    getTypeArguments(): ReflectedTypeNode[] {
+    getTypeArguments(): ReflectedType[] {
         return (this._node.typeArguments ?? []).map(t => createType(t, this._context));
     }
 

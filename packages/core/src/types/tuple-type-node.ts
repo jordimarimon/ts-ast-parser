@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type { Type } from '../models/type.js';
@@ -10,7 +10,7 @@ import type ts from 'typescript';
  * Represents a tuple type.
  * For example: `type foo = [number, number]`
  */
-export class TupleTypeNode implements ReflectedTypeNode<ts.TupleTypeNode> {
+export class TupleTypeNode implements ReflectedType<ts.TupleTypeNode> {
 
     private readonly _node: ts.TupleTypeNode;
 
@@ -28,11 +28,11 @@ export class TupleTypeNode implements ReflectedTypeNode<ts.TupleTypeNode> {
         return this._context;
     }
 
-    getTSNode(): ts.TupleTypeNode {
+    getTsNode(): ts.TupleTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -46,7 +46,7 @@ export class TupleTypeNode implements ReflectedTypeNode<ts.TupleTypeNode> {
             .join(', ')}]`;
     }
 
-    getElements(): ReflectedTypeNode[] {
+    getElements(): ReflectedType[] {
         return this._node.elements.map(t => createType(t, this._context));
     }
 

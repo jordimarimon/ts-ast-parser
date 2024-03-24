@@ -4,7 +4,7 @@ import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import type { DeclarationNode } from './declaration-node.js';
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import { createType } from '../factories/create-type.js';
 import { getNamespace } from '../utils/namespace.js';
 import { RootNodeType } from '../models/node.js';
@@ -61,7 +61,7 @@ export class TypeAliasNode implements DeclarationNode<TypeAliasDeclaration, ts.T
         return this._jsDoc;
     }
 
-    getValue(): ReflectedTypeNode {
+    getValue(): ReflectedType {
         return createType(this._node.type, this._context);
     }
 

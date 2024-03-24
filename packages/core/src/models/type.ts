@@ -79,6 +79,11 @@ export enum TypeKind {
     Function = 'Function',
 
     /**
+     * A parenthesized type. For example: `type foo = (number|number[])`
+     */
+    Parenthesized = 'Parenthesized',
+
+    /**
      * A query type. For example: `type foo = typeof Bar`
      */
     Query = 'Query',
@@ -181,6 +186,11 @@ export interface Type {
      * The constraint in an infer type node
      */
     constraint?: Type;
+
+    /**
+     * The type inside a parenthesized type.
+     */
+    type?: Type;
 }
 
 /**

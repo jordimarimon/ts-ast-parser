@@ -1,18 +1,15 @@
+import { ClassOrInterfaceNode, type SymbolWithContext } from './class-or-interface-node.js';
 import { ExpressionWithTypeArgumentsNode } from './expression-with-type-arguments-node.js';
 import type { InterfaceDeclaration } from '../models/interface.js';
-import { DeclarationKind } from '../models/declaration-kind.js';
 import { IndexSignatureNode } from './index-signature-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
 import { TypeParameterNode } from './type-parameter-node.js';
-import type { DeclarationNode } from './declaration-node.js';
-import { getInstanceMembers } from '../utils/member.js';
-import type { SymbolWithContext } from '../utils/types.js';
-import { getNamespace } from '../utils/namespace.js';
+import type { ReflectedNode } from '../reflected-node.js';
+import { DeclarationKind } from '../models/declaration.js';
 import type { Method } from '../models/member.js';
 import { PropertyNode } from './property-node.js';
 import { FunctionNode } from './function-node.js';
-import { RootNodeType } from '../models/node.js';
 import { CommentNode } from './comment-node.js';
 import ts from 'typescript';
 
@@ -20,7 +17,7 @@ import ts from 'typescript';
 /**
  * Represents the reflected node of an interface declaration
  */
-export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.InterfaceDeclaration> {
+export class InterfaceNode extends ClassOrInterfaceNode implements ReflectedNode<InterfaceDeclaration, ts.InterfaceDeclaration> {
 
     private readonly _node: ts.InterfaceDeclaration;
 
@@ -33,10 +30,12 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
     private readonly _heritage: ExpressionWithTypeArgumentsNode[] = [];
 
     constructor(node: ts.InterfaceDeclaration, context: ProjectContext) {
+        super();
+
         this._node = node;
         this._context = context;
-        this._members = getInstanceMembers(this._node, this._context);
-        this._jsDoc = new CommentNode(this._node);
+        this._members = this._getInstanceMembers(this._node, this._context);
+        this._jsDoc = new CommentNode(node, context);
         this._heritage = (this._node.heritageClauses ?? []).flatMap(h => {
             return h.types.map(t => new ExpressionWithTypeArgumentsNode(t, this._context));
         });
@@ -44,10 +43,6 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
 
     getName(): string {
         return this._node.name.getText() ?? '';
-    }
-
-    getNodeType(): RootNodeType {
-        return RootNodeType.Declaration;
     }
 
     getKind(): DeclarationKind.Interface {
@@ -58,7 +53,7 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         return this._context;
     }
 
-    getTSNode(): ts.InterfaceDeclaration {
+    getTsNode(): ts.InterfaceDeclaration {
         return this._node;
     }
 
@@ -152,10 +147,6 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         return (this._node.typeParameters ?? []).map(tp => new TypeParameterNode(tp, this._context));
     }
 
-    getNamespace(): string {
-        return getNamespace(this._node);
-    }
-
     getJSDoc(): CommentNode {
         return this._jsDoc;
     }
@@ -179,7 +170,6 @@ export class InterfaceNode implements DeclarationNode<InterfaceDeclaration, ts.I
         tryAddProperty(tmpl, 'heritage', this.getHeritage().map(h => h.serialize()));
         tryAddProperty(tmpl, 'typeParameters', this.getTypeParameters().map(tp => tp.serialize()));
         tryAddProperty(tmpl, 'jsDoc', this.getJSDoc().serialize());
-        tryAddProperty(tmpl, 'namespace', this.getNamespace());
         tryAddProperty(tmpl, 'indexSignature', this.getIndexSignature()?.serialize());
         tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
         tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize()) as Method[]);

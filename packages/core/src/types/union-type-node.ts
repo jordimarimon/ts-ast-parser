@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type { Type } from '../models/type.js';
@@ -10,7 +10,7 @@ import type ts from 'typescript';
  * Represents a union type.
  * For example: `type foo = string | number`
  */
-export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
+export class UnionTypeNode implements ReflectedType<ts.UnionTypeNode> {
 
     private readonly _node: ts.UnionTypeNode;
 
@@ -28,11 +28,11 @@ export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
         return this._context;
     }
 
-    getTSNode(): ts.UnionTypeNode {
+    getTsNode(): ts.UnionTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -48,7 +48,7 @@ export class UnionTypeNode implements ReflectedTypeNode<ts.UnionTypeNode> {
         }
     }
 
-    getElements(): ReflectedTypeNode[] {
+    getElements(): ReflectedType[] {
         return this._node.types.map(typeNode => createType(typeNode, this._context));
     }
 

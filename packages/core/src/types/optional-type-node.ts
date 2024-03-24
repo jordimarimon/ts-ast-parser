@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type { Type } from '../models/type.js';
@@ -10,7 +10,7 @@ import type ts from 'typescript';
  * Represents an optional type.
  * For example: `type foo = [1, 2?]`
  */
-export class OptionalTypeNode implements ReflectedTypeNode<ts.OptionalTypeNode> {
+export class OptionalTypeNode implements ReflectedType<ts.OptionalTypeNode> {
 
     private readonly _node: ts.OptionalTypeNode;
 
@@ -28,11 +28,11 @@ export class OptionalTypeNode implements ReflectedTypeNode<ts.OptionalTypeNode> 
         return this._context;
     }
 
-    getTSNode(): ts.OptionalTypeNode {
+    getTsNode(): ts.OptionalTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -44,7 +44,7 @@ export class OptionalTypeNode implements ReflectedTypeNode<ts.OptionalTypeNode> 
         return `${this.getElementType().getText()}?`;
     }
 
-    getElementType(): ReflectedTypeNode {
+    getElementType(): ReflectedType {
         return createType(this._node.type, this._context);
     }
 

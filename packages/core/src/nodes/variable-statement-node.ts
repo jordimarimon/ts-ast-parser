@@ -18,7 +18,7 @@ import type ts from 'typescript';
 /**
  * Represents the reflected node of a variable declaration
  */
-export class VariableNode implements DeclarationNode<VariableDeclaration, ts.VariableDeclaration> {
+export class VariableStatementNode implements DeclarationNode<VariableDeclaration, ts.VariableDeclaration> {
 
     private readonly _node: ts.VariableStatement;
 

@@ -1,4 +1,5 @@
 import { type CommentPart, parse, type ParserResult } from '@ts-ast-parser/comment';
+import type { ProjectContext } from '../project-context.js';
 import ts from 'typescript';
 
 
@@ -12,7 +13,10 @@ export class CommentNode {
 
     private _parts: CommentPart[] = [];
 
-    constructor(node: ts.Node) {
+    private readonly _context: ProjectContext;
+
+    constructor(node: ts.Node, context: ProjectContext) {
+        this._context = context;
         this._parseComments(node);
     }
 
@@ -71,6 +75,7 @@ export class CommentNode {
     }
 
     private _parseComments(node: ts.Node): void {
+        const diagnostic = this._context.getDiagnostics();
         const isSourceFile = ts.isSourceFile(node);
 
         let sourceCode: string | undefined;
@@ -115,7 +120,7 @@ export class CommentNode {
             try {
                 parserResult = parse(comment);
             } catch (_) {
-                // TODO(Jordi M.): Handle the error accordingly
+                diagnostic.addOne(node, 'There has been an error while parsing JSDoc');
             }
 
             if (!parserResult || parserResult.error) {

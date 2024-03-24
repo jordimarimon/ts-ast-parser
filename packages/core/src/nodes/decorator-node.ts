@@ -44,7 +44,7 @@ export class DecoratorNode implements ReflectedNode<Decorator, ts.Decorator> {
      *
      * @returns The TypeScript AST node related to this reflected node
      */
-    getTSNode(): ts.Decorator {
+    getTsNode(): ts.Decorator {
         return this._decorator;
     }
 

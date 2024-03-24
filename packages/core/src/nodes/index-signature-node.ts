@@ -1,4 +1,4 @@
-import type { ReflectedNode, ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedNode, ReflectedType } from '../reflected-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
 import type { IndexSignature } from '../models/interface.js';
@@ -47,7 +47,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         return MemberKind.IndexSignature;
     }
 
-    getTSNode(): ts.IndexSignatureDeclaration {
+    getTsNode(): ts.IndexSignatureDeclaration {
         return this._node;
     }
 
@@ -59,7 +59,7 @@ export class IndexSignatureNode implements ReflectedNode<IndexSignature, ts.Inde
         return this._context.getLinePosition(this._node);
     }
 
-    getType(): ReflectedTypeNode {
+    getType(): ReflectedType {
         return createType(this._node.type, this._context);
     }
 

@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
@@ -9,7 +9,7 @@ import type ts from 'typescript';
  * Represents a mapped type.
  * For example `type foo<T> = { [p in keyof T]: boolean; }`.
  */
-export class MappedTypeNode implements ReflectedTypeNode<ts.MappedTypeNode> {
+export class MappedTypeNode implements ReflectedType<ts.MappedTypeNode> {
 
     private readonly _node: ts.MappedTypeNode;
 
@@ -27,11 +27,11 @@ export class MappedTypeNode implements ReflectedTypeNode<ts.MappedTypeNode> {
         return this._context;
     }
 
-    getTSNode(): ts.MappedTypeNode {
+    getTsNode(): ts.MappedTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 

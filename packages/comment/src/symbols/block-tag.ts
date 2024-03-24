@@ -29,12 +29,16 @@ export function blockTag(): ParserSymbol {
         optional(terminal(TokenKind.Spaces)),
         optional(oneOf([
             {
-                symbol: terminal(TokenKind.AsciiWord, {serializable: true}),
+                symbol: name(),
                 priority: 0,
             },
             {
                 symbol: optionalName(),
                 priority: 1,
+            },
+            {
+                symbol: terminal(TokenKind.Hyphen),
+                priority: 2,
             },
         ])),
         optional(terminal(TokenKind.Spaces)),
@@ -219,7 +223,7 @@ function type(): ParserSymbol {
 function optionalName(): ParserSymbol {
     const symbols = [
         terminal(TokenKind.LeftSquareBracket),
-        terminal(TokenKind.AsciiWord, {serializable: true}),
+        name(),
         defaultValue(),
         terminal(TokenKind.RightSquareBracket),
     ] as const;
@@ -276,6 +280,72 @@ function optionalName(): ParserSymbol {
             const defaultValueText = (symbols[2].serialize()[0]?.text ?? '') as string;
 
             return [{name, default: defaultValueText, optional: true}];
+        },
+    };
+}
+
+function name(): ParserSymbol {
+    const symbols = [
+        omit([
+            {kinds: [TokenKind.Newline]},
+            {kinds: [TokenKind.Spaces]},
+            {kinds: [TokenKind.Star]},
+            {kinds: [TokenKind.Slash]},
+            {kinds: [TokenKind.Pipe]},
+            {kinds: [TokenKind.AtSign], canEscape: true},
+            {kinds: [TokenKind.LeftCurlyBracket], canEscape: true},
+            {kinds: [TokenKind.RightCurlyBracket], canEscape: true},
+            {kinds: [TokenKind.LeftSquareBracket], canEscape: true},
+            {kinds: [TokenKind.RightSquareBracket], canEscape: true},
+            {kinds: [TokenKind.Equal], canEscape: true},
+        ]),
+    ] as const;
+
+    const tokens: Token[] = [];
+
+    let pos = 0;
+    let isValid = true;
+
+    return {
+        next(token: Token): ParserStatus {
+            tokens.push(token);
+
+            const symbol = symbols[pos] as ParserSymbol;
+            const status = symbol.next(token);
+
+            if (status.kind === 'backtrack') {
+                pos++;
+                isValid = true;
+                return status;
+            }
+
+            if (status.kind === 'error') {
+                isValid = false;
+                return {kind: 'backtrack', tokens};
+            }
+
+            if (status.kind === 'success') {
+                pos++;
+            }
+
+            if (pos === symbols.length) {
+                isValid = true;
+                return {kind: 'success'};
+            }
+
+            return {kind: 'in-progress'};
+        },
+
+        isValid(): boolean {
+            return isValid;
+        },
+
+        serialize(): CommentPart[] {
+            if (!isValid) {
+                return [];
+            }
+
+            return [{text: (symbols[0].serialize()[0]?.text ?? '') as string}];
         },
     };
 }

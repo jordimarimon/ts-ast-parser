@@ -1,7 +1,6 @@
+import { ExpressionNode } from '../nodes/expression-node.js';
 import type { ProjectContext } from '../project-context.js';
-import { resolveExpression } from './resolve-expression.js';
 import type { MixinNodes } from '../models/mixin.js';
-import { getReturnStatement } from './function.js';
 import ts from 'typescript';
 
 
@@ -32,7 +31,7 @@ function extractMixinNodesFromVariableStatement(
     // or
     //      export const MyMixin = clazz => class MyMixin extends clazz {}
     //
-    const variableDeclaration = getVariableDeclaration(node);
+    const variableDeclaration = node.declarationList.declarations.find(ts.isVariableDeclaration);
 
     if (variableDeclaration == null) {
         return null;
@@ -54,7 +53,7 @@ function extractMixinNodesFromVariableStatement(
     }
 
     if (ts.isBlock(body)) {
-        const returnStatement = getReturnStatement(body);
+        const returnStatement = body.statements.find(ts.isReturnStatement);
 
         //
         // CASE 2: We have a mixin declared in the form of:
@@ -73,16 +72,18 @@ function extractMixinNodesFromVariableStatement(
         //
         //      const MyMixin = klass => { class MyMixin extends klass {} return MyMixin;}
 
-        const classDeclaration = getClassDeclaration(body);
+        const classDeclaration = body.statements.find(ts.isClassDeclaration);
 
         if (classDeclaration == null) {
             return null;
         }
 
         const classDeclarationName = classDeclaration.name?.getText();
-        const returnValue = resolveExpression(returnStatement?.expression, context);
+        const returnValue = returnStatement?.expression
+            ? new ExpressionNode(returnStatement.expression, context)
+            : undefined;
 
-        if (classDeclarationName === returnValue) {
+        if (classDeclarationName === returnValue?.getText()) {
             return {
                 function: node,
                 class: classDeclaration,
@@ -101,7 +102,7 @@ function extractMixinNodesFromFunctionDeclaration(
         return null;
     }
 
-    const returnStatement = getReturnStatement(node.body);
+    const returnStatement = node.body.statements.find(ts.isReturnStatement);
 
     //
     // CASE 4: We have a mixin declared in the form of:
@@ -120,16 +121,18 @@ function extractMixinNodesFromFunctionDeclaration(
     //
     //      function MyMixin(clazz) {class A extends clazz {} return A;}
     //
-    const classDeclaration = getClassDeclaration(node.body);
+    const classDeclaration = node.body.statements.find(ts.isClassDeclaration);
 
     if (classDeclaration == null) {
         return null;
     }
 
     const classDeclarationName = classDeclaration.name?.getText();
-    const returnValue = resolveExpression(returnStatement?.expression, context);
+    const returnValue = returnStatement?.expression
+        ? new ExpressionNode(returnStatement.expression, context)
+        : undefined;
 
-    if (classDeclarationName === returnValue) {
+    if (classDeclarationName === returnValue?.getText()) {
         return {
             function: node,
             class: classDeclaration,
@@ -137,12 +140,4 @@ function extractMixinNodesFromFunctionDeclaration(
     }
 
     return null;
-}
-
-function getClassDeclaration(node: ts.Block): ts.ClassDeclaration | undefined {
-    return node.statements.find(ts.isClassDeclaration);
-}
-
-function getVariableDeclaration(node: ts.VariableStatement): ts.VariableDeclaration | undefined {
-    return node.declarationList.declarations.find(ts.isVariableDeclaration);
 }

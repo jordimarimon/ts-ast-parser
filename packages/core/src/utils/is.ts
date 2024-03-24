@@ -1,47 +1,41 @@
 import type { TemplateLiteralTypeNode } from '../types/template-literal-type-node.js';
 import type { IndexedAccessTypeNode } from '../types/indexed-access-type-node.js';
-import type { ReflectedTypeNode } from '../reflected-node.js';
-import type { ExportDeclarationNode } from '../nodes/export-declaration-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { NamedTupleMemberNode } from '../types/named-tuple-member-node.js';
-import type { SideEffectImportNode } from '../nodes/side-effect-import-node.js';
-import type { ExportAssignmentNode } from '../nodes/export-assignment-node.js';
 import type { IntersectionTypeNode } from '../types/intersection-type-node.js';
-import type { NamespaceExportNode } from '../nodes/namespace-export-node.js';
-import type { NamespaceImportNode } from '../nodes/namespace-import-node.js';
 import type { ConditionalTypeNode } from '../types/conditional-type-node.js';
 import type { TypeReferenceNode } from '../types/type-reference-node.js';
 import type { IntrinsicTypeNode } from '../types/intrinsic-type-node.js';
-import type { DefaultImportNode } from '../nodes/default-import-node.js';
 import type { TypePredicateNode } from '../types/type-predicate-node.js';
 import type { TypeOperatorNode } from '../types/type-operator-node.js';
 import type { OptionalTypeNode } from '../types/optional-type-node.js';
 import type { FunctionTypeNode } from '../types/function-type-node.js';
-import type { NamedImportNode } from '../nodes/named-import-node.js';
-import type { NamedExportNode } from '../nodes/named-export-node.js';
 import type { TypeLiteralNode } from '../types/type-literal-node.js';
-import type { UnknownTypeNode } from '../types/unknown-type-node.js';
-import type { DeclarationNode } from '../nodes/declaration-node.js';
 import type { MappedTypeNode } from '../types/mapped-type-node.js';
 import type { UnionTypeNode } from '../types/union-type-node.js';
 import type { TupleTypeNode } from '../types/tuple-type-node.js';
 import type { TypeAliasNode } from '../nodes/type-alias-node.js';
 import type { ArrayTypeNode } from '../types/array-type-node.js';
-import { DeclarationKind } from '../models/declaration-kind.js';
 import type { InferTypeNode } from '../types/infer-type-node.js';
 import type { TypeQueryNode } from '../types/type-query-node.js';
 import type { InterfaceNode } from '../nodes/interface-node.js';
-import type { ReExportNode } from '../nodes/re-export-node.js';
 import type { RestTypeNode } from '../types/rest-type-node.js';
 import type { FunctionNode } from '../nodes/function-node.js';
-import type { VariableNode } from '../nodes/variable-node.js';
+import type { VariableStatementNode } from '../nodes/variable-statement-node.js';
 import type { ClassNode } from '../nodes/class-node.js';
 import type { EnumNode } from '../nodes/enum-node.js';
 import { ImportKind } from '../models/import.js';
 import { ExportKind } from '../models/export.js';
-import { RootNodeType } from '../models/node.js';
 import { TypeKind } from '../models/type.js';
-import type { ExportNode, ImportNode } from './types.js';
+import { DeclarationKind } from '../models/declaration.js';
+import type { ParenthesizedTypeNode } from '../types/parenthesized-type-node.js';
+import type { DeclarationLike, ExportLike, ImportLike } from './types.js';
 
+
+const declarationKinds = Object.values(DeclarationKind);
+const exportKinds = Object.values(ExportKind);
+const importKinds = Object.values(ImportKind);
+const typeKinds = Object.values(TypeKind);
 
 /**
  * A utility object that has a few type predicate
@@ -50,14 +44,14 @@ import type { ExportNode, ImportNode } from './types.js';
  */
 export const is = {
     // IMPORTS
-    ImportNode: (node: unknown): node is ImportNode => {
+    ImportNode: (node: unknown): node is ImportLike => {
         if (node == null || typeof node !== 'object') {
             return false;
         }
 
-        return 'getNodeType' in node &&
-            typeof node.getNodeType === 'function' &&
-            node.getNodeType() === RootNodeType.Import;
+        return 'getKind' in node &&
+            typeof node.getKind === 'function' &&
+            importKinds.includes(node.getKind());
     },
 
     DefaultImportNode: (node: unknown): node is DefaultImportNode => {
@@ -77,21 +71,21 @@ export const is = {
     },
 
     // DECLARATIONS
-    DeclarationNode: (node: unknown): node is DeclarationNode => {
+    DeclarationNode: (node: unknown): node is DeclarationLike => {
         if (node == null || typeof node !== 'object') {
             return false;
         }
 
-        return 'getNodeType' in node &&
-            typeof node.getNodeType === 'function' &&
-            node.getNodeType() === RootNodeType.Declaration;
+        return 'getKind' in node &&
+            typeof node.getKind === 'function' &&
+            declarationKinds.includes(node.getKind());
     },
 
     EnumNode: (node: unknown): node is EnumNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Enum;
     },
 
-    VariableNode: (node: unknown): node is VariableNode => {
+    VariableNode: (node: unknown): node is VariableStatementNode => {
         return is.DeclarationNode(node) && node.getKind() === DeclarationKind.Variable;
     },
 
@@ -112,12 +106,14 @@ export const is = {
     },
 
     // TYPES
-    TypeNode: (node: unknown): node is ReflectedTypeNode => {
+    TypeNode: (node: unknown): node is ReflectedType => {
         if (node == null || typeof node !== 'object') {
             return false;
         }
 
-        return 'getKind' in node && typeof node.getKind === 'function';
+        return 'getKind' in node &&
+            typeof node.getKind === 'function' &&
+            typeKinds.includes(node.getKind());
     },
 
     ArrayTypeNode: (node: unknown): node is ArrayTypeNode => {
@@ -200,19 +196,19 @@ export const is = {
         return is.TypeNode(node) && node.getKind() === TypeKind.Union;
     },
 
-    UnknownTypeNode: (node: unknown): node is UnknownTypeNode => {
-        return is.TypeNode(node) && node.getKind() === TypeKind.Unknown;
+    ParenthesizedTypeNode: (node: unknown): node is ParenthesizedTypeNode => {
+        return is.TypeNode(node) && node.getKind() === TypeKind.Parenthesized;
     },
 
     // EXPORTS
-    ExportNode: (node: unknown): node is ExportNode => {
+    ExportNode: (node: unknown): node is ExportLike => {
         if (node == null || typeof node !== 'object') {
             return false;
         }
 
-        return 'getNodeType' in node &&
-            typeof node.getNodeType === 'function' &&
-            node.getNodeType() === RootNodeType.Export;
+        return 'getKind' in node &&
+            typeof node.getKind === 'function' &&
+            exportKinds.includes(node.getKind());
     },
 
     DefaultExportNode: (node: unknown): node is ExportAssignmentNode | ExportDeclarationNode => {

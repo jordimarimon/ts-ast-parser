@@ -28,6 +28,10 @@ export enum ImportKind {
     Dynamic = 'Dynamic',
 }
 
+export interface ImportAssertion {
+    type: string;
+}
+
 /**
  * An import declaration after being serialized
  */
@@ -69,4 +73,9 @@ export interface Import {
      * of the file.
      */
     originalPath?: string;
+
+    /**
+     * Import assertions like `assert {type: 'json'}`
+     */
+    assertions?: ImportAssertion[];
 }

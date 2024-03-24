@@ -1,13 +1,11 @@
-import { importFactory, declarationFactories, exportFactories } from '../factories/index.js';
-import type { ReflectedNode, ReflectedRootNode } from '../reflected-node.js';
-import type { DeclarationKind } from '../models/declaration-kind.js';
+import type { DeclarationKind } from '../models/declaration.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ExportNode, ImportNode } from '../utils/types.js';
-import type { DeclarationNode } from './declaration-node.js';
 import type { ProjectContext } from '../project-context.js';
+import type { ReflectedNode } from '../reflected-node.js';
+import { createNode } from '../factories/create-node.js';
+import type { DeclarationLike } from '../utils/types.js';
 import type { Module } from '../models/module.js';
 import { CommentNode } from './comment-node.js';
-import { is } from '../utils/is.js';
 import ts from 'typescript';
 
 
@@ -17,11 +15,7 @@ import ts from 'typescript';
  */
 export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
 
-    private _declarations: DeclarationNode[] = [];
-
-    private readonly _exports: ExportNode[] = [];
-
-    private readonly _imports: ImportNode[] = [];
+    private _statements: ReflectedNode[] = [];
 
     private readonly _node: ts.SourceFile;
 
@@ -32,10 +26,9 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     constructor(node: ts.SourceFile, context: ProjectContext) {
         this._node = node;
         this._context = context;
-        this._jsDoc = new CommentNode(this._node);
+        this._jsDoc = new CommentNode(node, context);
 
-        this._visitNode(node);
-        this._removeNonPublicDeclarations();
+        ts.forEachChild(node, child => this._visitNode(child));
     }
 
     /**
@@ -43,7 +36,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      *
      * @returns The TypeScript AST node associated with this module
      */
-    getTSNode(): ts.SourceFile {
+    getTsNode(): ts.SourceFile {
         return this._node;
     }
 
@@ -66,6 +59,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
     getOutputPath(): string {
         const sourcePath = this._node.fileName;
         const system = this._context.getSystem();
+        const commandLine = this._context.getCommandLine();
 
         // If the source file was already JS, just return that
         if (sourcePath.endsWith('js')) {
@@ -75,7 +69,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         // Use the TS API to determine where the associated JS will be output based
         // on tsconfig settings.
         const absolutePath = system.getAbsolutePath(sourcePath);
-        const outputPath = ts.getOutputFileNames(this._context.getCommandLine(), absolutePath, false)[0];
+        const outputPath = ts.getOutputFileNames(commandLine, absolutePath, false)[0];
 
         return system.normalizePath(outputPath ?? '');
     }
@@ -98,8 +92,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      *
      * @returns The reflected import declarations
      */
-    getImports(): ImportNode[] {
-        return this._imports;
+    getImports(): ReflectedNode[] {
+        return [];
     }
 
     /**
@@ -107,8 +101,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      *
      * @returns The reflected export declarations
      */
-    getExports(): ExportNode[] {
-        return this._exports;
+    getExports(): ReflectedNode[] {
+        return [];
     }
 
     /**
@@ -117,8 +111,8 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      *
      * @returns The reflected declaration nodes
      */
-    getDeclarations(): DeclarationNode[] {
-        return this._declarations;
+    getDeclarations(): DeclarationLike[] {
+        return [];
     }
 
     /**
@@ -136,7 +130,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * @param kind - The declaration kind
      * @returns All declaration nodes found
      */
-    getDeclarationByKind(kind: DeclarationKind): DeclarationNode[] {
+    getDeclarationByKind(kind: DeclarationKind): DeclarationLike[] {
         return this.getDeclarations().filter(decl => decl.getKind() === kind);
     }
 
@@ -146,7 +140,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * @param name - The declaration name
      * @returns The matched declaration found if any
      */
-    getDeclarationByName(name: string): DeclarationNode | null {
+    getDeclarationByName(name: string): DeclarationLike | null {
         return this.getDeclarations().find(decl => decl.getName() === name) ?? null;
     }
 
@@ -157,7 +151,7 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
      * @param category - The category name
      * @returns All declaration nodes found
      */
-    getDeclarationsByCategory(category: string): DeclarationNode[] {
+    getDeclarationsByCategory(category: string): DeclarationLike[] {
         return this.getDeclarations().filter(decl => {
             return decl.getJSDoc()?.getTag('category')?.text === category;
         });
@@ -182,77 +176,11 @@ export class ModuleNode implements ReflectedNode<Module, ts.SourceFile> {
         return result;
     }
 
-    private _visitNode(rootNode: ts.Node | ts.SourceFile): void {
-        let declarationFound = false;
-
-        if (importFactory.isNode(rootNode)) {
-            this._add(importFactory.create(rootNode, this._context));
+    private _visitNode(node: ts.Node): void {
+        if (ts.SyntaxKind.EndOfFileToken === node.kind) {
+            return;
         }
 
-        for (const factory of declarationFactories) {
-            if (factory.isNode(rootNode)) {
-                this._add(factory.create(rootNode, this._context));
-                declarationFound = true;
-            }
-        }
-
-        for (const factory of exportFactories) {
-            if (factory.isNode(rootNode)) {
-                this._add(factory.create(rootNode, this._context));
-            }
-        }
-
-        if (!declarationFound) {
-            ts.forEachChild(rootNode, node => this._visitNode(node));
-        }
-    }
-
-    private _add(reflectedNodes: ReflectedRootNode[]): void {
-        for (const reflectedNode of reflectedNodes) {
-            if (is.ImportNode(reflectedNode)) {
-                this._imports.push(reflectedNode);
-            }
-
-            // We don't want to add duplicate declarations when there are functions with overloads
-            if (is.DeclarationNode(reflectedNode) && !this._hasDeclaration(reflectedNode)) {
-                this._declarations.push(reflectedNode);
-            }
-
-            // We don't want to add duplicate exports when there are functions with overloads
-            if (is.ExportNode(reflectedNode) && !this._hasExport(reflectedNode)) {
-                this._exports.push(reflectedNode);
-            }
-        }
-    }
-
-    private _hasDeclaration(declaration: DeclarationNode): boolean {
-        return this._declarations.some(decl => decl.getName() === declaration.getName());
-    }
-
-    private _hasExport(exp: ExportNode): boolean {
-        if (is.ReExportNode(exp)) {
-            return this._exports.some(e => is.ReExportNode(e) && e.getModule() === exp.getModule());
-        }
-
-        return this._exports.some(e => e.getName() === exp.getName() && e.getKind() === exp.getKind());
-    }
-
-    private _removeNonPublicDeclarations(): void {
-        this._declarations = this._declarations.filter(decl => {
-            // If the export has an "AS" keyword, we need to use the "originalName"
-            const index = this._exports.findIndex(exp => exp.getOriginalName() === decl.getName());
-            const isIgnored = !!decl.getJSDoc()?.isIgnored();
-
-            if (index === -1) {
-                return false;
-            }
-
-            // Remove also the declaration from the exports array
-            if (isIgnored) {
-                this._exports.splice(index, 1);
-            }
-
-            return !isIgnored;
-        });
+        this._statements.push(createNode(node, this._context));
     }
 }

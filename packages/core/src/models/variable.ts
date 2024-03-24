@@ -1,4 +1,4 @@
-import type { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration.js';
 import type { PropertyLike } from './property.js';
 
 
@@ -10,9 +10,4 @@ export interface VariableDeclaration extends PropertyLike {
      * The type of declaration
      */
     kind: DeclarationKind.Variable;
-
-    /**
-     * The namespace name where the variable is defined
-     */
-    namespace?: string;
 }

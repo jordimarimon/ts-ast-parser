@@ -1,5 +1,5 @@
-import ts from 'typescript';
 import type { AnalyserSystem } from './system/analyser-system.js';
+import ts from 'typescript';
 
 
 /**
@@ -11,6 +11,14 @@ export interface ArgumentError {
 }
 
 export type AnalyserError = ArgumentError | ts.Diagnostic;
+
+type ErrorMessage = string | ts.DiagnosticMessageChain;
+
+export function assert(condition: boolean, message: string): asserts condition {
+    if (!condition) {
+        throw new Error(message);
+    }
+}
 
 /**
  * Internal class to enqueue any error during the analysis.
@@ -40,8 +48,11 @@ export class AnalyserDiagnostic {
      * @param errors
      * @returns The diagnostics formatted
      */
-    format(errors: ts.Diagnostic[]): string {
-        return ts.formatDiagnosticsWithColorAndContext(errors, this._formatDiagnosticHost);
+    format(errors: ts.Diagnostic | ts.Diagnostic[]): string {
+        return ts.formatDiagnosticsWithColorAndContext(
+            Array.isArray(errors) ? errors : [errors],
+            this._formatDiagnosticHost,
+        );
     }
 
     /**
@@ -79,17 +90,8 @@ export class AnalyserDiagnostic {
      * @param node - The node where the error was found
      * @param message - The error message
      */
-    addOne(node: ts.Node | null | undefined, message: string | ts.DiagnosticMessageChain): void {
-        const error: ts.Diagnostic = {
-            file: node?.getSourceFile(),
-            start: node?.getStart(),
-            length: node?.getWidth(),
-            category: ts.DiagnosticCategory.Error,
-            messageText: message,
-            code: 1000000,
-        };
-
-        this._diagnostics.push(error);
+    addOne(node: ts.Node | null | undefined, message: ErrorMessage): void {
+        this._diagnostics.push(this.create(node, message));
     }
 
     /**
@@ -99,5 +101,21 @@ export class AnalyserDiagnostic {
      */
     addMany(diagnostics: readonly ts.Diagnostic[]): void {
         this._diagnostics.push(...diagnostics);
+    }
+
+    /**
+     *
+     * @param node
+     * @param message
+     */
+    create(node: ts.Node | null | undefined, message: ErrorMessage): ts.Diagnostic {
+        return {
+            file: node?.getSourceFile(),
+            start: node?.getStart(),
+            length: node?.getWidth(),
+            category: ts.DiagnosticCategory.Error,
+            messageText: message,
+            code: 1000000,
+        };
     }
 }

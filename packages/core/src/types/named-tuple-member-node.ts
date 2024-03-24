@@ -1,5 +1,5 @@
 import { tryAddProperty } from '../utils/try-add-property.js';
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import type { NamedTupleMember } from '../models/type.js';
 import { createType } from '../factories/create-type.js';
@@ -11,7 +11,7 @@ import type ts from 'typescript';
  * Represents a named tuple member.
  * For example: `type foo = [name: string]`.
  */
-export class NamedTupleMemberNode implements ReflectedTypeNode<ts.NamedTupleMember> {
+export class NamedTupleMemberNode implements ReflectedType<ts.NamedTupleMember> {
 
     private readonly _node: ts.NamedTupleMember;
 
@@ -29,11 +29,11 @@ export class NamedTupleMemberNode implements ReflectedTypeNode<ts.NamedTupleMemb
         return this._context;
     }
 
-    getTSNode(): ts.NamedTupleMember {
+    getTsNode(): ts.NamedTupleMember {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -49,7 +49,7 @@ export class NamedTupleMemberNode implements ReflectedTypeNode<ts.NamedTupleMemb
         return this._node.name.getText() ?? '';
     }
 
-    getType(): ReflectedTypeNode {
+    getType(): ReflectedType {
         return createType(this._node.type, this._context);
     }
 

@@ -1,4 +1,4 @@
-import type { ReflectedNode, ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedNode, ReflectedType } from '../reflected-node.js';
 import type { TypeParameter } from '../models/type-parameter.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
@@ -28,7 +28,7 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
         return this._node.name.getText() ?? '';
     }
 
-    getTSNode(): ts.TypeParameterDeclaration {
+    getTsNode(): ts.TypeParameterDeclaration {
         return this._node;
     }
 
@@ -36,11 +36,11 @@ export class TypeParameterNode implements ReflectedNode<TypeParameter, ts.TypePa
         return this._context.getLinePosition(this._node);
     }
 
-    getDefault(): ReflectedTypeNode | null {
+    getDefault(): ReflectedType | null {
         return this._node.default ? createType(this._node.default, this._context) : null;
     }
 
-    getConstraint(): ReflectedTypeNode | null {
+    getConstraint(): ReflectedType | null {
         if (!this._node.constraint) {
             return null;
         }

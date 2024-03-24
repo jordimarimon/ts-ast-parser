@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import type { Type } from '../models/type.js';
 import { TypeKind } from '../models/type.js';
@@ -9,7 +9,7 @@ import type ts from 'typescript';
  * Represents a template literal type.
  * For example: ``type foo = `${'a' | 'b'}${'a' | 'b'}` ``
  */
-export class TemplateLiteralTypeNode implements ReflectedTypeNode<ts.TemplateLiteralTypeNode> {
+export class TemplateLiteralTypeNode implements ReflectedType<ts.TemplateLiteralTypeNode> {
 
     private readonly _node: ts.TemplateLiteralTypeNode;
 
@@ -27,11 +27,11 @@ export class TemplateLiteralTypeNode implements ReflectedTypeNode<ts.TemplateLit
         return this._context;
     }
 
-    getTSNode(): ts.TemplateLiteralTypeNode {
+    getTsNode(): ts.TemplateLiteralTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 

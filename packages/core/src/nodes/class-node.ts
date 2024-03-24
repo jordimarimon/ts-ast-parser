@@ -1,16 +1,8 @@
-import { ExpressionWithTypeArgumentsNode } from './expression-with-type-arguments-node.js';
-import { getInstanceMembers, getStaticMembers, isAbstract } from '../utils/member.js';
-import { isArrowFunction, isFunctionExpression } from '../utils/function.js';
-import { DeclarationKind } from '../models/declaration-kind.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
-import type { DeclarationNode } from './declaration-node.js';
 import { TypeParameterNode } from './type-parameter-node.js';
 import type { ClassDeclaration } from '../models/class.js';
-import type { SymbolWithContext } from '../utils/types.js';
-import { isCustomElement } from '../utils/heritage.js';
 import { getDecorators } from '../utils/decorator.js';
-import { getNamespace } from '../utils/namespace.js';
 import { SignatureNode } from './signature-node.js';
 import { DecoratorNode } from './decorator-node.js';
 import type { Method } from '../models/member.js';
@@ -18,17 +10,23 @@ import { ModifierType } from '../models/member.js';
 import { FunctionNode } from './function-node.js';
 import { PropertyNode } from './property-node.js';
 import { isThirdParty } from '../utils/import.js';
-import { RootNodeType } from '../models/node.js';
 import { CommentNode } from './comment-node.js';
+import { isAbstract } from '../utils/modifiers.js';
 import ts from 'typescript';
+import type { ReflectedNode } from '../reflected-node.js';
+import { ClassOrInterfaceNode, type SymbolWithContext } from './class-or-interface-node.js';
+import { DeclarationKind } from '../models/declaration.js';
+import { HeritageClauseNode } from './heritage-clause-node.js';
 
+
+type ClassLike = ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement;
 
 /**
  * Reflected node that represents a ClassDeclaration or a ClassExpression
  */
-export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement> {
+export class ClassNode extends ClassOrInterfaceNode implements ReflectedNode<ClassDeclaration, ClassLike> {
 
-    private readonly _node: ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement;
+    private readonly _node: ClassLike;
 
     private readonly _context: ProjectContext;
 
@@ -36,22 +34,24 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
     private readonly _staticMembers: SymbolWithContext[] = [];
 
-    private readonly _heritage: ExpressionWithTypeArgumentsNode[] = [];
+    private readonly _heritage: HeritageClauseNode[] = [];
 
     private readonly _jsDoc: CommentNode;
 
-    constructor(node: ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement, context: ProjectContext) {
+    constructor(node: ClassLike, context: ProjectContext) {
+        super();
+
         this._node = node;
         this._context = context;
-        this._jsDoc = new CommentNode(node);
+        this._jsDoc = new CommentNode(node, context);
 
         const classNode = this._getClassNode();
 
         if (classNode) {
-            this._instanceMembers = getInstanceMembers(classNode, this._context);
-            this._staticMembers = getStaticMembers(classNode, this._context);
-            this._heritage = (classNode.heritageClauses ?? []).flatMap(h => {
-                return h.types.map(t => new ExpressionWithTypeArgumentsNode(t, this._context));
+            this._instanceMembers = this._getInstanceMembers(classNode, this._context);
+            this._staticMembers = this._getStaticMembers(classNode, this._context);
+            this._heritage = (classNode.heritageClauses ?? []).map(h => {
+                return new HeritageClauseNode(h, context);
             });
         }
     }
@@ -70,15 +70,6 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         }
 
         return this._node.name?.getText() ?? '';
-    }
-
-    /**
-     * The reflected node type
-     *
-     * @returns The declaration kind
-     */
-    getNodeType(): RootNodeType {
-        return RootNodeType.Declaration;
     }
 
     /**
@@ -108,7 +99,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
      *
      * @returns The TypeScript AST node related to this reflected node
      */
-    getTSNode(): ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement {
+    getTsNode(): ts.ClassDeclaration | ts.ClassExpression | ts.VariableStatement {
         return this._node;
     }
 
@@ -119,16 +110,6 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
      */
     getLine(): number {
         return this._context.getLinePosition(this._node);
-    }
-
-    /**
-     * The namespace where the class has been defined.
-     *
-     * @returns The name of the namespace where this declaration is defined.
-     * Will return an empty string if no namespace is found.
-     */
-    getNamespace(): string {
-        return getNamespace(this._node);
     }
 
     /**
@@ -276,7 +257,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
      *
      * @returns The heritage chain
      */
-    getHeritage(): ExpressionWithTypeArgumentsNode[] {
+    getHeritage(): HeritageClauseNode[] {
         return this._heritage;
     }
 
@@ -292,7 +273,7 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
             return false;
         }
 
-        return isCustomElement(classNode, this._context);
+        return this._isCustomElement(classNode, this._context);
     }
 
     /**
@@ -329,7 +310,6 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         tryAddProperty(tmpl, 'heritage', this.getHeritage().map(h => h.serialize()));
         tryAddProperty(tmpl, 'abstract', this.isAbstract());
         tryAddProperty(tmpl, 'customElement', this.isCustomElement());
-        tryAddProperty(tmpl, 'namespace', this.getNamespace());
         tryAddProperty(tmpl, 'properties', this.getProperties().map(p => p.serialize()));
         tryAddProperty(tmpl, 'staticProperties', this.getStaticProperties().map(p => p.serialize()));
         tryAddProperty(tmpl, 'methods', this.getMethods().map(m => m.serialize()) as Method[]);
@@ -351,7 +331,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
             const isProperty = ts.isPropertyDeclaration(decl);
             const isPropertyMethod = ts.isMethodDeclaration(decl) ||
-                (isProperty && (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer)));
+                (isProperty && decl.initializer &&
+                    (ts.isArrowFunction(decl.initializer) ||
+                        ts.isFunctionExpression(decl.initializer)));
 
             if (isPropertyMethod) {
                 continue;
@@ -382,7 +364,9 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
 
             const isProperty = ts.isPropertyDeclaration(decl);
             const isPropertyMethod = ts.isMethodDeclaration(decl) ||
-                (isProperty && (isArrowFunction(decl.initializer) || isFunctionExpression(decl.initializer)));
+                (isProperty && decl.initializer &&
+                    (ts.isArrowFunction(decl.initializer) ||
+                        ts.isFunctionExpression(decl.initializer)));
 
             if (isPropertyMethod) {
                 const reflectedNode = new FunctionNode(decl, member, this._context);
@@ -409,5 +393,48 @@ export class ClassNode implements DeclarationNode<ClassDeclaration, ts.ClassDecl
         }
 
         return initializer;
+    }
+
+    /**
+     * Checks it the node is a custom element. As of right now we treat a node to be a custom element
+     * if HTMLElement is in the heritage chain.
+     *
+     * @param node - The node to check
+     * @param context - The analyzer context where the node belongs to
+     * @returns True if the node extends HTMLElement
+     */
+    private _isCustomElement(node: ClassLike, context: ProjectContext): boolean {
+        const checker = context.getTypeChecker();
+        const type = checker.getTypeAtLocation(node);
+        const baseTypes = type.isClassOrInterface() ? checker.getBaseTypes(type) : [];
+
+        for (const baseType of baseTypes) {
+            if (this._hasHTMLElementAsBase(baseType, checker)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks in the heritage chain if there is an HTMLElement type.
+     *
+     * @param type - The base type to check
+     * @param checker - The TypeScript type checker from the analyzer context
+     * @returns True if HTMLElement has been found as a base type
+     */
+    private _hasHTMLElementAsBase(type: ts.Type, checker: ts.TypeChecker): boolean {
+        const name = type.getSymbol()?.getName();
+
+        if (name === 'HTMLElement') {
+            return true;
+        }
+
+        if (!type.isClassOrInterface()) {
+            return false;
+        }
+
+        return checker.getBaseTypes(type).some(t => this._hasHTMLElementAsBase(t, checker));
     }
 }

@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
@@ -11,7 +11,7 @@ import type ts from 'typescript';
  * Represents the reflected infer type
  * For example: `type foo<T> = T extends Promise<infer U> ? U : never`
  */
-export class InferTypeNode implements ReflectedTypeNode<ts.InferTypeNode> {
+export class InferTypeNode implements ReflectedType<ts.InferTypeNode> {
 
     private readonly _node: ts.InferTypeNode;
 
@@ -29,11 +29,11 @@ export class InferTypeNode implements ReflectedTypeNode<ts.InferTypeNode> {
         return this._context;
     }
 
-    getTSNode(): ts.InferTypeNode {
+    getTsNode(): ts.InferTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -52,7 +52,7 @@ export class InferTypeNode implements ReflectedTypeNode<ts.InferTypeNode> {
         return `infer ${name}`;
     }
 
-    getConstraint(): ReflectedTypeNode | null {
+    getConstraint(): ReflectedType | null {
         const constraint = this._node.typeParameter.constraint;
 
         if (!constraint) {

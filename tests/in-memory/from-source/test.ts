@@ -28,7 +28,7 @@ describe(`${category}/${subcategory}`, () => {
             expect(result).to.deep.equal(expectedOutput1);
         }
 
-        const filePath = actual?.getModules()[0]?.getTSNode().fileName ?? '';
+        const filePath = actual?.getModules()[0]?.getTsNode().fileName ?? '';
 
         actual?.update(filePath, code2);
         result = actual?.getModules().map(m => m.serialize()) ?? [];

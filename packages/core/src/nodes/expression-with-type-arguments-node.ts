@@ -1,5 +1,5 @@
 import type { ExpressionWithTypeArguments } from '../models/expression-with-type-arguments.js';
-import type { ReflectedTypeNode, ReflectedNode } from '../reflected-node.js';
+import type { ReflectedType, ReflectedNode } from '../reflected-node.js';
 import { DeclarationKind } from '../models/declaration-kind.js';
 import type { SourceReference } from '../models/reference.js';
 import { tryAddProperty } from '../utils/try-add-property.js';
@@ -47,7 +47,7 @@ export class ExpressionWithTypeArgumentsNode implements ReflectedNode<Expression
      *
      * @returns The internal TypeScript node
      */
-    getTSNode(): ts.ExpressionWithTypeArguments {
+    getTsNode(): ts.ExpressionWithTypeArguments {
         return this._node;
     }
 
@@ -55,7 +55,7 @@ export class ExpressionWithTypeArgumentsNode implements ReflectedNode<Expression
         return this._node.expression.getText();
     }
 
-    getTypeArguments(): ReflectedTypeNode[] {
+    getTypeArguments(): ReflectedType[] {
         return (this._node.typeArguments ?? []).map(t => createType(t, this._context));
     }
 

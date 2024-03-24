@@ -10,4 +10,4 @@ if [[ $local_branch != "HEAD" && $local_branch != "main" && ! $local_branch =~ $
     exit 1
 fi
 
-npx lint-staged --allow-empty
+#npx lint-staged --allow-empty

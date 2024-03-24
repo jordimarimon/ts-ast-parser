@@ -1,5 +1,5 @@
 import type { ExpressionWithTypeArguments } from './expression-with-type-arguments.js';
-import type { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration.js';
 import type { CommentPart } from '@ts-ast-parser/comment';
 import type { TypeParameter } from './type-parameter.js';
 import type { FunctionSignature } from './function.js';
@@ -74,11 +74,6 @@ export interface ClassDeclaration {
      * Whether the class is abstract or not
      */
     abstract?: boolean;
-
-    /**
-     * The namespace name where the class is defined (empty string if there is no namespace)
-     */
-    namespace?: string;
 
     /**
      * Whether the class is a custom element or not

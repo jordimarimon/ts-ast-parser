@@ -1,4 +1,4 @@
-import type { DeclarationKind } from './declaration-kind.js';
+import type { DeclarationKind } from './declaration.js';
 import type { CommentPart } from '@ts-ast-parser/comment';
 
 /**

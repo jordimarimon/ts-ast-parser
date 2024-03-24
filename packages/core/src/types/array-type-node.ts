@@ -1,4 +1,4 @@
-import type { ReflectedTypeNode } from '../reflected-node.js';
+import type { ReflectedType } from '../reflected-node.js';
 import type { ProjectContext } from '../project-context.js';
 import { createType } from '../factories/create-type.js';
 import type { Type } from '../models/type.js';
@@ -10,7 +10,7 @@ import type ts from 'typescript';
  * Represents the reflected array type.
  * For example: `type foo = string[]`
  */
-export class ArrayTypeNode implements ReflectedTypeNode<ts.ArrayTypeNode> {
+export class ArrayTypeNode implements ReflectedType<ts.ArrayTypeNode> {
 
     private readonly _node: ts.ArrayTypeNode;
 
@@ -28,11 +28,11 @@ export class ArrayTypeNode implements ReflectedTypeNode<ts.ArrayTypeNode> {
         return this._context;
     }
 
-    getTSNode(): ts.ArrayTypeNode {
+    getTsNode(): ts.ArrayTypeNode {
         return this._node;
     }
 
-    getTSType(): ts.Type {
+    getTsType(): ts.Type {
         return this._type;
     }
 
@@ -44,7 +44,7 @@ export class ArrayTypeNode implements ReflectedTypeNode<ts.ArrayTypeNode> {
         return `${this.getElementType().getText()}[]`;
     }
 
-    getElementType(): ReflectedTypeNode {
+    getElementType(): ReflectedType {
         return createType(this._node.elementType, this._context);
     }
 
