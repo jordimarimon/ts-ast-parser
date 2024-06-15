@@ -1,3 +1,6 @@
+> 🚨🚨 **Note:** 🚨🚨
+> This project is no longer maintained. Please consider other alternatives like [tsmorph](https://github.com/dsherret/ts-morph) or [typedoc](https://github.com/TypeStrong/typedoc)
+
 <h1 style="text-align: center; border-bottom: none" align="center">
     <div>TypeScript Abstract Syntax Tree Parser</div>
 </h1>
@@ -21,9 +24,6 @@
 </div>
 
 <br/>
-
-> **Note**
-> This project is still in beta until it reaches version 1.0.0. There could be breaking changes between minor versions.
 
 ## What it is
 
